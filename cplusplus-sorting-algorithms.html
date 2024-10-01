@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. CPUcademy also offers interesting articles about IT in general.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Relinks, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, Micro:Bit, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+	<link href="img/logo.png" rel="icon">
+    <link href="img/logo.png" rel="apple-touch-icon">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
+	<title>Sorting algorithms</title>
+</head>
+
+<body id="page-top" style="background-color: #157267;">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="img/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+			
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Learning</div>
+	
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Android</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                    </div>
+                </div>
+            </li>
+			
+			<li class="nav-item">
+                <a class="nav-link" href="shop.html">
+                    <i class="icon-shop"></i>
+                    <span>Shop</span></a>
+            </li>
+			<li class="nav-item">
+                <a class="nav-link" href="articles.html">
+                    <i class="icon-doc-text-inv"></i>
+                    <span>Articles</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Other</div>
+		
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="icon-adult"></i>
+                    <span>About me</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="cv.html">CV</a>
+                        <a class="collapse-item" href="portfolio-projects.html">Portfolio projects</a>
+                        <a class="collapse-item" href="services.html">My services</a>
+                    </div>
+                </div>
+            </li>
+			
+            <li class="nav-item">
+                <a class="nav-link" href="ebooks.html">
+                    <i class="icon-book"></i>
+                    <span>Premium E-books</span></a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars" style="color: #157267;"></i>
+                    </button>
+					
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for lessons..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn" type="button" style="background-color: #157267; color: #f8f9fc;">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for lessons..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button" style="background-color: #157267; color: #f8f9fc;">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+						
+						<li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="img-profile rounded-circle" src="img/circlelogo.png">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+					</ul>
+                </nav>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Sorting algorithms</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h3>Table of contents</h3>
+			
+									<ul type="disc">
+										<li><a href="#bubble-sort" class="link" style="text-decoration: none;">Bubble sort</a></li>
+										<li><a href="#searching-for-the-maximum-value" class="link" style="text-decoration: none;">Searching for the maximum value</a></li>
+										<li><a href="#selection-sort" class="link" style="text-decoration: none;">Selection sort</a></li>
+										<li><a href="#insertion-sort" class="link" style="text-decoration: none;">Insertion sort</a></li>
+										<li><a href="#quicksort" class="link" style="text-decoration: none;">Quicksort</a></li>
+									</ul>
+									
+									<h2><a name="bubble-sort">Bubble sort</a></h2>
+									
+									<p>Bubble sort is a simple sorting algorithm that repeatedly steps through the input list element by element, comparing the current element with the one after it, swapping their values if needed (the larger elements "bubble" up to the top of the list). These swaps through the list are repeated until they don't have to be performed, meaning the list has become fully sorted.</p>
+									
+									<img src="img/courses/bubble_sort.gif" alt="Bubble sort">
+									
+									<img src="img/courses/bubble_sort_2.gif" alt="Bubble sort">
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">const int</span> x <span class="sign">=</span> 5<span class="sign">;</span>
+<span class="function">int</span> a[x]<span class="sign">;</span>	
+
+<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>)
+<span class="sign">{</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter "</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">" number: "</span><span class="sign">;</span>
+	<span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> a[i]<span class="sign">;</span>
+<span class="sign">}</span>
+
+<span class="function">int</span> t<span class="sign">;</span>
+
+<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x <span class="sign">-</span> 1<span class="sign">;</span> i<span class="sign">++</span>) <span class="comment">// "x - 1" because it doesn't have to check the last number</span>
+<span class="sign">{</span>
+	<span class="function">for</span>(<span class="function">int</span> j <span class="sign">=</span> 0<span class="sign">;</span> j <span class="sign">&lt;</span> x <span class="sign">-</span> 1<span class="sign">;</span> j<span class="sign">++</span>) <span class="comment">// "x - 1" so that the "j + 1" later won't exceed the array's last index</span>
+	<span class="sign">{</span>
+		<span class="function">if</span>(a[j] <span class="sign">&gt;</span> a[j <span class="sign">+</span> 1])		
+		<span class="sign">{</span>
+			t <span class="sign">=</span> a[j]<span class="sign">;</span>
+			a[j] <span class="sign">=</span> a[j <span class="sign">+</span> 1]<span class="sign">;</span>
+			a[j <span class="sign">+</span> 1] <span class="sign">=</span> t<span class="sign">;</span>
+		<span class="sign">}</span>
+	<span class="sign">}</span>
+<span class="sign">}</span>	
+
+<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>)
+<span class="sign">{</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">". = "</span> <span class="sign">&lt;&lt;</span> a[i] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+<span class="sign">}</span>
+									</code></pre>
+									
+									<h2><a name="searching-for-the-maximum-value">Searching for the maximum value</a></h2>
+									
+									<p>We can search for the maximum value in an array in three ways. Firstly, we can use a normal array and a loop. Secondly, we can apply a similar method with vectors so that we don't have to know how many numers there are. At last, we can use a pre-made method from the <code>&lt;algorithm&gt;</code> library.</p>
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">const int</span> x <span class="sign">=</span> 5<span class="sign">;</span>
+<span class="function">int</span> array[x] <span class="sign">= {</span>20, 2, -4, 150, 40<span class="sign">};</span>
+
+<span class="function">int</span> maxV <span class="sign">=</span> array[0]<span class="sign">;</span>
+<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>)
+<span class="sign">{</span>
+	<span class="function">if</span>(maxV <span class="sign">&lt;</span> array[i])
+		maxV <span class="sign">=</span> array[i]<span class="sign">;</span>
+<span class="sign">}</span>
+<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> maxV <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+									</code></pre>
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command-c">#include &lt;iostream&gt;</span>
+<span class="command-c">#include &lt;vector&gt;</span>
+<span class="command-c">#include &lt;algorithm&gt;</span>
+<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
+
+<span class="function">int</span> findMax(<span class="function">vector</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> numbers)
+<span class="sign">{</span>
+	<span class="function">int</span> maxV <span class="sign">=</span> numbers[0]<span class="sign">;</span>
+	<span class="function">for</span>(<span class="function">auto</span> n <span class="sign">:</span> numbers)
+	<span class="sign">{</span>
+		<span class="function">if</span>(maxV <span class="sign">&lt;</span> n)
+			maxV <span class="sign">=</span> n<span class="sign">;</span>
+	<span class="sign">}</span>
+	<span class="function">return</span> maxV<span class="sign">;</span>
+<span class="sign">}</span>
+
+<span class="function">int</span> main()
+<span class="sign">{</span>
+	<span class="function">int</span> a <span class="sign">=</span> 4, b <span class="sign">=</span> 2, c <span class="sign">=</span> 50<span class="sign">;</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> findMax(<span class="sign">{</span>a, b, 40, c, -20<span class="sign">}</span>) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	
+	<span class="function">vector</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> tempVector <span class="sign">= {</span>a, b, c<span class="sign">};</span>
+	
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>max_element(array, array <span class="sign">+</span> x) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// "*max_element" is from the &lt;algorithm&gt; library</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>max_element(tempVector.<span class="command-c">begin</span>(), tempVector.<span class="command-c">end</span>()) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	
+	<span class="function">return</span> 0<span class="sign">;</span>
+<span class="sign">}</span>
+									</code></pre>
+									
+									<h2><a name="selection-sort">Selection sort</a></h2>
+									
+									<p>Selection sort is an in-place comparison sorting algorithm. It is inefficient on large arrays. Selection sort is noted for its simplicity and has performance advantages over more complicated algorithms in certain situations, particularly where auxiliary memory is limited.</p>
+									
+									<img src="img/courses/selection_sort.gif" alt="Selection sort">
+									
+									<img src="img/courses/selection_sort_2.gif" alt="Selection sort">
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">const int</span> x <span class="sign">=</span> 4<span class="sign">;</span>
+<span class="function">int</span> a[x]<span class="sign">;</span>
+
+<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>)
+<span class="sign">{</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter "</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">" number: "</span><span class="sign">;</span>
+	<span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> a[i]<span class="sign">;</span>
+<span class="sign">}</span>
+
+<span class="function">int</span> k, t<span class="sign">;</span>
+
+<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x <span class="sign">-</span> 1<span class="sign">;</span> i<span class="sign">++</span>)
+<span class="sign">{</span>
+	k <span class="sign">=</span> i<span class="sign">;</span>
+	<span class="function">for</span>(<span class="function">int</span> j <span class="sign">=</span> i <span class="sign">+</span> 1<span class="sign">;</span> j <span class="sign">&lt;</span> x<span class="sign">;</span> j<span class="sign">++</span>)
+	<span class="sign">{</span>
+		<span class="function">if</span>(a[j] <span class="sign">&lt;</span> a[k])
+			k <span class="sign">=</span> j<span class="sign">;</span>
+	<span class="sign">}</span>
+	t <span class="sign">=</span> a[i]<span class="sign">;</span>
+	a[i] <span class="sign">=</span> a[k]<span class="sign">;</span>
+	a[k] <span class="sign">=</span> t<span class="sign">;</span>
+<span class="sign">}</span>
+
+<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>)
+<span class="sign">{</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">". = "</span> <span class="sign">&lt;&lt;</span> a[i] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+<span class="sign">}</span>
+									</code></pre>
+									
+									<h2><a name="insertion-sort">Insertion sort</a></h2>
+									
+									<p>Insertion sort is a simple sorting algorithm that builds the final sorted array one item at a time by comparisons. It is much less efficient on large lists than more advanced algorithms such as quicksort. However, it is more efficient than selection sort and bubble sort.</p>
+									
+									<img src="img/courses/insertion_sort.gif" alt="Insertion sort">
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">const int</span> x <span class="sign">=</span> 4<span class="sign">;</span>
+<span class="function">int</span> a[x]<span class="sign">;</span>
+
+<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>)
+<span class="sign">{</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter "</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">" number: "</span><span class="sign">;</span>
+	<span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> a[i]<span class="sign">;</span>
+<span class="sign">}</span>
+
+<span class="function">int</span> y, i, j<span class="sign">;</span>
+
+<span class="function">for</span>(j <span class="sign">=</span> x <span class="sign">-</span> 2<span class="sign">;</span> j <span class="sign">&gt;=</span> 0<span class="sign">;</span> j<span class="sign">--</span>)
+<span class="sign">{</span>
+	y <span class="sign">=</span> a[j]<span class="sign">;</span>
+	i <span class="sign">=</span> j <span class="sign">+</span> 1<span class="sign">;</span>
+	<span class="function">while</span>((i <span class="sign">&lt;</span> x) <span class="sign">&amp;&amp;</span> (y <span class="sign">&gt;</span> a[i]))
+	<span class="sign">{</span>
+		a[i <span class="sign">-</span> 1] <span class="sign">=</span> a[i]<span class="sign">;</span>
+		i<span class="sign">++;</span>
+	<span class="sign">}</span>
+	a[i <span class="sign">-</span> 1] <span class="sign">=</span> y<span class="sign">;</span>
+<span class="sign">}</span>
+
+<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>)
+<span class="sign">{</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">". = "</span> <span class="sign">&lt;&lt;</span> a[i] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+<span class="sign">}</span>
+									</code></pre>
+									
+									<h2><a name="quicksort">Quicksort</a></h2>
+									
+									<p>Quicksort is an efficient, general-purpose sorting algorithm. It is a divide-and-conquer algorithm. It works by selecting a "pivot" element from the array and partitioning the other elements into two sub-arrays according to whether they are lesser than or greater than the pivot. The sub-arrays are then sorted recursively. It can be used in-place, requiring small additional amounts of memory to perform the sorting.</p>
+									
+									<p><sub>The horizontal lines are pivot values.</sub></p>
+									
+									<img src="img/courses/quicksort.gif" alt="Quicksort">
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command-c">#include &lt;iostream&gt;</span>
+<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
+
+<span class="function">const int</span> x <span class="sign">=</span> 5<span class="sign">;</span>
+<span class="function">int</span> a[x] <span class="sign">= {</span>5, 60, 10, 40, 3<span class="sign">};</span>
+
+<span class="function">void</span> sort(<span class="function">int</span> left, <span class="function">int</span> right)
+<span class="sign">{</span>
+	<span class="function">int</span> i, j, t, pivot<span class="sign">;</span>
+	
+	i <span class="sign">=</span> (left <span class="sign">+</span> right) <span class="sign">/</span> 2<span class="sign">;</span>
+	pivot <span class="sign">=</span> a[i]<span class="sign">;</span>
+	a[i] <span class="sign">=</span> a[right]<span class="sign">;</span>
+	
+	<span class="function">for</span>(j <span class="sign">=</span> i <span class="sign">=</span> left<span class="sign">;</span> i <span class="sign">&lt;</span> right<span class="sign">;</span> i<span class="sign">++</span>) <span class="comment">// "i" gets a value from "left" and "j" gets a value from "i"</span>
+	<span class="sign">{</span>
+		<span class="function">if</span>(a[i] <span class="sign">&lt;</span> pivot)
+		<span class="sign">{</span>
+			t <span class="sign">=</span> a[i]<span class="sign">;</span>
+			a[i] <span class="sign">=</span> a[j]<span class="sign">;</span>
+			a[j] <span class="sign">=</span> t<span class="sign">;</span>
+			j<span class="sign">++;</span>
+		<span class="sign">}</span>
+	<span class="sign">}</span>
+	a[right] <span class="sign">=</span> a[j]<span class="sign">;</span>
+	a[j] <span class="sign">=</span> pivot<span class="sign">;</span>
+	<span class="function">if</span>(left <span class="sign">&lt;</span> j <span class="sign">-</span> 1)
+		sort(left, j <span class="sign">-</span> 1);</span>
+	<span class="function">if</span>(j <span class="sign">+</span> 1 <span class="sign">&lt;</span> right)
+		sort(j <span class="sign">+</span> 1, right)<span class="sign">;</span>
+<span class="sign">}</span>
+
+<span class="function">int</span> main()
+<span class="sign">{</span>
+	sort(0, x <span class="sign">-</span> 1)<span class="sign">;</span>
+	
+	<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>)
+	<span class="sign">{</span>
+		<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">". = "</span> <span class="sign">&lt;&lt;</span> a[i] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	<span class="sign">}</span>
+	<span class="function">return</span> 0<span class="sign">;</span>
+<span class="sign">}</span>
+									</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+	
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>
+</body>
+</html>

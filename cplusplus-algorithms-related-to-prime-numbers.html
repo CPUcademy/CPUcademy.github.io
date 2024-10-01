@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. CPUcademy also offers interesting articles about IT in general.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Relinks, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, Micro:Bit, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+	<link href="img/logo.png" rel="icon">
+    <link href="img/logo.png" rel="apple-touch-icon">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
+	<title>Algorithms related to prime numbers</title>
+</head>
+
+<body id="page-top" style="background-color: #157267;">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="img/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+			
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Learning</div>
+	
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Android</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                    </div>
+                </div>
+            </li>
+			
+			<li class="nav-item">
+                <a class="nav-link" href="shop.html">
+                    <i class="icon-shop"></i>
+                    <span>Shop</span></a>
+            </li>
+			<li class="nav-item">
+                <a class="nav-link" href="articles.html">
+                    <i class="icon-doc-text-inv"></i>
+                    <span>Articles</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Other</div>
+		
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="icon-adult"></i>
+                    <span>About me</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="cv.html">CV</a>
+                        <a class="collapse-item" href="portfolio-projects.html">Portfolio projects</a>
+                        <a class="collapse-item" href="services.html">My services</a>
+                    </div>
+                </div>
+            </li>
+			
+            <li class="nav-item">
+                <a class="nav-link" href="ebooks.html">
+                    <i class="icon-book"></i>
+                    <span>Premium E-books</span></a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars" style="color: #157267;"></i>
+                    </button>
+					
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for lessons..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn" type="button" style="background-color: #157267; color: #f8f9fc;">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for lessons..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button" style="background-color: #157267; color: #f8f9fc;">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+						
+						<li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="img-profile rounded-circle" src="img/circlelogo.png">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+					</ul>
+                </nav>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Algorithms related to prime numbers</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h3>Table of contents</h3>
+			
+									<ul type="disc">
+										<li><a href="#finding-prime-numbers" class="link" style="text-decoration: none;">Finding prime numbers</a></li>
+										<li><a href="#generating-prime-numbers" class="link" style="text-decoration: none;">Generating prime numbers</a></li>
+										<li><a href="#sieve-of-eratosthenes" class="link" style="text-decoration: none;">Sieve of Eratosthenes</a></li>
+										<li><a href="#euclidean-algorithm" class="link" style="text-decoration: none;">Euclidean algorithm</a></li>
+									</ul>
+									
+									<h2><a name="finding-prime-numbers">Finding prime numbers</a></h2>
+									
+									<p>Prime numbers are numbers that have only 2 factors: 1 and themselves.</p>
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command-c">#include &lt;iostream&gt;</span>
+<span class="command-c">#include &lt;cmath&gt;</span>
+<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
+
+<span class="function">bool</span> isPrime(<span class="function">int</span> x)
+<span class="sign">{</span>
+	<span class="function">if</span>(x <span class="sign">&lt;=</span> 1) <span class="function">return false</span><span class="sign">;</span>
+	<span class="function">for</span>(<span class="function">unsigned int</span> i <span class="sign">=</span> 2<span class="sign">;</span> i <span class="sign">&lt;=</span> <span class="command-c">sqrt</span>(x)<span class="sign">;</span> i<span class="sign">++</span>) <span class="comment">// 0 and 1 are not prime numbers</span>
+	<span class="sign">{</span>
+		<span class="function">if</span>(<span class="sign">!</span>(x <span class="sign">%</span> i))
+			<span class="function">return false</span><span class="sign">;</span>
+	<span class="sign">}</span>
+	<span class="function">return true</span><span class="sign">;</span>
+<span class="sign">}</span>
+
+<span class="function">int</span> main()
+<span class="sign">{</span>
+	<span class="function">int</span> x<span class="sign">;</span>
+	<span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> x<span class="sign">;</span>
+	<span class="function">if</span>(isPrime(x))
+		<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"This number is a prime number."</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	<span class="function">else</span>
+		<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"This number isn't a prime number."</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	<span class="function">return</span> 0<span class="sign">;</span>
+<span class="sign">}</span>
+									</code></pre>
+									
+									<h2><a name="generating-prime-numbers">Generating prime numbers</a></h2>
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command-c">#include &lt;iostream&gt;</span>
+<span class="command-c">#include &lt;cmath&gt;</span>
+<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
+
+<span class="function">bool</span> isPrime(<span class="function">int</span> x)
+<span class="sign">{</span>
+	<span class="function">if</span>(x <span class="sign">&lt;=</span> 1) <span class="function">return false</span><span class="sign">;</span>
+	<span class="function">for</span>(<span class="function">unsigned int</span> i <span class="sign">=</span> 2<span class="sign">;</span> i <span class="sign">&lt;=</span> <span class="command-c">sqrt</span>(x)<span class="sign">;</span> i<span class="sign">++</span>)
+	<span class="sign">{</span>
+		<span class="function">if</span>(<span class="sign">!</span>(x <span class="sign">%</span> i))
+			<span class="function">return false</span><span class="sign">;</span>
+	<span class="sign">}</span>
+	<span class="function">return true</span><span class="sign">;</span>
+<span class="sign">}</span>
+
+<span class="function">int</span> main()
+<span class="sign">{</span>
+	<span class="function">int</span> x, y<span class="sign">;</span>
+	
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"How many prime numbers should I generate: "</span><span class="sign">;</span>
+	<span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> y<span class="sign">;</span>
+	
+	<span class="function">for</span>(<span class="function">unsigned int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> y<span class="sign">;</span> i<span class="sign">++</span>)
+	<span class="sign">{</span>
+		<span class="function">if</span>(isPrime(x))
+			<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+		<span class="function">else</span>
+			i<span class="sign">--;</span>
+		x<span class="sign">++;</span>
+	<span class="sign">}</span>
+	
+	<span class="function">return</span> 0<span class="sign">;</span>
+<span class="sign">}</span>
+									</code></pre>
+									
+									<h2><a name="sieve-of-eratosthenes">Sieve of Eratosthenes</a></h2>
+									
+									<p>The Sieve of Eratosthenes is an efficient algorithm for finding all prime numbers up to any given limit. It does so by iteratively marking as composite (i.e., not prime) the multiples of each prime number.</p>
+									
+									<img src="img/courses/sieve_of_eratosthenes.gif" alt="Bubble sort">
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">unsigned int</span> i, x, y<span class="sign">;</span>
+<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Up to what number should I write prime numbers: "</span><span class="sign">;</span>
+<span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> y<span class="sign">;</span>
+<span class="function">bool</span> <span class="sign">*</span>a <span class="sign">=</span> <span class="function">new bool</span>[y]<span class="sign">;</span>
+
+<span class="function">for</span>(i <span class="sign">=</span> 2<span class="sign">;</span> i <span class="sign">&lt;=</span> y<span class="sign">;</span> i<span class="sign">++</span>) <span class="comment">// setting the initial values</span>
+	a[i] <span class="sign">=</span> <span class="function">true</span><span class="sign">;</span>
+
+i <span class="sign">=</span> 2<span class="sign">;</span>
+<span class="function">while</span>(i <span class="sign">*</span> i <span class="sign">&lt;=</span> y)
+<span class="sign">{</span>
+	<span class="function">if</span>(a[i])
+	<span class="sign">{</span>
+		x <span class="sign">=</span> i <span class="sign">*</span> i<span class="sign">;</span>
+		<span class="function">while</span>(x <span class="sign">&lt;</span> y)
+		<span class="sign">{</span>
+			a[x] <span class="sign">=</span> <span class="function">false</span><span class="sign">;</span>
+			x <span class="sign">=</span> x <span class="sign">+</span> i<span class="sign">;</span>
+		<span class="sign">}</span>
+	<span class="sign">}</span>
+	i<span class="sign">++;</span>
+<span class="sign">}</span>
+
+<span class="function">for</span>(i <span class="sign">=</span> 2<span class="sign">;</span> i <span class="sign">&lt;=</span> y<span class="sign">;</span> i<span class="sign">++</span>) <span class="comment">// displaying the results</span>
+<span class="sign">{</span>
+	<span class="function">if</span>(a[i])
+		<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> i <span class="sign">&lt;&lt;</span> <span class="text">", "</span><span class="sign">;</span>
+<span class="sign">}</span>
+									</code></pre>
+									
+									<h2><a name="euclidean-algorithm">Euclidean algorithm</a></h2>
+									
+									<p>We use the Euclidean algorithm to find the GCD (Greatest Commond Divisor) of two numbers. It subtracts the smaller number from the bigger one as long as they are different. At the end, they are the same, and this is our GCD.</p>
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command-c">#include &lt;iostream&gt;</span>
+<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
+
+<span class="function">int</span> GCD(<span class="function">int</span> x, <span class="function">int</span> y)
+<span class="sign">{</span>
+	<span class="function">while</span>(x <span class="sign">!=</span> y)
+	<span class="sign">{</span>
+		<span class="function">if</span>(x <span class="sign">&gt;</span> y)
+			x <span class="sign">=</span> x <span class="sign">-</span> y<span class="sign">;</span>
+		<span class="function">else</span>
+			y <span class="sign">=</span> y <span class="sign">-</span> x<span class="sign">;</span>
+	<span class="sign">}</span>
+	<span class="function">return</span> x;</span>
+<span class="sign">}</span>
+
+<span class="function">int</span> GCD2(<span class="function">int</span> x, <span class="function">int</span> y)
+<span class="sign">{</span>
+	<span class="function">int</span> r<span class="sign">;</span>
+	<span class="function">while</span>(r <span class="sign">=</span> x <span class="sign">%</span> y)
+	<span class="sign">{</span>
+		x <span class="sign">=</span> y<span class="sign">;</span>
+		y <span class="sign">=</span> r<span class="sign">;</span>
+	<span class="sign">}</span>
+	<span class="function">return</span> y<span class="sign">;</span>
+<span class="sign">}</span>
+
+<span class="function">int</span> main()
+<span class="sign">{</span>
+	<span class="function">int</span> x, y<span class="sign">;</span>
+
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter two numbers for which I should find the GCD: "</span><span class="sign">;</span>
+	<span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> x <span class="sign">&gt;&gt;</span> y<span class="sign">;</span>
+
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> GCD(x, y) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> GCD2(x, y) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	
+	<span class="function">return</span> 0<span class="sign">;</span>
+<span class="sign">}</span>
+									</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+	
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>
+</body>
+</html>

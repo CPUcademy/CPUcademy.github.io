@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. CPUcademy also offers interesting articles about IT in general.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Relinks, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, Micro:Bit, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+	<link href="img/logo.png" rel="icon">
+    <link href="img/logo.png" rel="apple-touch-icon">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
+	<title>Decorators</title>
+</head>
+
+<body id="page-top" style="background-color: #157267;">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="img/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+			
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Learning</div>
+	
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Android</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                    </div>
+                </div>
+            </li>
+			
+			<li class="nav-item">
+                <a class="nav-link" href="shop.html">
+                    <i class="icon-shop"></i>
+                    <span>Shop</span></a>
+            </li>
+			<li class="nav-item">
+                <a class="nav-link" href="articles.html">
+                    <i class="icon-doc-text-inv"></i>
+                    <span>Articles</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Other</div>
+		
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="icon-adult"></i>
+                    <span>About me</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="cv.html">CV</a>
+                        <a class="collapse-item" href="portfolio-projects.html">Portfolio projects</a>
+                        <a class="collapse-item" href="services.html">My services</a>
+                    </div>
+                </div>
+            </li>
+			
+            <li class="nav-item">
+                <a class="nav-link" href="ebooks.html">
+                    <i class="icon-book"></i>
+                    <span>Premium E-books</span></a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars" style="color: #157267;"></i>
+                    </button>
+					
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for lessons..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn" type="button" style="background-color: #157267; color: #f8f9fc;">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for lessons..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button" style="background-color: #157267; color: #f8f9fc;">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+						
+						<li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="img-profile rounded-circle" src="img/circlelogo.png">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+					</ul>
+                </nav>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Decorators</h5>
+                                </div>
+                                <div class="card-body">
+									<p>A decorator is a design pattern that allows us to add new functionality to an existing object without modifying its structure. A design pattern is a reusable solution to a commonly occurring problem in software design.</p>
+			
+									<h2>Class methods</h2>
+									
+									<p>Class methods are bound to the class, not to individual objects like regular methods. We create them by writing a <code>@classmethod</code> decorator before them. They also have to take the <code>cls</code> argument (not <code>self</code>). It works the same as <code>self</code>, except that <code>self</code> refers to an object of a class, and <code>cls</code> refers to the class itself. These methods are used when there is a need to provide a constructor method other than <code>__init__()</code> (e.g., when there are many arguments, and we do not want their list in <code>__init__()</code> to be extensive for the sake of code clarity). Class methods don't have access to the fields (objects with <code>self</code>), but they can refer to class attributes (via <code>cls</code> or the class name). Class attributes are, in other words, static variables (they do not contain <code>self</code> and are outside methods).</p>
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Example:
+	x <span class="sign">=</span> 2
+	<span class="function">def</span> method(<span class="function">self</span>):
+		<span class="function">self</span>.y <span class="sign">=</span> 3
+		<span class="command">print</span>(<span class="function">self</span>.y)
+
+	<span class="command">@classmethod</span>
+	<span class="function">def</span> classMethod(<span class="function">cls</span>):
+		<span class="command">print</span>(<span class="function">Example</span>.x)
+		<span class="command">print</span>(<span class="function">cls</span>.x)
+
+e <span class="sign">=</span> <span class="function">Example</span>()
+e.method()
+e.classMethod()
+<span class="comment"># Example.method() - this won't work</span>
+<span class="function">Example</span>.classMethod()	
+									</code></pre>
+									
+									<h2>Static methods</h2>
+									
+									<p>We can call static methods using the class directly without creating its instance. They take neither a <code>self</code> nor a <code>cls</code> argument, which makes them essentially ordinary functions within the class. They have no access to the class's objects. They are hardly ever used because it is much easier to create a regular function instead.</p>
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Example:
+	<span class="function">def</span> method(<span class="function">self</span>):
+		<span class="command">print</span>(<span class="text">"Method"</span>)
+
+	<span class="command">@staticmethod</span>
+	<span class="function">def</span> staticMethod():
+		<span class="command">print</span>(<span class="text">"Static method"</span>)
+
+e <span class="sign">=</span> <span class="function">Example</span>()
+e.method()
+e.staticMethod()
+<span class="function">Example</span>.staticMethod()
+									</code></pre>
+									
+									<h2>Abstract classes</h2>
+									
+									<p>An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects, so we can only use them in its child classes. An abstract method is a method that is in an abstract class, and has the <code>@abstractmethod</code> decorator in front of it. We create abstract classes by inheriting the <code>ABC</code> object from the imported library. These classes provide a base for subclasses to extend and implement the abstract methods, and are used as a blueprint for other classes. An abstract class forces all its child classes to overwrite all of its abstract methods.</p>
+
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">		
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
+
+<span class="function">class</span> Animal(ABC):
+	<span class="command">@abstractmethod</span>
+	<span class="function">def</span> voice(<span class="function">self</span>):
+		<span class="command">pass</span>
+	<span class="function">def</span> voice2(<span class="function">self</span>): <span class="comment"># it isn't mandatory to overwrite a non-abstract method from an abstract class</span>
+		<span class="command">pass</span>	
+					
+<span class="function">class</span> Cat(Animal):
+	<span class="function">def</span> voice(<span class="function">self</span>):
+		<span class="command">print</span>(<span class="text">"Meow!"</span>)
+		
+cat <span class="sign">=</span> <span class="function">Cat</span>()
+cat.voice()
+									</code></pre>		
+									
+									<h2><code>@property</code>, <code>@setter</code>, <code>@deleter</code></h2>
+									
+									<p><code>@property</code> is a decorator that encapsulates instance attributes and provides a property. Notice that, in the example below, I didn't write any parentheses while calling this method. It is because a method marked with <code>@property</code> truly becomes a property (something like a variable).</p>
+									
+									<p>A getter is a method that is used to return values outside of a class, and a setter is a method that edits an object of the class. We should use them because, inside them, we can add, e.g., validation rules. <code>@property</code> is the getter decorator (it returns the "property"), for which we can create a setter decorator (the names of these methods have to be the same). One of these methods will execute accordingly to the performed operation. For example, the setter is called automatically when the "property" is edited.</p>
+									
+									<p>We can also create deleters, which are destructors, but not for the whole class. We create them in association with the <code>@property</code> method (like the setters), and they "destroy" only the object in interest.</p>
+			
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Example:
+	<span class="function">def __init__</span>(<span class="function">self</span>, x):
+		<span class="function">self</span>._x <span class="sign">=</span> x
+
+	<span class="command">@property</span>
+	<span class="function">def</span> x(<span class="function">self</span>): <span class="comment"># a getter</span>
+		<span class="function">return self</span>._x
+
+	<span class="command">@x.setter</span>
+	<span class="function">def</span> x(<span class="function">self</span>, x): <span class="comment"># a setter</span>
+		<span class="function">self</span>._x <span class="sign">=</span> x
+
+	<span class="command">@x.deleter</span>
+	<span class="function">def</span> x(<span class="function">self</span>): <span class="comment"># a deleter</span>
+		<span class="function">del self</span>._x
+
+example <span class="sign">=</span> <span class="function">Example</span>(5)
+<span class="command">print</span>(example.x)
+
+example.x <span class="sign">=</span> 10
+<span class="command">print</span>(example.x)
+
+<span class="function">del</span> example.x
+									</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+	
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>
+</body>
+</html>
