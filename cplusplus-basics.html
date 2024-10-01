@@ -184,16 +184,16 @@
 									
 									<h2>Variables</h2>
 									
-									<p>A variable is a "drawer" for data in the RAM. We can store every sort of data in them. We have a lot of variable types:</p>
-									<p><code>short</code> (2 bytes) - integers in this range: [-32768, 32767]</p>
-									<p><code>int</code> (4 bytes) - integers in this range: [-2147483648, 2147483647]</p>
-									<p><code>long</code> (4 bytes) - integers in this range: [-2147483648, 2147483647]</p>
-									<p><code>long long</code> (8 bytes) - integers in this range: [-9223372036854775808, 9223372036854775807]</p>
-									<p><code>float</code> (4 bytes) - decimals (up to 6-7 digits after the decimal point)</p>
-									<p><code>double</code> (8 bytes) - decimals with double precision (up to 15-16 digits after the decimal point)</p>
-									<p><code>long double</code> (12 bytes) - decimals with vast precision (up to 19-20 digits after the decimal point)</p>
-									<p><code>string</code> - texts (a number can also be a part of it)</p>		
-									<p><code>char</code> (1 byte) - one symbol (one number also counts as one symbol). When using this type, we have to use apostrophes, and not quotation marks because they are assigned to it. This rule goes both ways, and we can't use apostrophes with strings.</p>		
+									<p class="podpis">A variable is a "drawer" for data in the RAM. We can store every sort of data in them. We have a lot of variable types:</p>
+									<p class="podpis"><code>short</code> (2 bytes) - integers in this range: [-32768, 32767]</p>
+									<p class="podpis"><code>int</code> (4 bytes) - integers in this range: [-2147483648, 2147483647]</p>
+									<p class="podpis"><code>long</code> (4 bytes) - integers in this range: [-2147483648, 2147483647]</p>
+									<p class="podpis"><code>long long</code> (8 bytes) - integers in this range: [-9223372036854775808, 9223372036854775807]</p>
+									<p class="podpis"><code>float</code> (4 bytes) - decimals (up to 6-7 digits after the decimal point)</p>
+									<p class="podpis"><code>double</code> (8 bytes) - decimals with double precision (up to 15-16 digits after the decimal point)</p>
+									<p class="podpis"><code>long double</code> (12 bytes) - decimals with vast precision (up to 19-20 digits after the decimal point)</p>
+									<p class="podpis"><code>string</code> - texts (a number can also be a part of it)</p>		
+									<p class="podpis"><code>char</code> (1 byte) - one symbol (one number also counts as one symbol). When using this type, we have to use apostrophes, and not quotation marks because they are assigned to it. This rule goes both ways, and we can't use apostrophes with strings.</p>		
 									<p><code>bool</code> (1 byte) - <code>true</code> (all numbers above 0) and <code>false</code> (0) values. Its full name is boolean.</p>	
 
 									<p>We have to define the type when creating a variable.</p>
@@ -263,6 +263,16 @@ number2 <span class="sign">=</span> 6<span class="sign">;</span>
 									</code></pre>
 									
 									<p>It is better to use the conversion in the C++ language style because it also checks if this operation can be performed.</p>
+
+                                    <h2>The <code>printf()</code> command</h2>
+									
+									<p>The <code>printf()</code> command is an alternative for <code>cout</code> that makes incorporating variables into the output string easier. It is a command characteristic of the C language, so if possible, it is better to use <code>cout</code>.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">char</span> str[] <span class="sign">=</span> <span class="text">"abc"</span><span class="sign">;</span> <span class="comment">// an array of chars (I will talk about arrays later)</span>
+<span class="function">int</span> num <span class="sign">=</span> 5<span class="sign">;</span>
+<span class="command-c">printf</span>(<span class="text">"str = %s \nnum = %d"</span>, str, num)<span class="sign">;</span> <span class="comment">// %s - an array of chars, %n - a number</span>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
