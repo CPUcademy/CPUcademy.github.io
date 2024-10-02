@@ -207,6 +207,42 @@
 
 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Your number in the decimal system is: "</span> <span class="sign">&lt;&lt;</span> result <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 									</code></pre>
+
+                                    <h2>Any system to decimal</h2>
+
+                                    <p>We can use the Horner's method to convert any number system to decimal.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command-c">#include &lt;iostream&gt;
+#include &lt;vector&gt;</span>
+
+<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
+
+<span class="function">int</span> horner(<span class="function">int</span> factors[], <span class="function">int</span> polynomialDegree, <span class="function">int</span> x)
+<span class="sign">{</span>
+    <span class="function">int</span> result <span class="sign">=</span> factors[0]<span class="sign">;</span>
+    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> polynomialDegree<span class="sign">;</span> i<span class="sign">++</span>)
+			result <span class="sign">=</span> result <span class="sign">*</span> x <span class="sign">+</span> factors[i]<span class="sign">;</span>
+    <span class="function">return</span> result<span class="sign">;</span>
+<span class="sign">}</span>
+
+<span class="function">int</span> main()
+<span class="sign">{</span>
+    <span class="function">string</span> number <span class="sign">=</span> <span class="text">"1010"</span><span class="sign">;</span>
+    <span class="function">int</span> number_system <span class="sign">=</span> 2<span class="sign">;</span>
+
+    <span class="function">vector</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> results<span class="sign">;</span>
+    <span class="function">int</span> <span class="sign">*</span>a <span class="sign">=</span> <span class="function">new int</span>[number.<span class="command-c">length</span>()]<span class="sign">;</span>
+    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> number.<span class="command-c">length</span>()<span class="sign">;</span> i<span class="sign">++</span>)
+        a[i] <span class="sign">=</span> (<span class="function">int</span>(number[i])) <span class="sign">-</span> 48<span class="sign">;</span>
+    results.<span class="command-c">push_back</span>(horner(a, number.<span class="command-c">length</span>() <span class="sign">-</span> 1, number_system))<span class="sign">;</span>
+
+    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> results.<span class="command-c">size</span>()<span class="sign">;</span> i<span class="sign">++</span>)
+        <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> results[i] <span class="sign">&lt;&lt;</span> <span class="text">"\n"</span><span class="sign">;</span>
+
+    <span class="function">return</span> 0<span class="sign">;</span>
+<span class="sign">}</span>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
