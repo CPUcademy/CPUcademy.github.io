@@ -161,7 +161,7 @@
                                     <h5 class="m-0 font-weight-bold">Reference variables</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>A reference variable is an object that is referring to another object by its address in memory. It is a kind of a synonym, a nickname. We have to define its value immediately (it cannot be left just declared). A reference variable can't change its value (the association with a particular variable). If it cannot change the variable it is a nickname for, it means it is a constant. A reference variable must be the same type as the variable assigned to it. We create reference variables by adding an ampersand before them (just like when getting to a variable's address).</p>
+                                    <p>A reference variable is an object that is referring to another object by its address in memory. It is a kind of synonym, a nickname. We have to define its value immediately (it cannot be left just declared). A reference variable can't change its value (the association with a particular variable). A reference variable must be the same type as the variable assigned to it. We create reference variables by adding an ampersand before their name (like when getting to a variable's address).</p>
 			
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> normal_var <span class="sign">=</span> 4<span class="sign">;</span>
@@ -179,14 +179,14 @@ reference_var <span class="sign">=</span> 3<span class="sign">;</span>
 <span class="function">int</span> x <span class="sign">=</span> 10<span class="sign">;</span>
 <span class="function">const int</span> <span class="sign">&amp;</span>y <span class="sign">=</span> x<span class="sign">;</span>
 
-<span class="comment">/* y = 10; - this wouldn't work because "y" is a constant ("reference_var" also was a constant in a way 
+<span class="comment">/* y = 10; - this wouldn't work because "y" is a constant ("reference_var" also was a constant in a way
 because we couldn't change its associated address, but now we also can't change the value under the address) */</span>
 x <span class="sign">=</span> 40<span class="sign">;</span> <span class="comment">// we can change the value of the "y" constant by using the variable it is referring to ("x")</span>
 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"x equals "</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="text">" and has the address "</span> <span class="sign">&lt;&lt;</span> <span class="sign">&amp;</span>x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"y equals "</span> <span class="sign">&lt;&lt;</span> y <span class="sign">&lt;&lt;</span> <span class="text">" and has the address "</span> <span class="sign">&lt;&lt;</span> <span class="sign">&amp;</span>y <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 									</code></pre>
 									
-									<p>The code below wouldn't work without setting the arguments as reference variables because <code>x</code> and <code>y</code> are local variables, and we would have to return them. Now, we just refer to the addresses of <code>a</code> and <code>b</code>, and modify their values with <code>x</code> and <code>y</code> reference variables inside of the function.</p>
+									<p>The code below wouldn't work without setting the arguments as reference variables because <code>x</code> and <code>y</code> are local variables, and we would have to return them. Now, we refer to the addresses of <code>a</code> and <code>b</code> and modify their values with <code>x</code> and <code>y</code> reference variables inside the function.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
