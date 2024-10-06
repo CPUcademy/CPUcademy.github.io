@@ -186,7 +186,7 @@ y <span class="sign">=</span> 4
 									
 									<p>To get access to a <code>global</code> variable inside a function, we "import" this variable to the function with the <code>global</code> keyword. In Python, we also have a <code>nonlocal</code> variable scope. <code>Nonlocal</code> variables are variables that are declared within nested functions. We can "import" a <code>nonlocal</code> variable the same way as the <code>global</code> variable (using the <code>nonlocal</code> keyword).</p>
 									
-									<p>Now that we know what variable scopes are, we can see in the example below, that even if we change the values of the <code>x</code> and <code>y</code> variables in the <code>addition()</code> function, their values in the main block will not change. These variables, when in the <code>addition()</code> function, are <code>local</code> variables whose values have been imported as arguments and are then returned to the main block.</p>
+									<p>Now that we know what variable scopes are, we can see that in the example above, even if we change the values of the <code>x</code> and <code>y</code> variables in the <code>addition()</code> function, their values in the main block will not change. These variables, when in the <code>addition()</code> function, are <code>local</code> variables whose values have been imported as arguments and then are returned only to the <code>print()</code> command in the main block (they are not assigned to their equivalents from the main block, so their value doesn't change).</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 x <span class="sign">=</span> 3
@@ -204,7 +204,7 @@ x <span class="sign">=</span> 3
 func1()
 									</code></pre>
 									
-									<p>Be mindful that nesting variables in the context of variable scopes, is only relevant for functions, not for loops and conditional statements.</p>
+									<p>Remember that nesting variables in the context of variable scopes is only relevant for functions, not for loops and conditional statements.</p>
 									
 									<h2>Arguments</h2>
 									
@@ -221,12 +221,12 @@ list1 <span class="sign">=</span> [1, 2]
 <span class="command">print</span>(func1(1))
 <span class="command">print</span>(func1(1, 2))
 
-<span class="comment"># Telling another programmer what types the arguments should be (it doesn't obligate to do anything)</span>
+<span class="comment"># Telling another programmer what types the arguments should be (it doesn't obligate anyone to do anything)</span>
 <span class="function">def</span> func2(x:<span class="function">int</span>, y:<span class="function">int</span>):
 	<span class="function">return</span> x<span class="sign"> + </span>y
 <span class="command">print</span>(func2(1, 2))
 
-<span class="comment"># Telling another programmer what type the returned value should be (it doesn't obligate to do anything)</span>
+<span class="comment"># Telling another programmer what type the returned value should be (it doesn't obligate anyone to do anything)</span>
 <span class="function">def</span> func3(x, y) <span class="sign">-></span> <span class="function">str</span>:
 	<span class="function">return</span> <span class="function">str</span>(x<span class="sign"> + </span>y)
 <span class="command">print</span>(func3(1, 2))

@@ -202,7 +202,7 @@
 									
 									<p>Not every variable is accessible in every part of the program. Variables created in the main block (outside of any functions) are called <code>global</code> variables. They are accessible in all functions and instructions. Variables created between braces (inside a loop, conditional statement, function, etc.) are accessible only inside these braces and are called <code>local</code> variables. The default value of <code>global</code> variables is 0, but <code>local</code> variables do not have one. When initializing a <code>local</code> variable, it's worth adding an initial value (if we do not input it from the user).</p>
 									
-									<p>Now that we know what variable scopes are, we can see that in the function example, even if we change the values of the <code>x</code> and <code>y</code> variables in the <code>addition()</code> function, their values in the <code>main()</code> function will not change. These variables, when in the <code>addition()</code> function, are <code>local</code> variables whose values have been imported as arguments and are then returned to the <code>main()</code> function.</p>
+									<p>Now that we know what variable scopes are, we can see that in the example above, even if we change the values of the <code>x</code> and <code>y</code> variables in the <code>addition()</code> function, their values in the <code>main()</code> function will not change. These variables, when in the <code>addition()</code> function, are <code>local</code> variables whose values have been imported as arguments and then are returned only to the <code>cout</code> command in the <code>main()</code> function (they are not assigned to their equivalents from <code>main()</code>, so their value doesn't change).</p>
 
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
@@ -227,7 +227,7 @@
 	func()<span class="sign">;</span>
 
 	<span class="function">int</span> local_variable <span class="sign">=</span> 7<span class="sign">;</span>
-	func2(local_variable)<span class="sign">;</span> <span class="comment">// it wouldn't work without giving the variable as an argument</span>
+	func2(local_variable)<span class="sign">;</span>
 
 	<span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
@@ -235,7 +235,7 @@
 									
 									<h2>Function overloading (polymorphism)</h2>
 									
-									<p>Two functions can have the same name as long as they have a different number of arguments and / or they have different types. This behavior is called function overloading, or in other words - polymorphism. If we give two <code>double</code> arguments, the function that takes two variables of this type will execute.</p>
+									<p>Two functions can have the same name as long as they have a different number of arguments and / or they have various types. This behavior is called function overloading, or in other words - polymorphism. For example, if we provide two <code>double</code> arguments, C++ will know that we want to use this specific version of the function and not, e.g., the one that takes two integer arguments.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
