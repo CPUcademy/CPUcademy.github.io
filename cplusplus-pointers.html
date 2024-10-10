@@ -161,7 +161,7 @@
                                     <h5 class="m-0 font-weight-bold">Pointers</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>By using an asterisk, we can get to the value under an address.</p>
+                                    <p>Using an asterisk, we can get to the value under an address.</p>
 			
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> x <span class="sign">=</span> 10<span class="sign">;</span>
@@ -169,14 +169,15 @@
 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">&amp;</span>x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 									</code></pre>
 									
-									<p>A pointer is a variable containing an address (it is pointing at it). We create pointers by adding an asterisk before them. A variable <code>int *pointer;</code> points at an address of an <code>int</code> variable.</p>
+									<p>A pointer is a variable containing an address (it is pointing to it). We create pointers by adding an asterisk before them. A variable <code>int *pointer;</code> points to an address of an <code>int</code> variable.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> x <span class="sign">=</span> 10<span class="sign">;</span>
 <span class="function">int</span> <span class="sign">*</span>pointer<span class="sign">;</span>
 
 pointer <span class="sign">=</span> <span class="sign">&amp;</span>x<span class="sign">;</span>
-<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> pointer <span class="sign">&lt;&lt;</span> <span class="text">" "</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>pointer <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// they are the same</span>
+<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> pointer <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// the address</span>
+<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>pointer <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// the value</span>
 
 x <span class="sign">=</span> 5<span class="sign">;</span>
 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="text">" "</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>pointer <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// they are the same</span>
@@ -190,9 +191,9 @@ pointer <span class="sign">=</span> <span class="sign">&amp;</span>y<span class=
 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>pointer <span class="sign">&lt;&lt;</span> <span class="text">" "</span> <span class="sign">&lt;&lt;</span> y <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// they are the same, but "x" is different</span>
 									</code></pre>
 									
-									<p>A reference variable gives another name to a variable that already exists. It doesn't require the <code>*</code> operator to access the value it refers to. In contrast, a pointer variable holds an address itself, and we can gain access to the address's value only using the <code>*</code> operator. A pointer has its own memory address and size, and a reference variable shares the same memory address with the original variable.</p>
+									<p>A reference variable gives another name to a variable that already exists. It doesn't require the <code>*</code> operator to access the value it refers to. In contrast, a pointer variable holds an address itself, and we can gain access to the address's value only using the <code>*</code> operator. A pointer has its memory address and size, while a reference variable shares the same memory address with the original variable.</p>
 									
-									<p>We can create a constant pointer, but as you can see in the example below, we can still change its value using an asterisk.</p>
+									<p>We can create a constant pointer. However as you can see in the example below, we can still change its value using an asterisk.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> x <span class="sign">=</span> 10<span class="sign">;</span>
@@ -201,11 +202,11 @@ pointer <span class="sign">=</span> <span class="sign">&amp;</span>y<span class=
 <span class="sign">*</span>const_pointer <span class="sign">=</span> 20<span class="sign">;</span>
 									</code></pre>
 									
-									<p>To prevent changing the value this way, we can type: <code>const int * pointer_on_a_const = &amp;x;</code>. Now, we can change it only by editing the value of the variable whose address it is pointing on. Also, we can still switch the address the pointer is pointing on (<code>pointer_on_a_const = &amp;y;</code>). If we want to block this posiblility, we can write: <code>const int * const const_pointer_on_an_int_const = &amp;x;</code>.</p>
+									<p>To create a "real" constant pointer, we can type: <code>const int * const_pointer = &amp;x;</code>. Now, we can change its value only by editing the variable whose address it is pointing to. Also, we can still switch the address the pointer is pointing to (<code>const_pointer = &amp;y;</code>). If we want to block also this possibility, we can write: <code>const int * const const_pointer = &amp;x;</code>.</p>
 									
-									<p>Keep in mind that <code>int* const</code> is different from <code>const int*</code>. The former is used to declare a constant pointer pointing to an integer. The value of the pointer itself cannot be changed, but the value at the address at which it is pointing can. The latter is used to declare a pointer pointing to a constant integer. The value of the pointer itself can be changed to point at a different memory address, but the value under that address cannot.</p>
+									<p>Keep in mind that <code>int* const</code> is different from <code>const int*</code>. The former is used to declare a constant pointer pointing to an integer. The value of the pointer itself cannot be changed, but the value at the address to which it is pointing can. The latter is used to declare a pointer pointing to a constant integer. The value of the pointer itself can be changed to point to a different memory address, but the value under that address cannot.</p>
 									
-									<p>Pointers also have their own addresses, and because of that, a pointer can point on an another pointer.</p>
+									<p>Pointers have their addresses, and because of that, a pointer can point on another pointer.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> <span class="sign">*</span>pointer<span class="sign">;</span>
@@ -217,7 +218,7 @@ pointer <span class="sign">=</span> <span class="sign">&amp;</span>y<span class=
 									
 									<h2>Pointers and arrays</h2>
 									
-									<p>A name of an array is a pointer itself. In the example below, <code>a</code> and <code>pointer</code> have the same value (they contain the same address) because <code>a</code> is also a pointer that is pointing at the address of its first value (<code>a[0]</code>). All the values of an array are "in a row", which means their addresses are physically next to each other. If we know the first address and the size, we can access all of the array's elements.</p>
+									<p>A name of an array is a pointer itself. In the example below, <code>a</code> and <code>pointer</code> have the same value (they contain the same address) because <code>a</code> is also a pointer that is pointing to the address of its first value (<code>a[0]</code>). All the values of an array are "in a row" which means their addresses are physically next to each other. If we know the first address and the size, we can access all array elements.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> a[3]<span class="sign">;</span>

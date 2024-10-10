@@ -163,14 +163,14 @@
                                 <div class="card-body">
                                     <h2>Strings and chars</h2>
 			
-									<p>Every character in a string is a char, which basically means a string is an array of chars, and because of this, strings can be indexed, e.g., <code>text[2]</code>. We can also create an array of chars like this: <code>char a[] = "abcdefg";</code>. The <code>\0</code> symbol means the end of a string. We can edit strings just like we edit arrays: <code>a[2] = 'z';</code>.</p>
+									<p>Every character in a string is a <code>char</code>, which means a string is an array of chars, and because of this, strings can be indexed, e.g., <code>text[2]</code>. We can create an array of chars like this: <code>char a[] = "abcdefg";</code>. The <code>\0</code> symbol means the end of a string. We can edit strings just like we edit arrays: <code>a[2] = 'z';</code>.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">string</span> text <span class="sign">=</span> <span class="text">"abcdefg"</span><span class="sign">;</span> <span class="comment">// a b c d e f h \0</span>
 <span class="function">string</span> text2 <span class="sign">=</span> <span class="text">"abcd\0efg"</span><span class="sign">;</span> <span class="comment">// a b c d</span>
 									</code></pre>
 									
-									<p>The <code>c_str()</code> command turns a string into a string of a type that appears in the C language (it is literally an array of chars).</p>
+									<p>The <code>c_str()</code> command turns a string into a string of a type that appears in the C language (literally an array of chars).</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">string</span> text <span class="sign">=</span> <span class="text">"abcdefg"</span><span class="sign">;</span>
@@ -180,7 +180,7 @@
 	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>pointer<span class="sign">++</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 									</code></pre>
 									
-									<p>Of course, we can create dynamic string or char arrays (e.g., <code>char *text = new char[20];</code>) and the normal ones, too (<code>string texts[10];</code>). When working with string arrays, we can reference to the individual string's indexes just like we reference to objects in multidimensional arrays: <code>texts[0][3]</code> (this will get us to the fourth letter of the first string).</p>
+									<p>Of course, we can create dynamic string or <code>char</code> arrays (e.g., <code>char *text = new char[20];</code>) and normal ones, too (<code>string texts[10];</code>). When working with string arrays, we can reference to the individual string's indexes just like we reference objects in multidimensional arrays: <code>texts[0][3]</code> (this will get us to the fourth letter of the first string).</p>
 									
 									<h2>Functions</h2>
 									
@@ -318,7 +318,7 @@
 <span class="sign">}</span>
 									</code></pre>
 									
-									<p>The example below is very complicated, and I show it just so you know that something like this exists.</p>
+									<p>The example below is very complicated, and I show it so you know something like this exists.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
@@ -349,7 +349,7 @@
 	pointer_on_the_function <span class="sign">= &amp;</span>name_of_the_function<span class="sign">;</span>
 	
 	<span class="function">double</span> <span class="sign">*</span>(<span class="sign">*</span>pointer_on_the_function_2)(<span class="function">int</span>, <span class="function">double</span> <span class="sign">*</span>)<span class="sign">;</span> <span class="comment">// the first asterisk indicates that the function 
-	// returns a pointer (we defined it earlier by writing this sign before the name of the function in its definition)</span>
+	// returns a pointer (we defined it earlier by writing this sign before the function's name in its definition)</span>
 	pointer_on_the_function_2 <span class="sign">= &amp;</span>name_of_the_function_2<span class="sign">;</span>
 	
 	<span class="function">double</span> <span class="sign">*</span>p <span class="sign">=</span> <span class="function">NULL</span><span class="sign">;</span>

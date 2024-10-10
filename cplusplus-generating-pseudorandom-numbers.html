@@ -161,11 +161,11 @@
                                     <h5 class="m-0 font-weight-bold">Generating pseudorandom numbers</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>We can't generate truly random numbers because a computer doesn't have the element of randomness. We can only generate pseudorandom numbers, which means they are generated based on a seed. For a certain seed the generator will always draw the same number. In C++, we have to set the seed manually after every time we draw a number because otherwise it will be the same. We can use time to achieve this because it is in constant movement.</p>
+                                    <p>We can't generate truly random numbers because a computer doesn't have the element of randomness. We can only generate pseudorandom numbers, which are generated based on a seed. For a certain seed, the generator will always draw the same number. We would have to set the seed manually every time, but luckily, we can set the current time as the seed value because it is in constant movement.</p>
 			
 									<p>To generate random numbers, we use the <code>&lt;stdlib.h&gt;</code> library. We can set a seed with the <code>srand()</code> command (its argument is the seed value) and generate a number with the <code>rand()</code> command (it doesn't take any arguments). If we want to set a range from which we can draw numbers, we can write, e.g., <code>rand() % 3</code>, which will set the range of numbers to 0-2.</p>
 									
-									<p>To operate on time, we use the <code>&lt;time.h&gt;</code> library. We can use the <code>time()</code> method to return the current calendar time as a single arithmetic value (this method takes a pointer as an argument). This arithmetic value is the number of seconds elapsed since 00:00:00 hours, GMT (Greenwich Mean Time), January 1, 1970. If we give <code>NULL</code> as this argument, it will only return the value and not save it in a pointer (<code>NULL</code> is an object that is used to indicate the absence of a value).</p>
+									<p>To operate on time, we use the <code>&lt;time.h&gt;</code> library. We can use the <code>time()</code> method to return the current calendar time as a single arithmetic value (this method takes a pointer as an argument). If we give <code>NULL</code> as this argument, it will only return the value and not save it in a pointer. The arithmetic value is the number of seconds elapsed since 00:00:00 hours, GMT (Greenwich Mean Time), January 1, 1970.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
@@ -173,41 +173,14 @@
 <span class="command-c">#include &lt;time.h&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="function">int</span> <span class="sign">*</span>lotto(<span class="function">int</span> total_balls, <span class="function">int</span> balls_to_allot)
-<span class="sign">{</span>
-	<span class="function">if</span>(total_balls <span class="sign">&lt;</span> balls_to_allot) <span class="function">return NULL</span><span class="sign">;</span>
-	<span class="command-c">srand</span>(<span class="command-c">time</span>(<span class="function">NULL</span>))<span class="sign">;</span>
-	<span class="function">int</span> <span class="sign">*</span>balls <span class="sign">=</span> <span class="function">new int</span>[balls_to_allot]<span class="sign">;</span>
-	
-	<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> balls_to_allot<span class="sign">;</span> i<span class="sign">++</span>)
-	<span class="sign">{</span>
-		balls[i] <span class="sign">=</span> <span class="command-c">rand</span>() <span class="sign">%</span> total_balls <span class="sign">+</span> 1<span class="sign">;</span> <span class="comment">// the range will be 1-49</span>
-		<span class="function">for</span>(<span class="function">int</span> j <span class="sign">=</span> 0<span class="sign">;</span> j <span class="sign">&lt;=</span> i<span class="sign">;</span> j<span class="sign">++</span>)
-		<span class="sign">{</span>
-			<span class="function">if</span>(balls[i] <span class="sign">==</span> balls[j] <span class="sign">&amp;&amp;</span> i <span class="sign">!=</span> j)
-			<span class="sign">{</span>
-				i<span class="sign">--;</span>
-				<span class="function">break</span><span class="sign">;</span>
-			<span class="sign">}</span>
-		<span class="sign">}</span>
-	<span class="sign">}</span>
-	<span class="function">return</span> balls<span class="sign">;</span>
-<span class="sign">}</span>
-
 <span class="function">int</span> main()
 <span class="sign">{</span>
 	<span class="command-c">srand</span>(<span class="command-c">time</span>(<span class="function">NULL</span>))<span class="sign">;</span>
-	<span class="function">int</span> liczba <span class="sign">=</span> <span class="command-c">rand</span>() <span class="sign">%</span> 3<span class="sign">;</span>
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> liczba <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-	
-	<span class="function">int</span> <span class="sign">*</span>balls1 <span class="sign">=</span> lotto(49, 6)<span class="sign">;</span>
-	
-	<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 6<span class="sign">;</span> i<span class="sign">++</span>)
+	<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 10<span class="sign">;</span> i<span class="sign">++</span>)
 	<span class="sign">{</span>
-		<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"ball ["</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">"]  = "</span> <span class="sign">&lt;&lt;</span> balls1[i] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+		<span class="function">int</span> number <span class="sign">=</span> <span class="command-c">rand</span>() <span class="sign">%</span> 3<span class="sign">;</span>
+		<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> number <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 	<span class="sign">}</span>
-	<span class="function">delete</span>[] balls1<span class="sign">;</span>
-	
 	<span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
 									</code></pre>
