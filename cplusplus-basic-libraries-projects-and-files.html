@@ -161,7 +161,6 @@
                                     <h5 class="m-0 font-weight-bold">Basic libraries, projects, and files</h5>
                                 </div>
                                 <div class="card-body">
-                                    książka Komputer Świat
 									windows.h pozwala na użycie Sleep(1000);, a cstdlib na system("cls");
 									funkcja strlen(tab); zwróci nam niefaktyczną ilość znaków (bez \0)
 									
@@ -179,7 +178,7 @@
 									
 									<h2>Projects</h2>
 									
-									<p>In Dev C++, instead of creating a single file, we can create a new project. You can have multiple files in one project, and also you can run it from the CMD by just writing the name of the project. In the main file of a project, the <code>main()</code> function takes two arguments: <code>int argc, char *argv[]</code> (they can be given after the project name in the CMD, e.g., <code>program a b c</code>). <code>argc</code> is argument counter (its minimal value is 1), and <code>argv</code> which stands for argument vector.</p>
+									<p>We can run a <code>.cpp</code> file from CMD. To achieve this, we give two arguments to the <code>main()</code> function: <code>int argc</code>, <code>char *argv[]</code>. To run such a file, we type its name and the arguments (e.g., <code>program a b c</code>) in CMD. <code>argc</code> is an argument counter (its minimal value is 1), and <code>argv</code> stands for argument vector.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
@@ -188,15 +187,14 @@
 <span class="function">int</span> main(<span class="function">int</span> argc, <span class="function">char</span> <span class="sign">*</span>argv[]) <span class="comment">// the second argument can also be written as "char** argv"</span>
 <span class="sign">{</span>
 	<span class="function">char</span> arg[] <span class="sign">= {</span><span class="text">'a'</span>, <span class="text">'b'</span>, <span class="text">'c'</span><span class="sign">};</span>
-	<span class="function">char</span> <span class="sign">*</span>arg2 <span class="sign">=</span> <span class="text">"string"</span><span class="sign">;</span> <span class="comment">// a pointer on a string</span>
+	<span class="function">char</span> <span class="sign">*</span>arg2 <span class="sign">=</span> <span class="text">"string"</span><span class="sign">;</span> <span class="comment">// a pointer to a string</span>
 	<span class="function">char</span> <span class="sign">*</span>arg3[] <span class="sign">= {</span><span class="text">"string 1"</span>, <span class="text">"string 2"</span>, <span class="text">"string 3"</span><span class="sign">};</span> <span class="comment">// an array of strings</span>
 	<span class="function">string</span> text <span class="sign">=</span> arg3[0]<span class="sign">;</span>	
 	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> text <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 	
 	<span class="function">while</span>(argc<span class="sign">--</span>) <span class="comment">// displaying all given arguments</span>
 	<span class="sign">{</span>
-		text <span class="sign">=</span> <span class="sign">*</span>argv<span class="sign">;</span> <span class="comment">// if we want it to be in one line like this: if(*argv == "aa"), we would have to import 
-		// the &lt;string.h&gt; library and type: if(strcmp(*argv, "aa") == 0) (strcmp - string compare)</span>
+		text <span class="sign">=</span> <span class="sign">*</span>argv<span class="sign">;</span>
 		<span class="function">if</span>(text <span class="sign">==</span> <span class="text">"aa"</span>)
 			<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Hello"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 		<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>argv<span class="sign">++</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
@@ -205,10 +203,6 @@
 	<span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
 									</code></pre>
-									
-									<p>In order for an entire multi-file project to work, when entering DEV-C++, we need to run the entire project file, not all its files separately.</p>
-									
-									<p>When we click on the name of the project inside the sidebar with the right mouse button, and from the list that will expand, choose the "Project Options", we will be able to change, e.g., the <code>.exe</code> file icon, file description, etc.</p>
 									
 									<h2>Files</h2>
 									

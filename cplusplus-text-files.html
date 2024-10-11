@@ -177,14 +177,14 @@
 									
 									<p>To perform operations on text files, we need to include the <code>&lt;fstream&gt;</code> library. Firstly, we have to create a variable of the <code>fstream</code> type and then use the <code>open()</code> command on it. Its first argument is the file's name, and the second is flags, which can be separated by the <code>|</code> sign. The flags are modes in which the file can be opened, and they can be:</p>
 									<ul type="disc">
-										<li><code>ios::out</code> - output - writing in the file, and if there isn't one - creating a new file. If the file exists, it deletes its previous content and overwrites it (unless we add the <code>ios::in</code> mode after the <code>|</code> sign). <code>ios::in</code> stands for input (reading from the file).</li>
+										<li><code>ios::out</code> - output - writing to the file, and if there isn't one - creating a new file. If the file exists, it deletes its previous content and overwrites it (unless we add the <code>ios::in</code> mode after the <code>|</code> sign). <code>ios::in</code> stands for input (reading from the file).</li>
 										<li><code>ios::trunc</code> - truncate - erasing the whole content.</li>
 										<li><code>ios::ate</code> - at the end - starting from the end of the file with the possibilities of reading and writing.</li>
 										<li><code>ios::app</code> - append - writing at the end of the file (without deleting the previous content).</li>
 										<li><code>ios::binary</code> - binary type (it will still be interpreted as a text, but we could, e.g., open an image in the form of zeros and ones).</li>
 									</ul>
 									
-									<p>In the example below, after we check if the file has been opened properly with the <code>is_open()</code> command, we write two lines of text in it and close it (it is necessary).</p>
+									<p>In the example below, after we check if the file has been opened properly with the <code>is_open()</code> command, we write two lines of text in it and close it (it is necessary). Then, we read from it.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
@@ -210,8 +210,8 @@
 	<span class="function">if</span>(file.<span class="command-c">is_open</span>())
 	<span class="sign">{</span>
 		<span class="function">while</span>(<span class="command-c">getline</span>(file, text))
-            <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> text <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-			
+			<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> text <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+
 		file.<span class="command-c">close</span>()<span class="sign">;</span>
 	<span class="sign">}</span>
 	
