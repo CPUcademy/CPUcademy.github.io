@@ -171,7 +171,7 @@
 	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>pointer <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 	
 	<span class="function">delete</span> pointer<span class="sign">;</span> <span class="comment">// releasing the memory pointed to by the pointer (it will be free again)</span>
-	pointer <span class="sign">=</span> <span class="function">NULL</span><span class="sign">;</span>
+	pointer <span class="sign">=</span> <span class="function">NULL</span><span class="sign">;</span> <span class="comment">// so as not to point on something that doesn't exist</span>
 	
 	<span class="function">int</span> <span class="sign">*</span>p <span class="sign">=</span> <span class="function">new int</span><span class="sign">;</span>
 	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> p <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
@@ -200,7 +200,7 @@ a[1] <span class="sign">=</span> 20<span class="sign">;</span>
 <span class="function">delete</span>[] a<span class="sign">;</span>
 									</code></pre>
 									
-									<p>Incrementation means <code>i = i + 1</code>, i.e., a replacement. Because we replace the index, it will not be the same as at the beginning, which is a mistake because the <code>delete</code> command clears a given number of addresses from the first index, which has now changed. To prevent this mistake, we should set a pointer as a constant and create a new pointer to manipulate the first one. Then, the array will always keep its original first address, and we will be able to release the memory correctly. All pointers used to dynamically allocate memory should be constants.</p>
+									<p>We must be careful when incrementing pointers used for allocating dynamic memory because by doing so, we replace the first index. It is a mistake because the <code>delete</code> command clears a given number of addresses from the first index, which has now changed. To prevent this mistake, we should set a pointer as a constant and create a new pointer to manipulate the first one. Then, the array will always keep its original first address, and we will be able to release the memory correctly. All pointers used to dynamically allocate memory should be constants.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">char</span> <span class="sign">*</span> <span class="function">const</span> text <span class="sign">=</span> <span class="function">new char</span>[10]<span class="sign">;</span>
@@ -215,8 +215,30 @@ text[3] <span class="sign">=</span> <span class="text">'\0'</span><span class="s
 	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>pointer<span class="sign">++;</span>
 
 <span class="function">delete</span>[] text<span class="sign">;</span>
-pointer <span class="sign">=</span> <span class="function">NULL</span><span class="sign">;</span> <span class="comment">// so as not to point on something that doesn't exist</span>
+pointer <span class="sign">=</span> <span class="function">NULL</span><span class="sign">;</span>
 									</code></pre>
+
+                                    <h2>Strings and chars - more about pointers</h2>
+			
+									<p>Every character in a string is a <code>char</code>, which means a string is an array of chars, and because of this, strings can be indexed, e.g., <code>text[2]</code>. We can create an array of chars like this: <code>char a[] = "abcdefg";</code>. The <code>\0</code> symbol means the end of a string. We can edit strings just like we edit arrays: <code>a[2] = 'z';</code>.</p>
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">string</span> text <span class="sign">=</span> <span class="text">"abcdefg"</span><span class="sign">;</span> <span class="comment">// a b c d e f h \0</span>
+<span class="function">string</span> text2 <span class="sign">=</span> <span class="text">"abcd\0efg"</span><span class="sign">;</span> <span class="comment">// a b c d</span>
+									</code></pre>
+									
+									<p>The <code>c_str()</code> command turns a string into a string of a type that appears in the C language (literally an array of chars).</p>
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">string</span> text <span class="sign">=</span> <span class="text">"abcdefg"</span><span class="sign">;</span>
+<span class="function">const char</span> <span class="sign">*</span>pointer <span class="sign">=</span> text.<span class="command-c">c_str</span>()<span class="sign">;</span>
+<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> pointer <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+<span class="function">while</span>(<span class="sign">*</span>pointer) <span class="comment">// it will execute till encountering \0</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>pointer<span class="sign">++</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+									</code></pre>
+									
+									<p>Of course, we can create dynamic string or <code>char</code> arrays (e.g., <code>char *text = new char[20];</code>) and normal ones, too (<code>string texts[10];</code>). When working with string arrays, we can reference the individual string's indexes just like we reference objects in multidimensional arrays: <code>texts[0][3]</code> (this will get us to the fourth letter of the first string).</p>
+									
                                 </div>
                             </div>
                         </div>

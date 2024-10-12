@@ -165,9 +165,9 @@
 
                                     <h1>Vectors</h1>
 
-                                    <p>Vectors are dynamic arrays, so we do not have to know their size at the beginning (but we have to determine the type of the elements). It works because the memory is reserved in advance based on how many elements we added in the past. That reserved in advance memory is the vector's capacity, and its size is how much of this memory is used. We must include the <code>&lt;vector&gt;</code> library for all of this to work.</p>
+                                    <p>Vectors are dynamic arrays, so we do not have to know their size at the beginning (but we have to determine the type of its elements). It works because the memory is reserved in advance based on how many elements we added in the past. That reserved in advance memory is the vector's capacity, and its size is how much of this memory is used. We must include the <code>&lt;vector&gt;</code> library for all of this to work.</p>
 			
-									<p>The <code>push_back()</code> command will add an element at the end of a vector. If we want to use all of the vector's features, e.g., assigning values at declaration (<code>vector&lt;int&gt; numbers {1, 2, 3, 4, 5};</code>), we have to enable C++ 11 in the editor. In Dev C++, we can do that here: <code>Tools / Compiler Options / Settings / Code Generation / Language Standard (-std) - GNU C++11</code>. Vector's elements can be accessed by index.</p>
+									<p>The <code>push_back()</code> command will add an element at the end of a vector. If we want to use all of the vector's features, e.g., assigning values at declaration (<code>vector&lt;int&gt; numbers {1, 2, 3, 4, 5};</code>), we have to enable C++ 11 in the editor. In Dev C++, we can do that here: <code>Tools / Compiler Options / Settings / Code Generation / Language Standard (-std) - GNU C++11</code>. Vector's elements can be accessed by index (like with arrays).</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
@@ -178,7 +178,7 @@
 <span class="sign">{</span>	
 	<span class="function">vector</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> integers<span class="sign">;</span>
 	
-	integers.<span class="command-c">push_back</span>(2)<span class="sign">;</span>
+	integers.<span class="command-c">push_back</span>(2)<span class="sign">;</span> <span class="comment">// adding an element at the end</span>
 	integers.<span class="command-c">push_back</span>(4)<span class="sign">;</span>
 	
 	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers[0] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
@@ -193,11 +193,11 @@
 <span class="sign">}</span>
 									</code></pre>
 
-                                    <p>If you want to make a vector of arrays, you have to import the <code>&lt;array&gt;</code> library and write: <code>vector&lt;array&lt;string, 5&gt;&gt; data;</code>. In this example, each array in the vector has five elements. Of course, you can also nest vectors;</p>
+                                    <p>If we want to make a vector of arrays, we have to import the <code>&lt;array&gt;</code> library and write, e.g., <code>vector&lt;array&lt;string, 5&gt;&gt; data;</code>. In this example, each array in the vector has five string elements. Of course, we can also nest vectors.</p>
 									
 									<h3>Iterators</h3>
 									
-									<p>An iterator is an object pointing at a particular position inside a container (a vector). We use it to get to certain vector's elements. We create iterators using this pattern: "type_of_the_container::iterator name;". Not all elements inside a container are in a row inside of the memory (this was the case with arrays).</p>
+									<p>An iterator is an object pointing at a particular position inside a container (a vector). We use it to get to certain elements inside the vector. We create iterators using this pattern: "type_of_the_container::iterator name;". Not all elements inside a container are in a row inside the memory (this was the case with arrays).</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">vector</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> numbers <span class="sign">{</span>10, 20, 30, 40, 50<span class="sign">};</span>
@@ -219,35 +219,29 @@ i <span class="sign">+=</span> 2<span class="sign">;</span>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">for</span>(<span class="function">vector</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span><span class="sign">::</span><span class="function">iterator</span> i <span class="sign">=</span> numbers.<span class="command-c">begin</span>()<span class="sign">;</span> i <span class="sign">!=</span> numbers.<span class="command-c">end</span>()<span class="sign">;</span> i<span class="sign">++;</span>)
-<span class="sign">{</span>
 	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>i <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-<span class="sign">}</span>
 									</code></pre>
 									
 									<h3><code>auto</code> type</h3>
 									
-									<p><code>auto</code> is a data type that decides for us which type is the variable based on its value. We can check the variable's type with the <code>typeid(x).name()</code> command from the <code>&lt;typeinfo&gt;</code> library.</p>
+									<p><code>auto</code> is a data type that decides which type a variable is based on its value. We can check the variable's type with the <code>typeid(x).name()</code> command from the <code>&lt;typeinfo&gt;</code> library.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">auto</span> x <span class="sign">=</span> 5;</span>
+<span class="function">auto</span> x <span class="sign">=</span> 5<span class="sign">;</span>
 <span class="function">auto</span> y <span class="sign">=</span> 5.5<span class="sign">;</span>
 <span class="function">auto</span> z <span class="sign">=</span> <span class="text">"z"</span><span class="sign">;</span>
 
 <span class="function">for</span>(<span class="function">auto</span> i <span class="sign">=</span> numbers.<span class="command-c">begin</span>()<span class="sign">;</span> i <span class="sign">!=</span> numbers.<span class="command-c">end</span>()<span class="sign">;</span> i<span class="sign">++;</span>)
-<span class="sign">{</span>
 	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>i <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-<span class="sign">}</span>
 									</code></pre>
 									
 									<h3>Enhanced <code>for</code></h3>
 									
-									<p>Enhanced <code>for</code> is a type of the <code>for</code> loop with the syntax shown below. If we add an ampersand after the <code>auto</code> keyword, we will be able to edit the values of a vector inside the loop.</p>
+									<p>Enhanced <code>for</code> is a type of the <code>for</code> loop with the syntax shown below.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">for</span>(<span class="function">auto</span> x <span class="sign">:</span> numbers) <span class="comment">// where to save the values : from where to read the values</span>
-<span class="sign">{</span>
 	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-<span class="sign">}</span>
 
 <span class="function">for</span>(<span class="function">auto</span><span class="sign">&amp;</span> x <span class="sign">:</span> numbers)
 <span class="sign">{</span>
@@ -256,9 +250,11 @@ i <span class="sign">+=</span> 2<span class="sign">;</span>
 <span class="sign">}</span>
 									</code></pre>
 
+                                    <p>*Adding an ampersand after the <code>auto</code> keyword allows us to edit the values of a vector inside the loop.</p>
+
                                     <h1>Deques</h1>
 
-                                    <p>Deque stands for Double-Ended Queue. With it, we can easily add and remove elements not only at the end (like with vectors) but also at the beginning. They share the same commands with vectors and can be handled the same way. It's elements also can be accessed by index.</p>
+                                    <p>Deque stands for Double-Ended Queue. With it, we can easily add and remove elements not only at the end (like with vectors) but also at the beginning. They share the same commands with vectors and can be handled the same way. Its elements also can be accessed by index.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
@@ -267,16 +263,16 @@ i <span class="sign">+=</span> 2<span class="sign">;</span>
 
 <span class="function">int</span> main()
 <span class="sign">{</span>	
-    <span class="function">deque</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> integers<span class="sign">;</span>
-    
-    integers.<span class="command-c">push_back</span>(2)<span class="sign">;</span>
-    integers.<span class="command-c">push_back</span>(4)<span class="sign">;</span>
-    integers.<span class="command-c">pop_front</span>()<span class="sign">;</span> <span class="comment">// deleting the first value</span>
-    integers.<span class="command-c">push_front</span>(1)<span class="sign">;</span> <span class="comment">// adding an element at the beginning</span>
+	<span class="function">deque</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> integers<span class="sign">;</span>
 
-    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers[0] <span class="sign">&lt;&lt;</span> <span class="text">" "</span> <span class="sign">&lt;&lt;</span> integers[1] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-    
-    <span class="function">return</span> 0<span class="sign">;</span>
+	integers.<span class="command-c">push_back</span>(2)<span class="sign">;</span>
+	integers.<span class="command-c">push_back</span>(4)<span class="sign">;</span>
+	integers.<span class="command-c">pop_front</span>()<span class="sign">;</span> <span class="comment">// deleting the first element</span>
+	integers.<span class="command-c">push_front</span>(1)<span class="sign">;</span> <span class="comment">// adding an element at the beginning</span>
+
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers[0] <span class="sign">&lt;&lt;</span> <span class="text">" "</span> <span class="sign">&lt;&lt;</span> integers[1] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+
+	<span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
 
@@ -292,25 +288,25 @@ i <span class="sign">+=</span> 2<span class="sign">;</span>
 
 <span class="function">int</span> main()
 <span class="sign">{</span>	
-    <span class="function">stack</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> integers<span class="sign">;</span>
-    integers.<span class="command-c">push</span>(1)<span class="sign">;</span>
-    integers.<span class="command-c">push</span>(2)<span class="sign">;</span>
-    integers.<span class="command-c">pop</span>()<span class="sign">;</span>
-    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers.<span class="command-c">top</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	<span class="function">stack</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> integers<span class="sign">;</span>
+	integers.<span class="command-c">push</span>(1)<span class="sign">;</span>
+	integers.<span class="command-c">push</span>(2)<span class="sign">;</span>
+	integers.<span class="command-c">pop</span>()<span class="sign">;</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers.<span class="command-c">top</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 
-    <span class="function">queue</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> integers2<span class="sign">;</span>
-    integers2.<span class="command-c">push</span>(1)<span class="sign">;</span>
-    integers2.<span class="command-c">push</span>(2)<span class="sign">;</span>
-    integers2.<span class="command-c">pop</span>()<span class="sign">;</span>
-    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers2.<span class="command-c">front</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	<span class="function">queue</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> integers2<span class="sign">;</span>
+	integers2.<span class="command-c">push</span>(1)<span class="sign">;</span>
+	integers2.<span class="command-c">push</span>(2)<span class="sign">;</span>
+	integers2.<span class="command-c">pop</span>()<span class="sign">;</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers2.<span class="command-c">front</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 
-    <span class="function">return</span> 0<span class="sign">;</span>
+	<span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>                                           
                                     </code></pre>
 
                                     <h1>Sets</h1>
 
-                                    <p>Sets store unique elements (even if we add the number 4 twice, it will keep only one) that are not accessible by index. They are indexed by their values or keys. An unordered set (<code>unordered_set</code>) differs in that it stores elements without an order, e.g., you could enter them like this: 1, 2, 3, and then receive 3, 1, 2.</p>
+                                    <p>Sets store unique elements (even if we add, e.g., the number 4 twice, it will keep only one) that are not accessible by index. An unordered set (<code>unordered_set</code>) stores elements without an order (you could enter them like this: 1, 2, 3, and then receive 3, 1, 2).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
@@ -319,21 +315,21 @@ i <span class="sign">+=</span> 2<span class="sign">;</span>
 
 <span class="function">int</span> main()
 <span class="sign">{</span>	
-    <span class="function">set</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> integers <span class="sign">{</span>1, 2, 3, 4<span class="sign">};</span></span>
-    integers.<span class="command-c">insert</span>(1)<span class="sign">;</span>
-    integers.<span class="command-c">insert</span>(5)<span class="sign">;</span>
-    integers.<span class="command-c">erase</span>(2)<span class="sign">;</span>
+	<span class="function">set</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> integers <span class="sign">{</span>1, 2, 3, 4<span class="sign">};</span></span>
+	integers.<span class="command-c">insert</span>(1)<span class="sign">;</span>
+	integers.<span class="command-c">insert</span>(5)<span class="sign">;</span>
+	integers.<span class="command-c">erase</span>(2)<span class="sign">;</span>
 
-    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">:</span> integers)
-        <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> i <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	<span class="function">for</span>(<span class="function">int</span> i <span class="sign">:</span> integers)
+		<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> i <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 
-    <span class="function">return</span> 0<span class="sign">;</span>
+	<span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>                                          
                                     </code></pre>
 
                                     <h1>Maps</h1>
 
-                                    <p>Maps work on the key-value coding rule, which states that we can search for a key in the dictionary, and it will show us the value. Using the map keys, we can get to its values. In the example below, "C++" and "map" are keys, and "programming language" and "data structure" are values.</p>
+                                    <p>Maps work on the key-value coding rule, which states that searching for the key will give us the value. Using the map keys, we can get the assigned values. In the example below, "C++" and "map" are keys, and "programming language" and "data structure" are values.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
@@ -342,15 +338,15 @@ i <span class="sign">+=</span> 2<span class="sign">;</span>
 
 <span class="function">int</span> main()
 <span class="sign">{</span>	
-    <span class="function">map</span><span class="sign">&lt;</span><span class="function">string</span>, <span class="function">string</span><span class="sign">&gt;</span> x<span class="sign">;</span>
-    x.<span class="command-c">insert</span>(<span class="sign">{</span><span class="text">"C++"</span>, <span class="text">"programming language"</span><span class="sign">}</span>)<span class="sign">;</span>
-    x.<span class="command-c">insert</span>(<span class="sign">{</span><span class="text">"map"</span>, <span class="text">"data structure"</span><span class="sign">}</span>)<span class="sign">;</span>
-    x.<span class="command-c">erase</span>(<span class="text">"map"</span>)<span class="sign">;</span>
+	<span class="function">map</span><span class="sign">&lt;</span><span class="function">string</span>, <span class="function">string</span><span class="sign">&gt;</span> x<span class="sign">;</span>
+	x.<span class="command-c">insert</span>(<span class="sign">{</span><span class="text">"C++"</span>, <span class="text">"programming language"</span><span class="sign">}</span>)<span class="sign">;</span>
+	x.<span class="command-c">insert</span>(<span class="sign">{</span><span class="text">"map"</span>, <span class="text">"data structure"</span><span class="sign">}</span>)<span class="sign">;</span>
+	x.<span class="command-c">erase</span>(<span class="text">"map"</span>)<span class="sign">;</span>
 
-    <span class="function">for</span>(<span class="function">auto</span> i <span class="sign">:</span> x)
-        <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> i.<span class="command-c">first</span> <span class="sign">&lt;&lt;</span> <span class="text">" - "</span> <span class="sign">&lt;&lt;</span> i.<span class="command-c">second</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	<span class="function">for</span>(<span class="function">auto</span> i <span class="sign">:</span> x)
+		<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> i.<span class="command-c">first</span> <span class="sign">&lt;&lt;</span> <span class="text">" - "</span> <span class="sign">&lt;&lt;</span> i.<span class="command-c">second</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 
-    <span class="function">return</span> 0<span class="sign">;</span>
+	<span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>                                         
                                     </code></pre>
                                 </div>

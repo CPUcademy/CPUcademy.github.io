@@ -161,99 +161,86 @@
                                     <h5 class="m-0 font-weight-bold">Error handling</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h2>Obsługa błędów</h2>
+                                    <h2><code>try</code> and <code>except</code> blocks</h2>
 			
-									<p>Dzięki metodzie <code>try, except</code> możesz zapobiec wyskoczeniu błędu (definiując co ma się stać, jeśli coś pójdzie źle).</p>
+									<p>Using the <code>try</code> and <code>except</code> blocks, we can prevent errors by defining what should happen if something goes wrong.</p>
 
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									try:
-											x = int(input("Podaj liczbę: "))
-									except:
-											print("Wystąpił błąd!")
-											x = int(input("Spróbuj ponownie: "))
+<span class="function">try</span>:
+	x <span class="sign">=</span> <span class="command">int</span>(<span class="command">input</span>(<span class="text">"Enter a number: "</span>))
+<span class="function">except</span>:
+	<span class="command">print</span>(<span class="text">"Error"</span>)
+	x <span class="sign">=</span> <span class="command">int</span>(<span class="command">input</span>(<span class="text">"Try again: "</span>))
 									</code></pre>
 									
-									<p>Instrukcja <code>try, except</code> ma jeszcze trzeci, opcjonalny blok - <code>finally</code>.</p>
+									<p>We can add a third block - <code>finally</code>. It will execute regardless of what happens in <code>try</code> or <code>except</code>.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									try:
-											file = open("test.txt", "w", encoding="utf8")
-											file.write("tekst")
-									except:
-											print("Coś poszło nie tak!")
-									finally:
-											file.close()
+<span class="function">try</span>:
+	x <span class="sign">=</span> <span class="command">open</span>(<span class="text">"file.txt"</span>, <span class="text">"r"</span>, <span class="command">encoding</span> <span class="sign">=</span> <span class="text">"utf8"</span>)
+	file.<span class="command">write</span>(<span class="text">"text"</span>)
+<span class="function">except</span>:
+	<span class="command">print</span>(<span class="text">"Error"</span>)
+<span class="function">finally</span>:
+	x.<span class="command">close</span>()
 									</code></pre>
 
-									<p>Ten blok wykona się bez względu na to, czy wykona się <code>try</code>, czy <code>except</code>.</p>
+									<p>The <code>except</code> instruction reacts to every error the same unless we specify what type of error a given instruction may expect. This way, we can program different approaches for different errors (we can use many <code>except</code> instructions relating to one <code>try</code> block).</p>
+
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">try</span>:
+	x <span class="sign">=</span> <span class="command">open</span>(<span class="text">"file.txt"</span>, <span class="text">"r"</span>, <span class="command">encoding</span> <span class="sign">=</span> <span class="text">"utf8"</span>)
+	file.<span class="command">write</span>(<span class="text">"text"</span>)
+	x.<span class="command">close</span>()
+<span class="function">except IOError</span>:
+	<span class="command">print</span>(<span class="text">"Could not create the file."</span>)
+									</code></pre>
+
+									<h2>The <code>raise</code> keyword</h2>
 									
-									<h2>Słowo kluczowe <code>raise</code></h2>
-									
-									<p>To słowo kluczowe służy do wywołania konkretnego typu błędu.</p>
+									<p>The <code>raise</code> keyword is used to trigger a specific type of error.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									x = 0
-									if x == 0:
-											raise ZeroDivisionError("Nie można podzielić.")
+x <span class="sign">=</span> 0
+<span class="function">if</span> x <span class="sign">==</span> 0:
+	<span class="function">raise ZeroDivisionError</span>(<span class="text">"You can't divide by 0."</span>) <span class="comment"># it could be also: Exception, SyntaxError, OSError, etc.</span>
+									</code></pre>
+
+                                    								
+									<h2>The <code>assert</code> keyword</h2>
+									
+									<p>The <code>assert</code> keyword checks whether a given condition is <code>True</code>, and if not, throws an <code>AssertionError</code>.</p>
+
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+number <span class="sign">=</span> 5
+<span class="function">assert</span> number <span class="sign">&lt;</span> 0, <span class="text">"The number should be smaller than 0."</span>
 									</code></pre>
 									
-									<h2>Debugowanie - breakpoint</h2>
 									
-									<p>Jeśli wyskakuje nam błąd i nie umiemy go naprawić to zamiast <code>Run</code>, klikamy <code>Debug</code>. Po odpaleniu debuggera, jeśli wiemy, w której linijce jest błąd (ale nie wiemy jaki) to ustawiamy tam breakpoint. Ustawia się go, klikając w margines przy tej linii (breakpoint to czerwona kropka). Można go używać w różnego rodzaju edytorach, ale w Python IDLE nie.</p>
-
-									<p>Debugger zatrzymuje kod, żeby można było wykryć błąd (pokazuje zawartość zmiennych itd.). Aby posuwać się w kodzie klikamy F8 na klawiaturze lub naciskamy przycisk "Step Over" na ekranie (w edytorze PyCharm).</p>		
-
-									<h2>Biblioteka logging</h2>
+									<h2>Breakpoints - debugging</h2>
 									
-									<p>Biblioteka <code>logging</code> umożliwia wyświetlanie komunikatów na ekranie podczas działania programu. Patrząc na komunikaty, możemy wywnioskować kiedy coś się popsuło i to naprawić. Aby zatrzymać pojawianie się komunikatów, możemy zastosować komendę <code>logging.disable()</code>.</p>
+									<p>If we get an error and we can't fix it, instead of <code>Run</code>, we click <code>Debug</code>. After starting the debugger, we set breakpoints in the "key" moments that we want to analyze. We do that by clicking the margin next to the selected line (a breakpoint is a red dot). The debugger will pause the code on breakpoints so that we can analyze the error (it shows the contents of variables at the moment, etc.) To advance to the next breakpoint, we click F8 on the keyboard or press the "Step Over" button on the screen (in PyCharm). Breakpoints exist in various editors but not in Python IDLE. </p>		
+
+									<h2>The <code>logging</code> library</h2>
+									
+									<p>The <code>logging</code> library allows us to display messages that help us with the debugging process while the program is running. By looking at them, we can figure out what is wrong and fix it. It is different from using <code>print()</code> because after we're done, we can disable these commands (<code>logging.disable()</code>) and don't have to go through the code and delete them.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									import logging
-									logging.basicConfig(level=logging.DEBUG, format=" %(asctime)s - %(levelname)s - %(message)s")
-									logging.debug("Początek programu")
+<span class="command">import</span> logging
+logging.<span class="command">basicConfig</span>(level <span class="sign">=</span> logging.<span class="command">DEBUG</span>, format <span class="sign">=</span> <span class="text">" %(asctime)s - %(levelname)s - %(message)s"</span>)
+logging.<span class="command">debug</span>(<span class="text">"Start"</span>)
 
-									def silnia(n):
-											logging.debug("Początek wywołania funkcji silnia(%s%%)" % (n))
-											total = 1
-											for x in range(n+1): #Żeby naprawić ten program, tutaj piszemy "for x in range(1, n+1):".
-													total *= x
-													logging.debug("x wynosi" + str(x) + ", wartość całkowita wynosi " + str(total))
-											logging.debug("Koniec wywołania funkcji silnia(%s%%)" % (n))
-											return total
+<span class="function">def</span> factorial(n):
+	logging.<span class="command">debug</span>(<span class="text">"Start of factorial(%s%%)"</span> <span class="sign">%</span> (n))
+	total <span class="sign">=</span> 1
+	<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(n <span class="sign">+</span> 1): <span class="comment"># for the program to work, this line should look like this: "for x in range(1, n+1):"</span>
+		total <span class="sign">*=</span> x
+		logging.<span class="command">debug</span>(<span class="text">"x: "</span> <span class="sign">+</span> <span class="command">str</span>(x) <span class="sign">+</span> <span class="text">", the total value: "</span> <span class="sign">+</span> <span class="command">str</span>(total))
+	logging.<span class="command">debug</span>(<span class="text">"End of factorial(%s%%)"</span> <span class="sign">%</span> (n))
+	<span class="function">return</span> total
 
-									print(silnia(5))
-									logging.debug("Koniec programu")
-									</code></pre>
-								
-									<h2>Raise</h2>
-									
-									<p>Słowo kluczowe <code>raise</code> służy do zgłaszania błędów różnego typu.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									raise Exception("Błąd")
-									raise SyntaxError("Błąd")
-									raise OSError("Błąd")
-									#Jest jeszcze wiele innych rodzajów błędów, ale nie wypiszę ich wszystkich.
-									</code></pre>
-									
-									<p>Słowo kluczowe <code>assert</code> służy do debugowania. Pozwala na przetestowanie, czy postawiony warunek zwraca wartość <code>True</code>, a jeśli nie, to zgłasza <code>AssertionError</code>.</p>
-
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									liczba = 5
-									assert liczba &lt; 0, "liczba powinna być mniejsza niż 0"
-									</code></pre>
-									
-									<h2>IOError</h2>
-									
-									<p><code>IOError</code> sprawdza, czy wystąpił błąd przy zapisywaniu bądź wczytywaniu pliku.</p>
-
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									try:
-											file = open("test.txt", "w", encoding="utf8")
-											file.write("tekst")
-											file.close()
-									except IOError: #IO error
-											print("Nie można utworzyć pliku na dysku!")
+<span class="command">print</span>(factorial(5))
+logging.<span class="command">debug</span>(<span class="text">"End"</span>)
 									</code></pre>
                                 </div>
                             </div>

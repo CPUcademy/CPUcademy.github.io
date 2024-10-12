@@ -169,7 +169,7 @@
 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">&amp;</span>x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 									</code></pre>
 									
-									<p>A pointer is a variable containing an address (it is pointing to it). We create pointers by adding an asterisk before them. A variable <code>int *pointer;</code> points to an address of an <code>int</code> variable.</p>
+									<p>A pointer is a variable containing an address (it is pointing to it). We create pointers by adding an asterisk before a variable's name. A variable <code>int *pointer;</code> points to an address of an <code>int</code> variable.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> x <span class="sign">=</span> 10<span class="sign">;</span>
@@ -259,6 +259,76 @@ a[2] <span class="sign">=</span> 30<span class="sign">;</span>
 									</code></pre>
 									
 									<p>Remember that operations on pointers are much faster than on references.</p>
+
+									<h2>Functions</h2>
+									
+									<p>The main advantage of using references and pointers as function arguments is that we don't have to return anything. It is because a pointer argument already references a variable outside the function, and we change its value directly. The difference between these two is that while passing a reference, we pass the variable directly, which we then edit normally. On the other hand, while passing a pointer, we pass the address of the variable, whose value we have to access using the asterisk.</p>
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command-c">#include &lt;iostream&gt;</span>
+<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
+
+<span class="function">void</span> multiply1(<span class="function">int</span> <span class="sign">&amp;</span>x, <span class="function">int</span> n)
+<span class="sign">{</span>
+	x <span class="sign">*=</span> n<span class="sign">;</span>
+<span class="sign">}</span>
+
+<span class="function">void</span> multiply2(<span class="function">int</span> <span class="sign">*</span>x, <span class="function">int</span> n)
+<span class="sign">{</span>
+	<span class="sign">*</span>x <span class="sign">*=</span> n<span class="sign">;</span>
+<span class="sign">}</span>
+
+<span class="function">int</span> main()
+<span class="sign">{</span>
+	<span class="function">int</span> a <span class="sign">=</span> 10<span class="sign">;</span>
+	<span class="function">int</span> b <span class="sign">=</span> 10<span class="sign">;</span>
+	multiply1(a, 5)<span class="sign">;</span>
+	multiply2(<span class="sign">&amp;</span>b, 5)<span class="sign">;</span>
+	
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> a <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> b <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	
+	<span class="function">return</span> 0<span class="sign">;</span>
+<span class="sign">}</span>
+									</code></pre>
+
+                                    <p>In the example below, you can see the difference between a function that returns a pointer and the one that is a pointer. I will now consider the example below, where both functions are assigned to a variable and given a different variable as an argument. When we change the value of the variable to which the former function is assigned, the value of the variable we gave to it as an argument doesn't change. The pointer function, under the same circumstances, does change the value of this variable.</p>
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command-c">#include &lt;iostream&gt;</span>
+<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
+
+<span class="function">int</span> multiply(<span class="function">int</span> <span class="sign">*</span>x, <span class="function">int</span> n)
+<span class="sign">{</span>
+	<span class="sign">*</span>x <span class="sign">*=</span> n<span class="sign">;</span>
+	<span class="function">return</span> <span class="sign">*</span>x<span class="sign">;</span>
+<span class="sign">}</span>
+
+<span class="function">int</span> <span class="sign">*</span>multiply2(<span class="function">int</span> <span class="sign">*</span>x, <span class="function">int</span> n)
+<span class="sign">{</span>
+	<span class="sign">*</span>x <span class="sign">*=</span> n<span class="sign">;</span>
+	<span class="function">return</span> x<span class="sign">;</span>
+<span class="sign">}</span>
+
+<span class="function">int</span> main()
+<span class="sign">{</span>
+	<span class="function">int</span> c <span class="sign">=</span> 10<span class="sign">;</span>
+	<span class="function">int</span> d <span class="sign">=</span> multiply(<span class="sign">&amp;</span>c, 5)<span class="sign">;</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> c <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	d <span class="sign">=</span> 20<span class="sign">;</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> c <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> d <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+
+	<span class="function">int</span> e <span class="sign">=</span> 10<span class="sign">;</span>
+	<span class="function">int</span> <span class="sign">*</span>f <span class="sign">=</span> multiply2(<span class="sign">&amp;</span>e, 5)<span class="sign">;</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> e <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	<span class="sign">*</span>f <span class="sign">=</span> 20<span class="sign">;</span> <span class="comment">// it also changes the "e" variable</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> e <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>f <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	
+	<span class="function">return</span> 0<span class="sign">;</span>
+<span class="sign">}</span>
+									</code></pre>
                                 </div>
                             </div>
                         </div>

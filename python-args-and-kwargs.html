@@ -16,7 +16,7 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
 	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Template</title>
+	<title>*args and **kwargs</title>
 </head>
 
 <body id="page-top" style="background-color: #157267;">
@@ -158,14 +158,14 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Temp</h5>
+                                    <h5 class="m-0 font-weight-bold"><code>*args</code> and <code>**kwargs</code></h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>When we don't know the number of arguments we will give to a method, we can use <code>*args</code> and <code>**kwargs</code>. We can use them by putting <code>*</code> or <code>**</code> before the name of the argument (it can have any name).</p>
+                                    <p>When we don't know the number of arguments we will give to a method or a function, we can use <code>*args</code> and <code>**kwargs</code>. We do it by putting <code>*</code> or <code>**</code> before the name of an argument (it can have any name).</p>
 
 									<h2><code>*args</code></h2>
 									
-									<p><code>*args</code> - non-keyword arguments. A keyword argument is an argument that contains a key-value pair.</p>
+									<p><code>*args</code> - non-keyword (normal) arguments. A keyword argument is an argument that contains a key-value pair.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> function(<span class="sign">*</span>numbers):
@@ -194,7 +194,7 @@ function(name <span class="sign">=</span> <span class="text">"Liam"</span>, surn
 									
 									<h2><code>*args</code> and <code>**kwargs</code></h2>
 									
-									<p>While using <code>*args</code> and <code>**kwargs</code> combined with standard arguments, remember to use this order when writing them into the function: standard arguments, <code>*args</code>, <code>**kwargs</code>.</p>
+									<p>While using <code>*args</code> and <code>**kwargs</code> combined with standard arguments, remember to use this order: standard arguments, <code>*args</code>, <code>**kwargs</code>.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> function(argument1, argument2, <span class="sign">*</span>args, <span class="sign">**</span>kwargs):
@@ -210,14 +210,15 @@ function(1, 2, 3, 4, a <span class="sign">=</span> 5, b <span class="sign">=</sp
 									
 									<h2><code>*</code> and <code>**</code> symbols</h2>
 									
-									<p>A single asterisk can also be used to convert a list to a string in the <code>print()</code> command.</p>
+									<p>A single asterisk can also be used to convert a list to a string inside the <code>print()</code> command.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 list1 <span class="sign">=</span> [<span class="text">"one"</span>, 2]
 <span class="command">print</span>(<span class="sign">*</span>list1)
+<span class="command">print</span>(<span class="sign">*</span>list1, <span class="command">sep</span> <span class="sign">=</span> <span class="text">", "</span>) <span class="comment"># separating each element with a comma</span>
 									</code></pre>
 									
-									<p>Double asterisks can also be used to link dictionaries.</p>
+									<p>Two asterisks can also be used to link (merge) dictionaries.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 dict1 <span class="sign">=</span> {<span class="text">"one"</span>: 1}

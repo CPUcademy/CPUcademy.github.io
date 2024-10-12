@@ -161,11 +161,11 @@
                                     <h5 class="m-0 font-weight-bold">Basic libraries, modules, and pip</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>A library is a collection of related modules. To add a library, we use the <code>import</code> command, e.g., <code>import random</code>, but then we would have to write the name of the library before every command that comes from it. If we don't want to do this, instead of <code>import ...</code>, we can use the <code>from ... import *</code> command.</p>
+                                    <p>A library is a collection of related modules. To add a library, we use the <code>import</code> command, e.g., <code>import random</code>. However, we would have to write the library's name before every command that comes from it. If we don't want to do this, instead of <code>import ...</code>, we can use the <code>from ... import *</code> command.</p>
 							
 									<h2>The <code>random</code> library</h2>
 									
-									<p>The <code>random</code> library is used for generating random numbers. The numbers generated using this library are pseudorandom, which means they are drawn according to a certain pattern. The initial value used by the generator is called a seed. If we know the value of the seed, we can predict the rest of the numbers produced by the generator because for a given seed, the same numbers will always be generated (in the same order). The seed can be set with the <code>random.seed(value)</code> command.</p>
+									<p>The <code>random</code> library is used to generate random numbers. The numbers generated using this library are pseudorandom, which means they are drawn according to a certain pattern. The initial value used by the generator is called a seed. If we know the value of the seed, we can predict the rest of the numbers produced by the generator because, for a given seed, the same numbers will always be generated (in the same order). The seed can be set with the <code>random.seed(value)</code> command.</p>
 									
 									<p>Use the <code>import random</code> command at the beginning of every example.</p>
 									
@@ -182,7 +182,7 @@ x <span class="sign">=</span> random.<span class="command">randrange</span>(1, 1
 									</code></pre>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># Swaping the list's elements</span>
+<span class="comment"># Shuffling the list's elements</span>
 x <span class="sign">=</span> [<span class="text">"abc"</span>, <span class="text">"def"</span>, <span class="text">"ghi"</span>, 1, 2, 3, 1.1, 2.2, 3.3]
 random.<span class="command">shuffle</span>(x)
 <span class="command">print</span>(x)
@@ -195,14 +195,14 @@ x <span class="sign">=</span> [<span class="text">"abc"</span>, <span class="tex
 									</code></pre>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># Drawing float numbers (we determine the range in its arguments - start, stop)</span>
+<span class="comment"># Drawing float numbers (we determine the range in the arguments - start, stop)</span>
 x <span class="sign">=</span> random.<span class="command">uniform</span>(20, 60)
 <span class="command">print</span>(x)
 									</code></pre>
 									
 									<h3>Warning!</h3>
 									
-									<p>People starting to learn Python often get this error: <code>'random' has no attribute 'randint'</code>. What to do in that case? Find out from <a href="python-popular-problems-random-has-no-attribute-randint.html" target="_blank" class="link">here</a>.</p>
+									<p>People starting to learn Python often get this error: <code>'random' has no attribute 'randint'</code>. What to do in that case? Find out from <a href="python-popular-problems-random-has-no-attribute-randint.html" class="link">here</a>.</p>
 									
 									<h2>The <code>math</code> library</h2>
 
@@ -213,15 +213,15 @@ x <span class="sign">=</span> random.<span class="command">uniform</span>(20, 60
 x <span class="sign">=</span> 16
 y <span class="sign">=</span> [1, 2, 3, 4]
 
-<span class="command">print</span>(math.<span class="command">ceil</span>(x)) <span class="comment"># rounding a number up</span>
-<span class="command">print</span>(math.<span class="command">floor</span>(x)) <span class="comment"># rounding a number down</span>
-<span class="command">print</span>(math.<span class="command">fsum</span>(y)) <span class="comment"># adding up all the list items</span>
+<span class="command">print</span>(math.<span class="command">ceil</span>(x)) <span class="comment"># rounding up a number</span>
+<span class="command">print</span>(math.<span class="command">floor</span>(x)) <span class="comment"># rounding down a number</span>
+<span class="command">print</span>(math.<span class="command">fsum</span>(y)) <span class="comment"># adding up all the list's elements</span>
 <span class="command">print</span>(math.<span class="command">gcd</span>(4, 8)) <span class="comment"># calculating the Greatest Common Divisor</span>
 <span class="command">print</span>(math.<span class="command">sqrt</span>(x)) <span class="comment"># calculating the square root of a number</span>
-<span class="command">print</span>(math.<span class="command">pow</span>(x, 2)) <span class="comment"># raising to the power of 2</span>
+<span class="command">print</span>(math.<span class="command">pow</span>(x, 2)) <span class="comment"># raising a number to a given power</span>
 <span class="command">print</span>(math.<span class="command">isclose</span>(2, 4)) <span class="comment"># checking whether the given numbers are close to each other (in hundredths)</span>
-<span class="command">print</span>(math.<span class="command">log</span>(9, 3)) <span class="comment"># calculating the power to which 3 must be raised to get 9</span>
-<span class="command">print</span>(math.<span class="command">log2</span>(64)) <span class="comment"># calculating the power to which 2 must be raised to get 64</span>
+<span class="command">print</span>(math.<span class="command">log</span>(9, 3)) <span class="comment"># calculating the power to which "number 2" must be raised to get "number 1"</span>
+<span class="command">print</span>(math.<span class="command">log2</span>(64)) <span class="comment"># calculating the power to which 2 must be raised to get a given number</span>
 <span class="command">print</span>(math.<span class="command">pi</span>) <span class="comment"># printing the PI number</span>
 <span class="command">print</span>(math.<span class="command">e</span>) <span class="comment"># printing the E number</span>
 									</code></pre>
@@ -260,7 +260,7 @@ time <span class="sign">=</span> datetime.<span class="command">datetime.now</sp
 <span class="command">print</span>(time.year)
 									</code></pre>
 									
-									<p>If you wish to know more about these libraries, check out the <a href="python-time-and-datetime-extended.html" target="_blank" class="link">extended article</a>.</p>
+									<p>If you wish to know more about these libraries, check out the <a href="python-time-and-datetime-extended.html" class="link">extended article</a>.</p>
 
 									<h2>The <code>sys</code> and <code>os</code> libraries</h2>
 									
@@ -282,17 +282,13 @@ time <span class="sign">=</span> datetime.<span class="command">datetime.now</sp
 									
 									<h3>Warning!</h3>
 									
-									<p>When importing some libraries (e.g., <code>pygame</code>), the following error appears:</p>
-
-									<img class="img-fluid" src="img/courses/importerror.png" alt="Img">
-
-									<p>What to do in that case? Find out from <a href="python-popular-problems-no-module-named-pygame.html" target="_blank" class="link">here</a>.</p>
+									<p>When importing some libraries (e.g., <code>pygame</code>), the following error appears: <code>ModuleNotFoundError: No module named 'pygame'</code>. What to do in that case? Find out from <a href="python-popular-problems-no-module-named-pygame.html" class="link">here</a>.</p>
 									
 									<h2>Modules</h2>
 									
-									<p>Modules are simply <code>.py</code> files that we can create ourselves and then import into our program, just like libraries (because libraries are just <code>.py</code> files created by somebody else). </p>
+									<p>Modules are our <code>.py</code> files imported into our program, just like libraries (because libraries are <code>.py</code> files created by somebody else).</p>
 									
-									<p>If we want to execute a function only if it's ran from this file and not imported from an another file, we can use a conditional statement like shown below. It is commonly used to execute the main function of a program.</p>
+									<p>If we want to execute a function only if it's running from this file and is not imported from another file, we can use a conditional statement like shown below. It is commonly used to execute the main function of a program.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">if</span> __name__ <span class="sign">==</span> <span class="text">"__main__"</span>:
@@ -301,7 +297,7 @@ time <span class="sign">=</span> datetime.<span class="command">datetime.now</sp
 									
 									<h2>Pip</h2>
 									
-									<p>At this level, everyone has probably already encountered this command. It is the official and default package management system for the Python language environment, using a dedicated repository called Python Package Index or other remote and local repositories. The list of modules that can be downloaded with pip is available at the <a href="https://pypi.org/" target="_blank" class="link">pypi.org</a> website. The <code>pip</code> module can be found in this folder: <code>C:\Users\[username]\AppData\Local\Programs\Python\Python311\Scripts</code>. To use it, we can move to this location in the CMD console using the <code>cd</code> command. Then, we can execute, for example, the <code>pip install ...</code> command, which will install a library that is not installed by default. If we want to update a library, we have to type: <code>pip install --upgrade ...</code>. To update the <code>pip</code> itself, we would have to use this command: <code>python.exe -m pip install --upgrade pip</code>.</p>
+									<p>At this level, everyone has probably already encountered this command. It is the official and default package management system for the Python language environment, using a dedicated repository called Python Package Index or other remote and local repositories. The list of modules that can be downloaded with pip is available at the <a href="https://pypi.org/" target="_blank" class="link">pypi.org</a> website. The <code>pip</code> module can be found in this folder: <code>C:\Users\[username]\AppData\Local\Programs\Python\Python311\Scripts</code>. To use it, we must move to this location in the CMD console using the <code>cd</code> command. Then, we can execute, for example, the <code>pip install ...</code> command, which will install a library that is not installed by default. If we want to update a library, we have to type: <code>pip install --upgrade ...</code>. To update <code>pip</code> itself, we would have to use this command: <code>python.exe -m pip install --upgrade pip</code>.</p>
                                 </div>
                             </div>
                         </div>
