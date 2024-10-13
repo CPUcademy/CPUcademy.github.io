@@ -163,29 +163,24 @@
                                 <div class="card-body">
 									<h2>Files</h2>
 									
-									<p>Inside a project, we can create multiple files in which we write, e.g., separate functionalities. These files have the <code>.h</code> (header) extenstion.</p>
+									<p>Inside a project, we can create multiple files to write, e.g., separate functionalities. These files have the <code>.h</code> (header) extension.</p>
 									
 									<h4><code>library.h</code></h4>
 
-                                    <p>Thanks to the <code>#include "library.h"</code> line, everything you write inside the <code>library.h</code> file will be imported to the main file. If we have included the <code>&lt;iostream&gt;</code> library in the other file, we don't have to do it again because it will also be transferred here. The <code>#define Pi 3.14</code> line will define <code>Pi</code> as 3.14 globally.</p>
-									
-									<p>Thanks to the additional commands after the <code>#</code> signs (e.g., <code>#indef_LIBRARY</code>), there won't be an error when redefining variables. It could have occured, e.g, when importing the same file twice. It is a protection against including the same element a few times (normal libraries have this feature built-in).</p>
-									
-									<p><code>extern int y;</code> doesn't reserve any memory, but only hints that such a variable exists (it cannot be immediately defined). It is just a label statement.</p>
+                                    <p>The <code>#include "library.h"</code> line will import everything from <code>library.h</code> to this file. If we have included <code>&lt;iostream&gt;</code> in the other file, we don't have to do it again because it will also be transferred. Thanks to the additional commands after the <code>#</code> signs (e.g., <code>#indef_LIBRARY</code>), there won't be any errors when redefining variables. They protect against including the same element multiple times (normal libraries have this feature built-in).</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="command-c">#ifndef</span> _LIBRARY <span class="comment">// this name has to be the same as the file</span>
+<span class="command-c">#ifndef</span> _LIBRARY <span class="comment">// this name has to be the same as the file name</span>
 <span class="command-c">#define</span> _LIBRARY 1
 
 <span class="function">int</span> x <span class="sign">=</span> 10<span class="sign">;</span>
-<span class="function">extern int</span> y<span class="sign">;</span>
 
 <span class="function">void</span> display()
 <span class="sign">{</span>
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x<span class="sign">;</span>
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="command-c">#endif</span>
@@ -195,16 +190,17 @@
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include "library.h"</span>
-<span class="command-c">#define Pi 3.14</span>
 
 <span class="function">int</span> main(<span class="function">int</span> argc, <span class="function">char</span> <span class="sign">*</span>argv[]) 
 <span class="sign">{</span>
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> Pi <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-	
 	display()<span class="sign">;</span>
-	<span class="function">int</span> a <span class="sign">=</span> 5<span class="sign">;</span> <span class="comment">// zdefiniowanie zmiennej "a" z library.h</span>
-	
+    
+	x <span class="sign">=</span> 1<span class="sign">;</span>
+    
+	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+	display()<span class="sign">;</span>
+
 	<span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
 									</code></pre>
@@ -248,15 +244,15 @@
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment">// Ending the program</span>
-<span class="command-c"></span>exit</span>(0)<span class="sign">;</span>
-<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> "This won't be displayed." <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+<span class="command-c">exit</span>(0)<span class="sign">;</span>
+<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"This won't be displayed."</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
                                     </code></pre>
                                     
                                     <h4><code>Sleep()</code> - the <code>&lt;windows.h&gt;</code> library</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment">// Stopping the program for a time specified in miliseconds</span>
-<span class="command-c"></span>Sleep</span>(1000)<span class="sign">;</span>
+<span class="command-c">Sleep</span>(1000)<span class="sign">;</span>
                                     </code></pre> 
                                     
                                     
@@ -264,11 +260,9 @@
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment">// Clearing the console</span>
-<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> "This won't be displayed." <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-<span class="command-c"></span>system</span>(<span class="text">"cls"</span>)<span class="sign">;</span>
-                                    </code></pre> 
-
-                                    Komputer Świat Książka
+<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"This won't be displayed."</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+<span class="command-c">system</span>(<span class="text">"cls"</span>)<span class="sign">;</span>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
