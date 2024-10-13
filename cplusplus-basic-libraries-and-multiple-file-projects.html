@@ -158,57 +158,16 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Basic libraries, projects, and files</h5>
+                                    <h5 class="m-0 font-weight-bold">Basic libraries and multiple file projects</h5>
                                 </div>
                                 <div class="card-body">
-									windows.h pozwala na użycie Sleep(1000);, a cstdlib na system("cls");
-									funkcja strlen(tab); zwróci nam niefaktyczną ilość znaków (bez \0)
-									
-									exit(0); // from &lt;cstdlib&gt;
-									stoi means str to int - instead we could write atoi(x.c_str()), but it is an older command (atoi is also from &lt;cstdlib&gt;)
-                                    length
-                                    toupper i tolower tylko dla char'ów (zamieniają one na liczby z tablicy ASCII)
-                                    abs() - cmath
-                                    sqrt() - cmath
-									
-									x = getch(); // it downloads the input immediately (you don't have to confirm it with enter), so it can download only one sign (it is from the &lt;conio.h&gt; library)
-									while(getch() != 13); // 13 = ENTER in ASCII (nothing will happen until the user enters an enter)
-									
-									https://www.algorytm.edu.pl/biblioteki/algorithm/sort.html
-									
-									<h2>Projects</h2>
-									
-									<p>We can run a <code>.cpp</code> file from CMD. To achieve this, we give two arguments to the <code>main()</code> function: <code>int argc</code>, <code>char *argv[]</code>. To run such a file, we type its name and the arguments (e.g., <code>program a b c</code>) in CMD. <code>argc</code> is an argument counter (its minimal value is 1), and <code>argv</code> stands for argument vector.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command-c">#include &lt;iostream&gt;</span>
-<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
-
-<span class="function">int</span> main(<span class="function">int</span> argc, <span class="function">char</span> <span class="sign">*</span>argv[]) <span class="comment">// the second argument can also be written as "char** argv"</span>
-<span class="sign">{</span>
-	<span class="function">char</span> arg[] <span class="sign">= {</span><span class="text">'a'</span>, <span class="text">'b'</span>, <span class="text">'c'</span><span class="sign">};</span>
-	<span class="function">char</span> <span class="sign">*</span>arg2 <span class="sign">=</span> <span class="text">"string"</span><span class="sign">;</span> <span class="comment">// a pointer to a string</span>
-	<span class="function">char</span> <span class="sign">*</span>arg3[] <span class="sign">= {</span><span class="text">"string 1"</span>, <span class="text">"string 2"</span>, <span class="text">"string 3"</span><span class="sign">};</span> <span class="comment">// an array of strings</span>
-	<span class="function">string</span> text <span class="sign">=</span> arg3[0]<span class="sign">;</span>	
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> text <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-	
-	<span class="function">while</span>(argc<span class="sign">--</span>) <span class="comment">// displaying all given arguments</span>
-	<span class="sign">{</span>
-		text <span class="sign">=</span> <span class="sign">*</span>argv<span class="sign">;</span>
-		<span class="function">if</span>(text <span class="sign">==</span> <span class="text">"aa"</span>)
-			<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Hello"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-		<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>argv<span class="sign">++</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-	<span class="sign">}</span>
-	
-	<span class="function">return</span> 0<span class="sign">;</span>
-<span class="sign">}</span>
-									</code></pre>
-									
 									<h2>Files</h2>
 									
-									<p>Inside a project, we can create multiple files in which we write, e.g., separate functionalities. These files have the <code>.h</code> (header) extenstion. Thanks to the <code>#include "library.h"</code> line, everything you write inside the <code>library.h</code> file will be imported to the main file. If we have included the <code>&lt;iostream&gt;</code> library in the other file, we don't have to do it twice because it will also be transferred here. The <code>#define Pi 3.14</code> line will define <code>Pi</code> as 3.14 globally.</p>
+									<p>Inside a project, we can create multiple files in which we write, e.g., separate functionalities. These files have the <code>.h</code> (header) extenstion.</p>
 									
 									<h4><code>library.h</code></h4>
+
+                                    <p>Thanks to the <code>#include "library.h"</code> line, everything you write inside the <code>library.h</code> file will be imported to the main file. If we have included the <code>&lt;iostream&gt;</code> library in the other file, we don't have to do it again because it will also be transferred here. The <code>#define Pi 3.14</code> line will define <code>Pi</code> as 3.14 globally.</p>
 									
 									<p>Thanks to the additional commands after the <code>#</code> signs (e.g., <code>#indef_LIBRARY</code>), there won't be an error when redefining variables. It could have occured, e.g, when importing the same file twice. It is a protection against including the same element a few times (normal libraries have this feature built-in).</p>
 									
@@ -249,6 +208,67 @@
 	<span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
 									</code></pre>
+                                    
+                                    <h2>Useful commands</h2>
+
+                                    <h4><code>stoi()</code></h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">// String to int</span>
+<span class="function">string</span> x <span class="sign">=</span> <span class="text">"1"</span><span class="sign">;</span>
+<span class="function">int</span> y <span class="sign">=</span> <span class="command-c">stoi</span>(x)<span class="sign">;</span>
+<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> y <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+                                    </code></pre>   
+
+                                    <h4><code>length()</code></h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">// Length of a string</span>
+<span class="function">string</span> x <span class="sign">=</span> <span class="text">"abcd"</span><span class="sign">;</span>
+<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x.<span class="command-c">length</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+                                    </code></pre> 
+
+                                    <h4><code>abs()</code> - the <code>&lt;cmath&gt;</code> library</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">// An absolute value of a number</span>
+<span class="function">int</span> x <span class="sign">= -</span>4<span class="sign">;</span>
+<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="command-c">abs</span>(x) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+                                    </code></pre> 
+
+                                    <h4><code>sqrt()</code> - the <code>&lt;cmath&gt;</code> library</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">// The square root of a number</span>
+<span class="function">int</span> x <span class="sign">=</span> 4<span class="sign">;</span>
+<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="command-c">sqrt</span>(x) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+                                    </code></pre> 
+
+                                    <h4><code>exit()</code> - the <code>&lt;cstdlib&gt;</code> library</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">// Ending the program</span>
+<span class="command-c"></span>exit</span>(0)<span class="sign">;</span>
+<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> "This won't be displayed." <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+                                    </code></pre>
+                                    
+                                    <h4><code>Sleep()</code> - the <code>&lt;windows.h&gt;</code> library</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">// Stopping the program for a time specified in miliseconds</span>
+<span class="command-c"></span>Sleep</span>(1000)<span class="sign">;</span>
+                                    </code></pre> 
+                                    
+                                    
+                                    <h4><code>system("cls")</code> - the <code>&lt;cstdlib&gt;</code> library</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">// Clearing the console</span>
+<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> "This won't be displayed." <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+<span class="command-c"></span>system</span>(<span class="text">"cls"</span>)<span class="sign">;</span>
+                                    </code></pre> 
+
+                                    Komputer Świat Książka
                                 </div>
                             </div>
                         </div>
