@@ -161,7 +161,9 @@
                                     <h5 class="m-0 font-weight-bold">Interfaces and sorting</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Interfaces are classes in which, by default, all fields are <code>public</code>, <code>static</code>, and <code>final</code>, and methods are <code>public</code> and <code>abstract</code>. A class can't inherit from many classes, but can inherit from many interfaces. The <code>Arrays</code> library (a class that can be imported) allows us to sort arrays, but to sort an array of our objects, we also need to overwrite the "compareTo" method from the <code>Collections</code> library. In this method, I wrote some simple conditional statements that check the values of salaries from different instances of our class and compare them.</p>
+                                    <p>Interfaces are classes in which, by default, all fields are <code>public</code>, <code>static</code>, and <code>final</code>, and methods are <code>public</code> and <code>abstract</code>. A class can't inherit from many classes but can inherit from many interfaces. It is mandatory to implement (overwrite) all of the interface's methods.</p>
+                                        
+                                    <p>The <code>Arrays</code> library (a class that can be imported) allows us to sort arrays, but to sort an array of our objects, we need to overload the <code>compareTo()</code> method from the <code>Collections</code> library.</p>
 			
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.util.Arrays<span class="sign">;</span>
@@ -180,7 +182,7 @@
 		worker[0] <span class="sign">=</span> <span class="function">new Worker</span>(4000)<span class="sign">;</span>
 		worker[1] <span class="sign">=</span> <span class="function">new Worker</span>(10000)<span class="sign">;</span>
 		worker[2] <span class="sign">=</span> <span class="function">new Worker</span>(2000)<span class="sign">;</span>
-		<span class="function">Arrays</span>.<span class="command">sort</span>(worker, <span class="function">Collections</span>.<span class="command">reverseOrder</span>())<span class="sign">;</span> <span class="comment">// we can omit the second argument</span>
+		<span class="function">Arrays</span>.<span class="command">sort</span>(worker, <span class="function">Collections</span>.<span class="command">reverseOrder</span>())<span class="sign">;</span> <span class="comment">// the second argument is not mandatory</span>
 		<span class="function">for</span>(<span class="function">Worker</span> w<span class="sign">:</span> worker)
 			System.<span class="command">out</span>.<span class="command">println</span>(w.getSalary())<span class="sign">;</span>
 	<span class="sign">}</span>
