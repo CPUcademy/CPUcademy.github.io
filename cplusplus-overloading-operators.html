@@ -161,7 +161,7 @@
                                     <h5 class="m-0 font-weight-bold">Overloading operators</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Overloading operators means overwriting the operator's functionalities so it can work, e.g., with our class's objects. Remember that, we cannot simply display our objects with the <code>cout</code> command because the <code>&lt;&lt;</code> operators are not defined for this type of object (we have to use a special method). The example below shows how to overload the <code>==</code> operator, so that it could compare our objects.</p>
+                                    <p>Overloading operators means overwriting the operator's functionalities so it can work with, e.g., our class's objects. Remember that we cannot simply display our objects with <code>cout</code> because the <code>&lt;&lt;</code> operator is not defined for them. To display our objects, we would have to overload this operator. The example below shows how to overload the <code>==</code> operator so it can compare our objects.</p>
 			
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
@@ -177,6 +177,7 @@
 			<span class="function">this</span> <span class="sign">-&gt;</span> y <span class="sign">=</span> y<span class="sign">;</span>
 		<span class="sign">}</span>
 		<span class="sign">~</span><span class="function">Comparison</span>()<span class="sign">{}</span>
+        
 		<span class="function">int</span> <span class="function">operator</span><span class="sign">==</span>(<span class="function">Comparison</span> obj)
 		<span class="sign">{</span>
 			<span class="function">if</span>(<span class="function">this</span> <span class="sign">-&gt;</span> x <span class="sign">==</span> x <span class="sign">&amp;&amp;</span> <span class="function">this</span> <span class="sign">-&gt;</span> y <span class="sign">==</span> y)

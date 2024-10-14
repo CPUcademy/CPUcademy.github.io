@@ -161,7 +161,7 @@
                                     <h5 class="m-0 font-weight-bold">Dunder methods and overloading operators</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>A special method is, e.g., <code>__init__()</code> (initialization). These methods are called dunder (double underscore). Some serve overloading operators, and other ones allow us to use Python's built-in functions.</p>
+                                    <p><code>__init__()</code> (initialization) is an example of a special method. These methods are called dunder (double underscore). Some overload operators and others allow us to use Python's built-in functions.</p>
 
 									<h2>The most important dunder methods</h2>
 									
@@ -184,7 +184,7 @@ result <span class="sign">=</span> add(10)
 									
 									<h4><code>__str__()</code> (string)</h4>
 									
-									<p>It returns a string representation of an object (now we can display our object with <code>print()</code>).</p>
+									<p>It defines what will be displayed if our object is used in the <code>print()</code> command.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Point:
@@ -201,7 +201,7 @@ point <span class="sign">=</span> <span class="function">Point</span>(1, 2)
 									
 									<h4><code>__repr__()</code> (representation)</h4>
 									
-									<p>It returns a string representation of an object in a version for developers.</p>
+									<p>It is a version of the <code>__str__()</code> method designated for displaying more technical data.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Point:
@@ -218,25 +218,25 @@ point <span class="sign">=</span> <span class="function">Point</span>(1, 2)
 									
 									<h2>Overloading operators</h2>
 									
-									<p>Overloading operators means overwriting the operator's functionalities so it can work, e.g., with our class's objects. Remember that, we cannot simply display our objects with the <code>print()</code> command because it is not defined for this type of object (we have to use a special method). We can overload operators thanks to dunder methods, e.g., the ones listed below:</p>
+									<p>Overloading operators means overwriting the operator's functionalities so it can work with, e.g., our class's objects. In Python, we cannot overload operators directly as we do in languages like C++ (e.g., <code>==</code>, <code>&lt;&lt;</code>). Here, we overwrite methods corresponding to the operators (e.g., <code>__eq__()</code> equals <code>==</code>). We can overload operators thanks to the dunder methods listed below:</p>
 
-									<p><code>__add__</code> - addition</p>
-									<p><code>__sub__</code> - subtraction</p>
-									<p><code>__mul__</code> - multiplication</p>
-									<p><code>__truediv__</code> - division</p>
-									<p><code>__floordiv__</code> - floor division (integer division)</p>
-									<p><code>__mod__</code> - modulo division</p>
-									<p><code>__pow__</code> - exponentiation</p>
-									<p><code>__eq__</code> - equal to (<code>==</code>)</p>
-									<p><code>__ne__</code> - not equal to (<code>!=</code>)</p>
-									<p><code>__gt__</code> - greater than (<code>&gt;</code>)</p>
-									<p><code>__lt__</code> - lesser than (<code>&lt;</code>)</p>
-									<p><code>__ge__</code> - greater than or equal to (<code>&gt;=</code>)</p>
+									<p class="podpis"><code>__add__</code> - addition</p>
+									<p class="podpis"><code>__sub__</code> - subtraction</p>
+									<p class="podpis"><code>__mul__</code> - multiplication</p>
+									<p class="podpis"><code>__truediv__</code> - division</p>
+									<p class="podpis"><code>__floordiv__</code> - floor division (integer division)</p>
+									<p class="podpis"><code>__mod__</code> - modulo division</p>
+									<p class="podpis"><code>__pow__</code> - exponentiation</p>
+									<p class="podpis"><code>__eq__</code> - equal to (<code>==</code>)</p>
+									<p class="podpis"><code>__ne__</code> - not equal to (<code>!=</code>)</p>
+									<p class="podpis"><code>__gt__</code> - greater than (<code>&gt;</code>)</p>
+									<p class="podpis"><code>__lt__</code> - lesser than (<code>&lt;</code>)</p>
+									<p class="podpis"><code>__ge__</code> - greater than or equal to (<code>&gt;=</code>)</p>
 									<p><code>__le__</code> - lesser than or equal to (<code>&lt;=</code>)</p>
 									
 									<h4><code>__eq__()</code> (equal to)</h4>
 									
-									<p>It defines the behaviour of equality comparison between objects (now we can compare our classes by values and not id addresses).</p>
+									<p>It defines the behavior of equality comparison between our objects (now we can compare our classes by chosen values and not ID addresses).</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Point:
