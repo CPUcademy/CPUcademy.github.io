@@ -97,7 +97,7 @@
                                     <h5 class="m-0 font-weight-bold">Nested classes</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>We can put classes in each other. The main reason for doing so is to make the code more readable.</p>
+                                    <p>We can put classes in each other. This solution is used for logically grouping related classes, enhancing encapsulation by restricting visibility to the outer class, and improving code organization. Inner classes have access to the outer class's objects.</p>
 			
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> BankAccount:
@@ -111,7 +111,7 @@
 		<span class="function">self</span>.interest <span class="sign">=</span> <span class="function">self</span>.<span class="function">Interest</span>(interestRate)
 
 	<span class="function">class</span> Interest: <span class="comment"># nested / inner class</span>
-		<span class="function"> def __init__</span>(<span class="function">self</span>, interestRate):
+		<span class="function">def __init__</span>(<span class="function">self</span>, interestRate):
 			<span class="function">self</span>.interestRate <span class="sign">=</span> interestRate
 			bankacc.balance <span class="sign">+=</span> (bankacc.balance <span class="sign">*</span> <span class="function">self</span>.interestRate) <span class="sign">/</span> 100
 
