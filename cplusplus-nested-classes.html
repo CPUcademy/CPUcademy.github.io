@@ -97,7 +97,7 @@
                                     <h5 class="m-0 font-weight-bold">Nested classes</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>We can put classes in each other. This solution is used for logically grouping related classes, enhancing encapsulation by restricting visibility to the outer class, and improving code organization. Inner classes have access to the outer class's objects.</p>
+                                    <p>We can put classes in each other. This solution is used for logically grouping related classes, enhancing encapsulation by restricting visibility to the outer class, and improving code organization. Inner classes have access to the outer class's objects. The example below perfectly represents all three applications of nested classes.</p>
 			
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
@@ -105,24 +105,23 @@
 
 <span class="function">class</span> BankAccount
 <span class="sign">{</span>
+	<span class="function">double</span> balance<span class="sign">;</span> <span class="comment">// private attribute</span>
 	<span class="function">public</span><span class="sign">:</span>
 		<span class="function">BankAccount</span>(<span class="function">double</span> balance)<span class="sign">{</span>this</span> <span class="sign">-&gt;</span> balance <span class="sign">=</span> balance<span class="sign">;}</span>
 		<span class="sign">~</span><span class="function">BankAccount</span>()<span class="sign">{}</span>
+
 		<span class="function">double</span> getBalance()<span class="sign">{</span><span class="function">return</span> balance<span class="sign">;}</span>
-		<span class="function">double</span> balance<span class="sign">;</span>
-		<span class="function">void</span> start(<span class="function">double</span> interestRate)
+		<span class="function">void</span> updateBalance(<span class="function">double</span> amount)<span class="sign">{</span>balance <span class="sign">+=</span> amount<span class="sign">;</span><span class="sign">}</span>
+		<span class="function">void</span> start(<span class="function">double</span> interestRate)<span class="sign">{</span><span class="function">Interest</span> interest(interestRate, <span class="sign">*</span><span class="function">this</span>)<span class="sign">;}</span>
+
+		<span class="function">class</span> Interest <span class="comment">// nested / inner class</span>
 		<span class="sign">{</span>
-			<span class="function">Interest</span> interest(interestRate, <span class="sign">*</span><span class="function">this</span>)<span class="sign">;</span>
-		<span class="sign">}</span>
-		
-		<span class="function">class</span> Interest
-		<span class="sign">{</span>
-			<span class="function">double</span> interestRate<span class="sign">;</span>
+			<span class="function">double</span> interestRate<span class="sign">;</span> <span class="comment">// private attribute</span>
 			<span class="function">public</span><span class="sign">:</span>
-				<span class="function">Interest</span>(<span class="function">double</span> interestRate, <span class="function">BankAccount</span><span class="sign">&amp;</span> account) <span class="comment">// we have to give the class as an argument to be able to edit its objects</span>
+				<span class="function">Interest</span>(<span class="function">double</span> interestRate, <span class="function">BankAccount</span><span class="sign">&amp;</span> account) <span class="comment">// we have to give a reference to the class as an argument to be able to edit its objects</span>
 				<span class="sign">{</span>
 					<span class="function">this</span> <span class="sign">-&gt;</span> interestRate <span class="sign">=</span> interestRate<span class="sign">;</span>
-					account.balance <span class="sign">+=</span> (account.balance <span class="sign">*</span> interestRate) <span class="sign">/</span> 100<span class="sign">;</span>
+					account.updateBalance((account.getBalance() <span class="sign">*</span> interestRate) <span class="sign">/</span> 100)<span class="sign">;</span>
 				<span class="sign">}</span>
 				<span class="sign">~</span><span class="function">Interest</span>()<span class="sign">{}</span>
 		<span class="sign">};</span>
