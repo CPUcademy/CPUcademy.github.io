@@ -5,59 +5,60 @@ const polishTextE = "Aliquam dictum ipsum in dui convallis hendrerit. Proin vita
 
 const englishFlag = "files/englishFlag.png";
 const polishFlag = "files/polishFlag.png";
-textElement = document.getElementById('cv');
-if(window.location.pathname.endsWith('cv.html'))
+if(window.location.pathname.endsWith('index.html') || (window.location.pathname.endsWith('cv.html')))
 {
-  textElement.innerHTML = englishTextE;
-}
-else
-{
-  textElement.innerHTML = englishText;
-}
+  textElement = document.getElementById('cv');
+  if(window.location.pathname.endsWith('cv.html'))
+  {
+    textElement.innerHTML = englishTextE;
+  }
+  else
+  {
+    textElement.innerHTML = englishText;
+  }
 
-function language(additional) 
-{
-    if(additional)
-    {
-      text1 = document.getElementById('importantlinks');
-      text2 = document.getElementById('services');
-      text3 = document.getElementById('donations');
-    }
-    imgElement = document.querySelector('#flag');
-
-    if (textElement.innerHTML === englishText || textElement.innerHTML === englishTextE) {
+  function language(additional) 
+  {
       if(additional)
       {
-        textElement.innerHTML = polishText
-        text1.innerHTML = "Ważne odnośniki"
-        text2.innerHTML = "Moje usługi"
-        text3.innerHTML = "Darowizny na rozwój moich bezpłatnych kursów"
+        text1 = document.getElementById('importantlinks');
+        text2 = document.getElementById('services');
+        text3 = document.getElementById('donations');
       }
-      else
-      {
-        textElement.innerHTML = polishTextE
+      imgElement = document.querySelector('#flag');
+
+      if (textElement.innerHTML === englishText || textElement.innerHTML === englishTextE) {
+        if(additional)
+        {
+          textElement.innerHTML = polishText
+          text1.innerHTML = "Ważne odnośniki"
+          text2.innerHTML = "Moje usługi"
+          text3.innerHTML = "Darowizny na rozwój moich bezpłatnych kursów"
+        }
+        else
+        {
+          textElement.innerHTML = polishTextE
+        }
+      } else {
+        if(additional)
+        {
+          textElement.innerHTML = englishText
+          text1.innerHTML = "Important links"
+          text2.innerHTML = "My services"
+          text3.innerHTML = "Donations for the development of my free courses"
+        }
+        else
+        {
+          textElement.innerHTML = englishTextE
+        }
       }
-    } else {
-      if(additional)
-      {
-        textElement.innerHTML = englishText
-        text1.innerHTML = "Important links"
-        text2.innerHTML = "My services"
-        text3.innerHTML = "Donations for the development of my free courses"
+      if (imgElement.src.includes(polishFlag)) {
+        imgElement.src = englishFlag;
+      } else {
+        imgElement.src = polishFlag;
       }
-      else
-      {
-        textElement.innerHTML = englishTextE
-      }
-    }
-    if (imgElement.src.includes(polishFlag)) {
-      imgElement.src = englishFlag;
-    } else {
-      imgElement.src = polishFlag;
-    }
+  }
 }
-
-
 
 /*!
  * This message applies to the code below.
