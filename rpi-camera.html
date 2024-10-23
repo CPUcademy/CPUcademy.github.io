@@ -85,7 +85,28 @@
                                     <h5 class="m-0 font-weight-bold">The RPi camera</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Text</p>
+                                    sudo raspi-config / “Interface Options” / “Legacy Camera” - enabling the camera in the Raspberry Pi Terminal
+                                    Type these commands into the CMD:
+                                    - ssh [username]@[ip_of_the_pi] + enter your password
+                                    - sudo nano /boot/config.txt - uncomment in this file by deleting the # sign: 
+                                    a) #hdmi_force_hotplug=1
+                                    b) #hdmi_group=1
+                                    c) #hdmi_mode=1 (change it to hdmi_mode=16)
+                                    Comment this line (by adding the # sign): dtoverlay=vc4-fkms-v3d
+                                    Save and exit the file.
+                                    - sudo reboot
+
+                                    When you are back in the VNC, type raspistill into the Terminal. If there is no error, it means that you have successfully installed the camera module. It should show you the "help" list of this command.
+                                    Using the Camera from the Raspberry Pi Terminal
+                                    - mkdir camera (creating a folder)
+                                    Images
+                                    raspistill -o camera/img.jpg (o - output) - taking a picture
+                                    Raspistill arguments (we add them after the path):
+                                    rot 180 - rotating the image by 180 degrees (you may have the camera upside down).
+                                    -w 1280 -h 720 - setting a lower quality to save memory.
+                                    Videos
+                                    raspivid -o camera/video.h264 -rot 180 -w 720 -h 480 (.h264 is a video format)
+                                    Raspivid, by default, will make a video for 5 seconds. To change that time, we use this argument: -t 7000 (the time is in milliseconds).
                                 </div>
                             </div>
                         </div>
