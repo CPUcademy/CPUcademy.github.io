@@ -85,28 +85,37 @@
                                     <h5 class="m-0 font-weight-bold">The RPi camera</h5>
                                 </div>
                                 <div class="card-body">
-                                    sudo raspi-config / “Interface Options” / “Legacy Camera” - enabling the camera in the Raspberry Pi Terminal
-                                    Type these commands into the CMD:
-                                    - ssh [username]@[ip_of_the_pi] + enter your password
-                                    - sudo nano /boot/config.txt - uncomment in this file by deleting the # sign: 
-                                    a) #hdmi_force_hotplug=1
-                                    b) #hdmi_group=1
-                                    c) #hdmi_mode=1 (change it to hdmi_mode=16)
-                                    Comment this line (by adding the # sign): dtoverlay=vc4-fkms-v3d
-                                    Save and exit the file.
-                                    - sudo reboot
+                                    <p class="podpis"><code>sudo raspi-config / Interface Options / Legacy Camera</code> - enabling the camera in the Raspberry Pi terminal.</p>
+                                    <p class="podpis">Type these commands into the CMD:</p>
+                                    <ol>
+                                        <li class="podpis"><code>ssh [username]@[ip_of_the_pi]</code> + enter your password.</li>
+                                        <li class="podpis"><code>sudo nano /boot/config.txt</code> - uncomment in this file by deleting the <code>#</code> sign:</li>
+                                        <ul type="disc">
+                                            <li class="podpis"><code>#hdmi_force_hotplug=1</code></li>
+                                            <li class="podpis"><code>#hdmi_group=1</code></li>
+                                            <li class="podpis"><code>#hdmi_mode=1</code> (change it to <code>hdmi_mode=16</code>)</li>
+                                        </ul>
+                                        <li class="podpis"><code>dtoverlay=vc4-fkms-v3d</code> - comment this line by adding the <code>#</code> sign.</li>
+                                        <li class="podpis">Save and exit the file.</li>
+                                        <li><code>sudo reboot</code></li>
+                                    </ol>
 
-                                    When you are back in the VNC, type raspistill into the Terminal. If there is no error, it means that you have successfully installed the camera module. It should show you the "help" list of this command.
-                                    Using the Camera from the Raspberry Pi Terminal
-                                    - mkdir camera (creating a folder)
-                                    Images
-                                    raspistill -o camera/img.jpg (o - output) - taking a picture
-                                    Raspistill arguments (we add them after the path):
-                                    rot 180 - rotating the image by 180 degrees (you may have the camera upside down).
-                                    -w 1280 -h 720 - setting a lower quality to save memory.
-                                    Videos
-                                    raspivid -o camera/video.h264 -rot 180 -w 720 -h 480 (.h264 is a video format)
-                                    Raspivid, by default, will make a video for 5 seconds. To change that time, we use this argument: -t 7000 (the time is in milliseconds).
+                                    <p>When you are back in the VNC, type <code>raspistill</code> into the terminal. If there is no error, it means that you have successfully installed the camera module. It should show you the "help" list of this command.</p>
+
+                                    <img src="files/courses/rpi-camera.png" alt="Img" class="img-fluid">
+
+                                    <h2 style="margin-top: 20px;">Using the camera from the Raspberry Pi terminal</h2>
+                                    <p><code>mkdir camera</code> (creating a "camera" folder)</p>
+
+                                    <h3>Images</h3>
+                                    <p class="podpis"><code>raspistill -o camera/img.jpg</code> (o - output) - taking a picture</p>
+                                    <p class="podpis"><code>raspistill</code> arguments (we add them after the path):</p>
+                                    <p class="podpis"><code>rot 180</code> - rotating the image by 180 degrees (you could have the camera upside down).</p>
+                                    <p><code>-w 1280 -h 720</code> - setting a lower resolution to save memory.</p>
+
+                                    <h3>Videos</h3>
+                                    <p class="podpis"><code>raspivid -o camera/video.h264 -rot 180 -w 720 -h 480</code> (<code>.h264</code> is a video format).</p>
+                                    <p><code>raspivid</code>, by default, will record for 5 seconds. To change that time, we can use this argument: <code>-t 7000</code> (the time is in milliseconds).</p>
                                 </div>
                             </div>
                         </div>
