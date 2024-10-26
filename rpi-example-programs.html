@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. This website is a personal portfolio and was created by one person.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
+	<title>Example programs</title>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+			
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+	
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Kotlin (Android)</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics.html">Electronics</a>
+                        <a class="collapse-item" href="it-and-computer-basics.html">IT &amp; computer basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">About me</div>
+			
+            <li class="nav-item">
+                <a class="nav-link" href="cv.html">
+                    <i class="icon-adult"></i>
+                    <span>CV</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="services.html">
+                    <i class="icon-services"></i>
+                    <span>My services</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Exmaple programs</h5>
+                                </div>
+                                <div class="card-body">
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+# Powering on a LED
+
+import RPi.GPIO as gpio
+import time
+led_pin = 17 # setting the GPIO number we used on the board
+gpio.setmode(gpio.BCM) # setting the right numeration of the GPIO's
+gpio.setup(led_pin, gpio.OUT) # gpio.OUT / gpio.IN (setting a certain GPIO to output / input)
+
+for x in range(10):
+	gpio.output(led_pin, gpio.HIGH) # HIGH means powering on the LED
+	time.sleep(1)
+	gpio.output(led_pin, gpio.LOW) # LOW means powering off the LED
+	time.sleep(1)
+
+gpio.cleanup() # resetting the GPIO settings to prevent damage                                        
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+# Powering on a LED when a button is pressed
+
+import RPi.GPIO as gpio
+import time
+led_pin = 17
+button_pin = 26
+gpio.setmode(gpio.BCM)
+gpio.setup(led_pin, gpio.OUT)
+gpio.setup(button_pin, gpio.IN)
+
+while True:
+	print(gpio.input(button_pin))
+	if gpio.input(button_pin): # checking if button is pressed
+		gpio.output(led_pin, gpio.HIGH)
+	else:
+		gpio.output(led_pin, gpio.LOW)
+	time.sleep(0.01) # reducing CPU usage
+
+gpio.cleanup()                                        
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+# Powering on one LED after another when a button is pressed (and turning off the previous one) - three LEDs
+
+import RPi.GPIO as gpio
+import time
+gpio.setmode(gpio.BCM)
+pins = [17, 27, 22] # three LEDs
+for x in pins:
+	gpio.setup(x, gpio.OUT)
+	gpio.output(x, gpio.LOW)
+
+button_pin = 26
+gpio.setup(button_pin, gpio.IN)
+
+previous_state_button = gpio.input(button_pin)
+led_index = 0
+
+while True:
+	time.sleep(0.1)
+	button_state = gpio.input(button_pin)
+	if button_state != previous_state_button: # checking if button state changed
+		previous_state_button = button_state
+		if button_state:
+			for x in pins:
+				if pins.index(x) == led_index:
+					gpio.output(x, gpio.HIGH)
+				else:
+					gpio.output(x, gpio.LOW)
+			led_index += 1
+			if led_index >= len(pins):
+				led_index = 0
+
+gpio.cleanup()                                        
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+# Using the camera
+
+from picamera import PiCamera
+import time
+
+camera = PiCamera()
+camera.resolution = (1280, 720)
+camera.rotation = 180
+time.sleep(2) # allowing the camera time to calibrate
+
+file_name = "/home/pi/camera/image.jpg" # an absolute path for image
+camera.capture(file_name)
+print("The image is done.")
+
+file_name_2 = "/home/pi/camera/vid.h264" # an absolute path for video
+camera.start_recording(file_name_2)
+camera.wait_recording(5) # recording for 5 seconds
+camera.stop_recording()
+print("The video is done.")                                        
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE; margin-bottom: 3px;"><code markup="tt">
+# Sending emails
+
+import yagmail
+
+with open("/home/pi/.local/share/.email_password", "r") as file:
+	password = file.read().strip() # this ensures no extra spaces
+
+yag = yagmail.SMTP("cpucademy.sender@gmail.com", password)
+yag.send(to="youremail@gmail.com", subject="Raspberry Pi Email", contents="Hello World!", attachments="/home/pi/file.txt")
+print("Email sent")                                        
+                                    </code></pre>
+
+                                    <p>*To use this, create an email address, enable 2-step verification, and search for app passwords. Generate one for the Raspberry Pi and copy it. Create a hidden file with the name and the path like on the screenshot, and paste the password inside it. Now, everything will work.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+# Creating a local server
+
+from flask import Flask
+import RPi.GPIO as gpio
+
+button_pin = 26
+gpio.setmode(gpio.BCM)
+gpio.setup(button_pin, gpio.IN)
+
+# 0.0.0.0:8500 - 0.0.0.0 is the local IP address and 8500 is the port (you can use a different port number).
+# We can open this website in a browser of a device connected to the same network like this: [pi_public_IP_address]:[the_port_number].
+
+app = Flask(__name__) # initializing
+
+@app.route("/") # homepage route
+def index():
+	return "Hello world!"
+
+@app.route("/push-button") # button status route (a subpage)
+def push_button(): # the name of the function doesn't have to be the same as the route
+	if gpio.input(button_pin) == gpio.HIGH:
+		return "Button is pressed."
+	return "Button is not pressed."
+
+try:
+	app.run(host="0.0.0.0", port=8500) # running the server on port 8500
+finally:
+	gpio.cleanup()                                        
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+# Turning the LEDs on and off based on the website subpage opened
+
+from flask import Flask
+import RPi.GPIO as gpio
+
+led_pins = [17, 22, 27]
+gpio.setmode(gpio.BCM)
+
+for x in led_pins:
+	pio.setup(x, gpio.OUT)
+for x in led_pins:
+	pio.output(x, gpio.LOW)
+
+app = Flask(__name__)
+@app.route("/")
+def index():
+	return "LEDs"
+
+@app.route("/led/&lt;int:led_pin&gt;/state/&lt;int:led_state&gt;") # URL format for controlling LEDs
+def trigger_led(led_pin, led_state):
+	if led_pin not in led_pins:
+		return "Wrong GPIO number"
+	if led_state == 1:
+		gpio.output(led_pin, gpio.HIGH)
+	elif led_state == 0:
+		gpio.output(led_pin, gpio.LOW)
+	else:
+		return "State must be 0 or 1"
+	return f"{led_pin} LED is {'on' if led_state == 1 else 'off'}"
+
+app.run(host="0.0.0.0") # running the server
+gpio.cleanup()                                        
+                                    </code></pre>
+
+                                    <p>We should always place the code in the <code>try</code> block and the <code>gpio.cleanup()</code> command in the main and the <code>except</code> block. This way, we will prevent not executing this command by killing the program.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>
