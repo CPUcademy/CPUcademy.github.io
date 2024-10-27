@@ -85,57 +85,61 @@
                                     <h5 class="m-0 font-weight-bold">Multiple tables</h5>
                                 </div>
                                 <div class="card-body">
-                                    JOIN will combine rows from different tables if the join condition is true.
-                                    LEFT JOIN will return every row in the left table, and if the join condition is not met, NULL values are used to fill in the columns from the right table.
-                                    Primary key is a column that serves a unique identifier for the rows in the table.
-                                    Foreign key is a column that contains the primary key to another table.
-                                    CROSS JOIN lets us combine all rows of one table with all rows of another table.
-                                    UNION stacks one dataset on top of another.
-                                    WITH allows us to define one or more temporary tables that can be used in the final query.
+                                    <p class="podpis">JOIN will combine rows from different tables if the join condition is true.</p>
+                                    <p class="podpis">LEFT JOIN will return every row in the left table, and if the join condition is not met, NULL values are used to fill in the columns from the right table.</p>
+                                    <p class="podpis">Primary key is a column that serves a unique identifier for the rows in the table.</p>
+                                    <p class="podpis">Foreign key is a column that contains the primary key to another table.</p>
+                                    <p class="podpis">CROSS JOIN lets us combine all rows of one table with all rows of another table.</p>
+                                    <p class="podpis">UNION stacks one dataset on top of another.</p>
+                                    <p>WITH allows us to define one or more temporary tables that can be used in the final query.</p>
 
+                                    <h4>Inner Join</h4>
+                                    <p>Joining tables based on related columns between them.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT *
+FROM table1_name
+JOIN table2_name
+ON table1_name.id = table2_name.id;  
+                                    </code></pre>
 
-                                    # Inner Join
-                                    # Joining tables based on related columns between them.
-                                    SELECT *
-                                    FROM table1_name
-                                    JOIN table2_name
-                                    ON table1_name.id = table2_name.id;
+                                    <h4>Outer Join</h4>
+                                    <p>A table join that includes all rows from both tables, even if there are no matching columns (non-matching columns are marked as NULL).</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT *
+FROM table1_name
+LEFT JOIN table2_name
+ON table1_name.column_name = table2_name.column_name;
+                                    </code></pre>
 
+                                    <p>You can add a primary / foreign key with the ALTER TABLE command: ALTER TABLE table_name ADD PRIMARY KEY (id);. The primary key is a unique identifier for each row in the table, and a foreign key is a key used to create a relationship between two tables.</p>
 
-                                    # Outer Join
-                                    # A table join that includes all rows from both tables, even if there are no matching columns (non-matching columns are marked as NULL).
-                                    SELECT *
-                                    FROM table1_name
-                                    LEFT JOIN table2_name
-                                    ON table1_name.column_name = table2_name.column_name;
+                                    <h4><code>CROSS JOIN</code> clause</h4>
+                                    <p>Displaying all possible combinations of given columns.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT table1_name.column1_name, table2_name.column2_name
+FROM table1_name
+CROSS JOIN table2_name; 
+                                    </code></pre>
 
+                                    <h4><code>UNION</code> clause</h4>
+                                    <p>Combining the results of two or more SELECT queries (including only unique rows).</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column1_name FROM table1_name
+UNION
+SELECT column2_name FROM table2_name;
+                                    </code></pre>
 
-                                    # You can add a primary / foreign key with the ALTER TABLE command: ALTER TABLE table_name ADD PRIMARY KEY (id);. The primary key is a unique identifier for each row in the table, and a foreign key is a key used to create a relationship between two tables.
-
-
-                                    # CROSS JOIN clause
-                                    # Displaying all possible combinations of given columns.
-                                    SELECT table1_name.column1_name, table2_name.column2_name
-                                    FROM table1_name
-                                    CROSS JOIN table2_name;
-
-
-                                    # UNION clause
-                                    # Combining the results of two or more SELECT queries (including only unique rows).
-                                    SELECT column1_name FROM table1_name
-                                    UNION
-                                    SELECT column2_name FROM table2_name;
-
-
-                                    # WITH clause
-                                    # Defining a subquery that can be reused within the main query.
-                                    WITH temp AS (
-                                    SELECT *
-                                    FROM table1_name
-                                    )
-                                    SELECT *
-                                    FROM temp
-                                    WHERE column_name BETWEEN 2 AND 5;                                 
+                                    <h4><code>WITH</code> clause</h4>
+                                    <p>Defining a subquery that can be reused within the main query.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+WITH temp AS (
+SELECT *
+FROM table1_name
+)
+SELECT *
+FROM temp
+WHERE column_name BETWEEN 2 AND 5; 
+                                    </code></pre>                                
                                 </div>
                             </div>
                         </div>
