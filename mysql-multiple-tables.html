@@ -96,19 +96,19 @@
                                     <h4>Inner Join</h4>
                                     <p>Joining tables based on related columns between them.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-SELECT *
-FROM table1_name
-JOIN table2_name
-ON table1_name.id = table2_name.id;  
+<span class="function">SELECT</span> *
+<span class="function">FROM</span> table1_name
+<span class="function">JOIN</span> table2_name
+<span class="function">ON</span> table1_name.id = table2_name.id;  
                                     </code></pre>
 
                                     <h4>Outer Join</h4>
                                     <p>A table join that includes all rows from both tables, even if there are no matching columns (non-matching columns are marked as NULL).</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-SELECT *
-FROM table1_name
-LEFT JOIN table2_name
-ON table1_name.column_name = table2_name.column_name;
+<span class="function">SELECT</span> *
+<span class="function">FROM</span> table1_name
+<span class="function">LEFT JOIN</span> table2_name
+<span class="function">ON</span> table1_name.column_name = table2_name.column_name;
                                     </code></pre>
 
                                     <p>You can add a primary / foreign key with the ALTER TABLE command: ALTER TABLE table_name ADD PRIMARY KEY (id);. The primary key is a unique identifier for each row in the table, and a foreign key is a key used to create a relationship between two tables.</p>
@@ -116,29 +116,29 @@ ON table1_name.column_name = table2_name.column_name;
                                     <h4><code>CROSS JOIN</code> clause</h4>
                                     <p>Displaying all possible combinations of given columns.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-SELECT table1_name.column1_name, table2_name.column2_name
-FROM table1_name
-CROSS JOIN table2_name; 
+<span class="function">SELECT</span> table1_name.column1_name, table2_name.column2_name
+<span class="function">FROM</span> table1_name
+<span class="function">CROSS JOIN</span> table2_name; 
                                     </code></pre>
 
                                     <h4><code>UNION</code> clause</h4>
                                     <p>Combining the results of two or more SELECT queries (including only unique rows).</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-SELECT column1_name FROM table1_name
-UNION
-SELECT column2_name FROM table2_name;
+<span class="function">SELECT</span> column1_name <span class="function">FROM</span> table1_name
+<span class="function">UNION</span>
+<span class="function">SELECT</span> column2_name <span class="function">FROM</span> table2_name;
                                     </code></pre>
 
                                     <h4><code>WITH</code> clause</h4>
                                     <p>Defining a subquery that can be reused within the main query.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-WITH temp AS (
-SELECT *
-FROM table1_name
+<span class="function">WITH</span> temp <span class="function">AS</span> (
+<span class="function">SELECT</span> *
+<span class="function">FROM</span> table1_name
 )
-SELECT *
-FROM temp
-WHERE column_name BETWEEN 2 AND 5; 
+<span class="function">SELECT</span> *
+<span class="function">FROM</span> temp
+<span class="function">WHERE</span> column_name <span class="function">BETWEEN</span> 2 <span class="function">AND</span> 5; 
                                     </code></pre>                                
                                 </div>
                             </div>
