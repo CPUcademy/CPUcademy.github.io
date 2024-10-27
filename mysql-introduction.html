@@ -85,30 +85,27 @@
                                     <h5 class="m-0 font-weight-bold">Introduction to MySQL</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>SQL is a programming language specifically created for managing and manipulating data within relational databases. A relational database structures information into one or more tables, where each table consists of data arranged in rows and columns.</p>
+                                    <p>SQL is a programming language created for managing and manipulating data within relational databases. A relational database structures information into one or more tables, where each table consists of data arranged in rows and columns.</p>
 
                                     <p>After creating an ERD diagram with <a href="https://erd.dbdesigner.net/" target="_blank" class="link">DBDesigner</a>, we can export it as an SQL script. This way, we have the structure ready without writing any code and can start inserting data immediately.</p>
                                     
-                                    CREATE DATABASE IF NOT EXISTS warsztat_samochodowy;
-                                    USE warsztat_samochodowy;
-                                    
-                                    -------------------------------------------------------
-                                    
-                                    mysql -u root -p < [path] - import
-                                    mysqldump -u root -p --databases [database_name] --add-drop-database --create-options > [path_to_the_output_file] - archiwizacja
-                                    
-                                    chcp 65001 - polskie znaki w konsoli
-                                    
-                                    Wejście do bazy:
-                                    mysql -u root -p [name]
-                                    LUB
-                                    mysql -u root -p
-                                    use [name];
-                                    
-                                    SHOW databases;
-                                    SHOW tables;
-                                    DESCRIBE table;
-                                    exit;                              
+                                    <p>If a database is to be imported and exported to a file, it has to contain these lines at the top:</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+CREATE DATABASE IF NOT EXISTS [database_name];
+USE [database_name];
+                                    </code></pre>
+                                
+                                    <p class="podpis"><code>mysql -u root -p &lt; [path]</code> - importing a database from a file</p>
+                                    <p class="podpis"><code>mysqldump -u root -p --databases [database_name] --add-drop-database --create-options &gt; [path_to_the_output_file]</code> - exporting a database to a file</p>
+                                    <p class="podpis"><code>chcp 65001</code> - enabling UTF-8 formatting in the console</p>
+                                    <p class="podpis"><code>mysql -u root -p [database_name]</code> / <code>mysql -u root -p</code> and <code>use [database_name];</code> - entering the database from an RDBMS terminal.</p>
+
+
+                                    <p class="podpis"><code>SHOW databases;</code> - displaying available databases in an RDBMS terminal.</p>
+                                    <p class="podpis"><code>SHOW tables;</code> - displaying all tables</p>
+                                    <p class="podpis"><code>DESCRIBE table_name;</code> - displaying the structure of a given table.</p>
+                                    <p><code>EXIT;</code> - exiting the database in an RDBMS terminal.</p>                             
                                 </div>
                             </div>
                         </div>

@@ -85,27 +85,36 @@
                                     <h5 class="m-0 font-weight-bold">Lambda functions</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Wyrażenia lambda do anonimowe funkcje, które nie mają nazwy i są przeznaczone do jednorazowego użytku. Do ich definiowania używa się słowa kluczowego <code>lambda</code>. Ogólnie nie zaleca się stosowania tych wyrażeń, ponieważ utrudniają debugowanie i zmniejszają czytelność kodu, jednak czasem ich użycie jest konieczne, więc warto wiedzieć, jak się je tworzy.</p>
-			
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									#Wyrażenia lambda pozwalają m.in. skrócić zapis funkcji, która tylko coś zwraca.
-									dodaj = lambda a, b: a+b
-									print(dodaj(5, 5))
+                                    <p>Lambda expressions are anonymous functions with no name and are intended for single use. They are defined using the <code>lambda</code> keyword. They are generally discouraged because they make debugging and code less readable, but sometimes they are necessary, so it is worth knowing how to create them.</p>
+                                    
+                                    <p>Lambda expressions allow to shorten a simple function that only returns a value (it features only the return command).</p>
 
-									#Można ich też używać w komendzie <span style="color: red;">print()</span>. Wtedy ta komenda staje się funkcją bez nazwy.
-									print((lambda a, b:a**2*3+b**3*4)(5, 6))
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+l <span class="sign">=</span> <span class="function">lambda</span> a, b: a <span class="sign">+</span> b
+<span class="command">print</span>(l(5, 5))    
+                                    </code></pre>
 
-									#Wyrażeń lambda można też używać w zwykłych funkcjach. Taką sytuację nazywamy domknięciem.
-									def funkcja(n):
-											return lambda x: x+n	  
-									dodaj100 = funkcja(100)
-									print(dodaj100(11))
+                                    <p>We can use them in the <code>print()</code> command (functions without a name).</p>
 
-									#Poniższy kod sprawdza, ile wynoszą kwadraty liczb z podanego zakresu i 
-									#segreguje je według tych wartości od najmniejszej do największej.
-									lista = sorted(range(-3, 12), key = lambda x: x**2)
-									print(lista)
-									</code></pre>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">print</span>((<span class="function">lambda</span> a, b: a <span class="sign">*</span> 2 <span class="sign">+</span> b <span class="sign">*</span> 2)(5, 6))
+                                    </code></pre>
+
+                                    <p>They can also be used in regular functions. This situation is called a closure.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> function(n):
+	<span class="function">return lambda</span> x: x <span class="sign">+</span> n	  
+f <span class="sign">=</span> function(10)
+<span class="command">print</span>(f(11))
+                                    </code></pre>
+
+                                    <p>The following code checks the squares of numbers in a given range and sorts the list by them ​​from smallest to largest.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+list1 <span class="sign">=</span> <span class="command">sorted</span>(<span class="command">range</span>(-3, 12), key <span class="sign">=</span> <span class="function">lambda</span> x: x <span class="sign">**</span> 2)
+<span class="command">print</span>(list1)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
