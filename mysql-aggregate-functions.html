@@ -85,77 +85,89 @@
                                     <h5 class="m-0 font-weight-bold">Aggregate functions</h5>
                                 </div>
                                 <div class="card-body">
-                                    # LIMIT clause
-                                    # Specifying a limit on the number of records that will be displayed as a query result.
-                                    SELECT column_name 
-                                    FROM table_name 
-                                    LIMIT 5;
+                                    <h4><code>LIMIT</code> clause</h4>
+                                    <p>Specifying a limit on the number of records that will be displayed as a query result.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column_name 
+FROM table_name 
+LIMIT 5;
+                                    </code></pre>
                                     
+                                    <h4><code>COUNT</code> function</h4>
+                                    <p>Counting data records in a table.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT COUNT(*)
+FROM table_name; 
+                                    </code></pre>
+                      
+                                    <h4><code>SUM</code> function</h4>
+                                    <p>Summing values.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT SUM(column_name)
+FROM table_name; 
+                                    </code></pre> 
                                     
-                                    # COUNT aggregate function
-                                    # Counting data records in a table.
-                                    SELECT COUNT(*)
-                                    FROM table_name; 
+                                    <h4><code>AVG</code> function</h4>
+                                    <p>Calculating the average value.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT AVG(column_name)
+FROM table_name; 
+                                    </code></pre>
                                     
+                                    <h4><code>ROUND</code> function</h4>
+                                    <p>Rounding the given value to a given number of decimal places.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column2_name, ROUND(column2_name, 2)
+FROM table_name; 
+                                    </code></pre>
                                     
-                                    # SUM aggregate function
-                                    # Summing values.
-                                    SELECT SUM(column_name)
-                                    FROM table_name; 
+                                    <h4><code>GROUP BY</code> clause</h4>
+                                    <p>Grouping records by selected values.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column_name, COUNT(*)
+FROM table_name
+GROUP BY column_name;
+                                    </code></pre>
                                     
+                                    <h4>Column references</h4>
+                                    <p>Referring to columns by their order in the SELECT clause. 1 - column1_name, 2 - column2_name.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column1_name, column2_name
+FROM table_name
+GROUP BY 2
+ORDER BY 1;
+                                    </code></pre>
                                     
-                                    # AVG aggregate function
-                                    # Calculating the average value.
-                                    SELECT AVG(column_name)
-                                    FROM table_name; 
+                                    <h4><code>HAVING</code> clause</h4>
+                                    <p>Adding a condition to the GROUP BY command.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column_name, COUNT(*)
+FROM table_name
+GROUP BY column_name
+HAVING COUNT(*) &lt; 3;
+                                    </code></pre>
                                     
+                                    <h4><code>MAX</code> function</h4>
+                                    <p>Finding the highest value.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT MAX(column_name)
+FROM table_name; 
+                                    </code></pre>
                                     
-                                    # ROUND function
-                                    # Rounding the given value to a given number of decimal places.
-                                    SELECT column2_name, ROUND(column2_name, 2)
-                                    FROM table_name; 
+                                    <h4><code>MIN</code> function</h4>
+                                    <p>Finding the lowest value.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT MIN(column_name)
+FROM table_name; 
+                                    </code></pre>
                                     
-                                    
-                                    # GROUP BY clause
-                                    # Grouping records by selected values.
-                                    SELECT column_name, COUNT(*)
-                                    FROM table_name
-                                    GROUP BY column_name;
-                                    
-                                    
-                                    # Column references
-                                    # Referring to columns by their order in the SELECT clause. 1 - column1_name, 2 - column2_name
-                                    SELECT column1_name, column2_name
-                                    FROM table_name
-                                    GROUP BY 2
-                                    ORDER BY 1;
-                                    
-                                    
-                                    # HAVING clause
-                                    # Adding a condition to the GROUP BY command.
-                                    SELECT column_name, COUNT(*)
-                                    FROM table_name
-                                    GROUP BY column_name
-                                    HAVING COUNT(*) < 3;
-                                    
-                                    
-                                    # MAX aggregate function
-                                    # Finding the highest value.
-                                    SELECT MAX(column_name)
-                                    FROM table_name; 
-                                    
-                                    
-                                    # MIN aggregate function
-                                    # Finding the lowest value.
-                                    SELECT MIN(column_name)
-                                    FROM table_name; 
-                                    
-                                    
-                                    # Subquery with WHERE
-                                    # MAX statement with WHERE subquery - displaying only the name of the part with the highest price.
-                                    SELECT column1_name
-                                    FROM table_name
-                                    WHERE column2_name = (SELECT MAX(column2_name) FROM table_name);                                                             
+                                    <h4>Subqueries with <code>WHERE</code></h4>
+                                    <p>MAX statement with WHERE subquery - displaying only the name of the part with the highest price.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column1_name
+FROM table_name
+WHERE column2_name = (SELECT MAX(column2_name) FROM table_name);  
+                                    </code></pre> 
                                 </div>
                             </div>
                         </div>

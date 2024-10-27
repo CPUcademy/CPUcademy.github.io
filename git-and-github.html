@@ -85,69 +85,74 @@
                                     <h5 class="m-0 font-weight-bold">Git &amp; GitHub</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h1>Understanding Git Commands and Using Pull Requests on GitHub</h1>
                                     <p>Git is a distributed version control system that allows you to track code changes, manage collaboration, and streamline the development process. This article covers essential Git commands and explains how to leverage GitHub's pull request (PR) functionality for collaborative workflows.</p>
                                     
-                                    <h2>Initial Setup and Configuration</h2>
-                                    
-                                    <h3>Git Configuration</h3>
+                                    <h3>Basics</h3>
+
+                                    <p>A <b>repository</b> is a storage space for your project, where a local repository resides on your computer. In contrast, a remote repository is hosted on a server, allowing for collaboration and version control across multiple users. A <b>commit</b> is a snapshot of your project's changes at a specific point in time, capturing the modifications made to files and providing a unique identifier for tracking the history of those changes. <b>Branches</b> are parallel versions of your project that allow you to work on different features or fixes independently, enabling you to merge changes back into the main codebase without disrupting the primary workflow.</p>
+
+                                    <p>When you're ready to commit certain changes, you add (or "stage") them to Git's <b>staging area</b> using <code>git add</code>. The staging area holds a snapshot of these changes, preparing them for the next commit. This allows you to control which changes go into each commit. The <b>working directory</b> is the local folder where you edit and save files. Any changes made here, such as adding, deleting, or editing files, are untracked by Git until they are staged.</p>
+
+                                    <h3>Configuration</h3>
                                     <p class="podpis"><code>git config --global user.name "Your Name"</code> - setting your username for commit attribution.</p>
                                     <p class="podpis"><code>git config --global user.email "you@example.com"</code> - setting your email for commit attribution.</p>
-                                    <p class="podpis"><code>git config --global core.editor "code --wait"</code> - setting VS Code as the default editor (optional).</p>
                                     <p><code>git config --global init.defaultBranch main</code> - setting default branch name to "main".</p>
                                     
-                                    <h2>Getting Started with Git: Basic Commands</h2>
-                                    
-                                    <h3>Repository Initialization and Cloning</h3>
+                                    <h3>Repository initialization and cloning</h3>
                                     <p class="podpis"><code>git init</code> - initializing a new Git repository in the current directory.</p>
                                     <p class="podpis"><code>git clone [repository URL]</code> - cloning an existing repository, including all history and files.</p>
                                     <p class="podpis"><code>git remote add origin [repository URL]</code> - linking the local repository to a remote one.</p>
                                     <p><code>git remote -v</code> - viewing all remote repositories and their URLs.</p>
                                     
-                                    <h3>Checking Status and History</h3>
+                                    <h3>Checking status and history</h3>
                                     <p class="podpis"><code>git status</code> - showing the current state of the working directory and staging area.</p>
                                     <p class="podpis"><code>git log</code> - displaying commit history with full details.</p>
                                     <p class="podpis"><code>git log --oneline</code> - showing condensed commit history.</p>
                                     <p class="podpis"><code>git diff</code> - showing unstaged changes.</p>
                                     <p><code>git diff --staged</code> - showing staged changes.</p>
                                     
-                                    <h3>Staging and Committing Changes</h3>
+                                    <h3>Staging and committing changes</h3>
                                     <p class="podpis"><code>git add [file or directory]</code> - staging specific files/directories.</p>
                                     <p class="podpis"><code>git add .</code> - staging all changes.</p>
                                     <p class="podpis"><code>git add -p</code> - interactively choosing portions of files to stage.</p>
                                     <p class="podpis"><code>git commit -m "[message]"</code> - creating a commit with a message.</p>
-                                    <p><code>git commit</code> - opening editor for a detailed commit message.</p>
+                                    <p class="podpis"><code>git commit</code> - opening editor for a detailed commit message.</p>
                                     <p>Commit messages should answer the prompt: "If applied, this commit will …" to provide clear descriptions of code changes.</p>
                                     
-                                    <h3>Synchronizing with Remote</h3>
+                                    <h3>Synchronizing with the remote repository</h3>
                                     <p class="podpis"><code>git fetch</code> - downloading remote changes without merging.</p>
                                     <p class="podpis"><code>git pull</code> - fetching and merging remote changes.</p>
                                     <p class="podpis"><code>git push</code> - uploading local commits to remote.</p>
-                                    <p><code>git push -u origin [branch_name]</code> - pushing and setting upstream branch.</p>
+                                    <p><code>git push origin main --force</code> - force pushes local changes to the main branch, overwriting any conflicts on the remote (use with caution).</p>
+                                    <p class="podpis"><code>git push -u origin [branch_name]</code> - pushing and setting upstream branch.</p>
+                                    <p>An upstream branch is a remote branch that your local branch is tracking, allowing for easy synchronization of changes between the two. When you set up an upstream branch, it enables you to use simplified Git commands, such as <code>git push</code> and <code>git pull</code>, to automatically push your local changes to the remote branch or pull updates from it.</p>
                                     
-                                    <h2>Working with Branches and Merging Changes</h2>
-                                    
-                                    <h3>Branching Basics</h3>
+                                    <h3>Branching basics</h3>
                                     <p class="podpis"><code>git branch</code> - listing local branches.</p>
                                     <p class="podpis"><code>git branch -a</code> - listing all branches (local and remote).</p>
-                                    <p class="podpis"><code>git checkout [branch-name]</code> - switching branches.</p>
-                                    <p class="podpis"><code>git checkout -b [new-branch]</code> - creating and switching to a new branch.</p>
+                                    <p class="podpis"><code>git checkout [branch-name]</code> - switching branches (traditional).</p>
+                                    <p class="podpis"><code>git checkout -b [new-branch]</code> - creating and switching to a new branch (traditional).</p>
+                                    <p class="podpis"><code>git branch -d [branch-name]</code> - deletes the specified branch (if merged).</p>
+                                    <p><code>git branch [new-branch-name] [source-branch]</code> - creating a new branch from a specified source branch.</p>
                                     <p class="podpis"><code>git switch [branch-name]</code> - modern command for switching branches (Git 2.23+).</p>
-                                    <p><code>git switch -c [new-branch]</code> - creating and switching to a new branch (Git 2.23+).</p>
+                                    <p class="podpis"><code>git switch -c [new-branch]</code> - creating and switching to a new branch (Git 2.23+).</p>
+                                    <p class="podpis"><code>git restore [file]</code> - discarding working directory changes (Git 2.23+).</p>
+                                    <p><code>git restore --staged [file]</code> - unstaging changes while preserving modifications (Git 2.23+).</p>
                                     
-                                    <h3>Merging Branches and Handling Conflicts</h3>
+                                    <h3>Merging branches and handling conflicts</h3>
                                     <p class="podpis"><code>git merge [branch-name]</code> - merging a specified branch into the current branch.</p>
                                     <p class="podpis"><code>git merge --no-ff [branch-name]</code> - creating merge commit even for fast-forward merges.</p>
-                                    <p><code>git merge --abort</code> - aborting an ongoing merge.</p>
+                                    <p class="podpis"><code>git merge --abort</code> - aborting an ongoing merge.</p>
+                                    <p><code>git pull origin main</code> - pulling the latest changes from main after a PR merge.</p>
                                     
-                                    <h3>Conflict Resolution Example</h3>
+                                    <h3>Conflict resolution example</h3>
                                     <p>If conflicts arise, Git will mark the affected files. You can resolve these by editing the files, identifying conflict markers (&lt;&lt;&lt;&lt;&lt;&lt;&lt;, =======, &gt;&gt;&gt;&gt;&gt;&gt;&gt;), and deciding which changes to keep.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Fetch updates from the main branch</span>
 git fetch origin main
 
-<span class="comment"># Checkout main branch and merge with feature branch</span>
+<span class="comment"># Checkout main branch and merge with the feature branch</span>
 git checkout main
 git merge feature_branch
 
@@ -156,10 +161,10 @@ git add [resolved_file]
 git commit -m "Resolve merge conflicts in feature_branch"
                                     </code></pre>
 
-                                    <h2>Working with Pull Requests on GitHub</h2>
+                                    <h2>Pull requests on GitHub</h2>
                                     <p>A pull request (PR) is a GitHub feature for proposing and discussing changes before merging them into the main branch. This helps streamline code reviews and ensures better-quality code.</p>
                                     
-                                    <h3>Creating a Pull Request</h3>
+                                    <h5>Creating a pull request</h5>
                                     <ol>
                                         <li>Create and switch to feature branch: <code>git checkout -b feature-branch</code></li>
                                         <li>Make changes and commit them</li>
@@ -175,135 +180,135 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                         </li>
                                     </ol>
                                     
-                                    <h3>PR Best Practices</h3>
+                                    <h5>PR best practices</h5>
                                     <ul>
-                                        <li>Keep PRs focused and reasonably sized</li>
+                                        <li>Keep PRs focused and reasonably sized.</li>
                                         <li>Write clear descriptions explaining:
                                             <ul>
-                                                <li>What changes were made</li>
-                                                <li>Why changes were needed</li>
-                                                <li>How to test the changes</li>
-                                                <li>Any related issues or dependencies</li>
+                                                <li>What changes were made?</li>
+                                                <li>Why changes were needed?</li>
+                                                <li>How to test the changes?</li>
+                                                <li>Any related issues or dependencies?</li>
                                             </ul>
                                         </li>
-                                        <li>Respond to review comments promptly</li>
-                                        <li>Update PR with requested changes</li>
-                                        <li>Resolve conflicts when they arise</li>
+                                        <li>Respond to review comments promptly.</li>
+                                        <li>Update PR with requested changes.</li>
+                                        <li>Resolve conflicts when they arise.</li>
                                     </ul>
-                                    
-                                    <h2>Advanced Features</h2>
-                                    
-                                    <h2>Reverting and Resetting Changes</h2>
 
-                                    <h3>Understanding Git Reset</h3>
+                                    <p>Reviewers can annotate lines, and approve, or request changes. This review process ensures code quality and promotes team collaboration. As changes are requested, additional commits can be made to the branch and pushed to the PR.</p>
+
+                                    <h3>Reset</h3>
                                     <p class="podpis"><code>git reset [file]</code> - unstaging a file from the staging area without deleting changes from the working directory (the local file system).</p>
                                     <p><code>git reset --soft [commit]</code> - moving the current branch back to a specific commit, retaining changes in the staging area for further modifications.</p>
 
-                                    <h3>Using Git Revert</h3>
+                                    <h3>Revert</h3>
                                     <p class="podpis"><code>git revert [commit]</code> - creating a new commit that undoes the changes from a specified commit.</p>
                                     <p><code>git revert --continue</code> - continuing the revert process when multiple commits are reverted, used in cases like undoing merges.</p>
+                                    <p><code>git reset</code> changes the repository's history by moving the branch pointer, making it useful for local changes not yet pushed. <code>git revert</code> is ideal for undoing specific commits without altering commit history, as it creates a new commit.</p>
 
-                                    <h2>Additional Git Concepts</h2>
-
-                                    <h3>.gitignore</h3>
-                                    <p>The <code>.gitignore</code> file is crucial for managing which files and directories Git should ignore in your repository. By specifying patterns for files that should not be tracked, such as build artifacts, temporary files, or sensitive information, you can keep your repository clean and focused on the essential code. This helps prevent unnecessary files from cluttering your version history and ensures that sensitive data does not get accidentally shared.</p>
-                                    
-                                    <h3>Git Configuration</h3>
-                                    <p>Proper Git configuration is vital for ensuring that your commits are correctly attributed. You can set your user name and email globally using the commands <code>git config --global user.name "Your Name"</code> and <code>git config --global user.email "you@example.com"</code>. This information is included in each commit, allowing collaborators to see who made specific changes. Additionally, configuring other settings, such as default text editors and merge tools, can enhance your Git experience.</p>
-                                    
+                                    <h3>Stash</h3>
+                                    <p class="podpis"><code>git stash</code> - temporarily storing uncommitted changes (in your local repository - it won't be pushed to the remote repository).</p>
+                                    <p class="podpis"><code>git stash push -m "message"</code> - stashing with a description.</p>
+                                    <p class="podpis"><code>git stash list</code> - viewing all stashes.</p>
+                                    <p class="podpis"><code>git stash apply</code> - applying the most recent stash while keeping it on the stash list.</p>
+                                    <p><code>git stash pop</code> - applying the most recent stash and removing it from the stash list afterwards.</p>
+       
                                     <h3>Tags</h3>
                                     <p>Tags are a powerful feature in Git that allows you to mark specific points in your project’s history, such as releases or significant milestones. You can create a tag using the command <code>git tag -a v1.0 -m "Version 1.0"</code>, which creates an annotated tag with a message. Tags are useful for versioning your software, making it easy to reference and retrieve specific versions of your codebase in the future.</p>
-                                    
-                                    <h3>Rebasing</h3>
-                                    <p>Rebasing is a technique used to maintain a cleaner project history by applying your changes on top of another branch. This can be done with the command <code>git rebase -i HEAD~n</code>, where <code>n</code> is the number of commits you want to go back. Rebasing allows you to integrate changes from the main branch into your feature branch without creating a merge commit, resulting in a linear and more understandable commit history.</p>
-                                    
-                                    <h3>Aliases</h3>
-                                    <p>Creating Git aliases can significantly streamline your workflow by allowing you to shorten frequently used commands. For example, you can set an alias for the checkout command with <code>git config --global alias.co checkout</code>. This means you can simply type <code>git co</code> instead of <code>git checkout</code>. Using aliases can save time and reduce the likelihood of errors when typing long commands.</p>        
-                                    
-                                    <h3>Repository Initialization and Cloning</h3>
-                                    <p class="podpis"><code>git init</code> - initializing a new Git repository in the current directory.</p>
-                                    <p class="podpis"><code>git clone [repository URL]</code> - cloning an existing repository to the local machine, including all history and files.</p>
-                                    <p><code>git remote add origin [repository URL]</code> - linking the local repository to a remote one, commonly for GitHub integration.</p>
 
-                                    <h3>Staging and Committing Changes</h3>
-                                    <p class="podpis"><code>git add [file or directory]</code> - adding specified files or directories to the staging area.</p>
-                                    <p class="podpis"><code>git add .</code> - adding all untracked files to the staging area.</p>
-                                    <p class="podpis"><code>git commit -m "[message]"</code> - creating a new commit with a message describing the changes.</p>
-                                    <p><code>git commit</code> - opening a text editor to input a multi-line commit message.</p>
-                                    <p>Commit messages should answer the prompt: “If applied, this commit will …” to provide clear descriptions of code changes.</p>
+                                    <p class="podpis"><code>git tag</code> - listing all tags.</p>
+                                    <p class="podpis"><code>git tag -a v1.0.0 -m "Release 1.0.0"</code> - creating an annotated tag.</p>
+                                    <p class="podpis"><code>git push origin --tags</code> - pushing tags to remote.</p>
+                                    <p><code>git tag -d [tag-name]</code> - deleting a local tag.</p>
 
-                                    <h3>Status, Pulling, and Pushing</h3>
-                                    <p class="podpis"><code>git status</code> - showing the current status of the repository, including staged and unstaged changes.</p>
-                                    <p class="podpis"><code>git pull</code> - updating the local repository with changes from the remote repository.</p>
-                                    <p class="podpis"><code>git fetch</code> - retrieving updates from the remote repository without merging.</p>
-                                    <p class="podpis"><code>git push</code> - pushing committed changes to the remote repository.</p>
-                                    <p><code>git push -u origin [branch_name]</code> - pushing to a specific branch and setting it as the default upstream for future pushes.</p>
-
-                                    <h2>Working with Branches and Merging Changes</h2>
-
-                                    <h3>Branching Basics</h3>
-                                    <p class="podpis"><code>git branch</code> - listing all branches in the repository with the current branch highlighted.</p>
-                                    <p class="podpis"><code>git branch -M main</code> - renaming the current branch to "main."</p>
-                                    <p class="podpis"><code>git checkout [branch-name]</code> - switching to a specific branch.</p>
-                                    <p class="podpis"><code>git checkout -b [new-branch-name]</code> - creating and switching to a new branch.</p>
-                                    <p><code>git branch [new-branch-name] [source-branch]</code> - creating a new branch from a specified source branch.</p>
-                                    <p>Commit messages should answer the prompt: “If applied, this commit will …” to provide clear descriptions of code changes.</p>
-
-                                    <h3>Merging Branches and Handling Conflicts</h3>
-                                    <p class="podpis"><code>git merge [branch-name]</code> - merging the specified branch into the current branch.</p>
-                                    <p class="podpis"><code>git log --merge</code> - viewing relevant commit messages when resolving a merge conflict.</p>
-                                    <p><code>git merge --abort</code> - aborting an ongoing merge, restoring the last committed state.</p>
-
-                                    <h3>Conflict Resolution Example</h3>
-                                    <p>If conflicts arise, Git will mark the affected files. You can resolve these by editing the files, identifying conflict markers (<<<<<, =======, >>>>>>), and deciding which changes to keep.</p>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    # Fetch updates from the main branch
-                                    git fetch origin main
-
-                                    # Checkout main branch and merge with feature branch
-                                    git checkout main
-                                    git merge feature_branch
-
-                                    # Resolve conflicts manually in the files, then stage and commit the resolved files
-                                    git add [resolved_file]
-                                    git commit -m "Resolve merge conflicts in feature_branch"
-                                    </code></pre>
-
-                                    <h2>Working with Pull Requests on GitHub</h2>
-                                    <p>A pull request (PR) is a GitHub feature for proposing and discussing changes before merging them into the main branch. This helps streamline code reviews and ensures better-quality code.</p>
-
-                                    <h3>Setting Up a Branch for a PR</h3>
-                                    <p class="podpis"><code>git checkout -b [feature-branch]</code> - creating a new branch locally for a specific feature or fix.</p>
-                                    <p><code>git push -u origin [feature-branch]</code> - pushing the branch to GitHub, setting it as the upstream branch.</p>
-
-                                    <h3>Opening a Pull Request on GitHub</h3>
-                                    <ol>
-                                        <li>On GitHub, navigate to the repository and select the new branch from the dropdown.</li>
-                                        <li>Click "New pull request" and fill out the PR form with a clear title and detailed description.</li>
-                                        <li>Assign reviewers if necessary, which allows team members to review and discuss the changes.</li>
-                                    </ol>
-
-                                    <h3>Reviewing and Discussing a PR</h3>
-                                    <p>Reviewers can annotate lines, approve, or request changes. This review process ensures code quality and promotes team collaboration. As changes are requested, additional commits can be made to the branch and pushed to the PR.</p>
-
-                                    <h3>Merging and Closing a PR</h3>
+                                    <h3>Flags</h3>
+                                    <p>Flags modify command behavior or add extra functionality, customizing commands with options starting with a dash (-) or double dash (--).</p>
                                     <ul>
-                                        <li><strong>Merge</strong> - combines the PR branch into the main branch, retaining all commits.</li>
-                                        <li><strong>Squash and Merge</strong> - consolidates all commits into a single commit before merging.</li>
-                                        <li><strong>Rebase and Merge</strong> - rebases the PR commits onto the main branch, keeping the commit history cleaner.</li>
+                                        <li><code>-m</code>: specifying a commit message directly in the command line.</li>
+                                        <li><code>-u</code>: staging changes only to tracked files when using <code>git add</code>, ignoring untracked files.</li>
                                     </ul>
 
-                                    <p class="podpis"><code>git checkout main</code> - switching back to the main branch after merging a PR.</p>
-                                    <p class="podpis"><code>git pull origin main</code> - pulling the latest changes from main after a PR merge.</p>
-                                    <p><code>git branch -d [feature-branch]</code> - deleting the feature branch locally post-merge.</p>
-
-                                    <h2>Logging and Inspecting Commits</h2>
-                                    <p class="podpis"><code>git log</code> - displaying the commit history in chronological order, with each commit’s author, date, and message.</p>
-                                    <p class="podpis"><code>git log --oneline</code> - showing a condensed log with only commit IDs and messages.</p>
-                                    <p><code>git log --graph --decorate --all</code> - displaying a graphical representation of commits across branches, useful for understanding branch relationships and merges.</p>
+                                    <h3><code>.gitignore</code></h3>
+                                    <p>The <code>.gitignore</code> file is crucial for managing which files and directories Git should ignore in your repository. By specifying patterns for files that should not be tracked, such as build artifacts, temporary files, or sensitive information, you can keep your repository clean and focused on the essential code. This helps prevent unnecessary files from cluttering your version history and ensures that sensitive data does not get accidentally shared.</p>
                                     
-                                    <h2>Advanced Git Commands</h2>
+                                    <h3>Forks</h3>
+                                    <p>A fork is a copy of a repository that allows you to freely experiment with changes without affecting the original project. This workflow is particularly useful in open-source development, where contributors don't have direct write access to the main repository.</p>
+                                    
+                                    <h5>Setting up a fork</h5>
+                                    <p class="podpis"><code>git clone [your-fork-url]</code> - cloning your forked repository locally.</p>
+                                    <p class="podpis"><code>git remote add upstream [original-repo-url]</code> - adding the original repository as upstream.</p>
+                                    <p><code>git remote -v</code> - verifying your remote configuration.</p>
+                                    
+                                    <h5>Synchronizing forks</h5>
+                                    <p class="podpis"><code>git fetch upstream</code> - fetching changes from the original repository.</p>
+                                    <p class="podpis"><code>git checkout main</code> - switching to your main branch.</p>
+                                    <p class="podpis"><code>git merge upstream/main</code> - merging upstream changes into your main branch.</p>
+                                    <p><code>git push origin main</code> - updating your fork on GitHub.</p>
+                                
+                                    <h3>Interactive rebasing (<code>git rebase -i</code>)</h3>
+                                    <p>Interactive rebasing is a powerful tool for cleaning up your commit history before sharing your code. It allows you to modify commits in various ways, including combining, editing, or removing them.</p>
+        
+                                    <p class="podpis"><code>git rebase -i HEAD~n</code> - starting interactive rebase for the last n commits.</p>
+                                    <p class="podpis"><code>git rebase -i [commit-hash]</code> - rebasing interactively from a specific commit.</p>
+                                    <p><code>git rebase --abort</code> - canceling the rebase operation.</p>
+
+                                    <p><code>HEAD~n</code> refers to a specific commit in Git's history, where <code>HEAD</code> represents the current commit you are on, and n is a number indicating how many commits to go back from that point. For example, <code>HEAD~1</code> refers to the commit just before the current one, <code>HEAD~2</code> refers to two commits back, and so on.</p>
+
+                                    <p class="podpis"><code>pick</code> - using the commit as is.</p>
+                                    <p class="podpis"><code>squash</code> - combining with the previous commit and edit the commit message.</p>
+                                    <p class="podpis"><code>fixup</code> - combining with the previous commit and discard the commit message.</p>
+                                    <p class="podpis"><code>reword</code> - keeping changes but edit the commit message.</p>
+                                    <p class="podpis"><code>edit</code> - pausing rebasing to amend the commit.</p>
+                                    <p><code>drop</code> - removing the commit entirely.</p>
+                                
+                                    <h5>Examples</h5>
+                                    <h6>Interactive rebase session</h6>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+# Start interactive rebase
+git rebase -i HEAD~5
+
+# You'll see something like this in your editor:
+pick 2231360 Add the initial login form
+squash 3d4d2d1 Fix login form styling
+fixup 2b504be Update login form padding
+reword f7f3f6d Add form validation
+edit cdd94dc Implement password reset
+                                    </code></pre>
+
+                                    <p class="podpis">The command <code>pick</code> indicates that the commit with the specified hash should be included in the final history as is.</p>
+                                    <p class="podpis">The command <code>squash</code> combines the specified commit with the previous one, allowing you to merge their changes and edit the commit message.</p>
+                                    <p class="podpis">The command <code>fixup</code> also combines the specified commit with the previous one, but it does so without prompting to edit the commit message.</p>
+                                    <p class="podpis">The command <code>reword</code> allows you to modify the commit message of the specified commit while keeping its changes intact.</p>
+                                    <p>The command <code>edit</code> pauses the rebase process at the specified commit, allowing you to make changes before continuing the rebase.</p>
+ 
+                                    <h6>Splitting a commit</h6>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+# During rebase, when stopped at 'edit'
+git reset HEAD^
+git add file1
+git commit -m "First part of the split"
+git add file2
+git commit -m "Second part of the split"
+git rebase --continue
+                                    </code></pre>
+                            
+                                    <p class="podpis">Never rebase commits that have been pushed to public branches.</p>
+                                    <p class="podpis">Create a backup branch before complex rebases using <code>git branch backup-branch</code>.</p>
+                                    <p class="podpis">Keep commits atomic and logically grouped.</p>
+                                    <p class="podpis">Write clear commit messages that explain the "why" not just the "what".</p>
+                                    <p>Test your code after completing the rebase.</p>
+                                
+                                    <h5>Troubleshooting</h5>
+                                    <p class="podpis"><code>git rebase --abort</code> - canceling the rebase and returning to the previous state.</p>
+                                    <p class="podpis"><code>git rebase --continue</code> - continuing the rebase after resolving conflicts.</p>
+                                    <p><code>git reflog</code> - viewing history to recover from mistakes.</p>
+                                
+                                    <div class="alert alert-warning">
+                                        <b>Warning:</b> Force pushing (<code>git push --force</code>) after rebasing can cause issues for other developers. Use <code>git push --force-with-lease</code> instead, as a safer alternative.
+                                    </div>
+                                    
+                                    <h3>Advanced Git commands</h3>
 
                                     <p class="podpis"><code>git cherry-pick [commit]</code> - selectively applying a specific commit to the current branch, useful for applying a fix without merging the entire branch.</p>
                                     <p class="podpis"><code>git bisect</code> - performing a binary search through commits to identify where a bug was introduced by marking commits as "good" or "bad."</p>
@@ -313,68 +318,21 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                     <p class="podpis"><code>git filter-branch</code> - rewriting commit history by applying filters to branches, useful for removing sensitive data or cleaning up history.</p>
                                     <p class="podpis"><code>git merge --squash [branch]</code> - merging changes from another branch as a single commit, ideal for maintaining a clean history before merging to the main branch.</p>
                                     <p class="podpis"><code>git submodule</code> - including one Git repository within another, helping manage dependencies like shared libraries or components in projects.</p>
-                                    <p class="podpis"><code>git submodule foreach [command]</code> - running a Git command in each submodule, streamlining updates or operations across all submodules.</p>
-                                    <p><code>git rebase</code> - applying changes from one branch onto another, useful for updating a feature branch with main branch changes and keeping history clean.</p>
-                                    <p>Git hooks - scripts that run automatically before or after Git events like commits or pushes, automating tasks and enforcing consistency.</p>
-
-                                    <p class="podpis">Flags - modifying command behavior or adding extra functionality, customizing commands with options starting with a dash (-) or double dash (--).</p>
-
-                                    <h3>Useful Git Flags</h3>
+                                    <p><code>git submodule foreach [command]</code> - running a Git command in each submodule, streamlining updates or operations across all submodules.</p>
+                                    
+                                    <h3>Branch naming</h3>
+                                    <p class="podpis">Use consistent prefixes:</p>
                                     <ul>
-                                        <li><code>-m</code>: specifying a commit message directly in the command line.</li>
-                                        <li><code>-u</code>: staging changes only to tracked files when using <code>git add</code>, ignoring untracked files.</li>
-                                    </ul>
-
-                                    <h3>Git Reset vs. Git Revert</h3>
-                                    <p><strong>git reset</strong> changes the repository's history by moving the branch pointer, making it useful for local changes not yet pushed. <strong>git revert</strong> is ideal for undoing specific commits without altering commit history, as it creates a new commit.</p>
-
-                                    <h3>Working with Git Stash</h3>
-                                    <p class="podpis"><code>git stash</code> - temporarily storing uncommitted changes (in your local repository - it won't be pushed to the remote repository).</p>
-                                    <p class="podpis"><code>git stash push -m "message"</code> - stashing with a description.</p>
-                                    <p class="podpis"><code>git stash list</code> - viewing all stashes.</p>
-                                    <p class="podpis"><code>git stash apply</code> - applying the most recent stash.</p>
-                                    <p><code>git stash pop</code> - applying and removing the most recent stash.</p>
-                                    
-                                    <h3>Tags and Releases</h3>
-                                    <p class="podpis"><code>git tag</code> - listing all tags.</p>
-                                    <p class="podpis"><code>git tag -a v1.0.0 -m "Release 1.0.0"</code> - creating annotated tag.</p>
-                                    <p class="podpis"><code>git push origin --tags</code> - pushing tags to remote.</p>
-                                    <p><code>git tag -d [tag-name]</code> - deleting local tag.</p>
-                                    
-                                    <h3>Advanced Git Commands</h3>
-                                    <p class="podpis"><code>git cherry-pick [commit]</code> - applying specific commit to the current branch.</p>
-                                    <p class="podpis"><code>git bisect</code> - binary search through history to find bugs.</p>
-                                    <p class="podpis"><code>git blame [file]</code> - showing who changed which lines.</p>
-                                    <p class="podpis"><code>git reflog</code> - viewing reference logs for recovery.</p>
-                                    <p class="podpis"><code>git worktree</code> - working on multiple branches simultaneously.</p>
-                                    <p class="podpis"><code>git filter-branch</code> - rewriting commit history by applying filters.</p>
-                                    <p class="podpis"><code>git submodule</code> - including one Git repository within another.</p>
-                                    <p><code>git submodule foreach [command]</code> - running the command in each submodule.</p>
-                                    
-                                    <h2>Best Practices</h2>
-                                    
-                                    <h3>.gitignore</h3>
-                                    <p>The <code>.gitignore</code> file should exclude:</p>
-                                    <ul>
-                                        <li>Build artifacts and dependencies</li>
-                                        <li>Environment-specific files</li>
-                                        <li>Sensitive information</li>
-                                        <li>System files (like .DS_Store)</li>
-                                        <li>IDE-specific files</li>
-                                    </ul>
-                                    
-                                    <h3>Branch Naming</h3>
-                                    <p>Use consistent prefixes:</p>
-                                    <ul>
-                                        <li>feature/ - for new features</li>
-                                        <li>bugfix/ - for bug fixes</li>
-                                        <li>hotfix/ - for critical fixes</li>
-                                        <li>release/ - for release branches</li>
-                                        <li>support/ - for maintenance branches</li>
+                                        <li><code>feature/</code> - for new features</li>
+                                        <li><code>bugfix/</code> - for bug fixes</li>
+                                        <li><code>hotfix/</code> - for critical fixes</li>
+                                        <li><code>release/</code> - for release branches</li>
+                                        <li><code>support/</code> - for maintenance branches</li>
                                     </ul>
                                     
                                     <h3>Aliases</h3>
-                                    <p>Set up useful aliases in <code>.gitconfig</code>:</p>
+                                    <p>Creating Git aliases can significantly streamline your workflow by allowing you to shorten frequently used commands. For example, you can set an alias for the checkout command with <code>git config --global alias.co checkout</code>. This means you can simply type <code>git co</code> instead of <code>git checkout</code>. Using aliases can save time and reduce the likelihood of errors when typing long commands.</p>
+                                    <p>We can set up useful aliases in <code>.gitconfig</code>:</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 [alias]
 	co = checkout
@@ -384,14 +342,13 @@ git commit -m "Resolve merge conflicts in feature_branch"
 	unstage = reset HEAD --
 	last = log -1 HEAD
                                     </code></pre>
+
+                                    <h2>Hooks</h2>
+
+                                    <p>Git hooks are scripts that Git runs before or after specific events in the workflow, enabling automation and policy enforcement within repositories. Located in the <code>.git/hooks</code> directory, these customizable scripts can validate commit messages, run tests before pushes, or trigger deployments after merges, helping teams maintain code quality and streamline their development processes.</p>
                                     
                                     <h2>Conclusion</h2>
-                                    <p>Understanding these Git commands and workflows is crucial for effective collaboration in software development. Regular practice and consistent use of Git best practices will help maintain a clean repository history and smooth team collaboration. Always remember to pull before pushing, keep commits focused, and write clear commit messages for better maintainability.</p>
-
-                                    FORKING AND WHAT ARE STAGED CHANGES, WORKING DIRECTORY
-                                    git push origin main --force
-                                    git branch -d test
-                                    reset vs revert
+                                    <p>Understanding these Git commands and workflows is crucial for effective collaboration in software development. Regular practice and consistent use of Git will help maintain a clean repository history and smooth team collaboration. Always remember to pull before pushing, keep commits focused, and write clear commit messages for better maintainability.</p>
                                 </div>
                             </div>
                         </div>

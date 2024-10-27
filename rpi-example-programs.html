@@ -87,181 +87,180 @@
                                 <div class="card-body">
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-# Powering on a LED
+<span class="comment"># Powering on an LED</span>
 
-import RPi.GPIO as gpio
-import time
-led_pin = 17 # setting the GPIO number we used on the board
-gpio.setmode(gpio.BCM) # setting the right numeration of the GPIO's
-gpio.setup(led_pin, gpio.OUT) # gpio.OUT / gpio.IN (setting a certain GPIO to output / input)
+<span class="command">import</span> RPi.GPIO <span class="command">as</span> gpio
+<span class="command">import</span> time
+led_pin <span class="sign">=</span> 17 <span class="comment"># setting the GPIO number we used on the board</span>
+gpio.<span class="command">setmode</span>(gpio.BCM) <span class="comment"># setting the right numeration of the GPIO's</span>
+gpio.<span class="command">setup</span>(led_pin, gpio.OUT) <span class="comment"># gpio.OUT / gpio.IN (setting a certain GPIO to output / input)</span>
 
-for x in range(10):
-	gpio.output(led_pin, gpio.HIGH) # HIGH means powering on the LED
-	time.sleep(1)
-	gpio.output(led_pin, gpio.LOW) # LOW means powering off the LED
-	time.sleep(1)
+<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10):
+	gpio.<span class="command">output</span>(led_pin, gpio.HIGH) <span class="comment"># HIGH means powering on the LED</span>
+	time.<span class="command">sleep</span>(1)
+	gpio.<span class="command">output</span>(led_pin, gpio.LOW) <span class="comment"># LOW means powering off the LED</span>
+	time.<span class="command">sleep</span>(1)
 
-gpio.cleanup() # resetting the GPIO settings to prevent damage                                        
-                                    </code></pre>
+gpio.<span class="command">cleanup</span>() <span class="comment"># resetting the GPIO settings to prevent damage  </span>                                      
+									</code></pre>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-# Powering on a LED when a button is pressed
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Powering on an LED when a button is pressed</span>
 
-import RPi.GPIO as gpio
-import time
-led_pin = 17
-button_pin = 26
-gpio.setmode(gpio.BCM)
-gpio.setup(led_pin, gpio.OUT)
-gpio.setup(button_pin, gpio.IN)
+<span class="command">import</span> RPi.GPIO <span class="command">as</span> gpio
+<span class="command">import</span> time
+led_pin <span class="sign">=</span> 17
+button_pin <span class="sign">=</span> 26
+gpio.<span class="command">setmode</span>(gpio.BCM)
+gpio.<span class="command">setup</span>(led_pin, gpio.OUT)
+gpio.<span class="command">setup</span>(button_pin, gpio.IN)
 
-while True:
-	print(gpio.input(button_pin))
-	if gpio.input(button_pin): # checking if button is pressed
-		gpio.output(led_pin, gpio.HIGH)
-	else:
-		gpio.output(led_pin, gpio.LOW)
-	time.sleep(0.01) # reducing CPU usage
+<span class="function">while True</span>:
+	<span class="command">print</span>(gpio.<span class="command">input</span>(button_pin))
+	<span class="function">if</span> gpio.<span class="command">input</span>(button_pin): <span class="comment"># checking if button is pressed</span>
+		gpio.<span class="command">output</span>(led_pin, gpio.HIGH)
+	<span class="function">else</span>:
+		gpio.<span class="command">output</span>(led_pin, gpio.LOW)
+	time.<span class="command">sleep</span>(0.01) <span class="comment"># reducing CPU usage</span>
 
-gpio.cleanup()                                        
-                                    </code></pre>
+gpio.<span class="command">cleanup</span>()                                        
+									</code></pre>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-# Powering on one LED after another when a button is pressed (and turning off the previous one) - three LEDs
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Powering on one LED after another when a button is pressed (and turning off the previous one) - three LEDs</span>
 
-import RPi.GPIO as gpio
-import time
-gpio.setmode(gpio.BCM)
-pins = [17, 27, 22] # three LEDs
-for x in pins:
-	gpio.setup(x, gpio.OUT)
-	gpio.output(x, gpio.LOW)
+<span class="command">import</span> RPi.GPIO <span class="command">as</span> gpio
+<span class="command">import</span> time
+gpio.<span class="command">setmode</span>(gpio.BCM)
+pins <span class="sign">=</span> [17, 27, 22] <span class="comment"># three LEDs</span>
+<span class="function">for</span> x <span class="function">in</span> pins:
+gpio.<span class="command">setup</span>(x, gpio.OUT)
+gpio.<span class="command">output</span>(x, gpio.LOW)
 
-button_pin = 26
-gpio.setup(button_pin, gpio.IN)
+button_pin <span class="sign">=</span> 26
+gpio.<span class="command">setup</span>(button_pin, gpio.IN)
+previous_state_button <span class="sign">=</span> gpio.<span class="command">input</span>(button_pin)
+led_index <span class="sign">=</span> 0
 
-previous_state_button = gpio.input(button_pin)
-led_index = 0
+<span class="function">while True</span>:
+	time.<span class="command">sleep</span>(0.1)
+	button_state <span class="sign">=</span> gpio.<span class="command">input</span>(button_pin)
+	<span class="function">if</span> button_state <span class="sign">!=</span> previous_state_button: <span class="comment"># checking if button state changed</span>
+		previous_state_button <span class="sign">=</span> button_state
+		<span class="function">if</span> button_state:
+			<span class="function">for</span> x <span class="function">in</span> pins:
+				<span class="function">if</span> pins.<span class="command">index</span>(x) <span class="sign">==</span> led_index:
+					gpio.<span class="command">output</span>(x, gpio.HIGH)
+				<span class="function">else</span>:
+					gpio.<span class="command">output</span>(x, gpio.LOW)
+			led_index <span class="sign">+=</span> 1
+			<span class="function">if</span> led_index <span class="sign">&gt;=</span> <span class="command">len</span>(pins):
+				led_index <span class="sign">=</span> 0
 
-while True:
-	time.sleep(0.1)
-	button_state = gpio.input(button_pin)
-	if button_state != previous_state_button: # checking if button state changed
-		previous_state_button = button_state
-		if button_state:
-			for x in pins:
-				if pins.index(x) == led_index:
-					gpio.output(x, gpio.HIGH)
-				else:
-					gpio.output(x, gpio.LOW)
-			led_index += 1
-			if led_index >= len(pins):
-				led_index = 0
+gpio.<span class="command">cleanup</span>()                                        
+									</code></pre>
 
-gpio.cleanup()                                        
-                                    </code></pre>
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Using the camera</span>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-# Using the camera
+<span class="command">from</span> picamera <span class="command">import</span> PiCamera
+<span class="command">import</span> time
 
-from picamera import PiCamera
-import time
+camera <span class="sign">=</span> PiCamera()
+camera.resolution <span class="sign">=</span> (1280, 720)
+camera.rotation <span class="sign">=</span> 180
+time.<span class="command">sleep</span>(2) <span class="comment"># allowing the camera time to calibrate</span>
 
-camera = PiCamera()
-camera.resolution = (1280, 720)
-camera.rotation = 180
-time.sleep(2) # allowing the camera time to calibrate
-
-file_name = "/home/pi/camera/image.jpg" # an absolute path for image
+file_name <span class="sign">=</span> <span class="text">"/home/pi/camera/image.jpg"</span> <span class="comment"># an absolute path for image</span>
 camera.capture(file_name)
-print("The image is done.")
+<span class="command">print</span>(<span class="text">"The image is done."</span>)
 
-file_name_2 = "/home/pi/camera/vid.h264" # an absolute path for video
+file_name_2 <span class="sign">=</span> <span class="text">"/home/pi/camera/vid.h264"</span> <span class="comment"># an absolute path for video</span>
 camera.start_recording(file_name_2)
-camera.wait_recording(5) # recording for 5 seconds
+camera.wait_recording(5) <span class="comment"># recording for 5 seconds</span>
 camera.stop_recording()
-print("The video is done.")                                        
-                                    </code></pre>
+<span class="command">print</span>(<span class="text">"The video is done."</span>)                                     
+									</code></pre>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE; margin-bottom: 3px;"><code markup="tt">
-# Sending emails
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE; margin-bottom: 3px;"><code markup="tt">
+<span class="comment"># Sending emails</span>
 
-import yagmail
+<span class="command">import</span> yagmail
 
-with open("/home/pi/.local/share/.email_password", "r") as file:
-	password = file.read().strip() # this ensures no extra spaces
+<span class="function">with</span> <span class="command">open</span>(<span class="text">"/home/pi/.local/share/.email_password"</span>, <span class="text">"r"</span>) <span class="function">as</span> file:
+	password <span class="sign">=</span> file.<span class="command">read</span>().<span class="command">strip</span>() <span class="comment"># this ensures no extra spaces</span>
 
-yag = yagmail.SMTP("cpucademy.sender@gmail.com", password)
-yag.send(to="youremail@gmail.com", subject="Raspberry Pi Email", contents="Hello World!", attachments="/home/pi/file.txt")
-print("Email sent")                                        
-                                    </code></pre>
+yag <span class="sign">=</span> yagmail.SMTP(<span class="text">"cpucademy.sender@gmail.com"</span>, password)
+yag.send(to <span class="sign">=</span> <span class="text">"youremail@gmail.com"</span>, subject <span class="sign">=</span> <span class="text">"Raspberry Pi Email"</span>, contents <span class="sign">=</span> <span class="text">"Hello World!"</span>, attachments <span class="sign">=</span> <span class="text">"/home/pi/file.txt"</span>)
+<span class="command">print</span>(<span class="text">"Email sent"</span>)                                        
+									</code></pre>
 
-                                    <p>*To use this, create an email address, enable 2-step verification, and search for app passwords. Generate one for the Raspberry Pi and copy it. Create a hidden file with the name and the path like on the screenshot, and paste the password inside it. Now, everything will work.</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-# Creating a local server
+									<p>*To use this, create an email address, enable 2-step verification, and search for app passwords. Generate one for the Raspberry Pi and copy it. Create a hidden file with the name and the path, like in the example above, and paste the password inside it. Now, everything will work.</p>
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Creating a local server</span>
 
-from flask import Flask
-import RPi.GPIO as gpio
+<span class="command">from</span> flask <span class="command">import</span> Flask
+<span class="command">import</span> RPi.GPIO <span class="command">as</span> gpio
 
-button_pin = 26
-gpio.setmode(gpio.BCM)
-gpio.setup(button_pin, gpio.IN)
+button_pin <span class="sign">=</span> 26
+gpio.<span class="command">setmode</span>(gpio.BCM)
+gpio.<span class="command">setup</span>(button_pin, gpio.IN)
 
-# 0.0.0.0:8500 - 0.0.0.0 is the local IP address and 8500 is the port (you can use a different port number).
-# We can open this website in a browser of a device connected to the same network like this: [pi_public_IP_address]:[the_port_number].
+<span class="comment"># 0.0.0.0:8500 - 0.0.0.0 is the local IP address and 8500 is the port (you can use a different port number).
+# We can open this website in a browser of a device connected to the same network like this: [pi_public_IP_address]:[the_port_number].</span>
 
-app = Flask(__name__) # initializing
+app <span class="sign">=</span> <span class="function">Flask</span>(<span class="function">__name__</span>) <span class="comment"># initializing</span>
 
-@app.route("/") # homepage route
-def index():
-	return "Hello world!"
+<span class="command">@app.route</span>(<span class="text">"/"</span>) <span class="comment"># homepage route</span>
+<span class="function">def</span> index():
+	<span class="function">return</span> <span class="text">"Hello world!"</span>
 
-@app.route("/push-button") # button status route (a subpage)
-def push_button(): # the name of the function doesn't have to be the same as the route
-	if gpio.input(button_pin) == gpio.HIGH:
-		return "Button is pressed."
-	return "Button is not pressed."
+<span class="command">@app.route</span>(<span class="text">"/push-button"</span>) <span class="comment"># button status route (a subpage)</span>
+<span class="function">def</span> push_button(): <span class="comment"># the name of the function doesn't have to be the same as the route</span>
+	<span class="function">if</span> gpio.<span class="command">input</span>(button_pin) <span class="sign">==</span> gpio.HIGH:
+		<span class="function">return</span> <span class="text">"Button is pressed."</span>
+	<span class="function">return</span> <span class="text">"Button is not pressed."</span>
 
-try:
-	app.run(host="0.0.0.0", port=8500) # running the server on port 8500
-finally:
-	gpio.cleanup()                                        
-                                    </code></pre>
+<span class="function">try</span>:
+	app.run(host <span class="sign">=</span> <span class="text">"0.0.0.0"</span>, port <span class="sign">=</span> 8500) <span class="comment"># running the server on port 8500</span>
+<span class="function">finally</span>:
+	gpio.<span class="command">cleanup</span>()                                        
+									</code></pre>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-# Turning the LEDs on and off based on the website subpage opened
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Turning the LEDs on and off based on the website subpage opened</span>
 
-from flask import Flask
-import RPi.GPIO as gpio
+<span class="command">from</span> flask <span class="command">import</span> Flask
+<span class="command">import</span> RPi.GPIO <span class="command">as</span> gpio
 
-led_pins = [17, 22, 27]
-gpio.setmode(gpio.BCM)
+led_pins <span class="sign">=</span> [17, 22, 27]
+gpio.<span class="command">setmode</span>(gpio.BCM)
 
-for x in led_pins:
-	pio.setup(x, gpio.OUT)
-for x in led_pins:
-	pio.output(x, gpio.LOW)
+<span class="function">for</span> x <span class="function">in</span> led_pins:
+	gpio.<span class="command">setup</span>(x, gpio.OUT)
+<span class="function">for</span> x <span class="function">in</span> led_pins:
+	gpio.<span class="command">output</span>(x, gpio.LOW)
 
-app = Flask(__name__)
-@app.route("/")
-def index():
-	return "LEDs"
+app <span class="sign">=</span> <span class="function">Flask</span>(<span class="function">__name__</span>)
+<span class="command">@app.route</span>(<span class="text">"/"</span>)
+<span class="function">def</span> index():
+	<span class="function">return</span> <span class="text">"LEDs"</span>
 
-@app.route("/led/&lt;int:led_pin&gt;/state/&lt;int:led_state&gt;") # URL format for controlling LEDs
-def trigger_led(led_pin, led_state):
-	if led_pin not in led_pins:
-		return "Wrong GPIO number"
-	if led_state == 1:
-		gpio.output(led_pin, gpio.HIGH)
-	elif led_state == 0:
-		gpio.output(led_pin, gpio.LOW)
-	else:
-		return "State must be 0 or 1"
-	return f"{led_pin} LED is {'on' if led_state == 1 else 'off'}"
+<span class="command">@app.route</span>(<span class="text">"/led/&lt;int:led_pin&gt;/state/&lt;int:led_state&gt;"</span>) <span class="comment"># URL format for controlling LEDs</span>
+<span class="function">def</span> trigger_led(led_pin, led_state):
+	<span class="function">if</span> led_pin <span class="function">not in</span> led_pins:
+		<span class="function">return</span> <span class="text">"Wrong GPIO number"</span>
+	<span class="function">if</span> led_state <span class="sign">==</span> 1:
+		gpio.<span class="command">output</span>(led_pin, gpio.HIGH)
+	<span class="function">elif</span> led_state <span class="sign">==</span> 0:
+		gpio.<span class="command">output</span>(led_pin, gpio.LOW)
+	<span class="function">else</span>:
+		<span class="function">return</span> <span class="text">"State must be 0 or 1"</span>
+	<span class="function">return</span> <span class="text">f"{led_pin} LED is {'on' if led_state == 1 else 'off'}"</span>
 
-app.run(host="0.0.0.0") # running the server
-gpio.cleanup()                                        
+app.run(host <span class="sign">=</span> <span class="text">"0.0.0.0"</span>) <span class="comment"># running the server</span>
+gpio.<span class="command">cleanup</span>()                                        
                                     </code></pre>
 
                                     <p>We should always place the code in the <code>try</code> block and the <code>gpio.cleanup()</code> command in the main and the <code>except</code> block. This way, we will prevent not executing this command by killing the program.</p>

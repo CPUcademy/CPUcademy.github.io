@@ -84,95 +84,112 @@
                                 <div class="card-header py-3">
                                     <h5 class="m-0 font-weight-bold">Queries</h5>
                                 </div>
-                                <div class="card-body">                   
-                                    # SELECT statement
-                                    # Displaying selected columns from a given table.
-                                    SELECT * 
-                                    FROM table_name;
+                                <div class="card-body">        
+                                    <h4><code>SELECT</code> statement</h4>
+                                    <p>Displaying selected columns from a given table.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT * 
+FROM table_name;
+                                    </code></pre>           
 
+                                    <h4><code>AS</code> caluse</h4>
+                                    <p>Changing the name of a given column, but only as a result of a query (nothing changes in the table).</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column_name AS "c_name" 
+FROM table_name;
+                                    </code></pre>
 
-                                    # AS caluse
-                                    # Changing the name of a given column, but only as a result of a query (nothing changes in the table).
-                                    SELECT column_name AS "c_name" 
-                                    FROM table_name;
+                                    <h4><code>DISTINCT</code> clause</h4>
+                                    <p>Displaying each value from a given column only once.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT DISTINCT column_name 
+FROM table_name;
+                                    </code></pre>
 
+                                    <h4><code>WHERE</code> clause</h4>
+                                    <p>Displaying values ​​from records in which a specified condition is met.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column_name 
+FROM table_name 
+WHERE column_name = 2;
+                                    </code></pre>
 
-                                    # DISTINCT clause
-                                    # Display each value from a given column only once.
-                                    SELECT DISTINCT column_name 
-                                    FROM table_name;
+                                    <h4><code>LIKE</code> operator</h4>
+                                    <p>A WHERE statement criterion used to search for a specific pattern.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column_name 
+FROM table_name 
+WHERE column_name LIKE 'ABC';
+                                    </code></pre>
 
+                                    <h4><code>_</code> wildcard</h4>
+                                    <p>One unspecified character in the “pattern” that the LIKE statement is looking for.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column_name 
+FROM table_name 
+WHERE column_name LIKE '_QL';
+                                    </code></pre>
 
-                                    # WHERE clause
-                                    # Displaying values ​​from records in which a specified condition is met.
-                                    SELECT column_name 
-                                    FROM table_name 
-                                    WHERE column_name = 2;
+                                    <h4><code>%</code> wildcard</h4>
+                                    <p>An unspecified number of any characters in the “pattern” that the LIKE statement is looking for.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column_name 
+FROM table_name 
+WHERE column_name LIKE 'S%';
+                                    </code></pre>
 
+                                    <h4><code>NULL</code> values</h4>
+                                    <p>Checking if a field contains a value (NULL means no value).</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column_name 
+FROM table_name 
+WHERE column_name IS NULL; 
+                                    </code></pre>
 
-                                    # LIKE operator
-                                    # A WHERE statement criterion used to search for a specific pattern.
-                                    SELECT column_name 
-                                    FROM table_name 
-                                    WHERE column_name LIKE 'ABC';
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column_name 
+FROM table_name 
+WHERE column_name IS NOT NULL;   
+                                    </code></pre>
 
+                                    <h4><code>BETWEEN</code> operator</h4>
+                                    <p>Filtering values ​​according to the range specified in the WHERE statement.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column_name 
+FROM table_name 
+WHERE column_name BETWEEN 2 AND 7; 
+                                    </code></pre>
 
-                                    # _ wildcard
-                                    # One unspecified character in the “pattern” that the LIKE statement is looking for.
-                                    SELECT column_name 
-                                    FROM table_name 
-                                    WHERE column_name LIKE '_QL';
+                                    <p>In this statement, BETWEEN filters the result set to only include movies with names that begin with the letter ‘A’ up to, but not including ones that begin with ‘J’.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT *
+FROM movies
+WHERE name BETWEEN 'A' AND 'J';
+                                    </code></pre>
 
+                                    <h4><code>AND</code> operator</h4>
+                                    <p>An operator used to combine conditions in a WHERE statement. If all of them are true, the record is displayed.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column_name 
+FROM table_name 
+WHERE column1_name = 1 AND column2_name = 2; 
+                                    </code></pre>
 
-                                    # % wildcard
-                                    # An unspecified number of any characters in the “pattern” that the LIKE statement is looking for.
-                                    SELECT column_name 
-                                    FROM table_name 
-                                    WHERE column_name LIKE 'S%';
+                                    <h4><code>OR</code> operator</h4>
+                                    <p>An operator used to combine conditions in a WHERE statement. If any of them is true, the record is displayed.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column_name 
+FROM table_name 
+WHERE column1_name = 1 OR column2_name = 2; 
+                                    </code></pre>
 
-
-                                    # NULL values
-                                    # Checking if a field contains a value (NULL means no value).
-                                    SELECT column_name 
-                                    FROM table_name 
-                                    WHERE column_name IS NULL; 
-
-                                    SELECT column_name 
-                                    FROM table_name 
-                                    WHERE column_name IS NOT NULL; 
-
-
-                                    # BETWEEN operator
-                                    # Filtering values ​​according to the range specified in the WHERE statement.
-                                    SELECT column_name 
-                                    FROM table_name 
-                                    WHERE column_name BETWEEN 2 AND 7; 
-
-                                    In this statement, BETWEEN filters the result set to only include movies with names that begin with the letter ‘A’ up to, but not including ones that begin with ‘J’.
-                                    SELECT *
-                                    FROM movies
-                                    WHERE name BETWEEN 'A' AND 'J';
-
-
-                                    # AND operator
-                                    # An operator used to combine conditions in a WHERE statement. If all of them are true, the record is displayed.
-                                    SELECT column_name 
-                                    FROM table_name 
-                                    WHERE column1_name = 1 AND column2_name = 2; 
-
-
-                                    # OR operator
-                                    # An operator used to combine conditions in a WHERE statement. If any of them is true, the record is displayed.
-                                    SELECT column_name 
-                                    FROM table_name 
-                                    WHERE column1_name = 1 OR column2_name = 2; 
-
-
-                                    # ORDER BY clause
-                                    # Sorting a table descending (DESC) or ascending (ASC) by a specified value. Ascending sorting also means alphabetically. ASC is default.
-                                    SELECT column_name 
-                                    FROM table_name 
-                                    ORDER BY column_name DESC;                                   
+                                    <h4><code>ORDER BY</code> clause</h4>
+                                    <p>Sorting a table descending (DESC) or ascending (ASC) by a specified value. Ascending sorting also means alphabetically. ASC is default.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+SELECT column_name 
+FROM table_name 
+ORDER BY column_name DESC;   
+                                    </code></pre>                                 
                                 </div>
                             </div>
                         </div>
