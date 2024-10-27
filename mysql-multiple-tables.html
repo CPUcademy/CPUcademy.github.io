@@ -85,17 +85,9 @@
                                     <h5 class="m-0 font-weight-bold">Multiple tables</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p class="podpis">JOIN will combine rows from different tables if the join condition is true.</p>
-                                    <p class="podpis">LEFT JOIN will return every row in the left table, and if the join condition is not met, NULL values are used to fill in the columns from the right table.</p>
-                                    <p class="podpis">Primary key is a column that serves a unique identifier for the rows in the table.</p>
-                                    <p class="podpis">Foreign key is a column that contains the primary key to another table.</p>
-                                    <p class="podpis">CROSS JOIN lets us combine all rows of one table with all rows of another table.</p>
-                                    <p class="podpis">UNION stacks one dataset on top of another.</p>
-                                    <p>WITH allows us to define one or more temporary tables that can be used in the final query.</p>
-
                                     <h4>Inner Join</h4>
-                                    <p>Joining tables based on related columns between them.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Joining tables based on related columns between them</span>
 <span class="function">SELECT</span> *
 <span class="function">FROM</span> table1_name
 <span class="function">JOIN</span> table2_name
@@ -103,43 +95,51 @@
                                     </code></pre>
 
                                     <h4>Outer Join</h4>
-                                    <p>A table join that includes all rows from both tables, even if there are no matching columns (non-matching columns are marked as NULL).</p>
+                                    <p>A table join that includes all rows from both tables, even if there are no matching columns (non-matching columns are marked as <code>NULL</code>).</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">SELECT</span> *
 <span class="function">FROM</span> table1_name
 <span class="function">LEFT JOIN</span> table2_name
 <span class="function">ON</span> table1_name.column_name = table2_name.column_name;
                                     </code></pre>
-
-                                    <p>You can add a primary / foreign key with the ALTER TABLE command: ALTER TABLE table_name ADD PRIMARY KEY (id);. The primary key is a unique identifier for each row in the table, and a foreign key is a key used to create a relationship between two tables.</p>
+                                
+                                    <p>*<code>RIGHT JOIN</code> also exists, and it works the other way around.</p>
 
                                     <h4><code>CROSS JOIN</code> clause</h4>
-                                    <p>Displaying all possible combinations of given columns.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Displaying all possible combinations of given columns</span>
 <span class="function">SELECT</span> table1_name.column1_name, table2_name.column2_name
 <span class="function">FROM</span> table1_name
 <span class="function">CROSS JOIN</span> table2_name; 
                                     </code></pre>
 
                                     <h4><code>UNION</code> clause</h4>
-                                    <p>Combining the results of two or more SELECT queries (including only unique rows).</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Combining the results of two or more SELECT queries (including only unique rows)</span>    
 <span class="function">SELECT</span> column1_name <span class="function">FROM</span> table1_name
 <span class="function">UNION</span>
 <span class="function">SELECT</span> column2_name <span class="function">FROM</span> table2_name;
                                     </code></pre>
 
                                     <h4><code>WITH</code> clause</h4>
-                                    <p>Defining a subquery that can be reused within the main query.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Defining a subquery that can be reused within the main query</span>
 <span class="function">WITH</span> temp <span class="function">AS</span> (
-<span class="function">SELECT</span> *
-<span class="function">FROM</span> table1_name
+	<span class="function">SELECT</span> *
+	<span class="function">FROM</span> table1_name
 )
 <span class="function">SELECT</span> *
 <span class="function">FROM</span> temp
 <span class="function">WHERE</span> column_name <span class="function">BETWEEN</span> 2 <span class="function">AND</span> 5; 
-                                    </code></pre>                                
+                                    </code></pre>  
+                                    
+                                    <p>The <code>WITH</code> clause creates temporary result sets that can be referenced multiple times within a single query, while normal subqueries can be more straightforward for simpler tasks.</p>
+                                    
+                                    <h4>Conclusion</h4>
+                                    <p class="podpis">A <code>JOIN</code> operation combines rows from different tables based on a specified join condition.</p>
+                                    <p class="podpis">A <code>LEFT JOIN</code> returns all rows from the left table, and when there is no matching row in the right table, it fills the corresponding columns with <code>NULL</code> values.</p>
+                                    <p class="podpis">A <code>CROSS JOIN</code> combines every row from one table with every row from another table, resulting in a Cartesian product.</p>
+                                    <p>The <code>UNION</code> operator stacks one dataset on top of another, merging the results into a single dataset.</p>
                                 </div>
                             </div>
                         </div>

@@ -86,65 +86,67 @@
                                 </div>
                                 <div class="card-body">
                                     <h4><code>LIMIT</code> clause</h4>
-                                    <p>Specifying a limit on the number of records that will be displayed as a query result.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Specifying a limit on the number of records that will be displayed</span>
 <span class="function">SELECT</span> column_name 
 <span class="function">FROM</span> table_name 
 <span class="function">LIMIT</span> 5;
                                     </code></pre>
                                     
                                     <h4><code>COUNT</code> function</h4>
-                                    <p>Counting data records in a table.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Counting records in a table</span>
 <span class="function">SELECT</span> <span class="function">COUNT</span>(*)
 <span class="function">FROM</span> table_name; 
                                     </code></pre>
                       
                                     <h4><code>SUM</code> function</h4>
-                                    <p>Summing values.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Summing up values</span>
 <span class="function">SELECT</span> <span class="function">SUM</span>(column_name)
 <span class="function">FROM</span> table_name; 
                                     </code></pre> 
                                     
                                     <h4><code>AVG</code> function</h4>
-                                    <p>Calculating the average value.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Calculating the average value</span>
 <span class="function">SELECT</span> <span class="function">AVG</span>(column_name)
 <span class="function">FROM</span> table_name; 
                                     </code></pre>
 
                                     <h4><code>MAX</code> function</h4>
-                                    <p>Finding the highest value.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Finding the highest value</span>
 <span class="function">SELECT</span> <span class="function">MAX</span>(column_name)
 <span class="function">FROM</span> table_name; 
                                     </code></pre>
                                     
                                     <h4><code>MIN</code> function</h4>
-                                    <p>Finding the lowest value.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Finding the lowest value</span>
 <span class="function">SELECT</span> <span class="function">MIN</span>(column_name)
 <span class="function">FROM</span> table_name; 
                                     </code></pre>
 
                                     <h4><code>ROUND</code> function</h4>
-                                    <p>Rounding the given value to a given number of decimal places.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Rounding a given value to a given number of decimal places</span>
 <span class="function">SELECT</span> column2_name, <span class="function">ROUND</span>(column2_name, 2)
 <span class="function">FROM</span> table_name; 
                                     </code></pre>
                                     
                                     <h4><code>GROUP BY</code> clause</h4>
-                                    <p>Grouping records by selected values.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Grouping records by the values of a specified column</span>
 <span class="function">SELECT</span> column_name, <span class="function">COUNT</span>(*)
 <span class="function">FROM</span> table_name
 <span class="function">GROUP BY</span> column_name;
                                     </code></pre>
                                     
                                     <h4>Column references</h4>
-                                    <p>Referring to columns by their order in the SELECT clause. 1 - column1_name, 2 - column2_name.</p>
+                                    <p class="podpis">Referring to columns by their order in the <code>SELECT</code> clause.</p> 
+                                    <p class="podpis">1 - <code>column1_name</code></p>
+                                    <p>2 - <code>column2_name</code></p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">SELECT</span> column1_name, column2_name
 <span class="function">FROM</span> table_name
@@ -153,17 +155,19 @@
                                     </code></pre>
                                     
                                     <h4><code>HAVING</code> clause</h4>
-                                    <p>Adding a condition to the GROUP BY command.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Adding a condition to the GROUP BY clause</span>
 <span class="function">SELECT</span> column_name, <span class="function">COUNT</span>(*)
 <span class="function">FROM</span> table_name
 <span class="function">GROUP BY</span> column_name
 <span class="function">HAVING COUNT</span>(*) &lt; 3;
                                     </code></pre>
                                     
-                                    <h4>Subqueries with <code>WHERE</code></h4>
-                                    <p>MAX statement with WHERE subquery - displaying only the name of the part with the highest price.</p>
+                                    <h4>Subquery with <code>WHERE</code></h4>
+
+                                    <p>A subquery is a query nested within another SQL query used to retrieve data that can be utilized in the main query.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Displaying the value of column1_name from table_name for the row (record) where column2_name has the maximum value in this table</span>
 <span class="function">SELECT</span> column1_name
 <span class="function">FROM</span> table_name
 <span class="function">WHERE</span> column2_name = (<span class="function">SELECT</span> <span class="function">MAX</span>(column2_name) <span class="function">FROM</span> table_name);  

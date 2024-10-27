@@ -85,35 +85,9 @@
                                     <h5 class="m-0 font-weight-bold">Introduction to MySQL</h5>
                                 </div>
                                 <div class="card-body">
-                                    SQL is a programming language designed to manipulate and manage data stored in relational databases.
+                                    <p>SQL is a programming language specifically created for managing and manipulating data within relational databases. A relational database structures information into one or more tables, where each table consists of data arranged in rows and columns.</p>
 
-                                    A relational database is a database that organizes information into one or more tables.
-                                    A table is a collection of data organized into rows and columns.
-                                    A statement is a string of characters that the database recognizes as a valid command.
-                                    
-                                    # CASE example
-                                    SELECT OrderID, Quantity,
-                                    CASE
-                                        WHEN Quantity > 30 THEN 'The quantity is greater than 30'
-                                        WHEN Quantity = 30 THEN 'The quantity is 30'
-                                        ELSE 'The quantity is under 30'
-                                    END AS QuantityText
-                                    FROM OrderDetails;
-                                    
-                                    Archiwizacja z zachowaniem triggerów, procedur składowanych, funkcji:
-                                    
-                                    mysqldump -u [nazwa_użytkownika] -p --routines --triggers --events --add-drop-database --create-options --databases [nazwa_bazy_danych] > [plik_wyjściowy.sql]
-                                    
-                                    Wyjaśnienie:
-                                    
-                                    -u [nazwa_użytkownika] określa nazwę użytkownika MySQL
-                                    -p sygnalizuje, że po wykonaniu polecenia zostanie zapytany o hasło
-                                    --routines dołącza procedury składowane i funkcje
-                                    --triggers dołącza triggery
-                                    --events dołącza zdarzenia
-                                    --add-drop-database dodaje polecenie DROP DATABASE przed CREATE DATABASE, co jest przydatne w przypadku przywracania kopii zapasowej na istniejącej bazie danych
-                                    --create-options dodaje opcje tworzenia bazy danych w poleceniu CREATE TABLE
-                                    --databases [nazwa_bazy_danych] określa nazwę bazy danych do zarchiwizowania. Ta opcja dodaje również polecenie CREATE DATABASE IF NOT EXISTS
+                                    <p>After creating an ERD diagram with <a href="https://erd.dbdesigner.net/" target="_blank" class="link">DBDesigner</a>, we can export it as an SQL script. This way, we have the structure ready without writing any code and can start inserting data immediately.</p>
                                     
                                     CREATE DATABASE IF NOT EXISTS warsztat_samochodowy;
                                     USE warsztat_samochodowy;
