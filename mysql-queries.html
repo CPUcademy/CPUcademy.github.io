@@ -86,36 +86,36 @@
                                 </div>
                                 <div class="card-body">        
                                     <h4><code>SELECT</code> statement</h4>
-                                    <p>Displaying selected columns from a given table.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Displaying selected columns from a given table</span>
 <span class="function">SELECT</span> * 
 <span class="function">FROM</span> table_name;
                                     </code></pre>           
 
-                                    <h4><code>AS</code> caluse</h4>
-                                    <p>Changing the name of a given column, but only as a result of a query (nothing changes in the table).</p>
+                                    <h4><code>AS</code> clause</h4>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">SELECT</span> column_name AS "c_name" 
+<span class="comment">-- Changing the name of a given column, but only in the query result (nothing changes in the table)</span>
+<span class="function">SELECT</span> column_name <span class="function">AS</span> "c_name" 
 <span class="function">FROM</span> table_name;
                                     </code></pre>
 
                                     <h4><code>DISTINCT</code> clause</h4>
-                                    <p>Displaying each value from a given column only once.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">SELECT</span> DISTINCT column_name 
+<span class="comment">-- Displaying every value from a given column only once</span>
+<span class="function">SELECT DISTINCT</span> column_name 
 <span class="function">FROM</span> table_name;
                                     </code></pre>
 
                                     <h4><code>WHERE</code> clause</h4>
-                                    <p>Displaying values from records in which a specified condition is met.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Displaying values from records in which a specified condition is met</span>
 <span class="function">SELECT</span> column_name 
 <span class="function">FROM</span> table_name 
 <span class="function">WHERE</span> column_name = 2;
                                     </code></pre>
 
                                     <h4><code>LIKE</code> operator</h4>
-                                    <p>A WHERE statement criterion used to search for a specific pattern.</p>
+                                    <p>A <code>WHERE</code> statement criterion used to search for a specific pattern.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">SELECT</span> column_name 
 <span class="function">FROM</span> table_name 
@@ -123,7 +123,7 @@
                                     </code></pre>
 
                                     <h4><code>_</code> wildcard</h4>
-                                    <p>One unspecified character in the “pattern” that the LIKE statement is looking for.</p>
+                                    <p>One unspecified character in the “pattern” that the <code>LIKE</code> statement is looking for.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">SELECT</span> column_name 
 <span class="function">FROM</span> table_name 
@@ -131,7 +131,7 @@
                                     </code></pre>
 
                                     <h4><code>%</code> wildcard</h4>
-                                    <p>An unspecified number of any characters in the “pattern” that the LIKE statement is looking for.</p>
+                                    <p>An unspecified number of any characters in the “pattern” that the <code>LIKE</code> statement is looking for.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">SELECT</span> column_name 
 <span class="function">FROM</span> table_name 
@@ -139,7 +139,7 @@
                                     </code></pre>
 
                                     <h4><code>NULL</code> values</h4>
-                                    <p>Checking if a field contains a value (NULL means no value).</p>
+                                    <p>Checking if a field contains a value (<code>NULL</code> means no value).</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">SELECT</span> column_name 
 <span class="function">FROM</span> table_name 
@@ -152,16 +152,8 @@
 <span class="function">WHERE</span> column_name <span class="function">IS NOT NULL</span>;   
                                     </code></pre>
 
-                                    <h4><code>BETWEEN</code> operator</h4>
-                                    <p>Filtering values ​​according to the range specified in the WHERE statement.</p>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">SELECT</span> column_name 
-<span class="function">FROM</span> table_name 
-<span class="function">WHERE</span> column_name <span class="function">BETWEEN</span> 2 <span class="function">AND</span> 7; 
-                                    </code></pre>
-
                                     <h4><code>AND</code> operator</h4>
-                                    <p>An operator used to combine conditions in a WHERE statement. If all of them are true, the record is displayed.</p>
+                                    <p>An operator used to combine conditions in a <code>WHERE</code> statement. If all of them are true, the record is displayed.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">SELECT</span> column_name 
 <span class="function">FROM</span> table_name 
@@ -169,27 +161,42 @@
                                     </code></pre>
 
                                     <h4><code>OR</code> operator</h4>
-                                    <p>An operator used to combine conditions in a WHERE statement. If any of them is true, the record is displayed.</p>
+                                    <p>An operator used to combine conditions in a <code>WHERE</code> statement. If any of them is true, the record is displayed.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">SELECT</span> column_name 
 <span class="function">FROM</span> table_name 
 <span class="function">WHERE</span> column1_name = 1 <span class="function">OR</span> column2_name = 2; 
                                     </code></pre>
 
-                                    <p>In this statement, BETWEEN filters the result set to only include movies with names that begin with the letter ‘A’ up to, but not including ones that begin with ‘J’.</p>
+                                    <h4><code>BETWEEN</code> operator</h4>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">SELECT</span> *
-<span class="function">FROM</span> movies
-<span class="function">WHERE</span> name <span class="function">BETWEEN</span> 'A' <span class="function">AND</span> 'J';
+<span class="comment">-- Filtering values ​​according to the numerical range specified in the WHERE statement (we can also use ranges with letters)</span>
+<span class="function">SELECT</span> column_name 
+<span class="function">FROM</span> table_name 
+<span class="function">WHERE</span> column_name <span class="function">BETWEEN</span> 2 <span class="function">AND</span> 7; 
                                     </code></pre>
 
                                     <h4><code>ORDER BY</code> clause</h4>
-                                    <p>Sorting a table descending (DESC) or ascending (ASC) by a specified value. Ascending sorting also means alphabetically. ASC is default.</p>
+                                    <p>Sorting a table descending (<code>DESC</code>) or ascending (<code>ASC</code>) by the values of a specified column. Ascending sorting also means alphabetically. <code>ASC</code> is the default option.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">SELECT</span> column_name 
 <span class="function">FROM</span> table_name 
 <span class="function">ORDER BY</span> column_name <span class="function">DESC</span>;   
-                                    </code></pre>                                 
+                                    </code></pre>    
+                                    
+                                    <h4><code>CASE</code> statement</h4>
+
+                                    <p>The <code>CASE</code> statement is a conditional expression that allows us to evaluate a set of conditions and return specific values based on which condition is met.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">SELECT</span> column1_name, column2_name,
+<span class="function">CASE</span>
+	<span class="function">WHEN</span> column1_name > 10 <span class="function">THEN</span> 'It is 10.'
+	<span class="function">WHEN</span> column1_name = 20 <span class="function">THEN</span> 'It is 20.'
+	<span class="function">ELSE</span> 'It is 30.'
+<span class="function">END AS</span> case_example
+<span class="function">FROM</span> table_name;
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

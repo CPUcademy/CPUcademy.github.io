@@ -86,75 +86,88 @@
                                 </div>
                                 <div class="card-body">
                                     <h4><code>CREATE TABLE</code> statement</h4>
-                                    <p>Creating a new table.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Creating a new table</span>
 <span class="function">CREATE TABLE</span> table_name (
     column1_name datatype,
     column2_name datatype
 );
                                     </code></pre>
 
-                                    <p>Column constraints are the rules applied to the values of individual columns. PRIMARY KEY constraint can be used to uniquely identify the row. UNIQUE columns have a different value for every row. NOT NULL columns must have a value. DEFAULT assigns a default value for the column when no value is specified. There can be only one PRIMARY KEY column per table and multiple UNIQUE columns.</p>
+                                    <p>Column constraints define the rules that apply to the values within individual columns. A <code>PRIMARY KEY</code> constraint is used to uniquely identify each row in a table. Columns marked as <code>UNIQUE</code> must contain different values for every row. Columns with <code>NOT NULL</code> are required to have a value. The <code>DEFAULT</code> constraint assigns a default value to a column. Each table can have only one <code>PRIMARY KEY</code> column, but it can have multiple <code>UNIQUE</code> columns. The <code>AUTO_INCREMENT</code> attribute is used to automatically generate a unique value for a column, typically for a primary key.</p>
+
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">CREATE TABLE</span> table1_name (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) UNIQUE,
-    grade INTEGER NOT NULL,
-    age INTEGER DEFAULT 10,
-    id2 INTEGER,
-    FOREIGN KEY (id2) REFERENCES table2_name(id)
+    id <span class="function">INTEGER PRIMARY KEY AUTO_INCREMENT</span>,
+    name <span class="function">VARCHAR</span>(50) <span class="function">UNIQUE</span>,
+    grade <span class="function">INTEGER NOT NULL</span>,
+    age <span class="function">INTEGER DEFAULT</span> 10,
+    id2 <span class="function">INTEGER</span>,
+    <span class="function">FOREIGN KEY</span> (id2) <span class="function">REFERENCES</span> table2_name(id)
 );
                                     </code></pre>
 
+                                    <p>*<code>FOREIGN KEY (id2) REFERENCES table2_name(id)</code> - the <code>id2</code> field from this table is a foreign key referencing the <code>id</code> field from the second table. <code>VARCHAR</code> is a string in SQL, and 50 is its max length (in this example).</p>
+
                                     <h4><code>INSERT</code> statement</h4>
-                                    <p>Inserting data into columns in order they are in the table.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">INSERT</span> INTO table_name
+<span class="comment">-- Inserting data into columns in the order they are defined in the table</span>
+<span class="function">INSERT INTO</span> table_name
 <span class="function">VALUES</span> (value1, value2);
                                     </code></pre>
 
-                                    <p>Inserting data into columns by their names.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">INSERT</span> INTO table_name(column1_name, column2_name)
+<span class="comment">-- Inserting data into columns by their names</span>
+<span class="function">INSERT INTO</span> table_name(column1_name, column2_name)
 <span class="function">VALUES</span> (value1, value2);
                                     </code></pre>
 
                                     <h4><code>UPDATE</code> statement</h4>
-                                    <p>Updating a table.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Updating data in a table</span>
 <span class="function">UPDATE</span> table_name
 <span class="function">SET</span> column1_name = value1, column2_name = value2
 <span class="function">WHERE</span> some_column_name = some_value;
                                     </code></pre>
                                     
                                     <h4><code>ALTER TABLE</code> statement</h4>
-                                    <p>Modifying a table.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Adding a column to the table</span>
 <span class="function">ALTER TABLE</span> table_name
 <span class="function">ADD</span> column_name datatype;
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Deleting a column from a table</span>
 <span class="function">ALTER TABLE</span> table_name
 <span class="function">DROP</span> column_name datatype;
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Modifying a column's datatype</span>
 <span class="function">ALTER TABLE</span> table_name
 <span class="function">MODIFY</span> column_name datatype;
                                     </code></pre>
 
-                                    <h4><code>DELETE</code> statement</h4>
-                                    <p>Deleting from a table.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Adding a UNIQUE constraint to a column</span>
+<span class="function">ALTER TABLE</span> table_name
+<span class="function">ADD CONSTRAINT</span> unique_constraint_name <span class="function">UNIQUE</span> (column_name);
+                                    </code></pre>
+
+                                    <p>We can add, edit, and delete all constraints and keys similarly. I won't list all those commands here because there are too many. If you want, search the internet for specific instructions.</p>
+
+                                    <h4><code>DELETE</code> statement</h4>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Deleting data from a table</span>
 <span class="function">DELETE FROM</span> table_name
 <span class="function">WHERE</span> some_column_name = some_value;
                                     </code></pre>
 
                                     <h4><code>DROP</code> statement</h4>
-                                    <p>Deleting a table.</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Deleting a table</span>
 <span class="function">DROP</span> TABLE table_name;   
                                     </code></pre>                               
                                 </div>
