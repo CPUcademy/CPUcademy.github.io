@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Inheritance and polymorphism</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Inheritance and polymorphism</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -86,8 +86,8 @@
                                 </div>
                                 <div class="card-body">
                                     <p>Classes can inherit objects (methods) from each other. The class that is being inherited from is called a parent class (also a base class or superclass). The class that inherits from another class is called a child class (also a derived class or a subclass). It is the third concept of object-oriented programming.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Animal:
     <span class="function">def</span> voice(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"Voice!"</span>)
@@ -99,23 +99,23 @@
 cat <span class="sign">=</span> <span class="function">Cat</span>()
 cat.voice()
 cat.breed()
-									</code></pre>
-									
-									<p>Remember that the constructor (<code>__init__</code>) from the parent class won't be called while using the child class (the constructor isn't inherited).</p>
-									
-									<p>With the two commands below, we can check if a class is a subclass of another class and if an object is an instance of a given class.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <p>Remember that the constructor (<code>__init__</code>) from the parent class won't be called while using the child class (the constructor isn't inherited).</p>
+                                    
+                                    <p>With the two commands below, we can check if a class is a subclass of another class and if an object is an instance of a given class.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">print</span>(<span class="command">issubclass</span>(<span class="function">Cat</span>, <span class="function">Animal</span>))
 <span class="command">print</span>(<span class="command">isinstance</span>(cat, <span class="function">Cat</span>))
 <span class="command">print</span>(<span class="command">isinstance</span>(cat, <span class="function">Animal</span>))
-									</code></pre>
+                                    </code></pre>
 
-									<h2>Multiple inheritance</h2>
+                                    <h2>Multiple inheritance</h2>
 
-									<p>A class can inherit features from more than one parent class.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    <p>A class can inherit features from more than one parent class.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Animal:
     <span class="function">def</span> voice(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"Voice!"</span>)
@@ -137,13 +137,13 @@ cat.voice()
 cat.appearance()
 cat.sound()
 cat.breed()
-									</code></pre>
-									
-									<h2><code>super()</code></h2>
-									
-									<p>This function is used while overwriting inherited methods because it allows us to reference the original version of the method from the parent class.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <h2><code>super()</code></h2>
+                                    
+                                    <p>This function is used while overwriting inherited methods because it allows us to reference the original version of the method from the parent class.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Animal:
     <span class="function">def</span> voice(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"Voice!"</span>)
@@ -155,13 +155,13 @@ cat.breed()
 
 cat <span class="sign">=</span> <span class="function">Cat</span>()
 cat.voice()
-									</code></pre>
-									
-									<h2>Polymorphism</h2>
-									
-									<p>Polymorphism means operating the same way on objects of different types (it states that an object can have many forms). For example, the <code>+</code> operator behaves polymorphically because it can add numbers and concatenate strings (it works with various data types). It is the fourth concept of object-oriented programming. Example: A man can be a father, a husband, a student, etc. One person can have different roles.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <h2>Polymorphism</h2>
+                                    
+                                    <p>Polymorphism means operating the same way on objects of different types (it states that an object can have many forms). For example, the <code>+</code> operator behaves polymorphically because it can add numbers and concatenate strings (it works with various data types). It is the fourth concept of object-oriented programming. Example: A man can be a father, a husband, a student, etc. One person can have different roles.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Example1:
     <span class="function">def</span> x(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"x1"</span>)
@@ -184,11 +184,11 @@ e2 <span class="sign">=</span> <span class="function">Example2</span>()
     a.x()
     a.y()
     a.z()
-									</code></pre>
-												
-									<p>This mechanism can also be used in structural programming.</p>
-												
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                                
+                                    <p>This mechanism can also be used in structural programming.</p>
+                                                
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 list1 <span class="sign">=</span> [<span class="text">"a"</span>, <span class="text">"b"</span>, <span class="text">"c"</span>]
 string <span class="sign">=</span> <span class="text">"abc"</span>
 number <span class="sign">=</span> 5
@@ -199,7 +199,7 @@ number <span class="sign">=</span> 5
 read(list1)
 read(string)
 read(number)
-									</code></pre>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

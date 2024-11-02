@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Nested classes</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Nested classes</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -86,71 +86,71 @@
                                 </div>
                                 <div class="card-body">
                                     <p>We can put classes in each other. This solution is used for logically grouping related classes, enhancing encapsulation by restricting visibility to the outer class, and improving code organization. Inner classes have access to the outer class's objects. The example below perfectly represents all three applications of nested classes.</p>
-			
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main
 <span class="sign">{</span>
-	<span class="function">public static void</span> main(<span class="function">String</span>[] args)
-	<span class="sign">{</span>
-		<span class="function">BankAccount</span> bankacc <span class="sign">=</span> <span class="function">new BankAccount</span>(1000)<span class="sign">;</span>
-		System.<span class="command">out</span>.<span class="command">println</span>(bankacc.getBalance())<span class="sign">;</span>
-		bankacc.start(5)<span class="sign">;</span>
-		System.<span class="command">out</span>.<span class="command">println</span>(bankacc.getBalance())<span class="sign">;</span>
-	<span class="sign">}</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">BankAccount</span> bankacc <span class="sign">=</span> <span class="function">new BankAccount</span>(1000)<span class="sign">;</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(bankacc.getBalance())<span class="sign">;</span>
+        bankacc.start(5)<span class="sign">;</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(bankacc.getBalance())<span class="sign">;</span>
+    <span class="sign">}</span>
 <span class="sign">}</span>
 
 <span class="function">class</span> BankAccount
 <span class="sign">{</span>
-	<span class="function">private double</span> balance<span class="sign">;</span> <span class="comment">// private attribute</span>
-	<span class="function">public BankAccount</span>(<span class="function">double</span> balance)<span class="sign">{</span><span class="function">this</span>.balance <span class="sign">=</span> balance<span class="sign">;}</span>
+    <span class="function">private double</span> balance<span class="sign">;</span> <span class="comment">// private attribute</span>
+    <span class="function">public BankAccount</span>(<span class="function">double</span> balance)<span class="sign">{</span><span class="function">this</span>.balance <span class="sign">=</span> balance<span class="sign">;}</span>
     
-	<span class="function">double</span> getBalance()<span class="sign">{</span><span class="function">return this</span>.balance<span class="sign">;}</span>
-	<span class="function">public void</span> updateBalance(<span class="function">double</span> amount)<span class="sign">{</span><span class="function">this</span>.balance <span class="sign">+=</span> amount<span class="sign">;}</span>
-	<span class="function">void</span> start(<span class="function">double</span> interestRate)<span class="sign">{</span><span class="function">Interest</span> interest <span class="sign">=</span> <span class="function">new Interest</span>(interestRate, <span class="function">this</span>)<span class="sign">;}</span>
+    <span class="function">double</span> getBalance()<span class="sign">{</span><span class="function">return this</span>.balance<span class="sign">;}</span>
+    <span class="function">public void</span> updateBalance(<span class="function">double</span> amount)<span class="sign">{</span><span class="function">this</span>.balance <span class="sign">+=</span> amount<span class="sign">;}</span>
+    <span class="function">void</span> start(<span class="function">double</span> interestRate)<span class="sign">{</span><span class="function">Interest</span> interest <span class="sign">=</span> <span class="function">new Interest</span>(interestRate, <span class="function">this</span>)<span class="sign">;}</span>
 
-	<span class="function">class</span> Interest <span class="comment">// nested / inner class</span>
-	<span class="sign">{</span>
-		<span class="function">private double</span> interestRate<span class="sign">;</span> <span class="comment">// private attribute</span>
-		<span class="function">public Interest</span>(<span class="function">double</span> interestRate, <span class="function">BankAccount</span> account)
-		<span class="sign">{</span>
-			<span class="function">this</span>.interestRate <span class="sign">=</span> interestRate<span class="sign">;</span>
-			account.updateBalance((account.getBalance() <span class="sign">*</span> <span class="function">this</span>.interestRate) <span class="sign">/</span> 100)<span class="sign">;</span>
-		<span class="sign">}</span>
-	<span class="sign">}</span>
+    <span class="function">class</span> Interest <span class="comment">// nested / inner class</span>
+    <span class="sign">{</span>
+        <span class="function">private double</span> interestRate<span class="sign">;</span> <span class="comment">// private attribute</span>
+        <span class="function">public Interest</span>(<span class="function">double</span> interestRate, <span class="function">BankAccount</span> account)
+        <span class="sign">{</span>
+            <span class="function">this</span>.interestRate <span class="sign">=</span> interestRate<span class="sign">;</span>
+            account.updateBalance((account.getBalance() <span class="sign">*</span> <span class="function">this</span>.interestRate) <span class="sign">/</span> 100)<span class="sign">;</span>
+        <span class="sign">}</span>
+    <span class="sign">}</span>
 <span class="sign">}</span>
-									</code></pre>
-									
-									<p>The class from above could also be nested like this:</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <p>The class from above could also be nested like this:</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">void</span> start(<span class="function">double</span> interestRate)
 <span class="sign">{</span>
-	<span class="function">class</span> Interest
-	<span class="sign">{</span>
-		<span class="function">private double</span> interestRate<span class="sign">;</span>
-		<span class="function">public Interest</span>(<span class="function">double</span> interestRate)
-		<span class="sign">{</span>
-			<span class="function">this</span>.interestRate <span class="sign">=</span> interestRate<span class="sign">;</span>
-			balance <span class="sign">+=</span> (balance <span class="sign">*</span> interestRate) <span class="sign">/</span> 100<span class="sign">;</span>
-		<span class="sign">}</span>
-	<span class="sign">}</span>
-	<span class="function">Interest</span> interest <span class="sign">=</span> <span class="function">new Interest</span>(interestRate)<span class="sign">;</span>
+    <span class="function">class</span> Interest
+    <span class="sign">{</span>
+        <span class="function">private double</span> interestRate<span class="sign">;</span>
+        <span class="function">public Interest</span>(<span class="function">double</span> interestRate)
+        <span class="sign">{</span>
+            <span class="function">this</span>.interestRate <span class="sign">=</span> interestRate<span class="sign">;</span>
+            balance <span class="sign">+=</span> (balance <span class="sign">*</span> interestRate) <span class="sign">/</span> 100<span class="sign">;</span>
+        <span class="sign">}</span>
+    <span class="sign">}</span>
+    <span class="function">Interest</span> interest <span class="sign">=</span> <span class="function">new Interest</span>(interestRate)<span class="sign">;</span>
 <span class="sign">}</span>
-									</code></pre>
-									
-									<h2>Static nested classes</h2>
-									
-									<p>We can create a new instance of a static inner class without needing to have an instance of the class that it is in. We can create static objects in a static inner class but not in a non-static inner class because Java is not sure if it will exist (an inner static class will exist even without an instance of the class it is in, so the objects within it, too).</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <h2>Static nested classes</h2>
+                                    
+                                    <p>We can create a new instance of a static inner class without needing to have an instance of the class that it is in. We can create static objects in a static inner class but not in a non-static inner class because Java is not sure if it will exist (an inner static class will exist even without an instance of the class it is in, so the objects within it, too).</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main
 <span class="sign">{</span>
-	<span class="function">public static void</span> main(<span class="function">String</span>[] args)
-	<span class="sign">{</span>
-		<span class="function">A</span> a <span class="sign">=</span> <span class="function">new A</span>()<span class="sign">;</span>
-		<span class="function">A</span>.<span class="function">B</span> b <span class="sign">=</span> <span class="function">a</span>.<span class="function">new B</span>()<span class="sign">;</span>
-		<span class="function">A</span>.<span class="function">C</span> c <span class="sign">=</span> <span class="function">new A</span>.<span class="function">C</span>()<span class="sign">;</span>
-	<span class="sign">}</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">A</span> a <span class="sign">=</span> <span class="function">new A</span>()<span class="sign">;</span>
+        <span class="function">A</span>.<span class="function">B</span> b <span class="sign">=</span> <span class="function">a</span>.<span class="function">new B</span>()<span class="sign">;</span>
+        <span class="function">A</span>.<span class="function">C</span> c <span class="sign">=</span> <span class="function">new A</span>.<span class="function">C</span>()<span class="sign">;</span>
+    <span class="sign">}</span>
 <span class="sign">}</span>
 
 <span class="function">class</span> A
@@ -174,7 +174,7 @@
         obj.method()<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
-									</code></pre>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

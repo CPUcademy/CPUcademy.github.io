@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Inheritance and polymorphism</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Inheritance and polymorphism</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -86,173 +86,173 @@
                                 </div>
                                 <div class="card-body">
                                     <p>Classes can inherit objects (methods) from each other. The class that is being inherited from is called a parent class (also a base class or superclass). The class that inherits from another class is called a child class (also a derived class or a subclass). It is the third concept of object-oriented programming. We can inherit objects in three modes:</p>
-									
-									<ol>
-										<li><code>public</code> - every object of this type in the parent class, in the child class will become:
-											<ul type="disc">
-												<li>public = public</li>
-												<li>protected = protected</li>
-												<li>private = unavailable</li>
-											</ul>
-										</li>
-										
-										<li><code>protected</code> - every object of this type in the parent class, in the child class will become:
-											<ul type="disc">
-												<li>public = protected</li>
-												<li>protected = protected</li>
-												<li>private = unavailable</li>
-											</ul>
-										</li>
-										
-										<li><code>private</code> - every object of this type in the parent class, in the child class will become:
-											<ul type="disc">
-												<li>public = private</li>
-												<li>protected = private</li>
-												<li>private = unavailable</li>
-											</ul>
-										</li>
-									</ol>
+                                    
+                                    <ol>
+                                        <li><code>public</code> - every object of this type in the parent class, in the child class will become:
+                                            <ul type="disc">
+                                                <li>public = public</li>
+                                                <li>protected = protected</li>
+                                                <li>private = unavailable</li>
+                                            </ul>
+                                        </li>
+                                        
+                                        <li><code>protected</code> - every object of this type in the parent class, in the child class will become:
+                                            <ul type="disc">
+                                                <li>public = protected</li>
+                                                <li>protected = protected</li>
+                                                <li>private = unavailable</li>
+                                            </ul>
+                                        </li>
+                                        
+                                        <li><code>private</code> - every object of this type in the parent class, in the child class will become:
+                                            <ul type="disc">
+                                                <li>public = private</li>
+                                                <li>protected = private</li>
+                                                <li>private = unavailable</li>
+                                            </ul>
+                                        </li>
+                                    </ol>
 
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
 <span class="function">class</span> Animal
 <span class="sign">{</span>
-	<span class="function">public</span><span class="sign">:</span>
-		<span class="function">Animal</span>(<span class="function">int</span> i <span class="sign">=</span> 0)<span class="sign">{<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Animal C"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>}</span> <span class="comment">// setting default arguments (we can, but don't have to give them) - zero is the default value</span>
-		<span class="sign">~</span><span class="function">Animal</span>()<span class="sign">{<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Animal D"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>}</span>
-		
-		<span class="function">void</span> voice()
-		<span class="sign">{</span>
-			<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Voice!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-		<span class="sign">}</span>
+    <span class="function">public</span><span class="sign">:</span>
+        <span class="function">Animal</span>(<span class="function">int</span> i <span class="sign">=</span> 0)<span class="sign">{<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Animal C"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>}</span> <span class="comment">// setting default arguments (we can, but don't have to give them) - zero is the default value</span>
+        <span class="sign">~</span><span class="function">Animal</span>()<span class="sign">{<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Animal D"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>}</span>
+        
+        <span class="function">void</span> voice()
+        <span class="sign">{</span>
+            <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Voice!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+        <span class="sign">}</span>
 <span class="sign">};</span>
 
 <span class="function">class</span> Cat <span class="sign">:</span> <span class="function">public Animal</span> <span class="comment">// public inheritance (the first mode)</span>
 <span class="sign">{</span>
-	<span class="function">public</span><span class="sign">:</span>
-		<span class="function">Cat</span>()<span class="sign">{<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Cat C"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>}</span>
-		<span class="sign">~</span><span class="function">Cat</span>()<span class="sign">{<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Cat D"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>}</span>
-		
-		<span class="function">void</span> breed()
-		<span class="sign">{</span>
-			<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I am a Bengal cat!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-		<span class="sign">}</span>
+    <span class="function">public</span><span class="sign">:</span>
+        <span class="function">Cat</span>()<span class="sign">{<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Cat C"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>}</span>
+        <span class="sign">~</span><span class="function">Cat</span>()<span class="sign">{<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Cat D"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>}</span>
+        
+        <span class="function">void</span> breed()
+        <span class="sign">{</span>
+            <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I am a Bengal cat!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+        <span class="sign">}</span>
 <span class="sign">};</span>
 
 <span class="function">int</span> main()
 <span class="sign">{</span>
-	<span class="function">Cat</span> cat<span class="sign">;</span>
-	cat.voice()<span class="sign">;</span>
-	cat.breed()<span class="sign">;</span>
-	<span class="function">return</span> 0<span class="sign">;</span>
+    <span class="function">Cat</span> cat<span class="sign">;</span>
+    cat.voice()<span class="sign">;</span>
+    cat.breed()<span class="sign">;</span>
+    <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
-									</code></pre>
-									
-									<p>In the example above, you can see that the constructor and destructor from the parent class were executed. Well, they were executed but not inherited. The child class has to have its constructor and destructor. Pay attention to the order in which these methods were executed.</p>
-									
-									<h2>Multiple inheritance</h2>
-									
-									<p>A class can inherit features from more than one parent class.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <p>In the example above, you can see that the constructor and destructor from the parent class were executed. Well, they were executed but not inherited. The child class has to have its constructor and destructor. Pay attention to the order in which these methods were executed.</p>
+                                    
+                                    <h2>Multiple inheritance</h2>
+                                    
+                                    <p>A class can inherit features from more than one parent class.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
 <span class="function">class</span> Animal
 <span class="sign">{</span>
-	<span class="function">public</span><span class="sign">:</span>
-		<span class="function">Animal</span>()<span class="sign">{}</span>
-		<span class="sign">~</span><span class="function">Animal</span>()<span class="sign">{}</span>
-		
-		<span class="function">void</span> voice()
-		<span class="sign">{</span>
-			<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Voice!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-		<span class="sign">}</span>
+    <span class="function">public</span><span class="sign">:</span>
+        <span class="function">Animal</span>()<span class="sign">{}</span>
+        <span class="sign">~</span><span class="function">Animal</span>()<span class="sign">{}</span>
+        
+        <span class="function">void</span> voice()
+        <span class="sign">{</span>
+            <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Voice!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+        <span class="sign">}</span>
 <span class="sign">};</span>
 
 <span class="function">class</span> Mammal
 <span class="sign">{</span>
-	<span class="function">public</span><span class="sign">:</span>
-		<span class="function">Mammal</span>()<span class="sign">{}</span>
-		<span class="sign">~</span><span class="function">Mammal</span>()<span class="sign">{}</span>
-		
-		<span class="function">void</span> appearance()
-		<span class="sign">{</span>
-			<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I have fur!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-		<span class="sign">}</span>
+    <span class="function">public</span><span class="sign">:</span>
+        <span class="function">Mammal</span>()<span class="sign">{}</span>
+        <span class="sign">~</span><span class="function">Mammal</span>()<span class="sign">{}</span>
+        
+        <span class="function">void</span> appearance()
+        <span class="sign">{</span>
+            <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I have fur!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+        <span class="sign">}</span>
 <span class="sign">};</span>
 
 <span class="function">class</span> Tiger <span class="sign">:</span> <span class="function">public Animal</span>, <span class="function">public Mammal</span>
 <span class="sign">{</span>
-	<span class="function">public</span><span class="sign">:</span>
-		<span class="function">Tiger</span>()<span class="sign">{}</span>
-		<span class="sign">~</span><span class="function">Tiger</span>()<span class="sign">{}</span>
-		
-		<span class="function">void</span> sound()
-		<span class="sign">{</span>
-			<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Raah!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-		<span class="sign">}</span>
+    <span class="function">public</span><span class="sign">:</span>
+        <span class="function">Tiger</span>()<span class="sign">{}</span>
+        <span class="sign">~</span><span class="function">Tiger</span>()<span class="sign">{}</span>
+        
+        <span class="function">void</span> sound()
+        <span class="sign">{</span>
+            <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Raah!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+        <span class="sign">}</span>
 <span class="sign">};</span>
 
 <span class="function">class</span> Cat <span class="sign">:</span> <span class="function">public Tiger</span>
 <span class="sign">{</span>
-	<span class="function">public</span><span class="sign">:</span>
-		<span class="function">Cat</span>()<span class="sign">{}</span>
-		<span class="sign">~</span><span class="function">Cat</span>()<span class="sign">{}</span>
-		
-		<span class="function">void</span> breed()
-		<span class="sign">{</span>
-			<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I am a Bengal cat!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-		<span class="sign">}</span>
+    <span class="function">public</span><span class="sign">:</span>
+        <span class="function">Cat</span>()<span class="sign">{}</span>
+        <span class="sign">~</span><span class="function">Cat</span>()<span class="sign">{}</span>
+        
+        <span class="function">void</span> breed()
+        <span class="sign">{</span>
+            <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I am a Bengal cat!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+        <span class="sign">}</span>
 <span class="sign">};</span>
 
 <span class="function">int</span> main()
 <span class="sign">{</span>
-	<span class="function">Cat</span> cat<span class="sign">;</span>
-	cat.voice()<span class="sign">;</span>
-	cat.appearance()<span class="sign">;</span>
-	cat.sound()<span class="sign">;</span>
-	cat.breed()<span class="sign">;</span>
-	<span class="function">return</span> 0<span class="sign">;</span>
+    <span class="function">Cat</span> cat<span class="sign">;</span>
+    cat.voice()<span class="sign">;</span>
+    cat.appearance()<span class="sign">;</span>
+    cat.sound()<span class="sign">;</span>
+    cat.breed()<span class="sign">;</span>
+    <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
-									</code></pre>
-									
-									<h2>Virtual objects and abstract classes, polymorphism</h2>
-									
-									<p>A method can become virtual, which means that before calling it, it will check whether there is a class that inherits and overloads it. It will then call the appropriate method lower in the hierarchy. We create virtual methods by writing <code>virtual</code> before their type. This behavior is called polymorphism. It means operating the same way on objects of different types (it states that an object can have many forms). For example, the <code>+</code> operator behaves polymorphically because it can add numbers and concatenate strings (it works with various data types). It is the fourth concept of object-oriented programming. Example: A man can be a father, a husband, a student, etc. One person can have different roles. This mechanism can also be used in structural programming.</p>
-									
-									<p>When assigning the value of 0 to a virtual method, the entire class becomes an abstract class. An abstract class is a class that is designed to be used as a base class. It can't call out its objects, so we can use them only in its child classes. It also can't have instances. An abstract method is a method that is in an abstract class. These classes provide a base for subclasses to extend and implement abstract methods and are used as a blueprint for other classes. An abstract class forces its child classes to overwrite all its abstract (virtual) methods.</p>
-									
-									<p>If we create a class from which other classes will inherit, we have to also make a virtual destructor (write <code>virtual</code> before the destructor). After we do that, a constructor is unnecessary because it works implicitly.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <h2>Virtual objects and abstract classes, polymorphism</h2>
+                                    
+                                    <p>A method can become virtual, which means that before calling it, it will check whether there is a class that inherits and overloads it. It will then call the appropriate method lower in the hierarchy. We create virtual methods by writing <code>virtual</code> before their type. This behavior is called polymorphism. It means operating the same way on objects of different types (it states that an object can have many forms). For example, the <code>+</code> operator behaves polymorphically because it can add numbers and concatenate strings (it works with various data types). It is the fourth concept of object-oriented programming. Example: A man can be a father, a husband, a student, etc. One person can have different roles. This mechanism can also be used in structural programming.</p>
+                                    
+                                    <p>When assigning the value of 0 to a virtual method, the entire class becomes an abstract class. An abstract class is a class that is designed to be used as a base class. It can't call out its objects, so we can use them only in its child classes. It also can't have instances. An abstract method is a method that is in an abstract class. These classes provide a base for subclasses to extend and implement abstract methods and are used as a blueprint for other classes. An abstract class forces its child classes to overwrite all its abstract (virtual) methods.</p>
+                                    
+                                    <p>If we create a class from which other classes will inherit, we have to also make a virtual destructor (write <code>virtual</code> before the destructor). After we do that, a constructor is unnecessary because it works implicitly.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
 <span class="function">class</span> Animal
 <span class="sign">{</span>
-	<span class="function">public</span><span class="sign">:</span>
-		<span class="function">virtual void</span> voice() <span class="sign">=</span> 0<span class="sign">;</span>
-		<span class="function">virtual</span> <span class="sign">~</span><span class="function">Animal</span>()<span class="sign">{}</span>
+    <span class="function">public</span><span class="sign">:</span>
+        <span class="function">virtual void</span> voice() <span class="sign">=</span> 0<span class="sign">;</span>
+        <span class="function">virtual</span> <span class="sign">~</span><span class="function">Animal</span>()<span class="sign">{}</span>
 <span class="sign">};</span>
 
 <span class="function">class</span> Cat <span class="sign">:</span> <span class="function">public Animal</span>
 <span class="sign">{</span>
-	<span class="function">public</span><span class="sign">:</span>
-		<span class="function">Cat</span>()<span class="sign">{}</span>
-		<span class="sign">~</span><span class="function">Cat</span>()<span class="sign">{}</span>
-		<span class="function">void</span> voice()<span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
+    <span class="function">public</span><span class="sign">:</span>
+        <span class="function">Cat</span>()<span class="sign">{}</span>
+        <span class="sign">~</span><span class="function">Cat</span>()<span class="sign">{}</span>
+        <span class="function">void</span> voice()<span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
 <span class="sign">};</span>
 
 <span class="function">int</span> main()
 <span class="sign">{</span>
-	<span class="function">Animal</span> <span class="sign">*</span>cat <span class="sign">=</span> <span class="function">new Cat</span><span class="sign">;</span> <span class="comment">// we can create many different objects (e.g., Cat or Dog) using only one type (Animal) - polymorphism</span>
-	cat <span class="sign">-&gt;</span> voice()<span class="sign">;</span>
-	<span class="function">return</span> 0<span class="sign">;</span>
+    <span class="function">Animal</span> <span class="sign">*</span>cat <span class="sign">=</span> <span class="function">new Cat</span><span class="sign">;</span> <span class="comment">// we can create many different objects (e.g., Cat or Dog) using only one type (Animal) - polymorphism</span>
+    cat <span class="sign">-&gt;</span> voice()<span class="sign">;</span>
+    <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
-									</code></pre>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

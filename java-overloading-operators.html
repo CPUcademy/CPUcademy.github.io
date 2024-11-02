@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Overloading operators</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Overloading operators</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -86,46 +86,46 @@
                                 </div>
                                 <div class="card-body">
                                     <p>Overloading operators means overwriting the operator's functionalities so it can work with, e.g., our class's objects. In Java, we cannot overload operators directly as we do in languages like C++ (e.g., <code>==</code>, <code>&lt;&lt;</code>). Here, we overwrite methods corresponding to the operators (e.g., <code>equals</code>()</code> equals <code>==</code>). The <code>toString()</code> method corresponds to the <code>System.out.println()</code> command (it defines what will be displayed if our object is used in this command). The example below shows how to overload the <code>equals()</code> method so it can compare our objects and the <code>toString()</code> method so we can display them.</p>
-			
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Comparison 
 <span class="sign">{</span>
-	<span class="function">private int</span> x<span class="sign">;</span>
-	<span class="function">private int</span> y<span class="sign">;</span>
+    <span class="function">private int</span> x<span class="sign">;</span>
+    <span class="function">private int</span> y<span class="sign">;</span>
 
-	<span class="function">public Comparison</span>(<span class="function">int</span> x, <span class="function">int</span> y)
-	<span class="sign">{</span>
-		<span class="function">this</span>.x <span class="sign">=</span> x<span class="sign">;</span>
-		<span class="function">this</span>.y <span class="sign">=</span> y<span class="sign">;</span>
-	<span class="sign">}</span>
+    <span class="function">public Comparison</span>(<span class="function">int</span> x, <span class="function">int</span> y)
+    <span class="sign">{</span>
+        <span class="function">this</span>.x <span class="sign">=</span> x<span class="sign">;</span>
+        <span class="function">this</span>.y <span class="sign">=</span> y<span class="sign">;</span>
+    <span class="sign">}</span>
 
-	<span class="command">@Override</span>
-	<span class="function">public boolean</span> equals(<span class="function">Object</span> obj) 
-	<span class="sign">{</span>
-		<span class="function">Comparison</span> other <span class="sign">=</span> (<span class="function">Comparison</span>) obj<span class="sign">;</span> <span class="comment">// casting the object from the argument to the "Comparison" type</span>
-		<span class="function">return this</span>.x <span class="sign">==</span> other.x <span class="sign">&amp;&amp;</span> <span class="function">this</span>.y <span class="sign">==</span> other.y<span class="sign">;</span>
-	<span class="sign">}</span>
+    <span class="command">@Override</span>
+    <span class="function">public boolean</span> equals(<span class="function">Object</span> obj) 
+    <span class="sign">{</span>
+        <span class="function">Comparison</span> other <span class="sign">=</span> (<span class="function">Comparison</span>) obj<span class="sign">;</span> <span class="comment">// casting the object from the argument to the "Comparison" type</span>
+        <span class="function">return this</span>.x <span class="sign">==</span> other.x <span class="sign">&amp;&amp;</span> <span class="function">this</span>.y <span class="sign">==</span> other.y<span class="sign">;</span>
+    <span class="sign">}</span>
 
-	<span class="command">@Override</span>
-	<span class="function">public String</span> toString() 
-	<span class="sign">{</span>
-		<span class="function">return</span> <span class="text">"x: "</span> <span class="sign">+</span> x <span class="sign">+</span> <span class="text">", y: "</span> <span class="sign">+</span> y<span class="sign">;</span>
-	<span class="sign">}</span>
+    <span class="command">@Override</span>
+    <span class="function">public String</span> toString() 
+    <span class="sign">{</span>
+        <span class="function">return</span> <span class="text">"x: "</span> <span class="sign">+</span> x <span class="sign">+</span> <span class="text">", y: "</span> <span class="sign">+</span> y<span class="sign">;</span>
+    <span class="sign">}</span>
 <span class="sign">}</span>
 
 <span class="function">public class</span> Main
 <span class="sign">{</span>
-	<span class="function">public static void</span> main(<span class="function">String</span>[] args)
-	<span class="sign">{</span>
-		<span class="function">Comparison</span> x <span class="sign">=</span> <span class="function">new Comparison</span>(10, 20)<span class="sign">;</span>
-		<span class="function">Comparison</span> y <span class="sign">=</span> <span class="function">new Comparison</span>(10, 20)<span class="sign">;</span>
-		System.<span class="command">out</span>.<span class="command">println</span>(y)<span class="sign">;</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">Comparison</span> x <span class="sign">=</span> <span class="function">new Comparison</span>(10, 20)<span class="sign">;</span>
+        <span class="function">Comparison</span> y <span class="sign">=</span> <span class="function">new Comparison</span>(10, 20)<span class="sign">;</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(y)<span class="sign">;</span>
 
-		<span class="function">if</span>(x.equals(y))
-			System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"a and b are the same"</span>)<span class="sign">;</span>
-	<span class="sign">}</span>
+        <span class="function">if</span>(x.equals(y))
+            System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"a and b are the same"</span>)<span class="sign">;</span>
+    <span class="sign">}</span>
 <span class="sign">}</span>                                   
-									</code></pre>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

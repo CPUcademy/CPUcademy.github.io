@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Important functions</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Important functions</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -85,78 +85,78 @@
                                     <h5 class="m-0 font-weight-bold">Important functions</h5>
                                 </div>
                                 <div class="card-body">
-									"Open and save file"
-			
-									<h2>Right Click Menu</h2>
-									
-									<p><code>Right Click Menu</code> to menu wyświetlające się po kliknięciu w okienko prawym przyciskiem myszy.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									import tkinter
-									window = tkinter.Tk()
+                                    "Open and save file"
+            
+                                    <h2>Right Click Menu</h2>
+                                    
+                                    <p><code>Right Click Menu</code> to menu wyświetlające się po kliknięciu w okienko prawym przyciskiem myszy.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    import tkinter
+                                    window = tkinter.Tk()
 
-									def printt():
-										print("x")
+                                    def printt():
+                                        print("x")
 
-									myMenu = tkinter.Menu(window, tearoff=0)
-									myMenu.add_command(label="Print 1", command=printt)
-									myMenu.add_command(label="Print 2", command=printt)
-									myMenu.add_separator()
-									myMenu.add_command(label="Print 3", command=printt)
+                                    myMenu = tkinter.Menu(window, tearoff=0)
+                                    myMenu.add_command(label="Print 1", command=printt)
+                                    myMenu.add_command(label="Print 2", command=printt)
+                                    myMenu.add_separator()
+                                    myMenu.add_command(label="Print 3", command=printt)
 
-									def okno(event):
-										try:
-											myMenu.tk_popup(event.x_root, event.y_root)
-										except:
-											myMenu.grab_release()
+                                    def okno(event):
+                                        try:
+                                            myMenu.tk_popup(event.x_root, event.y_root)
+                                        except:
+                                            myMenu.grab_release()
 
-									window.bind("&lt;Button-3>", okno)
-									window.mainloop()
-									</code></pre>
+                                    window.bind("&lt;Button-3>", okno)
+                                    window.mainloop()
+                                    </code></pre>
 
-									<h2>Filedialog</h2>
-									
-									<p><code>Filedialog</code> pozwala na otwieranie i zapisywanie plików tekstowych. Za pomocą pierwszego kodu można otworzyć plik tekstowy i wyświetlić go w widżecie <code>Text</code>, a za pomocą drugiego - zapisać tekst wpisany przez użytkownika w widżecie <code>Text</code> do pliku.</p>
+                                    <h2>Filedialog</h2>
+                                    
+                                    <p><code>Filedialog</code> pozwala na otwieranie i zapisywanie plików tekstowych. Za pomocą pierwszego kodu można otworzyć plik tekstowy i wyświetlić go w widżecie <code>Text</code>, a za pomocą drugiego - zapisać tekst wpisany przez użytkownika w widżecie <code>Text</code> do pliku.</p>
 
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									from tkinter import *
-									from tkinter import filedialog
-									window = Tk()
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    from tkinter import *
+                                    from tkinter import filedialog
+                                    window = Tk()
 
-									def open_file():
-										file = filedialog.askopenfile(mode="r", filetype=[("text files", "*.txt")])
-										if file is not None:
-											content = file.read()
-										myEntry.insert(INSERT, content)
+                                    def open_file():
+                                        file = filedialog.askopenfile(mode="r", filetype=[("text files", "*.txt")])
+                                        if file is not None:
+                                            content = file.read()
+                                        myEntry.insert(INSERT, content)
 
-									myEntry = Text(window, height="10", width="50", wrap=WORD)
-									myEntry.pack()
-									myButton = Button(window, text="Open", command=open_file)
-									myButton.pack()
+                                    myEntry = Text(window, height="10", width="50", wrap=WORD)
+                                    myEntry.pack()
+                                    myButton = Button(window, text="Open", command=open_file)
+                                    myButton.pack()
 
-									window.mainloop()
-									</code></pre>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									from tkinter import *
-									from tkinter import filedialog
-									window = Tk()
+                                    window.mainloop()
+                                    </code></pre>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    from tkinter import *
+                                    from tkinter import filedialog
+                                    window = Tk()
 
-									def save_file():
-										open_file = filedialog.asksaveasfile(mode="w", defaultextension=".txt")
-										if open_file is None:
-											return
-										text = str(myEntry.get(1.0, END))
-										open_file.write(text)
-										open_file.close()
+                                    def save_file():
+                                        open_file = filedialog.asksaveasfile(mode="w", defaultextension=".txt")
+                                        if open_file is None:
+                                            return
+                                        text = str(myEntry.get(1.0, END))
+                                        open_file.write(text)
+                                        open_file.close()
 
-									myEntry = Text(window, height="10", width="50", wrap=WORD)
-									myEntry.pack()
-									myButton = Button(window, text="Save", command=save_file)
-									myButton.pack()
+                                    myEntry = Text(window, height="10", width="50", wrap=WORD)
+                                    myEntry.pack()
+                                    myButton = Button(window, text="Save", command=save_file)
+                                    myButton.pack()
 
-									window.mainloop()
-									</code></pre>
+                                    window.mainloop()
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

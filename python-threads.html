@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Threads</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Threads</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -86,36 +86,36 @@
                                 </div>
                                 <div class="card-body">
                                     GIL (Global Interpreter Lock)
-			
-									<p>Rdzenie w procesorze komputera są po to, żeby system mógł wykonywać kilka operacji naraz. Wątki to rdzenie w programie Python. Do ich tworzenia służy biblioteka <code>threading</code>. W wykonaniu poniższego programu możemy zauważyć, że liczby wyśietlają się po dwie w rzędach. Dzieje się tak właśnie dlatego, że obie funkcje wykonują się jednocześnie.</p>
+            
+                                    <p>Rdzenie w procesorze komputera są po to, żeby system mógł wykonywać kilka operacji naraz. Wątki to rdzenie w programie Python. Do ich tworzenia służy biblioteka <code>threading</code>. W wykonaniu poniższego programu możemy zauważyć, że liczby wyśietlają się po dwie w rzędach. Dzieje się tak właśnie dlatego, że obie funkcje wykonują się jednocześnie.</p>
 
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									import threading
-									def funkcja():
-											for x in range(10):
-													print(1)
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    import threading
+                                    def funkcja():
+                                            for x in range(10):
+                                                    print(1)
 
-									def funkcja2():
-											for x in range(10):
-													print(2)
-														
-									t1 = threading.Thread(target=funkcja)
-									t2 = threading.Thread(target=funkcja2)
-									t1.start()
-									t2.start()
-									</code></pre>
-									
-									<h2>Permutacje</h2>
+                                    def funkcja2():
+                                            for x in range(10):
+                                                    print(2)
+                                                        
+                                    t1 = threading.Thread(target=funkcja)
+                                    t2 = threading.Thread(target=funkcja2)
+                                    t1.start()
+                                    t2.start()
+                                    </code></pre>
+                                    
+                                    <h2>Permutacje</h2>
 
-									<p>Permutacje służą do sprawdzania wszystkich dostępnych kombinacji. Do ich tworzenia służy biblioteka <code>itertools</code>.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									import itertools
-									lista = [1, 2, 3]
-									permutacje = itertools.permutations(lista)
-									for x in list(permutacje):
-											print(x)
-									</code></pre>
+                                    <p>Permutacje służą do sprawdzania wszystkich dostępnych kombinacji. Do ich tworzenia służy biblioteka <code>itertools</code>.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    import itertools
+                                    lista = [1, 2, 3]
+                                    permutacje = itertools.permutations(lista)
+                                    for x in list(permutacje):
+                                            print(x)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

@@ -9,22 +9,22 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Drag and drop</title>
-	<style>
-		#div1, #div2
-		{
-			border: 1px solid #000;
-			width: 100px;
-			height: 100px;
-			float: left;
-			margin-right: 20px;
-			padding: 10px;
-		}
-	</style>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Drag and drop</title>
+    <style>
+        #div1, #div2
+        {
+            border: 1px solid #000;
+            width: 100px;
+            height: 100px;
+            float: left;
+            margin-right: 20px;
+            padding: 10px;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -34,7 +34,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -42,7 +42,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -63,7 +63,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -96,72 +96,72 @@
                                     <h5 class="m-0 font-weight-bold">Drag and drop</h5>
                                 </div>
                                 <div class="card-body">
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">	
-									&lt;style>
-											#divi, #div2
-											{
-													border: 1px solid #000;
-													width: 100px;
-													height: 100px;
-													float: left;
-													margin-right: 20px;
-													padding: 10px;
-											}
-									&lt;/style>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">    
+                                    &lt;style>
+                                            #divi, #div2
+                                            {
+                                                    border: 1px solid #000;
+                                                    width: 100px;
+                                                    height: 100px;
+                                                    float: left;
+                                                    margin-right: 20px;
+                                                    padding: 10px;
+                                            }
+                                    &lt;/style>
 
-									&lt;div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
-											&lt;img class="img-fluid" src="logo.png" draggable="true" ondragstart="drag(event)" id="drag1" width="80" height="80">
-									&lt;/div>
-									
-									&lt;div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)">&lt;/div>
-									&lt;div style="clear: both;">&lt;/div>
+                                    &lt;div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                                            &lt;img class="img-fluid" src="logo.png" draggable="true" ondragstart="drag(event)" id="drag1" width="80" height="80">
+                                    &lt;/div>
+                                    
+                                    &lt;div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)">&lt;/div>
+                                    &lt;div style="clear: both;">&lt;/div>
 
-									&lt;script>
-											function allowDrop(ev)
-											{
-													ev.preventDefault();
-											}
+                                    &lt;script>
+                                            function allowDrop(ev)
+                                            {
+                                                    ev.preventDefault();
+                                            }
 
-											function drag(ev)
-											{
-													ev.dataTransfer.setData("text", ev.target.id);
-											}
+                                            function drag(ev)
+                                            {
+                                                    ev.dataTransfer.setData("text", ev.target.id);
+                                            }
 
-											function drop(ev)
-											{
-													ev.preventDefault();
-													var data = ev.dataTransfer.getData("text");
-													ev.target.appendChild(document.getElementById(data));
-											}
-									&lt;/script>
-									</code></pre>
-									
-									<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
-										<img class="img-fluid" src="zdjecia/ikona.png" draggable="true" ondragstart="drag(event)" id="drag1" width="80" height="80">
-									</div>
+                                            function drop(ev)
+                                            {
+                                                    ev.preventDefault();
+                                                    var data = ev.dataTransfer.getData("text");
+                                                    ev.target.appendChild(document.getElementById(data));
+                                            }
+                                    &lt;/script>
+                                    </code></pre>
+                                    
+                                    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                                        <img class="img-fluid" src="zdjecia/ikona.png" draggable="true" ondragstart="drag(event)" id="drag1" width="80" height="80">
+                                    </div>
 
-									<div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-									
-									<div style="clear: both;"></div>
-									
-									<script>
-										function allowDrop(ev)
-										{
-										  ev.preventDefault();
-										}
+                                    <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                                    
+                                    <div style="clear: both;"></div>
+                                    
+                                    <script>
+                                        function allowDrop(ev)
+                                        {
+                                          ev.preventDefault();
+                                        }
 
-										function drag(ev)
-										{
-										  ev.dataTransfer.setData("text", ev.target.id);
-										}
+                                        function drag(ev)
+                                        {
+                                          ev.dataTransfer.setData("text", ev.target.id);
+                                        }
 
-										function drop(ev)
-										{
-										  ev.preventDefault();
-										  var data = ev.dataTransfer.getData("text");
-										  ev.target.appendChild(document.getElementById(data));
-										}
-									</script>
+                                        function drop(ev)
+                                        {
+                                          ev.preventDefault();
+                                          var data = ev.dataTransfer.getData("text");
+                                          ev.target.appendChild(document.getElementById(data));
+                                        }
+                                    </script>
                                 </div>
                             </div>
                         </div>

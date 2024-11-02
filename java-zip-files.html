@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>ZIP files</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>ZIP files</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -86,77 +86,77 @@
                                 </div>
                                 <div class="card-body">
                                     <h2>Zipping files</h2>
-									
-									<p></p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    
+                                    <p></p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.io.<span class="sign">*;</span>
 <span class="command">import</span> java.util.zip.<span class="sign">*;</span>
 
 <span class="function">public class</span> Main
 <span class="sign">{</span>
-	<span class="function">public static final int</span> BUFFER <span class="sign">=</span> 1024<span class="sign">;</span>
-	<span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="function">throws IOException</span>
-	<span class="sign">{</span>
-		<span class="function">String</span>[] a <span class="sign">=</span> <span class="function">new String</span>[] <span class="sign">{</span><span class="text">"file.txt"</span>, <span class="text">"file2.txt"</span><span class="sign">};</span>
+    <span class="function">public static final int</span> BUFFER <span class="sign">=</span> 1024<span class="sign">;</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="function">throws IOException</span>
+    <span class="sign">{</span>
+        <span class="function">String</span>[] a <span class="sign">=</span> <span class="function">new String</span>[] <span class="sign">{</span><span class="text">"file.txt"</span>, <span class="text">"file2.txt"</span><span class="sign">};</span>
 
-		<span class="function">byte</span> tData[] <span class="sign">=</span> <span class="function">new byte</span>[BUFFER]<span class="sign">;</span>
-		<span class="function">ZipOutputStream</span> x <span class="sign">=</span> <span class="function">new ZipOutputStream</span>(<span class="function">new BufferedOutputStream</span>(<span class="function">new FileOutputStream</span>(<span class="text">"myZip.zip"</span>), BUFFER))<span class="sign">;</span>
+        <span class="function">byte</span> tData[] <span class="sign">=</span> <span class="function">new byte</span>[BUFFER]<span class="sign">;</span>
+        <span class="function">ZipOutputStream</span> x <span class="sign">=</span> <span class="function">new ZipOutputStream</span>(<span class="function">new BufferedOutputStream</span>(<span class="function">new FileOutputStream</span>(<span class="text">"myZip.zip"</span>), BUFFER))<span class="sign">;</span>
 
-		<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> a.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
-		<span class="sign">{</span>
-			<span class="function">BufferedInputStream</span> y <span class="sign">=</span> <span class="function">new BufferedInputStream</span>(<span class="function">new FileInputStream</span>(a[i]), BUFFER)<span class="sign">;</span>
-			x.<span class="command">putNextEntry</span>(<span class="function">new ZipEntry</span>(a[i]))<span class="sign">;</span>
+        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> a.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
+        <span class="sign">{</span>
+            <span class="function">BufferedInputStream</span> y <span class="sign">=</span> <span class="function">new BufferedInputStream</span>(<span class="function">new FileInputStream</span>(a[i]), BUFFER)<span class="sign">;</span>
+            x.<span class="command">putNextEntry</span>(<span class="function">new ZipEntry</span>(a[i]))<span class="sign">;</span>
 
-			<span class="function">int</span> counter<span class="sign">;</span>
-			<span class="function">while</span>((counter <span class="sign">=</span> y.<span class="command">read</span>(tData, 0, BUFFER)) <span class="sign">!=</span> -1)
-				x.<span class="command">write</span>(tData, 0, counter)<span class="sign">;</span>
+            <span class="function">int</span> counter<span class="sign">;</span>
+            <span class="function">while</span>((counter <span class="sign">=</span> y.<span class="command">read</span>(tData, 0, BUFFER)) <span class="sign">!=</span> -1)
+                x.<span class="command">write</span>(tData, 0, counter)<span class="sign">;</span>
 
-			x.<span class="command">closeEntry</span>()<span class="sign">;</span>
-			y.<span class="command">close</span>()<span class="sign">;</span>
-		<span class="sign">}</span>
-		x.<span class="command">close</span>()<span class="sign">;</span>
-	<span class="sign">}</span>
+            x.<span class="command">closeEntry</span>()<span class="sign">;</span>
+            y.<span class="command">close</span>()<span class="sign">;</span>
+        <span class="sign">}</span>
+        x.<span class="command">close</span>()<span class="sign">;</span>
+    <span class="sign">}</span>
 <span class="sign">}</span>
-									</code></pre>
-									
-									<h2>Unzipping files</h2>
-									
-									<p></p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <h2>Unzipping files</h2>
+                                    
+                                    <p></p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.io.<span class="sign">*;</span>
 <span class="command">import</span> java.util.zip.<span class="sign">*;</span>
 
 <span class="function">public class</span> Main
 <span class="sign">{</span>
-	<span class="function">public static final int</span> BUFFER <span class="sign">=</span> 1024<span class="sign">;</span>
-	<span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="function">throws IOException</span>
-	<span class="sign">{</span>
-		<span class="function">ZipEntry</span> z <span class="sign">=</span> <span class="function">null</span><span class="sign">;</span>
-		<span class="function">byte</span> tData[] <span class="sign">=</span> <span class="function">new byte</span>[BUFFER]<span class="sign">;</span>
-		<span class="function">File</span> catalogue <span class="sign">=</span> <span class="function">new File</span>(System.<span class="command">getProperty</span>(<span class="text">"user.dir"</span>) <span class="sign">+</span> <span class="function">File</span>.<span class="command">separator</span> <span class="sign">+</span> <span class="text">"myZip"</span>)<span class="sign">;</span>
+    <span class="function">public static final int</span> BUFFER <span class="sign">=</span> 1024<span class="sign">;</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="function">throws IOException</span>
+    <span class="sign">{</span>
+        <span class="function">ZipEntry</span> z <span class="sign">=</span> <span class="function">null</span><span class="sign">;</span>
+        <span class="function">byte</span> tData[] <span class="sign">=</span> <span class="function">new byte</span>[BUFFER]<span class="sign">;</span>
+        <span class="function">File</span> catalogue <span class="sign">=</span> <span class="function">new File</span>(System.<span class="command">getProperty</span>(<span class="text">"user.dir"</span>) <span class="sign">+</span> <span class="function">File</span>.<span class="command">separator</span> <span class="sign">+</span> <span class="text">"myZip"</span>)<span class="sign">;</span>
 
-		<span class="function">if</span>(<span class="sign">!</span>catalogue.<span class="command">exists</span>())
-			catalogue.<span class="command">mkdir</span>()<span class="sign">;</span>
+        <span class="function">if</span>(<span class="sign">!</span>catalogue.<span class="command">exists</span>())
+            catalogue.<span class="command">mkdir</span>()<span class="sign">;</span>
 
-		<span class="function">ZipInputStream</span> x <span class="sign">=</span> <span class="function">new ZipInputStream</span>(<span class="function">new BufferedInputStream</span>(<span class="function">new FileInputStream</span>(<span class="text">"myZip.zip"</span>), BUFFER))<span class="sign">;</span>
+        <span class="function">ZipInputStream</span> x <span class="sign">=</span> <span class="function">new ZipInputStream</span>(<span class="function">new BufferedInputStream</span>(<span class="function">new FileInputStream</span>(<span class="text">"myZip.zip"</span>), BUFFER))<span class="sign">;</span>
 
-		<span class="function">while</span>((z <span class="sign">=</span> x.<span class="command">getNextEntry</span>()) <span class="sign">!=</span> <span class="function">null</span>)
-		<span class="sign">{</span>
-			<span class="function">BufferedOutputStream</span> y <span class="sign">=</span> <span class="function">new BufferedOutputStream</span>(<span class="function">new FileOutputStream</span>(catalogue <span class="sign">+</span> <span class="function">File</span>.<span class="command">separator</span> <span class="sign">+</span> z.<span class="command">getName</span>()), BUFFER)<span class="sign">;</span>
+        <span class="function">while</span>((z <span class="sign">=</span> x.<span class="command">getNextEntry</span>()) <span class="sign">!=</span> <span class="function">null</span>)
+        <span class="sign">{</span>
+            <span class="function">BufferedOutputStream</span> y <span class="sign">=</span> <span class="function">new BufferedOutputStream</span>(<span class="function">new FileOutputStream</span>(catalogue <span class="sign">+</span> <span class="function">File</span>.<span class="command">separator</span> <span class="sign">+</span> z.<span class="command">getName</span>()), BUFFER)<span class="sign">;</span>
 
-			<span class="function">int</span> counter<span class="sign">;</span>
-			<span class="function">while</span>((counter <span class="sign">=</span> x.<span class="command">read</span>(tData, 0, BUFFER)) <span class="sign">!=</span> -1)
-				y.<span class="command">write</span>(tData, 0, counter)<span class="sign">;</span>
+            <span class="function">int</span> counter<span class="sign">;</span>
+            <span class="function">while</span>((counter <span class="sign">=</span> x.<span class="command">read</span>(tData, 0, BUFFER)) <span class="sign">!=</span> -1)
+                y.<span class="command">write</span>(tData, 0, counter)<span class="sign">;</span>
 
-			x.<span class="command">closeEntry</span>()<span class="sign">;</span>
-			y.<span class="command">close</span>()<span class="sign">;</span>
-		<span class="sign">}</span>
-		x.<span class="command">close</span>()<span class="sign">;</span>
-	<span class="sign">}</span>
+            x.<span class="command">closeEntry</span>()<span class="sign">;</span>
+            y.<span class="command">close</span>()<span class="sign">;</span>
+        <span class="sign">}</span>
+        x.<span class="command">close</span>()<span class="sign">;</span>
+    <span class="sign">}</span>
 <span class="sign">}</span>
-									</code></pre>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

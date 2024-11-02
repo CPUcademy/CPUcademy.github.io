@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Interfaces and sorting</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Interfaces and sorting</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -88,57 +88,57 @@
                                     <p>Interfaces are classes in which, by default, all fields are <code>public</code>, <code>static</code>, and <code>final</code>, and methods are <code>public</code> and <code>abstract</code>. A class can't inherit from many classes but can inherit from many interfaces. It is mandatory to implement (overwrite) all of the interface's methods.</p>
                                         
                                     <p>The <code>Arrays</code> library (a class that can be imported) allows us to sort arrays, but to sort an array of our objects, we need to overload the <code>compareTo()</code> method from the <code>Collections</code> library.</p>
-			
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.util.Arrays<span class="sign">;</span>
 <span class="command">import</span> java.util.Collections<span class="sign">;</span>
 
 <span class="function">public class</span> Main
 <span class="sign">{</span>
-	<span class="function">public static void</span> main(<span class="function">String</span>[] args)
-	<span class="sign">{</span>
-		System.<span class="command">out</span>.<span class="command">println</span>(<span class="function">Interface</span>.PI)<span class="sign">;</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(<span class="function">Interface</span>.PI)<span class="sign">;</span>
 
-		<span class="function">Interface</span> x <span class="sign">=</span> <span class="function">new Worker</span>(2000)<span class="sign">;</span>
-		System.<span class="command">out</span>.<span class="command">println</span>(((<span class="function">Worker</span>)x).getSalary())<span class="sign">;</span>
+        <span class="function">Interface</span> x <span class="sign">=</span> <span class="function">new Worker</span>(2000)<span class="sign">;</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(((<span class="function">Worker</span>)x).getSalary())<span class="sign">;</span>
 
-		<span class="function">Worker</span>[] worker =</span> <span class="function">new Worker</span>[3]<span class="sign">;</span>
-		worker[0] <span class="sign">=</span> <span class="function">new Worker</span>(4000)<span class="sign">;</span>
-		worker[1] <span class="sign">=</span> <span class="function">new Worker</span>(10000)<span class="sign">;</span>
-		worker[2] <span class="sign">=</span> <span class="function">new Worker</span>(2000)<span class="sign">;</span>
-		<span class="function">Arrays</span>.<span class="command">sort</span>(worker, <span class="function">Collections</span>.<span class="command">reverseOrder</span>())<span class="sign">;</span> <span class="comment">// the second argument is not mandatory</span>
-		<span class="function">for</span>(<span class="function">Worker</span> w<span class="sign">:</span> worker)
-			System.<span class="command">out</span>.<span class="command">println</span>(w.getSalary())<span class="sign">;</span>
-	<span class="sign">}</span>
+        <span class="function">Worker</span>[] worker =</span> <span class="function">new Worker</span>[3]<span class="sign">;</span>
+        worker[0] <span class="sign">=</span> <span class="function">new Worker</span>(4000)<span class="sign">;</span>
+        worker[1] <span class="sign">=</span> <span class="function">new Worker</span>(10000)<span class="sign">;</span>
+        worker[2] <span class="sign">=</span> <span class="function">new Worker</span>(2000)<span class="sign">;</span>
+        <span class="function">Arrays</span>.<span class="command">sort</span>(worker, <span class="function">Collections</span>.<span class="command">reverseOrder</span>())<span class="sign">;</span> <span class="comment">// the second argument is not mandatory</span>
+        <span class="function">for</span>(<span class="function">Worker</span> w<span class="sign">:</span> worker)
+            System.<span class="command">out</span>.<span class="command">println</span>(w.getSalary())<span class="sign">;</span>
+    <span class="sign">}</span>
 <span class="sign">}</span>
 
 <span class="function">interface</span> Interface
 <span class="sign">{</span>
-	<span class="function">double</span> PI <span class="sign">=</span> 3.14<span class="sign">;</span>
-	<span class="function">void</span> method()<span class="sign">;</span>
+    <span class="function">double</span> PI <span class="sign">=</span> 3.14<span class="sign">;</span>
+    <span class="function">void</span> method()<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">class</span> Worker <span class="function">implements Interface</span>, <span class="function">Comparable</span>
 <span class="sign">{</span>
-	<span class="command">@Override</span>
-	<span class="function">public void</span> method()<span class="sign">{}</span>
+    <span class="command">@Override</span>
+    <span class="function">public void</span> method()<span class="sign">{}</span>
 
-	<span class="function">private double</span> salary<span class="sign">;</span>
-	<span class="function">Worker</span>(<span class="function">double</span> salary)<span class="sign">{</span><span class="function">this</span>.salary <span class="sign">=</span> salary<span class="sign">;}</span> <span class="comment">// inline method (intended for short operations)</span>
-	<span class="function">public double</span> getSalary()<span class="sign">{</span><span class="function">return</span> <span class="function">this</span>.salary<span class="sign">;}</span>
+    <span class="function">private double</span> salary<span class="sign">;</span>
+    <span class="function">Worker</span>(<span class="function">double</span> salary)<span class="sign">{</span><span class="function">this</span>.salary <span class="sign">=</span> salary<span class="sign">;}</span> <span class="comment">// inline method (intended for short operations)</span>
+    <span class="function">public double</span> getSalary()<span class="sign">{</span><span class="function">return</span> <span class="function">this</span>.salary<span class="sign">;}</span>
 
-	<span class="command">@Override</span>
-	<span class="function">public int</span> compareTo(<span class="function">Object</span> o)
-	<span class="sign">{</span>
-		<span class="function">Worker</span> sent <span class="sign">=</span> (<span class="function">Worker</span>)o<span class="sign">;</span>
-		<span class="function">if</span>(<span class="function">this</span>.salary <span class="sign">&lt;</span> sent.salary)
-			<span class="function">return</span> -1<span class="sign">;</span>
-		<span class="function">else if</span>(<span class="function">this</span>.salary <span class="sign">&gt;</span> sent.salary)
-			<span class="function">return</span> 1<span class="sign">;</span>
-		<span class="function">return</span> 0<span class="sign">;</span>
-	<span class="sign">}</span>
+    <span class="command">@Override</span>
+    <span class="function">public int</span> compareTo(<span class="function">Object</span> o)
+    <span class="sign">{</span>
+        <span class="function">Worker</span> sent <span class="sign">=</span> (<span class="function">Worker</span>)o<span class="sign">;</span>
+        <span class="function">if</span>(<span class="function">this</span>.salary <span class="sign">&lt;</span> sent.salary)
+            <span class="function">return</span> -1<span class="sign">;</span>
+        <span class="function">else if</span>(<span class="function">this</span>.salary <span class="sign">&gt;</span> sent.salary)
+            <span class="function">return</span> 1<span class="sign">;</span>
+        <span class="function">return</span> 0<span class="sign">;</span>
+    <span class="sign">}</span>
 <span class="sign">}</span>
-									</code></pre>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
