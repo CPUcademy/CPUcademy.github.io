@@ -91,33 +91,33 @@
 
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">try</span>:
-	x <span class="sign">=</span> <span class="command">int</span>(<span class="command">input</span>(<span class="text">"Enter a number: "</span>))
+    x <span class="sign">=</span> <span class="command">int</span>(<span class="command">input</span>(<span class="text">"Enter a number: "</span>))
 <span class="function">except</span>:
-	<span class="command">print</span>(<span class="text">"Error"</span>)
-	x <span class="sign">=</span> <span class="command">int</span>(<span class="command">input</span>(<span class="text">"Try again: "</span>))
+    <span class="command">print</span>(<span class="text">"Error"</span>)
+    x <span class="sign">=</span> <span class="command">int</span>(<span class="command">input</span>(<span class="text">"Try again: "</span>))
 									</code></pre>
 									
 									<p>We can add a third block - <code>finally</code>. It will execute regardless of what happens in <code>try</code> or <code>except</code>.</p>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">try</span>:
-	x <span class="sign">=</span> <span class="command">open</span>(<span class="text">"file.txt"</span>, <span class="text">"r"</span>, <span class="command">encoding</span> <span class="sign">=</span> <span class="text">"utf8"</span>)
-	file.<span class="command">write</span>(<span class="text">"text"</span>)
+    x <span class="sign">=</span> <span class="command">open</span>(<span class="text">"file.txt"</span>, <span class="text">"r"</span>, <span class="command">encoding</span> <span class="sign">=</span> <span class="text">"utf8"</span>)
+    file.<span class="command">write</span>(<span class="text">"text"</span>)
 <span class="function">except</span>:
-	<span class="command">print</span>(<span class="text">"Error"</span>)
+    <span class="command">print</span>(<span class="text">"Error"</span>)
 <span class="function">finally</span>:
-	x.<span class="command">close</span>()
+    x.<span class="command">close</span>()
 									</code></pre>
 
 									<p>The <code>except</code> instruction reacts to every error the same unless we specify what type of error a given instruction may expect. This way, we can program different approaches for different errors (we can use many <code>except</code> instructions relating to one <code>try</code> block).</p>
 
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">try</span>:
-	x <span class="sign">=</span> <span class="command">open</span>(<span class="text">"file.txt"</span>, <span class="text">"r"</span>, <span class="command">encoding</span> <span class="sign">=</span> <span class="text">"utf8"</span>)
-	file.<span class="command">write</span>(<span class="text">"text"</span>)
-	x.<span class="command">close</span>()
+    x <span class="sign">=</span> <span class="command">open</span>(<span class="text">"file.txt"</span>, <span class="text">"r"</span>, <span class="command">encoding</span> <span class="sign">=</span> <span class="text">"utf8"</span>)
+    file.<span class="command">write</span>(<span class="text">"text"</span>)
+    x.<span class="command">close</span>()
 <span class="function">except IOError</span>:
-	<span class="command">print</span>(<span class="text">"Could not create the file."</span>)
+    <span class="command">print</span>(<span class="text">"Could not create the file."</span>)
 									</code></pre>
 
 									<h2>The <code>raise</code> keyword</h2>
@@ -127,7 +127,7 @@
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 x <span class="sign">=</span> 0
 <span class="function">if</span> x <span class="sign">==</span> 0:
-	<span class="function">raise ZeroDivisionError</span>(<span class="text">"You can't divide by 0."</span>) <span class="comment"># it could be also: Exception, SyntaxError, OSError, etc.</span>
+    <span class="function">raise ZeroDivisionError</span>(<span class="text">"You can't divide by 0."</span>) <span class="comment"># it could be also: Exception, SyntaxError, OSError, etc.</span>
 									</code></pre>
 
                                     <p>An <code>IndexError</code> occurs when we try to access an index outside the bounds of, e.g., a list.</p>
@@ -157,13 +157,13 @@ logging.<span class="command">basicConfig</span>(level <span class="sign">=</spa
 logging.<span class="command">debug</span>(<span class="text">"Start"</span>)
 
 <span class="function">def</span> factorial(n):
-	logging.<span class="command">debug</span>(<span class="text">"Start of factorial(%s%%)"</span> <span class="sign">%</span> (n))
-	total <span class="sign">=</span> 1
-	<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(n <span class="sign">+</span> 1): <span class="comment"># for the program to work, this line should look like this: "for x in range(1, n+1):"</span>
-		total <span class="sign">*=</span> x
-		logging.<span class="command">debug</span>(<span class="text">"x: "</span> <span class="sign">+</span> <span class="command">str</span>(x) <span class="sign">+</span> <span class="text">", the total value: "</span> <span class="sign">+</span> <span class="command">str</span>(total))
-	logging.<span class="command">debug</span>(<span class="text">"End of factorial(%s%%)"</span> <span class="sign">%</span> (n))
-	<span class="function">return</span> total
+    logging.<span class="command">debug</span>(<span class="text">"Start of factorial(%s%%)"</span> <span class="sign">%</span> (n))
+    total <span class="sign">=</span> 1
+    <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(n <span class="sign">+</span> 1): <span class="comment"># for the program to work, this line should look like this: "for x in range(1, n+1):"</span>
+        total <span class="sign">*=</span> x
+        logging.<span class="command">debug</span>(<span class="text">"x: "</span> <span class="sign">+</span> <span class="command">str</span>(x) <span class="sign">+</span> <span class="text">", the total value: "</span> <span class="sign">+</span> <span class="command">str</span>(total))
+    logging.<span class="command">debug</span>(<span class="text">"End of factorial(%s%%)"</span> <span class="sign">%</span> (n))
+    <span class="function">return</span> total
 
 <span class="command">print</span>(factorial(5))
 logging.<span class="command">debug</span>(<span class="text">"End"</span>)

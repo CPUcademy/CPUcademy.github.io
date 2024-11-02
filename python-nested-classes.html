@@ -89,22 +89,22 @@
                                     
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> BankAccount:
-	<span class="function">def __init__</span>(<span class="function">self</span>, balance):
-		<span class="function">self</span>.__balance <span class="sign">=</span> balance <span class="comment"># private attribute</span>
+    <span class="function">def __init__</span>(<span class="function">self</span>, balance):
+        <span class="function">self</span>.__balance <span class="sign">=</span> balance <span class="comment"># private attribute</span>
 
-	<span class="function">def</span> getBalance(<span class="function">self</span>):
-		<span class="function">return self</span>.__balance
+    <span class="function">def</span> getBalance(<span class="function">self</span>):
+        <span class="function">return self</span>.__balance
 
-	<span class="function">def</span> updateBalance(<span class="function">self</span>, amount):
-		<span class="function">self</span>.__balance <span class="sign">+=</span> amount
+    <span class="function">def</span> updateBalance(<span class="function">self</span>, amount):
+        <span class="function">self</span>.__balance <span class="sign">+=</span> amount
 
-	<span class="function">def</span> start(<span class="function">self</span>, interestRate):
-		<span class="function">self</span>.__interest <span class="sign">=</span> <span class="function">self</span>.<span class="function">Interest</span>(interestRate, self)
+    <span class="function">def</span> start(<span class="function">self</span>, interestRate):
+        <span class="function">self</span>.__interest <span class="sign">=</span> <span class="function">self</span>.<span class="function">Interest</span>(interestRate, self)
 
-	<span class="function">class</span> Interest: <span class="comment"># nested / inner class</span>
-		<span class="function">def __init__</span>(<span class="function">self</span>, interestRate, bankacc):
-			<span class="function">self</span>.__interestRate <span class="sign">=</span> interestRate <span class="comment"># private attribute</span>
-			bankacc.updateBalance((bankacc.getBalance() <span class="sign">*</span> <span class="function">self</span>.__interestRate) <span class="sign">/</span> 100)
+    <span class="function">class</span> Interest: <span class="comment"># nested / inner class</span>
+        <span class="function">def __init__</span>(<span class="function">self</span>, interestRate, bankacc):
+            <span class="function">self</span>.__interestRate <span class="sign">=</span> interestRate <span class="comment"># private attribute</span>
+            bankacc.updateBalance((bankacc.getBalance() <span class="sign">*</span> <span class="function">self</span>.__interestRate) <span class="sign">/</span> 100)
 
 bankacc <span class="sign">=</span> <span class="function">BankAccount</span>(1000)
 <span class="command">print</span>(bankacc.getBalance())
