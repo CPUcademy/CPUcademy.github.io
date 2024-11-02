@@ -103,18 +103,18 @@
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Human:
-	<span class="function">def __init__</span>(<span class="function">self</span>):
-		<span class="function">self</span>.age <span class="sign">=</span> 0 <span class="comment"># a field of a method</span>
-		<span class="command">print</span>(<span class="text">"Constructor"</span>)
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.age <span class="sign">=</span> 0 <span class="comment"># a field of a method</span>
+        <span class="command">print</span>(<span class="text">"Constructor"</span>)
 
-	<span class="function">def __del__</span>(<span class="function">self</span>):
-		<span class="command">print</span>(<span class="text">"Destructor"</span>)
+    <span class="function">def __del__</span>(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Destructor"</span>)
 
-	<span class="function">def</span> getAge(<span class="function">self</span>):
-		<span class="function">return self</span>.age
+    <span class="function">def</span> getAge(<span class="function">self</span>):
+        <span class="function">return self</span>.age
 
-	<span class="function">def</span> setAge(<span class="function">self</span>, age):
-		<span class="function">self</span>.age <span class="sign">=</span> age
+    <span class="function">def</span> setAge(<span class="function">self</span>, age):
+        <span class="function">self</span>.age <span class="sign">=</span> age
 
 h <span class="sign">=</span> <span class="function">Human</span>() <span class="comment"># an instance of a class</span>
 h.age <span class="sign">=</span> 20
@@ -135,21 +135,21 @@ h.setAge(10)
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Bank:
-	<span class="function">def __init__</span>(<span class="function">self</span>):
-		<span class="function">self</span>.__balance <span class="sign">=</span> 1000 <span class="comment"># a private field</span>
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.__balance <span class="sign">=</span> 1000 <span class="comment"># a private field</span>
 
-	<span class="function">def</span> getBalance(<span class="function">self</span>):
-		<span class="function">return self</span>.__balance
+    <span class="function">def</span> getBalance(<span class="function">self</span>):
+        <span class="function">return self</span>.__balance
 
-	<span class="function">def</span> __setBalance(<span class="function">self</span>, balance): <span class="comment"># a private method</span>
-		<span class="function">self</span>.__balance <span class="sign">=</span> balance
+    <span class="function">def</span> __setBalance(<span class="function">self</span>, balance): <span class="comment"># a private method</span>
+        <span class="function">self</span>.__balance <span class="sign">=</span> balance
 
-	<span class="function">def</span> withdraw(<span class="function">self</span>, howMuch):
-		<span class="function">if self</span>.__balance <span class="sign">&lt;</span> howMuch:
-			<span class="function">return False</span>
-		<span class="function">else</span>:
-			<span class="function">self</span>.__setBalance(<span class="function">self</span>.__balance <span class="sign">-</span> howMuch)
-		<span class="function">return True</span>
+    <span class="function">def</span> withdraw(<span class="function">self</span>, howMuch):
+        <span class="function">if self</span>.__balance <span class="sign">&lt;</span> howMuch:
+            <span class="function">return False</span>
+        <span class="function">else</span>:
+            <span class="function">self</span>.__setBalance(<span class="function">self</span>.__balance <span class="sign">-</span> howMuch)
+        <span class="function">return True</span>
             
 b <span class="sign">=</span> Bank</span>()
 <span class="command">print</span>(b.getBalance())
@@ -165,9 +165,9 @@ b.withdraw(400)
 								
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Example:
-	static_variable <span class="sign">=</span> 0
-	<span class="function">def</span> method(<span class="function">self</span>):
-		<span class="function">Example</span>.static_variable <span class="sign">+=</span> 1
+    static_variable <span class="sign">=</span> 0
+    <span class="function">def</span> method(<span class="function">self</span>):
+        <span class="function">Example</span>.static_variable <span class="sign">+=</span> 1
 
 x <span class="sign">=</span> <span class="function">Example</span>()
 x.method()
@@ -182,26 +182,26 @@ x2.method()
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Example:
-	<span class="function">def</span> method(<span class="function">self</span>):
-		<span class="command">print</span>(<span class="text">"x"</span>)
+    <span class="function">def</span> method(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"x"</span>)
 x <span class="sign">=</span> <span class="function">Example</span>()
 
 <span class="function">if</span> <span class="command">hasattr</span>(x, <span class="text">"method"</span>):
-	x.method()
+    x.method()
 <span class="function">else</span>:
-	<span class="command">print</span>(<span class="text">"Error"</span>)
+    <span class="command">print</span>(<span class="text">"Error"</span>)
 									</code></pre>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Example:
-	<span class="function">def</span> method(<span class="function">self</span>):
-		<span class="command">print</span>(<span class="text">"x"</span>)
+    <span class="function">def</span> method(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"x"</span>)
 x <span class="sign">=</span> <span class="function">Example</span>()
 
 <span class="command">try</span>:
-	x.method()
+    x.method()
 <span class="command">except AttributeError</span>:
-	<span class="command">print</span>(<span class="text">"Error"</span>)
+    <span class="command">print</span>(<span class="text">"Error"</span>)
 									</code></pre>
 									
 									<h2>Saving our objects to a file (serialization)</h2>
@@ -212,18 +212,18 @@ x <span class="sign">=</span> <span class="function">Example</span>()
 <span class="command">import</span> pickle <span class="command">as</span> pick
 
 <span class="function">class</span> Example:
-	<span class="function">def</span> method(<span class="function">self</span>):
-		<span class="command">print</span>(<span class="text">"x"</span>)
+    <span class="function">def</span> method(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"x"</span>)
 e <span class="sign">=</span> <span class="function">Example</span>()
 
 <span class="command">try</span>:
-	<span class="command">with</span> <span class="command">open</span>(<span class="text">"file.objc"</span>, <span class="text">"wb"</span>) <span class="command">as</span> file:
-		pick.<span class="command">dump</span>(e, file)
+    <span class="command">with</span> <span class="command">open</span>(<span class="text">"file.objc"</span>, <span class="text">"wb"</span>) <span class="command">as</span> file:
+        pick.<span class="command">dump</span>(e, file)
 <span class="command">except</span>:
-	<span class="command">print</span>(<span class="text">"Error"</span>)
+    <span class="command">print</span>(<span class="text">"Error"</span>)
 
 <span class="command">with</span> <span class="command">open</span>(<span class="text">"file.objc"</span>, <span class="text">"rb"</span>) <span class="command">as</span> file:
-	example <span class="sign">=</span> pick.<span class="command">load</span>(file)
+    example <span class="sign">=</span> pick.<span class="command">load</span>(file)
 example.method()
 									</code></pre>
                                 </div>

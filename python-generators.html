@@ -101,25 +101,25 @@ iterator <span class="sign">=</span> <span class="command">iter</span>([1, 2, 3,
 
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> generator(n):
-	<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(n):
-		<span class="command">print</span>(<span class="text">"x"</span>)
-		<span class="function">yield</span> x
-		<span class="command">print</span>(<span class="text">"y"</span>)
+    <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(n):
+        <span class="command">print</span>(<span class="text">"x"</span>)
+        <span class="function">yield</span> x
+        <span class="command">print</span>(<span class="text">"y"</span>)
 
 <span class="function">for</span> y <span class="function">in</span> generator(5):
-	<span class="command">print</span>(y)
+    <span class="command">print</span>(y)
 									</code></pre>
 									
 									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> generator(n):
-	<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(n):
-		<span class="command">print</span>(<span class="text">"x"</span>)
-		<span class="function">yield</span> x
-		<span class="command">print</span>(<span class="text">"y"</span>)
+    <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(n):
+        <span class="command">print</span>(<span class="text">"x"</span>)
+        <span class="function">yield</span> x
+        <span class="command">print</span>(<span class="text">"y"</span>)
 
 x <span class="sign">=</span> generator(5)
 <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(5):
-	<span class="command">print</span>(<span class="command">next</span>(x))
+    <span class="command">print</span>(<span class="command">next</span>(x))
 									</code></pre>
 
 									<p>When a generator function is called, it doesn't execute immediately. Instead, it returns a generator object that can be iterated over. Each time the <code>next()</code> function is called on the generator object, the function's execution resumes from where it left off, continuing until a <code>yield</code> statement is encountered. The value yielded by the <code>yield</code> statement is returned by the <code>next()</code> function, and the function's state is saved until the next call to <code>next()</code>.</p>
@@ -130,16 +130,16 @@ x <span class="sign">=</span> generator(5)
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> read_large_file(file_path):
-	<span class="function">with</span> <span class="command">open</span>(file_path, <span class="text">"r"</span>) <span class="function">as</span> file:
-		<span class="function">for</span> line <span class="function">in</span> file:
-			<span class="function">yield</span> line
+    <span class="function">with</span> <span class="command">open</span>(file_path, <span class="text">"r"</span>) <span class="function">as</span> file:
+        <span class="function">for</span> line <span class="function">in</span> file:
+            <span class="function">yield</span> line
 
 <span class="function">def</span> process_line(line):
-	<span class="function">if</span> <span class="text">"x"</span> <span class="function">in</span> line:
-		<span class="command">print</span>(line)
+    <span class="function">if</span> <span class="text">"x"</span> <span class="function">in</span> line:
+        <span class="command">print</span>(line)
 
 <span class="function">for</span> line <span class="function">in</span> read_large_file(<span class="text">"huge_file.txt"</span>):
-	process_line(line)
+    process_line(line)
                                     </code></pre>
                                 </div>
                             </div>
