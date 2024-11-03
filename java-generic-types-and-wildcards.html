@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. This website is a personal portfolio and was created by one person.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Generic types and wildcards</title>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Kotlin (Android)</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics.html">Electronics</a>
+                        <a class="collapse-item" href="it-and-computer-basics.html">IT &amp; computer basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">About me</div>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="cv.html">
+                    <i class="icon-adult"></i>
+                    <span>CV</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="services.html">
+                    <i class="icon-services"></i>
+                    <span>My services</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Generic types and wildcards</h5>
+                                </div>
+                                <div class="card-body">
+
+                                    <h2>Generic types</h2>
+
+                                    <p>We create generic methods when we do not want to define many different methods for every possible type of argument. The class in which those methods occur must also be specified as a generic type. Inside the <code>&lt;&gt;</code> signs after the class name or before the method name, we create a custom name(s) for the data type(s). Inside the class, we replace every data type with the one(s) specified earlier (they will substitute themselves with the arguments).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        generalTypeClass<span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> x <span class="sign">=</span> <span class="function">new</span> generalTypeClass<span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        x.variable <span class="sign">=</span> <span class="text">"x"</span><span class="sign">;</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(x.returnValue())<span class="sign">;</span>
+
+        generalTypeClass<span class="sign">&lt;</span><span class="function">Integer</span><span class="sign">&gt;</span> y <span class="sign">=</span> <span class="function">new</span> generalTypeClass<span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        y.variable <span class="sign">=</span> 4<span class="sign">;</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(y.returnValue())<span class="sign">;</span>
+
+        generalTypeClass2<span class="sign">&lt;</span><span class="function">Integer</span>, <span class="function">Integer</span><span class="sign">&gt;</span> z <span class="sign">=</span> <span class="function">new</span> generalTypeClass2<span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        z.variable <span class="sign">=</span> <span class="text">4</span><span class="sign">;</span>
+        z.variable2 <span class="sign">=</span> <span class="text">5</span><span class="sign">;</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(z.returnValue())<span class="sign">;</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(z.returnValue2())<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> generalTypeClass <span class="sign">&lt;</span><span class="function">TYPE</span><span class="sign">&gt;</span>
+<span class="sign">{</span>
+    <span class="function">TYPE</span> variable<span class="sign">;</span>
+    <span class="function">public TYPE</span> returnValue()
+    <span class="sign">{</span>
+        <span class="function">return this</span>.variable<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> generalTypeClass2  <span class="sign">&lt;</span><span class="function">TYPE</span>, <span class="function">TYPE2</span><span class="sign">&gt;</span>
+<span class="sign">{</span>
+    <span class="function">TYPE</span> variable<span class="sign">;</span>
+    <span class="function">TYPE2</span> variable2<span class="sign">;</span>
+    <span class="function">public TYPE</span> returnValue()<span class="sign">{</span><span class="function">return this</span>.variable<span class="sign">;</span><span class="sign">}</span>
+    <span class="function">public TYPE2</span> returnValue2()<span class="sign">{</span><span class="function">return this</span>.variable2<span class="sign">;</span><span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h2>Wildcards</h2>
+                                    
+                                    <p>A wildcard is a parameterized type that allows for more generic programming. It is represented by the <code>?</code> symbol and denotes an unknown type. Wildcards exist in the form of just the <code>?</code> sign or with <code>extends</code>/<code>super</code> keywords. The first keyword ensures the type is a subclass of the given type (class), and the second one that the type is a superclass of the given type. These wildcards are called bounded wildcards. The single <code>?</code> is used when the type could be anything. Using wildcards can simplify code by enabling operations on a range of types without enforcing an exact type match.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.<span class="sign">*;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">ArrayList</span><span class="sign">&lt;</span><span class="function">SuperClass</span><span class="sign">&gt;</span> list <span class="sign">=</span> <span class="function">new ArrayList</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        list.<span class="command">add</span>(<span class="function">new SuperClass</span>())<span class="sign">;</span>
+        list.<span class="command">add</span>(<span class="function">new SubClass</span>())<span class="sign">;</span>
+
+        <span class="function">ArrayList</span><span class="sign">&lt;</span><span class="function">SubClass</span><span class="sign">&gt;</span> list2 <span class="sign">=</span> <span class="function">new ArrayList</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        <span class="function">SuperClass</span>.method(list)<span class="sign">;</span>
+        <span class="function">SuperClass</span>.method(list2)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> SuperClass
+<span class="sign">{</span>
+    <span class="function">public static void</span> method(<span class="function">List</span><span class="sign">&lt;?</span> <span class="function">extends SuperClass</span><span class="sign">&gt;</span> x)<span class="sign">{}</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> SubClass <span class="function">extends SuperClass</span><span class="sign">{}</span>
+                                    </code></pre>
+
+                                    <p>Generic types are used to define classes, interfaces, or methods that can operate on different data types while maintaining type safety at compile time. Wildcards are used to make generic types more flexible, often in method parameters, to allow types that are subtypes (<code>? extends T</code>) or supertypes (<code>? super T</code>). They enable flexibility when we do not need to specify an exact type. Generics define specific types, while wildcards allow for more flexible usage of those types.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>
