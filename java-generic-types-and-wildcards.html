@@ -88,7 +88,7 @@
 
                                     <h2>Generic types</h2>
 
-                                    <p>We create generic methods when we do not want to define many different methods for every possible type of argument. The class in which those methods occur must also be specified as a generic type. Inside the <code>&lt;&gt;</code> signs after the class name or before the method name, we create a custom name(s) for the data type(s). Inside the class, we replace every data type with the one(s) specified earlier (they will substitute themselves with the arguments).</p>
+                                    <p>We create generic methods when we do not want to define many different methods for every possible type of argument. The class in which those methods occur must also be specified as a generic type. Inside the <code>&lt;&gt;</code> signs after the class name and before the method name, we create a custom name(s) for the data type(s). Inside the class, we replace all data type(s) with the one(s) specified earlier (they will substitute themselves with the arguments, which are, of course, data types).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main
@@ -131,7 +131,7 @@
 
                                     <h2>Wildcards</h2>
                                     
-                                    <p>A wildcard is a parameterized type that allows for more generic programming. It is represented by the <code>?</code> symbol and denotes an unknown type. Wildcards exist in the form of just the <code>?</code> sign or with <code>extends</code>/<code>super</code> keywords. The first keyword ensures the type is a subclass of the given type (class), and the second one that the type is a superclass of the given type. These wildcards are called bounded wildcards. The single <code>?</code> is used when the type could be anything. Using wildcards can simplify code by enabling operations on a range of types without enforcing an exact type match.</p>
+                                    <p>Generic types define classes, interfaces, or methods that can operate on various data types while preserving type safety at compile time. Wildcards make generic types more flexible, often appearing in method parameters to allow subtypes (<code>? extends T</code>) or supertypes (<code>? super T</code>) of a specified type. Wildcards enable flexibility when an exact type does not need to be specified. In contrast to generics, which define specific types, wildcards allow for broader, more flexible applications.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.util.<span class="sign">*;</span>
@@ -158,7 +158,7 @@
 <span class="function">class</span> SubClass <span class="function">extends SuperClass</span><span class="sign">{}</span>
                                     </code></pre>
 
-                                    <p>Generic types are used to define classes, interfaces, or methods that can operate on different data types while maintaining type safety at compile time. Wildcards are used to make generic types more flexible, often in method parameters, to allow types that are subtypes (<code>? extends T</code>) or supertypes (<code>? super T</code>). They enable flexibility when we do not need to specify an exact type. Generics define specific types, while wildcards allow for more flexible usage of those types.</p>
+                                    <p>Generic types are used to define classes, interfaces, or methods that can operate on different data types while maintaining type safety at compile time. Wildcards enable flexibility when we do not need to specify an exact type. Generics define specific types, while wildcards allow for more general types.</p>
                                 </div>
                             </div>
                         </div>

@@ -101,7 +101,7 @@
                                     
                                     <p>We already know a few structures (<code>str</code>, <code>int</code>, <code>float</code>, and <code>bool</code>), and I will introduce the rest in this lesson. Data structures have different qualities based on how they are declared and used. We can go with a loop through sequence, mapping, and set structures, just like with strings (e.g., <code>for x in "abcde":</code>). They are called iterable data structures.</p>
                                     
-                                    <p>A list is mutable, so if we assign it to an <code>x</code> variable, we will have two names referring to the same object (they will have the same ID). However, if we assign a string to an <code>x</code> variable, a second variable will be created (because it is immutable). This variable will contain the same data, but while editing the original version, we will not edit the copy (which was the case with the list). All the structures we already know are immutable.</p>
+                                    <p>A list is mutable, which means that if we assign it to an <code>x</code> variable, we will have two names referring to the same object (they will have the same ID). However, if we assign a string to an <code>x</code> variable, a second variable will be created (because it is immutable). This variable will contain the same data, but while editing the original version, we will not edit the copy (which was the case with the list). All the structures we already know are immutable.</p>
             
                 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -115,13 +115,25 @@ x.<span class="command">append</span>(4)
                                     </code></pre>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-string <span class="sign">=</span> <span class="text">"string"</span> <span class="comment"># sttring is immutable</span>
+string <span class="sign">=</span> <span class="text">"string"</span> <span class="comment"># string is immutable</span>
 x <span class="sign">=</span> string
 <span class="command">print</span>(x)
 <span class="command">print</span>(string)
 x <span class="sign">+=</span> <span class="text">"s"</span>
 <span class="command">print</span>(x)
 <span class="command">print</span>(string)
+                                    </code></pre>
+
+                                    <h4><code>is</code></h4>
+
+                                    <p>The <code>is</code> keywords check whether two objects are the same, while the <code>==</code> operator checks whether two objects have the same values.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+x <span class="sign">=</span> <span class="text">"x"</span>
+y <span class="sign">=</span> x
+<span class="command">print</span>(x <span class="function">is</span> y, x <span class="sign">==</span> y)
+y <span class="sign">=</span> <span class="text">"y"</span>
+<span class="command">print</span>(x <span class="function">is</span> y, x <span class="sign">==</span> y)
                                     </code></pre>
             
                                     <h2>Mutable data structures</h2>
