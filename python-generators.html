@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Generators</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Generators</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -85,21 +85,21 @@
                                     <h5 class="m-0 font-weight-bold">Generators</h5>
                                 </div>
                                 <div class="card-body">                                 
-									<p>An iterator is an object that contains a countable number of values. The <code>next()</code> function is a built-in function used to retrieve the next item from an iterator. We can use this function to advance the iterator to the next item and return its value.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    <p>An iterator is an object that contains a countable number of values. The <code>next()</code> function is a built-in function used to retrieve the next item from an iterator. We can use this function to advance the iterator to the next item and return its value.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 iterator <span class="sign">=</span> <span class="command">iter</span>([1, 2, 3, 4, 5]) <span class="comment"># iter() is a built-in function that creates an iterator from an iterable object</span>
 
 <span class="command">print</span>(<span class="command">next</span>(iterator))
 <span class="command">print</span>(<span class="command">next</span>(iterator))
 <span class="command">print</span>(<span class="command">next</span>(iterator))
-									</code></pre>
-									
-									<p>A generator is a special type of iterable object that allows us to iterate over a sequence of items without needing to store the entire sequence in memory at once. It is defined using functions that contain one or more <code>yield</code> statements instead of <code>return</code>.</p>
-									
-									<p>When the <code>yield</code> keyword executes, it pauses the execution of the function, returns a value to whatever is iterating through the generator object, and comes back to the function. The two examples below have the same output, except the last value of the second program is <code>4</code> and not <code>y</code>, because the <code>next()</code> function ends the iteration once it completes the last <code>yield</code>. When you’re manually calling <code>next()</code>, the function halts after yielding all its values and doesn’t proceed to the <code>print("y")</code> statement. The loop going through the generator, on the other hand, handles the entire iteration and reaches the final <code>print("y")</code>.</p>
+                                    </code></pre>
+                                    
+                                    <p>A generator is a special type of iterable object that allows us to iterate over a sequence of items without needing to store the entire sequence in memory at once. It is defined using functions that contain one or more <code>yield</code> statements instead of <code>return</code>.</p>
+                                    
+                                    <p>When the <code>yield</code> keyword executes, it pauses the execution of the function, returns a value to whatever is iterating through the generator object, and comes back to the function. The two examples below have the same output, except the last value of the second program is <code>4</code> and not <code>y</code>, because the <code>next()</code> function ends the iteration once it completes the last <code>yield</code>. When you’re manually calling <code>next()</code>, the function halts after yielding all its values and doesn’t proceed to the <code>print("y")</code> statement. The loop going through the generator, on the other hand, handles the entire iteration and reaches the final <code>print("y")</code>.</p>
 
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> generator(n):
     <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(n):
         <span class="command">print</span>(<span class="text">"x"</span>)
@@ -108,9 +108,9 @@ iterator <span class="sign">=</span> <span class="command">iter</span>([1, 2, 3,
 
 <span class="function">for</span> y <span class="function">in</span> generator(5):
     <span class="command">print</span>(y)
-									</code></pre>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> generator(n):
     <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(n):
         <span class="command">print</span>(<span class="text">"x"</span>)
@@ -120,9 +120,9 @@ iterator <span class="sign">=</span> <span class="command">iter</span>([1, 2, 3,
 x <span class="sign">=</span> generator(5)
 <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(5):
     <span class="command">print</span>(<span class="command">next</span>(x))
-									</code></pre>
+                                    </code></pre>
 
-									<p>When a generator function is called, it doesn't execute immediately. Instead, it returns a generator object that can be iterated over. Each time the <code>next()</code> function is called on the generator object, the function's execution resumes from where it left off, continuing until a <code>yield</code> statement is encountered. The value yielded by the <code>yield</code> statement is returned by the <code>next()</code> function, and the function's state is saved until the next call to <code>next()</code>.</p>
+                                    <p>When a generator function is called, it doesn't execute immediately. Instead, it returns a generator object that can be iterated over. Each time the <code>next()</code> function is called on the generator object, the function's execution resumes from where it left off, continuing until a <code>yield</code> statement is encountered. The value yielded by the <code>yield</code> statement is returned by the <code>next()</code> function, and the function's state is saved until the next call to <code>next()</code>.</p>
 
                                     <h2>Practical example</h2>
 

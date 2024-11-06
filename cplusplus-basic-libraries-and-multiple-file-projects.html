@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Basic libraries, projects, and files</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Basic libraries, projects, and files</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -85,15 +85,15 @@
                                     <h5 class="m-0 font-weight-bold">Basic libraries and multiple file projects</h5>
                                 </div>
                                 <div class="card-body">
-									<h2>Files</h2>
-									
-									<p>Inside a project, we can create multiple files to write, e.g., separate functionalities. These files have the <code>.h</code> (header) extension.</p>
-									
-									<h4><code>library.h</code></h4>
+                                    <h2>Files</h2>
+                                    
+                                    <p>Inside a project, we can create multiple files to write, e.g., separate functionalities. These files have the <code>.h</code> (header) extension.</p>
+                                    
+                                    <h4><code>library.h</code></h4>
 
                                     <p>The <code>#include "library.h"</code> line will import everything from <code>library.h</code> to this file. If we have included <code>&lt;iostream&gt;</code> in the other file, we don't have to do it again because it will also be transferred. Thanks to the additional commands after the <code>#</code> signs (e.g., <code>#indef_LIBRARY</code>), there won't be any errors when redefining variables. They protect against including the same element multiple times (normal libraries have this feature built-in).</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
@@ -104,30 +104,30 @@
 
 <span class="function">void</span> display()
 <span class="sign">{</span>
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="command-c">#endif</span>
-									</code></pre>
-									
-									<h4><code>main.cpp</code></h4>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <h4><code>main.cpp</code></h4>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include "library.h"</span>
 
 <span class="function">int</span> main(<span class="function">int</span> argc, <span class="function">char</span> <span class="sign">*</span>argv[]) 
 <span class="sign">{</span>
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-	display()<span class="sign">;</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    display()<span class="sign">;</span>
     
-	x <span class="sign">=</span> 1<span class="sign">;</span>
+    x <span class="sign">=</span> 1<span class="sign">;</span>
     
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-	display()<span class="sign">;</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    display()<span class="sign">;</span>
 
-	<span class="function">return</span> 0<span class="sign">;</span>
+    <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
-									</code></pre>
+                                    </code></pre>
                                     
                                     <h2>Useful commands</h2>
 

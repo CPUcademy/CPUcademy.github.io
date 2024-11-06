@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Reference variables</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Reference variables</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -86,8 +86,8 @@
                                 </div>
                                 <div class="card-body">
                                     <p>A reference variable is an object that is referring to another object by its address in memory. It is a kind of synonym, a nickname. We have to define its value immediately (it cannot be left just declared). A reference variable can't change its value (the association with a particular variable). A reference variable must be the same type as the variable assigned to it. We create reference variables by adding an ampersand before their name (like when getting to a variable's address).</p>
-			
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> normal_var <span class="sign">=</span> 4<span class="sign">;</span>
 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"normal_var equals "</span> <span class="sign">&lt;&lt;</span> normal_var <span class="sign">&lt;&lt;</span> <span class="text">" and has the address "</span> <span class="sign">&lt;&lt;</span> <span class="sign">&amp;</span>normal_var <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 <span class="function">int</span> <span class="sign">&amp;</span>reference_var <span class="sign">=</span> normal_var<span class="sign">;</span> 
@@ -108,34 +108,34 @@ because we couldn't change its associated address, but now we also can't change 
 x <span class="sign">=</span> 40<span class="sign">;</span> <span class="comment">// we can change the value of the "y" constant by using the variable it is referring to ("x")</span>
 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"x equals "</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="text">" and has the address "</span> <span class="sign">&lt;&lt;</span> <span class="sign">&amp;</span>x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"y equals "</span> <span class="sign">&lt;&lt;</span> y <span class="sign">&lt;&lt;</span> <span class="text">" and has the address "</span> <span class="sign">&lt;&lt;</span> <span class="sign">&amp;</span>y <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-									</code></pre>
-									
-									<p>The code below wouldn't work without setting the arguments as reference variables because <code>x</code> and <code>y</code> are local variables, and we would have to return them. Here, we refer to the addresses of <code>a</code> and <code>b</code> and modify their values directly with <code>x</code> and <code>y</code> reference variables inside the function.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <p>The code below wouldn't work without setting the arguments as reference variables because <code>x</code> and <code>y</code> are local variables, and we would have to return them. Here, we refer to the addresses of <code>a</code> and <code>b</code> and modify their values directly with <code>x</code> and <code>y</code> reference variables inside the function.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
 <span class="function">void</span> swap(<span class="function">int</span> <span class="sign">&amp;</span>x, <span class="function">int</span> <span class="sign">&amp;</span>y)
 <span class="sign">{</span>
-	<span class="function">int</span> t <span class="sign">=</span> x<span class="sign">;</span>
-	x <span class="sign">=</span> y<span class="sign">;</span>
-	y <span class="sign">=</span> t<span class="sign">;</span>
+    <span class="function">int</span> t <span class="sign">=</span> x<span class="sign">;</span>
+    x <span class="sign">=</span> y<span class="sign">;</span>
+    y <span class="sign">=</span> t<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">int</span> main()
 <span class="sign">{</span>
-	<span class="function">int</span> a <span class="sign">=</span> 10<span class="sign">;</span>
-	<span class="function">int</span> b <span class="sign">=</span> 20<span class="sign">;</span>
-	
-	swap(a, b)<span class="sign">;</span>
-	
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"a: "</span> <span class="sign">&lt;&lt;</span> a <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"b: "</span> <span class="sign">&lt;&lt;</span> b <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-	
-	<span class="function">return</span> 0<span class="sign">;</span>
+    <span class="function">int</span> a <span class="sign">=</span> 10<span class="sign">;</span>
+    <span class="function">int</span> b <span class="sign">=</span> 20<span class="sign">;</span>
+    
+    swap(a, b)<span class="sign">;</span>
+    
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"a: "</span> <span class="sign">&lt;&lt;</span> a <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"b: "</span> <span class="sign">&lt;&lt;</span> b <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    
+    <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
-									</code></pre>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>List comprehensions</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>List comprehensions</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -86,101 +86,101 @@
                                 </div>
                                 <div class="card-body">
                                     <h2>Wstęp</h2>
-				
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									#Trzy sposoby na zapisanie dziesięciu liczb do listy
-									#(wszystkie te sposoby działają też dla innych typów danych).
-									
-									#Sposób 1:
-									lista1 = []
-									for x in range(10):
-											lista1.append(10)
-									print(lista1)
+                
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    #Trzy sposoby na zapisanie dziesięciu liczb do listy
+                                    #(wszystkie te sposoby działają też dla innych typów danych).
+                                    
+                                    #Sposób 1:
+                                    lista1 = []
+                                    for x in range(10):
+                                            lista1.append(10)
+                                    print(lista1)
 
-									#Sposób 2:
-									lista2 = [10]*10
-									print(lista2)
+                                    #Sposób 2:
+                                    lista2 = [10]*10
+                                    print(lista2)
 
-									#Sposób 3:
-									lista3 = [10 for x in range(10)]
-									print(lista3)
-									</code></pre>
-									
-									<h2>Wyrażenia Listowe</h2>
-							
-									<p>Wyrażenia listowe zapewniają prosty sposób na tworzenie list w oparciu o jakąś sekwencję lub inną listę, którą można przeiterować.</p>
-							
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									#Sposób na zapisanie znaków stringa jako elementów listy.
-									lista = [litera for litera in "abcd"]
-									print(lista)
+                                    #Sposób 3:
+                                    lista3 = [10 for x in range(10)]
+                                    print(lista3)
+                                    </code></pre>
+                                    
+                                    <h2>Wyrażenia Listowe</h2>
+                            
+                                    <p>Wyrażenia listowe zapewniają prosty sposób na tworzenie list w oparciu o jakąś sekwencję lub inną listę, którą można przeiterować.</p>
+                            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    #Sposób na zapisanie znaków stringa jako elementów listy.
+                                    lista = [litera for litera in "abcd"]
+                                    print(lista)
 
-									#Wydzielając znaki ze stringa można je zamienić w liczby lub kolekcje (oprócz słownika).
-									lista1 = [int(znak) for znak in "0123456"]
-									print(lista1)
+                                    #Wydzielając znaki ze stringa można je zamienić w liczby lub kolekcje (oprócz słownika).
+                                    lista1 = [int(znak) for znak in "0123456"]
+                                    print(lista1)
 
-									#Komenda <span style="color: red;">split()</span> służy pobierania danych do kilku zmiennych po spacji 
-									#(wspominałem już o niej na lekcji o przydatnych komendach).
-									x, y, z = [int(x) for x in input("Podaj trzy liczby oddzielone spacjami: ").split()]
-									print(x+y+z)
+                                    #Komenda <span style="color: red;">split()</span> służy pobierania danych do kilku zmiennych po spacji 
+                                    #(wspominałem już o niej na lekcji o przydatnych komendach).
+                                    x, y, z = [int(x) for x in input("Podaj trzy liczby oddzielone spacjami: ").split()]
+                                    print(x+y+z)
 
-									#Za pomocą wyrażeń listowych można też zapisywać listy dwuwymiarowe.
-									lista2 = [["a", "b"] for x in range(10)]
-									print(lista2)
+                                    #Za pomocą wyrażeń listowych można też zapisywać listy dwuwymiarowe.
+                                    lista2 = [["a", "b"] for x in range(10)]
+                                    print(lista2)
 
-									#W wyrażeniach listowych można używać różnych komend np. <span style="color: red;">lower()</span>.
-									lista3 = [x.lower() for x in "ABCDE"]
-									print(lista3)
-									</code></pre>
+                                    #W wyrażeniach listowych można używać różnych komend np. <span style="color: red;">lower()</span>.
+                                    lista3 = [x.lower() for x in "ABCDE"]
+                                    print(lista3)
+                                    </code></pre>
 
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									#Jako obiekt do zwrócenia można podawać działania (mogą być na kilku zmiennych), 
-									#a także listę, w której będzie wyrażenie listowe (i w tym wyrażeniu lista z wyrażeniem itd.).
-									
-									#Przykład 1:
-									kwadratyLiczb = [x*x for x in range(5)]
-									print(kwadratyLiczb)
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    #Jako obiekt do zwrócenia można podawać działania (mogą być na kilku zmiennych), 
+                                    #a także listę, w której będzie wyrażenie listowe (i w tym wyrażeniu lista z wyrażeniem itd.).
+                                    
+                                    #Przykład 1:
+                                    kwadratyLiczb = [x*x for x in range(5)]
+                                    print(kwadratyLiczb)
 
-									#Przykład 2:
-									lista1 = [x*y for x, y in ([1, 2], [3, 4])]
-									print(lista1)
+                                    #Przykład 2:
+                                    lista1 = [x*y for x, y in ([1, 2], [3, 4])]
+                                    print(lista1)
 
-									#Przykład 3:
-									lista2 = [[x for x in range(3)] for x in range(10)]
-									print(lista2)
-									</code></pre>
+                                    #Przykład 3:
+                                    lista2 = [[x for x in range(3)] for x in range(10)]
+                                    print(lista2)
+                                    </code></pre>
 
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									#Za pomocą wyrażeń listowych można tworzyć kolekcje.
-									
-									#Przykład 1:
-									zbior = {x*x for x in range(10)}
-									print(zbior)
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    #Za pomocą wyrażeń listowych można tworzyć kolekcje.
+                                    
+                                    #Przykład 1:
+                                    zbior = {x*x for x in range(10)}
+                                    print(zbior)
 
-									#Przykład 2:
-									slownik = {x: x*x for x in range(10)}
-									print(slownik)
-									</code></pre>
+                                    #Przykład 2:
+                                    slownik = {x: x*x for x in range(10)}
+                                    print(slownik)
+                                    </code></pre>
 
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									#W poniższym przykładzie zwróci się <span style="color: red;">x*y</span>. <span style="color: red;">x</span> będzie znaczyć <span style="color: red;">a</span>, a <span style="color: red;">y</span> będzie znaczyć <span style="color: red;">a+1</span>. Wystąpi dziesięć iteracji.
-									lista1 = [x*y for x, y in ([a, a+1] for a in range(10))]
-									print(lista1)
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    #W poniższym przykładzie zwróci się <span style="color: red;">x*y</span>. <span style="color: red;">x</span> będzie znaczyć <span style="color: red;">a</span>, a <span style="color: red;">y</span> będzie znaczyć <span style="color: red;">a+1</span>. Wystąpi dziesięć iteracji.
+                                    lista1 = [x*y for x, y in ([a, a+1] for a in range(10))]
+                                    print(lista1)
 
-									#Poniżej stanie się to samo, co w poprzednim przykładzie, poza tym że wyniki zostaną zapisane w innych listach 
-									#wewnętrznych razem z wynikiem <span style="color: red;">(x+1)*(y+1)</span>, czyli <span style="color: red;">(a+1)*(a+1)+1</span>.
-									lista2 = [[x*y, (x+1)*(y+1)] for x, y in ([a, a+1] for a in range(10))]
-									print(lista2)
+                                    #Poniżej stanie się to samo, co w poprzednim przykładzie, poza tym że wyniki zostaną zapisane w innych listach 
+                                    #wewnętrznych razem z wynikiem <span style="color: red;">(x+1)*(y+1)</span>, czyli <span style="color: red;">(a+1)*(a+1)+1</span>.
+                                    lista2 = [[x*y, (x+1)*(y+1)] for x, y in ([a, a+1] for a in range(10))]
+                                    print(lista2)
 
-									#Do wyrażeń listowych można dodawać warunki.
-									lista3 = [x*x for x in range(11) if x%2==0]
-									print(lista3)
+                                    #Do wyrażeń listowych można dodawać warunki.
+                                    lista3 = [x*x for x in range(11) if x%2==0]
+                                    print(lista3)
 
-									#Komenda <span style="color: red;">isdigit()</span> sprawdza, czy wyznaczony element tekstu jest liczbą.
-									napis = "jeden: 1, dwa: 2, trzy: 3, cztery: 4"
-									lista4 = [int(znak) for znak in napis if znak.isdigit()]
-									print(lista4)
-									</code></pre>
+                                    #Komenda <span style="color: red;">isdigit()</span> sprawdza, czy wyznaczony element tekstu jest liczbą.
+                                    napis = "jeden: 1, dwa: 2, trzy: 3, cztery: 4"
+                                    lista4 = [int(znak) for znak in napis if znak.isdigit()]
+                                    print(lista4)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

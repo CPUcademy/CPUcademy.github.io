@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Dunder methods and overloading operators</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Dunder methods and overloading operators</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -87,13 +87,13 @@
                                 <div class="card-body">
                                     <p><code>__init__()</code> (initialization) is an example of a special method. These methods are called dunder (double underscore). Some overload operators and others allow us to use Python's built-in functions.</p>
 
-									<h2>The most important dunder methods</h2>
-									
-									<h4><code>__call__()</code> (callable)</h4>
-									
-									<p>It allows an object to be called as a function.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    <h2>The most important dunder methods</h2>
+                                    
+                                    <h4><code>__call__()</code> (callable)</h4>
+                                    
+                                    <p>It allows an object to be called as a function.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Addition:
     <span class="function">def __init__</span>(<span class="function">self</span>, x):
         <span class="function">self</span>.x <span class="sign">=</span> x
@@ -104,13 +104,13 @@
 add <span class="sign">=</span> <span class="function">Addition</span>(5)
 result <span class="sign">=</span> add(10)
 <span class="command">print</span>(result)
-									</code></pre>
-									
-									<h4><code>__str__()</code> (string)</h4>
-									
-									<p>It defines what will be displayed if our object is used in the <code>print()</code> command.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <h4><code>__str__()</code> (string)</h4>
+                                    
+                                    <p>It defines what will be displayed if our object is used in the <code>print()</code> command.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Point:
     <span class="function">def __init__</span>(<span class="function">self</span>, x, y):
         <span class="function">self</span>.x <span class="sign">=</span> x
@@ -121,13 +121,13 @@ result <span class="sign">=</span> add(10)
 
 point <span class="sign">=</span> <span class="function">Point</span>(1, 2)
 <span class="command">print</span>(point)
-									</code></pre>
-									
-									<h4><code>__repr__()</code> (representation)</h4>
-									
-									<p>It is a version of the <code>__str__()</code> method designated for displaying more technical data.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <h4><code>__repr__()</code> (representation)</h4>
+                                    
+                                    <p>It is a version of the <code>__str__()</code> method designated for displaying more technical data.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Point:
     <span class="function">def __init__</span>(<span class="function">self</span>, x, y):
         <span class="function">self</span>.x <span class="sign">=</span> x
@@ -138,31 +138,31 @@ point <span class="sign">=</span> <span class="function">Point</span>(1, 2)
 
 point <span class="sign">=</span> <span class="function">Point</span>(1, 2)
 <span class="command">print</span>(<span class="command">repr</span>(point))
-									</code></pre>
-									
-									<h2>Overloading operators</h2>
-									
-									<p>Overloading operators means overwriting the operator's functionalities so it can work with, e.g., our class's objects. In Python, we cannot overload operators directly as we do in languages like C++ (e.g., <code>==</code>, <code>&lt;&lt;</code>). Here, we overwrite methods corresponding to the operators (e.g., <code>__eq__()</code> equals <code>==</code>). We can overload operators thanks to the dunder methods listed below:</p>
+                                    </code></pre>
+                                    
+                                    <h2>Overloading operators</h2>
+                                    
+                                    <p>Overloading operators means overwriting the operator's functionalities so it can work with, e.g., our class's objects. In Python, we cannot overload operators directly as we do in languages like C++ (e.g., <code>==</code>, <code>&lt;&lt;</code>). Here, we overwrite methods corresponding to the operators (e.g., <code>__eq__()</code> equals <code>==</code>). We can overload operators thanks to the dunder methods listed below:</p>
 
-									<p class="podpis"><code>__add__</code> - addition</p>
-									<p class="podpis"><code>__sub__</code> - subtraction</p>
-									<p class="podpis"><code>__mul__</code> - multiplication</p>
-									<p class="podpis"><code>__truediv__</code> - division</p>
-									<p class="podpis"><code>__floordiv__</code> - floor division (integer division)</p>
-									<p class="podpis"><code>__mod__</code> - modulo division</p>
-									<p class="podpis"><code>__pow__</code> - exponentiation</p>
-									<p class="podpis"><code>__eq__</code> - equal to (<code>==</code>)</p>
-									<p class="podpis"><code>__ne__</code> - not equal to (<code>!=</code>)</p>
-									<p class="podpis"><code>__gt__</code> - greater than (<code>&gt;</code>)</p>
-									<p class="podpis"><code>__lt__</code> - lesser than (<code>&lt;</code>)</p>
-									<p class="podpis"><code>__ge__</code> - greater than or equal to (<code>&gt;=</code>)</p>
-									<p><code>__le__</code> - lesser than or equal to (<code>&lt;=</code>)</p>
-									
-									<h4><code>__eq__()</code> (equal to)</h4>
-									
-									<p>It defines the behavior of equality comparison between our objects (now we can compare our classes by chosen values and not ID addresses).</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    <p class="podpis"><code>__add__</code> - addition</p>
+                                    <p class="podpis"><code>__sub__</code> - subtraction</p>
+                                    <p class="podpis"><code>__mul__</code> - multiplication</p>
+                                    <p class="podpis"><code>__truediv__</code> - division</p>
+                                    <p class="podpis"><code>__floordiv__</code> - floor division (integer division)</p>
+                                    <p class="podpis"><code>__mod__</code> - modulo division</p>
+                                    <p class="podpis"><code>__pow__</code> - exponentiation</p>
+                                    <p class="podpis"><code>__eq__</code> - equal to (<code>==</code>)</p>
+                                    <p class="podpis"><code>__ne__</code> - not equal to (<code>!=</code>)</p>
+                                    <p class="podpis"><code>__gt__</code> - greater than (<code>&gt;</code>)</p>
+                                    <p class="podpis"><code>__lt__</code> - lesser than (<code>&lt;</code>)</p>
+                                    <p class="podpis"><code>__ge__</code> - greater than or equal to (<code>&gt;=</code>)</p>
+                                    <p><code>__le__</code> - lesser than or equal to (<code>&lt;=</code>)</p>
+                                    
+                                    <h4><code>__eq__()</code> (equal to)</h4>
+                                    
+                                    <p>It defines the behavior of equality comparison between our objects (now we can compare our classes by chosen values and not ID addresses).</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Point:
     <span class="function">def __init__</span>(<span class="function">self</span>, x, y):
         <span class="function">self</span>.x <span class="sign">=</span> x
@@ -175,11 +175,11 @@ point1 <span class="sign">=</span> <span class="function">Point</span>(1, 2)
 point2 <span class="sign">=</span> <span class="function">Point</span>(1, 2)
 
 <span class="command">print</span>(point1 <span class="sign">==</span> point2) 
-									</code></pre>
-									
-									<h4><code>__add__()</code> (addition)</h4>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <h4><code>__add__()</code> (addition)</h4>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Point:
     <span class="function">def __init__</span>(<span class="function">self</span>, x, y):
         <span class="function">self</span>.x <span class="sign">=</span> x
@@ -192,11 +192,11 @@ point1 <span class="sign">=</span> <span class="function">Point</span>(1, 2)
 point2 <span class="sign">=</span> <span class="function">Point</span>(3, 4)
 result <span class="sign">=</span> point1 <span class="sign">+</span> point2
 <span class="command">print</span>(result.x, result.y) 
-									</code></pre>
-									
-									<h4><code>__lt__()</code> (lesser than)</h4>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <h4><code>__lt__()</code> (lesser than)</h4>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Point:
     <span class="function">def __init__</span>(<span class="function">self</span>, x, y):
         <span class="function">self</span>.x <span class="sign">=</span> x
@@ -209,7 +209,7 @@ point1 <span class="sign">=</span> <span class="function">Point</span>(1, 2)
 point2 <span class="sign">=</span> <span class="function">Point</span>(3, 4)
 <span class="function">if</span> point1 <span class="sign">&lt;</span> point2:
     <span class="command">print</span>(<span class="text">"Yes"</span>)
-									</code></pre>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

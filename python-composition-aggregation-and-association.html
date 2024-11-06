@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Composition, aggregation, and association</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Composition, aggregation, and association</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -86,10 +86,10 @@
                                 </div>
                                 <div class="card-body">
                                    <h2>Composition</h2>
-									
-									<p>Inheritance is used for <code>is a</code> relationships (e.g., a cat is an animal), and composition is used for <code>has a</code> relationships (e.g., a house has rooms). It involves attaching objects to a class instead of inheriting a whole class of these objects.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    
+                                    <p>Inheritance is used for <code>is a</code> relationships (e.g., a cat is an animal), and composition is used for <code>has a</code> relationships (e.g., a house has rooms). It involves attaching objects to a class instead of inheriting a whole class of these objects.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Room:
     <span class="function">def __init__</span>(<span class="function">self</span>, name, area):
         <span class="function">self</span>.name <span class="sign">=</span> name
@@ -113,15 +113,15 @@ house.add_room(<span class="text">"Bathroom"</span>, 10)
 
 <span class="function">for</span> r <span class="function">in</span> house.rooms:
     <span class="command">print</span>(r)
-									</code></pre>
-									
-									<p>In summary, we use inheritance when we want a class to inherit methods from a parent class and then modify or extend its functionalities. Inheritance allows us to overwrite methods, but in the case of composition, we can only use them. When we need to use a class without any modifications, composition is recommended, and when we need to change the behavior of a method in another class, we use inheritance.</p>
-									
-									<h2>Aggregation</h2>
-									
-									<p>The difference between aggregation and composition is the degree of ownership of the existing class. Aggregation implies a relationship where the child class can exist independently of the parent class. Example: school and students. Delete the school, and the students will still exist. Composition implies a relationship where the child cannot exist independently of the parent.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <p>In summary, we use inheritance when we want a class to inherit methods from a parent class and then modify or extend its functionalities. Inheritance allows us to overwrite methods, but in the case of composition, we can only use them. When we need to use a class without any modifications, composition is recommended, and when we need to change the behavior of a method in another class, we use inheritance.</p>
+                                    
+                                    <h2>Aggregation</h2>
+                                    
+                                    <p>The difference between aggregation and composition is the degree of ownership of the existing class. Aggregation implies a relationship where the child class can exist independently of the parent class. Example: school and students. Delete the school, and the students will still exist. Composition implies a relationship where the child cannot exist independently of the parent.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Student:
     <span class="function">def __init__</span>(<span class="function">self</span>, name, surname):
         <span class="function">self</span>.name <span class="sign">=</span> name
@@ -151,13 +151,13 @@ school.add_student(student3)
     <span class="command">print</span>(s)
 
 <span class="command">print</span>(student1) <span class="comment"># the students exist independently</span>
-									</code></pre>
-									
-									<h2>Association</h2>
-									
-									<p>Association is a relationship between two or more classes, where each class acknowledges the involvement of the other classes. Unlike composition and aggregation, association does not imply ownership or containment but rather a more general relationship.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <h2>Association</h2>
+                                    
+                                    <p>Association is a relationship between two or more classes, where each class acknowledges the involvement of the other classes. Unlike composition and aggregation, association does not imply ownership or containment but rather a more general relationship.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Teacher:
     <span class="function">def __init__</span>(<span class="function">self</span>, name):
         <span class="function">self</span>.name <span class="sign">=</span> name
@@ -200,7 +200,7 @@ school.add_subject(subject2)
 
 <span class="function">for</span> subject <span class="function">in</span> school.subjects:
     <span class="command">print</span>(subject)
-									</code></pre> 
+                                    </code></pre> 
                                 </div>
                             </div>
                         </div>

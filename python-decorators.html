@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Decorators</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Decorators</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -85,15 +85,15 @@
                                     <h5 class="m-0 font-weight-bold">Decorators</h5>
                                 </div>
                                 <div class="card-body">
-									<p>A decorator is a design pattern that allows us to add new functionalities to an existing object without modifying its structure. A design pattern is a reusable solution to a commonly occurring problem in software design.</p>
-			
-									<h2>Class methods</h2>
-									
-									<p>Class methods are bound to the class, not to individual class objects like regular methods. We create them by writing a <code>@classmethod</code> decorator before them. They take the <code>cls</code> argument (not <code>self</code>). It works the same as <code>self</code>, except that <code>self</code> refers to an object of a class, and <code>cls</code> refers to the class itself. Class methods don't have access to the fields (objects with <code>self</code>), but they can refer to class attributes (via <code>cls</code> or the class name). Class attributes are, in other words, static variables (they do not contain <code>self</code> and are placed outside methods). A static variable is a variable that won't be deleted even after deleting the instance of its class (its address is reserved only once). It is shared by all objects.</p>
+                                    <p>A decorator is a design pattern that allows us to add new functionalities to an existing object without modifying its structure. A design pattern is a reusable solution to a commonly occurring problem in software design.</p>
+            
+                                    <h2>Class methods</h2>
+                                    
+                                    <p>Class methods are bound to the class, not to individual class objects like regular methods. We create them by writing a <code>@classmethod</code> decorator before them. They take the <code>cls</code> argument (not <code>self</code>). It works the same as <code>self</code>, except that <code>self</code> refers to an object of a class, and <code>cls</code> refers to the class itself. Class methods don't have access to the fields (objects with <code>self</code>), but they can refer to class attributes (via <code>cls</code> or the class name). Class attributes are, in other words, static variables (they do not contain <code>self</code> and are placed outside methods). A static variable is a variable that won't be deleted even after deleting the instance of its class (its address is reserved only once). It is shared by all objects.</p>
 
                                     <p>Class methods are used to modify the value of static variables inside the class and create alternative constructors and factory methods. Factory methods are class methods that return an instance of the class. They are used for, e.g., creating alternative constructors. They can be useful when there are several variations of arguments a class can take, e.g., instead of the user's age, we can take his date of birth and then calculate the age.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Overall example</span>
 <span class="function">class</span> Example:
     x <span class="sign">=</span> 2 <span class="comment"># a static variable</span>
@@ -108,7 +108,7 @@
 
 e <span class="sign">=</span> <span class="function">Example</span>()
 e.method()
-<span class="function">Example</span>.classMethod()	
+<span class="function">Example</span>.classMethod()    
 
 <span class="command">print</span>(e.x, <span class="function">Example</span>.x)
 <span class="command">del</span> e
@@ -116,7 +116,7 @@ e.method()
 
 <span class="comment"># e.classMethod() - this shouldn't be used</span>
 <span class="comment"># Example.method() - this won't work</span>
-									</code></pre>
+                                    </code></pre>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Factory method</span>
@@ -154,12 +154,12 @@ e2 <span class="sign">=</span> <span class="function">Person</span>.from_birth_y
 e <span class="sign">=</span> <span class="function">Example</span>()
 <span class="command">print</span>(<span class="function">Example</span>.class_method()) <span class="comment"># 1</span>
                                     </code></pre>
-									
-									<h2>Static methods</h2>
-									
-									<p>The same rule as with static variables applies to methods. We can call static methods using the class directly without creating its instance. They take neither a <code>self</code> nor a <code>cls</code> argument, which makes them essentially ordinary functions within the class. They have no access to the class's objects. Static methods differ from outside functions because we can override them later in a child class.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    
+                                    <h2>Static methods</h2>
+                                    
+                                    <p>The same rule as with static variables applies to methods. We can call static methods using the class directly without creating its instance. They take neither a <code>self</code> nor a <code>cls</code> argument, which makes them essentially ordinary functions within the class. They have no access to the class's objects. Static methods differ from outside functions because we can override them later in a child class.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Example:
     <span class="function">def</span> method(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"Method"</span>)
@@ -176,13 +176,13 @@ e.method()
 <span class="function">Example</span>.staticMethod()
 
 <span class="comment"># e.staticMethod() - this shouldn't be used</span>
-									</code></pre>
-									
-									<h2>Abstract classes</h2>
-									
-									<p>An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects, so we can only use them in its child classes. It also can't have instances. An abstract method is a method that is in an abstract class and has the <code>@abstractmethod</code> decorator in front of it. We create abstract classes by inheriting the <code>ABC</code> object from an imported library. These classes provide a base for subclasses to extend and implement abstract methods and are used as a blueprint for other classes. An abstract class forces all its child classes to override all its abstract methods.</p>
+                                    </code></pre>
+                                    
+                                    <h2>Abstract classes</h2>
+                                    
+                                    <p>An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects, so we can only use them in its child classes. It also can't have instances. An abstract method is a method that is in an abstract class and has the <code>@abstractmethod</code> decorator in front of it. We create abstract classes by inheriting the <code>ABC</code> object from an imported library. These classes provide a base for subclasses to extend and implement abstract methods and are used as a blueprint for other classes. An abstract class forces all its child classes to override all its abstract methods.</p>
 
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">		
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">        
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
 
 <span class="function">class</span> Animal(ABC):
@@ -190,7 +190,7 @@ e.method()
     <span class="function">def</span> voice(<span class="function">self</span>):
         <span class="command">pass</span>
     <span class="function">def</span> voice2(<span class="function">self</span>): <span class="comment"># it isn't mandatory to overwrite a non-abstract method from an abstract class</span>
-        <span class="command">pass</span>	
+        <span class="command">pass</span>    
                     
 <span class="function">class</span> Cat(Animal):
     <span class="function">def</span> voice(<span class="function">self</span>):
@@ -198,17 +198,17 @@ e.method()
         
 cat <span class="sign">=</span> <span class="function">Cat</span>()
 cat.voice()
-									</code></pre>		
-									
-									<h2><code>@property</code>, <code>@setter</code>, <code>@deleter</code></h2>
-									
-									<p><code>@property</code> is a decorator that encapsulates instance attributes and provides a property. Notice that, in the example below, I didn't write any parentheses while calling this method. It is because a method marked with <code>@property</code> truly becomes a property (something like a variable).</p>
-									
-									<p>A getter is a method that returns values outside of a class, and a setter is a method that edits an object of the class. We should use them because, inside them, we can add, e.g., validation rules. <code>@property</code> is the getter decorator (it returns the "property"), for which we can create a setter decorator (the names of these methods have to be the same). One of these methods will execute according to the performed operation. For example, the setter is called automatically when the "property" is edited.</p>
-									
-									<p>We can also create deleters, which are destructors, but not for the whole class. We create them in association with the <code>@property</code> method (like the setters), and they "destroy" only the object of interest (the "property").</p>
-			
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>        
+                                    
+                                    <h2><code>@property</code>, <code>@setter</code>, <code>@deleter</code></h2>
+                                    
+                                    <p><code>@property</code> is a decorator that encapsulates instance attributes and provides a property. Notice that, in the example below, I didn't write any parentheses while calling this method. It is because a method marked with <code>@property</code> truly becomes a property (something like a variable).</p>
+                                    
+                                    <p>A getter is a method that returns values outside of a class, and a setter is a method that edits an object of the class. We should use them because, inside them, we can add, e.g., validation rules. <code>@property</code> is the getter decorator (it returns the "property"), for which we can create a setter decorator (the names of these methods have to be the same). One of these methods will execute according to the performed operation. For example, the setter is called automatically when the "property" is edited.</p>
+                                    
+                                    <p>We can also create deleters, which are destructors, but not for the whole class. We create them in association with the <code>@property</code> method (like the setters), and they "destroy" only the object of interest (the "property").</p>
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Example:
     <span class="function">def __init__</span>(<span class="function">self</span>, x):
         <span class="function">self</span>._x <span class="sign">=</span> x
@@ -232,7 +232,7 @@ example.x <span class="sign">=</span> 10
 <span class="command">print</span>(example.x)
 
 <span class="function">del</span> example.x
-									</code></pre>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

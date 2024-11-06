@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Nested classes</title>
+    <title>Generic types and wildcards</title>
 </head>
 
 <body id="page-top">
@@ -82,99 +82,83 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Nested classes</h5>
+                                    <h5 class="m-0 font-weight-bold">Generic types and wildcards</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>We can put classes in each other. This solution is used for logically grouping related classes, enhancing encapsulation by restricting visibility to the outer class, and improving code organization. Inner classes have access to the outer class's objects. The example below perfectly represents all three applications of nested classes.</p>
-            
+
+                                    <h2>Generic types</h2>
+
+                                    <p>We create generic methods when we do not want to define many different methods for every possible type of argument. The class in which those methods occur must also be specified as a generic type. Inside the <code>&lt;&gt;</code> signs after the class name or before the method name, we create a custom name(s) for the data type(s). Inside the class, we replace every data type with the one(s) specified earlier (they will substitute themselves with the arguments).</p>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main
 <span class="sign">{</span>
     <span class="function">public static void</span> main(<span class="function">String</span>[] args)
     <span class="sign">{</span>
-        <span class="function">BankAccount</span> bankacc <span class="sign">=</span> <span class="function">new BankAccount</span>(1000)<span class="sign">;</span>
-        System.<span class="command">out</span>.<span class="command">println</span>(bankacc.getBalance())<span class="sign">;</span>
-        bankacc.start(5)<span class="sign">;</span>
-        System.<span class="command">out</span>.<span class="command">println</span>(bankacc.getBalance())<span class="sign">;</span>
+        generalTypeClass<span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> x <span class="sign">=</span> <span class="function">new</span> generalTypeClass<span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        x.variable <span class="sign">=</span> <span class="text">"x"</span><span class="sign">;</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(x.returnValue())<span class="sign">;</span>
+
+        generalTypeClass<span class="sign">&lt;</span><span class="function">Integer</span><span class="sign">&gt;</span> y <span class="sign">=</span> <span class="function">new</span> generalTypeClass<span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        y.variable <span class="sign">=</span> 4<span class="sign">;</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(y.returnValue())<span class="sign">;</span>
+
+        generalTypeClass2<span class="sign">&lt;</span><span class="function">Integer</span>, <span class="function">Integer</span><span class="sign">&gt;</span> z <span class="sign">=</span> <span class="function">new</span> generalTypeClass2<span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        z.variable <span class="sign">=</span> 4<span class="sign">;</span>
+        z.variable2 <span class="sign">=</span> 5<span class="sign">;</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(z.returnValue())<span class="sign">;</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(z.returnValue2())<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> BankAccount
+<span class="function">class</span> generalTypeClass <span class="sign">&lt;</span><span class="function">TYPE</span><span class="sign">&gt;</span>
 <span class="sign">{</span>
-    <span class="function">private double</span> balance<span class="sign">;</span> <span class="comment">// private attribute</span>
-    <span class="function">public BankAccount</span>(<span class="function">double</span> balance)<span class="sign">{</span><span class="function">this</span>.balance <span class="sign">=</span> balance<span class="sign">;}</span>
-    
-    <span class="function">double</span> getBalance()<span class="sign">{</span><span class="function">return this</span>.balance<span class="sign">;}</span>
-    <span class="function">public void</span> updateBalance(<span class="function">double</span> amount)<span class="sign">{</span><span class="function">this</span>.balance <span class="sign">+=</span> amount<span class="sign">;}</span>
-    <span class="function">void</span> start(<span class="function">double</span> interestRate)<span class="sign">{</span><span class="function">Interest</span> interest <span class="sign">=</span> <span class="function">new Interest</span>(interestRate, <span class="function">this</span>)<span class="sign">;}</span>
+    <span class="function">TYPE</span> variable<span class="sign">;</span>
+    <span class="function">public TYPE</span> returnValue()
+    <span class="sign">{</span>
+        <span class="function">return this</span>.variable<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
 
-    <span class="function">class</span> Interest <span class="comment">// nested / inner class</span>
-    <span class="sign">{</span>
-        <span class="function">private double</span> interestRate<span class="sign">;</span> <span class="comment">// private attribute</span>
-        <span class="function">public Interest</span>(<span class="function">double</span> interestRate, <span class="function">BankAccount</span> account)
-        <span class="sign">{</span>
-            <span class="function">this</span>.interestRate <span class="sign">=</span> interestRate<span class="sign">;</span>
-            account.updateBalance((account.getBalance() <span class="sign">*</span> <span class="function">this</span>.interestRate) <span class="sign">/</span> 100)<span class="sign">;</span>
-        <span class="sign">}</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-                                    </code></pre>
-                                    
-                                    <p>The class from above could also be nested like this:</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">void</span> start(<span class="function">double</span> interestRate)
+<span class="function">class</span> generalTypeClass2  <span class="sign">&lt;</span><span class="function">TYPE</span>, <span class="function">TYPE2</span><span class="sign">&gt;</span>
 <span class="sign">{</span>
-    <span class="function">class</span> Interest
-    <span class="sign">{</span>
-        <span class="function">private double</span> interestRate<span class="sign">;</span>
-        <span class="function">public Interest</span>(<span class="function">double</span> interestRate)
-        <span class="sign">{</span>
-            <span class="function">this</span>.interestRate <span class="sign">=</span> interestRate<span class="sign">;</span>
-            balance <span class="sign">+=</span> (balance <span class="sign">*</span> interestRate) <span class="sign">/</span> 100<span class="sign">;</span>
-        <span class="sign">}</span>
-    <span class="sign">}</span>
-    <span class="function">Interest</span> interest <span class="sign">=</span> <span class="function">new Interest</span>(interestRate)<span class="sign">;</span>
+    <span class="function">TYPE</span> variable<span class="sign">;</span>
+    <span class="function">TYPE2</span> variable2<span class="sign">;</span>
+    <span class="function">public TYPE</span> returnValue()<span class="sign">{</span><span class="function">return this</span>.variable<span class="sign">;</span><span class="sign">}</span>
+    <span class="function">public TYPE2</span> returnValue2()<span class="sign">{</span><span class="function">return this</span>.variable2<span class="sign">;</span><span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
+
+                                    <h2>Wildcards</h2>
                                     
-                                    <h2>Static nested classes</h2>
-                                    
-                                    <p>We can create a new instance of a static inner class without needing to have an instance of the class that it is in. We can create static objects in a static inner class but not in a non-static inner class because Java is not sure if it will exist (an inner static class will exist even without an instance of the class it is in, so the objects within it, too).</p>
-                                    
+                                    <p>A wildcard is a parameterized type that allows for more generic programming. It is represented by the <code>?</code> symbol and denotes an unknown type. Wildcards exist in the form of just the <code>?</code> sign or with <code>extends</code>/<code>super</code> keywords. The first keyword ensures the type is a subclass of the given type (class), and the second one that the type is a superclass of the given type. These wildcards are called bounded wildcards. The single <code>?</code> is used when the type could be anything. Using wildcards can simplify code by enabling operations on a range of types without enforcing an exact type match.</p>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.<span class="sign">*;</span>
+
 <span class="function">public class</span> Main
 <span class="sign">{</span>
     <span class="function">public static void</span> main(<span class="function">String</span>[] args)
     <span class="sign">{</span>
-        <span class="function">A</span> a <span class="sign">=</span> <span class="function">new A</span>()<span class="sign">;</span>
-        <span class="function">A</span>.<span class="function">B</span> b <span class="sign">=</span> <span class="function">a</span>.<span class="function">new B</span>()<span class="sign">;</span>
-        <span class="function">A</span>.<span class="function">C</span> c <span class="sign">=</span> <span class="function">new A</span>.<span class="function">C</span>()<span class="sign">;</span>
+        <span class="function">ArrayList</span><span class="sign">&lt;</span><span class="function">SuperClass</span><span class="sign">&gt;</span> list <span class="sign">=</span> <span class="function">new ArrayList</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        list.<span class="command">add</span>(<span class="function">new SuperClass</span>())<span class="sign">;</span>
+        list.<span class="command">add</span>(<span class="function">new SubClass</span>())<span class="sign">;</span>
+
+        <span class="function">ArrayList</span><span class="sign">&lt;</span><span class="function">SubClass</span><span class="sign">&gt;</span> list2 <span class="sign">=</span> <span class="function">new ArrayList</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        <span class="function">SuperClass</span>.method(list)<span class="sign">;</span>
+        <span class="function">SuperClass</span>.method(list2)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> A
+<span class="function">class</span> SuperClass
 <span class="sign">{</span>
-    <span class="function">A</span>()<span class="sign">{</span>System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"A"</span>)<span class="sign">;</span><span class="sign">}</span>
-
-    <span class="function">class</span> B
-    <span class="sign">{</span>
-        <span class="function">B</span>()<span class="sign">{</span>System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"B"</span>)<span class="sign">;</span><span class="sign">}</span>
-        <span class="function">int</span> method()<span class="sign">{</span><span class="function">return</span> 0<span class="sign">;}</span>
-    <span class="sign">}</span>
-
-    <span class="function">static class</span> C <span class="comment">// we can't access the objects of the A class from this class</span>
-    <span class="sign">{</span>
-        <span class="function">C</span>()<span class="sign">{</span>System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"C"</span>)<span class="sign">;</span><span class="sign">}</span>
-    <span class="sign">}</span>
-
-    <span class="function">void</span> method2()
-    <span class="sign">{</span>
-        <span class="function">B</span> obj <span class="sign">=</span> <span class="function">new B</span>()<span class="sign">;</span>
-        obj.method()<span class="sign">;</span>
-    <span class="sign">}</span>
+    <span class="function">public static void</span> method(<span class="function">List</span><span class="sign">&lt;?</span> <span class="function">extends SuperClass</span><span class="sign">&gt;</span> x)<span class="sign">{}</span>
 <span class="sign">}</span>
+
+<span class="function">class</span> SubClass <span class="function">extends SuperClass</span><span class="sign">{}</span>
                                     </code></pre>
+
+                                    <p>Generic types are used to define classes, interfaces, or methods that can operate on different data types while maintaining type safety at compile time. Wildcards are used to make generic types more flexible, often in method parameters, to allow types that are subtypes (<code>? extends T</code>) or supertypes (<code>? super T</code>). They enable flexibility when we do not need to specify an exact type. Generics define specific types, while wildcards allow for more flexible usage of those types.</p>
                                 </div>
                             </div>
                         </div>

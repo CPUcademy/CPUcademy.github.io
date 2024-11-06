@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Useful widgets pt. 1</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Useful widgets pt. 1</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -86,96 +86,96 @@
                                 </div>
                                 <div class="card-body">
                                     <h2>Text</h2>
-										
-									<p>Dzięki widżetowi <code>Text</code> możemy wyświetlać tekst, który można zaznaczyć i skopiować (nie można tak zrobić z <code>Label</code>).</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									import tkinter
-									window = tkinter.Tk()
-									myText = tkinter.Text(window, width=30, height=2)
-									myText.pack()
-									myText.insert(tkinter.END, "Wonsz\nPython")
-									window.mainloop()
-									</code></pre>
-									
-									<p>Żeby zczytać tekst wpisany przez użytkownika do tego widżetu, zapisując każdą linijkę jako inny element listy, używamy tego kodu:</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									import tkinter
-									window = tkinter.Tk()
+                                        
+                                    <p>Dzięki widżetowi <code>Text</code> możemy wyświetlać tekst, który można zaznaczyć i skopiować (nie można tak zrobić z <code>Label</code>).</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    import tkinter
+                                    window = tkinter.Tk()
+                                    myText = tkinter.Text(window, width=30, height=2)
+                                    myText.pack()
+                                    myText.insert(tkinter.END, "Wonsz\nPython")
+                                    window.mainloop()
+                                    </code></pre>
+                                    
+                                    <p>Żeby zczytać tekst wpisany przez użytkownika do tego widżetu, zapisując każdą linijkę jako inny element listy, używamy tego kodu:</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    import tkinter
+                                    window = tkinter.Tk()
 
-									def get():
-											lista = []
-											text = str(myText.get(1.0, tkinter.END))
-											latestEnter = 0
-											for x, y in enumerate(text):
-													if y == "\n":
-															toAppend = text[latestEnter:x]
-															if "\n" in toAppend:
-																	toAppend = toAppend.replace("\n", "")
-															else:
-																	toAppend = text[:x]
-															lista.append(toAppend)
-															latestEnter = x
-										print(lista)
+                                    def get():
+                                            lista = []
+                                            text = str(myText.get(1.0, tkinter.END))
+                                            latestEnter = 0
+                                            for x, y in enumerate(text):
+                                                    if y == "\n":
+                                                            toAppend = text[latestEnter:x]
+                                                            if "\n" in toAppend:
+                                                                    toAppend = toAppend.replace("\n", "")
+                                                            else:
+                                                                    toAppend = text[:x]
+                                                            lista.append(toAppend)
+                                                            latestEnter = x
+                                        print(lista)
 
-									myText = tkinter.Text(window, height="5", width="20", wrap=tkinter.WORD)
-									myText.pack()
-									myButton = tkinter.Button(window, text="print", command=get)
-									myButton.pack()
-									window.mainloop()
-									</code></pre>
+                                    myText = tkinter.Text(window, height="5", width="20", wrap=tkinter.WORD)
+                                    myText.pack()
+                                    myButton = tkinter.Button(window, text="print", command=get)
+                                    myButton.pack()
+                                    window.mainloop()
+                                    </code></pre>
 
-									<h2>Icons</h2>
-									
-									<p>Ikonę można dodać do swojego okienka (będzie się wyświetlać w lewym, górnym rogu) lub na przycisk.</p>
+                                    <h2>Icons</h2>
+                                    
+                                    <p>Ikonę można dodać do swojego okienka (będzie się wyświetlać w lewym, górnym rogu) lub na przycisk.</p>
 
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									import tkinter
-									window = tkinter.Tk()
-									logo = Photoimage(file="wonsz.png")
-									window.iconphoto(False, logo)
-									window.mainloop()
-									</code></pre>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									import tkinter
-									window = tkinter.Tk()
-									logo = Photoimage(file="wonsz.png")
-									Button(window, image=logo).pack()
-									window.mainloop()
-									</code></pre>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    import tkinter
+                                    window = tkinter.Tk()
+                                    logo = Photoimage(file="wonsz.png")
+                                    window.iconphoto(False, logo)
+                                    window.mainloop()
+                                    </code></pre>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    import tkinter
+                                    window = tkinter.Tk()
+                                    logo = Photoimage(file="wonsz.png")
+                                    Button(window, image=logo).pack()
+                                    window.mainloop()
+                                    </code></pre>
 
-									<h2>Colorchooser</h2>
-									
-									<p><code>Colorchooser</code> to paleta RGB. Po wybraniu koloru na palecie i kliknięciu "OK", wyświetli  się wybrany kolor w zapisie RGB i heksadecymalnym.</p>
+                                    <h2>Colorchooser</h2>
+                                    
+                                    <p><code>Colorchooser</code> to paleta RGB. Po wybraniu koloru na palecie i kliknięciu "OK", wyświetli  się wybrany kolor w zapisie RGB i heksadecymalnym.</p>
 
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									from tkinter import *
-									from tkinter import colorchooser
-									window = Tk()
-									print(colorchooser.askcolor(title="Wybierz kolor"))
-									window.mainloop()
-									</code></pre>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    from tkinter import *
+                                    from tkinter import colorchooser
+                                    window = Tk()
+                                    print(colorchooser.askcolor(title="Wybierz kolor"))
+                                    window.mainloop()
+                                    </code></pre>
 
-									<h2>Tabs</h2>
-									
-									<p><code>Tabs</code> pozwala na tworzenie zakładek podobnych do tych, które są w przeglądarce internetowej.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-									import tkinter
-									from tkinter import ttk
-									window = tkinter.Tk()
-									tabControl = ttk.Notebook(window)
-									tab1 = tkinter.Frame(tabControl)
-									tab2 = tkinter.Frame(tabControl)
-									tabControl.add(tab1, text="Tab 1")
-									tabControl.add(tab2, text="Tab 2")
-									tabControl.pack()
-									tkinter.Label(tab1, text="Tab 1").pack()
-									tkinter.Label(tab2, text="Tab 2").pack()
-									window.mainloop()
-									</code></pre>
+                                    <h2>Tabs</h2>
+                                    
+                                    <p><code>Tabs</code> pozwala na tworzenie zakładek podobnych do tych, które są w przeglądarce internetowej.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    import tkinter
+                                    from tkinter import ttk
+                                    window = tkinter.Tk()
+                                    tabControl = ttk.Notebook(window)
+                                    tab1 = tkinter.Frame(tabControl)
+                                    tab2 = tkinter.Frame(tabControl)
+                                    tabControl.add(tab1, text="Tab 1")
+                                    tabControl.add(tab2, text="Tab 2")
+                                    tabControl.pack()
+                                    tkinter.Label(tab1, text="Tab 1").pack()
+                                    tkinter.Label(tab2, text="Tab 2").pack()
+                                    window.mainloop()
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
