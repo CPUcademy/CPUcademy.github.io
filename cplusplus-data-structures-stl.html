@@ -85,6 +85,8 @@
                                     <h5 class="m-0 font-weight-bold">Data structures - STL</h5>
                                 </div>
                                 <div class="card-body">
+                                    <p>A data structure organizes and stores data in memory for efficient access and modification. A collection is a group of data items treated as a single unit, focusing on operations like adding, removing, and iterating over elements. While collections rely on data structures, they offer a more abstract way to manage groups of objects. All collections are based on data structures, but not all data structures are collections.</p>
+
                                     <p>STL stands for Standard Template Library. It provides several types of containers (data structures), such as vectors, deques, stacks, queues, sets, and maps.</p>
 
                                     <h2>Vectors</h2>
@@ -111,7 +113,7 @@
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers.<span class="command-c">front</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// the first value</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers.<span class="command-c">back</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// the last value</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers.<span class="command-c">size</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// length of the vector</span>
-    integers.<span class="command-c">pop_back</span>()<span class="sign">;</span> <span class="comment">// deleting the last value</span>
+    integers.<span class="command-c">pop_back</span>()<span class="sign">;</span> <span class="comment">// deleting the last element</span>
 
     <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
@@ -142,7 +144,7 @@ i <span class="sign">+=</span> 2<span class="sign">;</span>
                                     </code></pre>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">for</span>(<span class="function">vector</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span><span class="sign">::</span><span class="function">iterator</span> i <span class="sign">=</span> numbers.<span class="command-c">begin</span>()<span class="sign">;</span> i <span class="sign">!=</span> numbers.<span class="command-c">end</span>()<span class="sign">;</span> i<span class="sign">++;</span>)
+<span class="function">for</span>(<span class="function">vector</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span><span class="sign">::</span><span class="function">iterator</span> i <span class="sign">=</span> numbers.<span class="command-c">begin</span>()<span class="sign">;</span> i <span class="sign">!=</span> numbers.<span class="command-c">end</span>()<span class="sign">;</span> i<span class="sign">++</span>)
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>i <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
                                     </code></pre>
                                     
@@ -155,7 +157,7 @@ i <span class="sign">+=</span> 2<span class="sign">;</span>
 <span class="function">auto</span> y <span class="sign">=</span> 5.5<span class="sign">;</span>
 <span class="function">auto</span> z <span class="sign">=</span> <span class="text">"z"</span><span class="sign">;</span>
 
-<span class="function">for</span>(<span class="function">auto</span> i <span class="sign">=</span> numbers.<span class="command-c">begin</span>()<span class="sign">;</span> i <span class="sign">!=</span> numbers.<span class="command-c">end</span>()<span class="sign">;</span> i<span class="sign">++;</span>)
+<span class="function">for</span>(<span class="function">auto</span> i <span class="sign">=</span> numbers.<span class="command-c">begin</span>()<span class="sign">;</span> i <span class="sign">!=</span> numbers.<span class="command-c">end</span>()<span class="sign">;</span> i<span class="sign">++</span>)
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>i <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
                                     </code></pre>
                                     
@@ -176,30 +178,6 @@ i <span class="sign">+=</span> 2<span class="sign">;</span>
 
                                     <p>*Adding an ampersand after the <code>auto</code> keyword allows us to edit the values of a vector inside the loop.</p>
 
-                                    <h2>Deques</h2>
-
-                                    <p>Deque stands for Double-Ended Queue. With it, we can easily add and remove elements not only at the end (like with vectors) but also at the beginning. They share the same commands with vectors and can be handled the same way. Its elements also can be accessed by index.</p>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command-c">#include &lt;iostream&gt;</span>
-<span class="command-c">#include &lt;deque&gt;</span>
-<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
-
-<span class="function">int</span> main()
-<span class="sign">{</span>    
-    <span class="function">deque</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> integers<span class="sign">;</span>
-
-    integers.<span class="command-c">push_back</span>(2)<span class="sign">;</span>
-    integers.<span class="command-c">push_back</span>(4)<span class="sign">;</span>
-    integers.<span class="command-c">pop_front</span>()<span class="sign">;</span> <span class="comment">// deleting the first element</span>
-    integers.<span class="command-c">push_front</span>(1)<span class="sign">;</span> <span class="comment">// adding an element at the beginning</span>
-
-    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers[0] <span class="sign">&lt;&lt;</span> <span class="text">" "</span> <span class="sign">&lt;&lt;</span> integers[1] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-
-    <span class="function">return</span> 0<span class="sign">;</span>
-<span class="sign">}</span>
-                                    </code></pre>
-
                                     <h2>Stacks &amp; queues</h2>
 
                                     <p>Stacks and Queues are data structures for storing data in specific orders. Their elements can't be accessed by index. Stacks operate in a Last-In-First-Out (LIFO) order, where elements can only be added and deleted from the top of the stack. Queues operate in a First-In-First-Out (FIFO) order, where elements can be added at the end of the queue and removed from the front.</p>
@@ -215,17 +193,43 @@ i <span class="sign">+=</span> 2<span class="sign">;</span>
     <span class="function">stack</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> integers<span class="sign">;</span>
     integers.<span class="command-c">push</span>(1)<span class="sign">;</span>
     integers.<span class="command-c">push</span>(2)<span class="sign">;</span>
-    integers.<span class="command-c">pop</span>()<span class="sign">;</span>
-    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers.<span class="command-c">top</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    integers.<span class="command-c">pop</span>()<span class="sign">;</span> <span class="comment">// deleting an element</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers.<span class="command-c">top</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// the value from the top of the stack (1)</span>
 
     <span class="function">queue</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> integers2<span class="sign">;</span>
     integers2.<span class="command-c">push</span>(1)<span class="sign">;</span>
     integers2.<span class="command-c">push</span>(2)<span class="sign">;</span>
+    integers2.<span class="command-c">push</span>(3)<span class="sign">;</span>
     integers2.<span class="command-c">pop</span>()<span class="sign">;</span>
-    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers2.<span class="command-c">front</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers2.<span class="command-c">front</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// the value from the front of the queue (2)</span>
 
     <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>                                           
+                                    </code></pre>
+
+                                    <h2>Deques</h2>
+
+                                    <p>Deque stands for Double-Ended Queue. With it, we can easily add and remove elements not only at the end (like with vectors) but also at the beginning. They share the same commands with vectors and can be handled the same way. Its elements also can be accessed by index.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command-c">#include &lt;iostream&gt;</span>
+<span class="command-c">#include &lt;deque&gt;</span>
+<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
+
+<span class="function">int</span> main()
+<span class="sign">{</span>    
+    <span class="function">deque</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> integers<span class="sign">;</span>
+
+    integers.<span class="command-c">push_back</span>(2)<span class="sign">;</span>
+    integers.<span class="command-c">push_back</span>(4)<span class="sign">;</span>
+    integers.<span class="command-c">pop_back</span>()<span class="sign">;</span> <span class="comment">// deleting the last element</span>
+    integers.<span class="command-c">push_front</span>(1)<span class="sign">;</span> <span class="comment">// adding an element at the beginning</span>
+    integers.<span class="command-c">pop_front</span>()<span class="sign">;</span> <span class="comment">// deleting the first element</span>
+
+    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> integers.<span class="command-c">size</span>()<span class="sign">;</span> i<span class="sign">++</span>)
+        <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers[i] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    <span class="function">return</span> 0<span class="sign">;</span>
+<span class="sign">}</span>
                                     </code></pre>
 
                                     <h2>Sets</h2>
@@ -240,9 +244,9 @@ i <span class="sign">+=</span> 2<span class="sign">;</span>
 <span class="function">int</span> main()
 <span class="sign">{</span>    
     <span class="function">set</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> integers <span class="sign">{</span>1, 2, 3, 4<span class="sign">};</span></span>
-    integers.<span class="command-c">insert</span>(1)<span class="sign">;</span>
+    integers.<span class="command-c">insert</span>(1)<span class="sign">;</span> <span class="comment">// adding an element</span>
     integers.<span class="command-c">insert</span>(5)<span class="sign">;</span>
-    integers.<span class="command-c">erase</span>(2)<span class="sign">;</span>
+    integers.<span class="command-c">erase</span>(2)<span class="sign">;</span> <span class="comment">// deleting an element</span>
 
     <span class="function">for</span>(<span class="function">int</span> i <span class="sign">:</span> integers)
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> i <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>

@@ -85,45 +85,221 @@
                                     <h5 class="m-0 font-weight-bold">Data structures</h5>
                                 </div>
                                 <div class="card-body">
+                                    <p>A data structure organizes and stores data in memory for efficient access and modification. A collection is a group of data items treated as a single unit, focusing on operations like adding, removing, and iterating over elements. While collections rely on data structures, they offer a more abstract way to manage groups of objects. All collections are based on data structures, but not all data structures are collections.</p>
+
                                     <h2>ArrayList &amp; LinkedList</h2>
 
                                     <p>Lists are dynamic arrays, so we do not have to know their size at the beginning (but we have to determine the type of its elements). It works because the memory is reserved in advance based on how many elements we added in the past. That reserved in advance memory is the lists's capacity, and its size is how much of this memory is used.</p>
 
-                                    https://www.codecademy.com/resources/docs/java/array-list
+                                    <ul>
+                                        <li><b>ArrayList</b>
+                                            <ul>
+                                                <li>Fast access time to objects.</li>
+                                                <li>Slow insertion and removal time of objects.</li>
+                                            </ul>
+                                        </li>
+                                        <li><b>LinkedList</b>
+                                            <ul>
+                                                <li>Fast insertion and removal time of objects.</li>
+                                                <li>Slow access time to objects.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
 
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+import java.util.ArrayList;
+
+public class Test
+{
+    public static void main(String[] args)
+    {
+        ArrayList&lt;Integer&gt; integers = new ArrayList&lt;&gt;();
+        integers.add(2); // adding an element at the end
+        integers.add(4);
+
+        System.out.println(integers.get(0)); // the same as integers[0] in arrays
+        System.out.println(integers.getFirst()); // the first value
+        System.out.println(integers.getLast()); // the last value
+        integers.set(1, 3); // changing the value under the given index
+        System.out.println(integers.get(1));
+        integers.remove(1);// deleting the element under the given index
+    }
+}
+                                    </code></pre>
+                                    
+                                    <p>Both <code>ArrayList</code> and <code>LinkedList</code> inherit features from the <code>List</code> class, which is why, while declaring them, we can write: <code>List<String> x = new ArrayList&lt;&gt;();</code>.</p>
+
+                                    <p>We can also assign all the list's values at the beginning: <code>ArrayList&lt;Integer&gt; integers = new ArrayList&lt;&gt;(Arrays.asList(1, 2, 3));</code> (we do not have to extend the <code>List</code> class every time, but we can use the ArrayList class directly).</p>
 
                                     <h2>Iterators</h2>
 
                                     https://www.codecademy.com/resources/docs/java/iterator
 
-                                    <h2>Deques</h2>
+                                    <h2>Useful commands</h2>
 
-                                    <p>Deque stands for Double-Ended Queue. With it, we can easily add and remove elements not only at the end (like with lists) but also at the beginning. They share the same commands with lists and can be handled the same way. Its elements also can be accessed by index.</p>
+                                    <p>These commands work with most data structures.</p>
 
-                                    https://www.codecademy.com/resources/docs/java/deque
-
+                                    <p class="podpis"><code>.size()</code> - returning the number of elements in the collection.</p>
+                                    <p class="podpis"><code>.contains()</code> - checking if the collection contains a specified element.</p>
+                                    <p class="podpis"><code>.clear()</code> - removing all elements from the collection.</p>
+                                    <p class="podpis"><code>.remove()</code> - removing a specified element from the collection.</p>
+                                    <p class="podpis"><code>.isEmpty()</code> - checking if the collection is empty.</p>
+                                    <p><code>.hashCode()</code> - returning the hash code value for the collection.</p>                                 
+                                    
                                     <h2>Stacks &amp; queues</h2>
 
                                     <p>Stacks and Queues are data structures for storing data in specific orders. Their elements can't be accessed by index. Stacks operate in a Last-In-First-Out (LIFO) order, where elements can only be added and deleted from the top of the stack. Queues operate in a First-In-First-Out (FIFO) order, where elements can be added at the end of the queue and removed from the front.</p>
                                     
-                                    https://www.codecademy.com/resources/docs/java/stack
-                                    https://www.codecademy.com/resources/docs/java/queue
-                                    https://www.codecademy.com/resources/docs/java/priorityqueue
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.LinkedList<span class="sign">;</span>
+<span class="command">import</span> java.util.Queue<span class="sign">;</span>
+<span class="command">import</span> java.util.Stack<span class="sign">;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">Stack</span><span class="sign">&lt;</span><span class="function">Integer</span><span class="sign">&gt;</span> integers <span class="sign">=</span> <span class="function">new Stack</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        integers.<span class="command">push</span>(1)<span class="sign">;</span> <span class="comment">// adding an element</span>
+        integers.<span class="command">push</span>(2)<span class="sign">;</span>
+        integers.<span class="command">pop</span>()<span class="sign">;</span> <span class="comment">// deleting an element</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(integers.<span class="command">peek</span>())<span class="sign">;</span> <span class="comment">// the value from the top of the stack (1)</span>
+
+        <span class="function">Queue</span><span class="sign">&lt;</span><span class="function">Integer</span><span class="sign">&gt;</span> integers2 <span class="sign">=</span> <span class="function">new LinkedList</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        integers2.<span class="command">add</span>(1)<span class="sign">;</span> <span class="comment">// adding an element</span>
+        integers2.<span class="command">add</span>(2)<span class="sign">;</span>
+        integers2.<span class="command">add</span>(3)<span class="sign">;</span>
+        integers2.<span class="command">remove</span>()<span class="sign">;</span> <span class="comment">// deleting an element</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(integers2.<span class="command">peek</span>())<span class="sign">;</span> <span class="comment">// the value from the front of the queue (2)</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h2>Deques</h2>
+
+                                    <p>Deque stands for Double-Ended Queue. With it, we can easily add and remove elements not only at the end (like with lists) but also at the beginning. They share the same commands with lists and can be handled the same way. Its elements also can be accessed by index.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.ArrayDeque<span class="sign">;</span>
+<span class="command">import</span> java.util.Deque<span class="sign">;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">Deque</span><span class="sign">&lt;</span><span class="function">Integer</span><span class="sign">&gt;</span> integers <span class="sign">=</span> <span class="function">new ArrayDeque</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        integers.<span class="command">addLast</span>(2)<span class="sign">;</span> <span class="comment">// adding an element at the end</span>
+        integers.<span class="command">addLast</span>(4)<span class="sign">;</span>
+        integers.<span class="command">removeLast</span>()<span class="sign">;</span> <span class="comment">// deleting the last element</span>
+        integers.<span class="command">addFirst</span>(1)<span class="sign">;</span> <span class="comment">// adding an element at the beginning</span>
+        integers.<span class="command">removeFirst</span>()<span class="sign">;</span> <span class="comment">// deleting the first element</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(integers.<span class="command">getFirst</span>())<span class="sign">;</span> <span class="comment">// integers.getLast() would return the same number as there is only one</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
 
                                     <h2>Sets</h2>
 
                                     <p>Sets store unique elements (even if we add, e.g., the number 4 twice, it will keep only one) that are not accessible by index. An unordered set (unordered_set) stores elements without an order (you could enter them like this: 1, 2, 3, and then receive 3, 1, 2).</p>
 
-                                    https://www.codecademy.com/resources/docs/java/hashset
-                                    https://www.codecademy.com/resources/docs/java/set
+                                    <ul>
+                                        <li><b>HashSet</b>
+                                            <ul>
+                                                <li>Based on a hash table.</li>
+                                                <li>No specific order of elements.</li>
+                                                <li>Constant time for basic operations (adding, removing, checking for element containment).</li>
+                                            </ul>
+                                        </li>
+                                        <li><b>TreeSet</b>
+                                            <ul>
+                                                <li>Elements are sorted according to their natural order or by a Comparator provided during set creation.</li>
+                                                <li>The time complexity for basic operations is logarithmic.</li>
+                                            </ul>
+                                        </li>
+                                        <li><b>LinkedHashSet</b>
+                                            <ul>
+                                                <li>Implemented as a combination of a hash table and a LinkedList.</li>
+                                                <li>Maintains the order of element insertion.</li>
+                                                <li>Constant time for basic operations.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.Set<span class="sign">;</span>
+<span class="command">import</span> java.util.HashSet<span class="sign">;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">Set</span><span class="sign">&lt;</span><span class="function">Integer</span><span class="sign">&gt;</span> integers <span class="sign">=</span> <span class="function">new HashSet</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        integers.<span class="command">add</span>(1)<span class="sign">;</span>
+        integers.<span class="command">add</span>(5)<span class="sign">;</span>
+        integers.<span class="command">remove</span>(1)<span class="sign">;</span>
+
+        <span class="function">for</span> (<span class="function">int</span> i<span class="sign">:</span> integers)
+            System.<span class="command">out</span>.<span class="command">println</span>(i)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
 
                                     <h2>Maps</h2>
 
                                     <p>Maps work on the key-value coding rule, which states that searching for the key will give us the value. Using the map keys, we can get the assigned values. In the example below, "Java" and "map" are keys, and "programming language" and "data structure" are values.</p>
 
-                                    https://www.codecademy.com/resources/docs/java/map
-                                    https://www.codecademy.com/resources/docs/java/hashmap
-                                    https://www.codecademy.com/resources/docs/java/treemap
+                                    <ul>
+                                        <li><b>HashMap</b>
+                                            <ul>
+                                                <li>Based on a hash table.</li>
+                                                <li>No specific order of elements.</li>
+                                                <li>Constant time for basic operations (adding, removing key-value pairs).</li>
+                                            </ul>
+                                        </li>
+                                        <li><b>TreeMap</b>
+                                            <ul>
+                                                <li>Does not allow null keys or values.</li>
+                                                <li>Elements are sorted according to their natural order or by a Comparator provided at the time of map creation.</li>
+                                                <li>The time complexity for basic operations is logarithmic.</li>
+                                            </ul>
+                                        </li>
+                                        <li><b>LinkedHashMap</b>
+                                            <ul>
+                                                <li>A map of keys implemented as a combination of a hash table and a LinkedList.</li>
+                                                <li>Maintains the order of element insertion.</li>
+                                                <li>Constant time for basic operations.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>                                    
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.Map<span class="sign">;</span>
+<span class="command">import</span> java.util.HashMap<span class="sign">;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">Map</span><span class="sign">&lt;</span><span class="function">String</span>, <span class="function">String</span><span class="sign">&gt;</span> myMap <span class="sign">=</span> <span class="function">new HashMap</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        myMap.<span class="command">put</span>(<span class="text">"Java"</span>, <span class="text">"programming language"</span>)<span class="sign">;</span> <span class="comment">// adding an element</span>
+        myMap.<span class="command">put</span>(<span class="text">"map"</span>, <span class="text">"data structure"</span>)<span class="sign">;</span>
+
+        System.<span class="command">out</span>.<span class="command">println</span>(myMap.<span class="command">get</span>(<span class="text">"Java"</span>))<span class="sign">;</span> <span class="comment">// displaying the value of a given key</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(myMap.<span class="command">containsKey</span>(<span class="text">"Java"</span>))<span class="sign">;</span> <span class="comment">// checking whether the map contains the given key</span>
+        System.<span class="command">out</span>.<span class="command">println</span>(myMap.<span class="command">containsValue</span>(<span class="text">"Java"</span>))<span class="sign">;</span> <span class="comment">// checking whether the map contains the given value</span>
+        myMap.<span class="command">remove</span>(<span class="text">"Java"</span>)<span class="sign">;</span>
+
+        <span class="function">for</span> (<span class="function">String</span> i<span class="sign">:</span> myMap.<span class="command">keySet</span>()) <span class="comment">// going through a list of the map keys</span>
+            System.<span class="command">out</span>.<span class="command">println</span>(i)<span class="sign">;</span>
+
+        <span class="function">for</span> (<span class="function">String</span> i<span class="sign">:</span> myMap.<span class="command">values</span>()) <span class="comment">// going through a list of the map values</span>
+            System.<span class="command">out</span>.<span class="command">println</span>(i)<span class="sign">;</span>
+
+        <span class="function">for</span>(<span class="function">Map</span>.<span class="function">Entry</span><span class="sign">&lt;</span><span class="function">String</span>, <span class="function">String</span><span class="sign">&gt;</span> i<span class="sign">:</span> myMap.<span class="command">entrySet</span>()) <span class="comment">// going through a list of the map keys and their values</span>
+            System.<span class="command">out</span>.<span class="command">println</span>(i)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
