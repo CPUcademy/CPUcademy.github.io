@@ -91,7 +91,7 @@
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 3<span class="sign">;</span> i<span class="sign">++</span>)
-    System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"i equals: "</span> <span class="sign">+</span> i)<span class="sign">;</span>
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"i equals: "</span> <span class="sign">+</span> i)<span class="sign">;</span>
                                     </code></pre>
                                     
                                     <p>We don't have to initialize the variable in the loop - we can only give the name of a variable created earlier: <code>for(i; i &lt; 3; i++)</code>. We usually write the  contents of a loop in braces, but we don't have to if there is only one instruction (this rule applies to all loops, conditional statements, functions, etc.) As long as we don't use nested loops (a loop in a loop), we can use the same variable names as iterators in each of the loops because their value resets during reinitialization.</p>
@@ -103,7 +103,7 @@
 <span class="sign">{</span>
     <span class="function">for</span>(<span class="function">int</span> y <span class="sign">=</span> 1<span class="sign">;</span> y <span class="sign">&lt;=</span> 2<span class="sign">;</span> y<span class="sign">++</span>)
     <span class="sign">{</span>
-        System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Hello world!"</span>)<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Hello world!"</span>)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
@@ -116,17 +116,17 @@
 <span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span>
 <span class="function">while</span>(i <span class="sign">&lt;</span> 5)
 <span class="sign">{</span>
-    System.<span class="command">out</span>.<span class="command">println</span>(i)<span class="sign">;</span>
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(i)<span class="sign">;</span>
     i<span class="sign">++;</span>
 <span class="sign">}</span>
-System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Finish"</span>)<span class="sign">;</span>
+<span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Finish"</span>)<span class="sign">;</span>
                                     </code></pre>
                                     
                                     <p>In the following example, the loop will execute endlessly. We would gain the same effect as below using this condition: <code>while(1+1==2)</code>.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">while</span>(<span class="function">true</span>)
-    System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"This is an infinite loop."</span>)<span class="sign">;</span>
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"This is an infinite loop."</span>)<span class="sign">;</span>
                                     </code></pre>
                                     
                                     <p>The two loops below will increment a variable in two different ways. Run them in your compiler and analyze the differences between these notations.</p>
@@ -134,13 +134,13 @@ System.<span class="command">out</span>.<span class="command">println</span>(<sp
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> x <span class="sign">=</span> 0<span class="sign">;</span>
 <span class="function">while</span>(x<span class="sign">++</span> <span class="sign">&lt;</span> 10)
-    System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"x equals: "</span> <span class="sign">+</span> x)<span class="sign">;</span>
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"x equals: "</span> <span class="sign">+</span> x)<span class="sign">;</span>
 
 <span class="function">int</span> y <span class="sign">=</span> 0<span class="sign">;</span>
 <span class="function">while</span>(y <span class="sign">&lt;</span> 10)
-    System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"y equals: "</span> <span class="sign">+</span> y<span class="sign">++</span>)<span class="sign">;</span>
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"y equals: "</span> <span class="sign">+</span> y<span class="sign">++</span>)<span class="sign">;</span>
     
-System.<span class="command">out</span>.<span class="command">println</span>(x <span class="sign">+</span> <span class="text">" "</span> <span class="sign">+</span> y)<span class="sign">;</span>
+<span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(x <span class="sign">+</span> <span class="text">" "</span> <span class="sign">+</span> y)<span class="sign">;</span>
                                     </code></pre>
                                     
                                     <p>The two loops below will decrement a variable in two different ways. Run them in your compiler and analyze the differences between these notations.</p>
@@ -148,13 +148,13 @@ System.<span class="command">out</span>.<span class="command">println</span>(x <
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> x <span class="sign">=</span> 10<span class="sign">;</span>
 <span class="function">while</span>(x<span class="sign">--</span> <span class="sign">&gt;</span> 0)
-    System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"x equals: "</span> <span class="sign">+</span> x)<span class="sign">;</span>
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"x equals: "</span> <span class="sign">+</span> x)<span class="sign">;</span>
 
 <span class="function">int</span> y <span class="sign">=</span> 10<span class="sign">;</span>
 <span class="function">while</span>(y <span class="sign">&gt;</span> 0)
-    System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"y equals: "</span> <span class="sign">+</span> y<span class="sign">--</span>)<span class="sign">;</span>
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"y equals: "</span> <span class="sign">+</span> y<span class="sign">--</span>)<span class="sign">;</span>
     
-System.<span class="command">out</span>.<span class="command">println</span>(x <span class="sign">+</span> <span class="text">" "</span> <span class="sign">+</span> y)<span class="sign">;</span>
+<span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(x <span class="sign">+</span> <span class="text">" "</span> <span class="sign">+</span> y)<span class="sign">;</span>
                                     </code></pre>
                                     
                                     <h2>The <code>do while</code> loop</h2>
@@ -165,7 +165,7 @@ System.<span class="command">out</span>.<span class="command">println</span>(x <
 <span class="function">int</span> x <span class="sign">=</span> 1<span class="sign">;</span>
 <span class="function">do</span>
 <span class="sign">{</span>
-    System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Hello World!"</span>)<span class="sign">;</span>
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Hello World!"</span>)<span class="sign">;</span>
 <span class="sign">}</span><span class="function">while</span>(x <span class="sign">&lt;</span> 1)<span class="sign">;</span>
                                     </code></pre>
                                 </div>

@@ -115,13 +115,13 @@
         <span class="function">if</span>(<span class="sign">!</span>file.<span class="command">exists</span>())
             file.<span class="command">createNewFile</span>();</span>
 
-        System.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">canWrite</span>())<span class="sign">;</span>
-        System.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">canExecute</span>())<span class="sign">;</span>
-        System.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">canRead</span>())<span class="sign">;</span>
-        System.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">isHidden</span>())<span class="sign">;</span>
-        System.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">isFile</span>())<span class="sign">;</span> <span class="comment">// if it is a file and not a folder</span>
-        System.<span class="command">out</span>.<span class="command">println</span>(<span class="function">new Date</span>(file.<span class="command">lastModified</span>()))<span class="sign">;</span>
-        System.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">length</span>())<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">canWrite</span>())<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">canExecute</span>())<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">canRead</span>())<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">isHidden</span>())<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">isFile</span>())<span class="sign">;</span> <span class="comment">// if it is a file and not a folder</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="function">new Date</span>(file.<span class="command">lastModified</span>()))<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">length</span>())<span class="sign">;</span>
 
         file.<span class="command">delete</span>()<span class="sign">;</span>
     <span class="sign">}</span>
@@ -133,12 +133,12 @@
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">File</span> folder <span class="sign">=</span> <span class="function">new File</span>(<span class="text">"folder"</span>)<span class="sign">;</span>
 folder.<span class="command">mkdir</span>()<span class="sign">;</span>
-System.<span class="command">out</span>.<span class="command">println</span>(folder.<span class="command">isDirectory</span>())<span class="sign">;</span>
+<span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(folder.<span class="command">isDirectory</span>())<span class="sign">;</span>
 
 <span class="function">File</span> folders <span class="sign">=</span> <span class="function">new File</span>(<span class="text">"folder2"</span> <span class="sign">+</span> <span class="function">File</span>.<span class="command">separator</span> <span class="sign">+</span> <span class="text">"folder3"</span>)<span class="sign">;</span>
 folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
 
-System.<span class="command">out</span>.<span class="command">println</span>(System.<span class="command">getProperty</span>(<span class="text">"user.dir"</span>))<span class="sign">;</span> <span class="comment">// the path to this file</span>
+<span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(System.<span class="command">getProperty</span>(<span class="text">"user.dir"</span>))<span class="sign">;</span> <span class="comment">// the path to this file</span>
 
 <span class="function">File</span> file <span class="sign">=</span> <span class="function">new File</span>(<span class="text">"folder"</span> <span class="sign">+</span> <span class="function">File</span>.<span class="command">separator</span> <span class="sign">+</span> <span class="text">"file.txt"</span>);</span>
 <span class="function">if</span>(<span class="sign">!</span>file.<span class="command">exists</span>())
@@ -160,10 +160,10 @@ System.<span class="command">out</span>.<span class="command">println</span>(Sys
         <span class="function">File</span> file <span class="sign">=</span> <span class="function">new File</span>(<span class="text">"folder"</span> <span class="sign">+</span> <span class="function">File</span>.<span class="command">separator</span> <span class="sign">+</span> <span class="text">"file.txt"</span>);</span>
         <span class="function">if</span>(<span class="sign">!</span>file.<span class="command">exists</span>())
             file.<span class="command">createNewFile</span>()<span class="sign">;</span>
-        System.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">getPath</span>())<span class="sign">;</span> <span class="comment">// this path is not absolute</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">getPath</span>())<span class="sign">;</span> <span class="comment">// this path is not absolute</span>
         
-        System.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">getAbsolutePath</span>())<span class="sign">;</span>
-        System.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">getCanonicalPath</span>())<span class="sign">;</span> <span class="comment">// it is better because it uses File.separator and not the \ sign</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">getAbsolutePath</span>())<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">getCanonicalPath</span>())<span class="sign">;</span> <span class="comment">// it is better because it uses File.separator and not the \ sign</span>
 
         displayPaths(<span class="function">new File</span>(System.<span class="command">getProperty</span>(<span class="text">"user.dir"</span>)))<span class="sign">;</span>
     <span class="sign">}</span>
@@ -171,12 +171,12 @@ System.<span class="command">out</span>.<span class="command">println</span>(Sys
     <span class="function">static void</span> displayPaths(<span class="function">File</span> pathName)
     <span class="sign">{</span>
         <span class="function">String</span>[] fileAndFolderNames <span class="sign">=</span> pathName.<span class="command">list</span>()<span class="sign">;</span>
-        System.<span class="command">out</span>.<span class="command">println</span>(pathName.<span class="command">getPath</span>())<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(pathName.<span class="command">getPath</span>())<span class="sign">;</span>
         <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> fileAndFolderNames.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
         <span class="sign">{</span>
             <span class="function">File</span> f <span class="sign">=</span> <span class="function">new File</span>(pathName.<span class="command">getPath</span>(), fileAndFolderNames[i])<span class="sign">;</span>
             <span class="function">if</span>(f.<span class="command">isFile</span>())
-                System.<span class="command">out</span>.<span class="command">println</span>(f.<span class="command">getPath</span>())<span class="sign">;</span>
+                <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(f.<span class="command">getPath</span>())<span class="sign">;</span>
             <span class="function">if</span>(f.<span class="command">isDirectory</span>())
                 displayPaths(<span class="function">new File</span>(f.<span class="command">getPath</span>()))<span class="sign">;</span>
         <span class="sign">}</span>
@@ -202,7 +202,7 @@ System.<span class="command">out</span>.<span class="command">println</span>(Sys
 
         <span class="function">String</span> content <span class="sign">=</span> <span class="text">""</span><span class="sign">;</span>
         <span class="function">while</span>((content <span class="sign">=</span> x.<span class="command">readLine</span>()) <span class="sign">!=</span> <span class="function">null</span>)
-            System.<span class="command">out</span>.<span class="command">println</span>(content)<span class="sign">;</span>
+            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(content)<span class="sign">;</span>
         x.<span class="command">close</span>()<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
@@ -214,7 +214,7 @@ System.<span class="command">out</span>.<span class="command">println</span>(Sys
 <span class="function">static void</span> method(<span class="function">Object</span><span class="sign">...</span> a)
 <span class="sign">{</span>
     <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> a.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
-        System.<span class="command">out</span>.<span class="command">println</span>(a[i])<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(a[i])<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
                                     
@@ -226,7 +226,7 @@ System.<span class="command">out</span>.<span class="command">println</span>(Sys
 <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> lineNumber <span class="sign">-</span> 1<span class="sign">;</span> i<span class="sign">++</span>)
     x.<span class="command">readLine</span>()<span class="sign">;</span>
 <span class="function">String</span> line <span class="sign">=</span> x.<span class="command">readLine</span>()<span class="sign">;</span>
-System.<span class="command">out</span>.<span class="command">println</span>(line)<span class="sign">;</span>
+<span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(line)<span class="sign">;</span>
                                     </code></pre>
                                     
                                     <h2><a name="writing-to-a-file">Writing to a file</a></h2>
@@ -277,7 +277,7 @@ System.<span class="command">out</span>.<span class="command">println</span>(lin
 
         <span class="function">Example</span>[] example2</span> <span class="sign">=</span> <span class="function">Example</span>.readFromFile(y)<span class="sign">;</span>
         <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> example2.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
-            System.<span class="command">out</span>.<span class="command">println</span>(example2[i])<span class="sign">;</span>
+            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(example2[i])<span class="sign">;</span>
 
         y.<span class="command">close</span>()<span class="sign">;</span>
     <span class="sign">}</span>
@@ -350,10 +350,10 @@ System.<span class="command">out</span>.<span class="command">println</span>(lin
         raf.<span class="command">writeDouble</span>(12.34)<span class="sign">;</span>
         raf.<span class="command">writeChars</span>(<span class="text">"ABCD"</span>)<span class="sign">;</span>
 
-        System.<span class="command">out</span>.<span class="command">println</span>(raf.<span class="command">getFilePointer</span>())<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(raf.<span class="command">getFilePointer</span>())<span class="sign">;</span>
 
         raf.<span class="command">seek</span>(18)<span class="sign">;</span>
-        System.<span class="command">out</span>.<span class="command">println</span>(raf.<span class="command">readChar</span>())<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(raf.<span class="command">readChar</span>())<span class="sign">;</span>
 
         raf.<span class="command">close</span>()<span class="sign">;</span>
     <span class="sign">}</span>
@@ -385,7 +385,7 @@ System.<span class="command">out</span>.<span class="command">println</span>(lin
         <span class="function">ObjectInputStream</span> y <span class="sign">=</span> <span class="function">new ObjectInputStream</span>(<span class="function">new FileInputStream</span>(<span class="text">"file.txt"</span>))<span class="sign">;</span>
         <span class="function">Example</span>[] z <span class="sign">=</span> (<span class="function">Example</span>[])y.<span class="command">readObject</span>()<span class="sign">;</span>
         <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> z.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
-            System.<span class="command">out</span>.<span class="command">println</span>(z[i].toString())<span class="sign">;</span>    
+            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(z[i].toString())<span class="sign">;</span>    
         y.<span class="command">close</span>()<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
