@@ -88,31 +88,31 @@
                                     <p>An iterator is an object pointing at a particular position inside a container (a list). We use it to get to certain elements inside the list. Not all elements inside a container are in a row inside the memory (this was the case with arrays). An iterator is basically an object that contains a countable number of values. The <code>next()</code> function is a built-in function used to advance the iterator to the next item and return its value.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-l = ["1", "2", "3"]
-iter_l = iter(l) <span class="comment"># iter() is a built-in function that creates an iterator from an iterable object</span>
+l <span class="sign">=</span> [<span class="text">"1"</span>, <span class="text">"2"</span>, <span class="text">"3"</span>]
+iter_l <span class="sign">=</span> <span class="command">iter</span>(l) <span class="comment"># iter() is a built-in function that creates an iterator from an iterable object</span>
 
-# Iterating through the list
-try:
-    while True:
-        print(next(iter_l))
-except StopIteration:
-    pass
+<span class="comment"># Iterating through the list</span>
+<span class="function">try</span>:
+    <span class="function">while True</span>:
+        <span class="command">print</span>(<span class="command">next</span>(iter_l))
+<span class="function">except StopIteration</span>:
+    <span class="function">pass</span>       
 
-# Restarting the iterator
-iter_l = iter(l)
+<span class="comment"># Restarting the iterator</span>
+iter_l <span class="sign">=</span> <span class="command">iter</span>(l)
 
-# Removing the first element returned by next()
-if len(l) > 0:
-    first_element = next(iter_l) # moving to the first element
-    l.remove(first_element) # removing the first element (the iterator is now pointing to the next valid element)
+<span class="comment"># Removing the first element returned by next()</span>
+<span class="function">if</span> <span class="command">len</span>(l) <span class="sign">&gt;</span> 0:
+    first_element <span class="sign">=</span> <span class="command">next</span>(iter_l) <span class="comment"># moving to the first element</span>
+    l.<span class="command">remove</span>(first_element) <span class="comment"># removing the first element (the iterator is now pointing to the next valid element - "2")</span>
 
-# Printing the list after removal
-iter_l = iter(l)
-try:
-    while True:
-        print(next(iter_l))
-except StopIteration:
-    pass                           
+<span class="comment"># Printing the list after removal</span>
+iter_l <span class="sign">=</span> <span class="command">iter</span>(l)
+<span class="function">try</span>:
+    <span class="function">while True</span>:
+        <span class="command">print</span>(<span class="command">next</span>(iter_l))
+<span class="function">except StopIteration</span>:
+    <span class="function">pass</span>                         
                                     </code></pre>
                                     
                                     <p>A generator is a special type of iterable object that allows us to iterate over a sequence of items without needing to store the entire sequence in memory at once. It is defined using functions that contain one or more <code>yield</code> statements instead of <code>return</code>.</p>
