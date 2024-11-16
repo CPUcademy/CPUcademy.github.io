@@ -97,6 +97,7 @@
                                         <li>Boolean structure: <code>bool</code></li>
                                         <li>Binary structures: <code><a href="#bytes" style="color: #f5d67b;" class="link">bytes</a></code>, <code><a href="#bytearray" style="color: #f5d67b;" class="link">bytearray</a></code></li>
                                         <li>None structure: <code><a href="#nonetype" style="color: #f5d67b;" class="link">NoneType</a></code></li>
+                                        <li>The <code>collections</code> library: <code><a href="#deque" style="color: #f5d67b;" class="link">deque</a></code></li>
                                     </ul>
                                     
                                     <p>In this lesson, we will also learn about <a href="#multidimensional-structures" class="link">multidimensional structures</a> and <a href="#type-casting" class="link">type casting</a>. Some of the names above are links to specific sections of this page.</p>
@@ -539,6 +540,26 @@ fSet <span class="sign">=</span> <span class="command">frozenset</span>(x)
                                     
                                     <p>Complex numbers are expressed as <code>a+bj</code>, where <code>a</code> and <code>b</code> are real numbers, and <code>j</code> is an imaginary number, e.g., <code>100+3j</code>. We hardly ever use it.</p>
                                     
+                                    <h2><a name="deque">Deque</a></h2>
+
+                                    <p>Deque stands for Double-Ended Queue. With it, we can easily add and remove elements not only at the end (like with lists) but also at the beginning. Its elements can be accessed by index. This data structure has to be imported from the <code>collections</code> library.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> collections <span class="command">import</span> deque
+
+integers <span class="sign">=</span> <span class="command">deque</span>()
+integers.<span class="command">append</span>(2) <span class="comment"># adding an element at the end</span>
+integers.<span class="command">append</span>(4)
+integers.<span class="command">pop</span>() <span class="comment"># deleting an element at the end</span>
+integers.<span class="command">appendleft</span>(1) <span class="comment"># adding an element at the beginning</span>
+integers.<span class="command">popleft</span>() <span class="comment"># deleting an element at the beginning</span>
+<span class="command">print</span>(integers)                                          
+                                    </code></pre>
+
+                                    <p class="podpis">These data structures don't exist in Python but can be implemented using <code>deque</code>:</p>
+
+                                    <p>Stacks and Queues are data structures for storing data in specific orders. Their elements can't be accessed by index. Stacks operate in a Last-In-First-Out (LIFO) order, where elements can only be added and deleted from the top of the stack. Queues operate in a First-In-First-Out (FIFO) order, where elements can be added at the end of the queue and removed from the front.</p>
+
                                     <h2><a name="multidimensional-structures">Multidimensional structures</a></h2>
                                     
                                     <p>A multidimensional structure is a structure that has another structure inside it, e.g., a list in a list or a tuple in a list, etc. A two-dimensional list is called a matrix.</p>

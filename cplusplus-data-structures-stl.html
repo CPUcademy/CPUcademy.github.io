@@ -123,29 +123,42 @@
                                     
                                     <h3>Iterators</h3>
                                     
-                                    <p>An iterator is an object pointing at a particular position inside a container (a vector). We use it to get to certain elements inside the vector. We create iterators using this pattern: "type_of_the_container::iterator name;". Not all elements inside a container are in a row inside the memory (this was the case with arrays).</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">vector</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> numbers <span class="sign">{</span>10, 20, 30, 40, 50<span class="sign">};</span>
+                                    <p>An iterator is an object pointing at a particular position inside a container (a vector). We use it to get to certain elements inside the vector. We create iterators using this pattern: "type_of_the_container::iterator name;". Not all elements inside a container are in a row inside the memory (this was the case with arrays). An iterator is basically an object that contains a countable number of values. The <code>++</code> operator is used to advance the iterator to the next item, and the dereference operator (<code>*</code>) is used to retrieve the value at the current position.</p>
 
-<span class="function">vector</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span><span class="sign">::</span><span class="function">iterator</span> i <span class="sign">=</span> numbers.<span class="command-c">begin</span>()<span class="sign">;</span> <span class="comment">// it points at the first element of the "numbers" vector </span>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command-c">#include &lt;iostream&gt;</span>
+<span class="command-c">#include &lt;vector&gt;</span>
+<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>i <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// it isn't a pointer - it is an object</span>
-i <span class="sign">+=</span> 2<span class="sign">;</span>
-<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>i <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-                                    </code></pre>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">while</span>(i <span class="sign">!=</span> numbers.<span class="command-c">end</span>())
-<span class="sign">{</span>
-    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>i <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-    i<span class="sign">++;</span>
-<span class="sign">}</span>
-                                    </code></pre>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">for</span>(<span class="function">vector</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span><span class="sign">::</span><span class="function">iterator</span> i <span class="sign">=</span> numbers.<span class="command-c">begin</span>()<span class="sign">;</span> i <span class="sign">!=</span> numbers.<span class="command-c">end</span>()<span class="sign">;</span> i<span class="sign">++</span>)
-    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>i <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+<span class="function">int</span> main()
+<span class="sign">{</span>    
+    <span class="function">vector</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> v <span class="sign">= {</span>1, 2, 3<span class="sign">};</span>
+    <span class="function">vector</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;::</span><span class="function">iterator</span> iter <span class="sign">=</span> v.<span class="command-c">begin</span>()<span class="sign">;</span> <span class="comment">// it points at the first element of the vector </span>
+
+    <span class="comment">// Iterating through the vector</span>
+    <span class="function">while</span>(iter <span class="sign">!=</span> v.<span class="command-c">end</span>()) 
+    <span class="sign">{</span>
+        <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>iter <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// dereferencing the iterator to get the value</span>
+        <span class="sign">++</span>iter<span class="sign">;</span> <span class="comment">// moving to the next element</span>
+    <span class="sign">}</span>
+
+    <span class="comment">// Restarting the iterator</span>
+    iter <span class="sign">=</span> v.<span class="command-c">begin</span>()<span class="sign">;</span>
+
+    <span class="comment">// Removing the first element returned by the iterator</span>
+    <span class="function">if</span>(iter <span class="sign">!=</span> v.<span class="command-c">end</span>())
+        iter <span class="sign">=</span> v.<span class="command-c">erase</span>(iter)<span class="sign">;</span> <span class="comment">// moving to the first element and removing it (the iterator is now pointing to the next valid element)</span>
+
+    <span class="comment">// Printing the vector after removal</span>
+    iter <span class="sign">=</span> v.<span class="command-c">begin</span>()<span class="sign">;</span>
+    <span class="function">while</span>(iter <span class="sign">!=</span> v.<span class="command-c">end</span>()) 
+    <span class="sign">{</span>
+        <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>iter <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+        <span class="sign">++</span>iter<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="function">return</span> 0<span class="sign">;</span>
+<span class="sign">}</span>                                   
                                     </code></pre>
                                     
                                     <h3><code>auto</code> type</h3>
@@ -220,11 +233,11 @@ i <span class="sign">+=</span> 2<span class="sign">;</span>
 <span class="sign">{</span>    
     <span class="function">deque</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> integers<span class="sign">;</span>
 
-    integers.<span class="command-c">push_back</span>(2)<span class="sign">;</span>
+    integers.<span class="command-c">push_back</span>(2)<span class="sign">;</span> <span class="comment">// adding an element at the end</span>
     integers.<span class="command-c">push_back</span>(4)<span class="sign">;</span>
-    integers.<span class="command-c">pop_back</span>()<span class="sign">;</span> <span class="comment">// deleting the last element</span>
+    integers.<span class="command-c">pop_back</span>()<span class="sign">;</span> <span class="comment">// deleting an element at the end</span>
     integers.<span class="command-c">push_front</span>(1)<span class="sign">;</span> <span class="comment">// adding an element at the beginning</span>
-    integers.<span class="command-c">pop_front</span>()<span class="sign">;</span> <span class="comment">// deleting the first element</span>
+    integers.<span class="command-c">pop_front</span>()<span class="sign">;</span> <span class="comment">// deleting an element at the beginning</span>
 
     <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> integers.<span class="command-c">size</span>()<span class="sign">;</span> i<span class="sign">++</span>)
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers[i] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>

@@ -85,7 +85,7 @@
                                     <h5 class="m-0 font-weight-bold">Useful commands, basic libraries, and streams</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Libraries in Java are collections of related classes and methods. To use them, we use the <code>import</code> command, e.g., <code>import random</code>. To avoid repeatedly specifying the library name, we can use <code>import ... *</code> to directly access the library's methods.</p>
+                                    <p>Libraries in Java are collections of related classes and methods. To use them, we have to first import them using the <code>import</code> command.</p>
 
                                     <h2>The <code>Random</code> library</h2>
                                                                         
@@ -104,13 +104,13 @@
         <span class="function">long</span> newseed <span class="sign">=</span> (l<span class="function">ong</span>) 2.7182<span class="sign">;</span>
         rand2.<span class="command">setSeed</span>(newseed)<span class="sign">;</span> <span class="comment">// changing the seed</span>
 
-        <span class="function">int</span> i <span class="sign">=</span> rand1.<span class="command">nextInt</span>()<span class="sign">;</span> <span class="comment">// drawing integers without range</span>
-        <span class="function">double</span> d <span class="sign">=</span> rand1.<span class="command">nextDouble</span>()<span class="sign">;</span> <span class="comment">// drawing double numbers without range</span>
+        <span class="function">int</span> i <span class="sign">=</span> rand1.<span class="command">nextInt</span>()<span class="sign">;</span> <span class="comment">// drawing integers without a range</span>
+        <span class="function">double</span> d <span class="sign">=</span> rand1.<span class="command">nextDouble</span>()<span class="sign">;</span> <span class="comment">// drawing double numbers without a range</span>
 
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Random integer: "</span> <span class="sign">+</span> i)<span class="sign">;</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Random double: "</span> <span class="sign">+</span> d)<span class="sign">;</span>
 
-        i <span class="sign">=</span> rand1.<span class="command">nextInt</span>(5, 25)<span class="sign">;</span> <span class="comment">// drawing integers with range - start, stop</span>
+        i <span class="sign">=</span> rand1.<span class="command">nextInt</span>(5, 25)<span class="sign">;</span> <span class="comment">// drawing integers within a certain range - start, stop</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Random integer in range [5, 25): "</span> <span class="sign">+</span> i)<span class="sign">;</span>
 
         i <span class="sign">=</span> rand1.<span class="command">nextInt</span>(25)<span class="sign">;</span> <span class="comment">// 0 is the default first value</span>
@@ -122,13 +122,13 @@
 
                                     <h2>Streams</h2>
 
-                                    <p>Streams provide a way to process data sequences, including collections and arrays, in a functional style. The Stream API allows us to perform operations such as filtering, mapping, and reducing data sets in a concise and readable manner. When it comes to generating random numbers, the Random class offers methods like <code>doubles()</code>, <code>ints()</code>, and <code>longs()</code> that return streams of random values of the specified type. These streams can be customized with parameters to define ranges, enabling the generation of random numbers within specific bounds. By using streams, we can efficiently handle large volumes of data and perform complex operations. Additionally, streams support lazy evaluation, meaning that the random numbers are generated on the fly as they are consumed. This can lead to performance optimizations in scenarios where not all generated values are needed simultaneously. They are primarily designed for processing and transforming data when not all of it is necessary at once.</p>
+                                    <p>Streams provide a way to process data sequences, including collections and arrays, in a functional style. The Stream API allows us to perform operations such as filtering, mapping, and reducing data sets concisely. The Random class offers methods like <code>doubles()</code>, <code>ints()</code>, and <code>longs()</code> that return streams of random values of the specified type, which can be customized with parameters to define ranges. This enables the generation of random numbers within specific bounds. By using streams, we can efficiently handle large volumes of data and perform complex operations. Additionally, streams support lazy evaluation, meaning random numbers are generated on the fly as they are consumed, leading to performance optimizations when not all values are needed simultaneously (we do not need to store the whole sequence).</p>
                                     
                                     <p>Here’s how we can create a stream of random doubles:</p> 
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">Random</span> rand1 <span class="sign">=</span> <span class="function">new Random</span>()<span class="sign">;</span>
-<span class="function">DoubleStream</span> stream <span class="sign">=</span> rand1.<span class="function">doubles</span>(0 , 10).<span class="command">limit</span>(10)<span class="sign">;</span> <span class="comment">// 10 double numbers from the range 0-10</span>
+<span class="function">DoubleStream</span> stream <span class="sign">=</span> rand1.<span class="function">doubles</span>(0, 10).<span class="command">limit</span>(10)<span class="sign">;</span> <span class="comment">// 10 double numbers from the range 0-10</span>
 stream.<span class="function">forEach</span>(<span class="function">System</span>.<span class="command">out</span><span class="sign">::</span><span class="command">println</span>)<span class="sign">;</span> <span class="comment">// displaying all of the stream values</span>
                                     </code></pre>
                                     
@@ -236,7 +236,7 @@ stream.<span class="function">forEach</span>(<span class="function">System</span
                                     </code></pre>
                                     
                                     <h2>The <code>StringBuilder</code> class</h2>
-                                    <p>The <code>StringBuilder</code> class is used for creating and modifying mutable strings. Unlike <code>String</code>, which creates new objects on every modification, it allows for more efficient string manipulation.</p>
+                                    <p>The <code>StringBuilder</code> class is used for creating and modifying mutable strings. Unlike <code>String</code>, which creates a new object on every modification, it allows for more efficient string manipulation.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.lang.StringBuilder<span class="sign">;</span>

@@ -89,7 +89,7 @@
 
                                     <h2>ArrayList &amp; LinkedList</h2>
 
-                                    <p>Lists are dynamic arrays, so we do not have to know their size at the beginning (but we have to determine the type of its elements). It works because the memory is reserved in advance based on how many elements we added in the past. That reserved in advance memory is the lists's capacity, and its size is how much of this memory is used.</p>
+                                    <p>Lists are dynamic arrays, so we do not have to know their size at the beginning (but we have to determine the type of its elements). It works because the memory is reserved in advance based on how many elements we added in the past. That reserved in advance memory is the list's capacity, and its size is how much of this memory is used.</p>
 
                                     <ul>
                                         <li><b>ArrayList</b>
@@ -133,7 +133,39 @@
 
                                     <h2>Iterators</h2>
 
-                                    https://www.codecademy.com/resources/docs/java/iterator
+                                    <p>An iterator is an object pointing at a particular position inside a container (a list). We use it to get to certain elements inside the list. Not all elements inside a container are in a row inside the memory (this was the case with arrays). An iterator is basically an object that contains a countable number of values. The <code>next()</code> function is a built-in function used to advance the iterator to the next item and return its value.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.<span class="sign">*;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">LinkedList</span><span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> l <span class="sign">=</span> <span class="function">new LinkedList</span><span class="sign">&lt;&gt;</span>(<span class="function">Arrays</span>.<span class="command">asList</span>(<span class="text">"1"</span>, <span class="text">"2"</span>, <span class="text">"3"</span>))<span class="sign">;</span>
+        <span class="function">Iterator</span><span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> iter <span class="sign">=</span> l.<span class="command">iterator</span>()<span class="sign">;</span>
+
+        <span class="comment">// Iterating through the list</span>
+        <span class="function">while</span>(iter.<span class="command">hasNext</span>())
+            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(iter.<span class="command">next</span>())<span class="sign">;</span>
+
+        <span class="comment">// Restarting the iterator</span>
+        iter <span class="sign">=</span> l.<span class="command">iterator</span>()<span class="sign">;</span>
+
+        <span class="comment">// Removing the first element returned by next()</span>
+        <span class="function">if</span>(iter.<span class="command">hasNext</span>()) 
+        <span class="sign">{</span>
+            iter.<span class="command">next</span>()<span class="sign">;</span> <span class="comment">// moving to the first element</span>
+            iter.<span class="command">remove</span>()<span class="sign">;</span> <span class="comment">// removing the first element (the iterator is now pointing to the next valid element)</span>
+        <span class="sign">}</span>
+
+        <span class="comment">// Printing the list after removal</span>
+        iter <span class="sign">=</span> l.<span class="command">iterator</span>()<span class="sign">;</span>
+        <span class="function">while</span>(iter.<span class="command">hasNext</span>())
+            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(iter.<span class="command">next</span>())<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
 
                                     <h2>Useful commands</h2>
 
@@ -144,17 +176,17 @@
                                     <p class="podpis"><code>.clear()</code> - removing all elements from the collection.</p>
                                     <p class="podpis"><code>.remove()</code> - removing a specified element from the collection.</p>
                                     <p class="podpis"><code>.isEmpty()</code> - checking if the collection is empty.</p>
-                                    <p><code>.hashCode()</code> - returning the hash code value for the collection.</p>     
+                                    <p><code>.hashCode()</code> - returning the hash code value for the collection (a numerical value generated by a hash function that uniquely represents an object, allowing for efficient data retrieval and comparison in data structures like hash tables).</p>     
                                     
                                     <h2>The <code>Collections</code> class</h2>
 
                                     <p>The <code>Collections</code> class provides static methods that operate on or return <code>Collection</code> objects. We can use them with most data structures.</p>
 
-                                    <p class="podpis"><code>Collections.max()</code> - returning the maximum member of a <code>List</code> based on natural ordering or based on a <code>Comparator</code>.</p>
-                                    <p class="podpis"><code>Collections.min()</code> - returning the minimum member of a <code>List</code> based on natural ordering or based on a <code>Comparator</code>.</p>
-                                    <p class="podpis"><code>Collections.reverse()</code> - reversing the current ordering of a <code>List</code>.</p>
+                                    <p class="podpis"><code>Collections.max()</code> - returning the biggest number from a <code>List</code> (alphabetically or based on a <code>Comparator</code>).</p>
+                                    <p class="podpis"><code>Collections.min()</code> - returning the smallest number from a <code>List</code> (alphabetically or based on a <code>Comparator</code>).</p>
+                                    <p class="podpis"><code>Collections.reverse()</code> - reversing the order of elements in a <code>List</code>.</p>
                                     <p class="podpis"><code>Collections.shuffle()</code> - randomizing the order of elements in a <code>List</code>.</p>
-                                    <p class="podpis"><code>Collections.sort()</code> - sorting a <code>List</code> based on natural ordering or based on a <code>Comparator</code>.</p>
+                                    <p class="podpis"><code>Collections.sort()</code> - sorting a <code>List</code> alphabetically or based on a <code>Comparator</code>.</p>
                                     <p><code>Collections.swap()</code> - swapping the position of two elements in a <code>List</code>.</p>                                    
                                     
                                     <h2>Stacks &amp; queues</h2>
@@ -188,7 +220,7 @@
 
                                     <h2>Deques</h2>
 
-                                    <p>Deque stands for Double-Ended Queue. With it, we can easily add and remove elements not only at the end (like with lists) but also at the beginning. They share the same commands with lists and can be handled the same way. Its elements also can be accessed by index.</p>
+                                    <p>Deque stands for Double-Ended Queue. With it, we can easily add and remove elements not only at the end (like with lists) but also at the beginning. Its elements can be accessed by index.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.util.ArrayDeque<span class="sign">;</span>
@@ -201,9 +233,9 @@
         <span class="function">Deque</span><span class="sign">&lt;</span><span class="function">Integer</span><span class="sign">&gt;</span> integers <span class="sign">=</span> <span class="function">new ArrayDeque</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
         integers.<span class="command">addLast</span>(2)<span class="sign">;</span> <span class="comment">// adding an element at the end</span>
         integers.<span class="command">addLast</span>(4)<span class="sign">;</span>
-        integers.<span class="command">removeLast</span>()<span class="sign">;</span> <span class="comment">// deleting the last element</span>
+        integers.<span class="command">removeLast</span>()<span class="sign">;</span> <span class="comment">// deleting an element at the end</span>
         integers.<span class="command">addFirst</span>(1)<span class="sign">;</span> <span class="comment">// adding an element at the beginning</span>
-        integers.<span class="command">removeFirst</span>()<span class="sign">;</span> <span class="comment">// deleting the first element</span>
+        integers.<span class="command">removeFirst</span>()<span class="sign">;</span> <span class="comment">// deleting an element at the beginning</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(integers.<span class="command">getFirst</span>())<span class="sign">;</span> <span class="comment">// integers.getLast() would return the same number as there is only one</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
@@ -295,7 +327,7 @@
         myMap.<span class="command">put</span>(<span class="text">"Java"</span>, <span class="text">"programming language"</span>)<span class="sign">;</span> <span class="comment">// adding an element</span>
         myMap.<span class="command">put</span>(<span class="text">"map"</span>, <span class="text">"data structure"</span>)<span class="sign">;</span>
 
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(myMap.<span class="command">get</span>(<span class="text">"Java"</span>))<span class="sign">;</span> <span class="comment">// displaying the value of a given key</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(myMap.<span class="command">get</span>(<span class="text">"Java"</span>))<span class="sign">;</span> <span class="comment">// displaying the value of the given key</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(myMap.<span class="command">containsKey</span>(<span class="text">"Java"</span>))<span class="sign">;</span> <span class="comment">// checking whether the map contains the given key</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(myMap.<span class="command">containsValue</span>(<span class="text">"Java"</span>))<span class="sign">;</span> <span class="comment">// checking whether the map contains the given value</span>
         myMap.<span class="command">remove</span>(<span class="text">"Java"</span>)<span class="sign">;</span>

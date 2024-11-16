@@ -85,14 +85,34 @@
                                     <h5 class="m-0 font-weight-bold">Generators</h5>
                                 </div>
                                 <div class="card-body">                                 
-                                    <p>An iterator is an object that contains a countable number of values. The <code>next()</code> function is a built-in function used to retrieve the next item from an iterator. We can use this function to advance the iterator to the next item and return its value.</p>
+                                    <p>An iterator is an object pointing at a particular position inside a container (a list). We use it to get to certain elements inside the list. Not all elements inside a container are in a row inside the memory (this was the case with arrays). An iterator is basically an object that contains a countable number of values. The <code>next()</code> function is a built-in function used to advance the iterator to the next item and return its value.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-iterator <span class="sign">=</span> <span class="command">iter</span>([1, 2, 3, 4, 5]) <span class="comment"># iter() is a built-in function that creates an iterator from an iterable object</span>
+l = ["1", "2", "3"]
+iter_l = iter(l) <span class="comment"># iter() is a built-in function that creates an iterator from an iterable object</span>
 
-<span class="command">print</span>(<span class="command">next</span>(iterator))
-<span class="command">print</span>(<span class="command">next</span>(iterator))
-<span class="command">print</span>(<span class="command">next</span>(iterator))
+# Iterating through the list
+try:
+    while True:
+        print(next(iter_l))
+except StopIteration:
+    pass
+
+# Restarting the iterator
+iter_l = iter(l)
+
+# Removing the first element returned by next()
+if len(l) > 0:
+    first_element = next(iter_l) # moving to the first element
+    l.remove(first_element) # removing the first element (the iterator is now pointing to the next valid element)
+
+# Printing the list after removal
+iter_l = iter(l)
+try:
+    while True:
+        print(next(iter_l))
+except StopIteration:
+    pass                           
                                     </code></pre>
                                     
                                     <p>A generator is a special type of iterable object that allows us to iterate over a sequence of items without needing to store the entire sequence in memory at once. It is defined using functions that contain one or more <code>yield</code> statements instead of <code>return</code>.</p>
@@ -122,9 +142,18 @@ x <span class="sign">=</span> generator(5)
     <span class="command">print</span>(<span class="command">next</span>(x))
                                     </code></pre>
 
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> gen(n):
+    <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(n):
+        <span class="function">yield</span> i
+    
+<span class="function">for</span> x <span class="function">in</span> gen(5):
+    <span class="command">print</span>(x)
+                                    </code></pre>
+
                                     <p>When a generator function is called, it doesn't execute immediately. Instead, it returns a generator object that can be iterated over. Each time the <code>next()</code> function is called on the generator object, the function's execution resumes from where it left off, continuing until a <code>yield</code> statement is encountered. The value yielded by the <code>yield</code> statement is returned by the <code>next()</code> function, and the function's state is saved until the next call to <code>next()</code>.</p>
 
-                                    <h2>Practical example</h2>
+                                    <h2>Practical examples</h2>
 
                                     <p>The use case of a generator is such that we can loop through a sequence or a large amount of data without needing to store all of it. We use it when we do not care about the data before and after the particular iteration.</p>
 
@@ -140,6 +169,17 @@ x <span class="sign">=</span> generator(5)
 
 <span class="function">for</span> line <span class="function">in</span> read_large_file(<span class="text">"huge_file.txt"</span>):
     process_line(line)
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> powers_of_2(n):
+    p <span class="sign">=</span> 1
+    <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(n):
+        <span class="function">yield</span> p
+        p <span class="sign">*=</span> 2
+    
+<span class="function">for</span> x <span class="function">in</span> powers_of_2(8):
+    <span class="command">print</span>(x)
                                     </code></pre>
                                 </div>
                             </div>
