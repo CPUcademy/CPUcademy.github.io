@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Error handling</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Error handling</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -86,20 +86,20 @@
                                 </div>
                                 <div class="card-body">
                                     <h2><code>try</code> and <code>except</code> blocks</h2>
-			
-									<p>Using the <code>try</code> and <code>except</code> blocks, we can prevent errors by defining what should happen if something goes wrong.</p>
+            
+                                    <p>Using the <code>try</code> and <code>except</code> blocks, we can prevent errors by defining what should happen if something goes wrong.</p>
 
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">try</span>:
     x <span class="sign">=</span> <span class="command">int</span>(<span class="command">input</span>(<span class="text">"Enter a number: "</span>))
 <span class="function">except</span>:
     <span class="command">print</span>(<span class="text">"Error"</span>)
     x <span class="sign">=</span> <span class="command">int</span>(<span class="command">input</span>(<span class="text">"Try again: "</span>))
-									</code></pre>
-									
-									<p>We can add a third block - <code>finally</code>. It will execute regardless of what happens in <code>try</code> or <code>except</code>.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <p>We can add a third block - <code>finally</code>. It will execute regardless of what happens in <code>try</code> or <code>except</code>.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">try</span>:
     x <span class="sign">=</span> <span class="command">open</span>(<span class="text">"file.txt"</span>, <span class="text">"r"</span>, <span class="command">encoding</span> <span class="sign">=</span> <span class="text">"utf8"</span>)
     file.<span class="command">write</span>(<span class="text">"text"</span>)
@@ -107,51 +107,51 @@
     <span class="command">print</span>(<span class="text">"Error"</span>)
 <span class="function">finally</span>:
     x.<span class="command">close</span>()
-									</code></pre>
+                                    </code></pre>
 
-									<p>The <code>except</code> instruction reacts to every error the same unless we specify what type of error a given instruction may expect. This way, we can program different approaches for different errors (we can use many <code>except</code> instructions relating to one <code>try</code> block).</p>
+                                    <p>The <code>except</code> instruction reacts to every error the same unless we specify what type of error a given instruction may expect. This way, we can program different approaches for different errors (we can use many <code>except</code> instructions relating to one <code>try</code> block).</p>
 
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">try</span>:
     x <span class="sign">=</span> <span class="command">open</span>(<span class="text">"file.txt"</span>, <span class="text">"r"</span>, <span class="command">encoding</span> <span class="sign">=</span> <span class="text">"utf8"</span>)
     file.<span class="command">write</span>(<span class="text">"text"</span>)
     x.<span class="command">close</span>()
 <span class="function">except IOError</span>:
     <span class="command">print</span>(<span class="text">"Could not create the file."</span>)
-									</code></pre>
+                                    </code></pre>
 
-									<h2>The <code>raise</code> keyword</h2>
-									
-									<p>The <code>raise</code> keyword is used to trigger a specific type of error.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    <h2>The <code>raise</code> keyword</h2>
+                                    
+                                    <p>The <code>raise</code> keyword is used to trigger a specific type of error.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 x <span class="sign">=</span> 0
 <span class="function">if</span> x <span class="sign">==</span> 0:
     <span class="function">raise ZeroDivisionError</span>(<span class="text">"You can't divide by 0."</span>) <span class="comment"># it could be also: Exception, SyntaxError, OSError, etc.</span>
-									</code></pre>
+                                    </code></pre>
 
                                     <p>An <code>IndexError</code> occurs when we try to access an index outside the bounds of, e.g., a list.</p>
 
-                                    								
-									<h2>The <code>assert</code> keyword</h2>
-									
-									<p>The <code>assert</code> keyword checks whether a given condition is <code>True</code>, and if not, throws an <code>AssertionError</code>.</p>
+                                                                    
+                                    <h2>The <code>assert</code> keyword</h2>
+                                    
+                                    <p>The <code>assert</code> keyword checks whether a given condition is <code>True</code>, and if not, throws an <code>AssertionError</code>.</p>
 
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 number <span class="sign">=</span> 5
 <span class="function">assert</span> number <span class="sign">&lt;</span> 0, <span class="text">"The number should be smaller than 0."</span>
-									</code></pre>
-									
-									
-									<h2>Breakpoints - debugging</h2>
-									
-									<p>If we get an error and we can't fix it, instead of <code>Run</code>, we click <code>Debug</code>. After starting the debugger, we set breakpoints in the "key" moments that we want to analyze. We do that by clicking the margin next to the selected line (a breakpoint is a red dot). The debugger will pause the code on breakpoints so that we can analyze the error (it shows the contents of variables at the moment, etc.) To advance to the next breakpoint, we click F8 on the keyboard or press the "Step Over" button on the screen (in PyCharm). Breakpoints exist in various editors but not in Python IDLE. </p>		
+                                    </code></pre>
+                                    
+                                    
+                                    <h2>Breakpoints - debugging</h2>
+                                    
+                                    <p>If we get an error and we can't fix it, instead of <code>Run</code>, we click <code>Debug</code>. After starting the debugger, we set breakpoints in the "key" moments that we want to analyze. We do that by clicking the margin next to the selected line (a breakpoint is a red dot). The debugger will pause the code on breakpoints so that we can analyze the error (it shows the contents of variables at the moment, etc.) To advance to the next breakpoint, we click F8 on the keyboard or press the "Step Over" button on the screen (in PyCharm). Breakpoints exist in various editors but not in Python IDLE. </p>        
 
-									<h2>The <code>logging</code> library</h2>
-									
-									<p>The <code>logging</code> library allows us to display messages that help us with the debugging process while the program is running. By looking at them, we can figure out what is wrong and fix it. It is different from using <code>print()</code> because after we're done, we can disable these commands (<code>logging.disable()</code>) and don't have to go through the code and delete them.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    <h2>The <code>logging</code> library</h2>
+                                    
+                                    <p>The <code>logging</code> library allows us to display messages that help us with the debugging process while the program is running. By looking at them, we can figure out what is wrong and fix it. It is different from using <code>print()</code> because after we're done, we can disable these commands (<code>logging.disable()</code>) and don't have to go through the code and delete them.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> logging
 logging.<span class="command">basicConfig</span>(level <span class="sign">=</span> logging.<span class="command">DEBUG</span>, format <span class="sign">=</span> <span class="text">" %(asctime)s - %(levelname)s - %(message)s"</span>)
 logging.<span class="command">debug</span>(<span class="text">"Start"</span>)
@@ -167,7 +167,7 @@ logging.<span class="command">debug</span>(<span class="text">"Start"</span>)
 
 <span class="command">print</span>(factorial(5))
 logging.<span class="command">debug</span>(<span class="text">"End"</span>)
-									</code></pre>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

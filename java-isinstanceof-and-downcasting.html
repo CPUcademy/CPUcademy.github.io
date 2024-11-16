@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Isinstanceof and downcasting</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Isinstanceof and downcasting</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -88,56 +88,56 @@
                                     <p>The <code>isinstanceof</code> keyword checks if an object is an instance of a given class.</p>
                                         
                                     <p>We can use downcasting when a class lower in the hierarchy has a method that its mother class does not. We can call this method through the child class but using the mother class object (downcasting means more or less "reverse inheritance").</p>
-			
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main
 <span class="sign">{</span>
-	<span class="function">public static void</span> main(<span class="function">String</span>[] args)
-	<span class="sign">{</span>
-		<span class="function">Person</span>[] p <span class="sign">=</span> <span class="function">new Person</span>[2]<span class="sign">;</span>
-		p[0] <span class="sign">=</span> <span class="function">new Person</span>(<span class="text">"Liam"</span>, <span class="text">"Anderson"</span>)<span class="sign">;</span>
-		p[1] <span class="sign">=</span> <span class="function">new Employee</span>(<span class="text">"John"</span>, <span class="text">"Smith"</span>, 5000)<span class="sign">;</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">Person</span>[] p <span class="sign">=</span> <span class="function">new Person</span>[2]<span class="sign">;</span>
+        p[0] <span class="sign">=</span> <span class="function">new Person</span>(<span class="text">"Liam"</span>, <span class="text">"Anderson"</span>)<span class="sign">;</span>
+        p[1] <span class="sign">=</span> <span class="function">new Employee</span>(<span class="text">"John"</span>, <span class="text">"Smith"</span>, 5000)<span class="sign">;</span>
 
-		<span class="function">for</span>(<span class="function">Person</span> person<span class="sign">:</span> p)
-		<span class="sign">{</span>
-			<span class="function">if</span>(person <span class="command">instanceof</span> <span class="function">Person</span>)
-				person.description()<span class="sign">;</span>
+        <span class="function">for</span>(<span class="function">Person</span> person<span class="sign">:</span> p)
+        <span class="sign">{</span>
+            <span class="function">if</span>(person <span class="command">instanceof</span> <span class="function">Person</span>)
+                person.description()<span class="sign">;</span>
 
-			<span class="function">if</span>(person <span class="command">instanceof</span> <span class="function">Employee</span>)
-				((<span class="function">Employee</span>)person).work()<span class="sign">;</span> <span class="comment">// downcasting</span>
-		<span class="sign">}</span>
-	<span class="sign">}</span>
+            <span class="function">if</span>(person <span class="command">instanceof</span> <span class="function">Employee</span>)
+                ((<span class="function">Employee</span>)person).work()<span class="sign">;</span> <span class="comment">// downcasting</span>
+        <span class="sign">}</span>
+    <span class="sign">}</span>
 <span class="sign">}</span>
 
 <span class="function">class</span> Person
 <span class="sign">{</span>
-	<span class="function">String</span> name<span class="sign">;</span>
-	<span class="function">String</span> surname<span class="sign">;</span>
-	<span class="function">Person</span>(<span class="function">String</span> name, <span class="function">String</span> surname)
-	<span class="sign">{</span>
-		<span class="function">this</span>.name <span class="sign">=</span> name<span class="sign">;</span>
-		<span class="function">this</span>.surname <span class="sign">=</span> surname<span class="sign">;</span>
-	<span class="sign">}</span>
-	<span class="function">void</span> description()
-	<span class="sign">{</span>
-		System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a person!"</span>)<span class="sign">;</span>
-	<span class="sign">}</span>
+    <span class="function">String</span> name<span class="sign">;</span>
+    <span class="function">String</span> surname<span class="sign">;</span>
+    <span class="function">Person</span>(<span class="function">String</span> name, <span class="function">String</span> surname)
+    <span class="sign">{</span>
+        <span class="function">this</span>.name <span class="sign">=</span> name<span class="sign">;</span>
+        <span class="function">this</span>.surname <span class="sign">=</span> surname<span class="sign">;</span>
+    <span class="sign">}</span>
+    <span class="function">void</span> description()
+    <span class="sign">{</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a person!"</span>)<span class="sign">;</span>
+    <span class="sign">}</span>
 <span class="sign">}</span>
 
 <span class="function">class</span> Employee <span class="function">extends Person</span>
 <span class="sign">{</span>
-	<span class="function">double</span> salary<span class="sign">;</span>
-	<span class="function">Employee</span>(<span class="function">String</span> name, <span class="function">String</span> surname, <span class="function">double</span> salary)
-	<span class="sign">{</span>
-		<span class="command">super</span>(name, surname)<span class="sign">;</span>
-		<span class="function">this</span>.salary <span class="sign">=</span> salary<span class="sign">;</span>
-	<span class="sign">}</span>
-	<span class="function">void</span> work()
-	<span class="sign">{</span>
-		System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am working!"</span>)<span class="sign">;</span>
-	<span class="sign">}</span>
+    <span class="function">double</span> salary<span class="sign">;</span>
+    <span class="function">Employee</span>(<span class="function">String</span> name, <span class="function">String</span> surname, <span class="function">double</span> salary)
+    <span class="sign">{</span>
+        <span class="command">super</span>(name, surname)<span class="sign">;</span>
+        <span class="function">this</span>.salary <span class="sign">=</span> salary<span class="sign">;</span>
+    <span class="sign">}</span>
+    <span class="function">void</span> work()
+    <span class="sign">{</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am working!"</span>)<span class="sign">;</span>
+    <span class="sign">}</span>
 <span class="sign">}</span>
-									</code></pre>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

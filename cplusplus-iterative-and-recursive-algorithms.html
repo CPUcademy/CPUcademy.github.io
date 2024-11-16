@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Iterative and recursive algorithms</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Iterative and recursive algorithms</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -86,101 +86,101 @@
                                 </div>
                                 <div class="card-body">
                                     <p>Each of the algorithms below has two versions: iterative and recursive. Iterative is the one made using loops, and recursive is the one where the function executes itself.</p>
-							
-									<h3>Table of contents</h3>
-									
-									<ul type="disc">
-										<li><a href="#factorial" class="link" style="text-decoration: none;">Factorial</a></li>
-										<li><a href="#fibonacci-sequence" class="link" style="text-decoration: none;">Fibonacci sequence</a></li>
-										<li><a href="#horners-method" class="link" style="text-decoration: none;">Horner's method</a></li>
-										<li><a href="#exponentiation" class="link" style="text-decoration: none;">Exponentiation</a></li>
-									</ul>
-									
-									<h2><a name="factorial">Factorial</a></h2>
-									
-									<p>A factorial is a product of all natural numbers to a given number.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                            
+                                    <h3>Table of contents</h3>
+                                    
+                                    <ul type="disc">
+                                        <li><a href="#factorial" class="link" style="text-decoration: none;">Factorial</a></li>
+                                        <li><a href="#fibonacci-sequence" class="link" style="text-decoration: none;">Fibonacci sequence</a></li>
+                                        <li><a href="#horners-method" class="link" style="text-decoration: none;">Horner's method</a></li>
+                                        <li><a href="#exponentiation" class="link" style="text-decoration: none;">Exponentiation</a></li>
+                                    </ul>
+                                    
+                                    <h2><a name="factorial">Factorial</a></h2>
+                                    
+                                    <p>A factorial is a product of all natural numbers to a given number.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
 <span class="function">unsigned int</span> factorial1(<span class="function">int</span> x)
 <span class="sign">{</span>
-	<span class="function">int</span> result <span class="sign">=</span> 1<span class="sign">;</span>
-	<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> x<span class="sign">;</span> i<span class="sign">++</span>)
-		result <span class="sign">*=</span> i<span class="sign">;</span>
-	<span class="function">return</span> result<span class="sign">;</span>
+    <span class="function">int</span> result <span class="sign">=</span> 1<span class="sign">;</span>
+    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> x<span class="sign">;</span> i<span class="sign">++</span>)
+        result <span class="sign">*=</span> i<span class="sign">;</span>
+    <span class="function">return</span> result<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">unsigned int</span> factorial2(<span class="function">int</span> x)
 <span class="sign">{</span>
-	<span class="function">if</span>(x <span class="sign">==</span> 1 <span class="sign">||</span> x <span class="sign">==</span> 0)
-		<span class="function">return</span> 1<span class="sign">;</span>
-	<span class="function">return</span> factorial2(x <span class="sign">-</span> 1) <span class="sign">*</span> x<span class="sign">;</span>
+    <span class="function">if</span>(x <span class="sign">==</span> 1 <span class="sign">||</span> x <span class="sign">==</span> 0)
+        <span class="function">return</span> 1<span class="sign">;</span>
+    <span class="function">return</span> factorial2(x <span class="sign">-</span> 1) <span class="sign">*</span> x<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">int</span> main()
 <span class="sign">{</span>
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> factorial1(5) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> factorial2(5) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-	
-	<span class="function">return</span> 0<span class="sign">;</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> factorial1(5) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> factorial2(5) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    
+    <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
-									</code></pre>
-									
-									<h2><a name="fibonacci-sequence">Fibonacci sequence</a></h2>
+                                    </code></pre>
+                                    
+                                    <h2><a name="fibonacci-sequence">Fibonacci sequence</a></h2>
 
-									<p>The Fibonacci sequence is a sequence in which each number is the sum of the two preceding ones (0 1 1 2 3 5 8 13 21 34 55 89 144 ...).</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    <p>The Fibonacci sequence is a sequence in which each number is the sum of the two preceding ones (0 1 1 2 3 5 8 13 21 34 55 89 144 ...).</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
 <span class="function">unsigned int</span> fib1(<span class="function">int</span> n) <span class="comment">// this solution is more efficient</span>
 <span class="sign">{</span>
-	<span class="function">int</span> leftNumber <span class="sign">=</span> 0, rightNumber <span class="sign">=</span> 1, result<span class="sign">;</span>
-	
-	<span class="function">if</span>(n <span class="sign">==</span> 0)
-		<span class="function">return</span> 0<span class="sign">;</span>
-	<span class="function">else if</span>(n <span class="sign">==</span> 1)
-		<span class="function">return</span> 1<span class="sign">;</span>
-	<span class="function">else</span>
-	<span class="sign">{</span>
-		<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 2<span class="sign">;</span> i <span class="sign">&lt;=</span> n<span class="sign">;</span> i<span class="sign">++</span>)
-		<span class="sign">{</span>
-			result <span class="sign">=</span> leftNumber <span class="sign">+</span> rightNumber<span class="sign">;</span>
-			leftNumber <span class="sign">=</span> rightNumber<span class="sign">;</span>
-			rightNumber <span class="sign">=</span> result<span class="sign">;</span>
-		<span class="sign">}</span>
-	<span class="sign">}</span>
-	
-	<span class="function">return</span> result<span class="sign">;</span>
+    <span class="function">int</span> leftNumber <span class="sign">=</span> 0, rightNumber <span class="sign">=</span> 1, result<span class="sign">;</span>
+    
+    <span class="function">if</span>(n <span class="sign">==</span> 0)
+        <span class="function">return</span> 0<span class="sign">;</span>
+    <span class="function">else if</span>(n <span class="sign">==</span> 1)
+        <span class="function">return</span> 1<span class="sign">;</span>
+    <span class="function">else</span>
+    <span class="sign">{</span>
+        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 2<span class="sign">;</span> i <span class="sign">&lt;=</span> n<span class="sign">;</span> i<span class="sign">++</span>)
+        <span class="sign">{</span>
+            result <span class="sign">=</span> leftNumber <span class="sign">+</span> rightNumber<span class="sign">;</span>
+            leftNumber <span class="sign">=</span> rightNumber<span class="sign">;</span>
+            rightNumber <span class="sign">=</span> result<span class="sign">;</span>
+        <span class="sign">}</span>
+    <span class="sign">}</span>
+    
+    <span class="function">return</span> result<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">unsigned int</span> fib2(<span class="function">int</span> n)
 <span class="sign">{</span>
-	<span class="function">if</span>(n <span class="sign">==</span> 0)
-		<span class="function">return</span> 0<span class="sign">;</span>
-	<span class="function">else if</span>(n <span class="sign">==</span> 1)
-		<span class="function">return</span> 1<span class="sign">;</span>
-	<span class="function">else</span>
-		<span class="function">return</span> fib2(n <span class="sign">-</span> 1) <span class="sign">+</span> fib2(n <span class="sign">-</span> 2)<span class="sign">;</span>
+    <span class="function">if</span>(n <span class="sign">==</span> 0)
+        <span class="function">return</span> 0<span class="sign">;</span>
+    <span class="function">else if</span>(n <span class="sign">==</span> 1)
+        <span class="function">return</span> 1<span class="sign">;</span>
+    <span class="function">else</span>
+        <span class="function">return</span> fib2(n <span class="sign">-</span> 1) <span class="sign">+</span> fib2(n <span class="sign">-</span> 2)<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">int</span> main()
 <span class="sign">{</span>
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> fib1(7) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> fib2(7) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-	
-	<span class="function">return</span> 0<span class="sign">;</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> fib1(7) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> fib2(7) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    
+    <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
-									</code></pre>
-									
-									<h2><a name="horners-method">Horner's method</a></h2>
-									
-									<p>Horner's method allows us to simplify polynomials with lots of multiplications by taking the factors out of brackets, and therefore it speeds up the operations.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    </code></pre>
+                                    
+                                    <h2><a name="horners-method">Horner's method</a></h2>
+                                    
+                                    <p>Horner's method allows us to simplify polynomials with lots of multiplications by taking the factors out of brackets, and therefore it speeds up the operations.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
@@ -188,56 +188,56 @@
 <span class="sign">{</span>
     <span class="function">int</span> result <span class="sign">=</span> factors[0]<span class="sign">;</span>
     <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> polynomialDegree<span class="sign">;</span> i<span class="sign">++</span>)
-			result <span class="sign">=</span> result <span class="sign">*</span> x <span class="sign">+</span> factors[i]<span class="sign">;</span>
+            result <span class="sign">=</span> result <span class="sign">*</span> x <span class="sign">+</span> factors[i]<span class="sign">;</span>
     <span class="function">return</span> result<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">int</span> Horner2(<span class="function">int</span> factors[], <span class="function">int</span> polynomialDegree, <span class="function">int</span> x)
 <span class="sign">{</span>
-	<span class="function">if</span>(polynomialDegree <span class="sign">==</span> 0)
-		<span class="function">return</span> factors[0]<span class="sign">;</span>
-	<span class="function">else</span>
-		<span class="function">return</span> x <span class="sign">*</span> Horner2(factors, polynomialDegree <span class="sign">-</span> 1, x) <span class="sign">+</span> factors[polynomialDegree]<span class="sign">;</span>
+    <span class="function">if</span>(polynomialDegree <span class="sign">==</span> 0)
+        <span class="function">return</span> factors[0]<span class="sign">;</span>
+    <span class="function">else</span>
+        <span class="function">return</span> x <span class="sign">*</span> Horner2(factors, polynomialDegree <span class="sign">-</span> 1, x) <span class="sign">+</span> factors[polynomialDegree]<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">int</span> main()
 <span class="sign">{</span>
-	<span class="comment">/* Example: 
-	Polynomial: x^5 + 7x^3 + x + 1
-	The greatest power inside of it: 5
-	
-	The factors: 1, 0, 7, 0, 1, 1
-	For the 5th power, there is one x, for the 4th power - 0x, for the 3rd power - 7x ... and there is one without an x at the end.
-	*/</span>
-	
-	<span class="function">int</span> polynomialDegree<span class="sign">;</span> <span class="comment">// the greatest power inside of the polynomial</span>
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter the degree of the polynomial: "</span><span class="sign">;</span>
-	<span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> polynomialDegree<span class="sign">;</span>
+    <span class="comment">/* Example: 
+    Polynomial: x^5 + 7x^3 + x + 1
+    The greatest power inside of it: 5
     
-	<span class="function">int</span> <span class="sign">*</span>factors <span class="sign">=</span> <span class="function">new int</span>[polynomialDegree]<span class="sign">;</span> 
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter the factors of the polynomial: "</span><span class="sign">;</span>
-	<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;=</span> polynomialDegree<span class="sign">;</span> i<span class="sign">++</span>)
-	<span class="sign">{</span> 
-		<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Factor nr. "</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">" = "</span><span class="sign">;</span>
-		<span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> factors[i]<span class="sign">;</span> 
-	<span class="sign">}</span> 
+    The factors: 1, 0, 7, 0, 1, 1
+    For the 5th power, there is one x, for the 4th power - 0x, for the 3rd power - 7x ... and there is one without an x at the end.
+    */</span>
     
-	<span class="function">int</span> x<span class="sign">;</span>
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter x: "</span><span class="sign">;</span>
-	<span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> x<span class="sign">;</span> 
-	
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> Horner1(factors, polynomialDegree, x) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> Horner2(factors, polynomialDegree, x) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-	
-	<span class="function">delete</span>[] factors<span class="sign">;</span>
-	
-	<span class="function">return</span> 0<span class="sign">;</span>
+    <span class="function">int</span> polynomialDegree<span class="sign">;</span> <span class="comment">// the greatest power inside of the polynomial</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter the degree of the polynomial: "</span><span class="sign">;</span>
+    <span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> polynomialDegree<span class="sign">;</span>
+    
+    <span class="function">int</span> <span class="sign">*</span>factors <span class="sign">=</span> <span class="function">new int</span>[polynomialDegree]<span class="sign">;</span> 
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter the factors of the polynomial: "</span><span class="sign">;</span>
+    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;=</span> polynomialDegree<span class="sign">;</span> i<span class="sign">++</span>)
+    <span class="sign">{</span> 
+        <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Factor nr. "</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">" = "</span><span class="sign">;</span>
+        <span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> factors[i]<span class="sign">;</span> 
+    <span class="sign">}</span> 
+    
+    <span class="function">int</span> x<span class="sign">;</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter x: "</span><span class="sign">;</span>
+    <span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> x<span class="sign">;</span> 
+    
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> Horner1(factors, polynomialDegree, x) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> Horner2(factors, polynomialDegree, x) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    
+    <span class="function">delete</span>[] factors<span class="sign">;</span>
+    
+    <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
-									</code></pre>
-									
-									<h2><a name="exponentiation">Exponentiation</a></h2>
+                                    </code></pre>
+                                    
+                                    <h2><a name="exponentiation">Exponentiation</a></h2>
 
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
@@ -245,34 +245,34 @@
 
 <span class="function">int</span> Exponentiation1(<span class="function">int</span> b, <span class="function">int</span> e)
 <span class="sign">{</span>
-	<span class="function">int</span> result <span class="sign">=</span> 1<span class="sign">;</span>
-	<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> e<span class="sign">;</span> i<span class="sign">++</span>)
-		result <span class="sign">*=</span> b<span class="sign">;</span>
-	<span class="function">return</span> result<span class="sign">;</span>
+    <span class="function">int</span> result <span class="sign">=</span> 1<span class="sign">;</span>
+    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> e<span class="sign">;</span> i<span class="sign">++</span>)
+        result <span class="sign">*=</span> b<span class="sign">;</span>
+    <span class="function">return</span> result<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">int</span> Exponentiation2(<span class="function">int</span> e)
 <span class="sign">{</span>
-	<span class="function">if</span>(e <span class="sign">==</span> 0)
-		<span class="function">return</span> 1<span class="sign">;</span>
-	<span class="function">else</span>
-		<span class="function">return</span> b <span class="sign">*</span> Exponentiation2(e <span class="sign">-</span> 1)<span class="sign">;</span>
+    <span class="function">if</span>(e <span class="sign">==</span> 0)
+        <span class="function">return</span> 1<span class="sign">;</span>
+    <span class="function">else</span>
+        <span class="function">return</span> b <span class="sign">*</span> Exponentiation2(e <span class="sign">-</span> 1)<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">int</span> main()
 <span class="sign">{</span>
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span>  <span class="text">"Enter the base: "</span><span class="sign">;</span>
-	<span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> b;
-	
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter the exponent: "</span><span class="sign">;</span>
-	<span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> e;
-	
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> Exponentiation1(b, e) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-	<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> Exponentiation2(e) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span>  <span class="text">"Enter the base: "</span><span class="sign">;</span>
+    <span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> b;
+    
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter the exponent: "</span><span class="sign">;</span>
+    <span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> e;
+    
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> Exponentiation1(b, e) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> Exponentiation2(e) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 
-	<span class="function">return</span> 0<span class="sign">;</span>
+    <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
-									</code></pre>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

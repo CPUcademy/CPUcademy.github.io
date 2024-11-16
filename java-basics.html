@@ -9,11 +9,11 @@
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-	<link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-	<link rel="stylesheet" href="css/styles.css" type="text/css"/>
-	<title>Basics</title>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Basics</title>
 </head>
 
 <body id="page-top">
@@ -23,7 +23,7 @@
                     <img src="files/logo.png" alt="Logo" id="logo">
                 <div class="sidebar-brand-text mx-3">CPUcademy</div>
             </a>
-			
+            
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
@@ -31,7 +31,7 @@
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider" style="margin-bottom: 0px;">
-	
+    
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -52,7 +52,7 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">About me</div>
-			
+            
             <li class="nav-item">
                 <a class="nav-link" href="cv.html">
                     <i class="icon-adult"></i>
@@ -86,86 +86,108 @@
                                 </div>
                                 <div class="card-body">
                                     <h2>Fundamental rules</h2>
-									<p>Java counts from zero, not from one.</p>
-									<p>Quotation marks and apostrophes mean something slightly different, and I will explain it later.</p>
-									<p>In Java, a semicolon is placed after each command (not everything is a command). We must also indicate which commands belong to, e.g., a loop, by putting them in braces (unless it's only one line).</p>
-									<p>We can create comments by using the <code>//</code> symbols. Things that we write after these signs don't count as code. Comments are often used to describe the code. Multiline comments can be written between <code>/*</code> and <code>*/</code> signs.</p>
-									
-									<h2>Hello World program</h2>
-									
-									<p>The <code>System.out.println()</code> command displays data of all types on the screen. You will learn what the rest of the code means when you get to the lesson about OOP, and for now, let's say it's just a template for all commands.</p>		
-							
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    <p>Java counts from zero, not from one.</p>
+                                    <p>Quotation marks and apostrophes mean something slightly different, and I will explain it later.</p>
+                                    <p>In Java, a semicolon is placed after each command (not everything is a command). We must also indicate which commands belong to, e.g., a loop, by putting them in braces (unless it's only one line).</p>
+                                    <p>We can create comments by using the <code>//</code> symbols. Things that we write after these signs don't count as code. Comments are often used to describe the code. Multiline comments can be written between <code>/*</code> and <code>*/</code> signs.</p>
+                                    
+                                    <h2>Hello World program</h2>
+                                    
+                                    <p>The <code>System.out.println()</code> command displays data of all types on the screen. You will learn what the rest of the code means when you get to the lesson about OOP, and for now, let's say it's just a template for all commands.</p>        
+                            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main
 <span class="sign">{</span>
-	<span class="function">public static void</span> main(<span class="function">String</span>[] args)
-	<span class="sign">{</span>
-		System.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Hello world!"</span>)<span class="sign">;</span>
-	<span class="sign">}</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Hello world!"</span>)<span class="sign">;</span>
+    <span class="sign">}</span>
 <span class="sign">}</span>
-									</code></pre>
-									
-									<h2>Variables</h2>
-									
-									<p class="podpis">A variable is a "drawer" for data in the RAM. We can store every sort of data in them. We have a lot of variable types:</p>
-									<p class="podpis"><code>byte</code> (1 byte) - integers in this range: [-128 to 127]</p>
-									<p class="podpis"><code>short</code> (2 bytes) - integers in this range: [-32768, 32767]</p>
-									<p class="podpis"><code>int</code> (4 bytes) - integers in this range: [-2147483648, 2147483647]</p>
-									<p class="podpis"><code>long</code> (4 bytes) - integers in this range: [-2147483648, 2147483647]</p>
-									<p class="podpis"><code>float</code> (4 bytes) - decimals (up to 6-7 digits after the decimal point)</p>
-									<p class="podpis"><code>double</code> (8 bytes) - decimals with double precision (up to 15-16 digits after the decimal point)</p>
-									<p class="podpis"><code>String</code> - texts (a number can also be a part of it, e.g., "abc123")</p>		
-									<p class="podpis"><code>char</code> (2 bytes) - one symbol (one number also counts as one symbol). When using this type, we have to use apostrophes, and not quotation marks because they are assigned to it. This rule goes both ways, and we can't use apostrophes with strings.</p>		
-									<p><code>boolean</code> (1 byte) - <code>true</code> (all numbers except 0) and <code>false</code> (0) values.</p>	
+                                    </code></pre>
+                                    
+                                    <h2>Variables</h2>
+                                    
+                                    <p class="podpis">A variable is a "drawer" for data in the RAM. We can store every sort of data in them. We have a lot of variable types:</p>
+                                    <p class="podpis"><code>byte</code> (1 byte) - integers in this range: [-128 to 127]</p>
+                                    <p class="podpis"><code>short</code> (2 bytes) - integers in this range: [-32768, 32767]</p>
+                                    <p class="podpis"><code>int</code> (4 bytes) - integers in this range: [-2147483648, 2147483647]</p>
+                                    <p class="podpis"><code>long</code> (4 bytes) - integers in this range: [-2147483648, 2147483647]</p>
+                                    <p class="podpis"><code>float</code> (4 bytes) - decimals (up to 6-7 digits after the decimal point)</p>
+                                    <p class="podpis"><code>double</code> (8 bytes) - decimals with double precision (up to 15-16 digits after the decimal point)</p>
+                                    <p class="podpis"><code>String</code> - texts (a number can also be a part of it, e.g., "abc123")</p>        
+                                    <p class="podpis"><code>char</code> (2 bytes) - one symbol (one number also counts as one symbol). When using this type, we have to use apostrophes, and not quotation marks because they are assigned to it. This rule goes both ways, and we can't use apostrophes with strings.</p>        
+                                    <p><code>boolean</code> (1 byte) - <code>true</code> (all numbers except 0) and <code>false</code> (0) values.</p>    
 
-									<p>We have to define the type when creating a variable.</p>
-									
-									<p>Everything on the left side of the <code>=</code> sign is a variable's name (it cannot contain spaces), and on the right is a value.</p>
-									
-									<p>Be cautious because, e.g., variables <code>x</code> and <code>X</code> are not the same!</p>
-									
-									<p><code>int number = 4;</code> will initialize an <code>int</code> variable called "number" and immediately assign it the value 4. Java will reserve 4 bytes for it. <code>number = 5;</code> will change the value of this variable to 5.</p>
-									
-									<p>If we don't immediately have any value to assign to the variable, we can simply declare it, e.g., <code>int number2;</code>. We say that we declare a variable if it is empty at the beginning, and we initialize it when we immediately give it a value. We can assign a value to the declared variable the same way as if we were changing the value of a variable that already existed (<code>number2 = 6;</code>).</p>
+                                    <p>We have to define the type when creating a variable.</p>
+                                    
+                                    <p>Everything on the left side of the <code>=</code> sign is a variable's name (it cannot contain spaces), and on the right is a value.</p>
+                                    
+                                    <p>Be cautious because, e.g., variables <code>x</code> and <code>X</code> are not the same!</p>
+                                    
+                                    <p><code>int number = 4;</code> will initialize an <code>int</code> variable called "number" and immediately assign it the value 4. Java will reserve 4 bytes for it. <code>number = 5;</code> will change the value of this variable to 5.</p>
+                                    
+                                    <p>If we don't immediately have any value to assign to the variable, we can simply declare it, e.g., <code>int number2;</code>. We say that we declare a variable if it is empty at the beginning, and we initialize it when we immediately give it a value. We can assign a value to the declared variable the same way as if we were changing the value of a variable that already existed (<code>number2 = 6;</code>).</p>
 
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> number <span class="sign">=</span> 4<span class="sign">;</span> 
 number <span class="sign">=</span> 5<span class="sign">;</span>
 <span class="function">int</span> number2<span class="sign">;</span>
 number2 <span class="sign">=</span> 6<span class="sign">;</span>
-									</code></pre>
+                                    </code></pre>
 
                                     <p>*In the examples I provide, I will not always give the entire code but fragments of it.</p>
-									
-									<p>While naming the variables, we cannot add any numbers or spaces at the beginning. The first letter of the variable should not be uppercase. We should write variable names in one of these three ways: <code>prime_number</code>, <code>primeNumber</code>, <code>nPrimeNumber</code>.</p>
-									
-									<p>We can change a variable to a constant, whose value cannot be changed, by adding <code>final</code> before the variable definition (e.g., <code>final String NAME = "text";</code>). There is an unwritten rule that the names of constants should be in uppercase.</p>
+                                    
+                                    <p>While naming the variables, we cannot add any numbers or spaces at the beginning. The first letter of the variable should not be uppercase. We should write variable names in one of these three ways: <code>prime_number</code>, <code>primeNumber</code>, <code>nPrimeNumber</code>.</p>
+                                    
+                                    <p>We can change a variable to a constant, whose value cannot be changed, by adding <code>final</code> before the variable definition (e.g., <code>final String NAME = "text";</code>). There is an unwritten rule that the names of constants should be in uppercase.</p>
 
                                     <p>Variables can be declared in bulk, e.g., <code>int a, b, c;</code>. They can also be defined in the same way: <code>int a = 1, b, c = 2;</code> (we can define only some of them if we want). In this case, the <code>b</code> variable is not empty, although it has no value assigned. It contains a value previously stored at this address in the computer memory. It is always safer to assign a value to a variable at the beginning to avoid errors (even if its value would be 0).</p>
-									
-									<p>If, for example, the number 4 is assigned to a <code>float</code> variable, it will be written as 4.0. If we divide 4.5 by 2, we get 2.25, but if we divide 5 by 2, we get 2 because when we divide an <code>int</code> by an <code>int</code>, we get an <code>int</code>. When dividing an <code>int</code> by an <code>int</code>, we should write, e.g., 5.0 / 2, to get the exact result.</p>
-									
-									<p>If we assign a <code>char</code> character to an <code>int</code>, it will be converted to the ASCII number corresponding to that character. A <code>float</code> number assigned to an <code>int</code> would be abbreviated without rounding (e.g., 2.6 would equal 2), and an <code>int</code> assigned to a <code>float</code> would be extended (e.g., 2 would equal 2.0).</p>
-									
-									<p>We can concatenate strings with the <code>+</code> operator, e.g., <code>String a = b + c;</code>, where <code>b</code> and <code>c</code> are <code>string</code> variables.</p>
-									
-									<p>When we use <code>long</code> and <code>float</code> types, we have to add a corresponding letter at the end of the number: <code>long a = 1234334124252345252L;</code>, <code>float b = 4.75f;</code>.</p>
-									
-									<p>If we divide 1234 by 10, the result will be 123 because we are dividing by 10, not 10.0 (numbers after the decimal point will not be included).</p>
-									
-									<p><code>\n</code> symbolizes the enter key and can be used inside of strings. It will work like <code>endl</code>.</p>
-									
-									<p>Retrieving data from the user is complicated, so I will show you how to do it later.</p>
-									
-									<h2>Type casting</h2>
-									
-									<p>Type casting is, in other words, type conversion (e.g., <code>int</code> to <code>double</code>).</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    
+                                    <p>If, for example, the number 4 is assigned to a <code>float</code> variable, it will be written as 4.0. If we divide 4.5 by 2, we get 2.25, but if we divide 5 by 2, we get 2 because when we divide an <code>int</code> by an <code>int</code>, we get an <code>int</code>. When dividing an <code>int</code> by an <code>int</code>, we should write, e.g., 5.0 / 2, to get the exact result.</p>
+                                    
+                                    <p>If we assign a <code>char</code> character to an <code>int</code>, it will be converted to the ASCII number corresponding to that character. A <code>float</code> number assigned to an <code>int</code> would be abbreviated without rounding (e.g., 2.6 would equal 2), and an <code>int</code> assigned to a <code>float</code> would be extended (e.g., 2 would equal 2.0).</p>
+                                    
+                                    <p>We can concatenate strings with the <code>+</code> operator, e.g., <code>String a = b + c;</code>, where <code>b</code> and <code>c</code> are <code>string</code> variables.</p>
+                                    
+                                    <p>When we use <code>long</code> and <code>float</code> types, we have to add a corresponding letter at the end of the number: <code>long a = 1234334124252345252L;</code>, <code>float b = 4.75f;</code>.</p>
+                                    
+                                    <p>If we divide 1234 by 10, the result will be 123 because we are dividing by 10, not 10.0 (numbers after the decimal point will not be included).</p>
+                                    
+                                    <p><code>\n</code> symbolizes the enter key and can be used inside of strings. It will work like <code>endl</code>.</p>
+                                    
+                                    <p>Retrieving data from the user is complicated, so I will show you how to do it later.</p>
+                                    
+                                    <h2>Type casting</h2>
+                                    
+                                    <p>Type casting is, in other words, type conversion (e.g., <code>int</code> to <code>double</code>).</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">double</span> x <span class="sign">=</span> 5.5<span class="sign">;</span>
 <span class="function">int</span> y <span class="sign">=</span> (<span class="function">int</span>)x<span class="sign">;</span> <span class="comment">// the type that we write inside the parenthesis is the one that we are converting to</span>
-System.<span class="command">out</span>.<span class="command">println</span>(y)<span class="sign">;</span>
-									</code></pre>
+<span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(y)<span class="sign">;</span>
+                                    </code></pre>
+
+                                    <h2>Important terms</h2>
+
+                                    <p>You can come back to this section later.</p>
+
+                                    <h4>Garbage Collector</h4>
+                                    <p>The garbage collector in Java is an automatic memory management system that helps reclaim memory by removing objects that are no longer in use. It operates in the background, allowing developers to focus on writing code without worrying about manual memory deallocation.</p>
+
+                                    <h4>JVM (Java Virtual Machine)</h4>
+                                    <p>The Java Virtual Machine (JVM) is an abstract computing machine that enables Java bytecode to be executed on any platform, providing the "write once, run anywhere" capability. It manages system resources, including memory and execution threads, ensuring that Java applications run efficiently and securely.</p>
+
+                                    <h4>JDK (Java Development Kit)</h4>
+                                    <p>The Java Development Kit (JDK) is a software development environment that provides the tools necessary for developing Java applications, including the Java compiler, libraries, and documentation. It includes the JRE (Java Runtime Environment) and additional tools for debugging, monitoring, and packaging Java applications.</p>
+
+                                    <h4>JRE (Java Runtime Environment)</h4>
+                                    <p>The Java Runtime Environment (JRE) is a part of the Java Development Kit (JDK) that provides the necessary libraries and components to run Java applications. It includes the Java Virtual Machine (JVM) and standard class libraries, allowing developers to execute Java programs on their machines without needing the full development tools.</p>
+
+                                    <h4>Primitive types</h4>
+
+                                    <p>Primitive types, such as <code>int</code>, <code>char</code>, and <code>boolean</code>, are predefined data types that hold simple values and are stored directly in memory, leading to efficient performance. In contrast, non-primitive types, also known as reference types, include classes (e.g., <code>String</code>, <code>Integer</code>), arrays, and interfaces, which can hold complex data structures and are stored as references to their memory locations, allowing for greater flexibility and functionality but with additional overhead in terms of memory and processing.</p>
+
+                                    <p>The <code>Integer</code> type is a wrapper class for the primitive type <code>int</code>, allowing integer values to be treated as objects. This is particularly useful when working with collections, such as <code>ArrayList</code>, which can only store objects. The <code>Integer</code> class provides various methods, such as <code>Integer.parseInt(String s)</code>, which converts a string to an integer, and <code>compareTo(Integer anotherInteger)</code>, which allows for comparison between two <code>Integer</code> objects. This functionality enhances the versatility of integer handling, enabling more complex operations beyond what primitive types offer.</p>
                                 </div>
                             </div>
                         </div>

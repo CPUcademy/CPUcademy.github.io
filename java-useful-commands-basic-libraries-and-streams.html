@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. This website is a personal portfolio and was created by one person.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Useful commands, basic libraries, and streams</title>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Kotlin (Android)</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics.html">Electronics</a>
+                        <a class="collapse-item" href="it-and-computer-basics.html">IT &amp; computer basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">About me</div>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="cv.html">
+                    <i class="icon-adult"></i>
+                    <span>CV</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="services.html">
+                    <i class="icon-services"></i>
+                    <span>My services</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Useful commands, basic libraries, and streams</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>Libraries in Java are collections of related classes and methods. To use them, we have to first import them using the <code>import</code> command.</p>
+
+                                    <h2>The <code>Random</code> library</h2>
+                                                                        
+                                    <p>The <code>Random</code> library is used to generate random numbers. The numbers generated using this library are pseudorandom, which means they are drawn according to a certain pattern. The initial value used by the generator is called a seed. If we know the value of the seed, we can predict the rest of the numbers produced by the generator because, for a given seed, the same numbers will always be generated (in the same order). The seed can be set with the <code>randomObject.seed(value)</code> command.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.Random<span class="sign">;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">Random</span> rand1 <span class="sign">=</span> <span class="function">new Random</span>()<span class="sign">;</span>
+        <span class="function">long</span> seed <span class="sign">=</span> (<span class="function">long</span>) 3.142<span class="sign">;</span>
+        <span class="function">Random</span> rand2 <span class="sign">=</span> <span class="function">new Random</span>(seed)<span class="sign">;</span>
+        <span class="function">long</span> newseed <span class="sign">=</span> (l<span class="function">ong</span>) 2.7182<span class="sign">;</span>
+        rand2.<span class="command">setSeed</span>(newseed)<span class="sign">;</span> <span class="comment">// changing the seed</span>
+
+        <span class="function">int</span> i <span class="sign">=</span> rand1.<span class="command">nextInt</span>()<span class="sign">;</span> <span class="comment">// drawing integers without a range</span>
+        <span class="function">double</span> d <span class="sign">=</span> rand1.<span class="command">nextDouble</span>()<span class="sign">;</span> <span class="comment">// drawing double numbers without a range</span>
+
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Random integer: "</span> <span class="sign">+</span> i)<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Random double: "</span> <span class="sign">+</span> d)<span class="sign">;</span>
+
+        i <span class="sign">=</span> rand1.<span class="command">nextInt</span>(5, 25)<span class="sign">;</span> <span class="comment">// drawing integers within a certain range - start, stop</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Random integer in range [5, 25): "</span> <span class="sign">+</span> i)<span class="sign">;</span>
+
+        i <span class="sign">=</span> rand1.<span class="command">nextInt</span>(25)<span class="sign">;</span> <span class="comment">// 0 is the default first value</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Random integer in range [0, 25): "</span> <span class="sign">+</span> i)<span class="sign">;</span>
+
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h2>Streams</h2>
+
+                                    <p>Streams provide a way to process data sequences, including collections and arrays, in a functional style. The Stream API allows us to perform operations such as filtering, mapping, and reducing data sets concisely. The Random class offers methods like <code>doubles()</code>, <code>ints()</code>, and <code>longs()</code> that return streams of random values of the specified type, which can be customized with parameters to define ranges. This enables the generation of random numbers within specific bounds. By using streams, we can efficiently handle large volumes of data and perform complex operations. Additionally, streams support lazy evaluation, meaning random numbers are generated on the fly as they are consumed, leading to performance optimizations when not all values are needed simultaneously (we do not need to store the whole sequence).</p>
+                                    
+                                    <p>Here’s how we can create a stream of random doubles:</p> 
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">Random</span> rand1 <span class="sign">=</span> <span class="function">new Random</span>()<span class="sign">;</span>
+<span class="function">DoubleStream</span> stream <span class="sign">=</span> rand1.<span class="function">doubles</span>(0, 10).<span class="command">limit</span>(10)<span class="sign">;</span> <span class="comment">// 10 double numbers from the range 0-10</span>
+stream.<span class="function">forEach</span>(<span class="function">System</span>.<span class="command">out</span><span class="sign">::</span><span class="command">println</span>)<span class="sign">;</span> <span class="comment">// displaying all of the stream values</span>
+                                    </code></pre>
+                                    
+                                    <h2>The <code>Math</code> library</h2>
+                                    <p>The <code>Math</code> library provides more complex mathematical operations.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.lang.Math<span class="sign">;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">int</span> x <span class="sign">=</span> 16<span class="sign">;</span>
+        <span class="function">double</span> y <span class="sign">=</span> 3.14<span class="sign">;</span>
+
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="function">Math</span>.<span class="command">ceil</span>(y))<span class="sign">;</span> <span class="comment">// rounding up a number</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="function">Math</span>.<span class="command">floor</span>(y))<span class="sign">;</span> <span class="comment">// rounding down a number</span>
+
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="function">Math</span>.<span class="command">sqrt</span>(x))<span class="sign">;</span> <span class="comment">// calculating the square root of a number</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="function">Math</span>.<span class="command">pow</span>(x, 2))<span class="sign">;</span> <span class="comment">// raising a number to a given power</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="function">Math</span>.<span class="command">log</span>(y))<span class="sign">;</span> <span class="comment">// calculating the natural logarithm of y (base e)</span>
+
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="function">Math</span>.<span class="command">PI</span>)<span class="sign">;</span> <span class="comment">// displaying the PI number</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="function">Math</span>.<span class="command">E</span>)<span class="sign">;</span> <span class="comment">// displaying the E number</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+                                    
+                                    <h2>The <code>Calendar</code> and <code>Date</code> libraries</h2>
+                                    <p>These libraries are used to handle time.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.Calendar<span class="sign">;</span>
+<span class="command">import</span> java.util.Date<span class="sign">;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">Calendar</span> calendar <span class="sign">=</span> <span class="function">Calendar</span>.<span class="command">getInstance</span>()<span class="sign">;</span>
+        calendar.<span class="command">set</span>(<span class="function">Calendar</span>.<span class="command">YEAR</span>, 2023)<span class="sign">;</span>
+        calendar.<span class="command">set</span>(<span class="function">Calendar</span>.<span class="command">MONTH</span>, 0)<span class="sign">;</span> <span class="comment">// January</span>
+        calendar.<span class="command">set</span>(<span class="function">Calendar</span>.<span class="command">DATE</span>, 8)<span class="sign">;</span>
+        calendar.<span class="command">set</span>(<span class="function">Calendar</span>.<span class="command">HOUR_OF_DAY</span>, 0)<span class="sign">;</span>
+        calendar.<span class="command">set</span>(<span class="function">Calendar</span>.<span class="command">MINUTE</span>, 0)<span class="sign">;</span>
+        calendar.<span class="command">set</span>(<span class="function">Calendar</span>.<span class="command">SECOND</span>, 0)<span class="sign">;</span>
+
+        <span class="function">Date</span> date <span class="sign">=</span> calendar.<span class="command">getTime</span>()<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(date)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+                                    
+                                    <h2>The <code>System</code> library</h2>
+                                    <p>The <code>System</code> library is used to handle system operations.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.lang.System<span class="sign">;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">long</span> currentTime <span class="sign">=</span> <span class="function">System</span>.<span class="command">currentTimeMillis</span>()<span class="sign">;</span> <span class="comment">// getting the current time in milliseconds</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Current time in milliseconds: "</span> <span class="sign">+</span> currentTime)<span class="sign">;</span>
+
+        <span class="function">String</span> userHome <span class="sign">=</span> <span class="function">System</span>.<span class="command">getenv</span>(<span class="text">"HOME"</span>)<span class="sign">;</span> <span class="comment">// getting the environment variables</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"User's home directory: "</span> <span class="sign">+</span> userHome)<span class="sign">;</span>
+
+        <span class="function">System</span>.<span class="command">exit</span>(0)<span class="sign">;</span> <span class="comment">// ending the program</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+                                    
+                                    <h2>The <code>String</code> class</h2>
+                                    <p>The <code>String</code> class is used to manipulate strings.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.lang.String<span class="sign">;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">String</span> str <span class="sign">=</span> <span class="text">"Hello world!"</span><span class="sign">;</span>
+        
+        <span class="comment">// Checking the number of characters in a string (its length)</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>("String length: " + str.length())<span class="sign">;</span>
+
+        <span class="comment">// Extracting a substring</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>("Substring: " + str.substring(0, 5))<span class="sign">;</span> <span class="comment">// "Hello"</span>
+
+        <span class="comment">// Lowercase to uppercase</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>("Uppercase: " + str.toUpperCase())<span class="sign">;</span>
+        
+        <span class="comment">// Uppercase to lowercase</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>("Lowercase: " + str.toLowerCase())<span class="sign">;</span>
+        
+        <span class="comment">// Comparing strings</span>
+        <span class="function">String</span> str2 <span class="sign">=</span> <span class="text">"Hello world!"</span><span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Strings are equal: "</span> <span class="sign">+</span> str.<span class="command">equals</span>(str2))<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+                                    
+                                    <h2>The <code>StringBuilder</code> class</h2>
+                                    <p>The <code>StringBuilder</code> class is used for creating and modifying mutable strings. Unlike <code>String</code>, which creates a new object on every modification, it allows for more efficient string manipulation.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.lang.StringBuilder<span class="sign">;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">StringBuilder</span> sb <span class="sign">=</span> <span class="function">new StringBuilder</span>(<span class="text">"Hello"</span>)<span class="sign">;</span>
+        
+        <span class="comment">// Appending to the string</span>
+        sb.<span class="command">append</span>(<span class="text">" world!"</span>)<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(sb)<span class="sign">;</span> <span class="comment">// "Hello World!"</span>
+        
+        <span class="comment">// Inserting into the string</span>
+        sb.<span class="command">insert</span>(5, <span class="text">","</span>)<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(sb)<span class="sign">;</span> <span class="comment">// "Hello, world!"</span>
+        
+        <span class="comment">// Reversing the string</span>
+        sb.<span class="command">reverse</span>()<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(sb)<span class="sign">;</span> <span class="comment">// "!dlrow ,olleH"</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+                                    
+                                    <h2>Converting between strings and integers</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">String</span> str <span class="sign">=</span> <span class="text">"15"</span><span class="sign">;</span>
+
+<span class="comment">// String to integer</span>
+<span class="function">int</span> i <span class="sign">=</span> <span class="function">Integer</span>.<span class="command">parseInt</span>(str)<span class="sign">;</span>
+<span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(i)<span class="sign">;</span>
+
+<span class="comment">// String to float</span>
+<span class="function">float</span> f <span class="sign">=</span> <span class="function">Float</span>.<span class="command">parseFloat</span>(str)<span class="sign">;</span>
+<span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(f)<span class="sign">;</span>
+
+<span class="comment">// Integer to string</span>
+<span class="function">int</span> i2 <span class="sign">=</span> 15<span class="sign">;</span>
+<span class="function">String</span> str1 <span class="sign">=</span> <span class="function">String</span>.<span class="command">valueOf</span>(i2)<span class="sign">;</span>
+<span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(str1)<span class="sign">;</span>
+                                    </code></pre>                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>

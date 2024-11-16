@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>ZIP files</title>
+    <title>Generic types and wildcards</title>
 </head>
 
 <body id="page-top">
@@ -82,80 +82,80 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">ZIP files</h5>
+                                    <h5 class="m-0 font-weight-bold">Generic types and wildcards</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h2>Zipping files</h2>
-                                    
-                                    <p></p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">import</span> java.io.<span class="sign">*;</span>
-<span class="command">import</span> java.util.zip.<span class="sign">*;</span>
 
+                                    <h2>Generic types</h2>
+
+                                    <p>We create generic methods when we do not want to define many different methods for every possible type of argument. The class in which those methods occur must also be specified as a generic type. Inside the <code>&lt;&gt;</code> signs after the class name and before the method name, we create a custom name(s) for the data type(s). Inside the class, we replace all data type(s) with the one(s) specified earlier (they will substitute themselves with the arguments, which are, of course, data types).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main
 <span class="sign">{</span>
-    <span class="function">public static final int</span> BUFFER <span class="sign">=</span> 1024<span class="sign">;</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="function">throws IOException</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
     <span class="sign">{</span>
-        <span class="function">String</span>[] a <span class="sign">=</span> <span class="function">new String</span>[] <span class="sign">{</span><span class="text">"file.txt"</span>, <span class="text">"file2.txt"</span><span class="sign">};</span>
+        generalTypeClass<span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> x <span class="sign">=</span> <span class="function">new</span> generalTypeClass<span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        x.variable <span class="sign">=</span> <span class="text">"x"</span><span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(x.returnValue())<span class="sign">;</span>
 
-        <span class="function">byte</span> tData[] <span class="sign">=</span> <span class="function">new byte</span>[BUFFER]<span class="sign">;</span>
-        <span class="function">ZipOutputStream</span> x <span class="sign">=</span> <span class="function">new ZipOutputStream</span>(<span class="function">new BufferedOutputStream</span>(<span class="function">new FileOutputStream</span>(<span class="text">"myZip.zip"</span>), BUFFER))<span class="sign">;</span>
+        generalTypeClass<span class="sign">&lt;</span><span class="function">Integer</span><span class="sign">&gt;</span> y <span class="sign">=</span> <span class="function">new</span> generalTypeClass<span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        y.variable <span class="sign">=</span> 4<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(y.returnValue())<span class="sign">;</span>
 
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> a.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
-        <span class="sign">{</span>
-            <span class="function">BufferedInputStream</span> y <span class="sign">=</span> <span class="function">new BufferedInputStream</span>(<span class="function">new FileInputStream</span>(a[i]), BUFFER)<span class="sign">;</span>
-            x.<span class="command">putNextEntry</span>(<span class="function">new ZipEntry</span>(a[i]))<span class="sign">;</span>
-
-            <span class="function">int</span> counter<span class="sign">;</span>
-            <span class="function">while</span>((counter <span class="sign">=</span> y.<span class="command">read</span>(tData, 0, BUFFER)) <span class="sign">!=</span> -1)
-                x.<span class="command">write</span>(tData, 0, counter)<span class="sign">;</span>
-
-            x.<span class="command">closeEntry</span>()<span class="sign">;</span>
-            y.<span class="command">close</span>()<span class="sign">;</span>
-        <span class="sign">}</span>
-        x.<span class="command">close</span>()<span class="sign">;</span>
+        generalTypeClass2<span class="sign">&lt;</span><span class="function">Integer</span>, <span class="function">Integer</span><span class="sign">&gt;</span> z <span class="sign">=</span> <span class="function">new</span> generalTypeClass2<span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        z.variable <span class="sign">=</span> 4<span class="sign">;</span>
+        z.variable2 <span class="sign">=</span> 5<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(z.returnValue())<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(z.returnValue2())<span class="sign">;</span>
     <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> generalTypeClass <span class="sign">&lt;</span><span class="function">TYPE</span><span class="sign">&gt;</span>
+<span class="sign">{</span>
+    <span class="function">TYPE</span> variable<span class="sign">;</span>
+    <span class="function">public TYPE</span> returnValue()
+    <span class="sign">{</span>
+        <span class="function">return this</span>.variable<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> generalTypeClass2  <span class="sign">&lt;</span><span class="function">TYPE</span>, <span class="function">TYPE2</span><span class="sign">&gt;</span>
+<span class="sign">{</span>
+    <span class="function">TYPE</span> variable<span class="sign">;</span>
+    <span class="function">TYPE2</span> variable2<span class="sign">;</span>
+    <span class="function">public TYPE</span> returnValue()<span class="sign">{</span><span class="function">return this</span>.variable<span class="sign">;</span><span class="sign">}</span>
+    <span class="function">public TYPE2</span> returnValue2()<span class="sign">{</span><span class="function">return this</span>.variable2<span class="sign">;</span><span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
+
+                                    <h2>Wildcards</h2>
                                     
-                                    <h2>Unzipping files</h2>
-                                    
-                                    <p></p>
-                                    
+                                    <p>Generic types define classes, interfaces, or methods that can operate on various data types while preserving type safety at compile time. Wildcards make generic types more flexible, often appearing in method parameters to only allow subtypes (<code>? extends T</code>) or supertypes (<code>? super T</code>) of a specified type. Wildcards enable flexibility when an exact type does not need to be specified. In contrast to generics, which define specific types, wildcards allow for broader, more flexible applications.</p>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">import</span> java.io.<span class="sign">*;</span>
-<span class="command">import</span> java.util.zip.<span class="sign">*;</span>
+<span class="command">import</span> java.util.<span class="sign">*;</span>
 
 <span class="function">public class</span> Main
 <span class="sign">{</span>
-    <span class="function">public static final int</span> BUFFER <span class="sign">=</span> 1024<span class="sign">;</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="function">throws IOException</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
     <span class="sign">{</span>
-        <span class="function">ZipEntry</span> z <span class="sign">=</span> <span class="function">null</span><span class="sign">;</span>
-        <span class="function">byte</span> tData[] <span class="sign">=</span> <span class="function">new byte</span>[BUFFER]<span class="sign">;</span>
-        <span class="function">File</span> catalogue <span class="sign">=</span> <span class="function">new File</span>(System.<span class="command">getProperty</span>(<span class="text">"user.dir"</span>) <span class="sign">+</span> <span class="function">File</span>.<span class="command">separator</span> <span class="sign">+</span> <span class="text">"myZip"</span>)<span class="sign">;</span>
+        <span class="function">ArrayList</span><span class="sign">&lt;</span><span class="function">SuperClass</span><span class="sign">&gt;</span> list <span class="sign">=</span> <span class="function">new ArrayList</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        list.<span class="command">add</span>(<span class="function">new SuperClass</span>())<span class="sign">;</span>
+        list.<span class="command">add</span>(<span class="function">new SubClass</span>())<span class="sign">;</span>
 
-        <span class="function">if</span>(<span class="sign">!</span>catalogue.<span class="command">exists</span>())
-            catalogue.<span class="command">mkdir</span>()<span class="sign">;</span>
-
-        <span class="function">ZipInputStream</span> x <span class="sign">=</span> <span class="function">new ZipInputStream</span>(<span class="function">new BufferedInputStream</span>(<span class="function">new FileInputStream</span>(<span class="text">"myZip.zip"</span>), BUFFER))<span class="sign">;</span>
-
-        <span class="function">while</span>((z <span class="sign">=</span> x.<span class="command">getNextEntry</span>()) <span class="sign">!=</span> <span class="function">null</span>)
-        <span class="sign">{</span>
-            <span class="function">BufferedOutputStream</span> y <span class="sign">=</span> <span class="function">new BufferedOutputStream</span>(<span class="function">new FileOutputStream</span>(catalogue <span class="sign">+</span> <span class="function">File</span>.<span class="command">separator</span> <span class="sign">+</span> z.<span class="command">getName</span>()), BUFFER)<span class="sign">;</span>
-
-            <span class="function">int</span> counter<span class="sign">;</span>
-            <span class="function">while</span>((counter <span class="sign">=</span> x.<span class="command">read</span>(tData, 0, BUFFER)) <span class="sign">!=</span> -1)
-                y.<span class="command">write</span>(tData, 0, counter)<span class="sign">;</span>
-
-            x.<span class="command">closeEntry</span>()<span class="sign">;</span>
-            y.<span class="command">close</span>()<span class="sign">;</span>
-        <span class="sign">}</span>
-        x.<span class="command">close</span>()<span class="sign">;</span>
+        <span class="function">ArrayList</span><span class="sign">&lt;</span><span class="function">SubClass</span><span class="sign">&gt;</span> list2 <span class="sign">=</span> <span class="function">new ArrayList</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+        <span class="function">SuperClass</span>.method(list)<span class="sign">;</span>
+        <span class="function">SuperClass</span>.method(list2)<span class="sign">;</span> <span class="comment">// this will work because SubClass is a subclass of SuperClass (extends SuperClass)</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
+
+<span class="function">class</span> SuperClass
+<span class="sign">{</span>
+    <span class="function">public static void</span> method(<span class="function">List</span><span class="sign">&lt;?</span> <span class="function">extends SuperClass</span><span class="sign">&gt;</span> x)<span class="sign">{}</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> SubClass <span class="function">extends SuperClass</span><span class="sign">{}</span>
                                     </code></pre>
                                 </div>
                             </div>
