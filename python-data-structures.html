@@ -488,7 +488,42 @@ z <span class="sign">=</span> {<span class="function">True</span>: <span class="
             
                                     <h2><a name="bytearray">Bytearray</a></h2>
                                     
-                                    <p>We use bytearray, e.g., like this: <code>bytearray([65, 66])</code>. It has the same properties as the <a href="#bytes" class="link">bytes</a> structure, which I will discuss in a moment, except it is mutable.</p>
+                                    <p>I recommend you read about <a href="#bytes" class="link">bytes</a> first and then come back. We use bytearray, e.g., like this: <code>bytearray([65, 66])</code>. It has the same properties as the bytes structure, except it is mutable. This makes it suitable for situations where we need to change the byte data during processing.</p>
+
+                                    <p>We can create a bytearray object using the <code>bytearray()</code> method, passing a list of integers between 0 and 255. For example: <code>bytearray([65, 66])</code>. The result would be <code>b'AB'</code> (it decodes from Unicode). We can modify its contents like this: <code>data[0] = 67</code> (change from "A" to "C").</p>
+
+                                    <p>We handle binary files using different symbols, such as <code>rb</code> instead of <code>r</code> and <code>wb</code> instead of <code>w</code>.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+data <span class="sign">=</span> <span class="command">bytearray</span>(10)
+<span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(<span class="command">len</span>(data)):
+    data[i] <span class="sign">=</span> 10 <span class="sign">+</span> i
+
+<span class="function">with</span> <span class="command">open</span>(<span class="text">"file.bin"</span>, <span class="text">"wb"</span>) <span class="function">as</span> file:
+    file.<span class="command">write</span>(data)                                        
+                                    </code></pre>
+
+                                    <p>Two ways of reading from a binary file:</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+data <span class="sign">=</span> <span class="command">bytearray</span>(10)
+
+<span class="function">with</span> <span class="command">open</span>(<span class="text">"file.bin"</span>, <span class="text">"rb"</span>) <span class="function">as</span> file:
+    file.<span class="command">readinto</span>(data)
+    
+<span class="function">for</span> x <span class="function">in</span> data:
+    <span class="command">print</span>(<span class="command">hex</span>(x), <span class="command">end</span> <span class="sign">=</span> <span class="text">" "</span>)
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">with</span> <span class="command">open</span>(<span class="text">"file.bin"</span>, <span class="text">"rb"</span>) <span class="function">as</span> file:
+    data <span class="sign">=</span> <span class="command">bytearray</span>(file.<span class="command">read</span>())
+    
+<span class="function">for</span> x <span class="function">in</span> data:
+    <span class="command">print</span>(<span class="command">hex</span>(x), <span class="command">end</span> <span class="sign">=</span> <span class="text">" "</span>)
+                                    </code></pre>
+
+                                    <p>Bytes is immutable, making it ideal for storing fixed binary data. Bytearray, however, allows modifying the data, which makes it more suitable for processing or manipulating data in memory.</p>
 
                                     <h2>Immutable data structures</h2>
 
@@ -510,7 +545,7 @@ first, second <span class="sign">=</span> x
             
                                     <h2><a name="nonetype">NoneType</a></h2>
                                     
-                                    <p><code>None</code> is an object that is used to indicate the absence of a value (when we do not have a value for a given object, we set it as <code>None</code>).</p>
+                                    <p><code>None</code> is an object that is used to indicate the absence of a value.</p>
                 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 x <span class="sign">=</span> <span class="function">None</span>
@@ -532,13 +567,21 @@ fSet <span class="sign">=</span> <span class="command">frozenset</span>(x)
             
                                     <h2><a name="bytes">Bytes</a></h2>
                                     
-                                    <p>Bytes are valuable in managing binary information as they are efficient, occupying just 8 bits of memory each (the strings consist of Unicode code points). They offer quicker processing compared to the text data. Bytes are useful for reading binary files or sending data over a network. To use them, we apply the <code>bytes()</code> method, which takes a list of numbers between 0 and 255 as an argument, e.g., <code>bytes([65, 66])</code>. The given example equals <code>b'AB'</code> (it decodes from Unicode).</p>
+                                    <p>Bytes is sequence of integers, where each integer is in the range of 0 to 255. This makes it efficient to store binary data since each byte is only 8 bits. This data structure is particularly useful for handling binary data in files or transmitting data over networks. We can create a bytes object using the <code>bytes()</code> method, passing a list of integers between 0 and 255. For example: <code>data = bytes([65, 66])</code>. The result would be: <code>b'AB'</code> (it decodes from Unicode).</p>
                                     
-                                    <p>Strings have no binary encoding assigned, and bytes have no text encoding assigned. We can convert Unicode to binary data using the <code>encode()</code> method and vice versa using the <code>decode()</code> method. If you want to read and write binary data to a file, remember that this is done using different methods than while operating on strings.</p>
+                                    <p>Strings have no binary encoding assigned, and bytes has no text encoding assigned as it is used to store raw binary data. We can convert Unicode to binary data using the <code>encode()</code> method and vice versa using the <code>decode()</code> method.</p>
                                     
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+text <span class="sign">=</span> <span class="text">"CPUcademy"</span>
+x <span class="sign">=</span> text.<span class="command">encode</span>(<span class="text">"utf-8"</span>)
+<span class="command">print</span>(x)
+                                    </code></pre>
+
+                                    <p>Go back to <a href="#bytearray" class="link">bytearray</a>.</p>
+
                                     <h2><a name="complex">Complex</a></h2>
                                     
-                                    <p>Complex numbers are expressed as <code>a+bj</code>, where <code>a</code> and <code>b</code> are real numbers, and <code>j</code> is an imaginary number, e.g., <code>100+3j</code>. We hardly ever use it.</p>
+                                    <p>Complex numbers are expressed as <code>a+bj</code>, where <code>a</code> and <code>b</code> are real numbers, and <code>j</code> is an imaginary number, e.g., <code>100+3j</code>. They are used in mathematics.</p>
                                     
                                     <h2><a name="deque">Deque</a></h2>
 

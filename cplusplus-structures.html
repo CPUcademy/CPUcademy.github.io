@@ -85,7 +85,7 @@
                                     <h5 class="m-0 font-weight-bold">Structures</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>A structure defines how a given object is built. Inside it, we define its properties (variables). We can address these variables by an object, which we place in the main function. We create a structure as shown below. Remember about the semicolon after the braces. It is there because we could also make it like this: <code>} human;</code>. We can define the structure's variables both inside and outside of it.</p>
+                                    <p>A structure defines how a given object is built. Inside it, we define its properties (variables). We can address these variables by an object, which we place in the main function. We create a structure as shown below. Remember about the semicolon after the braces. It is there because we could also make it like this: <code>} human;</code>. We can define the structure's variables both inside and outside of it. Structures can contain functions.</p>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
@@ -98,12 +98,15 @@
     <span class="function">string</span> phoneNr<span class="sign">;</span>
     <span class="function">string</span> ID<span class="sign">;</span>
     <span class="function">unsigned short</span> age<span class="sign">;</span>
+    <span class="function">void</span> display() <span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> name <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;}</span>
 <span class="sign">};</span>
             
 <span class="function">int</span> main()
 <span class="sign">{</span>
-    <span class="function">Human</span> human<span class="sign">;</span> <span class="comment">// the structure's object</span>
+    <span class="function">Human</span> human<span class="sign">;</span> <span class="comment">// the structure's object (like using a data type)</span>
     human.name <span class="sign">=</span> <span class="text">"John"</span><span class="sign">;</span>
+
+    human.display()<span class="sign">;</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> human.name <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> human.surname <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     
