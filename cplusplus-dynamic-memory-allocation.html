@@ -108,11 +108,14 @@
                                     <p>If we use the <code>delete</code> command on <code>pointer</code>, <code>p</code> will have the same address as previously <code>pointer</code> because it has been released. Because of this, after releasing memory, we have to immediately assign another value to it. This value can be <code>NULL</code>, which means an absence of a value. We don't have to do this if <code>delete</code> is the last command in braces (everything will disappear anyway). We do all this to prevent errors.</p>
                                     
                                     <p>When displaying the values of pointers, we don't always know if it won't be <code>NULL</code>, so it's safer to write: <code>if(pointer != NULL) cout &lt;&lt; *pointer &lt;&lt; endl;</code>.</p>
+
+                                    <p>To set the pointer's value as <code>NULL</code>, it is better to use <code>nullptr</code> instead of <code>NULL</code>.</p>
                                     
                                     <p>When using dynamic memory allocation, we can safely input the size of an array from the user. To release the memory after using this type of array, we have to add square brackets after <code>delete</code>.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">int</span> x <span class="sign">=</span> 5<span class="sign">;</span>
+<span class="function">int</span> x;</span>
+<span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> x<span class="sign">;</span>
 <span class="function">int</span> <span class="sign">*</span>a <span class="sign">=</span> <span class="function">new int</span>[x]<span class="sign">;</span>
 a[0] <span class="sign">=</span> 10<span class="sign">;</span>
 a[1] <span class="sign">=</span> 20<span class="sign">;</span>
