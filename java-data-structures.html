@@ -129,11 +129,33 @@
                                     
                                     <p>Both <code>ArrayList</code> and <code>LinkedList</code> inherit features from the <code>List</code> class, which is why, while declaring them, we can write: <code>List<String> x = new ArrayList&lt;&gt;();</code>.</p>
 
-                                    <p>We can also assign all the list values at the beginning: <code>ArrayList&lt;Integer&gt; integers = new ArrayList&lt;&gt;(Arrays.asList(1, 2, 3));</code> or <code>List&ltInteger&gt; integers = Arrays.asList(1, 2, 3);</code>.</p>
+                                    <p>We can also assign the list values at the beginning: <code>ArrayList&lt;Integer&gt; integers = new ArrayList&lt;&gt;(Arrays.asList(1, 2, 3));</code> or <code>List&ltInteger&gt; integers = Arrays.asList(1, 2, 3);</code>.</p>
                                     
                                     <p>The <code>list1.addAll(list2);</code> command adds all elements from <code>list2</code> to <code>list1</code>.</p>
 
                                     <p><code>ArrayList&lt;Integer&gt;</code> is just a declaration of a list. If we try to add objects to it, we will get a <code>NullPointerException</code> error. It is necessary to also initialize it (<code>new ArrayList&lt;&gt;()</code>).</p>
+
+                                    <p>In the example below, we can see that something like <code>new ArrayList&lt;&gt;(x)</code> means the <code>x</code> list will be copied to the <code>y</code> list, and <code>y</code> won't be just another name for the data but its actual copy that can have different values than the original.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.<span class="sign">*;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">ArrayList</span><span class="sign">&lt;</span><span class="function">Integer</span><span class="sign">&gt;</span> x <span class="sign">=</span> <span class="function">new ArrayList</span><span class="sign">&lt;&gt;</span>(<span class="function">Arrays</span>.<span class="command">asList</span>(1, 2))<span class="sign">;</span>
+        <span class="function">ArrayList</span><span class="sign">&lt;</span><span class="function">Integer</span><span class="sign">&gt;</span> y <span class="sign">=</span> <span class="function">new ArrayList</span><span class="sign">&lt;&gt;</span>(x)<span class="sign">;</span>
+        y.<span class="command">add</span>(3);
+
+        <span class="function">for</span>(<span class="function">int</span> i<span class="sign">:</span> x)
+            <span class="function">System</span>.<span class="command">out</span>.<span class="command">print</span>(i)<span class="sign">;</span> <span class="comment">// print with no enter afterwards</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>()<span class="sign">;</span>
+        <span class="function">for</span>(<span class="function">int</span> i<span class="sign">:</span> y)
+            <span class="function">System</span>.<span class="command">out</span>.<span class="command">print</span>(i)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
 
                                     <h2>Iterators</h2>
 

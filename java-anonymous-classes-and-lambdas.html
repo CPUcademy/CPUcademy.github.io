@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Anonymous classes and Lambda expressions</title>
+    <title>Anonymous classes and Lambdas</title>
 </head>
 
 <body id="page-top">
@@ -82,7 +82,7 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Anonymous classes and Lambda expressions</h5>
+                                    <h5 class="m-0 font-weight-bold">Anonymous classes and Lambdas</h5>
                                 </div>
                                 <div class="card-body">
                                     <h2>Anonymous classes</h2>
@@ -111,7 +111,7 @@
                                     
                                     <h2>Lambda expressions</h2>
                                     
-                                    <p>Lambda expressions serve the same purpose but for methods. To create them, we use interfaces, which have to have only one method because otherwise, we won't be able to use them (with anonymous classes, it wasn't the case). They express instances of functional interfaces (an interface with a single abstract method is called a functional interface - <code>@FunctionalInterface</code>). Lambdas are short blocks of code that accept input as parameters and (not necessarily) return a resultant value. Remember that methods in an interface are <code>abstract</code> by default. If the body of the lambda consists of a single expression, the return type is inferred, and we don't need to use the <code>return</code> keyword.</p>
+                                    <p>Lambda expressions are primarily used to provide a concise way to implement functional interfaces (<code>@FunctionalInterface</code>), which are interfaces that contain a single abstract method (they can't have more, which wasn't the case with anonymous classes). Lambdas are short blocks of code that accept input as parameters and (not necessarily) return a resultant value. Remember that methods in an interface are <code>abstract</code> by default. If the body of the lambda consists of a single expression, the return type is inferred, and we don't need to use the <code>return</code> keyword. When lambdas contain more than one instruction, they are called statement lambdas.</p>
                                     
                                     <p>A lambda expression has three parts: parameters, an arrow (<code>-&gt;</code>), and the body. For example, instead of using an anonymous class to implement a <code>Comparator</code>, we can use a lambda expression (there is no implicit interface in the example below, but this lambda still relies on one):</p>
 
@@ -163,7 +163,29 @@
 <span class="sign">}</span>
                                     </code></pre>
 
-                                    <p>Anonymous classes are often used to add event listeners or threading. They are preferred over lambda expressions when needing more complex behavior or accessing local variables in specific ways.</p>
+                                    <h2>Statement lambdas</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.function.Function<span class="sign">;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">Function</span><span class="sign">&lt;</span><span class="function">Integer</span>, <span class="function">Integer</span><span class="sign">&gt;</span> square <span class="sign">=</span> (number) <span class="sign">-&gt; {</span>
+            <span class="function">int</span> result <span class="sign">=</span> number <span class="sign">*</span> number<span class="sign">;</span>
+            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Calculating square of "</span> <span class="sign">+</span> number)<span class="sign">;</span>
+            <span class="function">return</span> result<span class="sign">;</span>
+        <span class="sign">};</span>
+        
+        <span class="function">int</span> number <span class="sign">=</span> 5<span class="sign">;</span>
+        <span class="function">int</span> squareResult <span class="sign">=</span> square.<span class="command">apply</span>(number)<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Square of "</span> <span class="sign">+</span> number +</span> <span class="text">" is: "</span> <span class="sign">+</span> squareResult)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <p>Anonymous classes are often used to add event listeners or threading. They are preferred over lambda expressions when needing more complex behavior (e.g., multiple methods are required) or accessing local variables in specific ways. Anonymous classes can override methods from an abstract or concrete (non-abstract) superclass, which lambdas cannot.</p>
                                 </div>
                             </div>
                         </div>
