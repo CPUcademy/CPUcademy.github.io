@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Multiple tables</title>
+    <title>Stored functions</title>
 </head>
 
 <body id="page-top">
@@ -82,58 +82,28 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Multiple tables</h5>
+                                    <h5 class="m-0 font-weight-bold">Stored functions</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h4>Inner Join</h4>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Joining tables based on related columns between them (we can join more than two tables)</span>
-<span class="function">SELECT</span> *
-<span class="function">FROM</span> table1_name
-<span class="function">JOIN</span> table2_name
-<span class="function">ON</span> table1_name.id = table2_name.id;  
-                                    </code></pre>
+                                    <p>Stored functions are blocks of SQL statements executed on demand. They differ from stored procedures because they return a value and are called from <code>SELECT</code> statements. Functions can but don't have to take arguments.</p>
+
+                                    <p>A parameter is a variable that is declared in a function definition and is used to receive the values ​​of arguments passed during a function call. Parameters allow functions to access and manipulate the values ​​passed to the function. In a function definition, parameters are specified in parentheses and separated by commas. For example, <code>UPPER(str)</code> declares one parameter: <code>str</code>. An argument is a value that is passed to a function when it is called. A function can accept one or more arguments. For example, <code>UPPER('hello world')</code> accepts one argument <code>'hello world'</code>. You can think of parameters as placeholders that accept values (arguments) when the function is executed.</p>
+
+                                    <h4>Basic commands</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Table name shortcuts</span>
-<span class="function">SELECT</span> *
-<span class="function">FROM</span> table1_name t1
-<span class="function">JOIN</span> table2_name t2
-<span class="function">ON</span> t1.id = t2.id;  
-                                    </code></pre>
+<span class="comment">-- Calling a procedure</span>
+<span class="function">SELECT UPPER</span>('hello world');
 
-                                    <h4>Outer Join</h4>
-                                    <p>A table join that includes all rows from both tables, even if there are no matching columns (non-matching columns are marked as <code>NULL</code>).</p>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">SELECT</span> *
-<span class="function">FROM</span> table1_name
-<span class="function">LEFT JOIN</span> table2_name
-<span class="function">ON</span> table1_name.column_name = table2_name.column_name;
-                                    </code></pre>
-                                
-                                    <p>*<code>RIGHT JOIN</code> also exists, and it works the other way around.</p>
+<span class="comment">-- Displaying a list of functions</span>
+<span class="function">SHOW FUNCTION STATUS</span>;
 
-                                    <h4><code>CROSS JOIN</code> clause</h4>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Displaying all possible combinations of given columns</span>
-<span class="function">SELECT</span> table1_name.column1_name, table2_name.column2_name
-<span class="function">FROM</span> table1_name
-<span class="function">CROSS JOIN</span> table2_name; 
-                                    </code></pre>
+<span class="comment">-- Displaying the code of a function</span>
+<span class="function">SHOW CREATE FUNCTION</span> function_name;
 
-                                    <h4><code>UNION</code> clause</h4>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Combining the results of two or more SELECT queries (including only unique rows)</span>    
-<span class="function">SELECT</span> column1_name <span class="function">FROM</span> table1_name
-<span class="function">UNION</span>
-<span class="function">SELECT</span> column2_name <span class="function">FROM</span> table2_name;
+<span class="comment">-- Deleting a function</span>
+<span class="function">DROP FUNCTION</span> function_name;
                                     </code></pre>
-                                    
-                                    <h4>Conclusion</h4>
-                                    <p class="podpis">A <code>JOIN</code> operation combines rows from different tables based on a specified join condition.</p>
-                                    <p class="podpis">A <code>LEFT JOIN</code> returns all rows from the left table, and when there is no matching row in the right table, it fills the corresponding columns with <code>NULL</code> values.</p>
-                                    <p class="podpis">A <code>CROSS JOIN</code> combines every row from one table with every row from another table, resulting in a Cartesian product.</p>
-                                    <p>The <code>UNION</code> operator stacks one dataset on top of another, merging the results into a single dataset.</p>
                                 </div>
                             </div>
                         </div>

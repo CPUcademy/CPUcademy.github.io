@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Multiple tables</title>
+    <title>Stored procedures</title>
 </head>
 
 <body id="page-top">
@@ -82,58 +82,40 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Multiple tables</h5>
+                                    <h5 class="m-0 font-weight-bold">Stored procedures</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h4>Inner Join</h4>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Joining tables based on related columns between them (we can join more than two tables)</span>
-<span class="function">SELECT</span> *
-<span class="function">FROM</span> table1_name
-<span class="function">JOIN</span> table2_name
-<span class="function">ON</span> table1_name.id = table2_name.id;  
-                                    </code></pre>
+                                    <p>Stored procedures are blocks of SQL statements executed on demand. They allow us to define operations that can be simply performed multiple times. Procedures can but don't have to take arguments.</p>
+
+                                    <h4>Basic commands</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Table name shortcuts</span>
-<span class="function">SELECT</span> *
-<span class="function">FROM</span> table1_name t1
-<span class="function">JOIN</span> table2_name t2
-<span class="function">ON</span> t1.id = t2.id;  
+<span class="comment">-- Calling a procedure</span>
+<span class="function">CALL</span> add_a_client('Josh', 'Swift');
+
+<span class="comment">-- Displaying a list of procedures (two versions)</span>
+<span class="function">SHOW PROCEDURE STATUS WHERE</span> Db = '[database_name]'; <span class="comment">-- for a specified database</span>
+<span class="function">SHOW PROCEDURE STATUS</span>; <span class="comment">-- for all databases on a server</span>
+
+<span class="comment">-- Displaying the code of a procedure</span>
+<span class="function">SHOW CREATE PROCEDURE</span> procedure_name;
+
+<span class="comment">-- Deleting a procedure</span>
+<span class="function">DROP PROCEDURE</span> procedure_name;
                                     </code></pre>
 
-                                    <h4>Outer Join</h4>
-                                    <p>A table join that includes all rows from both tables, even if there are no matching columns (non-matching columns are marked as <code>NULL</code>).</p>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">SELECT</span> *
-<span class="function">FROM</span> table1_name
-<span class="function">LEFT JOIN</span> table2_name
-<span class="function">ON</span> table1_name.column_name = table2_name.column_name;
-                                    </code></pre>
-                                
-                                    <p>*<code>RIGHT JOIN</code> also exists, and it works the other way around.</p>
+                                    <h4>Creating a procedure</h4>
 
-                                    <h4><code>CROSS JOIN</code> clause</h4>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Displaying all possible combinations of given columns</span>
-<span class="function">SELECT</span> table1_name.column1_name, table2_name.column2_name
-<span class="function">FROM</span> table1_name
-<span class="function">CROSS JOIN</span> table2_name; 
-                                    </code></pre>
+<span class="function">DELIMITER</span> // <span class="comment">-- we can use any custom delimiter</span>
+<span class="function">CREATE</span> PROCEDURE add_a_client(<span class="function">IN</span> name_pr <span class="function">VARCHAR</span>(50), <span class="function">IN</span> surname_pr <span class="function">VARCHAR</span>(50), <span class="function">IN</span> email_pr <span class="function">VARCHAR</span>(50))
+<span class="function">BEGIN</span>
+   <span class="function">INSERT</span> <span class="function">INTO</span> clients(name, surname, email) <span class="function">VALUES</span> (name_pr, surname_pr, email_pr);
+<span class="function">END</span> //
+<span class="function">DELIMITER</span> ;
 
-                                    <h4><code>UNION</code> clause</h4>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Combining the results of two or more SELECT queries (including only unique rows)</span>    
-<span class="function">SELECT</span> column1_name <span class="function">FROM</span> table1_name
-<span class="function">UNION</span>
-<span class="function">SELECT</span> column2_name <span class="function">FROM</span> table2_name;
+<span class="function">CALL</span> add_a_client('Josh', 'Swift', 'josh@example.com');
                                     </code></pre>
-                                    
-                                    <h4>Conclusion</h4>
-                                    <p class="podpis">A <code>JOIN</code> operation combines rows from different tables based on a specified join condition.</p>
-                                    <p class="podpis">A <code>LEFT JOIN</code> returns all rows from the left table, and when there is no matching row in the right table, it fills the corresponding columns with <code>NULL</code> values.</p>
-                                    <p class="podpis">A <code>CROSS JOIN</code> combines every row from one table with every row from another table, resulting in a Cartesian product.</p>
-                                    <p>The <code>UNION</code> operator stacks one dataset on top of another, merging the results into a single dataset.</p>
                                 </div>
                             </div>
                         </div>

@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Multiple tables</title>
+    <title>Subqueries</title>
 </head>
 
 <body id="page-top">
@@ -82,58 +82,79 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Multiple tables</h5>
+                                    <h5 class="m-0 font-weight-bold">Subqueries</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h4>Inner Join</h4>
+                                    <p>A subquery is a query that appears inside another query.</p>
+
+                                    <h4><code>WITH</code> clause</h4>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Joining tables based on related columns between them (we can join more than two tables)</span>
+<span class="comment">-- Defining a subquery that can be reused many times within the main query</span>
+<span class="function">WITH</span> temp <span class="function">AS</span> (
+    <span class="function">SELECT</span> *
+    <span class="function">FROM</span> table1_name
+)
 <span class="function">SELECT</span> *
-<span class="function">FROM</span> table1_name
-<span class="function">JOIN</span> table2_name
-<span class="function">ON</span> table1_name.id = table2_name.id;  
-                                    </code></pre>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Table name shortcuts</span>
-<span class="function">SELECT</span> *
-<span class="function">FROM</span> table1_name t1
-<span class="function">JOIN</span> table2_name t2
-<span class="function">ON</span> t1.id = t2.id;  
-                                    </code></pre>
-
-                                    <h4>Outer Join</h4>
-                                    <p>A table join that includes all rows from both tables, even if there are no matching columns (non-matching columns are marked as <code>NULL</code>).</p>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">SELECT</span> *
-<span class="function">FROM</span> table1_name
-<span class="function">LEFT JOIN</span> table2_name
-<span class="function">ON</span> table1_name.column_name = table2_name.column_name;
-                                    </code></pre>
-                                
-                                    <p>*<code>RIGHT JOIN</code> also exists, and it works the other way around.</p>
-
-                                    <h4><code>CROSS JOIN</code> clause</h4>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Displaying all possible combinations of given columns</span>
-<span class="function">SELECT</span> table1_name.column1_name, table2_name.column2_name
-<span class="function">FROM</span> table1_name
-<span class="function">CROSS JOIN</span> table2_name; 
-                                    </code></pre>
-
-                                    <h4><code>UNION</code> clause</h4>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Combining the results of two or more SELECT queries (including only unique rows)</span>    
-<span class="function">SELECT</span> column1_name <span class="function">FROM</span> table1_name
-<span class="function">UNION</span>
-<span class="function">SELECT</span> column2_name <span class="function">FROM</span> table2_name;
-                                    </code></pre>
+<span class="function">FROM</span> temp
+<span class="function">WHERE</span> column_name <span class="function">BETWEEN</span> 2 <span class="function">AND</span> 5; 
+                                    </code></pre>  
                                     
-                                    <h4>Conclusion</h4>
-                                    <p class="podpis">A <code>JOIN</code> operation combines rows from different tables based on a specified join condition.</p>
-                                    <p class="podpis">A <code>LEFT JOIN</code> returns all rows from the left table, and when there is no matching row in the right table, it fills the corresponding columns with <code>NULL</code> values.</p>
-                                    <p class="podpis">A <code>CROSS JOIN</code> combines every row from one table with every row from another table, resulting in a Cartesian product.</p>
-                                    <p>The <code>UNION</code> operator stacks one dataset on top of another, merging the results into a single dataset.</p>
+                                    <p>The <code>WITH</code> clause creates a temporary result set that can be referenced multiple times within a single query, while normal subqueries can be more straightforward for simpler tasks.</p>
+                                    
+                                    <h4>Subqueries in <code>SELECT</code></h4>
+
+                                    <p>Subqueries in the <code>SELECT</code> clause retrieve data from another table and display it as a calculated column in the outer query.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">SELECT</span> id, column1_name, 
+(<span class="function">SELECT AVG</span>(column2_name) 
+    <span class="function">FROM</span> table2_name
+    <span class="function">WHERE</span> table_name.id = table2_name.id) <span class="function">AS</span> avg
+<span class="function">FROM</span> table_name;
+                                    </code></pre>
+
+                                    <h4>Subqueries in <code>FROM</code></h4>
+
+                                    <p>Subqueries in the <code>FROM</code> clause specify the data source for the outer query. The subquery acts as a temporary table.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">SELECT</span> id, <span class="function">AVG</span>(avg)
+<span class="function">FROM</span> (
+    <span class="function">SELECT</span> id, <span class="function">SUM</span>(amount) <span class="function">AS</span> avg
+    <span class="function">FROM</span> table_name
+    <span class="function">GROUP BY</span> id
+) <span class="function">AS</span> subquery
+<span class="function">GROUP BY</span> id;
+                                    </code></pre>
+
+                                    <h4>Subqueries in <code>WHERE</code></h4>
+
+                                    <p>Subqueries in the <code>WHERE</code> clause filter results based on the output of another query.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">SELECT</span> column1_name, column2_name
+<span class="function">FROM</span> table_name
+<span class="function">WHERE</span> column2_name > (
+    <span class="function">SELECT AVG</span>(column2_name)
+    <span class="function">FROM</span> table_name
+);
+                                    </code></pre>
+
+                                    <p>When building subqueries, we can use the <code>IN</code> and <code>NOT IN</code> keywords to check whether a certain value figures in the result of another query: <code>SELECT * FROM table1_name WHERE column_name NOT IN (SELECT * FROM table2_name);</code>.</p>
+
+                                    <h4>Subqueries in <code>HAVING</code></h4>
+
+                                    <p>Subqueries in the <code>HAVING</code> clause are used with grouped results (<code>GROUP BY</code>) to filter groups based on the output of another query.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">SELECT</span> column1_name, <span class="function">AVG</span>(column2_name) 
+<span class="function">FROM</span> table_name
+<span class="function">GROUP BY</span> column1_name
+<span class="function">HAVING</span> <span class="function">AVG</span>(column2_name) > (
+    <span class="function">SELECT AVG</span>(column2_name)
+    <span class="function">FROM</span> table2_name
+);
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Multiple tables</title>
+    <title>Transactions</title>
 </head>
 
 <body id="page-top">
@@ -82,58 +82,18 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Multiple tables</h5>
+                                    <h5 class="m-0 font-weight-bold">Transactions</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h4>Inner Join</h4>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Joining tables based on related columns between them (we can join more than two tables)</span>
-<span class="function">SELECT</span> *
-<span class="function">FROM</span> table1_name
-<span class="function">JOIN</span> table2_name
-<span class="function">ON</span> table1_name.id = table2_name.id;  
-                                    </code></pre>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Table name shortcuts</span>
-<span class="function">SELECT</span> *
-<span class="function">FROM</span> table1_name t1
-<span class="function">JOIN</span> table2_name t2
-<span class="function">ON</span> t1.id = t2.id;  
-                                    </code></pre>
-
-                                    <h4>Outer Join</h4>
-                                    <p>A table join that includes all rows from both tables, even if there are no matching columns (non-matching columns are marked as <code>NULL</code>).</p>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">SELECT</span> *
-<span class="function">FROM</span> table1_name
-<span class="function">LEFT JOIN</span> table2_name
-<span class="function">ON</span> table1_name.column_name = table2_name.column_name;
-                                    </code></pre>
-                                
-                                    <p>*<code>RIGHT JOIN</code> also exists, and it works the other way around.</p>
-
-                                    <h4><code>CROSS JOIN</code> clause</h4>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Displaying all possible combinations of given columns</span>
-<span class="function">SELECT</span> table1_name.column1_name, table2_name.column2_name
-<span class="function">FROM</span> table1_name
-<span class="function">CROSS JOIN</span> table2_name; 
-                                    </code></pre>
-
-                                    <h4><code>UNION</code> clause</h4>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Combining the results of two or more SELECT queries (including only unique rows)</span>    
-<span class="function">SELECT</span> column1_name <span class="function">FROM</span> table1_name
-<span class="function">UNION</span>
-<span class="function">SELECT</span> column2_name <span class="function">FROM</span> table2_name;
-                                    </code></pre>
+                                    <p>Stored functions are blocks of SQL statements executed on demand. They differ from stored procedures because they return a value and are called from <code>SELECT</code> statements. Functions can but don't have to take arguments.</p>
                                     
-                                    <h4>Conclusion</h4>
-                                    <p class="podpis">A <code>JOIN</code> operation combines rows from different tables based on a specified join condition.</p>
-                                    <p class="podpis">A <code>LEFT JOIN</code> returns all rows from the left table, and when there is no matching row in the right table, it fills the corresponding columns with <code>NULL</code> values.</p>
-                                    <p class="podpis">A <code>CROSS JOIN</code> combines every row from one table with every row from another table, resulting in a Cartesian product.</p>
-                                    <p>The <code>UNION</code> operator stacks one dataset on top of another, merging the results into a single dataset.</p>
+                                    <h4><code>LIMIT</code> clause</h4>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Specifying a limit on the number of records that will be displayed</span>
+<span class="function">SELECT</span> column_name 
+<span class="function">FROM</span> table_name 
+<span class="function">LIMIT</span> 5;
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
