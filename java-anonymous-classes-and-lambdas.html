@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. This website is a personal portfolio and was created by one person.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Anonymous classes and Lambdas</title>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Kotlin (Android)</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics.html">Electronics</a>
+                        <a class="collapse-item" href="it-and-computer-basics.html">IT &amp; computer basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">About me</div>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="cv.html">
+                    <i class="icon-adult"></i>
+                    <span>CV</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="services.html">
+                    <i class="icon-services"></i>
+                    <span>My services</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Anonymous classes and Lambdas</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h2>Anonymous classes</h2>
+
+                                    <p>Using anonymous classes allows for greater code conciseness by enabling simultaneous declaration and instantiation of a class. They can use variables from the enclosing scope.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">Example</span> x <span class="sign">=</span> <span class="function">new Example</span>()
+        <span class="sign">{</span>
+            <span class="command">@Override</span>
+            <span class="function">public void</span> action()<span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Anonymous class"</span>)<span class="sign">;}</span>
+        <span class="sign">};</span>
+        x.action()<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">interface</span> Example
+<span class="sign">{</span>
+    <span class="function">void</span> action()<span class="sign">;</span>
+<span class="sign">}</span>
+                                    </code></pre>
+                                    
+                                    <h2>Lambda expressions</h2>
+                                    
+                                    <p>Lambda expressions are primarily used to provide a concise way to implement functional interfaces (<code>@FunctionalInterface</code>), which are interfaces that contain a single abstract method (they can't have more, which wasn't the case with anonymous classes). Lambdas are short blocks of code that accept input as parameters and (not necessarily) return a resultant value. Remember that methods in an interface are <code>abstract</code> by default. If the body of the lambda consists of a single expression, the return type is inferred, and we don't need to use the <code>return</code> keyword. When lambdas contain more than one instruction, they are called statement lambdas.</p>
+                                    
+                                    <p>A lambda expression has three parts: parameters, an arrow (<code>-&gt;</code>), and the body. For example, instead of using an anonymous class to implement a <code>Comparator</code>, we can use a lambda expression (there is no implicit interface in the example below, but this lambda still relies on one):</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.<span class="sign">*;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">List</span><span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> names <span class="sign">=</span> <span class="function">Arrays</span>.<span class="command">asList</span>(<span class="text">"bc"</span>, <span class="text">"def"</span>, <span class="text">"a"</span>)<span class="sign">;</span></span>
+        names.<span class="function">sort</span>((s1, s2) <span class="sign">-></span> <span class="function">Integer</span>.<span class="function">compare</span>(s1.<span class="command">length</span>(), s2.<span class="command">length</span>()))<span class="sign">;</span>
+
+        <span class="function">for</span>(<span class="function">String</span> name<span class="sign">:</span> names)
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(name)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">Example</span> x <span class="sign">=</span> () <span class="sign">-&gt;</span>
+        <span class="sign">{</span>
+            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Lambda expression"</span>)<span class="sign">;</span>
+        <span class="sign">};</span>
+        x.action()<span class="sign">;</span>
+
+        <span class="function">Example2</span> y <span class="sign">=</span> (<span class="function">int</span> a) <span class="sign">-&gt;</span> a <span class="sign">+</span> 2<span class="sign">;</span> <span class="comment">// returns "a"</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(y.action2(2))<span class="sign">;</span>
+
+        callAction(x)<span class="sign">;</span>
+    <span class="sign">}</span>
+    <span class="function">static void</span> callAction(<span class="function">Example</span> x)
+    <span class="sign">{</span>
+        x.action()<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">interface</span> Example
+<span class="sign">{</span>
+    <span class="function">void</span> action()<span class="sign">;</span>
+<span class="sign">}</span>
+<span class="function">interface</span> Example2
+<span class="sign">{</span>
+    <span class="function">int</span> action2(<span class="function">int</span> a)<span class="sign">;</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h2>Statement lambdas</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.function.Function<span class="sign">;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">Function</span><span class="sign">&lt;</span><span class="function">Integer</span>, <span class="function">Integer</span><span class="sign">&gt;</span> square <span class="sign">=</span> (number) <span class="sign">-&gt; {</span>
+            <span class="function">int</span> result <span class="sign">=</span> number <span class="sign">*</span> number<span class="sign">;</span>
+            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Calculating square of "</span> <span class="sign">+</span> number)<span class="sign">;</span>
+            <span class="function">return</span> result<span class="sign">;</span>
+        <span class="sign">};</span>
+        
+        <span class="function">int</span> number <span class="sign">=</span> 5<span class="sign">;</span>
+        <span class="function">int</span> squareResult <span class="sign">=</span> square.<span class="command">apply</span>(number)<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Square of "</span> <span class="sign">+</span> number +</span> <span class="text">" is: "</span> <span class="sign">+</span> squareResult)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <p>Anonymous classes are often used to add event listeners or threading. They are preferred over lambda expressions when needing more complex behavior (e.g., multiple methods are required) or accessing local variables in specific ways. Anonymous classes can override methods from an abstract or concrete (non-abstract) superclass, which lambdas cannot.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>

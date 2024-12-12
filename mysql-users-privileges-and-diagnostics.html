@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Multiple tables</title>
+    <title>Users, privileges, and diagnostics</title>
 </head>
 
 <body id="page-top">
@@ -82,58 +82,111 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Multiple tables</h5>
+                                    <h5 class="m-0 font-weight-bold">Users, privileges, and diagnostics</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h4>Inner Join</h4>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Joining tables based on related columns between them (we can join more than two tables)</span>
-<span class="function">SELECT</span> *
-<span class="function">FROM</span> table1_name
-<span class="function">JOIN</span> table2_name
-<span class="function">ON</span> table1_name.id = table2_name.id;  
-                                    </code></pre>
+                                    <h2>Users</h2>
 
+                                    <p>The default database user with administrative privileges is called <code>root</code> (admin).</p>
+                                    
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Table name shortcuts</span>
-<span class="function">SELECT</span> *
-<span class="function">FROM</span> table1_name t1
-<span class="function">JOIN</span> table2_name t2
-<span class="function">ON</span> t1.id = t2.id;  
-                                    </code></pre>
+<span class="comment">-- Creating a user</span>
+<span class="function">CREATE USER</span> 'user'@'localhost' <span class="function">IDENTIFIED BY</span> 'password';
 
-                                    <h4>Outer Join</h4>
-                                    <p>A table join that includes all rows from both tables, even if there are no matching columns (non-matching columns are marked as <code>NULL</code>).</p>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">SELECT</span> *
-<span class="function">FROM</span> table1_name
-<span class="function">LEFT JOIN</span> table2_name
-<span class="function">ON</span> table1_name.column_name = table2_name.column_name;
-                                    </code></pre>
-                                
-                                    <p>*<code>RIGHT JOIN</code> also exists, and it works the other way around.</p>
+<span class="comment">-- Displaying the current user</span>
+<span class="function">SELECT CURRENT_USER</span>();
 
-                                    <h4><code>CROSS JOIN</code> clause</h4>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Displaying all possible combinations of given columns</span>
-<span class="function">SELECT</span> table1_name.column1_name, table2_name.column2_name
-<span class="function">FROM</span> table1_name
-<span class="function">CROSS JOIN</span> table2_name; 
-                                    </code></pre>
+<span class="comment">-- Displaying all users</span>
+<span class="function">SELECT DISTINCT</span> User <span class="function">FROM</span> mysql.user;
 
-                                    <h4><code>UNION</code> clause</h4>
+<span class="comment">-- Changing the user's password (two versions)</span>
+<span class="function">SET PASSWORD FOR</span> 'user'@'localhost' = <span class="function">PASSWORD</span>('new_password');
+<span class="function">ALTER USER</span> 'user'@'localhost' <span class="function">IDENTIFIED BY</span> 'new_password';
+
+<span class="comment">-- Renaming a user</span>
+<span class="function">RENAME USER</span> 'user'@'localhost' <span class="function">TO</span> 'new_user'@'localhost';
+
+<span class="comment">-- Deleting a user</span>
+<span class="function">DROP USER</span> 'user'@'localhost';
+                                    </code></pre>
+                                        
+                                    <h2>Privileges</h2>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Combining the results of two or more SELECT queries (including only unique rows)</span>    
-<span class="function">SELECT</span> column1_name <span class="function">FROM</span> table1_name
-<span class="function">UNION</span>
-<span class="function">SELECT</span> column2_name <span class="function">FROM</span> table2_name;
+<span class="comment">-- Granting chosen privileges (could be also UPDATE, DELETE, etc.)</span>
+<span class="function">GRANT SELECT</span> <span class="function">ON</span> database_name.* <span class="function">TO</span> 'user'@'localhost'; <span class="comment">-- privileges to select on all tables</span>
+<span class="function">GRANT SELECT</span> <span class="function">ON</span> database_name.table_name <span class="function">TO</span> 'user'@'localhost'; <span class="comment">-- privileges to select on the given table</span>
+
+<span class="comment">-- Revoking chosen privileges</span>
+<span class="function">REVOKE SELECT</span> <span class="function">ON</span> database_name.* <span class="function">FROM</span> 'user'@'localhost';
+
+<span class="comment">-- Granting all privileges (WITH GRANT OPTION = including administrative privileges)</span>
+<span class="function">GRANT ALL PRIVILEGES ON</span> *.* <span class="function">TO</span> 'user'@'localhost' <span class="function">WITH GRANT OPTION</span>;
+
+<span class="comment">-- Displaying privileges of a given user</span>
+<span class="function">SHOW GRANTS FOR</span> 'user'@'localhost';
+
+<span class="comment">-- Displaying all privileges of all users on the database level</span>
+<span class="function">SELECT</span> User, Host, Select_priv, Insert_priv, Update_priv, Delete_priv <span class="function">FROM</span> mysql.user;
                                     </code></pre>
                                     
-                                    <h4>Conclusion</h4>
-                                    <p class="podpis">A <code>JOIN</code> operation combines rows from different tables based on a specified join condition.</p>
-                                    <p class="podpis">A <code>LEFT JOIN</code> returns all rows from the left table, and when there is no matching row in the right table, it fills the corresponding columns with <code>NULL</code> values.</p>
-                                    <p class="podpis">A <code>CROSS JOIN</code> combines every row from one table with every row from another table, resulting in a Cartesian product.</p>
-                                    <p>The <code>UNION</code> operator stacks one dataset on top of another, merging the results into a single dataset.</p>
+                                    <p>For the privileges to be applied, they have to be flushed.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">FLUSH PRIVILEGES</span>;
+                                    </code></pre>  
+                                    
+                                    <h2>Diagnostics</h2>
+
+                                    <h4>Checking data consistency</h4>
+
+                                    <p>Regularly checking data consistency is crucial to maintaining the database.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Single table</span>
+<span class="function">CHECK TABLE</span> table_name; <span class="comment">-- displaying the status of the table (if there are any errors)</span>
+<span class="comment">-- All tables</span>
+mysqlcheck -u [username] -p --auto-repair --check [database_name]
+                                    </code></pre>
+
+                                    <p>The <code>--auto-repair</code> flag is optional and will attempt to repair any corrupted tables that are found.</p>
+
+                                    <h4>Repairing corrupt tables</h4>
+
+                                    <p>Repairing tables is necessary after unexpected server failures or disk problems.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Single table</span>
+<span class="function">REPAIR TABLE</span> table_name <span class="function">USE_FRM</span>;
+<span class="comment">-- All tables</span>
+mysqlcheck -u [username] -p --auto-repair --repair --use-frm [database_name]
+                                    </code></pre>
+
+                                    <p>If you want to check out these commands, change the engine of the chosen table to <code>MyISAM</code> because it is more potent to damage: <code>ALTER TABLE table_name ENGINE=MyISAM;</code>. The default engine is usually <code>InnoDB</code>. The <code>USE_FRM</code> option is used to repair the table using the <code>.frm</code> file, which contains the table structure. However, this option is not mandatory, and we should use it when the <code>REPAIR</code> command isn't working properly.</p>
+                                    
+                                    <h4>Table optimization</h4>
+
+                                    <p>Table optimization improves performance by defragmenting data.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Single table</span>
+<span class="function">OPTIMIZE TABLE</span> table_name;
+<span class="comment">-- All tables</span>
+mysqlcheck -u [username] -p --optimize [database_name]
+                                    </code></pre>
+
+                                    <h4>Performance analysis</h4>
+
+                                    <p>Performance analysis monitoring helps to identify performance bottlenecks.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Query analysis</span>
+<span class="function">EXPLAIN SELECT</span> * <span class="function">FROM</span> table_name;
+<span class="comment">-- Monitoring server activity</span>
+<span class="function">SHOW PROCESSLIST</span>;
+<span class="comment">-- Single table analysis</span>
+<span class="function">ANALYZE TABLE</span> table_name;
+<span class="comment">-- All tables analysis</span>
+mysqlcheck -u [username] -p --analyze [database_name]
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

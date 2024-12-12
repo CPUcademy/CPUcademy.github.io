@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Anonymous classes and Lambda expressions</title>
+    <title>Transactions</title>
 </head>
 
 <body id="page-top">
@@ -82,88 +82,49 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Anonymous classes and Lambda expressions</h5>
+                                    <h5 class="m-0 font-weight-bold">Transactions</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h2>Anonymous classes</h2>
+                                    <p class="podpis">Transactions guarantee that either all of the operations that make up its body will be successful or none of them will be applied (they ensure data integrity). They follow the ACID principles:</p>
+                                    <ul>
+                                        <li>Atomicity - either all or no operations are performed.</li>
+                                        <li>Consistency - a transaction moves the database from one consistent state to another.</li>
+                                        <li>Isolation - the operations of a transaction are isolated from the outside.</li>
+                                        <li>Durability - once a transaction is committed, its changes are permanent, even during a system failure.</li>
+                                    </ul>
 
-                                    <p>Using anonymous classes allows for greater code conciseness by enabling simultaneous declaration and instantiation of a class. They can use variables from the enclosing scope.</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="function">Example</span> x <span class="sign">=</span> <span class="function">new Example</span>()
-        <span class="sign">{</span>
-            <span class="command">@Override</span>
-            <span class="function">public void</span> action()<span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Anonymous class"</span>)<span class="sign">;}</span>
-        <span class="sign">};</span>
-        x.action()<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-
-<span class="function">interface</span> Example
-<span class="sign">{</span>
-    <span class="function">void</span> action()<span class="sign">;</span>
-<span class="sign">}</span>
-                                    </code></pre>
-                                    
-                                    <h2>Lambda expressions</h2>
-                                    
-                                    <p>Lambda expressions serve the same purpose but for methods. To create them, we use interfaces, which have to have only one method because otherwise, we won't be able to use them (with anonymous classes, it wasn't the case). They express instances of functional interfaces (an interface with a single abstract method is called a functional interface - <code>@FunctionalInterface</code>). Lambdas are short blocks of code that accept input as parameters and (not necessarily) return a resultant value. Remember that methods in an interface are <code>abstract</code> by default. If the body of the lambda consists of a single expression, the return type is inferred, and we don't need to use the <code>return</code> keyword.</p>
-                                    
-                                    <p>A lambda expression has three parts: parameters, an arrow (<code>-&gt;</code>), and the body. For example, instead of using an anonymous class to implement a <code>Comparator</code>, we can use a lambda expression (there is no implicit interface in the example below, but this lambda still relies on one):</p>
+                                    <h4>Basic commands</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">import</span> java.util.<span class="sign">*;</span>
+<span class="comment">-- Starting a transaction</span>
+<span class="function">START TRANSACTION</span>;
 
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="function">List</span><span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> names <span class="sign">=</span> <span class="function">Arrays</span>.<span class="command">asList</span>(<span class="text">"bc"</span>, <span class="text">"def"</span>, <span class="text">"a"</span>)<span class="sign">;</span></span>
-        names.<span class="function">sort</span>((s1, s2) <span class="sign">-></span> <span class="function">Integer</span>.<span class="function">compare</span>(s1.<span class="command">length</span>(), s2.<span class="command">length</span>()))<span class="sign">;</span>
+<span class="comment">-- Confirming a transaction</span>
+<span class="function">COMMIT</span>;
 
-        <span class="function">for</span>(<span class="function">String</span> name<span class="sign">:</span> names)
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(name)<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
+<span class="comment">-- Canceling a transaction</span>
+<span class="function">ROLLBACK</span>;
+
+<span class="comment">-- Creating a savepoint (checkpoint) inside a transaction</span>
+<span class="function">SAVEPOINT</span> savepoint_name;
+
+<span class="comment">-- Going back to the state from the selected savepoint</span>
+<span class="function">ROLLBACK TO SAVEPOINT</span> savepoint_name;
                                     </code></pre>
 
+                                    <h4>An example series of events</h4>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="function">Example</span> x <span class="sign">=</span> () <span class="sign">-&gt;</span>
-        <span class="sign">{</span>
-            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Lambda expression"</span>)<span class="sign">;</span>
-        <span class="sign">};</span>
-        x.action()<span class="sign">;</span>
-
-        <span class="function">Example2</span> y <span class="sign">=</span> (<span class="function">int</span> a) <span class="sign">-&gt;</span> a <span class="sign">+</span> 2<span class="sign">;</span> <span class="comment">// returns "a"</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(y.action2(2))<span class="sign">;</span>
-
-        callAction(x)<span class="sign">;</span>
-    <span class="sign">}</span>
-    <span class="function">static void</span> callAction(<span class="function">Example</span> x)
-    <span class="sign">{</span>
-        x.action()<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-
-<span class="function">interface</span> Example
-<span class="sign">{</span>
-    <span class="function">void</span> action()<span class="sign">;</span>
-<span class="sign">}</span>
-<span class="function">interface</span> Example2
-<span class="sign">{</span>
-    <span class="function">int</span> action2(<span class="function">int</span> a)<span class="sign">;</span>
-<span class="sign">}</span>
+<span class="function">START TRANSACTION</span>; <span class="comment">-- Current balance: $500</span>
+<span class="function">UPDATE</span> account <span class="function">SET</span> balance = balance - 100.00 <span class="function">WHERE</span> id = 1; <span class="comment">-- Current balance: $400</span>
+<span class="function">SAVEPOINT</span> four_hundred; <span class="comment">-- Current balance: $400</span>
+<span class="function">UPDATE</span> account <span class="function">SET</span> balance = balance - 500.00 <span class="function">WHERE</span> id = 1; <span class="comment">-- Current balance: -$100 (WRONG)</span>
+<span class="function">ROLLBACK TO SAVEPOINT</span> four_hundred; <span class="comment">-- Current balance: $400</span>
+<span class="function">COMMIT</span>; <span class="comment">-- Current balance: $400 (SAVED TO DATABASE)</span>
                                     </code></pre>
 
-                                    <p>Anonymous classes are often used to add event listeners or threading. They are preferred over lambda expressions when needing more complex behavior or accessing local variables in specific ways.</p>
+                                    <h4>Locking</h4>
+
+                                    <p>Locking is a mechanism that controls access to data during a transaction. It allows us to manage concurrency in a multi-user environment.</p>
                                 </div>
                             </div>
                         </div>

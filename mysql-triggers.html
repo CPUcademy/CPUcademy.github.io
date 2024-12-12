@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Aggregate functions</title>
+    <title>Triggers</title>
 </head>
 
 <body id="page-top">
@@ -82,85 +82,110 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Aggregate functions</h5>
+                                    <h5 class="m-0 font-weight-b<span class="function">OLD</span>">Triggers</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h4><code>LIMIT</code> clause</h4>
+                                    <p>Triggers are blocks of SQL statements that run automatically in response to events, such as adding (<code>INSERT</code>), updating (<code>UPDATE</code>), or deleting (<code>DELETE</code>) records from a table. They can run <code>BEFORE</code> or <code>AFTER</code> an event. Triggers are used for process automation, data validation, tracking changes, and maintaining referential integrity.</p>
+
+                                    <p>The <code>DELIMITER $$</code> command changes the end-of-line delimiter from the default <code>;</code> to <code>$$</code>. This is necessary because, inside the trigger, there are multiple SQL statements that each require a semicolon to end that particular statement. However, the semicolon is also the default delimiter for SQL queries, so using it within the trigger would end the <code>CREATE TRIGGER</code> statement too early. By setting the delimiter to <code>$$</code>, we can safely use semicolons inside the trigger without confusing the SQL parser. Once the trigger creation is complete, the <code>DELIMITER ;</code> command restores the default semicolon delimiter for subsequent queries. This ensures that other SQL statements can be executed normally outside the trigger definition.</p>
+
+                                    <h4><code>AFTER INSERT</code> trigger</h4>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Specifying a limit on the number of records that will be displayed</span>
-<span class="function">SELECT</span> column_name 
-<span class="function">FROM</span> table_name 
-<span class="function">LIMIT</span> 5;
-                                    </code></pre>
-                                    
-                                    <h4><code>COUNT</code> function</h4>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Counting records in a table</span>
-<span class="function">SELECT</span> <span class="function">COUNT</span>(*)
-<span class="function">FROM</span> table_name; 
-                                    </code></pre>
-                      
-                                    <h4><code>SUM</code> function</h4>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Summing up values</span>
-<span class="function">SELECT</span> <span class="function">SUM</span>(column_name)
-<span class="function">FROM</span> table_name; 
-                                    </code></pre> 
-                                    
-                                    <h4><code>AVG</code> function</h4>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Calculating the average value</span>
-<span class="function">SELECT</span> <span class="function">AVG</span>(column_name)
-<span class="function">FROM</span> table_name; 
+<span class="function">DELIMITER</span> $$
+<span class="function">CREATE TRIGGER</span> after_adding_a_client
+<span class="function">AFTER INSERT</span> <span class="function">ON</span> clients
+<span class="function">FOR EACH ROW</span>
+<span class="function">BEGIN</span>
+    <span class="function">INSERT INTO</span> logs (description, date)
+    <span class="function">VALUES</span> (<span class="function">CONCAT</span>('A client has been added: ', <span class="function">NEW</span>.name, ' ', <span class="function">NEW</span>.surname), <span class="function">NOW</span>()); <span class="comment">-- concatenating string values with a function returning the current date and time (NOW() is a built-in function)</span>
+<span class="function">END</span>$$
+<span class="function">DELIMITER</span> ;
                                     </code></pre>
 
-                                    <h4><code>MAX</code> function</h4>
+                                    <h4><code>BEFORE INSERT</code> trigger</h4>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Finding the highest value</span>
-<span class="function">SELECT</span> <span class="function">MAX</span>(column_name)
-<span class="function">FROM</span> table_name; 
-                                    </code></pre>
-                                    
-                                    <h4><code>MIN</code> function</h4>
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Finding the lowest value</span>
-<span class="function">SELECT</span> <span class="function">MIN</span>(column_name)
-<span class="function">FROM</span> table_name; 
+<span class="function">DELIMITER</span> $$
+<span class="function">CREATE TRIGGER</span> validate_phone_number
+<span class="function">BEFORE INSERT</span> <span class="function">ON</span> clients
+<span class="function">FOR EACH ROW</span>
+<span class="function">BEGIN</span>
+    <span class="function">IF</span> <span class="function">NOT</span> <span class="function">NEW</span>.phone_number <span class="function">REGEXP</span> '^\\+48[0-9]{9}$' <span class="function">THEN</span> <span class="comment">-- checking whether the new phone number is written according to the regex (for more information, check my tutorials about Python or Java)</span>
+        <span class="function">SIGNAL SQLSTATE</span> '45000' <span class="function">SET</span> MESSAGE_TEXT = 'Incorrect phone number'; <span class="comment">-- returning an error</span>
+    <span class="function">END IF</span>;
+<span class="function">END</span>$$
+<span class="function">DELIMITER</span> ;
                                     </code></pre>
 
-                                    <h4><code>ROUND</code> function</h4>
+                                    <h4><code>AFTER UPDATE</code> trigger</h4>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Rounding a given value to a given number of decimal places</span>
-<span class="function">SELECT</span> column2_name, <span class="function">ROUND</span>(column2_name, 2)
-<span class="function">FROM</span> table_name; 
+<span class="function">DELIMITER</span> $$
+<span class="function">CREATE TRIGGER</span> after_updating_a_client
+<span class="function">AFTER UPDATE</span> <span class="function">ON</span> clients
+<span class="function">FOR EACH ROW</span>
+<span class="function">BEGIN</span>
+    <span class="function">INSERT INTO</span> logs (description, date)
+    <span class="function">VALUES</span> (<span class="function">CONCAT</span>('A client has been updated: ', <span class="function">NEW</span>.name, ' ', <span class="function">NEW</span>.surname), <span class="function">NOW</span>());
+<span class="function">END</span>$$
+<span class="function">DELIMITER</span> ;
                                     </code></pre>
-                                    
-                                    <h4><code>GROUP BY</code> clause</h4>
+
+                                    <h4><code>BEFORE UPDATE</code> trigger</h4>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Grouping records by the values of a specified column</span>
-<span class="function">SELECT</span> column_name, <span class="function">COUNT</span>(*)
-<span class="function">FROM</span> table_name
-<span class="function">GROUP BY</span> column_name;
+<span class="function">DELIMITER</span> $$
+<span class="function">CREATE TRIGGER</span> block_client_id_change
+<span class="function">BEFORE UPDATE</span> <span class="function">ON</span> clients
+<span class="function">FOR EACH ROW</span>
+<span class="function">BEGIN</span>
+    <span class="function">IF</span> <span class="function"><span class="function">OLD</span></span>.id &lt;&gt; <span class="function">NEW</span>.id <span class="function">THEN</span> <span class="comment">-- &lt;&gt; means "not equal"</span>
+        <span class="function">SET <span class="function">NEW</span></span>.id = <span class="function">OLD</span>.id;
+    <span class="function">END IF</span>;
+<span class="function">END</span>$$
+<span class="function">DELIMITER</span> ;
                                     </code></pre>
-                                    
-                                    <h4>Column references</h4>
-                                    <p class="podpis">Referring to columns by their order in the <code>SELECT</code> clause.</p> 
-                                    <p class="podpis">1 - <code>column1_name</code></p>
-                                    <p>2 - <code>column2_name</code></p>
+
+                                    <h4><code>AFTER DELETE</code> trigger</h4>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">SELECT</span> column1_name, column2_name
-<span class="function">FROM</span> table_name
-<span class="function">GROUP BY</span> 2
-<span class="function">ORDER BY</span> 1;
+<span class="function">DELIMITER</span> $$
+<span class="function">CREATE TRIGGER</span> after_deleting_a_client
+<span class="function">AFTER DELETE</span> <span class="function">ON</span> clients
+<span class="function">FOR EACH ROW</span>
+<span class="function">BEGIN</span>
+    <span class="function">INSERT INTO</span> logs (description, date)
+    <span class="function">VALUES</span> (<span class="function">CONCAT</span>('A client has been deleted: ', <span class="function">NEW</span>.name, ' ', <span class="function">NEW</span>.surname), <span class="function">NOW</span>());
+<span class="function">END</span>$$
+<span class="function">DELIMITER</span> ;
                                     </code></pre>
-                                    
-                                    <h4><code>HAVING</code> clause</h4>
+
+                                    <h4><code>BEFORE DELETE</code> trigger</h4>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Adding a condition to the GROUP BY clause</span>
-<span class="function">SELECT</span> column_name, <span class="function">COUNT</span>(*)
-<span class="function">FROM</span> table_name
-<span class="function">GROUP BY</span> column_name
-<span class="function">HAVING COUNT</span>(*) &lt; 3;
+<span class="function">DELIMITER</span> $$
+<span class="function">CREATE TRIGGER</span> delete_related_records
+<span class="function">BEFORE DELETE</span> <span class="function">ON</span> clients
+<span class="function">FOR EACH ROW</span>
+<span class="function">BEGIN</span>
+    <span class="function">DELETE FROM</span> orders <span class="function">WHERE</span> id = <span class="function">OLD</span>.id;
+    <span class="function">DELETE FROM</span> invoices <span class="function">WHERE</span> id = <span class="function">OLD</span>.id;
+    <span class="function">DELETE FROM</span> payments <span class="function">WHERE</span> id = <span class="function">OLD</span>.id;
+<span class="function">END</span>$$
+<span class="function">DELIMITER</span> ;
+                                    </code></pre>
+
+                                    <p>*It is impossible to delete a table that another table depends on through relationships. We have to delete the related records from the database like a cascade.</p>
+
+                                    <h4>Basic commands</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Displaying the code of a trigger</span>
+<span class="function">SHOW CREATE TRIGGER</span> trigger_name;
+
+<span class="comment">-- Deleting a trigger</span>
+<span class="function">DROP TRIGGER</span> trigger_name;
                                     </code></pre>
                                 </div>
                             </div>
