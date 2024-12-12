@@ -85,14 +85,14 @@
                                     <h5 class="m-0 font-weight-bold">Stored functions</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Stored functions are blocks of SQL statements executed on demand. They differ from stored procedures because they return a value and are called from <code>SELECT</code> statements. Functions can but don't have to take arguments.</p>
+                                    <p>Stored functions are blocks of SQL statements executed on demand. Unlike stored procedures, they have to return a value (of any type) and are called within SQL queries. Functions can but don't have to take arguments.</p>
 
-                                    <p>A parameter is a variable that is declared in a function definition and is used to receive the values ​​of arguments passed during a function call. Parameters allow functions to access and manipulate the values ​​passed to the function. In a function definition, parameters are specified in parentheses and separated by commas. For example, <code>UPPER(str)</code> declares one parameter: <code>str</code>. An argument is a value that is passed to a function when it is called. A function can accept one or more arguments. For example, <code>UPPER('hello world')</code> accepts one argument <code>'hello world'</code>. You can think of parameters as placeholders that accept values (arguments) when the function is executed.</p>
+                                    <p>A parameter is a variable declared in a function definition to act as a placeholder for input values passed during a function call. Parameters are specified in parentheses, separated by commas, and are used within the function. For example, in <code>UPPER(str)</code>, <code>str</code> is a parameter. An argument is the actual input value provided to the function when it is called. For instance, in <code>UPPER('hello world')</code>, the string <code>'hello world'</code> is an argument.</p>
 
                                     <h4>Basic commands</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Calling a procedure</span>
+<span class="comment">-- Calling a function</span>
 <span class="function">SELECT UPPER</span>('hello world');
 
 <span class="comment">-- Displaying a list of functions</span>
@@ -103,6 +103,28 @@
 
 <span class="comment">-- Deleting a function</span>
 <span class="function">DROP FUNCTION</span> function_name;
+                                    </code></pre>
+
+                                    <h4>Creating a function</h4>
+
+                                    <p>The <code>INTO</code> keyword captures a query's result value and assigns it to a variable, which can then be used in the function's <code>RETURN</code> statement.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">DELIMITER</span> //
+<span class="function">CREATE FUNCTION</span> sum_of_values () <span class="function">RETURNS INT</span>
+<span class="function">BEGIN</span>
+    <span class="function">DECLARE</span> sum1 <span class="function">INT</span>;
+    <span class="function">SELECT SUM</span>(column_name) <span class="function">INTO</span> sum1 <span class="function">FROM</span> table_name;
+    <span class="function">RETURN</span> sum1;
+<span class="function">END</span> //
+<span class="function">DELIMITER</span> ;
+
+<span class="function">CALL</span> add_a_client('Josh', 'Swift', 'josh@example.com');
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">CREATE FUNCTION</span> full_name(name <span class="function">CHAR</span>(20), surname <span class="function">CHAR</span>(20)) <span class="function">RETURNS CHAR</span>(55)
+<span class="function">RETURN CONCAT</span>(name, ' ', surname);
                                     </code></pre>
                                 </div>
                             </div>

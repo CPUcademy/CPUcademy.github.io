@@ -85,15 +85,46 @@
                                     <h5 class="m-0 font-weight-bold">Transactions</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Stored functions are blocks of SQL statements executed on demand. They differ from stored procedures because they return a value and are called from <code>SELECT</code> statements. Functions can but don't have to take arguments.</p>
-                                    
-                                    <h4><code>LIMIT</code> clause</h4>
+                                    <p class="podpis">Transactions guarantee that either all of the operations that make up its body will be successful or none of them will be applied (they ensure data integrity). They follow the ACID principles:</p>
+                                    <ul>
+                                        <li>Atomicity - either all or no operations are performed.</li>
+                                        <li>Consistency - a transaction moves the database from one consistent state to another.</li>
+                                        <li>Isolation - the operations of a transaction are isolated from the outside.</li>
+                                        <li>Durability - once a transaction is committed, its changes are permanent, even during a system failure.</li>
+                                    </ul>
+
+                                    <h4>Basic commands</h4>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Specifying a limit on the number of records that will be displayed</span>
-<span class="function">SELECT</span> column_name 
-<span class="function">FROM</span> table_name 
-<span class="function">LIMIT</span> 5;
+<span class="comment">-- Starting a transaction</span>
+<span class="function">START TRANSACTION</span>;
+
+<span class="comment">-- Confirming a transaction</span>
+<span class="function">COMMIT</span>;
+
+<span class="comment">-- Canceling a transaction</span>
+<span class="function">ROLLBACK</span>;
+
+<span class="comment">-- Creating a savepoint (checkpoint) inside a transaction</span>
+<span class="function">SAVEPOINT</span> savepoint_name;
+
+<span class="comment">-- Going back to the state from the selected savepoint</span>
+<span class="function">ROLLBACK TO SAVEPOINT</span> savepoint_name;
                                     </code></pre>
+
+                                    <h4>An example series of events</h4>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">START TRANSACTION</span>; <span class="comment">-- Current balance: $500</span>
+<span class="function">UPDATE</span> account <span class="function">SET</span> balance = balance - 100.00 <span class="function">WHERE</span> id = 1; <span class="comment">-- Current balance: $400</span>
+<span class="function">SAVEPOINT</span> four_hundred; <span class="comment">-- Current balance: $400</span>
+<span class="function">UPDATE</span> account <span class="function">SET</span> balance = balance - 500.00 <span class="function">WHERE</span> id = 1; <span class="comment">-- Current balance: -$100 (WRONG)</span>
+<span class="function">ROLLBACK TO SAVEPOINT</span> four_hundred; <span class="comment">-- Current balance: $400</span>
+<span class="function">COMMIT</span>; <span class="comment">-- Current balance: $400 (SAVED TO DATABASE)</span>
+                                    </code></pre>
+
+                                    <h4>Locking</h4>
+
+                                    <p>Locking is a mechanism that controls access to data during a transaction. It allows us to manage concurrency in a multi-user environment.</p>
                                 </div>
                             </div>
                         </div>
