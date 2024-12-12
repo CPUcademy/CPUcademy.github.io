@@ -113,6 +113,7 @@
                                     </code></pre>
 
                                     <h4>An example series of events</h4>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">START TRANSACTION</span>; <span class="comment">-- Current balance: $500</span>
 <span class="function">UPDATE</span> account <span class="function">SET</span> balance = balance - 100.00 <span class="function">WHERE</span> id = 1; <span class="comment">-- Current balance: $400</span>
@@ -124,7 +125,85 @@
 
                                     <h4>Locking</h4>
 
-                                    <p>Locking is a mechanism that controls access to data during a transaction. It allows us to manage concurrency in a multi-user environment.</p>
+                                    <p>Locking is a mechanism that controls access to data during a transaction. It allows us to manage concurrency in a multi-user environment. Locks can be applied to specific rows (e.g., <code>FOR UPDATE</code>), or entire tables (<code>LOCK TABLES</code>). If inside a transaction, we write something like this: <code>SELECT column_name FROM table_name WHERE id = 1 FOR UPDATE;</code>, other users in different terminals will be blocked from updating this row (<code>UPDATE table_name SET column_name = column_name - 100.00 WHERE id = 1;</code>) until we commit our transaction. In our transaction, everything will work as it's supposed to. We can do the same thing for whole tables like this: <code>LOCK TABLE table_name WRITE;</code>. We can unlock tables with this command: <code>UNLOCK TABLES;</code>.</p>
+
+                                    <h4>Deadlocks</h4>
+
+                                    <p>Deadlocks occur when two or more transactions block each other, waiting for resources that are already locked by other transactions.</p>
+
+                                    <p>Step 1.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Transaction A</span>
+<span class="function">START TRANSACTION</span>;
+<span class="function">UPDATE</span> table_name <span class="function">SET</span> coulmn_name = coulmn_name - 100.00 <span class="function">WHERE</span> id = 1;
+
+<span class="comment">-- Transaction B</span>
+<span class="function">START TRANSACTION</span>;
+<span class="function">UPDATE</span> table_name <span class="function">SET</span> coulmn_name = coulmn_name - 100.00 <span class="function">WHERE</span> id = 2;
+                                    </code></pre>
+
+                                    <p>Step 2.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Transaction A</span>
+<span class="function">UPDATE</span> table_name <span class="function">SET</span> coulmn_name = coulmn_name + 100.00 <span class="function">WHERE</span> id = 2;
+
+<span class="comment">-- Transaction B</span>
+<span class="function">UPDATE</span> table_name <span class="function">SET</span> coulmn_name = coulmn_name + 100.00 <span class="function">WHERE</span> id = 1;
+                                    </code></pre>
+
+                                    <p>The first transaction transaction locked <code>ID1</code> and tried to access <code>ID2</code>, while the other transaction first locked <code>ID2</code> and tried to access <code>ID1</code>, resulting in a deadlock. Both transactions are waiting for each other, and neither can continue. When a deadlock is detected, one of the transactions will be aborted, and the other will be able to continue and complete successfully.</p>
+
+                                    <h4>Validation using transactions - transferring money between two accounts</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">DELIMITER</span> //
+
+<span class="function">CREATE PROCEDURE</span> make_transfer(
+    <span class="function">IN</span> p_source_account_id <span class="function">INT</span>,
+    <span class="function">IN</span> p_target_account_id <span class="function">INT</span>,
+    <span class="function">IN</span> p_amount <span class="function">DECIMAL</span>(10,2)
+)
+<span class="function">BEGIN</span>
+    <span class="function">DECLARE EXIT HANDLER FOR SQLEXCEPTION</span> <span class="comment">-- This handler will not be triggered until an error occurs after the transaction has already started. 
+    -- Therefore, it's not an issue that the ROLLBACK inside is placed before the transaction starts.</span>
+    <span class="function">BEGIN</span>
+        <span class="comment">-- Rollback the transaction in case of an error</span>
+        <span class="function">ROLLBACK</span>;
+        <span class="function">SELECT</span> 'An error occurred while performing the transfer.' <span class="function">AS</span> message;
+    <span class="function">END</span>;
+
+    <span class="function">DECLARE</span> source_balance <span class="function">DECIMAL</span>(10,2);
+
+    <span class="function">START TRANSACTION</span>;
+
+    <span class="comment">-- Check if the accounts exist</span>
+    <span class="function">IF</span> (<span class="function">SELECT COUNT</span>(*) <span class="function">FROM</span> accounts <span class="function">WHERE</span> id = p_source_account_id) = 0 <span class="function">THEN</span>
+        <span class="function">SIGNAL SQLSTATE</span> '45000' <span class="function">SET MESSAGE_TEXT</span> = 'Source account does not exist.';
+    <span class="function">END IF</span>;
+
+    <span class="function">IF</span> (<span class="function">SELECT COUNT</span>(*) <span class="function">FROM</span> accounts <span class="function">WHERE</span> id = p_target_account_id) = 0 <span class="function">THEN</span>
+        <span class="function">SIGNAL SQLSTATE</span> '45000' <span class="function">SET MESSAGE_TEXT</span> = 'Target account does not exist.';
+    <span class="function">END IF</span>;
+
+    <span class="comment">-- Check the balance on the source account</span>
+    <span class="function">SELECT</span> balance <span class="function">INTO</span> source_balance <span class="function">FROM</span> accounts <span class="function">WHERE</span> id = p_source_account_id <span class="function">FOR UPDATE</span>;
+
+    <span class="function">IF</span> source_balance >= p_amount <span class="function">THEN</span>
+        <span class="comment">-- Perform the transfer</span>
+        <span class="function">UPDATE</span> accounts <span class="function">SET</span> balance = balance - p_amount <span class="function">WHERE</span> id = p_source_account_id;
+        <span class="function">UPDATE</span> accounts <span class="function">SET</span> balance = balance + p_amount <span class="function">WHERE</span> id = p_target_account_id;
+        <span class="function">INSERT</span> <span class="function">INTO</span> transfers (source_account_id, target_account_id, amount, transfer_date)
+        <span class="function">VALUES</span> (p_source_account_id, p_target_account_id, p_amount, <span class="function">NOW</span>());
+        <span class="function">COMMIT</span>;
+        <span class="function">SELECT</span> 'Transfer completed successfully.' <span class="function">AS</span> message;
+    <span class="function">ELSE</span>
+        <span class="function">ROLLBACK</span>;
+        <span class="function">SELECT</span> 'Insufficient balance in the source account.' <span class="function">AS</span> message;
+    <span class="function">END IF</span>;
+<span class="function">END</span> //
+
+<span class="function">DELIMITER</span> ;
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
