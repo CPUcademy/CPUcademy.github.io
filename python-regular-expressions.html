@@ -84,9 +84,181 @@
                                 <div class="card-header py-3">
                                     <h5 class="m-0 font-weight-bold">Regular expressions</h5>
                                 </div>
-                                <div class="card-body">
-                                    "kod w jednym wierszu" rozdział 5
-                                    ANZZP rozdział 7
+                                <div class="card-body">  
+                                    <p>Regular expressions (regex) are a powerful tool for pattern matching and text manipulation. They allow us to define search patterns for strings, enabling complex string operations such as validation, searching, and replacing. Python provides the <code>re</code> library for this purpose.</p>
+                                        
+                                    <p>Use the <code>import re</code> command at the beginning of every example.</p>
+                                    
+                                    <h4><code>search()</code> - finding a match in a string</h4>  
+
+                                    <p>The <code>search()</code> function locates the first occurrence of a pattern in a string and returns a match object. If no match is found, it returns <code>None</code>.</p>  
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+pattern <span class="sign">=</span> <span class="text">"Python"</span>
+string <span class="sign">=</span> <span class="text">"I am learning Python programming"</span>
+match <span class="sign">=</span> re.<span class="command">search</span>(pattern, string)
+
+<span class="function">if</span> match:  
+    <span class="command">print</span>(<span class="text">"Match found!"</span>)  
+<span class="function">else</span>:  
+    <span class="command">print</span>(<span class="text">"No match"</span>)  
+                                    </code></pre>
+                                    
+                                    <h4><code>match()</code> - matching from the beginning of a string</h4>  
+
+                                    <p>The <code>match()</code> function checks if the pattern matches the beginning of the string.</p>  
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+pattern <span class="sign">=</span> <span class="text">"I am"</span>
+string <span class="sign">=</span> <span class="text">"I am learning Python programming"</span>
+match <span class="sign">=</span> re.<span class="command">match</span>(pattern, string)
+
+<span class="function">if</span> match:  
+    <span class="command">print</span>(<span class="text">"Match found at the beginning"</span>)  
+<span class="function">else</span>:  
+    <span class="command">print</span>(<span class="text">"No match at the start"</span>)  
+                                    </code></pre>
+                                    
+                                    <h4><code>findall()</code> - retrieving all matches</h4>  
+
+                                    <p>The <code>findall()</code> function returns all occurrences of a pattern in a string as a list.</p>  
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+pattern <span class="sign">=</span> <span class="text">r"\d+"</span>
+string <span class="sign">=</span> <span class="text">"There are 3 apples and 5 oranges."</span>
+matches <span class="sign">=</span> re.<span class="command">findall</span>(pattern, string)
+<span class="command">print</span>(matches) <span class="comment"># ["3", "5"]</span>
+                                    </code></pre>
+                                    
+                                    <h4><code>sub()</code> - replacing patterns</h4>  
+
+                                    <p>The <code>sub()</code> function replaces all occurrences of a pattern with a specified string.</p>  
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+pattern <span class="sign">=</span> <span class="text">r"\d"</span>
+string <span class="sign">=</span> <span class="text">"Contact me at 123-456-7890."</span>
+result <span class="sign">=</span> re.<span class="command">sub</span>(pattern, <span class="text">"X"</span>, string) <span class="comment"># replacing digits with "X"</span>
+<span class="command">print</span>(result) <span class="comment"># Contact me at XXX-XXX-XXXX.</span>
+                                    </code></pre>
+                                    
+                                    <h4><code>compile()</code> - creating reusable regex patterns</h4>  
+
+                                    <p>The <code>compile()</code> function compiles a regex pattern into a regex object, allowing us to reuse the same pattern multiple times.</p>  
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+pattern <span class="sign">=</span> re.<span class="command">compile</span>(<span class="text">r"\d{3}-\d{2}-\d{4}"</span>) <span class="comment"># pattern for a Social Security Number (SSN)</span>
+
+<span class="comment"># Using the compiled pattern</span>
+string1 <span class="sign">=</span> <span class="text">"My SSN is 123-45-6789."</span>
+string2 <span class="sign">=</span> <span class="text">"Your SSN is 987-65-4321."</span>
+
+match1 <span class="sign">=</span> pattern.<span class="command">search</span>(string1)
+match2 <span class="sign">=</span> pattern.<span class="command">search</span>(string2)
+
+<span class="function">if</span> match1:  
+    <span class="command">print</span>(<span class="text">"Match found in string1:"</span>, match1.<span class="command">group</span>()) <span class="comment"># 123-45-6789</span>
+
+<span class="function">if</span> match2:  
+    <span class="command">print</span>(<span class="text">"Match found in string2:"</span>, match2.<span class="command">group</span>()) <span class="comment"># 987-65-4321</span>
+                                    </code></pre>
+                                    
+                                    <h4><code>group()</code> - extracting specific parts of a match</h4>  
+
+                                    <p>The <code>group()</code> method of the match object retrieves specific matched groups in the pattern. Groups are defined using parentheses in the regex.</p>  
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+pattern <span class="sign">=</span> <span class="text">r"(\d{3})-(\d{2})-(\d{4})"</span> <span class="comment"># grouping digits</span>
+string <span class="sign">=</span> <span class="text">"My SSN is 123-45-6789."</span>
+match <span class="sign">=</span> re.<span class="command">search</span>(pattern, string)
+
+<span class="function">if</span> match:  
+    <span class="command">print</span>(<span class="text">"Entire match:"</span>, match.<span class="command">group</span>()) <span class="comment"># 123-45-6789</span>
+    <span class="command">print</span>(<span class="text">"Group 1:"</span>, match.<span class="command">group</span>(1)) <span class="comment"># 123</span>
+    <span class="command">print</span>(<span class="text">"Group 2:"</span>, match.<span class="command">group</span>(2)) <span class="comment"># 45</span>
+    <span class="command">print</span>(<span class="text">"Group 3:"</span>, match.<span class="command">group</span>(3)) <span class="comment"># 6789</span>
+                                    </code></pre>
+                                    
+                                    <h2>Special sequences</h2>  
+
+                                    <p>Regex supports special sequences that simplify pattern creation:</p>  
+                                    <ul>
+                                        <li><code>\d</code> - matching any digit (equivalent to <code>[0-9]</code>).</li>
+                                        <li><code>\D</code> - matching any non-digit character.</li>
+                                        <li><code>\w</code> - matching any word character (alphanumeric + underscore).</li>
+                                        <li><code>\W</code> - matching any non-word character.</li>
+                                        <li><code>\s</code> - matching any whitespace character.</li>
+                                        <li><code>\S</code> - matching any non-whitespace character.</li>
+                                    </ul>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+pattern <span class="sign">=</span> <span class="text">r"\d+"</span>
+string <span class="sign">=</span> <span class="text">"There are 12 cats and 34 dogs."</span>
+matches <span class="sign">=</span> re.<span class="command">findall</span>(pattern, string)
+<span class="command">print</span>(matches) <span class="comment"># ["12", "34"]</span>
+                                    </code></pre>
+
+                                    <h2>Special characters</h2>  
+                                    
+                                    <p>Regex supports special characters for advanced pattern matching:</p>  
+                                    <ul>
+                                        <li><code>.</code> - matching any character except a newline.</li>
+                                        <li><code>*</code> - matches zero or more occurrences of the preceding element.</li>
+                                        <li><code>+</code> - matches one or more occurrences of the preceding element.</li>
+                                        <li><code>?</code> - matches zero or one occurrence of the preceding element.</li>
+                                        <li><code>^</code> - matches the start of a string.</li>
+                                        <li><code>$</code> - matches the end of a string.</li>
+                                        <li><code>[]</code> - matching any character within the brackets.</li>
+                                        <li><code>\</code> - escaping special characters or signals a special sequence.</li>
+                                    </ul>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Matching any character</span>
+pattern <span class="sign">=</span> <span class="text">r"a.b"</span>
+string <span class="sign">=</span> <span class="text">"acb aab adb"</span>
+matches <span class="sign">=</span> re.<span class="command">findall</span>(pattern, string)
+<span class="command">print</span>(matches) <span class="comment"># ["acb", "aab", "adb"]</span>
+
+<span class="comment"># Matching zero or more occurrences</span>
+pattern <span class="sign">=</span> <span class="text">r"ab*"</span>
+string <span class="sign">=</span> <span class="text">"abb ab abbb a"</span>
+matches <span class="sign">=</span> re.<span class="command">findall</span>(pattern, string)
+<span class="command">print</span>(matches) <span class="comment"># ["abb", "ab", "abbb", "a"]</span>
+                                    </code></pre>
+                                    
+                                    <h2>Regex options (flags)</h2>  
+
+                                    <p>The <code>re</code> module provides several options to modify regex behavior:</p>  
+                                    <ul>
+                                        <li><code>re.IGNORECASE</code> - making the regex case-insensitive.</li>
+                                        <li><code>re.DOTALL</code> - allowing the <code>.</code> character to match newline characters.</li>
+                                        <li><code>re.VERBOSE</code> - allowing the use of whitespace and comments in regex patterns for better readability.</li>
+                                    </ul>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Using re.IGNORECASE</span>
+pattern <span class="sign">=</span> re.<span class="command">compile</span>(<span class="text">r"python"</span>, re.<span class="command">IGNORECASE</span>)
+match <span class="sign">=</span> pattern.<span class="command">search</span>(<span class="text">"I love PYTHON programming."</span>)
+<span class="function">if</span> match:  
+    <span class="command">print</span>(<span class="text">"Case-insensitive match found!"</span>)
+
+<span class="comment"># Using re.DOTALL</span>
+pattern <span class="sign">=</span> re.<span class="command">compile</span>(<span class="text">r"Hello.*World"</span>, re.<span class="command">DOTALL</span>)
+string <span class="sign">=</span> <span class="text">"Hello\nWorld"</span>
+match <span class="sign">=</span> pattern.<span class="command">search</span>(string)
+<span class="function">if</span> match:  
+    <span class="command">print</span>(<span class="text">"Match found with DOTALL!"</span>)
+
+<span class="comment"># Using re.VERBOSE</span>
+pattern <span class="sign">=</span> re.<span class="command">compile</span>(<span class="text">r"""
+    \d{3}   # area code
+    -       # separator
+    \d{2}   # middle part
+    -       # separator
+    \d{4}   # last part
+""", re.<span class="command">VERBOSE</span>)
+
+match =</span> pattern.<span class="command">search</span>(<span class="text">"123-45-6789"</span>)
+<span class="function">if</span> match:  
+    <span class="command">print</span>(<span class="text">"Verbose match found!"</span>)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

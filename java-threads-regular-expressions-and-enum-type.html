@@ -156,69 +156,118 @@
                                     <h2>Regular expressions</h2>
 
                                     <p>Regular expressions (regex) are a powerful tool for pattern matching and text manipulation. They allow us to define search patterns for strings, enabling complex string operations such as validation, searching, and replacing. Java provides the <code>java.util.regex</code> package, which includes the <code>Pattern</code> and <code>Matcher</code> classes to work with regular expressions. The <code>Pattern</code> class is used to compile a <code>regex</code> into a pattern, while the <code>Matcher</code> class is used to perform operations on the text based on that pattern.</p>
+                                    <p>Use the <code>import java.util.regex.*;</code> command at the beginning of every example.</p>
 
+                                    <h4><code>Pattern.compile()</code> and <code>Matcher.find()</code> - finding a match in a string</h4>  
+                                    <p>The <code>Pattern.compile()</code> method compiles a regex pattern, and the <code>Matcher.find()</code> method locates the first occurrence of the pattern in a string. If no match is found, it returns <code>false</code>.</p>  
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">import</span> java.util.regex.Pattern<span class="sign">;</span>
-<span class="command">import</span> java.util.regex.Matcher<span class="sign">;</span>
+<span class="function">String</span> pattern <span class="sign">=</span> <span class="text">"Java"</span><span class="sign">;</span>
+<span class="function">String</span> input <span class="sign">=</span> <span class="text">"I am learning Java programming."</span><span class="sign">;</span>
+<span class="function">Pattern</span> compiledPattern <span class="sign">=</span> <span class="function">Pattern</span>.<span class="command">compile</span>(pattern)<span class="sign">;</span> <span class="comment">// compiling the regex into a pattern</span>
+<span class="function">Matcher</span> matcher <span class="sign">=</span> compiledPattern.<span class="command">matcher</span>(input)<span class="sign">;</span> <span class="comment">// creating a matcher for the input text</span>
 
-<span class="function">public class</span> Main
+<span class="comment">// Checking if the pattern matches</span>
+<span class="function">if</span>(matcher.<span class="command">find</span>())  
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Match found!"</span>)<span class="sign">;</span>  
+<span class="function">else</span>
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"No match"</span>)<span class="sign">;</span>  
+                                    </code></pre>
+
+                                    <h4><code>Matcher.matches()</code> - matching the entire string</h4>  
+                                    <p>The <code>Matcher.matches()</code> method checks if the entire string matches the pattern.</p>  
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">String</span> pattern <span class="sign">=</span> <span class="text">"I am learning Java programming."</span><span class="sign">;</span>
+<span class="function">String</span> input <span class="sign">=</span> <span class="text">"I am learning Java programming."</span><span class="sign">;</span>
+<span class="function">Pattern</span> compiledPattern <span class="sign">=</span> <span class="function">Pattern</span>.<span class="command">compile</span>(pattern)<span class="sign">;</span>
+<span class="function">Matcher</span> matcher <span class="sign">=</span> compiledPattern.<span class="command">matcher</span>(input)<span class="sign">;</span>
+
+<span class="function">if</span>(matcher.<span class="command">matches</span>())
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Exact match found!"</span>)<span class="sign">;</span>  
+<span class="function">else</span>
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"No exact match"</span>)<span class="sign">;</span>  
+                                    </code></pre>
+
+                                    <h4><code>Pattern.split()</code> - splitting strings</h4>  
+                                    <p>The <code>Pattern.split()</code> method splits a string based on a given regex pattern and returns an array of strings.</p>  
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">String</span> input <span class="sign">=</span> <span class="text">"apple,banana,orange"</span><span class="sign">;</span>
+<span class="function">String</span> pattern <span class="sign">=</span> <span class="text">","</span><span class="sign">;</span>
+<span class="function">Pattern</span> compiledPattern <span class="sign">=</span> <span class="function">Pattern</span>.<span class="command">compile</span>(pattern)<span class="sign">;</span>
+<span class="function">String</span>[] result <span class="sign">=</span> compiledPattern.<span class="command">split</span>(input)<span class="sign">;</span>
+
+<span class="function">for</span>(<span class="function">String</span> s<span class="sign">:</span> result)
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(s)<span class="sign">;</span> 
+                                    </code></pre>
+
+                                    <h4><code>Matcher.group()</code> - extracting specific parts of a match</h4>  
+                                    <p>The <code>Matcher.group()</code> method retrieves specific matched groups in the pattern. Groups are defined using parentheses in the regex.</p>  
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">String</span> pattern <span class="sign">=</span> <span class="text">"(\\d{3})-(\\d{2})-(\\d{4})"</span><span class="sign">;</span> <span class="comment">// grouping digits</span>
+<span class="function">String</span> input <span class="sign">=</span> <span class="text">"My SSN is 123-45-6789."</span><span class="sign">;</span>
+<span class="function">Pattern</span> compiledPattern <span class="sign">=</span> <span class="function">Pattern</span>.<span class="command">compile</span>(pattern)<span class="sign">;</span>
+<span class="function">Matcher</span> matcher <span class="sign">=</span> compiledPattern.<span class="command">matcher</span>(input)<span class="sign">;</span>
+
+<span class="function">if</span>(matcher.<span class="command">find</span>())
 <span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="function">String</span> text <span class="sign">=</span> <span class="text">"The quick brown fox jumps over the lazy dog."</span><span class="sign">;</span>
-        <span class="function">String</span> regex <span class="sign">=</span> <span class="text">"\\bfox\\b"</span><span class="sign">;</span> <span class="comment">// word boundary around "fox"</span>
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Entire match: "</span> <span class="sign">+</span> matcher.<span class="command">group</span>())<span class="sign">;</span> <span class="comment">// 123-45-6789</span>
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Group 1: "</span> <span class="sign">+</span> matcher.<span class="command">group</span>(1))<span class="sign">;</span> <span class="comment">// 123</span>
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Group 2: "</span> <span class="sign">+</span> matcher.<span class="command">group</span>(2))<span class="sign">;</span> <span class="comment">// 45</span>
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Group 3: "</span> <span class="sign">+</span> matcher.<span class="command">group</span>(3))<span class="sign">;</span> <span class="comment">// 6789</span>
+<span class="sign">}</span>           
+</code></pre>
 
-        <span class="function">Pattern</span> pattern <span class="sign">=</span> <span class="function">Pattern</span>.<span class="command">compile</span>(regex)<span class="sign">;</span> <span class="comment">// compiling the regex into a pattern</span>
-        <span class="function">Matcher</span> matcher <span class="sign">=</span> pattern.<span class="command">matcher</span>(text)<span class="sign">;</span> <span class="comment">// creating a matcher for the input text</span>
+                                    <h4>Special sequences</h4>  
+                                    <p>Java regex supports special sequences that simplify pattern creation:</p>  
+                                    <ul>
+                                        <li><code>\\d</code> - matching any digit (equivalent to <code>[0-9]</code>).</li>
+                                        <li><code>\\D</code> - matching any non-digit character.</li>
+                                        <li><code>\\w</code> - matching any word character (alphanumeric + underscore).</li>
+                                        <li><code>\\W</code> - matching any non-word character.</li>
+                                        <li><code>\\s</code> - matching any whitespace character.</li>
+                                        <li><code>\\S</code> - matching any non-whitespace character.</li>
+                                    </ul>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">String</span> pattern <span class="sign">=</span> <span class="text">"\\d+"</span><span class="sign">;</span>
+<span class="function">String</span> input <span class="sign">=</span> <span class="text">"There are 12 cats and 34 dogs."</span><span class="sign">;</span>
+<span class="function">Pattern</span> compiledPattern <span class="sign">=</span> <span class="function">Pattern</span>.<span class="command">compile</span>(pattern)<span class="sign">;</span>
+<span class="function">Matcher</span> matcher <span class="sign">=</span> compiledPattern.<span class="command">matcher</span>(input)<span class="sign">;</span>
 
-        <span class="comment">// Checking if the pattern matches</span>
-        <span class="function">if</span>(matcher.<span class="command">find</span>())
-            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Found: "</span> <span class="sign">+</span> matcher.<span class="command">group</span>())<span class="sign">;</span>
-        <span class="function">else</span>
-            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"No match found."</span>)<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-                                    </code></pre>  
-                                    
-                                    <table>
-                                        <tr>
-                                            <td><b>Metacharacter</b></td>
-                                            <td><b>Description</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td>|</td>
-                                            <td>Find a match for any one of the patterns separated by | as in: cat|dog|fish</td>
-                                        </tr>
-                                        <tr>
-                                            <td>.</td>
-                                            <td>Find just one instance of any character</td>
-                                        </tr>
-                                        <tr>
-                                            <td>^</td>
-                                            <td>Finds a match as the beginning of a string as in: ^Hello</td>
-                                        </tr>
-                                        <tr>
-                                            <td>$</td>
-                                            <td>Finds a match at the end of the string as in: World$</td>
-                                        </tr>
-                                        <tr>
-                                            <td>\d</td>
-                                            <td>Find a digit</td>
-                                        </tr>
-                                        <tr>
-                                            <td>\s</td>
-                                            <td>Find a whitespace character</td>
-                                        </tr>
-                                        <tr>
-                                            <td>\b</td>
-                                            <td>Find a match at the beginning of a word like this: \bWORD, or at the end of a word like this: WORD\b</td>
-                                        </tr>
-                                        <tr>
-                                            <td>\uxxxx</td>
-                                            <td>Find the Unicode character specified by the hexadecimal number xxxx</td>
-                                        </tr>
-                                    </table><br>
-                                                                        
+<span class="function">while</span>(matcher.<span class="command">find</span>()) 
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(matcher.<span class="command">group</span>())<span class="sign">;</span> <span class="comment">// 12 and 34</span>
+                                    </code></pre>
+
+                                    <h4>Regex options (flags)</h4>  
+                                    <p>The <code>Pattern</code> class provides several flags to modify regex behavior:</p>  
+                                    <ul>
+                                        <li><code>Pattern.CASE_INSENSITIVE</code> - making the regex case-insensitive.</li>
+                                        <li><code>Pattern.DOTALL</code> - allowing the <code>.</code> character to match newline characters.</li>
+                                        <li><code>Pattern.COMMENTS</code> - allowing the use of whitespace and comments in regex patterns for better readability.</li>
+                                    </ul>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">// Using CASE_INSENSITIVE</span>
+<span class="function">Pattern</span> pattern <span class="sign">=</span> <span class="function">Pattern</span>.<span class="command">compile</span>(<span class="text">"java"</span>, <span class="function">Pattern</span>.<span class="command">CASE_INSENSITIVE</span>)<span class="sign">;</span>
+<span class="function">Matcher</span> matcher <span class="sign">=</span> pattern.<span class="command">matcher</span>(<span class="text">"I love JAVA programming."</span>)<span class="sign">;</span>
+<span class="function">if</span>(matcher.<span class="command">find</span>())
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Case-insensitive match found!"</span>)<span class="sign">;</span>  
+
+<span class="comment">// Using DOTALL</span>
+pattern <span class="sign">=</span> <span class="function">Pattern</span>.<span class="command">compile</span>(<span class="text">"Hello.*World"</span>, <span class="function">Pattern</span>.<span class="command">DOTALL</span>)<span class="sign">;</span>
+matcher <span class="sign">=</span> pattern.<span class="command">matcher</span>(<span class="text">"Hello\nWorld"</span>)<span class="sign">;</span>
+<span class="function">if</span>(matcher.<span class="command">find</span>())
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Match found with DOTALL!"</span>)<span class="sign">;</span>  
+
+<span class="comment">// Using COMMENTS</span>
+pattern <span class="sign">=</span> <span class="function">Pattern</span>.<span class="command">compile</span>(
+    <span class="text">"\\d{3}-\\d{2}-\\d{4}"</span>, 
+    <span class="function">Pattern</span>.<span class="command">COMMENTS</span>
+)<span class="sign">;</span>
+matcher <span class="sign">=</span> pattern.<span class="command">matcher</span>(<span class="text">"123-45-6789"</span>)<span class="sign">;</span>
+<span class="function">if</span>(matcher.<span class="command">find</span>()) 
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Match found with comments enabled!"</span>)<span class="sign">;</span>  
+                                    </code></pre>
+
+                                    <h4>All useful commands</h4>
+
                                     <p class="podpis"><code>Pattern.compile(pattern, flags)</code> - compiling the given regex pattern with optional flags.</p>
                                     <p class="podpis"><code>Pattern.matcher(input)</code> - returning a <code>Matcher</code> instance for the specified input text.</p>
                                     <p class="podpis"><code>Pattern.pattern()</code> - returning the string pattern used to create the instance.</p>
