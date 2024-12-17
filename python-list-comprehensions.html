@@ -104,16 +104,16 @@ list3 <span class="sign">=</span> [10 <span class="function">for</span> x <span 
 <span class="command">print</span>(list3)
                                     </code></pre>
                                     
-                                    <p>List comprehensions provide a simple way to create lists based on some sequence or other list that we can iterate. The object, which the comprehension returns, can be an another list comprehension or a mathematical expression.</p>
+                                    <p>List comprehensions provide a simple way to create lists based on a sequence we can iterate (e.g., a string). The object the comprehension returns can be a different list comprehension, a mathematical expression, or a string.</p>
                             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 list1 <span class="sign">=</span> [letter <span class="function">for</span> letter <span class="function">in</span> <span class="text">"abcd"</span>] <span class="comment"># dividing a string into a list of characters</span>
 <span class="command">print</span>(list1)
 
-list2 <span class="sign">=</span> [<span class="function">int</span>(character) <span class="function">for</span> character <span class="function">in</span> <span class="text">"0123456"</span>] <span class="comment"># type casting of every string character</span>
+list2 <span class="sign">=</span> [<span class="function">int</span>(character) <span class="function">for</span> character <span class="function">in</span> <span class="text">"0123456"</span>] <span class="comment"># type casting every string character</span>
 <span class="command">print</span>(list2)
 
-x, y, z <span class="sign">=</span> [<span class="function">int</span>(x) <span class="function">for</span> x <span class="function">in</span> <span class="command">input</span>(<span class="text">"Enter three numbers separated by spaces: "</span>).<span class="command">split</span>()] <span class="comment"># using the split() command</span>
+x, y, z <span class="sign">=</span> [<span class="function">int</span>(x) <span class="function">for</span> x <span class="function">in</span> <span class="command">input</span>(<span class="text">"Enter three numbers separated by spaces: "</span>).<span class="command">split</span>()] <span class="comment"># using the split() command with a list comprehension</span>
 <span class="command">print</span>(x <span class="sign">+</span> y <span class="sign">+</span> z)
 
 list3 <span class="sign">=</span> [[<span class="text">"a"</span>, <span class="text">"b"</span>] <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10)] <span class="comment"># creating a two-dimensional list</span>
@@ -132,37 +132,29 @@ list1 <span class="sign">=</span> [x <span class="sign">*</span> y <span class="
 
 list2 <span class="sign">=</span> [[x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(3)] <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10)]
 <span class="command">print</span>(list2)
+
+list3 <span class="sign">=</span> [x <span class="sign">*</span> y <span class="function">for</span> x, y <span class="function">in</span> ([a, a <span class="sign">+</span> 1] <span class="function">for</span> a <span class="function">in</span> <span class="command">range</span>(10))] <span class="comment"># x = a, y = a + 1 for each "a" in range(10); 10 iterations overall</span>
+<span class="command">print</span>(list3)
                                     </code></pre>
+
+                                    <p>All data structures can be filled with data using list comprehensions.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-# All data structures can be filled using list comprehensions.</span>
-set1 =</span> {x *</span> x for</span> x in</span> range</span>(10)}
-print</span>(set1)
+set1 <span class="sign">=</span> {x <span class="sign">*</span> x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10)}
+<span class="command">print</span>(set1)
 
-dict1 =</span> {x: x *</span> x for</span> x in</span> range</span>(10)}
-print</span>(dict1)
+dict1 <span class="sign">=</span> {x: x <span class="sign">*</span> x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10)}
+<span class="command">print</span>(dict1)
                                     </code></pre>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-# Advanced expressions</span>
-list1 =</span> [x *</span> y for</span> x, y in</span> ([a, a +</span> 1] for</span> a in</span> range</span>(10))] # x * y will be returned, x means a, y means a + 1, 10 iterations overall</span>
-print</span>(list1)
-
-#Poniżej stanie się to samo, co w poprzednim przykładzie, poza tym że wyniki zostaną zapisane w innych listach 
-#wewnętrznych razem z wynikiem (x+1)*(y+1), czyli (a+1)*(a+1)+1.
-lista2 = [[x*y, (x+1)*(y+1)] for x, y in ([a, a+1] for a in range(10))]
-print(lista2)
-                                    </code></pre>
-
                                     <p>List comprehensions can contain conditions.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-list1 = [x*x for x in range(11) if x % 2 == 0]
-print(list1)
+list1 <span class="sign">=</span> [x <span class="sign">*</span> x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(11) <span class="function">if</span> x <span class="sign">%</span> 2 <span class="sign">==</span> 0]
+<span class="command">print</span>(list1)
 
-text = "one: 1, two: 2, three: 3, four: 4"
-list2 = [int(character) for character in text if character.isdigit()] # DODAĆ DO STRINGÓW ISDIGIT
-print(list2)
+text <span class="sign">=</span> <span class="text">"one: 1, two: 2, three: 3, four: 4"</span>
+list2 <span class="sign">=</span> [<span class="function">int</span>(character) <span class="function">for</span> character <span class="function">in</span> text <span class="function">if</span> character.<span class="command">isdigit</span>()]
+<span class="command">print</span>(list2)
                                     </code></pre>
                                 </div>
                             </div>
