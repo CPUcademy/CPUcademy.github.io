@@ -85,7 +85,60 @@
                                     <h5 class="m-0 font-weight-bold">Async IO</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Text</p>
+# asyncio - for managing many waiting tasks, e.g. requests from web
+# threads - for parallel tasks that share data with minimal CPU usage
+# processes - for maximizing performance on CPU intensive tasks
+
+# event loop
+
+import asyncio
+
+"""
+async def fetch():
+    print("Fetch data...")
+    await asyncio.sleep(2)
+    print("Data fetched.")
+    return {"data": "Some data"}
+
+# a coroutine function
+async def main():
+    print("Start of the main coroutine.")
+    task = fetch()
+    print("End of the main coroutine.")
+    result = await task
+    print("Result:", result)
+    # await - we can only use this inside an asynchronous function (a coroutine). only when we await the task it actually start executing
+
+# main() = coroutine object - we pass it to run()
+
+asyncio.run(main())
+"""
+
+async def fetch(ID, sleep):
+    print(f"Coroutine {ID} starting to fetch data.")
+    await asyncio.sleep(sleep)
+    return {"ID": ID, "data": f"Sample data from coroutine {ID}"}
+
+# a coroutine function
+async def main():
+    """
+    task1 = asyncio.create_task(fetch(1, 2))
+    task2 = asyncio.create_task(fetch(2, 3))
+    task3 = asyncio.create_task(fetch(3, 1))
+
+    result1 = await task1
+    result2 = await task2
+    result3 = await task3
+
+    print(result1, result2, result3)"""
+
+    # this will do the same as above - gather is worse for error handling because if one coroutine fails, it won't cancel out the rest
+    results = await asyncio.gather(fetch(1, 2), fetch(2, 3), fetch(3, 1))
+    for result in results:
+        print(f"Received result: {result}")
+
+asyncio.run(main())
+# as long as one task isn't doing anything and is waiting for something we can move on to the next task - event loop                                    
                                 </div>
                             </div>
                         </div>
