@@ -87,42 +87,33 @@
                                 <div class="card-body">
                                     <h2>Threads</h2>
 
-                                    <p>Threads are a fundamental part of Java's concurrency model, allowing multiple tasks to run simultaneously within a single program. By utilizing threads, we can create more responsive and efficient applications, particularly in scenarios where tasks can be performed in parallel. Java provides built-in support for multithreading through the <code>java.lang.Thread</code> class and the <code>Runnable</code> interface.</p>
+                                    <p>Threads are a fundamental part of the Java concurrency model, allowing multiple tasks to run simultaneously within a single program. By utilizing threads, we can create more responsive and efficient applications, particularly in scenarios where tasks can be performed in parallel. Java provides built-in support for multithreading through the <code>Thread</code> class or the <code>Runnable</code> interface.</p>
 
-                                    <p>To create a thread, we can either extend the <code>Thread</code> class or implement the <code>Runnable</code> interface. When extending the <code>Thread</code> class, we override the <code>run()</code> method to define the code that should be executed by the thread. Alternatively, when implementing the <code>Runnable</code> interface, we also override the <code>run()</code> method, but we can then pass an instance of our <code>Runnable</code> implementation to a <code>Thread</code> object.</p>
-
-                                    <p>Once a thread is created, it can be started using the <code>start()</code> method, which invokes the <code>run()</code> method in a new thread of execution. Threads can also be put to sleep using the <code>Thread.sleep(milliseconds)</code> method, allowing for controlled pauses in execution. Additionally, threads can be synchronized to prevent concurrent access to shared resources, ensuring data consistency and avoiding race conditions.</p>
+                                    <p>To create a thread, we extend the <code>Thread</code> class and override its <code>run()</code> method, which contains the code to be executed by the thread. Once the thread is created, it can be started using the <code>start()</code> method. Threads can also be put to sleep using the <code>Thread.sleep(milliseconds)</code> method, allowing for controlled pauses in execution. Additionally, threads can be synchronized to prevent concurrent access to shared resources, ensuring data consistency. Synchronization is applied using the <code>synchronized</code> keyword (<code>public synchronized void run()</code>). It ensures that only one thread accesses shared resources at a time.</p>
 
                                     <p>Java also provides higher-level concurrency utilities in the <code>java.util.concurrent</code> package, which includes features like thread pools, futures, and concurrent collections, making it easier to manage complex multithreaded applications.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> Counter <span class="function">extends Thread</span>
+<span class="function">class</span> Task1 <span class="function">extends Thread</span> 
 <span class="sign">{</span>
-    <span class="function">private final String</span> threadName<span class="sign">;</span>
-    <span class="function">private int</span> count<span class="sign">;</span>
-
-    <span class="function">public Counter</span>(<span class="function">String</span> name) 
-    <span class="sign">{</span>
-        <span class="function">this</span>.threadName <span class="sign">=</span> name<span class="sign">;</span>
-        <span class="function">this</span>.count <span class="sign">=</span> 0<span class="sign">;</span>
-    <span class="sign">}</span>
-
     <span class="function">public void</span> run() 
     <span class="sign">{</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 5<span class="sign">;</span> i<span class="sign">++</span>) 
+        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 10000<span class="sign">;</span> i<span class="sign">++</span>) 
         <span class="sign">{</span>
-            count<span class="sign">++;</span>
-            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(threadName <span class="sign">+</span> <span class="text">" - count: "</span> <span class="sign">+</span> count)<span class="sign">;</span>
-            <span class="function">try</span> 
-            <span class="sign">{</span>
-                <span class="comment">// Simulating some work with sleep</span>
-                <span class="function">Thread</span>.<span class="command">sleep</span>(100)<span class="sign">;</span> <span class="comment">// sleep for 100 milliseconds</span>
-            <span class="sign">}</span> <span class="function">catch</span>(<span class="function">InterruptedException</span> e) 
-            <span class="sign">{</span>
-                <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(threadName <span class="sign">+</span> <span class="text">" interrupted."</span>)<span class="sign">;</span>
-            <span class="sign">}</span>
+            <span class="function">if</span>(i <span class="sign">==</span> 10000)
+                <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Task1: Counted to "</span> <span class="sign">+</span> i)<span class="sign">;</span>
         <span class="sign">}</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(threadName <span class="sign">+</span> <span class="text">" finished counting."</span>)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> Task2 <span class="function">extends Thread</span> 
+<span class="sign">{</span>
+    <span class="function">public void</span> run() 
+    <span class="sign">{</span>
+        <span class="function">int</span> sum <span class="sign">=</span> 0<span class="sign">;</span>
+        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 10000<span class="sign">;</span> i<span class="sign">++</span>)
+            sum <span class="sign">+=</span> i<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Task2: Sum = "</span> <span class="sign">+</span> sum)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
@@ -130,28 +121,28 @@
 <span class="sign">{</span>
     <span class="function">public static void</span> main(<span class="function">String</span>[] args)
     <span class="sign">{</span>
-        <span class="function">Counter</span> counter1 <span class="sign">=</span> <span class="function">new Counter</span>(<span class="text">"Thread 1"</span>)<span class="sign">;</span>
-        <span class="function">Counter</span> counter2 <span class="sign">=</span> <span class="function">new Counter</span>(<span class="text">"Thread 2"</span>)<span class="sign">;</span>
+        <span class="comment">// Creating threads</span>
+        <span class="function">Task1</span> task1 <span class="sign">=</span> <span class="function">new Task1</span>()<span class="sign">;</span>
+        <span class="function">Task2</span> task2 <span class="sign">=</span> <span class="function">new Task2</span>()<span class="sign">;</span>
 
-        <span class="comment">// Starting both threads</span>
-        counter1.<span class="command">start</span>()<span class="sign">;</span>
-        counter2.<span class="command">start</span>()<span class="sign">;</span>
+        <span class="comment">// Starting threads</span>
+        task1.<span class="command">start</span>()<span class="sign">;</span>
+        task2.<span class="command">start</span>()<span class="sign">;</span>
 
         <span class="function">try</span>
         <span class="sign">{</span>
             <span class="comment">// Waiting for both threads to finish</span>
-            counter1.<span class="command">join</span>()<span class="sign">;</span>
-            counter2.<span class="command">join</span>()<span class="sign">;</span>
-        <span class="sign">}</span> <span class="function">catch</span>(<span class="function">InterruptedException</span> e) 
+            task1.<span class="command">join</span>()<span class="sign">;</span>
+            task2.j<span class="command">oin</span>()<span class="sign">;</span>
+        <span class="sign">}</span>
+        <span class="function">catch</span>(<span class="function">InterruptedException</span> e) 
         <span class="sign">{</span>
             <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Main thread interrupted."</span>)<span class="sign">;</span>
         <span class="sign">}</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Both threads have finished execution."</span>)<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Both tasks completed."</span>)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
-
-                                    <p>The <code>Thread</code> library also provides the <code>Threads.sleep(1000);</code> command that stops the program for a time specified in milliseconds.</p>
 
                                     <h2>Regular expressions</h2>
 

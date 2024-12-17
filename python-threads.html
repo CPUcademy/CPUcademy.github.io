@@ -85,36 +85,93 @@
                                     <h5 class="m-0 font-weight-bold">Threads</h5>
                                 </div>
                                 <div class="card-body">
-                                    GIL (Global Interpreter Lock)
-            
-                                    <p>Rdzenie w procesorze komputera są po to, żeby system mógł wykonywać kilka operacji naraz. Wątki to rdzenie w programie Python. Do ich tworzenia służy biblioteka <code>threading</code>. W wykonaniu poniższego programu możemy zauważyć, że liczby wyśietlają się po dwie w rzędach. Dzieje się tak właśnie dlatego, że obie funkcje wykonują się jednocześnie.</p>
+                                    <p>Threads are a fundamental part of the Python concurrency model, allowing multiple tasks to run simultaneously within a single program. By utilizing threads, we can create more responsive and efficient applications, particularly in scenarios where tasks can be performed in parallel. Python provides built-in support for multithreading through the <code>threading</code> library.</p>
+
+                                    <p>To create a thread, we instantiate a <code>Thread</code> object and select a function (its target), which contains the code to be executed by the thread. Once the thread is created, it can be started using the <code>start()</code> method.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    import threading
-                                    def funkcja():
-                                            for x in range(10):
-                                                    print(1)
+<span class="command">import</span> threading
 
-                                    def funkcja2():
-                                            for x in range(10):
-                                                    print(2)
-                                                        
-                                    t1 = threading.Thread(target=funkcja)
-                                    t2 = threading.Thread(target=funkcja2)
-                                    t1.start()
-                                    t2.start()
+<span class="function">def</span> count_to_10000():
+    <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(0, 10000):
+        <span class="function">if</span> i <span class="sign">==</span> 9999:
+            <span class="command">print</span>(<span class="text">"Task1: Counted to"</span>, i)
+
+<span class="function">def</span> sum_to_10000():
+    total <span class="sign">=</span> <span class="command">sum</span>(<span class="command">range</span>(0, 10000))
+    <span class="command">print</span>(<span class="text">"\nTask2: Sum = "</span> <span class="sign">+</span> <span class="command">str</span>(total))
+
+<span class="comment"># Creating threads</span>
+task1 <span class="sign">=</span> threading.<span class="function">Thread</span>(<span class="command">target</span> <span class="sign">=</span> count_to_10000)
+task2 <span class="sign">=</span> threading.<span class="function">Thread</span>(<span class="command">target</span> <span class="sign">=</span> sum_to_10000)
+
+<span class="comment"># Starting threads</span>
+task1.<span class="command">start</span>()
+task2.<span class="command">start</span>()
+
+<span class="comment"># Waiting for both threads to finish</span>
+task1.<span class="command">join</span>()
+task2.<span class="command">join</span>()
+
+<span class="command">print</span>(<span class="text">"Both tasks completed."</span>)                                        
                                     </code></pre>
-                                    
-                                    <h2>Permutacje</h2>
 
-                                    <p>Permutacje służą do sprawdzania wszystkich dostępnych kombinacji. Do ich tworzenia służy biblioteka <code>itertools</code>.</p>
-                                    
+                                    <p>Threads can be synchronized to prevent concurrent access to shared resources, ensuring data consistency. Synchronization is applied using the <code>Lock</code> object. It ensures that only one thread accesses shared resources at a time. Below, you can see an improved version of the code above. Check the difference in displaying the data between these two programs in your editor.</p>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    import itertools
-                                    lista = [1, 2, 3]
-                                    permutacje = itertools.permutations(lista)
-                                    for x in list(permutacje):
-                                            print(x)
+<span class="command">import</span> threading
+
+<span class="comment"># Creating a lock for synchronization</span>
+lock <span class="sign">=</span> threading.<span class="function">Lock</span>()
+
+<span class="function">def</span> count_to_10000():
+    <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(0, 10000):
+        <span class="function">if</span> i <span class="sign">==</span> 9999:
+            <span class="comment"># Acquiring the lock before printing</span>
+            <span class="function">with</span> lock:
+                <span class="command">print</span>(<span class="text">"Task1: Counted to"</span>, i)
+
+<span class="function">def</span> sum_to_10000():
+    total <span class="sign">=</span> <span class="command">sum</span>(<span class="command">range</span>(0, 10000))
+    <span class="comment"># Acquiring the lock before printing</span>
+    <span class="function">with</span> lock:
+        <span class="command">print</span>(<span class="text">"Task2: Sum = "</span> <span class="sign">+</span> <span class="command">str</span>(total))
+
+task1 <span class="sign">=</span> threading.<span class="function">Thread</span>(<span class="command">target</span> <span class="sign">=</span> count_to_10000)
+task2 <span class="sign">=</span> threading.<span class="function">Thread</span>(<span class="command">target</span> <span class="sign">=</span> sum_to_10000)
+task1.<span class="command">start</span>()
+task2.<span class="command">start</span>()
+task1.<span class="command">join</span>()
+task2.<span class="command">join</span>()
+
+<span class="command">print</span>(<span class="text">"Both tasks completed."</span>)  
+                                    </code></pre>
+
+                                    <h4>GIL (Global Interpreter Lock)</h4>
+
+                                    <p>The Global Interpreter Lock (GIL) is a mechanism used in CPython (the most widely used Python interpreter) to ensure that only one thread executes Python bytecode at a time in a single process. You can't "use" it directly because it is an internal mechanism in the CPython interpreter that runs automatically. If our program is CPU-bound and we want to take full advantage of multiple CPU cores, using the <code>multiprocessing</code> module (library) can bypass the GIL. This module spawns separate processes, each with its own interpreter and GIL, allowing true parallelism.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> multiprocessing
+
+<span class="comment"># A simple CPU-bound task</span>
+<span class="function">def</span> cpu_bound_task():
+    total <span class="sign">=</span> 0
+    <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(10 <span class="sign">**</span> 7):
+        total <span class="sign">+=</span> i
+    <span class="function">return</span> total
+
+processes =</span> []
+<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(4):
+    process <span class="sign">=</span> multiprocessing.<span class="function">Process</span>(target <span class="sign">=</span> cpu_bound_task)
+    processes.<span class="command">append</span>(process)
+    process.<span class="command">start</span>()
+
+<span class="comment"># Waiting for all processes to finish</span>
+<span class="function">for</span> process <span class="function">in</span> processes:
+    process.<span class="command">join</span>()
+
+<span class="command">print</span>(<span class="text">"Completed all processes."</span>)
                                     </code></pre>
                                 </div>
                             </div>
