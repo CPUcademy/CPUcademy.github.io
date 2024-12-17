@@ -85,101 +85,76 @@
                                     <h5 class="m-0 font-weight-bold">List comprehensions</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h2>Wstęp</h2>
+                                    <p>Three ways of saving ten tens to a list.</p>
                 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    #Trzy sposoby na zapisanie dziesięciu liczb do listy
-                                    #(wszystkie te sposoby działają też dla innych typów danych).
-                                    
-                                    #Sposób 1:
-                                    lista1 = []
-                                    for x in range(10):
-                                            lista1.append(10)
-                                    print(lista1)
+list1 <span class="sign">=</span> []
+<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10):
+    list1.<span class="command">append</span>(10)
+<span class="command">print</span>(list1)
+                                    </code></pre>
 
-                                    #Sposób 2:
-                                    lista2 = [10]*10
-                                    print(lista2)
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+list2 <span class="sign">=</span> [10] <span class="sign">*</span> 10
+<span class="command">print</span>(list2)
+                                    </code></pre>
 
-                                    #Sposób 3:
-                                    lista3 = [10 for x in range(10)]
-                                    print(lista3)
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+list3 <span class="sign">=</span> [10 <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10)]
+<span class="command">print</span>(list3)
                                     </code></pre>
                                     
-                                    <h2>Wyrażenia Listowe</h2>
-                            
-                                    <p>Wyrażenia listowe zapewniają prosty sposób na tworzenie list w oparciu o jakąś sekwencję lub inną listę, którą można przeiterować.</p>
+                                    <p>List comprehensions provide a simple way to create lists based on a sequence we can iterate (e.g., a string). The object the comprehension returns can be a different list comprehension, a mathematical expression, or a string.</p>
                             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    #Sposób na zapisanie znaków stringa jako elementów listy.
-                                    lista = [litera for litera in "abcd"]
-                                    print(lista)
+list1 <span class="sign">=</span> [letter <span class="function">for</span> letter <span class="function">in</span> <span class="text">"abcd"</span>] <span class="comment"># dividing a string into a list of characters</span>
+<span class="command">print</span>(list1)
 
-                                    #Wydzielając znaki ze stringa można je zamienić w liczby lub kolekcje (oprócz słownika).
-                                    lista1 = [int(znak) for znak in "0123456"]
-                                    print(lista1)
+list2 <span class="sign">=</span> [<span class="function">int</span>(character) <span class="function">for</span> character <span class="function">in</span> <span class="text">"0123456"</span>] <span class="comment"># type casting every string character</span>
+<span class="command">print</span>(list2)
 
-                                    #Komenda <span style="color: red;">split()</span> służy pobierania danych do kilku zmiennych po spacji 
-                                    #(wspominałem już o niej na lekcji o przydatnych komendach).
-                                    x, y, z = [int(x) for x in input("Podaj trzy liczby oddzielone spacjami: ").split()]
-                                    print(x+y+z)
+x, y, z <span class="sign">=</span> [<span class="function">int</span>(x) <span class="function">for</span> x <span class="function">in</span> <span class="command">input</span>(<span class="text">"Enter three numbers separated by spaces: "</span>).<span class="command">split</span>()] <span class="comment"># using the split() command with a list comprehension</span>
+<span class="command">print</span>(x <span class="sign">+</span> y <span class="sign">+</span> z)
 
-                                    #Za pomocą wyrażeń listowych można też zapisywać listy dwuwymiarowe.
-                                    lista2 = [["a", "b"] for x in range(10)]
-                                    print(lista2)
+list3 <span class="sign">=</span> [[<span class="text">"a"</span>, <span class="text">"b"</span>] <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10)] <span class="comment"># creating a two-dimensional list</span>
+<span class="command">print</span>(list3)
 
-                                    #W wyrażeniach listowych można używać różnych komend np. <span style="color: red;">lower()</span>.
-                                    lista3 = [x.lower() for x in "ABCDE"]
-                                    print(lista3)
+list4 <span class="sign">=</span> [x.lower</span>() <span class="function">for</span> x <span class="function">in</span> <span class="text">"ABCDE"</span>] <span class="comment"># turning all letters to lowecase</span>
+<span class="command">print</span>(list4)
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    #Jako obiekt do zwrócenia można podawać działania (mogą być na kilku zmiennych), 
-                                    #a także listę, w której będzie wyrażenie listowe (i w tym wyrażeniu lista z wyrażeniem itd.).
-                                    
-                                    #Przykład 1:
-                                    kwadratyLiczb = [x*x for x in range(5)]
-                                    print(kwadratyLiczb)
+squares <span class="sign">=</span> [x <span class="sign">*</span> x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(5)]
+<span class="command">print</span>(squares)                                        
 
-                                    #Przykład 2:
-                                    lista1 = [x*y for x, y in ([1, 2], [3, 4])]
-                                    print(lista1)
+list1 <span class="sign">=</span> [x <span class="sign">*</span> y <span class="function">for</span> x, y <span class="function">in</span> ([1, 2], [3, 4])]
+<span class="command">print</span>(list1)
 
-                                    #Przykład 3:
-                                    lista2 = [[x for x in range(3)] for x in range(10)]
-                                    print(lista2)
+list2 <span class="sign">=</span> [[x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(3)] <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10)]
+<span class="command">print</span>(list2)
+
+list3 <span class="sign">=</span> [x <span class="sign">*</span> y <span class="function">for</span> x, y <span class="function">in</span> ([a, a <span class="sign">+</span> 1] <span class="function">for</span> a <span class="function">in</span> <span class="command">range</span>(10))] <span class="comment"># x = a, y = a + 1 for each "a" in range(10); 10 iterations overall</span>
+<span class="command">print</span>(list3)
                                     </code></pre>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    #Za pomocą wyrażeń listowych można tworzyć kolekcje.
-                                    
-                                    #Przykład 1:
-                                    zbior = {x*x for x in range(10)}
-                                    print(zbior)
+                                    <p>All data structures can be filled with data using list comprehensions.</p>
 
-                                    #Przykład 2:
-                                    slownik = {x: x*x for x in range(10)}
-                                    print(slownik)
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+set1 <span class="sign">=</span> {x <span class="sign">*</span> x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10)}
+<span class="command">print</span>(set1)
+
+dict1 <span class="sign">=</span> {x: x <span class="sign">*</span> x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10)}
+<span class="command">print</span>(dict1)
                                     </code></pre>
+                                    <p>List comprehensions can contain conditions.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    #W poniższym przykładzie zwróci się <span style="color: red;">x*y</span>. <span style="color: red;">x</span> będzie znaczyć <span style="color: red;">a</span>, a <span style="color: red;">y</span> będzie znaczyć <span style="color: red;">a+1</span>. Wystąpi dziesięć iteracji.
-                                    lista1 = [x*y for x, y in ([a, a+1] for a in range(10))]
-                                    print(lista1)
+list1 <span class="sign">=</span> [x <span class="sign">*</span> x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(11) <span class="function">if</span> x <span class="sign">%</span> 2 <span class="sign">==</span> 0]
+<span class="command">print</span>(list1)
 
-                                    #Poniżej stanie się to samo, co w poprzednim przykładzie, poza tym że wyniki zostaną zapisane w innych listach 
-                                    #wewnętrznych razem z wynikiem <span style="color: red;">(x+1)*(y+1)</span>, czyli <span style="color: red;">(a+1)*(a+1)+1</span>.
-                                    lista2 = [[x*y, (x+1)*(y+1)] for x, y in ([a, a+1] for a in range(10))]
-                                    print(lista2)
-
-                                    #Do wyrażeń listowych można dodawać warunki.
-                                    lista3 = [x*x for x in range(11) if x%2==0]
-                                    print(lista3)
-
-                                    #Komenda <span style="color: red;">isdigit()</span> sprawdza, czy wyznaczony element tekstu jest liczbą.
-                                    napis = "jeden: 1, dwa: 2, trzy: 3, cztery: 4"
-                                    lista4 = [int(znak) for znak in napis if znak.isdigit()]
-                                    print(lista4)
+text <span class="sign">=</span> <span class="text">"one: 1, two: 2, three: 3, four: 4"</span>
+list2 <span class="sign">=</span> [<span class="function">int</span>(character) <span class="function">for</span> character <span class="function">in</span> text <span class="function">if</span> character.<span class="command">isdigit</span>()]
+<span class="command">print</span>(list2)
                                     </code></pre>
                                 </div>
                             </div>
