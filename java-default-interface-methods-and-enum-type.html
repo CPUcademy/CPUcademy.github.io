@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Interfaces and sorting</title>
+    <title>Default interface methods and Enum type</title>
 </head>
 
 <body id="page-top">
@@ -82,60 +82,81 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Interfaces and sorting</h5>
+                                    <h5 class="m-0 font-weight-bold">Default interface methods and Enum type</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Interfaces are classes in which, by default, all fields are <code>public</code>, <code>static</code>, and <code>final</code>, and methods are <code>public</code> and <code>abstract</code>. A class can't inherit from many classes but can inherit from many interfaces. It is mandatory to implement (overwrite) all of the interface's methods.</p>
-                                        
-                                    <p>The <code>Arrays</code> library (a class that can be imported from the default package) allows us to sort arrays, but to sort an array of our objects, we need to overload the <code>compareTo()</code> method from the <code>Collections</code> library.</p>
+                                    <h2>Default interface methods</h2>
+
+                                    <p>If we don't want to be forced to implement certain methods of an interface, we can set them as <code>default</code>. An interface a lambda expression is exploiting normally can't have more than one method, but if the rest is <code>default</code>, there is no problem.</p>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">import</span> java.util.Arrays<span class="sign">;</span>
-<span class="command">import</span> java.util.Collections<span class="sign">;</span>
-
 <span class="function">public class</span> Main
 <span class="sign">{</span>
     <span class="function">public static void</span> main(<span class="function">String</span>[] args)
     <span class="sign">{</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="function">Interface</span>.PI)<span class="sign">;</span>
+        <span class="function">Maths</span> m <span class="sign">=</span> (<span class="function">int</span> x) <span class="sign">-&gt;</span>
+        <span class="sign">{</span>
+            <span class="function">return</span> 5<span class="sign">;</span>
+        <span class="sign">};</span>
 
-        <span class="function">Interface</span> x <span class="sign">=</span> <span class="function">new Worker</span>(2000)<span class="sign">;</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(((<span class="function">Worker</span>)x).getSalary())<span class="sign">;</span>
-
-        <span class="function">Worker</span>[] worker =</span> <span class="function">new Worker</span>[3]<span class="sign">;</span>
-        worker[0] <span class="sign">=</span> <span class="function">new Worker</span>(4000)<span class="sign">;</span>
-        worker[1] <span class="sign">=</span> <span class="function">new Worker</span>(10000)<span class="sign">;</span>
-        worker[2] <span class="sign">=</span> <span class="function">new Worker</span>(2000)<span class="sign">;</span>
-        <span class="function">Arrays</span>.<span class="command">sort</span>(worker, <span class="function">Collections</span>.<span class="command">reverseOrder</span>())<span class="sign">;</span> <span class="comment">// the second argument is not mandatory</span>
-        <span class="function">for</span>(<span class="function">Worker</span> w<span class="sign">:</span> worker)
-            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(w.getSalary())<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(m.calculate(4))<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(m.sqrt(2))<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">interface</span> Interface
+<span class="function">interface</span> Maths
 <span class="sign">{</span>
-    <span class="function">double</span> PI <span class="sign">=</span> 3.14<span class="sign">;</span>
-    <span class="function">void</span> method()<span class="sign">;</span>
+    <span class="function">double</span> calculate(<span class="function">int</span> x)<span class="sign">;</span>
+    <span class="function">default double</span> sqrt(<span class="function">int</span> x)
+    <span class="sign">{</span>
+        <span class="function">return Math</span>.<span class="command">sqrt</span>(x)<span class="sign">;</span></span> <span class="comment">// we don't have to import the Math library</span>
+    <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Worker <span class="function">implements Interface</span>, <span class="function">Comparable</span>
+<span class="function">class</span> Examplee <span class="function">implements Maths</span>
 <span class="sign">{</span>
     <span class="command">@Override</span>
-    <span class="function">public void</span> method()<span class="sign">{}</span>
-
-    <span class="function">private double</span> salary<span class="sign">;</span>
-    <span class="function">Worker</span>(<span class="function">double</span> salary)<span class="sign">{</span><span class="function">this</span>.salary <span class="sign">=</span> salary<span class="sign">;}</span> <span class="comment">// inline method (intended for short operations)</span>
-    <span class="function">public double</span> getSalary()<span class="sign">{</span><span class="function">return</span> <span class="function">this</span>.salary<span class="sign">;}</span>
-
-    <span class="command">@Override</span>
-    <span class="function">public int</span> compareTo(<span class="function">Object</span> o)
+    <span class="function">public double</span> calculate(<span class="function">int</span> x)
     <span class="sign">{</span>
-        <span class="function">Worker</span> sent <span class="sign">=</span> (<span class="function">Worker</span>)o<span class="sign">;</span>
-        <span class="function">if</span>(<span class="function">this</span>.salary <span class="sign">&lt;</span> sent.salary)
-            <span class="function">return</span> -1<span class="sign">;</span>
-        <span class="function">else if</span>(<span class="function">this</span>.salary <span class="sign">&gt;</span> sent.salary)
-            <span class="function">return</span> 1<span class="sign">;</span>
         <span class="function">return</span> 0<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h2>Enum type</h2>
+
+                                    <p><code>Enum</code> (enumeration) is a custom data type (a data type that can define its type). We can determine what it contains. When defining it, we give a set of values of this type (similarly, e.g., an <code>int</code> has a set of allowed values - a range).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">public enum</span> Day 
+<span class="sign">{</span>
+    Mo, Tu, We, Th, Fr, Sa, Su
+<span class="sign">}</span>                                                                         
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="function">Day</span>.Tu)<span class="sign">;</span> <span class="comment">// just like typing int(5)</span>
+
+        <span class="function">Day</span> number_of_a_day_of_the_week <span class="sign">=</span> <span class="function">Day</span>.Mo<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(getDay(number_of_a_day_of_the_week))<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="function">private static String</span> getDay(<span class="function">Day</span> x)
+    <span class="sign">{</span>
+        <span class="function">return switch</span>(x) 
+        <span class="sign">{</span>
+            <span class="function">case</span> Mo <span class="sign">-></span> <span class="text">"Monday"</span><span class="sign">;</span>
+            <span class="function">case</span> Tu <span class="sign">-></span> <span class="text">"Tuesday"</span><span class="sign">;</span>
+            <span class="function">case</span> We <span class="sign">-></span> <span class="text">"Wednesday"</span><span class="sign">;</span>
+            <span class="function">case</span> Th <span class="sign">-></span> <span class="text">"Thursday"</span><span class="sign">;</span>
+            <span class="function">case</span> Fr <span class="sign">-></span> <span class="text">"Friday"</span><span class="sign">;</span>
+            <span class="function">case</span> Sa <span class="sign">-></span> <span class="text">"Saturday"</span><span class="sign">;</span>
+            <span class="function">case</span> Su <span class="sign">-></span> <span class="text">"Sunday"</span><span class="sign">;</span>
+        <span class="sign">};</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>

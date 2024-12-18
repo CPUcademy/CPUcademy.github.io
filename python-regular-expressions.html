@@ -180,15 +180,34 @@ match <span class="sign">=</span> re.<span class="command">search</span>(pattern
                                     
                                     <h2>Special sequences</h2>  
 
-                                    <p>Regex supports special sequences that simplify pattern creation:</p>  
-                                    <ul>
-                                        <li><code>\d</code> - matching any digit (equivalent to <code>[0-9]</code>).</li>
-                                        <li><code>\D</code> - matching any non-digit character.</li>
-                                        <li><code>\w</code> - matching any word character (alphanumeric + underscore).</li>
-                                        <li><code>\W</code> - matching any non-word character.</li>
-                                        <li><code>\s</code> - matching any whitespace character.</li>
-                                        <li><code>\S</code> - matching any non-whitespace character.</li>
-                                    </ul>
+                                    <p style="margin-bottom: 5px;">Regex supports special sequences that simplify pattern creation:</p>  
+                                    <table>
+                                        <tr>
+                                            <td><code>\d</code></td>
+                                            <td>Matching any digit (equivalent to <code>[0-9]</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>\D</code></td>
+                                            <td>Matching any non-digit character.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>\w</code></td>
+                                            <td>Matching any word character (alphanumeric + underscore).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>\W</code></td>
+                                            <td>Matching any non-word character.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>\s</code></td>
+                                            <td>Matching any whitespace character.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>\S</code></td>
+                                            <td>Matching any non-whitespace character.</td>
+                                        </tr>
+                                    </table>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 pattern <span class="sign">=</span> <span class="text">r"\d+"</span>
 string <span class="sign">=</span> <span class="text">"There are 12 cats and 34 dogs."</span>
@@ -197,18 +216,42 @@ matches <span class="sign">=</span> re.<span class="command">findall</span>(patt
                                     </code></pre>
 
                                     <h2>Special characters</h2>  
-                                    
-                                    <p>Regex supports special characters for advanced pattern matching:</p>  
-                                    <ul>
-                                        <li><code>.</code> - matching any character except a newline.</li>
-                                        <li><code>*</code> - matches zero or more occurrences of the preceding element.</li>
-                                        <li><code>+</code> - matches one or more occurrences of the preceding element.</li>
-                                        <li><code>?</code> - matches zero or one occurrence of the preceding element.</li>
-                                        <li><code>^</code> - matches the start of a string.</li>
-                                        <li><code>$</code> - matches the end of a string.</li>
-                                        <li><code>[]</code> - matching any character within the brackets.</li>
-                                        <li><code>\</code> - escaping special characters or signals a special sequence.</li>
-                                    </ul>
+
+                                    <p style="margin-bottom: 5px;">Regex supports special characters for advanced pattern matching:</p>  
+                                    <table>
+                                        <tr>
+                                            <td><code>.</code></td>
+                                            <td>Matching any character except a newline.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>*</code></td>
+                                            <td>Matches zero or more occurrences of the preceding element.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>+</code></td>
+                                            <td>Matches one or more occurrences of the preceding element.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>?</code></td>
+                                            <td>Matches zero or one occurrence of the preceding element.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>^</code></td>
+                                            <td>Matches the start of a string.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>$</code></td>
+                                            <td>Matches the end of a string.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>[]</code></td>
+                                            <td>Matching any character within the brackets.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>\</code></td>
+                                            <td>Escaping special characters or signals a special sequence.</td>
+                                        </tr>
+                                    </table>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Matching any character</span>
@@ -226,12 +269,22 @@ matches <span class="sign">=</span> re.<span class="command">findall</span>(patt
                                     
                                     <h2>Regex options (flags)</h2>  
 
-                                    <p>The <code>re</code> module provides several options to modify regex behavior:</p>  
-                                    <ul>
-                                        <li><code>re.IGNORECASE</code> - making the regex case-insensitive.</li>
-                                        <li><code>re.DOTALL</code> - allowing the <code>.</code> character to match newline characters.</li>
-                                        <li><code>re.VERBOSE</code> - allowing the use of whitespace and comments in regex patterns for better readability.</li>
-                                    </ul>
+                                    <p style="margin-bottom: 5px;">The <code>re</code> module provides several options to modify regex behavior:</p>  
+                                    <table>
+                                        <tr>
+                                            <td><code>re.IGNORECASE</code></td>
+                                            <td>Making the regex case-insensitive.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>re.DOTALL</code></td>
+                                            <td>Allowing the <code>.</code> character to match newline characters.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>re.VERBOSE</code></td>
+                                            <td>Allowing the use of whitespace and comments in regex patterns for better readability.</td>
+                                        </tr>
+                                    </table>
+                                    
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Using re.IGNORECASE</span>
 pattern <span class="sign">=</span> re.<span class="command">compile</span>(<span class="text">r"python"</span>, re.<span class="command">IGNORECASE</span>)

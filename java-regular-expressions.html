@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Threads, regular expressions, and Enum type</title>
+    <title>Regular expressions</title>
 </head>
 
 <body id="page-top">
@@ -82,70 +82,9 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Threads, regular expressions, and Enum type</h5>
+                                    <h5 class="m-0 font-weight-bold">Regular expressions</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h2>Threads</h2>
-
-                                    <p>Threads are a fundamental part of the Java concurrency model, allowing multiple tasks to run simultaneously within a single program. By utilizing threads, we can create more responsive and efficient applications, particularly in scenarios where tasks can be performed in parallel. Java provides built-in support for multithreading through the <code>Thread</code> class or the <code>Runnable</code> interface.</p>
-
-                                    <p>To create a thread, we extend the <code>Thread</code> class and override its <code>run()</code> method, which contains the code to be executed by the thread. Once the thread is created, it can be started using the <code>start()</code> method. Threads can also be put to sleep using the <code>Thread.sleep(milliseconds)</code> method, allowing for controlled pauses in execution. Additionally, threads can be synchronized to prevent concurrent access to shared resources, ensuring data consistency. Synchronization is applied using the <code>synchronized</code> keyword (<code>public synchronized void run()</code>). It ensures that only one thread accesses shared resources at a time.</p>
-
-                                    <p>Java also provides higher-level concurrency utilities in the <code>java.util.concurrent</code> package, which includes features like thread pools, futures, and concurrent collections, making it easier to manage complex multithreaded applications.</p>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> Task1 <span class="function">extends Thread</span> 
-<span class="sign">{</span>
-    <span class="function">public void</span> run() 
-    <span class="sign">{</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 10000<span class="sign">;</span> i<span class="sign">++</span>) 
-        <span class="sign">{</span>
-            <span class="function">if</span>(i <span class="sign">==</span> 10000)
-                <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Task1: Counted to "</span> <span class="sign">+</span> i)<span class="sign">;</span>
-        <span class="sign">}</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-
-<span class="function">class</span> Task2 <span class="function">extends Thread</span> 
-<span class="sign">{</span>
-    <span class="function">public void</span> run() 
-    <span class="sign">{</span>
-        <span class="function">int</span> sum <span class="sign">=</span> 0<span class="sign">;</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 10000<span class="sign">;</span> i<span class="sign">++</span>)
-            sum <span class="sign">+=</span> i<span class="sign">;</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Task2: Sum = "</span> <span class="sign">+</span> sum)<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="comment">// Creating threads</span>
-        <span class="function">Task1</span> task1 <span class="sign">=</span> <span class="function">new Task1</span>()<span class="sign">;</span>
-        <span class="function">Task2</span> task2 <span class="sign">=</span> <span class="function">new Task2</span>()<span class="sign">;</span>
-
-        <span class="comment">// Starting threads</span>
-        task1.<span class="command">start</span>()<span class="sign">;</span>
-        task2.<span class="command">start</span>()<span class="sign">;</span>
-
-        <span class="function">try</span>
-        <span class="sign">{</span>
-            <span class="comment">// Waiting for both threads to finish</span>
-            task1.<span class="command">join</span>()<span class="sign">;</span>
-            task2.j<span class="command">oin</span>()<span class="sign">;</span>
-        <span class="sign">}</span>
-        <span class="function">catch</span>(<span class="function">InterruptedException</span> e) 
-        <span class="sign">{</span>
-            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Main thread interrupted."</span>)<span class="sign">;</span>
-        <span class="sign">}</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Both tasks completed."</span>)<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-                                    </code></pre>
-
-                                    <h2>Regular expressions</h2>
-
                                     <p>Regular expressions (regex) are a powerful tool for pattern matching and text manipulation. They allow us to define search patterns for strings, enabling complex string operations such as validation, searching, and replacing. Java provides the <code>java.util.regex</code> package, which includes the <code>Pattern</code> and <code>Matcher</code> classes to work with regular expressions. The <code>Pattern</code> class is used to compile a <code>regex</code> into a pattern, while the <code>Matcher</code> class is used to perform operations on the text based on that pattern.</p>
                                     <p>Use the <code>import java.util.regex.*;</code> command at the beginning of every example.</p>
 
@@ -208,15 +147,33 @@
 </code></pre>
 
                                     <h4>Special sequences</h4>  
-                                    <p>Java regex supports special sequences that simplify pattern creation:</p>  
-                                    <ul>
-                                        <li><code>\\d</code> - matching any digit (equivalent to <code>[0-9]</code>).</li>
-                                        <li><code>\\D</code> - matching any non-digit character.</li>
-                                        <li><code>\\w</code> - matching any word character (alphanumeric + underscore).</li>
-                                        <li><code>\\W</code> - matching any non-word character.</li>
-                                        <li><code>\\s</code> - matching any whitespace character.</li>
-                                        <li><code>\\S</code> - matching any non-whitespace character.</li>
-                                    </ul>
+                                    <p style="margin-bottom: 5px;">Java regex supports special sequences that simplify pattern creation:</p>  
+                                    <table>
+                                        <tr>
+                                            <td><code>\\d</code></td>
+                                            <td>Matching any digit (equivalent to <code>[0-9]</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>\\D</code></td>
+                                            <td>Matching any non-digit character.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>\\w</code></td>
+                                            <td>Matching any word character (alphanumeric + underscore).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>\\W</code></td>
+                                            <td>Matching any non-word character.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>\\s</code></td>
+                                            <td>Matching any whitespace character.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>\\S</code></td>
+                                            <td>Matching any non-whitespace character.</td>
+                                        </tr>
+                                    </table>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">String</span> pattern <span class="sign">=</span> <span class="text">"\\d+"</span><span class="sign">;</span>
 <span class="function">String</span> input <span class="sign">=</span> <span class="text">"There are 12 cats and 34 dogs."</span><span class="sign">;</span>
@@ -228,12 +185,22 @@
                                     </code></pre>
 
                                     <h4>Regex options (flags)</h4>  
-                                    <p>The <code>Pattern</code> class provides several flags to modify regex behavior:</p>  
-                                    <ul>
-                                        <li><code>Pattern.CASE_INSENSITIVE</code> - making the regex case-insensitive.</li>
-                                        <li><code>Pattern.DOTALL</code> - allowing the <code>.</code> character to match newline characters.</li>
-                                        <li><code>Pattern.COMMENTS</code> - allowing the use of whitespace and comments in regex patterns for better readability.</li>
-                                    </ul>
+                                    <p style="margin-bottom: 5px;">The <code>Pattern</code> class provides several flags to modify regex behavior:</p>  
+                                    <table>
+                                        <tr>
+                                            <td><code>Pattern.CASE_INSENSITIVE</code></td>
+                                            <td>Making the regex case-insensitive.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Pattern.DOTALL</code></td>
+                                            <td>Allowing the <code>.</code> character to match newline characters.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Pattern.COMMENTS</code></td>
+                                            <td>Allowing the use of whitespace and comments in regex patterns for better readability.</td>
+                                        </tr>
+                                    </table>
+                                    
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment">// Using CASE_INSENSITIVE</span>
 <span class="function">Pattern</span> pattern <span class="sign">=</span> <span class="function">Pattern</span>.<span class="command">compile</span>(<span class="text">"java"</span>, <span class="function">Pattern</span>.<span class="command">CASE_INSENSITIVE</span>)<span class="sign">;</span>
@@ -259,57 +226,56 @@ matcher <span class="sign">=</span> pattern.<span class="command">matcher</span>
 
                                     <h4>All useful commands</h4>
 
-                                    <p class="podpis"><code>Pattern.compile(pattern, flags)</code> - compiling the given regex pattern with optional flags.</p>
-                                    <p class="podpis"><code>Pattern.matcher(input)</code> - returning a <code>Matcher</code> instance for the specified input text.</p>
-                                    <p class="podpis"><code>Pattern.pattern()</code> - returning the string pattern used to create the instance.</p>
-                                    <p class="podpis"><code>Pattern.flags()</code> - returning the flags bit mask used to compile the pattern.</p>
-                                    <p><code>Pattern.split(input, limit)</code> - splitting the input around matches found by the pattern.</p>
-                                    
-                                    <p class="podpis"><code>Matcher.find(start)</code> - finding the next match in the input, starting from the specified index.</p>
-                                    <p class="podpis"><code>Matcher.matches()</code> - checking if the entire input matches the pattern.</p>
-                                    <p class="podpis"><code>Matcher.group(group)</code> - returning the matched subsequence for the specified group.</p>
-                                    <p class="podpis"><code>Matcher.start(group)</code> - returning the start index of the match for the specified group.</p>
-                                    <p class="podpis"><code>Matcher.end(group)</code> - returning the end index of the match for the specified group.</p>
-                                    <p class="podpis"><code>Matcher.replaceAll(replacement)</code> - replacing all matches with the given replacement string.</p>
-                                    <p><code>Matcher.reset(input)</code> - resetting the matcher with new input text.</p>
-
-                                    <h2>Enum type</h2>
-
-                                    <p><code>Enum</code> (enumeration) is a custom data type (a data type that can define its type). We can determine what it contains. When defining it, we give a set of values of this type (similarly, e.g., an <code>int</code> has a set of allowed values - a range).</p>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public enum</span> Day 
-<span class="sign">{</span>
-    Mo, Tu, We, Th, Fr, Sa, Su
-<span class="sign">}</span>                                                                         
-                                    </code></pre>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="function">Day</span>.Tu)<span class="sign">;</span> <span class="comment">// just like typing int(5)</span>
-
-        <span class="function">Day</span> number_of_a_day_of_the_week <span class="sign">=</span> <span class="function">Day</span>.Mo<span class="sign">;</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(getDay(number_of_a_day_of_the_week))<span class="sign">;</span>
-    <span class="sign">}</span>
-
-    <span class="function">private static String</span> getDay(<span class="function">Day</span> x)
-    <span class="sign">{</span>
-        <span class="function">return switch</span>(x) 
-        <span class="sign">{</span>
-            <span class="function">case</span> Mo <span class="sign">-></span> <span class="text">"Monday"</span><span class="sign">;</span>
-            <span class="function">case</span> Tu <span class="sign">-></span> <span class="text">"Tuesday"</span><span class="sign">;</span>
-            <span class="function">case</span> We <span class="sign">-></span> <span class="text">"Wednesday"</span><span class="sign">;</span>
-            <span class="function">case</span> Th <span class="sign">-></span> <span class="text">"Thursday"</span><span class="sign">;</span>
-            <span class="function">case</span> Fr <span class="sign">-></span> <span class="text">"Friday"</span><span class="sign">;</span>
-            <span class="function">case</span> Sa <span class="sign">-></span> <span class="text">"Saturday"</span><span class="sign">;</span>
-            <span class="function">case</span> Su <span class="sign">-></span> <span class="text">"Sunday"</span><span class="sign">;</span>
-        <span class="sign">};</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-                                    </code></pre>
+                                    <table>
+                                        <tr>
+                                            <td><code>Pattern.compile(pattern, flags)</code></td>
+                                            <td>Compiling the given regex pattern with optional flags.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Pattern.matcher(input)</code></td>
+                                            <td>Returning a <code>Matcher</code> instance for the specified input text.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Pattern.pattern()</code></td>
+                                            <td>Returning the string pattern used to create the instance.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Pattern.flags()</code></td>
+                                            <td>Returning the flags bit mask used to compile the pattern.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Pattern.split(input, limit)</code></td>
+                                            <td>Splitting the input around matches found by the pattern.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Matcher.find(start)</code></td>
+                                            <td>Finding the next match in the input, starting from the specified index.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Matcher.matches()</code></td>
+                                            <td>Checking if the entire input matches the pattern.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Matcher.group(group)</code></td>
+                                            <td>Returning the matched subsequence for the specified group.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Matcher.start(group)</code></td>
+                                            <td>Returning the start index of the match for the specified group.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Matcher.end(group)</code></td>
+                                            <td>Returning the end index of the match for the specified group.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Matcher.replaceAll(replacement)</code></td>
+                                            <td>Replacing all matches with the given replacement string.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Matcher.reset(input)</code></td>
+                                            <td>Resetting the matcher with new input text.</td>
+                                        </tr>
+                                    </table>                                    
                                 </div>
                             </div>
                         </div>
