@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Default interface methods</title>
+    <title>Threads, regular expressions, and Enum type</title>
 </head>
 
 <body id="page-top">
@@ -82,44 +82,65 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Default interface methods</h5>
+                                    <h5 class="m-0 font-weight-bold">Threads, regular expressions, and Enum type</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>If we don't want to be forced to implement certain methods of an interface, we can set them as <code>default</code>. An interface a lambda expression is exploiting can't have more than one method, but if the rest is <code>default</code>, there is no problem.</p>
-            
+                                    <p>Threads are a fundamental part of the Java concurrency model, allowing multiple tasks to run simultaneously within a single program. By utilizing threads, we can create more responsive and efficient applications, particularly in scenarios where tasks can be performed in parallel. Java provides built-in support for multithreading through the <code>Thread</code> class or the <code>Runnable</code> interface.</p>
+
+                                    <p>To create a thread, we extend the <code>Thread</code> class and override its <code>run()</code> method, which contains the code to be executed by the thread. Once the thread is created, it can be started using the <code>start()</code> method. Threads can also be put to sleep using the <code>Thread.sleep(milliseconds)</code> method, allowing for controlled pauses in execution. Additionally, threads can be synchronized to prevent concurrent access to shared resources, ensuring data consistency. Synchronization is applied using the <code>synchronized</code> keyword (<code>public synchronized void run()</code>). It ensures that only one thread accesses shared resources at a time.</p>
+
+                                    <p>Java also provides higher-level concurrency utilities in the <code>java.util.concurrent</code> package, which includes features like thread pools, futures, and concurrent collections, making it easier to manage complex multithreaded applications.</p>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Task1 <span class="function">extends Thread</span> 
+<span class="sign">{</span>
+    <span class="function">public void</span> run() 
+    <span class="sign">{</span>
+        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 10000<span class="sign">;</span> i<span class="sign">++</span>) 
+        <span class="sign">{</span>
+            <span class="function">if</span>(i <span class="sign">==</span> 10000)
+                <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Task1: Counted to "</span> <span class="sign">+</span> i)<span class="sign">;</span>
+        <span class="sign">}</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> Task2 <span class="function">extends Thread</span> 
+<span class="sign">{</span>
+    <span class="function">public void</span> run() 
+    <span class="sign">{</span>
+        <span class="function">int</span> sum <span class="sign">=</span> 0<span class="sign">;</span>
+        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 10000<span class="sign">;</span> i<span class="sign">++</span>)
+            sum <span class="sign">+=</span> i<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Task2: Sum = "</span> <span class="sign">+</span> sum)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
 <span class="function">public class</span> Main
 <span class="sign">{</span>
     <span class="function">public static void</span> main(<span class="function">String</span>[] args)
     <span class="sign">{</span>
-        <span class="function">Maths</span> m <span class="sign">=</span> (<span class="function">int</span> x) <span class="sign">-&gt;</span>
+        <span class="comment">// Creating threads</span>
+        <span class="function">Task1</span> task1 <span class="sign">=</span> <span class="function">new Task1</span>()<span class="sign">;</span>
+        <span class="function">Task2</span> task2 <span class="sign">=</span> <span class="function">new Task2</span>()<span class="sign">;</span>
+
+        <span class="comment">// Starting threads</span>
+        task1.<span class="command">start</span>()<span class="sign">;</span>
+        task2.<span class="command">start</span>()<span class="sign">;</span>
+
+        <span class="function">try</span>
         <span class="sign">{</span>
-            <span class="function">return</span> 5<span class="sign">;</span>
-        <span class="sign">};</span>
-
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(m.calculate(4))<span class="sign">;</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(m.sqrt(2))<span class="sign">;</span>
+            <span class="comment">// Waiting for both threads to finish</span>
+            task1.<span class="command">join</span>()<span class="sign">;</span>
+            task2.j<span class="command">oin</span>()<span class="sign">;</span>
+        <span class="sign">}</span>
+        <span class="function">catch</span>(<span class="function">InterruptedException</span> e) 
+        <span class="sign">{</span>
+            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Main thread interrupted."</span>)<span class="sign">;</span>
+        <span class="sign">}</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Both tasks completed."</span>)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
-
-<span class="function">interface</span> Maths
-<span class="sign">{</span>
-    <span class="function">double</span> calculate(<span class="function">int</span> x)<span class="sign">;</span>
-    <span class="function">default double</span> sqrt(<span class="function">int</span> x)
-    <span class="sign">{</span>
-        <span class="function">return Math</span>.<span class="command">sqrt</span>(x)<span class="sign">;</span></span> <span class="comment">// we don't have to import the Math library</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-
-<span class="function">class</span> Examplee <span class="function">implements Maths</span>
-<span class="sign">{</span>
-    <span class="command">@Override</span>
-    <span class="function">public double</span> calculate(<span class="function">int</span> x)
-    <span class="sign">{</span>
-        <span class="function">return</span> 0<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-                                    </code></pre>
+                                    </code></pre>                                   
                                 </div>
                             </div>
                         </div>

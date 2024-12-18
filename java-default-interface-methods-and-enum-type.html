@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Async IO</title>
+    <title>Default interface methods and Enum type</title>
 </head>
 
 <body id="page-top">
@@ -82,63 +82,84 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Async IO</h5>
+                                    <h5 class="m-0 font-weight-bold">Default interface methods and Enum type</h5>
                                 </div>
                                 <div class="card-body">
-# asyncio - for managing many waiting tasks, e.g. requests from web
-# threads - for parallel tasks that share data with minimal CPU usage
-# processes - for maximizing performance on CPU intensive tasks
+                                    <h2>Default interface methods</h2>
 
-# event loop
+                                    <p>If we don't want to be forced to implement certain methods of an interface, we can set them as <code>default</code>. An interface a lambda expression is exploiting normally can't have more than one method, but if the rest is <code>default</code>, there is no problem.</p>
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">Maths</span> m <span class="sign">=</span> (<span class="function">int</span> x) <span class="sign">-&gt;</span>
+        <span class="sign">{</span>
+            <span class="function">return</span> 5<span class="sign">;</span>
+        <span class="sign">};</span>
 
-import asyncio
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(m.calculate(4))<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(m.sqrt(2))<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
 
-"""
-async def fetch():
-    print("Fetch data...")
-    await asyncio.sleep(2)
-    print("Data fetched.")
-    return {"data": "Some data"}
+<span class="function">interface</span> Maths
+<span class="sign">{</span>
+    <span class="function">double</span> calculate(<span class="function">int</span> x)<span class="sign">;</span>
+    <span class="function">default double</span> sqrt(<span class="function">int</span> x)
+    <span class="sign">{</span>
+        <span class="function">return Math</span>.<span class="command">sqrt</span>(x)<span class="sign">;</span></span> <span class="comment">// we don't have to import the Math library</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
 
-# a coroutine function
-async def main():
-    print("Start of the main coroutine.")
-    task = fetch()
-    print("End of the main coroutine.")
-    result = await task
-    print("Result:", result)
-    # await - we can only use this inside an asynchronous function (a coroutine). only when we await the task it actually start executing
+<span class="function">class</span> Examplee <span class="function">implements Maths</span>
+<span class="sign">{</span>
+    <span class="command">@Override</span>
+    <span class="function">public double</span> calculate(<span class="function">int</span> x)
+    <span class="sign">{</span>
+        <span class="function">return</span> 0<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
 
-# main() = coroutine object - we pass it to run()
+                                    <h2>Enum type</h2>
 
-asyncio.run(main())
-"""
+                                    <p><code>Enum</code> (enumeration) is a custom data type (a data type that can define its type). We can determine what it contains. When defining it, we give a set of values of this type (similarly, e.g., an <code>int</code> has a set of allowed values - a range).</p>
 
-async def fetch(ID, sleep):
-    print(f"Coroutine {ID} starting to fetch data.")
-    await asyncio.sleep(sleep)
-    return {"ID": ID, "data": f"Sample data from coroutine {ID}"}
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">public enum</span> Day 
+<span class="sign">{</span>
+    Mo, Tu, We, Th, Fr, Sa, Su
+<span class="sign">}</span>                                                                         
+                                    </code></pre>
 
-# a coroutine function
-async def main():
-    """
-    task1 = asyncio.create_task(fetch(1, 2))
-    task2 = asyncio.create_task(fetch(2, 3))
-    task3 = asyncio.create_task(fetch(3, 1))
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="function">Day</span>.Tu)<span class="sign">;</span> <span class="comment">// just like typing int(5)</span>
 
-    result1 = await task1
-    result2 = await task2
-    result3 = await task3
+        <span class="function">Day</span> number_of_a_day_of_the_week <span class="sign">=</span> <span class="function">Day</span>.Mo<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(getDay(number_of_a_day_of_the_week))<span class="sign">;</span>
+    <span class="sign">}</span>
 
-    print(result1, result2, result3)"""
-
-    # this will do the same as above - gather is worse for error handling because if one coroutine fails, it won't cancel out the rest
-    results = await asyncio.gather(fetch(1, 2), fetch(2, 3), fetch(3, 1))
-    for result in results:
-        print(f"Received result: {result}")
-
-asyncio.run(main())
-# as long as one task isn't doing anything and is waiting for something we can move on to the next task - event loop                                    
+    <span class="function">private static String</span> getDay(<span class="function">Day</span> x)
+    <span class="sign">{</span>
+        <span class="function">return switch</span>(x) 
+        <span class="sign">{</span>
+            <span class="function">case</span> Mo <span class="sign">-></span> <span class="text">"Monday"</span><span class="sign">;</span>
+            <span class="function">case</span> Tu <span class="sign">-></span> <span class="text">"Tuesday"</span><span class="sign">;</span>
+            <span class="function">case</span> We <span class="sign">-></span> <span class="text">"Wednesday"</span><span class="sign">;</span>
+            <span class="function">case</span> Th <span class="sign">-></span> <span class="text">"Thursday"</span><span class="sign">;</span>
+            <span class="function">case</span> Fr <span class="sign">-></span> <span class="text">"Friday"</span><span class="sign">;</span>
+            <span class="function">case</span> Sa <span class="sign">-></span> <span class="text">"Saturday"</span><span class="sign">;</span>
+            <span class="function">case</span> Su <span class="sign">-></span> <span class="text">"Sunday"</span><span class="sign">;</span>
+        <span class="sign">};</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
