@@ -186,7 +186,7 @@ threads <span class="sign">=</span> []
 
                                     <h2>Processes, GIL (Global Interpreter Lock)</h2>
 
-                                    <p>The Global Interpreter Lock (GIL) is a mechanism used in CPython (the most widely used Python interpreter) to ensure that only one thread executes Python bytecode at a time in a single process. This limitation prevents true parallelism in CPU-bound tasks but does not affect I/O-bound tasks. If our program is CPU-bound and we want to take full advantage of multiple CPU cores, we can bypass the GIL, use the <code>multiprocessing</code> library, which spawns separate processes, each with its own Python interpreter and GIL. Use this library for CPU-bound tasks to utilize multiple cores.</p>
+                                    <p>The Global Interpreter Lock (GIL) is a mechanism used in CPython (the most widely used Python interpreter) to ensure that only one thread executes Python bytecode simultaneously in a single process. This limitation prevents true parallelism in CPU-bound tasks but <b>does not affect I/O-bound tasks</b>. If our program is CPU-bound and we want to take full advantage of multiple CPU cores, we can bypass the GIL by using the <code>multiprocessing</code> library, which spawns separate processes, each with its own Python interpreter and GIL. Use this library specifically for CPU-bound tasks to utilize multiple cores.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> multiprocessing
@@ -213,13 +213,13 @@ processes <span class="sign">=</span> []
 
                                     <h2>Async IO</h2>
 
-                                    <p>Async IO is a single-threaded, single-process concurrency model that excels at handling I/O-bound and high-level structured network code. The event loop manages the execution of asynchronous I/O tasks. When it begins, it processes any scheduled coroutines or tasks. If a coroutine reaches an await expression (such as when waiting for I/O operations), it relinquishes control to the event loop, enabling other tasks to run while the current one is on hold. The event loop continues to operate until all tasks have been completed.</p>
+                                    <p>Async IO is a single-threaded, single-process concurrency model that excels at handling I/O-bound and high-level structured network code. The event loop manages the execution of asynchronous I/O tasks. A coroutine object (a special function defined with <code>async def</code>) represents an asynchronous operation that does not run until scheduled. A task is a scheduled coroutine run by the event loop. It represents an active operation that can be awaited or managed during execution. A coroutine object (typically the main coroutine) should be passed as an argument to the <code>asyncio.run()</code> function to start the event loop.</p>
 
-                                    <p>A coroutine object (a special function defined with <code>async def</code>) represents an asynchronous operation that does not run until scheduled. A task is a scheduled coroutine run by the event loop. It represents an active operation that can be awaited or managed during execution. A coroutine object (typically the main coroutine) should be passed as an argument to the <code>asyncio.run()</code> function to start the event loop.</p>
+                                    <p>When the event loop begins, it processes any scheduled coroutines or tasks. If a coroutine reaches an await expression (such as when waiting for I/O operations), it relinquishes control to the event loop, enabling other tasks to run while the current one is on hold. The event loop continues to operate until all tasks have been completed.</p>
 
-                                    <p>The <code>async</code> keyword is used to define a function as asynchronous, meaning it can perform non-blocking operations. Inside an asynchronous function, the <code>await</code> keyword is used to pause execution until a coroutine completes, allowing other actions to run concurrently. When <code>await</code> is called, the function relinquishes control to the event loop, which can then execute other coroutines while waiting. This enables efficient handling of I/O-bound tasks without blocking the entire program. Only after we <code>await</code> a coroutine, it actually starts executing. The <code>await</code> keyword can only be used within <code>async</code> functions.</p>
+                                    <p>The <code>async</code> keyword defines a function as asynchronous, meaning it can perform non-blocking operations. Inside an asynchronous function, the <code>await</code> keyword pauses execution until a coroutine completes, allowing other actions to run concurrently. When <code>await</code> is called, the function relinquishes control to the event loop, which can then execute other coroutines while waiting. This enables efficient handling of I/O-bound tasks without blocking the entire program. Only after we <code>await</code> a coroutine, does it actually start executing. The <code>await</code> keyword can only be used within <code>async</code> functions.</p>
 
-                                    <p>A coroutine starts executing as soon as it is called, but it doesn't actually run to completion until it is awaited. When we call a coroutine, it returns a coroutine object, that has not yet executed its body. That coroutine object has to be then awaited for us to see results.</p>
+                                    <p>A coroutine starts executing as soon as it is called, but it doesn't actually run to completion until it is awaited. When we call a coroutine, it returns a coroutine object that has not yet executed its body. That coroutine object has to be then awaited for us to see results.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> asyncio
@@ -242,7 +242,7 @@ asyncio.<span class="command">run</span>(main())
 
                                     <h4>Tasks</h4>
 
-                                    <p>As I said earlier, a task is a scheduled coroutine run by the event loop. <code>asyncio.<span class="command">create_task</span>()</code> is used to schedule a coroutine for concurrent execution. It converts a coroutine into a <code>Task</code> object, which is managed by the event loop. Tasks allow multiple coroutines to run concurrently, and they execute independently while the program continues with other operations. In the example below, using Async IO will shorten the execution time from 6 to 3 seconds because the tasks execute simultaneously.</p>
+                                    <p>As I said earlier, a task is a scheduled coroutine run by the event loop. <code>asyncio.<span class="command">create_task</span>()</code> is used to schedule a coroutine for concurrent execution. It converts a coroutine into a <code>Task</code> object, which is managed by the event loop. Tasks allow multiple coroutines to run concurrently. In the example below, using Async IO will shorten the execution time from 6 to 3 seconds because that is the execution time of the function that takes the longest.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> asyncio
@@ -273,7 +273,7 @@ asyncio.<span class="command">run</span>(main())
 asyncio.<span class="command">run</span>(main())
                                     </code></pre>
 
-                                    <p>In the example below, we can see a <code>TaskGroup</code> usage example. It simplifies error handling, as any exception in a task cancels the entire group, maintaining a clean and predictable flow of execution. It ensures all tasks complete or cancel together.</p>
+                                    <p>In the example below, we can see a <code>TaskGroup</code> usage example. It simplifies error handling, as any exception in a task cancels the entire group, maintaining a clean and predictable execution flow. It ensures all tasks are complete or canceled together.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> asyncio
@@ -330,7 +330,7 @@ asyncio.<span class="command">run</span>(main())
 
                                     <h5>Semaphore</h5>
 
-                                    <p>A semaphore allows limited concurrent access to a shared resource. Unlike a lock, it permits a chosen number of coroutines to access the resource simultaneously. Int the example below, each coroutine sleeps for 1 second while accessing the resource, demonstrating controlled concurrency with the semaphore. The output shows coroutines accessing and releasing the resource in pairs, ensuring no more than two execute simultaneously.</p>
+                                    <p>A semaphore allows limited concurrent access to a shared resource. Unlike a lock, it permits a chosen number of coroutines to access the resource simultaneously. In the example below, each coroutine sleeps for 1 second while accessing the resource, demonstrating controlled concurrency with the semaphore.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> asyncio
