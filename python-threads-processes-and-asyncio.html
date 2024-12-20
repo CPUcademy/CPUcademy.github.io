@@ -85,12 +85,45 @@
                                     <h5 class="m-0 font-weight-bold">Threads, processes, and Async IO</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Threads, processes, and Async IO (<code>async</code> and <code>await</code>) are all part of the asynchronous programming model. In this model, different functions can execute simultaneously or in a different order than usual. Threads are used for parallel tasks that share data with minimal CPU usage (e.g., handling multiple user requests in a web server). Processes are better suited for maximizing performance on CPU-intensive tasks (e.g., mathematical computations or image processing). Async IO is perfect for handling many tasks that involve much waiting (e.g., network requests or file operations).</p>
+                                    <p>Threads, processes, and Async IO (<code>async</code> and <code>await</code>) are all part of the asynchronous programming model. In this model, different functions can execute simultaneously or in a different order than usual. Threads are used for parallel tasks that share data with minimal CPU usage (e.g., handling multiple user requests in a web server). Processes are better suited for maximizing performance on CPU-intensive tasks (e.g., mathematical computations or image processing). Async IO is perfect for handling many tasks that involve much waiting (e.g., network requests or file operations). To understand the examples in this lesson, you have to run them all in your editor.</p>
+
+                                    <table>
+                                        <tr>
+                                            <td><b>Feature</b></td>
+                                            <td><b>Threads</b></td>
+                                            <td><b>Processes</b></td>
+                                            <td><b>Async IO</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Concurrency</td>
+                                            <td>Cooperative (GIL-limited)</td>
+                                            <td>True parallelism</td>
+                                            <td>Cooperative</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Use Case</td>
+                                            <td>I/O-bound tasks</td>
+                                            <td>CPU-bound tasks</td>
+                                            <td>I/O-bound tasks</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Overhead</td>
+                                            <td>Low</td>
+                                            <td>High</td>
+                                            <td>Low</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Shared Data</td>
+                                            <td>Shared memory</td>
+                                            <td>Inter-process communication</td>
+                                            <td>Not shared (message-passing)</td>
+                                        </tr>
+                                    </table>                                    
 
                                     <h2>Threads</h2>
                                     <p>Threads are a fundamental part of the Python concurrency model, allowing multiple tasks to run simultaneously within a single program. By utilizing threads, we can create more responsive and efficient applications, particularly in scenarios where tasks can be performed in parallel. Python provides built-in support for multithreading through the <code>threading</code> library.</p>
 
-                                    <p>To create a thread, we instantiate a <code>Thread</code> object and select a function (its target), which contains the code to be executed by the thread. Once the thread is created, it can be started using the <code>start()</code> method.</p>
+                                    <p>To create a thread, we instantiate a <code>Thread</code> object and select a function (its target), which contains the code to be executed by the thread. Once the thread is created, it can be started using the <code>start()</code> method. The <code>join()</code> method ensures the main thread waits until the "side" thread completes execution.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> threading
@@ -119,9 +152,9 @@ task2.<span class="command">join</span>()
 <span class="command">print</span>(<span class="text">"Both tasks completed."</span>)                                        
                                     </code></pre>
 
-                                    <p>Threads can be synchronized to prevent concurrent access to shared resources, ensuring data consistency. Synchronization is applied using the <code>Lock</code> object. It ensures that only one thread accesses shared resources at a time.</p>
+                                    <p>Threads can be synchronized to prevent concurrent access to shared resources, ensuring data consistency. Synchronization is applied using the <code>Lock</code> object. It ensures that only one thread accesses shared resources at a time. Synchronization ensures data consistency but can reduce performance if overused.</p>
 
-                                    <p>In the example below, the <code>Lock</code> object prevents multiple threads from modifying the <code>shared_resource</code> variable simultaneously, which could lead to inconsistencies due to race conditions. Without the lock, threads can interfere with each other while accessing the shared resource, causing the final result to be unpredictable. For example, two threads might read the same value of <code>shared_resource</code> , increment it, and write it back, effectively skipping one increment. This results in a final value that is less than expected. When a thread enters the block <code>with lock</code>, it first tries to acquire the lock. If another thread already holds the lock, the current thread will wait until the lock is released. Inside the locked block, the shared resource is modified. Once the thread finishes modifying <code>shared_resource</code>, the lock is automatically released.</p>
+                                    <p>In the example below, the <code>Lock</code> object prevents multiple threads from modifying the <code>shared_resource</code> variable simultaneously, which could lead to inconsistencies due to race conditions. Without the lock, threads can interfere with each other while accessing the shared resource, causing the final result to be unpredictable. For example, two threads might read the same value of <code>shared_resource</code>, increment it, and write it back, effectively skipping one increment. This may result in a final value being lower than expected. When a thread enters the block <code>with lock</code>, it first tries to acquire the lock. If another thread already holds the lock, the current thread will wait until the lock is released. Inside the locked block, the shared resource is modified. Once the other thread finishes modifying <code>shared_resource</code>, the lock is automatically released.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> threading
@@ -153,7 +186,7 @@ threads <span class="sign">=</span> []
 
                                     <h2>Processes, GIL (Global Interpreter Lock)</h2>
 
-                                    <p>The Global Interpreter Lock (GIL) is a mechanism used in CPython (the most widely used Python interpreter) to ensure that only one thread executes Python bytecode at a time in a single process. We can't "use" it directly because it is an internal mechanism in the CPython interpreter that runs automatically. If our program is CPU-bound and we want to take full advantage of multiple CPU cores, using the <code>multiprocessing</code> module (library) can bypass the GIL. This module spawns separate processes, each with its own interpreter and GIL, allowing true parallelism.</p>
+                                    <p>The Global Interpreter Lock (GIL) is a mechanism used in CPython (the most widely used Python interpreter) to ensure that only one thread executes Python bytecode at a time in a single process. This limitation prevents true parallelism in CPU-bound tasks but does not affect I/O-bound tasks. If our program is CPU-bound and we want to take full advantage of multiple CPU cores, we can bypass the GIL, use the <code>multiprocessing</code> library, which spawns separate processes, each with its own Python interpreter and GIL. Use this library for CPU-bound tasks to utilize multiple cores.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> multiprocessing
@@ -180,120 +213,166 @@ processes <span class="sign">=</span> []
 
                                     <h2>Async IO</h2>
 
-                                    <p>The event loop manages the execution of asynchronous I/O tasks. When it begins, it processes any scheduled coroutines or tasks. If a coroutine reaches an await expression (such as when waiting for I/O operations), it relinquishes control to the event loop, enabling other tasks to run while the current one is on hold. The event loop continues to operate until all tasks have been completed.</p>
+                                    <p>Async IO is a single-threaded, single-process concurrency model that excels at handling I/O-bound and high-level structured network code. The event loop manages the execution of asynchronous I/O tasks. When it begins, it processes any scheduled coroutines or tasks. If a coroutine reaches an await expression (such as when waiting for I/O operations), it relinquishes control to the event loop, enabling other tasks to run while the current one is on hold. The event loop continues to operate until all tasks have been completed.</p>
 
-                                    <p>A coroutine object represents an asynchronous operation but does not run until scheduled. A task is a scheduled coroutine run by the event loop. It represents an active operation that can be awaited or managed during execution. A coroutine object (typically the main coroutine) should be passed as an argument to the <code>asyncio.run()</code> function to start the event loop.</p>
+                                    <p>A coroutine object (a special function defined with <code>async def</code>) represents an asynchronous operation that does not run until scheduled. A task is a scheduled coroutine run by the event loop. It represents an active operation that can be awaited or managed during execution. A coroutine object (typically the main coroutine) should be passed as an argument to the <code>asyncio.run()</code> function to start the event loop.</p>
 
-                                    <p>The <code>async</code> keyword is used to define a function as asynchronous, meaning it can perform non-blocking operations. Inside an asynchronous function, the <code>await</code> keyword is used to pause execution until a coroutine completes, allowing other actions to run concurrently. When <code>await</code> is called, the function relinquishes control to the event loop, which can then execute other coroutines while waiting. This enables efficient handling of I/O-bound tasks without blocking the entire program. Only after we <code>await</code> a coroutine, it actually starts executing.</p>
+                                    <p>The <code>async</code> keyword is used to define a function as asynchronous, meaning it can perform non-blocking operations. Inside an asynchronous function, the <code>await</code> keyword is used to pause execution until a coroutine completes, allowing other actions to run concurrently. When <code>await</code> is called, the function relinquishes control to the event loop, which can then execute other coroutines while waiting. This enables efficient handling of I/O-bound tasks without blocking the entire program. Only after we <code>await</code> a coroutine, it actually starts executing. The <code>await</code> keyword can only be used within <code>async</code> functions.</p>
 
                                     <p>A coroutine starts executing as soon as it is called, but it doesn't actually run to completion until it is awaited. When we call a coroutine, it returns a coroutine object, that has not yet executed its body. That coroutine object has to be then awaited for us to see results.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-import asyncio
+<span class="command">import</span> asyncio
 
-async def fetch():
-    print("Fetching...")
-    await asyncio.sleep(2) # simulating work
-    print("Data fetched.")
-    return "data"
+<span class="function">async def</span> fetch():
+    <span class="command">print</span>(<span class="text">"Fetching..."</span>)
+    <span class="function">await</span> asyncio.<span class="command">sleep</span>(2) <span class="comment"># simulating work</span>
+    <span class="command">print</span>(<span class="text">"Data fetched."</span>)
+    <span class="function">return</span> <span class="text">"data"</span>
 
-async def main():
-    print("Start of the main coroutine.")
-    coroutine = fetch()
-    print("End of the main coroutine.")
-    result = await coroutine
-    print("Result:", result)
+<span class="function">async def</span> main():
+    <span class="command">print</span>(<span class="text">"Start of the main coroutine."</span>)
+    coroutine <span class="sign">=</span> fetch()
+    <span class="command">print</span>(<span class="text">"End of the main coroutine."</span>)
+    result <span class="sign">=</span> <span class="function">await</span> coroutine
+    <span class="command">print</span>(<span class="text">"Result:"</span>, result)
 
-asyncio.run(main())
+asyncio.<span class="command">run</span>(main())
                                     </code></pre>
 
                                     <h4>Tasks</h4>
 
-                                    <p>As I said earlier, a task is a scheduled coroutine run by the event loop. <code>asyncio.create_task()</code> is used to schedule a coroutine for concurrent execution. It converts a coroutine into a <code>Task</code> object, which is managed by the event loop. Tasks allow multiple coroutines to run concurrently, and they execute independently while the program continues with other operations. In the example below, using Async IO will shorten the execution time from 6 to 3 seconds because the tasks execute simultaneously.</p>
+                                    <p>As I said earlier, a task is a scheduled coroutine run by the event loop. <code>asyncio.<span class="command">create_task</span>()</code> is used to schedule a coroutine for concurrent execution. It converts a coroutine into a <code>Task</code> object, which is managed by the event loop. Tasks allow multiple coroutines to run concurrently, and they execute independently while the program continues with other operations. In the example below, using Async IO will shorten the execution time from 6 to 3 seconds because the tasks execute simultaneously.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-import asyncio
+<span class="command">import</span> asyncio
 
-async def fetch(ID, sleep):
-    print(f"Coroutine {ID} has started.")
-    await asyncio.sleep(sleep)
-    return f"Data from coroutine {ID}"
+<span class="function">async def</span> fetch(ID, sleep):
+   <span class="command"> print</span>(<span class="text">f"Coroutine {ID} has started."</span>)
+    <span class="function">await</span> asyncio.<span class="command">sleep</span>(sleep)
+    <span class="function">return</span> <span class="text">f"Data from coroutine {ID}"</span>
 
-async def main():
-    # Method 1
-    task1 = asyncio.create_task(fetch(1, 1))
-    task2 = asyncio.create_task(fetch(2, 2))
-    task3 = asyncio.create_task(fetch(3, 3))
+<span class="function">async def</span> main():
+    <span class="comment"># Method 1</span>
+    task1 <span class="sign">=</span> asyncio.<span class="command">create_task</span>(fetch(1, 1))
+    task2 <span class="sign">=</span> asyncio.<span class="command">create_task</span>(fetch(2, 2))
+    task3 <span class="sign">=</span> asyncio.<span class="command">create_task</span>(fetch(3, 3))
 
-    result1 = await task1
-    result2 = await task2
-    result3 = await task3
+    result1 <span class="sign">=</span> <span class="function">await</span> task1
+    result2 <span class="sign">=</span> <span class="function">await</span> task2
+    result3 <span class="sign">=</span> <span class="function">await</span> task3
 
-    print(result1, result2, result3)
+    <span class="command">print</span>(result1, result2, result3)
 
-    # Method 2
-    # This method is worse for error handling because if one coroutine fails, it won't cancel out the rest.
-    results = await asyncio.gather(fetch(1, 1), fetch(2, 2), fetch(3, 3))
-    for result in results:
-        print(result)
+    <span class="comment"># Method 2
+    # This method is worse for error handling because if one coroutine fails, it won't cancel out the rest.</span>
+    results <span class="sign">=</span> <span class="function">await</span> asyncio.<span class="command">gather</span>(fetch(1, 1), fetch(2, 2), fetch(3, 3))
+    <span class="function">for</span> result <span class="function">in</span> results:
+        <span class="command">print</span>(result)
 
-asyncio.run(main())
+asyncio.<span class="command">run</span>(main())
                                     </code></pre>
 
-                                    <p>In the example below, we can see a <code>TaskGroup</code> usage example. It provides a cleaner way to handle tasks.</p>
+                                    <p>In the example below, we can see a <code>TaskGroup</code> usage example. It simplifies error handling, as any exception in a task cancels the entire group, maintaining a clean and predictable flow of execution. It ensures all tasks complete or cancel together.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-import asyncio
+<span class="command">import</span> asyncio
 
-async def fetch(ID, sleep):
-    print(f"Coroutine {ID} starting to fetch data.")
-    await asyncio.sleep(sleep)
-    return {"ID": ID, "data": f"Sample data from coroutine {ID}"}
+<span class="function">async def</span> fetch(ID, sleep):
+    <span class="command">print</span>(<span class="text">f"Coroutine {ID} has started."</span>)
+    <span class="function">await</span> asyncio.<span class="command">sleep</span>(sleep)
+    <span class="function">return</span> <span class="text">f"Data from coroutine {ID}"</span>
 
-async def main():
-    tasks = []
-    async with asyncio.TaskGroup() as tg:
-        for i, sleep in enumerate([2, 1, 3], start = 1):
-            print(i)
-            task = tg.create_task(fetch(i, sleep))
-            tasks.append(task)
-    # The code will get to this point only after completing all the tasks stated above.
-    results = [task.result() for task in tasks]
+<span class="function">async def</span> main():
+    tasks <span class="sign">=</span> []
+    <span class="function">async with</span> asyncio.<span class="function">TaskGroup</span>() <span class="function">as</span> tg:
+        <span class="function">for</span> i, sleep <span class="function">in</span> <span class="command">enumerate</span>([2, 1, 3], start <span class="sign">=</span> 1): <span class="comment"># "start = 1" sets the starting index of the iteration to 1 instead of the default 0.</span>
+            <span class="command">print</span>(i)
+            task <span class="sign">=</span> tg.<span class="command">create_task</span>(fetch(i, sleep))
+            tasks.<span class="command">append</span>(task)
+    <span class="comment"># The code will get to this point only after completing all the tasks stated above.</span>
+    results <span class="sign">=</span> [task.<span class="command">result</span>() <span class="function">for</span> task <span class="function">in</span> tasks]
 
-    for result in results:
-        print(f"Received result: {result}")
+    <span class="function">for</span> result <span class="function">in</span> results:
+        <span class="command">print</span>(<span class="text">"Received result:"</span>, result)
 
-asyncio.run(main())                                        
+asyncio.<span class="command">run</span>(main())                                        
                                     </code></pre>
 
                                     <h4>Synchronization</h4>
 
                                     <h5>Lock</h5>
 
+                                    <p>Async IO locks have the same purpose as thread locks. In the example below, five coroutines increment a shared resource 1,000 times each. The lock ensures synchronized access to avoid data corruption. The execution might take longer due to sequential access, but the shared data remains consistent.</p>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-import asyncio
+<span class="command">import</span> asyncio
 
-shared_resource = 0
-lock = asyncio.Lock()
+shared_resource <span class="sign">=</span> 0
+lock <span class="sign">=</span> asyncio.<span class="function">Lock</span>()
 
-async def increment():
-    global shared_resource
-    for i in range(1000):
-        async with lock:
-            print("Resource before modification:", shared_resource)
-            shared_resource += 1
-            await asyncio.sleep(1)
-            print("Resource after modification:", shared_resource)
+<span class="function">async def</span> increment():
+    <span class="command">global</span> shared_resource
+    <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(1000):
+        <span class="function">async with</span> lock:
+            <span class="command">print</span>(<span class="text">"Before modification:"</span>, shared_resource)
+            shared_resource <span class="sign">+=</span> 1
+            <span class="function">await</span> asyncio.<span class="command">sleep</span>(1)
+            <span class="command">print</span>(<span class="text">"After modification:"</span>, shared_resource)
 
-async def main():
-    results = await asyncio.gather(*(increment() for i in range(5)))
-
-asyncio.run(main())
+<span class="function">async def</span> main():
+    results <span class="sign">=</span> <span class="function">await</span> asyncio.<span class="command">gather</span>(<span class="sign">*</span>(increment() <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(5))) 
+    
+asyncio.<span class="command">run</span>(main())
                                     </code></pre>
+
+                                    <p>*The "star" in <code>gather()</code> unpacks this generator expression into individual coroutine arguments for asyncio.gather(), enabling it to run all the increment() coroutines concurrently. The key difference is that a generator expression creates an iterator that produces items one at a time, whereas a list comprehension creates an entire list in memory.</p>
 
                                     <h5>Semaphore</h5>
 
+                                    <p>A semaphore allows limited concurrent access to a shared resource. Unlike a lock, it permits a chosen number of coroutines to access the resource simultaneously. Int the example below, each coroutine sleeps for 1 second while accessing the resource, demonstrating controlled concurrency with the semaphore. The output shows coroutines accessing and releasing the resource in pairs, ensuring no more than two execute simultaneously.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> asyncio
+
+<span class="function">async def</span> access_resource(semaphore, id):
+    <span class="function">async with</span> semaphore:
+        <span class="command">print</span>(<span class="text">"Accessing resource:"</span>, id)
+        <span class="function">await</span> asyncio.<span class="command">sleep</span>(1)
+        <span class="command">print</span>(<span class="text">"Releasing resource:"</span>, id)
+
+<span class="function">async def</span> main():
+    semaphore <span class="sign">=</span> asyncio.<span class="function">Semaphore</span>(2) <span class="comment"># allowing two coroutines</span>
+    <span class="function">await</span> asyncio.<span class="function">gather</span>(<span class="sign">*</span>(access_resource(semaphore, i) <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(5)))
+
+asyncio.<span class="command">run</span>(main())
+                                    </code></pre>
+
                                     <h5>Event</h5>
+
+                                    <p>An event provides a way for one coroutine to signal another, allowing them to synchronize actions. The <code>f1</code> coroutine waits for the event to be set, effectively pausing its execution. The <code>f2</code> coroutine sets the event after a 2-second delay, allowing <code>f1</code> to resume. This way the <code>f1</code> will execute a given fragment of code only after the <code>f2</code> coroutine has signaled it is ready (e.g., it might have been preparing data).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> asyncio
+
+<span class="function">async def</span> f1(event):
+    <span class="command">print</span>(<span class="text">"Waiting for the event to be set."</span>)
+    <span class="function">await</span> event.<span class="command">wait</span>()
+    <span class="command">print</span>(<span class="text">"Continuing execution."</span>)
+    
+<span class="function">async def</span> f2(event):
+    <span class="function">await</span> asyncio.<span class="command">sleep</span>(2)
+    event.<span class="command">set</span>()
+    <span class="command">print</span>(<span class="text">"The event has been set."</span>)
+    
+<span class="function">async def</span> main():
+    event <span class="sign">=</span> asyncio.<span class="function">Event</span>()
+    <span class="function">await</span> asyncio.<span class="command">gather</span>(f1 (event), f2 (event))
+
+asyncio.<span class="command">run</span>(main())
+                                    </code></pre>
+
+                                    <p>The <code>asyncio</code> module also provides something called futures. You will likely never use something like that but if you'd like to know more, check the <a href="https://docs.python.org/3/library/asyncio.html" target="_blank" class="link">documentation</a>.</p>
                                 </div>
                             </div>
                         </div>
