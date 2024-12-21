@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Threads, regular expressions, and Enum type</title>
+    <title>Threads</title>
 </head>
 
 <body id="page-top">
@@ -82,12 +82,12 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Threads, regular expressions, and Enum type</h5>
+                                    <h5 class="m-0 font-weight-bold">Threads</h5>
                                 </div>
                                 <div class="card-body">
                                     <p>Threads are a fundamental part of the Java concurrency model, allowing multiple tasks to run simultaneously within a single program. By utilizing threads, we can create more responsive and efficient applications, particularly in scenarios where tasks can be performed in parallel. Java provides built-in support for multithreading through the <code>Thread</code> class or the <code>Runnable</code> interface.</p>
 
-                                    <p>To create a thread, we extend the <code>Thread</code> class and override its <code>run()</code> method, which contains the code to be executed by the thread. Once the thread is created, it can be started using the <code>start()</code> method. Threads can also be put to sleep using the <code>Thread.sleep(milliseconds)</code> method, allowing for controlled pauses in execution. Additionally, threads can be synchronized to prevent concurrent access to shared resources, ensuring data consistency. Synchronization is applied using the <code>synchronized</code> keyword (<code>public synchronized void run()</code>). It ensures that only one thread accesses shared resources at a time.</p>
+                                    <p>To create a thread, we extend the <code>Thread</code> class and override its <code>run()</code> method, which contains the code to be executed by the thread. Once the thread is created, it can be started using the <code>start()</code> method. The <code>join()</code> method ensures the main thread waits until the "side" thread completes execution. Threads can be also put to sleep using the <code>Thread.sleep(milliseconds)</code> method, allowing for controlled pauses in execution.</p>
 
                                     <p>Java also provides higher-level concurrency utilities in the <code>java.util.concurrent</code> package, which includes features like thread pools, futures, and concurrent collections, making it easier to manage complex multithreaded applications.</p>
 
@@ -133,14 +133,66 @@
             task1.<span class="command">join</span>()<span class="sign">;</span>
             task2.j<span class="command">oin</span>()<span class="sign">;</span>
         <span class="sign">}</span>
-        <span class="function">catch</span>(<span class="function">InterruptedException</span> e) 
+        <span class="function">catch</span>(<span class="function">InterruptedException</span> e) <span class="comment">// if another thread interrupts the current thread</span>
         <span class="sign">{</span>
             <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Main thread interrupted."</span>)<span class="sign">;</span>
         <span class="sign">}</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Both tasks completed."</span>)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
-                                    </code></pre>                                   
+                                    </code></pre>     
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">// Creating a thread using a lambda statement</span>
+<span class="function">int</span> n <span class="sign">=</span> 20<span class="sign">;</span>
+<span class="function">Thread</span> th <span class="sign">=</span> <span class="function">new Thread</span>(() <span class="sign">-> {</span>
+    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Square of "</span> <span class="sign">+</span> n <span class="sign">+</span> <span class="text">" is: "</span> <span class="sign">+</span> square(n))<span class="sign">;</span> <span class="comment">// you have to define the square() method</span>
+<span class="sign">}</span>)<span class="sign">;</span>
+th.<span class="command">start</span>()<span class="sign">;</span>
+                                    </code></pre>
+                                    
+                                    <p>Threads can be synchronized to prevent concurrent access to shared resources, ensuring data consistency. Synchronization is applied using the <code>synchronized</code> keyword. It ensures that only one thread accesses shared resources at a time. Synchronization ensures data consistency but can reduce performance if overused.</p>
+
+                                    <p>In the example below, the <code>synchronized</code> keyword (in the name of the method executed by the threads) prevents multiple threads from modifying the <code>shared_resource</code> variable simultaneously, which could lead to inconsistencies due to race conditions. Without this "lock," threads can interfere with each other while accessing the shared resource, causing the final result to be unpredictable. For example, two threads might read the same value of <code>shared_resource</code>, increment it, and write it back, effectively skipping one increment. This may result in a final value being lower than expected. When a thread enters the method, it first tries to acquire the lock. If another thread already holds the lock, the current thread will wait until the lock is released. Inside the locked block (inside the synchronized method), the shared resource is modified. Once the other thread finishes modifying <code>shared_resource</code>, the lock is automatically released.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">private static int</span> shared_resource <span class="sign">=</span> 0<span class="sign">;</span>
+    
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="comment">// Creating multiple threads</span>
+        <span class="function">Thread</span>[] threads <span class="sign">=</span> <span class="function">new Thread</span>[10]<span class="sign">;</span>
+        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 10<span class="sign">;</span> i<span class="sign">++</span>) 
+        <span class="sign">{</span>
+            threads[i] <span class="sign">=</span> <span class="function">new Thread</span>(<span class="function">Main</span><span class="sign">::</span>increment)<span class="sign">;</span> <span class="comment">// the :: operator symbolizes affiliation to the class</span>
+            threads[i].<span class="command">start</span>()<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        <span class="comment">// Waiting for all threads to finish</span>
+        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 10<span class="sign">;</span> i<span class="sign">++</span>) 
+        <span class="sign">{</span>
+            <span class="function">try</span> 
+            <span class="sign">{</span>
+                threads[i].<span class="command">join</span>();
+            <span class="sign">}</span> 
+            <span class="function">catch</span>(<span class="function">InterruptedException</span> e)
+            <span class="sign">{</span>
+                <span class="function">Thread</span>.<span class="command">currentThread</span>().<span class="command">interrupt</span>()<span class="sign">;</span> <span class="comment">// setting the interrupted status of the current thread</span>
+            <span class="sign">}</span>
+        <span class="sign">}</span>
+
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Final value of shared_resource: "</span> <span class="sign">+</span> shared_resource)<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="function">public synchronized static void</span> increment() 
+    <span class="sign">{</span>
+        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 1000<span class="sign">;</span> i<span class="sign">++</span>)
+            shared_resource<span class="sign">++;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
