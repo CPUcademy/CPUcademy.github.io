@@ -85,55 +85,46 @@
                                     <h5 class="m-0 font-weight-bold">ZipFile</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Biblioteka <code>Zipfile</code> służy do obsługi plików z rozszerzeniem <code>.zip</code>, czyli folderów skompresowanych.</p>
+                                    <p>The <code>Zipfile</code> library handles files with the <code>.zip</code> extension, i.e. compressed folders.</p>
+
+                                    <p>Use the <code>import zipfile</code> command at the beginning of every example.</p>
                                 
-                                    <h2>Pakowanie plików do zip'a</h2>
+                                    <h2>Zipping files</h2>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    import zipfile
-                                    z = zipfile.ZipFile("myZip.zip", "w")
-                                    z.write("file.txt")
-                                    z.write("image.jpg")
-                                    z.close()
+z <span class="sign">=</span> zipfile.<span class="function">ZipFile</span>(<span class="text">"myZip.zip"</span>, <span class="text">"w"</span>)
+z.<span class="command">write</span>(<span class="text">"file.txt"</span>)
+z.<span class="command">write</span>(<span class="text">"file2.txt"</span>)
+z.<span class="command">close</span>()
                                     </code></pre>
                                     
                                     </code></pre>
                                     
-                                    <h2>Komenda <code>namelist()</code></h2>
-                                    
-                                    <p>Komenda <code>namelist()</code> służy do sprawdzania zawartości zip'a.</p>
+                                    <h2><code>namelist()</code></h2>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    import zipfile
-                                    z = zipfile.ZipFile("myZip.zip", "r")
-                                    print(z.namelist())
-                                    z.close()
+<span class="comment"># Checking the contents of a zip file (a list of files)</span>
+z <span class="sign">=</span> zipfile.<span class="function">ZipFile</span>(<span class="text">"myZip.zip"</span>, <span class="text">"r"</span>)
+<span class="command">print</span>(z.<span class="command">namelist</span>())
+z.<span class="command">close</span>()
                                     </code></pre>
                                     
-                                    <h2>Rozpakowywanie zip'a</h2>
+                                    <h2>Unzipping files</h2>
                                     
-                                    <p>Rozpakować zip'a można na dwa sposoby.</p>
-
-                                    <p>Sposób 1:</p>
+                                    <p>There are two ways of unzipping files.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    import zipfile
-                                    z = zipfile.ZipFile("myZip.zip", "r")
-                                    for x in z.namelist():
-                                            z.extract(x)
-                                    z.close()
+z <span class="sign">=</span> zipfile.<span class="function">ZipFile</span>(<span class="text">"myZip.zip"</span>, <span class="text">"r"</span>)
+<span class="function">for</span> x <span class="function">in</span> z.<span class="command">namelist</span>():
+    z.<span class="command">extract</span>(x)
+z.<span class="command">close</span>()
                                     </code></pre>
-                                    
-                                    <p>Sposób 2:</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    import zipfile
-                                    z = zipfile.ZipFile("myZip.zip", "r")
-                                    z.extractall()
-                                    z.close()
-                                    </code></pre>
-                                
-                                    <p>Więcej znajdziesz w <a href="https://docs.python.org/3/library/zipfile.html" target="_blank" class="link" >oficialnej dokumentacji ZipFile</a>.</p>
+z <span class="sign">=</span> zipfile.<span class="function">ZipFile</span>(<span class="text">"myZip.zip"</span>, <span class="text">"r"</span>)
+z.<span class="command">extractall</span>()
+z.<span class="command">close</span>()
+                                    </code></pre>  
                                 </div>
                             </div>
                         </div>
