@@ -85,15 +85,35 @@
                                     <h5 class="m-0 font-weight-bold">Git &amp; GitHub</h5>
                                 </div>
                                 <div class="card-body">
+                                    <h3>Table of contents</h3>
+            
+                                    <ul type="disc">
+                                        <li><a href="#basics" class="link" style="text-decoration: none;">Basics</a></li>
+                                        <li><a href="#configuration" class="link" style="text-decoration: none;">Configuration</a></li>
+                                        <li><a href="#repository-initialization-and-cloning" class="link" style="text-decoration: none;">Repository initialization and cloning</a></li>
+                                        <li><a href="#checking-status-and-history" class="link" style="text-decoration: none;">Checking status and history</a></li>
+                                        <li><a href="#staging-and-committing-changes" class="link" style="text-decoration: none;">Staging and committing changes</a></li>
+                                        <li><a href="#synchronizing-with-the-remote-repository" class="link" style="text-decoration: none;">Synchronizing with the remote repository</a></li>
+                                        <li><a href="#branching-basics" class="link" style="text-decoration: none;">Branching basics</a>, <a href="#merging-branches" class="link" style="text-decoration: none;">Merging branches</a>, <a href="#merge-conflicts" class="link" style="text-decoration: none;">Merge conflicts</a></li>
+                                        <li><a href="#pull-requests-on-github" class="link" style="text-decoration: none;">Pull requests on GitHub</a></li>
+                                        <li><a href="#reset" class="link" style="text-decoration: none;">Reset</a>, <a href="#revert" class="link" style="text-decoration: none;">Revert</a>, <a href="#stash" class="link" style="text-decoration: none;">Stash</a>, <a href="#tags" class="link" style="text-decoration: none;">Tags</a>, <a href="#flags" class="link" style="text-decoration: none;">Flags</a></li>
+                                        <li><code><a href="#gitignore" class="link" style="color: #f5d67b; text-decoration: none;">.gitignore</a></code></li>
+                                        <li><a href="#forks" class="link" style="text-decoration: none;">Forks</a></li>
+                                        <li><a href="#interactive-rebasing" class="link" style="text-decoration: none;">Interactive rebasing</a></li>
+                                        <li><a href="#advanced-git-commands" class="link" style="text-decoration: none;">Advanced Git commands</a></li>
+                                        <li><a href="#branch-naming" class="link" style="text-decoration: none;">Branch naming</a>, <a href="#aliases" class="link" style="text-decoration: none;">Aliases, <a href="#hooks" class="link" style="text-decoration: none;">Hooks</a></li>
+                                        <li><a href="#github-pages" class="link" style="text-decoration: none;">GitHub pages</a>, <a href="#conclusion" class="link" style="text-decoration: none;">Conclusion</a></li>
+                                    </ul>
+
                                     <p>Git is a distributed version control system that allows us to track code changes, manage collaboration, and improve the development process. This article covers essential Git commands and explains how to leverage GitHub's pull request (PR) functionality for collaborative workflows. You don't need to memorize all the commands from this article. Treat it more like a cheat sheet because you have to learn Git through practice and real-world experience, and not only by reading.</p>
                                     
-                                    <h3>Basics</h3>
+                                    <h3><a id="basics">Basics</a></h3>
 
                                     <p>A <b>repository</b> is a storage space for a project, including its full version history. A local repository resides on our computer, and a remote repository is hosted on a server (e.g., GitHub), allowing for collaboration and version control across multiple users. A <b>commit</b> is a snapshot of the project's changes at a specific point in time, capturing the modifications made to files and providing a unique identifier for tracking the history of those changes. <b>Branches</b> are parallel versions of the project that allow us to work on different features or fixes independently, enabling us to merge changes back into the main codebase without disrupting the primary workflow.</p>
 
                                     <p>When we're ready to commit certain changes, we add ("<b>stage</b>") them to Git's <b>staging area</b> using <code>git add</code>. The staging area holds a snapshot of these changes, preparing them for the next commit. This allows us to control which changes go into each commit. The <b>working directory</b> is the local folder where we edit and save files. Any changes made here are untracked by Git until they are staged (into the staging area).</p>
 
-                                    <h3>Configuration</h3>
+                                    <h3><a id="configuration">Configuration</a></h3>
                                     <table>
                                         <tr>
                                             <td><code>git config --global user.name "Your Name"</code></td>
@@ -105,7 +125,7 @@
                                         </tr>
                                     </table>
                                     
-                                    <h3>Repository initialization and cloning</h3>
+                                    <h3><a id="repository-initialization-and-cloning">Repository initialization and cloning</a></h3>
                                     <table>
                                         <tr>
                                             <td><code>git init</code></td>
@@ -125,7 +145,7 @@
                                         </tr>
                                     </table>
                                     
-                                    <h3>Checking status and history</h3>
+                                    <h3><a id="checking-status-and-history">Checking status and history</a></h3>
                                     <table>
                                         <tr>
                                             <td><code>git status</code></td>
@@ -149,7 +169,7 @@
                                         </tr>
                                     </table>
                                     
-                                    <h3>Staging and committing changes</h3>
+                                    <h3><a id="staging-and-committing-changes">Staging and committing changes</a></h3>
                                     <table>
                                         <tr>
                                             <td><code>git add [file or directory]</code></td>
@@ -174,7 +194,7 @@
                                     </table>
                                     <p>Commit messages should answer the prompt: "If applied, this commit will …" to provide clear descriptions of code changes.</p>
                                     
-                                    <h3>Synchronizing with the remote repository</h3>
+                                    <h3><a id="synchronizing-with-the-remote-repository">Synchronizing with the remote repository</a></h3>
                                     <table>
                                         <tr>
                                             <td><code>git fetch</code></td>
@@ -200,7 +220,7 @@
                                     <p>An upstream branch is a remote branch that the local branch is tracking, allowing for easy synchronization of changes between the two. Setting an upstream branch enables us to use simplified Git commands, such as <code>git push</code> and <code>git pull</code> (without defining the branch every time).</p>
                                     
                                     
-                                    <h3>Branching basics</h3>
+                                    <h3><a id="branching-basics">Branching basics</a></h3>
                                     <table>
                                         <tr>
                                             <td><code>git branch</code></td>
@@ -247,7 +267,8 @@
                                             <td>Unstaging changes while preserving modifications (Git 2.23+).</td>
                                         </tr>
                                     </table>
-                                    <h3>Merging branches</h3>
+
+                                    <h3><a id="merging-branches">Merging branches</a></h3>
                                     <table>
                                         <tr>
                                             <td><code>git merge [branch-name]</code></td>
@@ -268,7 +289,7 @@
                                     </table>
                                                                        
                                     
-                                    <h3>Merge conflicts</h3>
+                                    <h3><a id="merge-conflicts">Merge conflicts</a></h3>
                                     <p>A merge conflict occurs when two branches have competing changes to the same line of code or file, preventing automatic merging and requiring manual resolution.</p>
 
                                     <p>If they arise, Git will mark the affected files. We can resolve these by editing the files, identifying conflict markers (&lt;&lt;&lt;&lt;&lt;&lt;&lt;, =======, &gt;&gt;&gt;&gt;&gt;&gt;&gt;), and deciding which changes to keep. Conflict markers are special annotations added to a file by Git to indicate the sections of code that are in conflict during a merge, typically showing the differing changes from each branch.</p>
@@ -286,7 +307,7 @@ git add [resolved_file]
 git commit -m "Resolve merge conflicts in feature_branch"
                                     </code></pre>
 
-                                    <h2>Pull requests on GitHub</h2>
+                                    <h3><a id="pull-requests-on-github">Pull requests on GitHub</a></h3>
                                     <p>A pull request (PR) is a GitHub feature for proposing and discussing changes before merging them into the main branch. This is useful for code reviews and ensures better-quality code.</p>
                                     
                                     <h5>Creating a pull request</h5>
@@ -323,7 +344,7 @@ git commit -m "Resolve merge conflicts in feature_branch"
 
                                     <p>Reviewers can annotate lines and approve or request changes. This review process ensures code quality and promotes team collaboration. As changes are requested, additional commits can be made to the branch and pushed to the PR.</p>
 
-                                    <h3>Reset</h3>
+                                    <h3><a id="reset">Reset</a></h3>
                                     <table>
                                         <tr>
                                             <td><code>git reset [file]</code></td>
@@ -339,7 +360,7 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                         </tr>
                                     </table>
                                     
-                                    <h3>Revert</h3>
+                                    <h3><a id="revert">Revert</a></h3>
                                     <table>
                                         <tr>
                                             <td><code>git revert [commit]</code></td>
@@ -352,7 +373,7 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                     </table>
                                     <p><code>git reset</code> changes the repository's history by moving the branch pointer, making it useful for local changes not yet pushed. <code>git revert</code> is ideal for undoing specific commits without altering commit history, as it creates a new commit.</p>
                                     
-                                    <h3>Stash</h3>
+                                    <h3><a id="stash">Stash</a></h3>
                                     <table>
                                         <tr>
                                             <td><code>git stash</code></td>
@@ -376,7 +397,7 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                         </tr>
                                     </table>
                                     
-                                    <h3>Tags</h3>
+                                    <h3><a id="tags">Tags</a></h3>
                                     <p>Tags are a powerful feature that allows us to mark specific points in the project history, such as releases or significant milestones. We can create a tag using the command <code>git tag -a v1.0 -m "Version 1.0"</code>, which creates an annotated tag with a message. Tags are useful for versioning software, making it easy to reference and retrieve specific versions of the codebase in the future.</p>
                                     
                                     <table>
@@ -398,20 +419,20 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                         </tr>
                                     </table>                                    
 
-                                    <h3>Flags</h3>
+                                    <h3><a id="flags">Flags</a></h3>
                                     <p>Flags modify command behavior or add extra functionality, customizing commands with options starting with a dash (-) or double dash (--).</p>
                                     <ul>
                                         <li><code>-m</code>: specifying a commit message directly in the command line.</li>
                                         <li><code>-u</code>: staging changes only to the tracked files when using <code>git add</code> (ignoring untracked files).</li>
                                     </ul>
 
-                                    <h3><code>.gitignore</code></h3>
+                                    <h3><code><a id="gitignore">.gitignore</a></code></h3>
                                     <p>The <code>.gitignore</code> file is crucial for managing which files and directories Git should ignore in our repository. By specifying patterns for files that should not be tracked, such as build artifacts, temporary files, or sensitive information, we can keep the repository clean and focused on the essential code. This helps prevent unnecessary files from cluttering the version history and ensures that sensitive data does not get accidentally shared.</p>
                                     
-                                    <h3>Forks</h3>
+                                    <h3><a id="forks">Forks</a></h3>
                                     <p>A fork is a copy of a repository that allows us to freely experiment with changes without affecting the original project. This workflow is particularly useful in open-source development, where contributors don't have direct write access to the main repository. When we want to contribute to an open-source project, we have to fork the repository, which means creating a copy of the original repository under our GitHub account. This allows us to make changes, add features, or fix bugs independently without impacting the original codebase. After making our desired changes in our forked repository, we can submit a pull request to the original repository, proposing that our changes be reviewed and potentially merged into the main project. This process encourages collaboration and helps maintain the integrity of the original project while allowing contributors to experiment and innovate freely. To fork a repository on GitHub, log in to GitHub and navigate to the repository you want to fork, click the Fork button in the upper right corner, select your account if prompted, wait for the forking process to complete, access your forked repository under your GitHub account, and optionally clone your fork locally using <code>git clone https://github.com/your-username/repository-name.git</code>.</p>
                                     
-                                    <h3>Interactive rebasing (<code>git rebase -i</code>)</h3>
+                                    <h3><a id="interactive-rebasing">Interactive rebasing</a> (<code>git rebase -i</code>)</h3>
                                     <p>Interactive rebasing is a powerful tool for cleaning up our commit history before sharing our code. It allows us to modify commits in various ways, including combining, editing, or removing them.</p>
         
                                     <table>
@@ -489,7 +510,7 @@ git rebase --continue
                                         <b>Warning:</b> Force pushing (<code>git push --force</code>) after rebasing can cause issues for other developers. Use <code>git push --force-with-lease</code> instead as a safer alternative.
                                     </div>
                                     
-                                    <h3>Advanced Git commands</h3>
+                                    <h3><a id="advanced-git-commands">Advanced Git commands</a></h3>
                                     <table>
                                         <tr>
                                             <td><code>git cherry-pick [commit]</code></td>
@@ -529,7 +550,7 @@ git rebase --continue
                                         </tr>
                                     </table>
                                     
-                                    <h3>Branch naming</h3>
+                                    <h3><a id="branch-naming">Branch naming</a></h3>
                                     <p class="podpis">Use consistent prefixes:</p>
                                     <ul>
                                         <li><code>feature/</code> - for new features.</li>
@@ -539,7 +560,7 @@ git rebase --continue
                                         <li><code>support/</code> - for maintenance branches.</li>
                                     </ul>
                                     
-                                    <h3>Aliases</h3>
+                                    <h3><a id="aliases">Aliases</a></h3>
                                     <p>Creating Git aliases can significantly improve our workflow by allowing us to shorten frequently used commands. For example, we can set an alias for the checkout command with <code>git config --global alias.co checkout</code>. This means we can simply type <code>git co</code> instead of <code>git checkout</code>. Using aliases can save time and reduce the likelihood of errors when typing long commands.</p>
                                     <p>We can set up useful aliases in <code>.gitconfig</code>:</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -554,15 +575,15 @@ git rebase --continue
 
                                     <p>*<code>reset HEAD --</code> - the two dashes indicate that what comes after is a file path.</p>
 
-                                    <h2>Hooks</h2>
+                                    <h3><a id="hooks">Hooks</a></h3>
 
                                     <p>Git hooks are scripts that Git runs before or after specific events in the workflow, enabling automation and policy enforcement within repositories. Located in the <code>.git/hooks</code> directory, these customizable scripts can validate commit messages, run tests before pushes, or trigger deployments after merges, helping teams maintain code quality and improve their development processes.</p>
                                     
-                                    <h2>GitHub pages</h2>
+                                    <h3><a id="github-pages">GitHub pages</a></h3>
 
-                                    <p>GitHub Pages is a service provided by GitHub that allows users to host websites directly from their GitHub repositories. It is an easy and free way to publish static websites, such as personal portfolios, blogs, or project documentation. It supports HTML, CSS, and JavaScript, and it integrates seamlessly with GitHub repositories, meaning that any changes made to the repository automatically update the live website. Users can choose to host their site from the root of the repository or a specific branch. Additionally, GitHub Pages provides custom domain support, allowing users to link their domains to their hosted websites.</p>
+                                    <p>GitHub Pages is a service provided by GitHub that allows us to host websites directly from our GitHub repositories. It is an easy and free way to publish static websites, such as personal portfolios, blogs, or project documentation. It supports HTML, CSS, and JavaScript, and it integrates seamlessly with GitHub repositories, meaning that any changes made to the repository automatically update the live website. We can choose to host our site from the root of the repository or a specific branch. Additionally, GitHub Pages provides custom domain support, allowing us to link our domains to our hosted websites.</p>
 
-                                    <h2>Conclusion</h2>
+                                    <h3><a id="conclusion">Conclusion</a></h3>
                                     <p>Understanding these Git commands and workflows is crucial for effective collaboration in software development. Regular practice and consistent use of Git will help maintain a clean repository history and smooth team collaboration. Always remember to pull before pushing, keep commits focused, and write clear commit messages for better maintainability.</p>
                                 </div>
                             </div>

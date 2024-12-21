@@ -85,6 +85,14 @@
                                     <h5 class="m-0 font-weight-bold">Threads, processes, and Async IO</h5>
                                 </div>
                                 <div class="card-body">
+                                    <h3>Table of contents</h3>
+            
+                                    <ul type="disc">
+                                        <li><a href="#threads" class="link" style="text-decoration: none;">Threads</a></li>
+                                        <li><a href="#processes" class="link" style="text-decoration: none;">Processes</a></li>
+                                        <li><a href="#async" class="link" style="text-decoration: none;">Async IO</a></li>
+                                    </ul>
+
                                     <p>Threads, processes, and Async IO (<code>async</code> and <code>await</code>) are all part of the asynchronous programming model. In this model, different functions can execute simultaneously or in a different order than usual. Threads are used for parallel tasks that share data with minimal CPU usage (e.g., handling multiple user requests in a web server). Processes are better suited for maximizing performance on CPU-intensive tasks (e.g., mathematical computations or image processing). Async IO is perfect for handling many tasks that involve much waiting (e.g., network requests or file operations). To understand the examples in this lesson, you have to run them all in your editor.</p>
 
                                     <table>
@@ -120,7 +128,7 @@
                                         </tr>
                                     </table>                                    
 
-                                    <h2>Threads</h2>
+                                    <h2><a id="threads">Threads</a></h2>
                                     <p>Threads are a fundamental part of the Python concurrency model, allowing multiple tasks to run simultaneously within a single program. By utilizing threads, we can create more responsive and efficient applications, particularly in scenarios where tasks can be performed in parallel. Python provides built-in support for multithreading through the <code>threading</code> library.</p>
 
                                     <p>To create a thread, we instantiate a <code>Thread</code> object and select a function (its target), which contains the code to be executed by the thread. Once the thread is created, it can be started using the <code>start()</code> method. The <code>join()</code> method ensures the main thread waits until the "side" thread completes execution.</p>
@@ -184,7 +192,7 @@ threads <span class="sign">=</span> []
 <span class="command">print</span>(<span class="text">"Final value of shared_resource:"</span>, shared_resource)
                                     </code></pre>
 
-                                    <h2>Processes, GIL (Global Interpreter Lock)</h2>
+                                    <h2><a id="processes">Processes, GIL (Global Interpreter Lock)</a></h2>
 
                                     <p>The Global Interpreter Lock (GIL) is a mechanism used in CPython (the most widely used Python interpreter) to ensure that only one thread executes Python bytecode simultaneously in a single process. This limitation prevents true parallelism in CPU-bound tasks but <b>does not affect I/O-bound tasks</b>. If our program is CPU-bound and we want to take full advantage of multiple CPU cores, we can bypass the GIL by using the <code>multiprocessing</code> library, which spawns separate processes, each with its own Python interpreter and GIL. Use this library specifically for CPU-bound tasks to utilize multiple cores.</p>
 
@@ -211,7 +219,7 @@ processes <span class="sign">=</span> []
 <span class="command">print</span>(<span class="text">"Completed all processes."</span>)
                                     </code></pre>
 
-                                    <h2>Async IO</h2>
+                                    <h2><a id="async">Async IO</a></h2>
 
                                     <p>Async IO is a single-threaded, single-process concurrency model that excels at handling I/O-bound and high-level structured network code. The event loop manages the execution of asynchronous I/O tasks. A coroutine is a special function defined with <code>async def</code>. A coroutine object is a coroutine that hasn't started running yet (it hasn't been awaited or scheduled). A coroutine object becomes a task when scheduled to run in the event loop. The task represents an active operation that can be awaited or managed during execution. A coroutine object (typically the main coroutine) should be passed as an argument to the <code>asyncio.run()</code> function to start the event loop.</p>
 

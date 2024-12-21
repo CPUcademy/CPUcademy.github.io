@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Linux basics</title>
+    <title>Linux basics (theory)</title>
 </head>
 
 <body id="page-top">
@@ -82,13 +82,38 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Linux basics</h5>
+                                    <h5 class="m-0 font-weight-bold">Linux basics (theory)</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h2>What is Linux?</h2>
+                                    <h3>Table of contents</h3>
+            
+                                    <ul type="disc">
+                                        <li><a href="#what-is-linux" class="link" style="text-decoration: none;">What is Linux?</a></li>
+                                        <li><a href="#why-linux-is-superior" class="link" style="text-decoration: none;">Why Linux is superior to other systems?</a></li>
+                                        <li><a href="#socs" class="link" style="text-decoration: none;">SOCs</a></li>
+                                        <li><a href="#nano-and-other-editors" class="link" style="text-decoration: none;">Nano and other editors</a></li>
+                                        <li><a href="#importance-of-configuration-text-files" class="link" style="text-decoration: none;">The importance of configuration text files</a></li>
+                                        <li><a href="#server-services-and-most-used-ports" class="link" style="text-decoration: none;">Server services and most used ports</a></li>
+                                        <li><a href="#using-a-port-scanner" class="link" style="text-decoration: none;">Using a port scanner</a></li>
+                                        <li><a href="#linux-distributions" class="link" style="text-decoration: none;">Linux distributions</a></li>
+                                        <li><a href="#virtual-machines" class="link" style="text-decoration: none;">Virtual Machines</a></li>
+                                        <li><a href="#basic-commands" class="link" style="text-decoration: none;">Basic commands</a></li>
+                                        <li><a href="#daemons" class="link" style="text-decoration: none;">Daemons</a></li>
+                                        <li><a href="#ssh" class="link" style="text-decoration: none;">SSH: Secure Remote Access</a></li>
+                                        <li><a href="#device-hardening" class="link" style="text-decoration: none;">Device hardening</a></li>
+                                        <li><a href="#popular-log-files" class="link" style="text-decoration: none;">Popular log files</a></li>
+                                        <li><a href="#common-file-systems" class="link" style="text-decoration: none;">Common file systems</a></li>
+                                        <li><a href="#hard-links" class="link" style="text-decoration: none;">Hard links</a></li>
+                                        <li><a href="#staying-up-to-date" class="link" style="text-decoration: none;">Staying up-to-date</a></li>
+                                        <li><a href="#processes" class="link" style="text-decoration: none;">Processes</a></li>
+                                        <li><a href="#forks" class="link" style="text-decoration: none;">Forks</a></li>
+                                    </ul>
+                                    
+
+                                    <h3><a id="what-is-linux">What is Linux?</a></h3>
                                     <p>Linux is an open-source, Unix-like operating system. It is widely used for servers, desktops, and mobile devices. It was created by Linus Torvalds in 1991. Unlike proprietary systems like Windows or macOS, Linux allows us to freely modify and distribute its source code.</p>
 
-                                    <h2>Why Linux is superior over other systems</h2>
+                                    <h3><a id="why-linux-is-superior">Why Linux is superior to other systems?</a></h3>
                                     <p class="podpis">Linux is considered superior to other operating systems for several reasons:</p>
                                     <ul>
                                     <li><b>Open-source:</b> Anyone can modify and contribute to its development.</li>
@@ -98,7 +123,7 @@
                                     <li><b>Performance:</b> Linux runs efficiently even on older hardware, providing faster performance compared to many other OSes.</li>
                                     </ul>
 
-                                    <h2>SOCs</h2>
+                                    <h3><a id="socs">SOCs</a></h3>
                                     <p>One of its advantages is its flexibility, especially when configured for use in a Security Operations Center (SOC). Linux allows administrators to customize the operating system by installing only the necessary packages, making it a lean and efficient platform. By carefully selecting and configuring software tools, administrators can create a system that is perfectly suited to the unique needs of a SOC.</p>
 
                                     <p class="podpis"><b>Network packet capture software</b> is an essential tool for SOC analysts, enabling them to capture and thoroughly examine network transactions. Wireshark is one of the most widely used packet capture tools for network analysis. In addition to packet capture tools, other commonly used tools in SOC environments include:</p>
@@ -127,68 +152,77 @@
                                     <p>The Elastic Stack (consisting of Elasticsearch, Logstash, and Kibana) is a set of tools often used in SOCs for searching, analyzing, and visualizing large volumes of log data. The Elastic Stack helps analysts quickly access and process data, which is crucial for effective incident response.</p>
                                     
 
-                                    <h2>Nano and other editors</h2>
-                                    <p>In Linux, text editors are essential for editing configuration files, writing scripts, and more. Some popular text editors include:</p>
+                                    <h3><a id="nano-and-other-editors">Nano and other editors</a></h3>
+                                    <p class="podpis">In Linux, text editors are essential for editing configuration files, writing scripts, and more. Some popular text editors include:</p>
                                     <ul>
-                                    <li><b>Nano:</b> A simple, user-friendly command-line text editor suitable for beginners.</li>
-                                    <li><b>Vim:</b> A highly configurable, powerful text editor designed for efficient text editing.</li>
-                                    <li><b>Emacs:</b> A powerful, extensible, customizable text editor known for its vast set of features.</li>
+                                        <li><b>Nano:</b> A simple, user-friendly command-line text editor suitable for beginners.</li>
+                                        <li><b>Vim:</b> A highly configurable, powerful text editor designed for efficient text editing.</li>
+                                        <li><b>Emacs:</b> A powerful, extensible, customizable text editor known for its vast set of features.</li>
                                     </ul>
 
-                                    <h2>The importance of configuration text files</h2>
-                                    <p>Linux stores configuration settings in plain-text files. These files allow us to customize the behavior of the system, services, and applications. Common examples of configuration files include:</p>
+                                    <h3><a id="importance-of-configuration-text-files">The importance of configuration text files</a></h3>
+                                    <p class="podpis">Linux stores configuration settings in plain-text files. These files allow us to customize the behavior of the system, services, and applications. Common examples of configuration files include:</p>
                                     <ul>
-                                    <li><b>/etc/fstab:</b> Defines how disk drives and partitions are mounted.</li>
-                                    <li><b>/etc/passwd:</b> Contains user account information.</li>
-                                    <li><b>/etc/ssh/sshd_config:</b> Configuration for the SSH server.</li>
-                                    <li><b>/etc/network/interfaces:</b> Defines network interface configurations.</li>
-                                    <li><b>/etc/hosts:</b> Maps hostnames to IP addresses, allowing for local hostname resolution.</li>
+                                        <li><b>/etc/fstab:</b> Defines how disk drives and partitions are mounted.</li>
+                                        <li><b>/etc/passwd:</b> Contains user account information.</li>
+                                        <li><b>/etc/ssh/sshd_config:</b> Configuration for the SSH server.</li>
+                                        <li><b>/etc/network/interfaces:</b> Defines network interface configurations.</li>
+                                        <li><b>/etc/hosts:</b> Maps hostnames to IP addresses, allowing for local hostname resolution.</li>
                                     </ul>
                                     <p>Text-based configuration files make Linux flexible, as they can be easily edited, version-controlled, and scripted for automation tasks.</p>
 
-                                    <h2>Server services and most used ports</h2>
-                                    <p>Linux is widely used for hosting server applications. Some of the most common server services and their associated ports include:</p>
+                                    <h3><a id="server-services-and-most-used-ports">Server services and most used ports</a></h3>
+                                    <p>A <b>port</b> in computer networking refers to a logical endpoint for communication in a network. It is a 16-bit number (ranging from 0 to 65535) used by the Transport Layer protocols, such as TCP (Transmission Control Protocol) and UDP (User Datagram Protocol), to distinguish different services or applications running on a device. Ports allow multiple applications or services to run on the same machine without interfering with each other by assigning unique numbers for each service.</p>
+
+                                    <p class="podpis">Here are key points about ports:</p>
+                                    <ul>
+                                        <li><b>Well-known Ports:</b> Ports 0-1023 are typically reserved for system or widely used services (e.g., HTTP uses port 80, HTTPS uses port 443).</li>
+                                        <li><b>Registered Ports:</b> Ports 1024-49151 are used by applications that are not as widely standardized as well-known ports but are still registered for specific services.</li>
+                                        <li><b>Dynamic or Private Ports:</b> Ports 49152-65535 are used for temporary connections by client applications and are often assigned dynamically by the operating system.</li>
+                                    </ul>
+                                    
+                                    <p>Ports play a crucial role in network communication, ensuring that data is routed to the correct service or application on a device. Linux is widely used for hosting server applications. Some of the most common server services and their associated ports include:</p>
 
                                     <table>
-                                    <tr>
-                                        <td><b>Service</b></td>
-                                        <td><b>Port</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td>HTTP (Web Server)</td>
-                                        <td>80</td>
-                                    </tr>
-                                    <tr>
-                                        <td>HTTPS (Secure Web Server)</td>
-                                        <td>443</td>
-                                    </tr>
-                                    <tr>
-                                        <td>SSH (Secure Shell)</td>
-                                        <td>22</td>
-                                    </tr>
-                                    <tr>
-                                        <td>FTP (File Transfer Protocol)</td>
-                                        <td>21</td>
-                                    </tr>
-                                    <tr>
-                                        <td>SMTP (Email Sending)</td>
-                                        <td>25</td>
-                                    </tr>
-                                    <tr>
-                                        <td>IMAP (Email Receiving)</td>
-                                        <td>143</td>
-                                    </tr>
-                                    <tr>
-                                        <td>MySQL (Database Server)</td>
-                                        <td>3306</td>
-                                    </tr>
-                                    <tr>
-                                        <td>DNS (Domain Name System)</td>
-                                        <td>53</td>
-                                    </tr>
+                                        <tr>
+                                            <td><b>Service</b></td>
+                                            <td><b>Port</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>HTTP (Web Server)</td>
+                                            <td>80</td>
+                                        </tr>
+                                        <tr>
+                                            <td>HTTPS (Secure Web Server)</td>
+                                            <td>443</td>
+                                        </tr>
+                                        <tr>
+                                            <td>SSH (Secure Shell)</td>
+                                            <td>22</td>
+                                        </tr>
+                                        <tr>
+                                            <td>FTP (File Transfer Protocol)</td>
+                                            <td>21</td>
+                                        </tr>
+                                        <tr>
+                                            <td>SMTP (Email Sending)</td>
+                                            <td>25</td>
+                                        </tr>
+                                        <tr>
+                                            <td>IMAP (Email Receiving)</td>
+                                            <td>143</td>
+                                        </tr>
+                                        <tr>
+                                            <td>MySQL (Database Server)</td>
+                                            <td>3306</td>
+                                        </tr>
+                                        <tr>
+                                            <td>DNS (Domain Name System)</td>
+                                            <td>53</td>
+                                        </tr>
                                     </table>
 
-                                    <h2>Using a port scanner</h2>
+                                    <h3><a id="using-a-port-scanner">Using a port scanner</a></h3>
                                     <p>A port scanner is a tool used to check which ports are open on a given server or network device. Commonly used port scanners include:</p>
                                     <ul>
                                     <li><b>Nmap:</b> A powerful and widely used network scanning tool that can detect open ports, services, and vulnerabilities.</li>
@@ -197,15 +231,14 @@
                                     </ul>
                                     <p>By using a port scanner like Nmap, network administrators can check the security and configuration of their systems, identify open ports, and detect unauthorized services.</p>
 
-                                    <h3>Linux distributions</h3>
+                                    <h3><a id="linux-distributions">Linux distributions</a></h3>
 
                                     <p>Linux distributions refer to the various flavors of Linux operating systems that are packaged with different sets of software, tools, and configurations to meet specific needs. Popular Linux distributions like Ubuntu, CentOS, and Debian are commonly used in SOCs. Security-focused distributions like Kali Linux and Security Onion are tailored for penetration testing and security monitoring. Each distribution has its own package management system, software repositories, and intended use cases, making it essential to choose the right one based on the specific requirements of the SOC or organization. Raspbian is a Debian Linux derivative used in the Raspberry Pi boards.</p>
 
-                                    <h3>Virtual Machines</h3>
-                                    <p>Virtual machines (VMs) provide a convenient way to run Linux on a Windows machine without needing to dual-boot or modify the underlying hardware. By using software like VMware or VirtualBox, we can create a virtualized environment to install and run a Linux distribution alongside their existing Windows operating system. This allows developers, administrators, and security analysts to test, configure, or run Linux tools within a controlled and isolated environment. It is an efficient solution for running Linux-specific applications or conducting security analysis, all while keeping the host Windows system intact.</p>
+                                    <h3><a id="virtual-machines">Virtual Machines</a></h3>
+                                    <p>Virtual machines (VMs) provide a convenient way to run Linux on a Windows machine without needing to dual-boot or modify the underlying hardware. By using software like VMware or VirtualBox, we can create a virtualized environment to install and run a Linux distribution alongside our existing Windows operating system. This allows developers, administrators, and security analysts to test, configure, or run Linux tools within a controlled and isolated environment. It is an efficient solution for running Linux-specific applications or conducting security analysis, all while keeping the host Windows system intact.</p>
 
-                                    <h2>Basic commands</h2>
-
+                                    <h3><a id="basic-commands">Basic commands</a></h3>
                                     <table>
                                         <tr>
                                             <td><code>ls</code></td>
@@ -217,7 +250,7 @@
                                         </tr>
                                         <tr>
                                             <td><code>pwd</code></td>
-                                            <td>Printing the current working directory.</td>
+                                            <td>Displaying the current working directory.</td>
                                         </tr>
                                         <tr>
                                             <td><code>mkdir</code></td>
@@ -249,7 +282,7 @@
                                         </tr>
                                         <tr>
                                             <td><code>echo</code></td>
-                                            <td>Printing text or variables to the terminal.</td>
+                                            <td>Displaying text or variables to the terminal.</td>
                                         </tr>
                                         <tr>
                                             <td><code>chmod</code></td>
@@ -307,7 +340,267 @@
                                             <td><code>passwd</code></td>
                                             <td>Changing the password of a user account.</td>
                                         </tr>
-                                    </table>                                    
+                                        <tr>
+                                            <td><code>crontab</code></td>
+                                            <td>Scheduling and managing recurring tasks or jobs to run automatically at specified times and intervals.</td>
+                                        </tr>
+                                    </table>      
+                                    
+                                    <h3><a id="daemons">Daemons</a></h3>
+                                    <p class="podpis"><b>Daemons</b> are background processes that run continuously on a Linux system, often starting automatically during the system boot. They are responsible for handling specific system or application tasks, such as scheduling, logging, or managing services. Common examples of daemons include:</p>
+                                    <ul>
+                                        <li><b>cron:</b> Manages scheduled tasks and automates repetitive jobs.</li>
+                                        <li><b>sshd:</b> Handles incoming SSH connections for secure remote access.</li>
+                                        <li><b>httpd:</b> Powers web servers, such as Apache or Nginx.</li>
+                                    </ul>
+                                    <p>Daemons usually have names ending in <b>d</b>, indicating their function as a service process. They enhance Linux's multitasking capabilities by enabling smooth background operations and service management without user intervention.</p>
+
+                                    <h3><a id="ssh">SSH: Secure Remote Access</a></h3>
+                                    <p><b>Secure Shell (SSH)</b> is a protocol that allows us to securely access and manage remote systems over an encrypted connection. SSH is an essential tool for system administrators and SOC analysts, enabling secure communication with servers, transferring files, and executing commands remotely. SSH provides robust authentication methods, including password-based and key-based authentication, ensuring safe access to sensitive systems.</p>
+                                    <p>The SSH service on Linux is managed by the <b>sshd</b> daemon, which listens for incoming SSH connections on port 22 by default. Administrators can configure SSH by editing the <b>/etc/ssh/sshd_config</b> file, where options such as allowed authentication methods, permitted IPs, and port numbers can be customized to enhance security.</p>
+                                    <p>SSH is not only vital for routine server management but also serves as a secure foundation for tools like secure file transfer (SCP) and remote command execution, making it indispensable in Linux environments.</p>
+
+                                    <h3><a id="device-hardening">Device hardening</a></h3>
+                                    <p class="podpis"><b>Device hardening</b> involves securing a Linux system by minimizing vulnerabilities and configuring it to resist potential attacks. It is a crucial practice for protecting servers, endpoints, and other devices. Key steps in hardening a Linux system include:</p>
+                                    <ul>
+                                        <li><b>Disabling unnecessary services:</b> Turn off services and daemons that are not required to minimize the attack surface.</li>
+                                        <li><b>Configuring a firewall:</b> Use tools like <b>iptables</b> or <b>ufw</b> to manage network traffic and block unauthorized access.</li>
+                                        <li><b>Setting strong passwords:</b> Enforce complex password policies and consider multi-factor authentication.</li>
+                                        <li><b>Applying updates:</b> Regularly update the operating system and installed software to patch security vulnerabilities.</li>
+                                        <li><b>File and directory permissions:</b> Restrict access to critical files using proper ownership and permission settings.</li>
+                                        <li><b>Configuring SELinux or AppArmor:</b> Use security modules to enforce strict access controls for applications and services.</li>
+                                        <li><b>Using secure SSH settings:</b> Limit SSH access by disabling root login and using key-based authentication.</li>
+                                        <li><b>Monitoring system logs:</b> Regularly review logs to detect suspicious activity or potential security incidents.</li>
+                                    </ul>
+
+                                    <h3><a id="popular-log-files">Popular log files</a></h3>
+                                    <p>Linux maintains a variety of log files to record system, service, and application events. These logs are critical for monitoring, troubleshooting, and auditing purposes. Below is a table of commonly used Linux log files and their purposes:</p>
+
+                                    <table>
+                                        <tr>
+                                            <td><b>/var/log/messages</b></td>
+                                            <td>General system messages and logs from various daemons.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>/var/log/syslog</b></td>
+                                            <td>System log file for general logging and troubleshooting.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>/var/log/auth.log</b></td>
+                                            <td>Authentication logs, including successful and failed login attempts.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>/var/log/kern.log</b></td>
+                                            <td>Kernel logs for diagnosing kernel-level issues.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>/var/log/dmesg</b></td>
+                                            <td>Boot and kernel ring buffer logs for hardware and system initialization.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>/var/log/secure</b></td>
+                                            <td>Security-related logs, such as authentication attempts and sudo usage.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>/var/log/boot.log</b></td>
+                                            <td>Logs related to the boot process.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>/var/log/httpd/access_log</b></td>
+                                            <td>Logs for web server (Apache) access requests.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>/var/log/httpd/error_log</b></td>
+                                            <td>Logs for web server (Apache) errors and issues.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>/var/log/faillog</b></td>
+                                            <td>Failed login attempts for the system.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>/var/log/cron</b></td>
+                                            <td>Logs for scheduled tasks and cron job execution details.</td>
+                                        </tr>
+                                    </table>
+
+                                    <p>These log files are typically stored in the <b>/var/log</b> directory and can be analyzed using tools like <b>grep</b>, <b>tail</b>, or log management solutions to monitor system activity and identify potential threats.</p>
+
+                                    <h3><a id="common-file-systems">Common file systems</a></h3>
+
+                                    <p>Linux supports a variety of file systems, each with its own features and use cases. Below is a table of common Linux file systems and their characteristics:</p>
+
+                                    <table>
+                                        <tr>
+                                            <td><b>ext2</b></b></td>
+                                            <td>An older version of the ext file system, ext2 is a non-journaling file system that was popular before ext3 and ext4. It is still used in some situations where journaling is not necessary.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>ext3</b></b></td>
+                                            <td>An extension of ext2 with journaling support, providing increased reliability and recovery in case of system crashes. It was widely used before ext4 became more popular.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>ext4</b></td>
+                                            <td>The most widely used file system in Linux, offering high performance, reliability, and support for large volumes. It's an evolution of the ext3 file system.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>BTRFS</b></td>
+                                            <td>A modern copy-on-write file system designed for scalability and data integrity, providing features like snapshots, compression, and built-in RAID functionality.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>XFS</b></td>
+                                            <td>A high-performance file system known for handling large files and high-capacity storage. Often used in enterprise environments.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>NFS</b></td>
+                                            <td>Network File System, a protocol that allows files to be shared between Linux systems over a network. NFS is commonly used in distributed systems.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>NTFS</b></td>
+                                            <td>The file system used by Windows. Linux can read and write to NTFS partitions using the <b>ntfs-3g</b> driver.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>exFAT</b></td>
+                                            <td>A file system optimized for flash drives and external drives, offering compatibility between Windows and Linux systems for removable media.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>FAT32</b></td>
+                                            <td>An older file system used primarily for removable storage like USB drives and SD cards. It has a 4GB file size limit and lacks advanced features like journaling.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>ZFS</b></td>
+                                            <td>A high-performance file system developed by Sun Microsystems, known for its advanced features like data integrity, snapshots, and pooling of storage devices.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>ReiserFS</b></td>
+                                            <td>A journaling file system designed for small files, offering high performance and space efficiency. It is less commonly used today but has historically been popular in some distributions.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>CDFS</b></td>
+                                            <td>Compact Disc File System, used to access the contents of CD and DVD media. Linux supports CDFS for reading and writing to optical discs.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>APFS</b></td>
+                                            <td>Apple File System, primarily used by macOS devices. Linux supports APFS through third-party tools for read-only access.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>MBS</b></td>
+                                            <td>Multilevel Block Storage, used primarily for enterprise storage systems to manage large amounts of data with hierarchical and distributed storage blocks.</td>
+                                        </tr>
+                                    </table>
+
+                                    <h3><a id="hard-links">Hard links</a></h3>
+                                                                        
+                                    <p>A <b>hard link</b> in Linux is a reference to an inode (the data structure that stores the file's information) on the file system. Hard links allow multiple directory entries to refer to the same inode. Essentially, a hard link is just another name for an existing file.</p>
+
+                                    <p>One of the main characteristics of hard links is that they are indistinguishable from the original file. Deleting one hard link does not affect the others, and the data is only removed from the disk when the last hard link is deleted.</p>
+
+                                    <h5>Key points</h5>
+                                    <ul>
+                                        <li>Hard links cannot span across different file systems.</li>
+                                        <li>Hard links cannot be created for directories (except for '.' and '..').</li>
+                                        <li>They share the same inode number, meaning they point to the same data blocks on the disk.</li>
+                                        <li>When a hard link is deleted, the data is not actually removed until all links pointing to the inode are deleted.</li>
+                                    </ul>
+
+                                    <h5>Creating a hard link</h5>
+                                    <p>To create a hard link, the <code>ln</code> command is used, followed by the source file and the new link name: <code>ln /path/to/original/file /path/to/hardlink</code></p>
+
+                                    <p>In this example, <code>/path/to/original/file</code> is the source file, and <code>/path/to/hardlink</code> is the new hard link.</p>
+
+                                    <h5>Checking hard links</h5>
+                                    <p>We can check how many hard links exist for a file using the <code>ls -l</code> command. The second column shows the number of hard links to a file: <code>ls -l /path/to/file</code></p>
+                                    <p>The number displayed in the second column indicates how many links point to the inode, including the original file and any hard links created.</p>
+                                    <p>In summary, hard links provide an efficient way to create multiple references to the same file, allowing us to have several access points to the data without duplicating the content.</p>
+
+                                    <h3><a id="staying-up-to-date">Staying up-to-date</a></h3>
+                                    <p>Regular updates are essential for ensuring security, performance, and stability. Below is a table of commonly used commands to keep an Ubuntu system up-to-date:</p>
+
+                                    <table>
+                                        <tr>
+                                            <td><code>sudo apt update</code></td>
+                                            <td>Fetching the list of available updates from the repositories. It updates the local package database.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>sudo apt upgrade</code></td>
+                                            <td>Upgrading all installed packages to the latest available versions based on the information from <code>apt update</code>.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>sudo apt dist-upgrade</code></td>
+                                            <td>Performing an upgrade of the system, including changing dependencies between packages, removing obsolete packages, and installing new ones if needed.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>sudo apt full-upgrade</code></td>
+                                            <td>Similar to <code>apt dist-upgrade</code>, but also removes any packages that are no longer needed.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>sudo apt remove</code></td>
+                                            <td>Removing an installed package from the system but keeps its configuration files.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>sudo apt autoremove</code></td>
+                                            <td>Removing unnecessary packages that were automatically installed to satisfy dependencies for other packages and are no longer needed.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>sudo apt clean</code></td>
+                                            <td>Clearing out the local repository of downloaded package files, freeing up space on your system.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>sudo do-release-upgrade</code></td>
+                                            <td>Upgrading the Ubuntu system to the next release. This command should be used to upgrade between different Ubuntu versions.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>sudo snap refresh</code></td>
+                                            <td>Updating all installed snap packages to their latest versions.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>sudo apt list --upgradable</code></td>
+                                            <td>Listing all installed packages that have updates available.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>sudo apt-get update && sudo apt-get upgrade</code></td>
+                                            <td>A combined command that updates the package list and then upgrades all packages in a single step.</td>
+                                        </tr>
+                                    </table>
+
+                                    <h3><a id="processes">Processes</a></h3>
+                                    <p>In Linux, processes are instances of running programs. Each process is assigned a unique Process ID (PID) and is managed by the kernel. When a program is executed, a new process is created, often through a mechanism called <b>forking</b>, where the current process creates a copy of itself.</p>
+
+                                    <p>Several commands help manage and monitor processes in Linux:</p>
+
+                                    <table>
+                                        <tr>
+                                            <td><code>ps</code></td>
+                                            <td>Displaying a snapshot of the currently running processes, including the PID, terminal, and resource usage. It's commonly used with options like <code>-aux</code> to see all running processes.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>top</code></td>
+                                            <td>Showing real-time information about system processes, including CPU and memory usage. It’s often used to monitor resource-hogging processes.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>kill</code></td>
+                                            <td>Terminating processes by sending signals. The most common signal is <code>SIGKILL</code> (usually sent with PID) to forcefully stop a process.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>killall</code></td>
+                                            <td>Terminating all processes with a specific name. For example, <code>killall firefox</code> would stop all Firefox processes.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>htop</code></td>
+                                            <td>An interactive process viewer, similar to <code>top</code>, but with a more user-friendly interface and additional features like sorting by resource usage.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>nohup</code></td>
+                                            <td>Running a command in the background, even after the user has logged out. It prevents the process from being terminated when the session ends.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>| (pipe)</code></td>
+                                            <td>The pipe operator allows you to send the output of one command as the input to another. For example, <code>ps aux | grep firefox</code> will filter the list of processes to show only those related to Firefox.</td>
+                                        </tr>
+                                    </table>
+
+                                    <h3><a id="forks">Forks</a></h3>
+
+                                    <p><b>Forking</b> is a key concept in Linux, where a running process creates a new process by duplicating itself. The new process is called the child process, and it gets its own unique Process ID (<b>PID</b>). This is typically used in multitasking systems, where the operating system enables the concurrent execution of multiple processes. Forking allows a parent process to create child processes, which can run independently or cooperate with the parent.</p>
                                 </div>
                             </div>
                         </div>

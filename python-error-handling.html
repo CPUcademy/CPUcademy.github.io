@@ -109,7 +109,7 @@
     x.<span class="command">close</span>()
                                     </code></pre>
 
-                                    <p>The <code>except</code> instruction reacts to every error the same unless we specify what type of error a given instruction may expect. This way, we can program different approaches for different errors (we can use many <code>except</code> instructions relating to one <code>try</code> block).</p>
+                                    <p>The <code>except</code> instruction reacts to every error the same unless we specify what type of error a given instruction may expect. This way, we can program different approaches for different errors. We can use many <code>except</code> statements relating to one <code>try</code> block, and if we do, the one without a specified error type (the plain one) has to be the last block.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">try</span>:
@@ -118,6 +118,8 @@
     x.<span class="command">close</span>()
 <span class="function">except IOError</span>:
     <span class="command">print</span>(<span class="text">"Could not create the file."</span>)
+<span class="function">except</span>:
+    <span class="command">print</span>(<span class="text">"Other exception."</span>)
                                     </code></pre>
 
                                     <h2>The <code>raise</code> keyword</h2>
