@@ -490,27 +490,18 @@
 
                                     <h3><a id="hard-links">Hard links</a></h3>
                                                                         
-                                    <p>A <b>hard link</b> in Linux is a reference to an inode (the data structure that stores the file's information) on the file system. Hard links allow multiple directory entries to refer to the same inode. Essentially, a hard link is just another name for an existing file.</p>
+                                    <p>A hard link in Linux refers to an inode, which is the data structure that stores metadata and pointers to the actual data blocks of a file. Hard links enable multiple directory entries to refer to the same inode. Essentially, a hard link is another name or alias for an existing file.</p>
 
-                                    <p>One of the main characteristics of hard links is that they are indistinguishable from the original file. Deleting one hard link does not affect the others, and the data is only removed from the disk when the last hard link is deleted.</p>
-
-                                    <h5>Key points</h5>
+                                    <h5>Characteristics of hard links</h5>
                                     <ul>
-                                        <li>Hard links cannot span across different file systems.</li>
-                                        <li>Hard links cannot be created for directories (except for '.' and '..').</li>
-                                        <li>They share the same inode number, meaning they point to the same data blocks on the disk.</li>
-                                        <li>When a hard link is deleted, the data is not actually removed until all links pointing to the inode are deleted.</li>
+                                        <li><b>Indistinguishable from the original file:</b> Hard links and the original file are treated equally by the system. There’s no "original" or "copy" in the case of hard links.</li>
+                                        <li><b>Independent deletion:</b> Deleting one hard link does not affect the others. The file's data is only removed from the disk when the last hard link pointing to the inode is deleted.</li>
+                                        <li><b>Shared inode number:</b> Files created as hard links to each other share the same inode number, as they refer to the same inode and, consequently, the same data blocks on the disk.</li>
+                                        <li><b>File system limitations:</b> Hard links cannot span across different file systems because the inode reference is unique to each file system.</li>
+                                        <li><b>Directory restrictions:</b> Hard links cannot be created for directories (except for <code>.</code> and <code>..</code>, which are system-generated hard links).</li>
                                     </ul>
-
-                                    <h5>Creating a hard link</h5>
-                                    <p>To create a hard link, the <code>ln</code> command is used, followed by the source file and the new link name: <code>ln /path/to/original/file /path/to/hardlink</code></p>
-
-                                    <p>In this example, <code>/path/to/original/file</code> is the source file, and <code>/path/to/hardlink</code> is the new hard link.</p>
-
-                                    <h5>Checking hard links</h5>
-                                    <p>We can check how many hard links exist for a file using the <code>ls -l</code> command. The second column shows the number of hard links to a file: <code>ls -l /path/to/file</code></p>
-                                    <p>The number displayed in the second column indicates how many links point to the inode, including the original file and any hard links created.</p>
-                                    <p>In summary, hard links provide an efficient way to create multiple references to the same file, allowing us to have several access points to the data without duplicating the content.</p>
+                                    <p>Hard links provide an efficient way to create multiple references to the same file without duplicating the file's content, which saves disk space.</p>
+                                    
 
                                     <h3><a id="staying-up-to-date">Staying up-to-date</a></h3>
                                     <p>Regular updates are essential for ensuring security, performance, and stability. Below is a table of commonly used commands to keep an Ubuntu system up-to-date:</p>
