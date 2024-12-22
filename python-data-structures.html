@@ -87,7 +87,7 @@
                                 <div class="card-body">
                                     <p>A data structure organizes and stores data in memory for efficient access and modification. A collection is a group of data items treated as a single unit, focusing on operations like adding, removing, and iterating over elements. While collections rely on data structures, they offer a more abstract way to manage groups of objects. All collections are based on data structures, but not all data structures are collections.</p>
 
-                                    <p>There are a lot of data structures:</p>
+                                    <p class="podpis">There are a lot of data structures:</p>
                                     <ul type="disc">
                                         <li>Text structure: <code>str</code></li>
                                         <li>Numeric structures: <code>int</code>, <code>float</code>, <code><a href="#complex" style="color: #f5d67b;" class="link">complex</a></code></li>
@@ -102,7 +102,7 @@
                                     
                                     <p>In this lesson, we will also learn about <a href="#multidimensional-structures" class="link">multidimensional structures</a> and <a href="#type-casting" class="link">type casting</a>. Some of the names above are links to specific sections of this page.</p>
                                     
-                                    <p>We already know a few structures (<code>str</code>, <code>int</code>, <code>float</code>, and <code>bool</code>), and I will introduce the rest in this lesson. Data structures have different qualities based on how they are declared and used. We can go with a loop through sequence, mapping, and set structures, just like with strings (e.g., <code>for x in "abcde":</code>). They are called iterable data structures.</p>
+                                    <p>We already know a few structures (<code>str</code>, <code>int</code>, <code>float</code>, and <code>bool</code>), and I will introduce the rest in this lesson. Data structures have different qualities based on how they are declared and used. We can go with a loop through sequence, mapping, and set structures, just like with strings (e.g., <code>for x in "abcde":</code>). They are called <b>iterable</b> data structures.</p>
                                     
                                     <p>A list is mutable, which means that if we assign it to an <code>x</code> variable, we will have two names referring to the same object (they will have the same ID). However, if we assign a string to an <code>x</code> variable, a second variable will be created (because it is immutable). This variable will contain the same data, but while editing the original version, we will not edit the copy (which was the case with the list). All the structures we already know are immutable.</p>
             
@@ -141,7 +141,7 @@ y <span class="sign">=</span> <span class="text">"y"</span>
             
                                     <h2>Mutable data structures</h2>
                                     
-                                    <h2><a name="list">Lists</a></h2>
+                                    <h2><a id="list">Lists</a></h2>
                                     
                                     <p>We use lists to store lots of objects of all types. It is a variable with square brackets assigned. We can immediately fill these brackets  with objects after commas or leave them empty and use them later. Remember that we can't name a list "list" because it is its keyword, and we use it in type casting (I will explain it at the end of the lesson). Just like with strings, we can use the <code>index()</code> method to get the index of any item on the list and check how many elements it has using the <code>len()</code> method.</p>
                                     
@@ -328,7 +328,7 @@ z <span class="sign">=</span> [x <span class="sign">==</span> 2, y <span class="
     <span class="command">print</span>(<span class="text">"The x variable eqauls 2, and the y variable equals 4."</span>)
                                     </code></pre>
 
-                                    <h2><a name="set">Sets</a></h2>
+                                    <h2><a id="set">Sets</a></h2>
                                     
                                     <p>Sets are like lists, but their elements are unique. Even if we add, e.g., the number 4 twice, it will keep only one. It works faster than strings, lists, and tuples. Its elements can mix indexes (they are stored in random order). We write its elements in braces, but if we want to create an empty set, we have to write <code>x = set()</code> because empty braces are reserved for dictionaries.</p>
 
@@ -401,7 +401,7 @@ z <span class="sign">=</span> {9, 10}
 <span class="command">print</span>(x.<span class="command">isdisjoint</span>(z))
                                     </code></pre>
                                     
-                                    <h2><a name="dict">Dictionaries</a></h2>
+                                    <h2><a id="dict">Dictionaries</a></h2>
                                     
                                     <p>Dictionaries work on the key-value coding rule, which states that searching for the key will give us the value. Every data structure can be a value. Using the dictionary keys, we can get the assigned values. In the example below, "Python" and "list" are keys, and "programming language" and "data structure" are values.</p>
 
@@ -486,7 +486,7 @@ z <span class="sign">=</span> {<span class="function">True</span>: <span class="
 <span class="command">print</span>(z[<span class="function">True</span>]) <span class="comment"># True = 1 = 1.0 so True = "c"</span>
                                     </code></pre>
             
-                                    <h2><a name="bytearray">Bytearray</a></h2>
+                                    <h2><a id="bytearray">Bytearray</a></h2>
                                     
                                     <p>I recommend you read about <a href="#bytes" class="link">bytes</a> first and then come back. We use bytearray, e.g., like this: <code>bytearray([65, 66])</code>. It has the same properties as the bytes structure, except it is mutable. This makes it suitable for situations where we need to change the byte data during processing.</p>
 
@@ -527,7 +527,7 @@ data <span class="sign">=</span> <span class="command">bytearray</span>(10)
 
                                     <h2>Immutable data structures</h2>
 
-                                    <h2><a name="tuple">Tuples</a></h2>
+                                    <h2><a id="tuple">Tuples</a></h2>
                                     
                                     <p>Tuples are similar to lists, but they are immutable. When we add an object to a tuple, it creates another tuple with the same name and items plus the added one (the previous one deletes itself). We write its elements in parentheses.</p>
             
@@ -543,7 +543,7 @@ first, second <span class="sign">=</span> x
 <span class="command">print</span>(first, <span class="text">"and"</span>, second)
                                     </code></pre>
             
-                                    <h2><a name="nonetype">NoneType</a></h2>
+                                    <h2><a id="nonetype">NoneType</a></h2>
                                     
                                     <p><code>None</code> is an object used to indicate the absence of a value.</p>
                 
@@ -555,7 +555,7 @@ y <span class="sign">=</span> <span class="command">int</span>(<span class="comm
 <span class="command">print</span>(x)
                                     </code></pre>
             
-                                    <h2><a name="frozenset">Frozenset</a></h2>
+                                    <h2><a id="frozenset">Frozenset</a></h2>
                                     
                                     <p>Frozenset is an immutable version of a set.</p>
             
@@ -565,7 +565,7 @@ fSet <span class="sign">=</span> <span class="command">frozenset</span>(x)
 <span class="command">print</span>(fSet)
                                     </code></pre>
             
-                                    <h2><a name="bytes">Bytes</a></h2>
+                                    <h2><a id="bytes">Bytes</a></h2>
                                     
                                     <p>Bytes is sequence of integers, where each integer is in the range of 0 to 255. This makes it efficient to store binary data since each byte is only 8 bits. This data structure is particularly useful for handling binary data in files or transmitting data over networks. We can create a bytes object using the <code>bytes()</code> method, passing a list of integers between 0 and 255. For example: <code>data = bytes([65, 66])</code>. The result would be: <code>b'AB'</code> (it decodes from Unicode).</p>
                                     
@@ -579,11 +579,11 @@ x <span class="sign">=</span> text.<span class="command">encode</span>(<span cla
 
                                     <p>Go back to <a href="#bytearray" class="link">bytearray</a>.</p>
 
-                                    <h2><a name="complex">Complex</a></h2>
+                                    <h2><a id="complex">Complex</a></h2>
                                     
                                     <p>Complex numbers are expressed as <code>a+bj</code>, where <code>a</code> and <code>b</code> are real numbers, and <code>j</code> is an imaginary number, e.g., <code>100+3j</code>. They are used in mathematics.</p>
                                     
-                                    <h2><a name="deque">Deque</a></h2>
+                                    <h2><a id="deque">Deque</a></h2>
 
                                     <p>Deque stands for Double-Ended Queue. With it, we can easily add and remove elements not only at the end (like with lists) but also at the beginning. Its elements can be accessed by index. This data structure has to be imported from the <code>collections</code> library.</p>
 
@@ -603,7 +603,7 @@ integers.<span class="command">popleft</span>() <span class="comment"># deleting
 
                                     <p>Stacks and Queues are data structures for storing data in specific orders. Their elements can't be accessed by index. Stacks operate in a Last-In-First-Out (LIFO) order, where elements can only be added and deleted from the top of the stack. Queues operate in a First-In-First-Out (FIFO) order, where elements can be added at the end of the queue and removed from the front.</p>
 
-                                    <h2><a name="multidimensional-structures">Multidimensional structures</a></h2>
+                                    <h2><a id="multidimensional-structures">Multidimensional structures</a></h2>
                                     
                                     <p>A multidimensional structure is a structure that has another structure inside it, e.g., a list in a list or a tuple in a list, etc. A two-dimensional list is called a matrix.</p>
 
@@ -634,7 +634,7 @@ numbers2 <span class="sign">=</span> [line[::2] <span class="function">for</span
 <span class="command">print</span>(numbers2)
                                     </code></pre>
                                     
-                                    <h2><a name="type-casting">Type casting</a></h2>
+                                    <h2><a id="type-casting">Type casting</a></h2>
                                     
                                     <p>Type casting is, in other words, type conversion (e.g., <code>list</code> to <code>str</code>). We can perform such operations on all data structures except dictionaries. We can check the variable's type with this command: <code>type(x)</code>. If we write <code>type(x).__qualname__</code>, we will get only, e.g., <code>int</code> instead of <code>&lt;class 'int'&gt;</code>. Here are a few examples:</p>
 

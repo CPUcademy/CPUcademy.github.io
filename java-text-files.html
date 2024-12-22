@@ -97,7 +97,7 @@
                                         <li><a href="#serialization" class="link" style="text-decoration: none;">Serialization</a></li>
                                     </ul>
                                     
-                                    <h2><a name="creating-files-and-folders">Creating files and folders</a></h2>
+                                    <h2><a id="creating-files-and-folders">Creating files and folders</a></h2>
                                     
                                     <p>To create a file, we use the <code>java.io.File</code> module. First, we have to create an object of the <code>File</code> class, check if a file with a given name already exists, and if not, create it. We can check its properties, like the date of its last modifications, with the self-explanatory commands listed below. To prevent errors, we have to assign <code>throws IOException</code> to the methods in which we create files.</p>
                                     
@@ -145,7 +145,7 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
     file.<span class="command">createNewFile</span>()<span class="sign">;</span>
                                     </code></pre>
                                     
-                                    <h2><a name="paths">Paths</a></h2>
+                                    <h2><a id="paths">Paths</a></h2>
                                     
                                     <p>The <code>displayPaths()</code> method will list all paths in a given location. It will run through a list of files and folders in the given catalog, ignore the files, and execute itself for each encountered folder separately (so that the folders inside of these folders are also included).</p>
                                     
@@ -184,7 +184,7 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
                             
-                                    <h2><a name="reading-from-a-file">Reading from a file</a></h2>
+                                    <h2><a id="reading-from-a-file">Reading from a file</a></h2>
                                     
                                     <p>To read from a file, we have to create an instance of a <code>BufferedReader</code> class, which uses a <code>FileReader</code> object (with our file's name assigned). The <code>BufferedReader</code> speeds up the whole reading process done by <code>FileReader</code>. When we finish the operations on a file, we have to close it (using the <code>close()</code> command). The loop in the example below will read all of the lines from the file and display them. It will stop when there are no more lines to read.</p>
                                     
@@ -229,7 +229,7 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
 <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(line)<span class="sign">;</span>
                                     </code></pre>
                                     
-                                    <h2><a name="writing-to-a-file">Writing to a file</a></h2>
+                                    <h2><a id="writing-to-a-file">Writing to a file</a></h2>
                                     
                                     <p>To write to a file, we have to create an instance of a <code>PrintWriter</code> class, which uses a <code>FileWriter</code> object (with our file's name assigned). After the file name, we can add a second argument - <code>true</code>. Then, we would not override the file but add to it. The <code>PrintWriter</code> speeds up the whole writing process done by <code>FileWriter</code>. The <code>printf()</code> command is a version of the <code>print()</code> command that supports formatting (<code>println()</code> adds an enter - it is not the basic form of the <code>print()</code> command). We can incorporate variables into it through symbols with the <code>%</code> sign. Each symbol represents a specific data type (<code>%d</code> - integer, <code>%.2f</code> - float with two decimal numbers, <code>%s</code> - string). The variables are substituted in order with the arguments of this command that stand after the main string.</p>
                                     
@@ -251,7 +251,7 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
                                     
-                                    <h2><a name="tokenization-of-strings">Tokenization of strings</a></h2>
+                                    <h2><a id="tokenization-of-strings">Tokenization of strings</a></h2>
                                     
                                     <p>Tokenization means breaking a string into smaller parts using delimiters (characters treated as separators). It can be used to write a few values in the same line of a file.</p>
                                     
@@ -326,7 +326,7 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
                                     
-                                    <h2><a name="full-io-control">Full I/O control - pointers</a></h2>
+                                    <h2><a id="full-io-control">Full I/O control - pointers</a></h2>
                                     
                                     <p>If, instead of the previously mentioned classes, we create an instance of the <code>RandomAccessFile</code> object, we will have more control over what we do, thanks to the pointer inside the file. This pointer is always used to perform operations on the file without our intervention, but by using the <code>seek()</code> command, we can control it directly. In the beginning, as the <code>getFilePointer()</code> command shows, the pointer is located at the end of the file because it just finished writing to it. The number shown by this command is the number of bits the file has (in this case, 24 because there are two double variables and one string with four chars, which gives us 8*2+4*2). The example below uses the class from the previous example.</p>
                                     
@@ -360,7 +360,7 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
                                     
-                                    <h2><a name="serialization">Serialization</a></h2>
+                                    <h2><a id="serialization">Serialization</a></h2>
                                     
                                     <p>Serialization means writing the instances of our objects (classes) to a file. The class that is serialized has to implement the <code>Serializable</code> interface. The example below uses the class from the previous example but with added <code>implements Serializable</code>. Of course, we can later import the saved classes.</p>
                                     

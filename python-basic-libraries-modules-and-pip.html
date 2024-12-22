@@ -149,42 +149,85 @@ y <span class="sign">=</span> [1, 2, 3, 4]
 <span class="command">print</span>(math.<span class="command">pi</span>) <span class="comment"># displaying the PI number</span>
 <span class="command">print</span>(math.<span class="command">e</span>) <span class="comment"># displaying the E number</span>
                                     </code></pre>
+
+                                    <p>We can check the complete list of commands a library contains by typing <code>print(dir([library_name]))</code>.</p>
                                     
                                     <h2>The <code>time</code> and <code>datetime</code> libraries</h2>
                                     
                                     <p>These libraries are used to handle time.</p>
-                                    
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">import</span> time
+<span class="command">import</span> datetime, time
+
+<span class="comment"># Getting the current local date</span>
+today <span class="sign">=</span> datetime.<span class="command">datetime.now</span>() <span class="comment"># a datetime object representing the current date and time</span>
+<span class="command">print</span>(today) <span class="comment"># time and date</span>
+<span class="command">print</span>(today.second)
+<span class="command">print</span>(today.minute)
+<span class="command">print</span>(today.hour)
+<span class="command">print</span>(today.day)
+<span class="command">print</span>(today.month)
+<span class="command">print</span>(today.year)
 
 <span class="comment"># Stopping the program for a time specified in seconds</span>
 time.<span class="command">sleep</span>(0.5)
 
-<span class="comment"># Printing the time</span>
-<span class="command">print</span>(time.<span class="command">strftime</span>(<span class="text">"Time: %H:%M:%S"</span>))
-<span class="comment"># %Y - year</span>
-<span class="comment"># %B - month (a string)</span>
-<span class="comment"># %m - month (a number)</span>
-<span class="comment"># %d - day</span>
-<span class="comment"># %H - hour</span>
-<span class="comment"># %M - minute</span>
-<span class="comment"># %S - second</span>
+<span class="comment"># Creating a date object for a specific date</span>
+d <span class="sign">=</span> datetime.<span class="command">date</span>(2019, 11, 4)
+<span class="command">print</span>(d)
+
+<span class="comment"># Creating a date object from a timestamp (Unix epoch)</span>
+timestamp <span class="sign">=</span> time.<span class="command">time</span>() <span class="comment"># a timestamp</span>
+<span class="command">print</span>(<span class="text">"Timestamp:"</span>, timestamp)
+
+d2 <span class="sign">=</span> datetime.<span class="command">date</span>.<span class="command">fromtimestamp</span>(timestamp) <span class="comment"># a date object</span>
+<span class="command">print</span>(<span class="text">"Date:"</span>, d2)
+
+<span class="comment"># Creating a timestamp from a datetime object</span>
+d3 <span class="sign">=</span> datetime.<span class="command">datetime</span>(2020, 10, 4, 14, 55)
+<span class="command">print</span>(<span class="text">"Timestamp:"</span>, d3.<span class="command">timestamp</span>())
+
+<span class="comment"># Converting a timestamp into a string representation of the date</span>
+timestamp2 <span class="sign">=</span> 1572879180
+<span class="command">print</span>(time.<span class="command">ctime</span>(timestamp2))
+
+<span class="comment"># Creating a date object from a string (YYYY-MM-DD)</span>
+d4 <span class="sign">=</span> datetime.date</span>.<span class="command">fromisoformat</span>(<span class="text">"2020-12-13"</span>)
+<span class="command">print</span>(d4)
+
+<span class="comment"># Modifying a date object</span>
+d5 <span class="sign">=</span> d4.<span class="command">replace</span>(year <span class="sign">=</span> 2021) <span class="comment"># we can also change the "month" and "day"</span>
+<span class="command">print</span>(d5)
+
+<span class="comment"># Displaying the day of the week (from a specific date)</span>
+<span class="command">print</span>(d.<span class="command">weekday</span>()) <span class="comment"># 0 is Monday</span>
+<span class="command">print</span>(d.<span class="command">isoweekday</span>()) <span class="comment"># 1 is Monday</span>
+
+<span class="comment"># Displaying the current day of the week</span>
+<span class="command">print</span>(today.<span class="command">weekday</span>())
+
+<span class="comment"># Subtracting dates</span>
+date_1 <span class="sign">=</span> datetime.<span class="command">date</span>(2020, 11, 4) <span class="comment"># a date object</span>
+date_2 <span class="sign">=</span> datetime.<span class="command">date</span>(2019, 11, 4)
+<span class="command">print</span>(date_1 <span class="sign">-</span> date_2)
+datetime_1 <span class="sign">=</span> datetime.<span class="command">datetime</span>(2019, 11, 27, 11, 27, 22) <span class="comment"># a datetime object</span>
+datetime_2 <span class="sign">=</span> datetime.<span class="command">datetime</span>(2019, 11, 27, 0, 0, 0)
+<span class="command">print</span>(datetime_1 <span class="sign">-</span> datetime_2)
+
+<span class="comment"># Formatting dates</span>
+<span class="command">print</span>(time.<span class="command">strftime</span>(<span class="text">"%H:%M:%S"</span>)) <span class="comment"># displaying the current date / time</span>
+<span class="comment"># %Y - year, %B - month (a string), %m - month (a number), %d - day, %H - hour, %M - minute, %S - second</span>
+
+date_object <span class="sign">=</span> datetime.<span class="command">date</span>(2020, 1, 4)
+<span class="command">print</span>(date_object.<span class="command">strftime</span>(<span class="text">"%Y/%m/%d"</span>))
+
+datetime_object <span class="sign">=</span> datetime.<span class="command">datetime</span>(2020, 11, 4, 14, 53)
+<span class="command">print</span>(datetime_object.<span class="command">strftime</span>(<span class="text">"%y/%B/%d %H:%M:%S"</span>))
+
+<span class="command">print</span>(datetime.<span class="command">datetime</span>.<span class="command">strptime</span>(<span class="text">"2019/11/04 14:53:00"</span>, <span class="text">"%Y/%m/%d %H:%M:%S"</span>)) <span class="comment"># parsing a string into a datetime object</span>
                                     </code></pre>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">import</span> datetime
-time <span class="sign">=</span> datetime.<span class="command">datetime.now</span>()
-
-<span class="command">print</span>(time) <span class="comment"># time and date</span>
-<span class="command">print</span>(time.second)
-<span class="command">print</span>(time.minute)
-<span class="command">print</span>(time.hour)
-<span class="command">print</span>(time.day)
-<span class="command">print</span>(time.month)
-<span class="command">print</span>(time.year)
-                                    </code></pre>
-                                    
-                                    <p>If you wish to know more about these libraries, check out the <a href="python-time-and-datetime-extended.html" class="link">extended article</a>.</p>
+                                    <p><code>datetime.now()</code> works the same as <code>datetime.today()</code>, except it can take a timezone as an argument.</p>
 
                                     <h2>The <code>sys</code> and <code>os</code> libraries</h2>
                                     
@@ -199,9 +242,24 @@ time <span class="sign">=</span> datetime.<span class="command">datetime.now</sp
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> os
-<span class="function">if</span> os.<span class="command">path.exists</span>(<span class="text">"file.txt"</span>): <span class="comment"># checking whether a given file or directory exists</span>
+
+os.<span class="command">mkdir</span>(<span class="text">"dir"</span>) <span class="comment"># creating a directory</span>
+os.<span class="command">chdir</span>(<span class="text">"dir"</span>) <span class="comment"># moving to a directory</span>
+<span class="command">print</span>(os.<span class="command">listdir</span>()) <span class="comment"># displaying the files and directories in the current directory</span>
+<span class="command">print</span>(os.<span class="command">getcwd</span>()) <span class="comment"># displaying the current working directory</span>
+os.<span class="command">chdir</span>(<span class="text">".."</span>)  <span class="comment"># moving back to the parent directory to delete 'dir' safely</span>
+os.<span class="command">rmdir</span>(<span class="text">"dir"</span>) <span class="comment"># deleting a directory (only works if it's empty)</span>
+
+os.<span class="command">makedirs</span>(<span class="text">"dir/dir2"</span>) <span class="comment"># creating a directory and its subdirectories</span>
+os.<span class="command">removedirs</span>(<span class="text">"dir/dir2"</span>) <span class="comment"># deleting a directory and its subdirectories</span>
+
+<span class="comment"># We can create a file using the open() command (refer to the lesson about text files)</span>
+<span class="function">if</span> os.<span class="command">path.exists</span>(<span class="text">"[the_path]/file.txt"</span>): <span class="comment"># checking whether a given file or directory exists</span>
     <span class="command">print</span>(<span class="text">"The file exists"</span>)
-    os.<span class="command">remove</span>(<span class="text">"[the_path]/file.txt"</span>) <span class="comment"># deleting a given file or directory</span>
+    os.<span class="command">remove</span>(<span class="text">"[the_path]/file.txt"</span>) <span class="comment"># deleting a given file</span>
+
+m =</span> os.<span class="command">system</span>(<span class="text">"mkdir dir"</span>) <span class="comment"># executing a command passed as a string</span>
+<span class="command">print</span>(m)
                                     </code></pre>
                                     
                                     <div class="alert alert-warning">
