@@ -123,7 +123,7 @@
 
                                     <p>The <code>&lt;html&gt;</code> markup contains the whole website. The <code>&lt;head&gt;</code> tag contains everything that isn't directly visible on the webpage but provides essential information to the browser, such as the title, links to stylesheets, scripts, and other information that supports the page functionality. The <code>&lt;body&gt;</code> markup contains everything visible as the website's content. The <code>&lt;meta&gt;</code> tags contain the website's metadata, meaning everything the information that the browser uses when searching for a website (they are single tags). Of course, these tags are optional. <code>&lt;!DOCTYPE html&gt;</code> indicates that the code is written in HTML.</p>
                                     
-                                    <p>In Visual Studio, we can generate the basic website template by pressing <code>SHIFT + 1 + ENTER</code>. To add a favicon, we place this command in the <code>&lt;head&gt;</code> section: <code>&lt;link rel="icon" type="image/x-icon" href="img/favicon.ico"/&gt;</code>.</p>
+                                    <p>In Visual Studio, we can generate the basic website template by pressing <code>SHIFT + 1 + ENTER</code>. To add a favicon, we place this command in the <code>&lt;head&gt;</code> section: <code>&lt;link rel="icon" type="image/x-icon" href="img/favicon.ico"&gt;</code>.</p>
                                     
                                     <h2>Basic markups</h2>
                             
@@ -190,9 +190,32 @@
                                         </tr>
                                     </table>
 
-                                    <p>When we do not have a link ready for the <code>&lt;a&gt;</code> tag, we can write <code>href="#"</code> as a placeholder, which makes the link clickable but doesn’t lead anywhere. An example of the <code>&lt;a&gt;</code> tag: <code>&lt;a href="#" target="_blank"&gt;link&lt;/a&gt;</code>. We can also create internal website links using this tag (to a subpage, etc.)</p>
-
                                     <p>Heading and paragraph tags are block tags (strong tags) because they do more than they should (add a new line). If we wanted to make a heading italic, we would have to put the <code>&lt;i&gt;</code> tag inside the <code>&lt;h1&gt;</code> because it is weaker. The weaker tags always have to be inside stronger tags.</p>
+
+                                    <p>When we do not have a link ready for the <code>&lt;a&gt;</code> tag, we can write <code>href="#"</code> as a placeholder, which makes the link clickable but doesn’t lead anywhere. An example of the <code>&lt;a&gt;</code> tag: <code>&lt;a href="#" target="_blank"&gt;link&lt;/a&gt;</code>. We can also create internal website links using this tag (to a subpage, etc.) With this tag, we can also download files from the website (the <code>download</code> attribute): <code>&lt;a href="file.jpg" download="file.jpg&gt;link&lt;/a&gt;</code>, and create a link map, e.g., a table of contents. Here is an example of the table:</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;h3&gt;</span>Table of contents<span class="function">&lt;/h3&gt;</span>
+
+<span class="function">&lt;p&gt;</span><span class="function">&lt;a <span class="command">href</span><span class="sign">=</span><span class="text">"#first"</span>&gt;</span>First<span class="function">&lt;/a&gt;</span><span class="function">&lt;/p&gt;</span>
+<span class="function">&lt;p&gt;</span><span class="function">&lt;a <span class="command">href</span><span class="sign">=</span><span class="text">"#second"</span>&gt;</span>Second<span class="function">&lt;/a&gt;</span><span class="function">&lt;/p&gt;</span>
+
+<span class="function">&lt;h3&gt;</span><span class="function">&lt;a <span class="command">id</span><span class="sign">=</span><span class="text">"first"</span>&gt;</span>First<span class="function">&lt;/a&gt;</span><span class="function">&lt;/h3&gt;</span>
+<span class="function">&lt;p&gt;</span>Lorem ipsum.<span class="function">&lt;/p&gt;</span>
+
+<span class="function">&lt;h3&gt;</span><span class="function">&lt;a <span class="command">id</span><span class="sign">=</span><span class="text">"second"</span>&gt;</span>Second<span class="function">&lt;/a&gt;</span><span class="function">&lt;/h3&gt;</span>
+<span class="function">&lt;p&gt;</span>Lorem ipsum.<span class="function">&lt;/p&gt;</span>    
+                                    </code></pre>
+
+                                    <p>Of course, the page has to be long enough (the header cannot be, e.g., in the last line because it is not possible to scroll to it). For the code to work, add a lot of text at the end.</p>
+
+                                    <h2>Basic attributes</h2>
+                                    
+                                    <p>For elements like images and tables, we can specify the width and height arguments. Of course, there are a lot of other common arguments, but most are deprecated since CSS is better. Although these two are still encountered in their HTML version, it is still better to use CSS. An example of an image tag: <code>&lt;img src="image.jpg" alt="Img" width="100" height="100"&gt;</code>. The default unit is <code>px</code>, but it could be also, e.g., <code>%</code>.</p>
+
+                                    <h2>Character entities</h2>
+
+                                    <p>Character entities are special codes used in HTML to represent characters that have a reserved meaning in HTML or cannot be typed directly, such as <code>&amp;lt;</code> for the less-than symbol (<code>&lt;</code>,) and <code>&amp;gt;</code> for greater-than (<code>&gt;</code>). If we typed these symbols directly, the browser would think we were using a markup. We can find a full list of entities, e.g., on the <a href="https://www.freeformatter.com/html-entities.html" target="_blank" class="link">Free Formatter</a> website.</p>
                                 </div>
                             </div>
                         </div>
