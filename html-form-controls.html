@@ -85,46 +85,45 @@
                                     <h5 class="m-0 font-weight-bold">Form controls</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>The <code>&lt;form&gt;</code> tag is used to create interactive controls that users can use to enter data and submit to a web server for processing. It is a fundamental part of web development, allowing users to interact with a website, such as filling out contact forms, login forms, and surveys. A basic form structure looks like this:</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-&lt;form action="submit_form.php" method="post"&gt;
-    &lt;!-- Form elements go here --&gt;
-&lt;/form&gt;
-                                    </code></pre>
-                                    
-                                    <p>The <code>action</code> attribute specifies the URL to which the form data is sent. The <code>method</code> attribute defines how data is sent. Common values include <code>post</code> (to send data in the body of the request) and <code>get</code> (to append data to the URL).</p>
-                                    
-                                    <h3>Form Input Types</h3>
-                                    <p class="podpis">The different values of the <code>type</code> attribute in the <code>&lt;input&gt;</code> tag:</p>                                    
+                                    <p>The <code>&lt;form&gt;</code> tag creates interactive controls that allow users to enter data and submit it to a web server for processing. It is a fundamental part of web development, enabling user interaction with a website, such as filling out contact forms, login forms, and surveys. A basic form structure looks like this:</p>
 
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;form <span class="command">action</span><span class="sign">=</span><span class="text">"submit_form.php"</span> <span class="command">method</span><span class="sign">=</span><span class="text">"post"</span>&gt;</span>
+    <span class="comment">&lt;!-- Form elements go here --&gt;</span>
+<span class="function">&lt;/form&gt;</span>
+                                    </code></pre>
+
+                                    <p>The <code>action</code> attribute specifies the URL where the form data will be sent. The <code>method</code> attribute defines how the data is transmitted. Common values include <code>post</code> (sends data in the request's body) and <code>get</code> (appends data to the URL).</p>
+
+                                    <p>Form controls, such as input fields, checkboxes, and buttons, can also be managed using JavaScript. When handled with JavaScript, these controls do not necessarily need to be enclosed within a <code>&lt;form&gt;</code> tag. However, if the data needs to be submitted to a server, using the <code>&lt;form&gt;</code> tag is recommended for proper structure and functionality. We get the values from controls through the <code>id</code> and <code>name</code> attributes.</p>
+                                    
                                     <ul>
                                         <li><code>text</code>
                                             <ul>
                                                 <li>Defines a single-line text input field for user input.</li>
                                                 <li><code>&lt;input type="text" name="username" placeholder="Enter your username"&gt;</code></li>
                                                 <li style="list-style-type: none; margin-top: 5px; margin-bottom: 10px;"><input type="text" name="username" placeholder="Enter your username"></li>
-                                                <li>Instead of <code>placeholder</code>, we can use <code>value</code>. Check the difference by trying to enter some text.</li>
+                                                <li>Instead of <code>placeholder</code>, we can use <code>value</code>. Check the difference by entering some text:</li>
                                                 <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;"><input type="text" name="username" value="Enter your username"></li>
                                             </ul>
                                         </li>
                                         <li><code>password</code>
                                             <ul>
-                                                <li>Defines a password input field. Characters typed are obscured.</li>
+                                                <li>Defines a password input field. The characters typed are hidden.</li>
                                                 <li><code>&lt;input type="password" name="password" placeholder="Enter your password"&gt;</code></li>
                                                 <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;"><input type="password" name="password" placeholder="Enter your password"></li>
                                             </ul>
                                         </li>
                                         <li><code>email</code>
                                             <ul>
-                                                <li>Defines a field for entering an email address. It can validate email format automatically (if contains <code>@</code>, etc.).</li>
+                                                <li>Defines a field for entering an email address. This field validates the format automatically (e.g., it checks for <code>@</code>).</li>
                                                 <li><code>&lt;input type="email" name="email" placeholder="Enter your email"&gt;</code></li>
                                                 <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;"><input type="email" name="email" placeholder="Enter your email"></li>
                                             </ul>
                                         </li>
                                         <li><code>number</code>
                                             <ul>
-                                                <li>Defines a field for numeric input. You can set a range using the min and max attributes. An optional <code>step</code> attribute defines the increments between valid values (e.g., <code>step="0.1"</code> for decimal values).</li></li>
+                                                <li>Defines a field for numeric input. You can set a range using the <code>min</code> and <code>max</code> attributes. Use <code>step</code> to define increments (e.g., <code>step="0.1"</code> for decimal values).</li>
                                                 <li><code>&lt;input type="number" name="age" min="18" max="100" placeholder="Enter your age"&gt;</code></li>
                                                 <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;"><input type="number" name="age" min="18" max="100" placeholder="Enter your age"></li>
                                             </ul>
@@ -138,23 +137,23 @@
                                         </li>
                                         <li><code>radio</code>
                                             <ul>
-                                                <li>Defines a radio button. It allows users to select one option from a group.</li>
-                                                <li><code>&lt;input type="radio" name="gender" value="male"&gt; Male</code></li>
-                                                <li><code>&lt;input type="radio" name="gender" value="female"&gt; Female</code></li>
-                                                <li style="list-style-type: none; margin-top: 5px;"><input type="radio" name="gender" value="male"> Male</li>
-                                                <li style="list-style-type: none; margin-bottom: 25px;"><input type="radio" name="gender" value="female"> Female</li>
+                                                <li>Defines a radio button. Users can select one option from a group.</li>
+                                                <li><code>&lt;input type="radio" name="gender" value="male" id="male"&gt;&lt;label for="male"&gt;Male&lt;/label&gt;</code></li>
+                                                <li><code>&lt;input type="radio" name="gender" value="female" id="female"&gt;&lt;label for="female"&gt;Female&lt;/label&gt;</code></li>
+                                                <li style="list-style-type: none; margin-top: 5px;"><input type="radio" name="gender" value="male" id="male"><label for="male">Male</label></li>
+                                                <li style="list-style-type: none; margin-bottom: 25px;"><input type="radio" name="gender" value="female" id="female"><label for="female">Female</label></li>
                                             </ul>
                                         </li>
                                         <li><code>file</code>
                                             <ul>
-                                                <li>Defines a file upload button that allows users to select and upload a file.</li>
-                                                <li><code>&lt;input type="file" name="profile_pic"&gt;</code></li>
-                                                <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;"><input type="file" name="profile_pic"></li>
+                                                <li>Defines a file upload button, allowing users to select and upload a file.</li>
+                                                <li><code>&lt;input type="file" name="profile_pic" accept=".jpg,.png"&gt;</code></li>
+                                                <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;"><input type="file" name="profile_pic" accept=".jpg,.png"></li>
                                             </ul>
                                         </li>
                                         <li><code>submit</code>
                                             <ul>
-                                                <li>Defines a button for submitting the form data.</li>
+                                                <li>Defines a button for submitting form data.</li>
                                                 <li><code>&lt;input type="submit" value="Submit"&gt;</code></li>
                                                 <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;"><input type="submit" value="Submit"></li>
                                             </ul>
@@ -166,16 +165,66 @@
                                                 <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;"><input type="reset" value="Reset"></li>
                                             </ul>
                                         </li>
-                                        <li><code>button</code>
+                                        <li><code>color</code>
                                             <ul>
-                                                <li>Defines a generic button for use with JavaScript (often for custom form actions).</li>
-                                                <li><code>&lt;input type="button" value="Click me" onclick="alert('Button clicked!')"&gt;</code></li>
-                                                <li style="list-style-type: none; margin-top: 5px;"><input type="button" value="Click Me" onclick="alert('Button clicked!')"></li>
-                                                <li>This version works the same. If we do not add the <code>type="button"</code>, it will work like the submit button.</li>
-                                                <li><code>&lt;button type="button" onclick="alert('Button clicked!')"&gt;Click me&lt;/button&gt;</code></li>
-                                                <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;"><button type="button" onclick="alert('Button clicked!')">Click me</button></li>
+                                                <li>Defines an input field for selecting a color. The browser provides a color picker interface.</li>
+                                                <li><code>&lt;input type="color"&gt;</code></li>
+                                                <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;">
+                                                    <input type="color">
+                                                </li>
                                             </ul>
                                         </li>
+                                        <li><code>search</code>
+                                            <ul>
+                                                <li>Defines an input field for entering search queries. It is optimized for search-related input.</li>
+                                                <li><code>&lt;input type="search"&gt;</code></li>
+                                                <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;">
+                                                    <input type="search">
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><code>date</code>
+                                            <ul>
+                                                <li>Defines an input field for selecting a date. The browser provides a calendar interface.</li>
+                                                <li><code>&lt;input type="date"&gt;</code></li>
+                                                <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;">
+                                                    <input type="date">
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><code>time</code>
+                                            <ul>
+                                                <li>Defines an input field for selecting a time. You can specify a range using <code>min</code> and <code>max</code> attributes.</li>
+                                                <li><code>&lt;input type="time" min="09:00" max="18:00"&gt;</code></li>
+                                                <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;">
+                                                    <input type="time" min="09:00" max="18:00">
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><code>button</code>
+                                            <ul>
+                                                <li>Defines a generic button, often used with JavaScript for custom actions.</li>
+                                                <li><code>&lt;input type="button" value="Click me" onclick="alert('Button clicked!')"&gt;</code></li>
+                                                <li style="list-style-type: none; margin-top: 5px;">
+                                                    <input type="button" value="Click Me" onclick="alert('Button clicked!')">
+                                                </li>
+                                                <li>If you omit the <code>type="button"</code>, it behaves as a submit button by default.</li>
+                                                <li><code>&lt;button type="button" onclick="alert('Button clicked!')"&gt;Click me&lt;/button&gt;</code></li>
+                                                <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;">
+                                                    <button type="button" onclick="alert('Button clicked!')">Click me</button>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><code>&lt;progressbar&gt;</code>
+                                            <ul>
+                                                <li>Represents the progress of a task. Use the <code>value</code> attribute to indicate progress and <code>max</code> for the maximum value.</li>
+                                                <li><code>&lt;progress value="75" max="100"&gt;&lt;/progress&gt;</code></li>
+                                                <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;">
+                                                    <progress value="75" max="100"></progress>
+                                                </li>
+                                                </li>
+                                            </ul>
+                                        </li>                                        
                                         <li><code>textarea</code>
                                             <ul>
                                                 <li>Defines a multi-line text input field, often used for comments or messages. To block resizing (in CSS): <code>resize: none;</code>.</li>
@@ -183,7 +232,7 @@
                                                 <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;"><textarea name="message" rows="4" cols="10" placeholder="Enter your message"></textarea></li>
                                             </ul>
                                         </li>
-                                        <li><code>select</code> <code>&lt;option&gt;</code>
+                                        <li><code>&lt;select&gt;</code>
                                             <ul>
                                                 <li>Defines a drop-down menu for selecting one or more options.</li>
                                                 <li><pre class="wp-block-csstricks-code-block code-example" data-line=""><code markup="tt">
@@ -200,92 +249,32 @@
                                                 </select></li>
                                             </ul>
                                         </li>
-                                    </ul>                                    
-                
-                                    <h2>Radio button</h2>
+                                    </ul>
                                     
-                                    <p>Radio button to guzik do odznaczenia (możemy zaznaczyć tylko jeden z podanych). Aby go uzyskać przypiszemy do <code>type</code> wartość <code>radio</code>. Jednak zazwyczaj taki przycisk ma etykietę. Dodajemy ją za pomocą znacznika <code>&lt;label></code>. Są dwa sposoby powiązania etykiety z przyciskiem: <br> Sposób 1: <code>&lt;input type="radio" id="idd">&lt;label for="idd">etykieta&lt;label></code>. <br> Sposób 2: <code>&lt;label>&lt;input type="radio">etykieta&lt;/label></code>.</p>
+                                    <table>
+                                        <tr>
+                                            <td><code>required</code></td>
+                                            <td>The field must be filled or checked before submitting.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>disabled</code></td>
+                                            <td>Prevents the user from interacting with the field.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>readonly</code></td>
+                                            <td>The field's value cannot be changed by the user.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>multiple</code></td>
+                                            <td>Allows selecting multiple values (e.g., in a dropdown). Add <code>[]</code> to the field name to save values as a list.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>checked</code></td>
+                                            <td>Marks a checkbox or radio button as selected by default.</td>
+                                        </tr>
+                                    </table>
                                     
-                                    <p>Tak jak napisałem, można wybrać tylko jeden z dostępnych przycisków tego typu. Ale skąd przeglądarka ma wiedzieć, z której grupy tych przycisków można zaznaczyć tylko jeden (przecież takich grup może być w jednym formularzu wiele)? Należy dodać atrybut <code>name</code> do przycisków i te, które są ze sobą powiązane, przypisać do tej samej nazwy.</p>
-                                    
-                                    <h2>Lista wyboru</h2>
-                                    
-                                    <p>Chodzi o rozwijaną listę wyboru. W tym przypadku nie wykorzystamy znacznika <code>&lt;input></code>. Tworzymy ją tak:</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    &lt;select>
-                                            &lt;option>Opcja 1&lt;/option>
-                                            &lt;option>Opcja 2&lt;/option>
-                                    &lt;/select>
-                                    </code></pre>
-                                    
-                                    <h2>Znacznik <code>&lt;fieldset></code></h2>
-                                    
-                                    <p>Wszystko co znajduje się pomiędzy tymi znacznikami, jest w ramce. Jest on często stosowany w formularzach, aby oddzielić od siebie poszczególne sekcje. Jeśli chcemy nadać tytuł tej ramce, to dodajemy w środku znacznik <code>&lt;legend></code> i pomiędzy otwierającym a zamykającym piszemy tytuł.</p>
-                                    
-                                
-                                    <h2>Pole wyszukiwania</h2>
-                                    
-                                    <p>Jest to zwykłe pole tekstowe poza tym, że ma znak "<b>x</b>" po prawej stronie. Służy on do czyszczenia okienka. Pole wyszukiwania tworzymy nadając argumentowi <code>type</code> wartość <code>search</code>.</p>
-                                    
-                                    <h2>Okno na datę</h2>
-                                    
-                                    <p>Ustawia się je nadając atrybutowi <code>type</code> wartość <code>date</code> (można wybrać datę z graficznego kalendarza). Nie działa to we wszystkich przeglądarkach np.: w IE.</p>
-                                    
-                                    <h2>Okno na czas</h2>
-                                    
-                                    <p>Ustawia się je nadając atrybutowi <code>type</code> wartość <code>time</code>. <code>&lt;input type="time" min="09:00" max="18:00"></code> - atrybuty <code>min</code> i <code>max</code> ustawiają zakres czasu, z którego możemy wybrać godzinę. Można też dodać atrybut <code>step</code>. Nie działa to we wszystkich przeglądarkach np.: w IE.</p>
-                                    
-                                    <h2>Pole na numer telefonu</h2>
-                                    
-                                    <p>Pole to nie sprawdza, czy podany numer telefonu istnieje, tylko czy jego składnia jest poprawna (zawiera tylko liczby itd.). Tworzymy go nadając atrybutowi <code>type</code> wartość <code>tel</code>.</p>
-                                    
-                                    <h2>Pole na adres URL</h2>
-                                    
-                                    <p>Pole to nie sprawdza, czy podany adres internetowy istnieje, tylko czy jego składnia jest poprawna (zawiera <b>https://</b> itd.). Tworzymy go nadając atrybutowi <code>type</code> wartość <code>url</code>.</p>
-                                    
-                                    <h2>Info</h2>
-                                    
-                                    <p>W podanych powyżej trzech przykładach występuje przeglądarkowa prewalidacja formularza. Nigdy nie może stanowić właściwej sanityzacji wejścia po stronie serwera! Nie możemy ufać front-endowym ograniczeniom nałożonym w interfejsie. W przeglądarkach, które nie obsługują tych pól nastąpi tzw. fallback (cofnięcie się, downgrade) do zwykłego inputa typu <code>text</code> (a więc pozbawionego prewalidacji).</p>
-                                    
-                                    <p>Aby pobrać wartości z danej kontrolki przypisujemy do niej atrybut <code>name</code> i wpisujemy nazwę, aby potem skorzystać z niej w PHP.</p>
-                                    
-                                    <h2>Color picker</h2>
-                                    
-                                    <p>Tworzymy go nadając atrybutowi <code>type</code> wartość <code>color</code>. Często jest zastępowany przez color picker z <a href="https://jscolor.com" target="_blank">jscolor.com</a>, dlatego że nie działa np.: w IE.</p>
-                                    
-                                    <h2>Dodatkowe atrybuty kontrolek</h2>
-                                    
-                                    <p><code>required</code> - kontrolka staje się obwiązkowa do wpisania / zaznaczenia.</p>
-                                    
-                                    <p><code>disabled</code> - kontrolka staje się zablokowana.</p>
-                                    
-                                    <p><code>readonly</code> - elementowi formularza nie można zmienić wartości.</p>
-                                    
-                                    <p><code>multiple</code> - wtedy będzie można podawać dwie wartości (np.: po przecinku). Po dodaniu do listy rozwijanej staje się ona od razu rozwinięta, a jeśli dodatkowo dodamy do niej atrybut <code>size</code>, to możemy przypisać liczbę wierszy, która ma być widoczna bez rozwijania. Po zastosowaniu tego atrybutu musimy też w <code>name</code> tej listy rozwijanej dopisać <code>[]</code> np.: <code>nazwa[]</code>. Oznaczać to będzie, że wartości zapiszą się do listy.</p>
-                                    
-                                    <p><code>checked</code> - przycisk będzie domyślnie zaznaczony (ale będzie go można odznaczyć). Przy liście rozwijanej wpisujemy <code>selected</code> zamiast <code>checked</code> (pamiętaj, aby przy liście rozwijanej dodać to jako atrybut do tagu <code>&lt;option></code>, a nie do <code>&lt;select></code>).</p>
-                            
-                                    <h2>Progressbar</h2>
-                                    
-                                    <p>Stworzy pasek pokazujący np.: procent naładowania baterii. Tworzymy go w ten sposób: <code>&lt;progress value="75" max="100">&lt;/progress></code>. Atrybut <code>value</code> określa aktualny procent zapełnienia paska, a <code>max</code> - ile procent może być maksymalnie. Czasami jest zastępowany przez: ProgressBar.js lub LoadingBar.js.</p>
-                                    
-                                    <p>Lepszą alternatywą <code>&lt;progress></code> jest znacznik <code>&lt;meter></code>. Różni się tym, że możemy ustawić kolor paska. Tworzymy go tak: <br> <code>&lt;meter min="0" max="100" title="procent" value="30" low="30" high="70" optimum="75">&lt;/meter></code>. Atrybuty <code>min</code> i <code>max</code> określają minimalny i maksymalny poziom paska, <code>value</code> określa aktualną wartość, <code>low</code> i <code>high</code> określają kiedy poziom jest wysoki, a kiedy niski (poniżej <code>min</code> - pasek jest czerwony, powyżej <code>min</code> - pasek jest źółty, a powyżej <code>high</code> - pasek jest zielony). <code>optimum</code> określa kiedy poziom jest optymalny, a <code>title</code> - co pojawi się po najechaniu myszką na pasek.</p>
-                                    
-                                    <h2>File</h2>
-                                    
-                                    <p>Służy on do pobierania plików od użytkownika. Tworzymy go nadając atrybutowi <code>type</code> wartość <code>file</code>. Możemy dodać też atrybut <code>accept</code> i podać rozszerzenia plików jakie akceptujemy (użytkownk może to pominąć wybierając "Wszystkie pliki" z listy w eksploratorze plików). Ta kontrolka sprawia dużo problemów.</p>
-                                    
-                                    <h4>Problemy back-endowe</h4>
-                                    
-                                    <p>Należy dokładnie sanityzować plik przesłany przez użytkownika. Pozwolenie na umieszczenie na naszym serwerze pliku to ryzykowna pod kątem bezpieczeństwa decyzja. Odebranie wartości w PHP następuje z użyciem tablicy <code>$_FILES</code> (tym razem jest ona dwuwymiarowa). </p>
-                                    
-                                    <h4>Problemy front-endowe</h4>
-                                    
-                                    <p>Do ostylowania kontrolki najczęściej używamy okrężnych metod - samego inputa ukrywa się poprzez dopisanie <code>display: none;</code>, natomiast rolę wizualizacji tej kontrolki przejmuje odpowiednio ostylowana etykieta (znacznik <code>&lt;label></code>).</p>    
-
-                                    <h2>Inne opcje</h2>
-                                    <p>Atrybutowi <code>type</code> w znaczniku <code>&lt;input></code> można przypisać jeszcze: <code>month</code>, <code>week</code>, <code>datetime</code>, <code>datetime-local</code>, <code>range</code> i <code>hidden</code>.</p>
+                                    <p>The <code>type</code> attribute in the <code>&lt;input&gt;</code> tag also supports other values like <code>url</code>, <code>tel</code>, <code>range</code>, and <code>hidden</code>.</p>                                    
                                 </div>
                             </div>
                         </div>

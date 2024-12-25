@@ -85,110 +85,346 @@
                                     <h5 class="m-0 font-weight-bold">Basics</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h2>Definicje i podstawowe zasady</h2>
+                                    <p>CSS stands for Cascading Style Sheets. It is not a programming language. It allows us to style HTML documents. The extension of a CSS file is <code>.css</code>. In CSS, a semicolon is placed after each command (not everything is a command). The term "cascade" refers to how styles are applied to elements in a structured and predictable manner. When multiple styles are defined for the same element, CSS follows a set of rules to determine which style takes precedence. The hierarchy of styles can be omitted with <code>!important</code> (added after the command - <code>color: blue !important;</code>). We can create comments between <code>/*</code> and <code>*/</code> signs. Things that we write between these signs don't count as code. Comments are often used to describe the code.</p>
+                                    
+                                    <p>We can style the HTML tags, IDs (indicated with <code>#</code>), and classes (marked with <code>.</code>). An ID has to be unique to a subpage. It is assigned to an element like this: <code>&lt;p id="p"&gt;&lt;/p&gt;</code>, and then styled in CSS: <code>#p {...}</code>. A class is used to style many objects on a website. An element can have many classes. They are assigned to an element like this: <code>&lt;p class="p p2"&gt;&lt;/p&gt;</code>, and then styled in CSS: <code>.p {...}</code>. An object can have both classes and an ID (the ID is higher in the hierarchy).</p>
+                                    
+                                    <p>We can write CSS code inside the <code>&lt;style&gt;</code> markups in the head of the document, inline (in the style attribute of a selected element), or in an external <code>.css</code> file (recommended because of style integrity). We connect the external file in the head section like this: <code>&lt;link rel="stylesheet" href="style.css" type="text/css"/></code>.</p>
+                                    
+                                    <p class="podpis">CSS hierarchy:</p>
+                                    <ol>
+                                    <li>Inline styles - <code>style="color: blue;"</code>.</li>
+                                    <li>Styles from the <code>&lt;style&gt;</code> tag - <code>&lt;style&gt;p{color: blue;}&lt;/style&gt;</code>.</li>
+                                    <li>Styles from a file - <code>p{color: blue;}</code>.</li>
+                                    <li>The default value.</li>
+                                    </ol>
+
+                                    <p class="podpis"><span style="color: red;">p</span>{<span style="color: green;">color</span>: <span style="color: blue;">blue</span>;}</p>
+                                    <p class="podpis"><span style="color: red;">p</span> - a selector</p>
+                                    <p class="podpis"><span style="color: green;">color</span> - a property (attribute)</p>
+                                    <p><span style="color: blue;">blue</span> - a value</p>
+
+                                    <h2>Basic commands</h2>
+
+                                    <p>The all-in-one commands do not require us to provide all values but just the ones we need.</p>
+
+                                    <h4>Font</h4>
+
+                                    <table>
+                                        <tr>
+                                            <td><code>font-style</code></td>
+                                            <td>Setting the font style (<code>normal</code>, <code>italic</code>, <code>oblique</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>font-variant</code></td>
+                                            <td>Setting the font variant (<code>normal</code>, <code>small-caps</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>font-weight</code></td>
+                                            <td>Setting the font thickness (<code>lighter</code>, <code>normal</code>, <code>bold</code>, <code>bolder</code>, <code>100-900</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>font-size</code></td>
+                                            <td>Setting the font size (e.g., <code>20px</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>font-family</code></td>
+                                            <td>Setting the font family (<code>Arial</code>, <code>Verdana</code>, etc.).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>font</code></td>
+                                            <td>All-in-one in this order (separated by commas): <code>style</code>, <code>variant</code>, <code>weight</code>, <code>size</code>, <code>family</code>. For example: <code>font: italic small-caps bold 16px Arial;</code>.</td>
+                                        </tr>
+                                    </table>
+
+                                    <h4>Text</h4>
+
+                                    <table>
+                                        <tr>
+                                            <td><code>color</code></td>
+                                            <td>Setting the text color (<code>#303030</code> (hex) or <code>white</code> (color name)).</td>
+                                          </tr>
+                                        <tr>
+                                          <td><code>text-align</code></td>
+                                          <td>Aligning text (<code>center</code>, <code>left</code>, <code>right</code>, <code>justify</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>text-decoration</code></td>
+                                            <td>Decorating text (<code>none</code>, <code>underline</code>, <code>overline</code>, <code>line-through</code>, <code>blink</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>text-indent</code></td>
+                                            <td>Setting the first line indentation (e.g., <code>5px</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>text-transform</code></td>
+                                            <td>Converting all text to uppercase or lowercase (<code>uppercase</code>, <code>lowercase</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>letter-spacing</code></td>
+                                            <td>Setting the spacing between letters (e.g., <code>5px</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>word-spacing</code></td>
+                                            <td>Setting the spacing between words (e.g., <code>5px</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>line-height</code></td>
+                                            <td>Setting the spacing between lines of text (e.g., <code>5px</code>).</td>
+                                        </tr>
+                                    </table>
+
+                                    <h4>Background</h4>
+                                      
+                                    <table>
+                                        <tr>
+                                          <td><code>background-color</code></td>
+                                          <td>Setting the background color (<code>#303030</code> (hex) or <code>white</code> (color name)).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>background-image</code></td>
+                                            <td>Setting the background image (<code>url("image.jpg")</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>background-repeat</code></td>
+                                            <td>Setting on which axis will the background image repeat if it is too small (<code>repeat</code>, <code>repeat-x</code>, <code>repeat-y</code>, <code>no-repeat</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>background-attachment</code></td>
+                                            <td>Controlling whether the background image scrolls with the page (<code>fixed</code>, <code>scroll</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>background-position</code></td>
+                                            <td>Setting the background image position by two coordinates <code>x, y</code> (<code>center</code>, <code>top</code>, <code>left</code>, <code>right</code>, <code>bottom</code>, and numerical values, e.g., <code>20px</code>). We separate the two coordinates with a space. If we provide only one value, it will apply to both axes.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>background</code></td>
+                                          <td>All-in-one in this order (separated by commas): <code>color</code>, <code>image</code>, <code>repeat</code>, <code>attachment</code>, <code>position</code>. For example: <code>background: #303030 url("image.jpg") no-repeat fixed left top;</code>.</td>
+                                        </tr>
+                                    </table>
+
+                                    <h4>Sizes</h4>
+                                      
+                                    <table>
+                                        <tr>
+                                          <td><code>width</code></td>
+                                          <td>Setting the width of an element.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>height</code></td>
+                                          <td>Setting the height of an element.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>min-width</code></td>
+                                          <td>Setting the minimum width of an element. It can increase based on content, and <code>min-height</code> also exists.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>max-width</code></td>
+                                          <td>Setting the maximum width of an element. It can decrease based on content, and <code>max-height</code> also exists.</td>
+                                        </tr>
+                                    </table>
+
+                                    <h4>Border</h4>
+                                      
+                                    <table>
+                                        <tr>
+                                            <td><code>border-width</code></td>
+                                            <td>Setting the width of all / chosen borders (<code>thin</code>, <code>medium</code>, <code>thick</code>). We can choose specific borders for all of these commands like this: <code>border-top-width</code>.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>border-style</code></td>
+                                            <td>Setting the style of all / chosen borders (<code>none</code>, <code>hidden</code>, <code>dotted</code>, <code>dashed</code>, <code>solid</code>, <code>double</code>, <code>groove</code>, <code>ridge</code>, <code>inset</code>, <code>outset</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>border-color</code></td>
+                                            <td>Setting the color of all / chosen borders (<code>#303030</code> (hex) or <code>white</code> (color name)).</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>border</code></td>
+                                          <td>All-in-one in this order (separated by commas): <code>width</code>, <code>style</code>, <code>color</code>. For example: <code>border: 2px solid #303030;</code>.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>border-radius</code></td>
+                                            <td>Setting how much a corner is rounded (e.g., <code>5px</code>).</td>
+                                        </tr>
+                                    </table>
+
+                                    <h4>Lists</h4>
+                                      
+                                    <table>
+                                        <tr>
+                                            <td><code>list-style-type</code></td>
+                                            <td>Setting the look of list's numbers, dots, etc. For <code>&lt;ol&gt;</code>: <code>decimal</code>, <code>decimal-leading-zero</code>, <code>lower-alpha</code>, <code>lower-greek</code>, <code>lower-latin</code>, <code>lower-roman</code>, <code>upper-alpha</code>, <code>upper-latin</code>, <code>upper-roman</code>, and so on. For <code>&lt;ul&gt;</code>: <code>circle</code>, <code>disc</code>, <code>square</code>. The only style for both lists is <code>none</code>.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>list-style-position</code></td>
+                                            <td>Setting the position of the list's markers (<code>outside</code>, <code>inside</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>list-style-image</code></td>
+                                            <td>Setting an image as the list's markers (<code>url("image.jpg")</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>list-style</code></td>
+                                            <td>All-in-one in this order (separated by commas): <code>type</code>, <code>position</code>, <code>image</code>.</td>
+                                        </tr>
+                                    </table>   
+
+                                    <h4>Margins</h4>
+                                      
+                                    <table>
+                                        <tr>
+                                          <td><code>margin</code></td>
+                                          <td>Setting the margins (outer spacings), such as distance between containers (e.g., <code>20px</code>). We can choose a specific side for the margin to apply like this: <code>margin-top</code>.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>padding</code></td>
+                                          <td>Setting the paddings (inner spacings), such as text spacing from the edge of a container (e.g., <code>20px</code>). We can choose a specific side for the padding to apply like this: <code>padding-top</code>.</td>
+                                        </tr>
+                                    </table>   
+                                    
+                                    <h4>Other</h4>
+                                    
+                                    <table>
+                                        <tr>
+                                            <td><code>cursor</code></td>
+                                            <td>Setting the cursor style (<code>auto</code>, <code>crosshair</code>, <code>default</code>, <code>pointer</code>, <code>move</code>, <code>text</code>, <code>wait</code>, <code>help</code>, <code>e-resize</code>, <code>ne-resize</code>, <code>nw-resize</code>, <code>n-resize</code>, <code>se-resize</code>, <code>sw-resize</code>, <code>s-resize</code>, <code>w-resize</code>).</td>
+                                        </tr>
+                                    </table>
+
+                                    <table>
+                                        <tr>
+                                          <td><code>float: left;</code></td>
+                                          <td>Allows elements to appear side by side. Variants include <code>right</code>, <code>inherit</code>, and <code>none</code> (default).</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>clear: both;</code></td>
+                                          <td>Clears the float effect, commonly used like this: <code>&lt;div style="clear: both;"&gt;&lt;/div&gt;</code>.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>opacity: 0.8;</code></td>
+                                          <td>Sets the transparency. <code>0</code> is fully invisible, and <code>1</code> is fully visible.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>display: block;</code></td>
+                                          <td>Makes the element a block-level element. If <code>display: none;</code> was used, this restores its visibility.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>display: inline-block;</code></td>
+                                          <td>An alternative to <code>float</code>.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>outline: none;</code></td>
+                                          <td>Removes the outline that appears when clicking a text input field (<code>&lt;input type="text"&gt;</code>).</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>filter: brightness(70%);</code></td>
+                                          <td>Adjusts the brightness of an element.</td>
+                                        </tr>
+                                      </table>
+     
+                                      <h4>Links</h4>
+
+                                      <p>We can edit how links look in different states using these selectors.</p>
+
+                                      <table>
+                                        <tr>
+                                            <td><code>a:link</code></td>
+                                            <td>A normal link</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>a:visited</code></td>
+                                            <td>A visited link</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>a:hover</code></td>
+                                            <td>A link hovered over at the moment</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>a:active</code></td>
+                                            <td>A link during clicking</td>
+                                        </tr>
+                                      </table>
+                                    
+                                    <h2>Zaawansowane</h2>
+
+                                    <p><code>justify-content: space-between;</code> - stworzy przerwę między obiektami.</p>
+                                    
+                                    <p><code>z-index 100;</code> - określa głębię. Im większa jest wartość <code>z-index</code> elementu, tym bliżej oczu użytkownika znajduje się obiekt.</p>
+                                    
+                                    <p><code>position: fixed;</code> - ustala stałą pozycję elementu na stronie. Przy określaniu położenia można też wykorzystać właściwości <code>top: 0;</code> i <code>left: 0;</code>. Ta komenda ma też argument <code>relative</code> i on ustawi "dziecku" pozycję relatywną do jego "rodzica" w kaskadzie.</p>
+                                    
+                                    <p><code>box-shadow: 3px 3px 30px 5px rgba(204, 204, 204, 0.9);</code> - ustawia cień elementu. Aby działał we wszystkich przeglądarkach, zamiast tej linii użyjemy kodu, który wygeneruje <a href="https://html-css-js.com/css/generator/box-shadow/" target="_blank" class="link">generator</a>.</p>
+                                    
+                                    <p><code>box-sizing: content-box;</code> - domyślny sposób dla pól <code>&lt;input type="text"></code> i <code>&lt;input type="password"></code> - szerokość obliczana jest jako suma szerokości zawartości (contentu) oraz paddingu.</p>
+                                    
+                                    <p><code>box-sizing: border-box;</code> - domyślny sposób dla pola <code>&lt;input type="submit"></code>  - szerokość definiowana jest w CSS i jest stała, co sprawia, że padding jest odejmowany od dostępnej, określonej w CSS przestrzeni.</p>
+                                    
+                                    flex-wrap: nowrap;
+                                    <h2>Overflow</h2>
                 
-                                    <p>Rozszerzenie pliku <b>CSS</b> to <b>.css</b>.</p>
-                                    
-                                    <p><b>CSS</b> to język, w którym definiujemy style elementów <b>HTML</b>.</p>
-                                    
-                                    <p>CSS - <b>Cascading Style Sheets</b> (Kaskadowe Arkusze Stylów).</p>
-                                    
-                                    <p>W stylach CSS występuje hierarchia. Mogą się przesłaniać. <b>Hierarchia w CSS</b> nazywana jest kaskadowością.</p>
-                                    
-                                    <p>Każdy koniec komendy w <b>CSS</b> musi zakończyć się średnikiem.</p>
-                                    
-                                    <p>Można pominąć hierarchię używając <code>!important</code> po podaniu wartości komendy, ale przed średnikiem.</p>
-                                    
-                                    <p>Komentarze w CSS tworzymy pisząc: <code>/*treść komentarza*/</code>.</p>
-                                    
-                                    <p><b>Kaskadowość</b> implikuje istnienie mechanizmu dziedziczenia cech.</p>
-                                    
-                                    <p><b>Dziedziczenie</b> - właściwości przypisane w CSS są przejmowanie z elementu nadrzędnego na bierzący. Nie dziedziczy się jednak atrybutów związanych z położeniem elementu.</p>
-                                    
-                                    <p>Znak <b>#</b> oznacza id, czyli identyfikator (id z założenia jest unikalne, jedno na stronie, a przynajmniej na podstronie).</p>
-                                    
-                                    <p>Znak <b>.</b> oznacza klasę. Tym różni się od id, że z założenia służy do stylowania wielu elementów na stronie.</p>
-                                    
-                                    <p>Kod CSS piszemy w pliku <b>.html</b> w znacznikach <code>&lt;style></code>, w inline (dodajemy atrybut <code>style</code> do znacznika HTML), albo w pliku <b>.css</b>, który podłączamy do pliku <b>.html</b> linią: <code>&lt;link rel="stylesheet" href="style.css" type="text/css"/></code> (przy czym <code>style.css</code> to nazwa pliku <b>.css</b>).</p>
-                                    
-                                    <p class="podpis">Hierarchia w CSS:</p>
-                                    
-                                    <p class="podpis">1. Styl wpisany (inline, wpisany jako atrybut znacznika).</p>
-                                    
-                                    <p class="podpis">2. Styl w dokumencie (pomiędzy znacznikami &lt;style>).</p>
-                                    
-                                    <p class="podpis">3. Styl zewnętrzny (w pliku CSS).</p>
-                                    
-                                    <p>4. Wartość domyślna.</p>
-                                    
-                                    <h2>Przykład</h2>
-                                    
-                                    <p>Style można przypisywać do elementów na dwa różne sposoby.</p>
-                                    
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    &lt;style> 
-                                            /*Sposób 1*/
-                                            body
+                                    <&lt;style>
+                                            .overflow
                                             {
-                                                    background-color: #eee;
-                                            }
-                                          
-                                            /*Sposób 2*/
-                                            body
-                                            {
-                                                    background-color: #eee;
+                                                    background: #eee;
+                                                    color: black;
+                                                    padding: 15px;
+                                                    width: 100%;
+                                                    height: 200px;
+                                                    overflow: scroll;
+                                                    border: 1px solid #ccc;
                                             }
                                     &lt;/style>
+
+                                    &lt;div class="overflow" style="margin-top: 20px;">
+                                        &lt;p>Lorem ipsum...&lt;/p>
+                                    &lt;/div>
                                     </code></pre>
-                                    
-                                    <p class="tekst">Przed nazwami znaczników nie dajemy żadnego znaku (przed id powinien być hashtag, a przed klasą kropka).</p>
-                                    
-                                    <p class="tekst">Pamiętaj, że jeśli piszesz style CSS między znacznikami <code>style</code> w pliku <b>.html</b> lub w inline, to komendy się nie podświetlają!</p>
-                                    
-                                    <h2>Stylizowanie linków</h2>
-                                    
-                                    <p class="podpis">Linki obsługuje znacznik <code>&lt;a></code>. W CSS możemy dodawać podklasy po drukropku. Istnieją trzy podklasy przydatne do stylizacji linków:</p>
-                                    
-                                    <p class="podpis"><code>a:link</code> - ustawi początkowy styl znacznika <code>&lt;a></code>.</p>
-                                    
-                                    <p class="podpis"><code>a:visited</code> - ustawi styl znacznika <code>&lt;a></code> (linku), który był już odwiedzony przez tego użytkownika.</p>
-                                    
-                                    <p><code>a:hover</code> - ustawi styl znacznika <code>&lt;a></code> po najechaniu.</p>
-                            
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
                                     &lt;style>
-                                            a:link
+                                            p
                                             {
-                                                    color: black;
-                                            }
-                                            a:visited
-                                            {
-                                                    color: red;
-                                            }              
-                                            a:hover
-                                            {
-                                                    color: green;
-                                            }
+                                                    color: #FFFFFF;
+                                                    background: #232323;
+                                                    /*Ustawia cień tekstu*/
+                                                    text-shadow: 
+                                                    2px 2px 0 #33402a, 
+                                                    -2px 2px 0 #33402a, 
+                                                    -2px -2px 0 #33402a, 
+                                                    2px -2px 0 #33402a;
+                                            }      
                                     &lt;/style>
-                                    
-                                    &lt;a href="https://www.youtube.com/channel/UCft10tZBkVSR_MkcWIK4mvg/videos" target="_blank">link&lt;/a>
+
+                                    &lt;p style="padding: 10px; width: 40px;">tekst</p>
                                     </code></pre>
                                     
-                                    <h2>Podsumowanie</h2>
+                                    <p><code>overflow-y: hidden;</code> - usunie pionowy suwak (na całej stronie, w iframie lub innym obiekcie).</p>
                                     
-                                    <p class="podpis">Zalety stosowania plików <b>.css</b>:</p>
+                                    <p><code>overflow-x: hidden;</code> - usunie poziomy suwak (na całej stronie, w iframie lub innym obiekcie).</p>
+
+                                    <p class="podpis">Gdy definiujemy jakieś właściwości, które nie działają we wszystkich przeglądarkach, musimy dodać przedrostki:</p>
+                                    <p class="podpis"><b>-webkit</b> - Safari i Chrome.</p>
+                                    <p class="podpis"><b>-moz</b> - Mozilla Firefox.</p>
+                                    <p class="podpis"><b>-ms</b> - Internet Explorer.</p>
+                                    <p><b>-o</b> - Opera.</p>
                                     
-                                    <p class="podpis">1. Rozdzielenie stylu (CSS) od zawartości (HTML) strony.</p>
+                                    <p style="margin-bottom: 0px;"><code>input[type=text]</code> - zdefiniuje wygląd dla znacznika <code>&lt;input></code> o atrybucie <code>type</code> równym <code>text</code>. Aby zdefiniować wygląd dla znacznika <code>&lt;input></code> z atrybutem <code>type</code> równym <code>text</code> lub <code>password</code>, piszemy:</p>
                                     
-                                    <p class="podpis">2. Potężniejsze możliwości edycji wyglądu.</p>
+                                    <p style="margin-bottom: 0px;"><code>input[type=text], </code></p>
                                     
-                                    <p class="podpis">3. Uproszczenie kodu strony (brak rozbudowanych atrybutów <code>&lt;style></code> w całym dokumencie).</p>
+                                    <p style="margin-bottom: 0px;"><code>input[type=password]</code></p>
                                     
-                                    <p class="podpis">4. Możliwość dostosowania metod prezentacji w zależności od posiadanej przez użytkownika przeglądarki.</p>
+                                    <p>*Nie występuje tu relacja dziecko - rodzic. Przecinek oznacza, że te klasy mają taki sam styl, ale nie mają ze sobą nic wspólnego w kaskadzie.</p>
                                     
-                                    <p class="podpis">5. Łatwiejsza zmiana layoutu całego serwisu.</p>
+                                    <p><code>.klasa:before</code> - tworzy pseudoelement, który staje się "pierwszym dzieckiem" danego elementu.</p>
                                     
-                                    <p>6. Spójność stylistyczna gotowej witryny (co ma wpływ na rozpoznawalność projeku w sieci).</p>
+                                    <p><code>.klasa:first-child</code> - zdefiniuje wygląd dla "pierwszego dziecka" klasy <b>klasa</b>.</p>
+                                    
+                                    <p><code>input:focus</code> - ustawi styl dla aktywnego pola <code>&lt;input></code> (nie najechanego, tylko aktywnego).</p>
+                                    
+                                    <p>Ze względu na to, że w CSS występuje kaskadowość, możemy napisać styl dla np.: <code>.klasa a</code> i będzie to styl zdefiniowany dla znacznika <code>&lt;a></code> znajdującego się w klasie <b>klasa</b>. Można też napisać np.: <code>ol > li > ul</code> (zdefiniuje to wygląd dla listy <code>&lt;ul></code> będącej "dzieckiem" znacznika <code>&lt;li></code>, który jest "dzieckiem" listy <code>&lt;ol></code>). Takie kombinacje można stosować dowolnie.</p>
                                 </div>
                             </div>
                         </div>
