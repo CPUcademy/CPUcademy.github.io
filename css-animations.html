@@ -14,44 +14,6 @@
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
     <title>Animations</title>
-    <style>
-        .photo1
-        {
-            width: 450px;
-            transition: all 0.2s ease-in-out;
-        }
-
-        .photo1:hover
-        {
-            -webkit-transform: scale(0.9);
-            -ms-transform: scale(0.9);
-            transform: scale(0.9);
-        }
-        
-        @media (min-width: 1192px)
-        {
-            #zd1
-            {
-                width: 20%;
-            }
-        }
-        
-        @media (max-width: 1192px)
-        {
-            #zd1
-            {
-                width: 40%;
-            }
-        }
-        
-        @media (max-width: 362px)
-        {
-            #zd1
-            {
-                width: 60%;
-            }
-        }
-    </style>
 </head>
 
 <body id="page-top">
@@ -123,60 +85,149 @@
                                     <h5 class="m-0 font-weight-bold">Animations</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p><code>transform</code> - zmiana stanu, wyglądu, geometrii elementu.</p>
+                                    <p>CSS animations offer a powerful way to enhance our websites by animating HTML elements. This can be done through various techniques, such as <code>transition</code> &amp; <code>transform</code> and <code>keyframes</code>. Each of these CSS properties has its own set of options and can be combined to create seamless, interactive, and dynamic web designs. Let’s explore these animation techniques in detail.</p>
+                                
+                                    <h2><code>transition</code> &amp; <code>transform</code></h2>
+                                    <p><code>transition</code> allows an element to change from one style to another over a specific period of time. It is primarily used for animating changes in an element's state, like when a user interacts with it (e.g., hover or focus). The key aspect of transitions is that they smoothly interpolate between initial and final styles. <code>transform</code> allows us to change the position, size, and orientation of an element without affecting its surrounding content. It is often used in combination with transitions to create more complex animations.</p>
 
-                                    <p><code>transition</code> - płynne przejście (animacja) pomiędzy dwoma stanami elementu w CSS.</p>
+                                    <p>In summary, <code>transform</code> determines the change of state, appearance, and geometry of an element, and <code>transition</code> is responsible for smooth transitions (animations) between two states of an object.</p>
 
-                                    <p><code>transform: scale(0.9);</code> - zmniejszy obraz (podstawowy rozmiar to 1). Zapisujemy w stylu <code>:hover</code>.</p>
+                                    <h3>Transition options</h3>
+                                    <ul>
+                                        <li><code>ease</code>: Starts slowly, speeds up, then slows down again (default).</li>
+                                        <li><code>linear</code>: Same speed throughout.</li>
+                                        <li><code>ease-in</code>: Starts slow, then speeds up.</li>
+                                        <li><code>ease-out</code>: Starts fast, then slows down.</li>
+                                        <li><code>ease-in-out</code>: Starts slow, speeds up, and then slows down again.</li>
+                                        <li><code>cubic-bezier()</code>: Defines a custom easing function using four numeric parameters.</li>
+                                    </ul>
 
-                                    <p><code>transition: transform 0.2s ease-in-out;</code> - ustawi płynność przejścia <code>transform</code>. Zamiast <code>transform</code> możemy napisać <code>all</code> i wtedy zmieni się nie tylko <code>transform</code>, ale też inne opcje umieszczone w <code>:hover</code>. <code>transition</code> nie zapisujemy w <code>:hover</code>, tylko w zwykłym stylu. <code>ease-in-out</code> to sposób animacji. Zamiast <b>0.2s</b> można też napisać <b>.2s</b>.</p>
-                                    
+                                                              
+                                    <h3>Common transform functions</h3>
+                                    <ul>
+                                        <li><code>rotate(deg)</code>: Rotates an element by a specified number of degrees.</li>
+                                        <li><code>scale(x, y)</code>: Scales an element horizontally (x) and vertically (y).</li>
+                                        <li><code>translate(x, y)</code>: Moves an element by a specified distance along the x and y axes.</li>
+                                        <li><code>skew(x, y)</code>: Skews an element along the x and y axes.</li>
+                                        <li><code>matrix(a, b, c, d, e, f)</code>: A 2D transformation function that defines a transformation using a matrix.</li>
+                                    </ul>
+                                
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    &lt;style>
-                                            .photo1
-                                            {
-                                                    width: 250px;
-                                                    transition: all 0.2s ease-in-out;
-                                            }
-                                            .photo1:hover
-                                            {
-                                                    -webkit-transform: scale(0.9);
-                                                    -ms-transform: scale(0.9);
-                                                    transform: scale(0.9);
-                                            } 
-                                    &lt;/style>
-                                    
-                                    &lt;img src="img75.jpg" alt="Img" class="photo1">
+<span class="comment">/* The button, when hovered, will smoothly changes its background color from blue to red, and scale up 1.2 times (20% larger). */</span>
+button
+<span class="sign">{</span>
+    <span class="function">background-color</span><span class="sign">:</span> blue<span class="sign">;</span>
+    <span class="function">color</span><span class="sign">:</span> white<span class="sign">;</span>
+    <span class="function">transition</span><span class="sign">:</span> <span class="function">background-color</span> 0.3s ease, <span class="function">transform</span> 0.2s ease<span class="sign">;</span>
+<span class="sign">}</span>
+
+button<span class="sign">:</span><span class="function">hover</span> 
+<span class="sign">{</span>
+    <span class="function">background-color</span><span class="sign">:</span> red<span class="sign">;</span>
+    <span class="function">transform</span><span class="sign">:</span> scale(1.2)<span class="sign">;</span>
+<span class="sign">}</span>
                                     </code></pre>
-                                    
-                                    <img src="zdjecia/samouczki/imgCSS.jpg" alt="Img" class="photo1" style="margin: 10px;" id="zd1">
-                                    
-                                    <p>(Nie działa to na urządzeniach mobilnych.)</p>
 
-                                    <p><code>transform: rotate(5deg);</code> - obróci obiekt o pięć stopni.</p>
-
-                                    <p><code>transform: scale(0.95) rotate(5deg);</code> - argumenty <code>transform</code> można łączyć (<b>deg</b> = <b>degree</b>).</p>
-
-                                    <p><code>transform: skew(0deg, 0deg);</code> - ustawi skos obrazu.</p>
-
-                                    <p>Możliwe właściwości <code>transform</code>: <code>scale()</code>, <code>scaleX()</code>, <code>scaleY()</code>, <code>scale3d()</code>, <code>scaleZ()</code>, <code>rotate()</code>, <code>rotateX()</code>, <code>rotateY()</code>, <code>rotateZ()</code>, <code>rotate3d()</code>, <code>translate()</code>, <code>translateX()</code>, <code>translateY()</code>, <code>translateZ()</code>, <code>translate3d()</code>, <code>skew()</code>, <code>skewX()</code>, <code>skewY()</code>, <code>matrix()</code>, <code>matrix3d()</code> i <code>perspective()</code>.</p>
-
-                                    <p>Możliwe właściwości <code>transition</code>: <code>ease</code>, <code>linear</code>, <code>ease-in</code>, <code>ease-out</code>, <code>step-start</code>, <code>step-end</code>, <code>steps()</code> i <code>cubic-bezier()</code>.</p>
-                                    
-                                    <p><code>overflow: hidden;</code> - sprawi, że wielkość elementu nie zmieni się nawet po użyciu <code>transform</code> (nie zmieni się rozmiar zewnętrzny, tylko wewnętrzny).</p>
-
-                                    <p class="podpis">WOFF (Web Open Font Format) - standard przechowywania czcionki wykorzystywanej na stronach internetowych.</p>
-                                    
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    &lt;style>
-                                            @font-face
-                                            {
-                                                    font-family: "nazwaCzcionki";
-                                                    font-style: normal;
-                                                    font-weidht: normal;
-                                                    src: url("plikZczcionka.woff") format("woff");
-                                            }
-                                    &lt;/style>
+<span class="comment">/* The .box element will rotate by 45 degrees and scale up 1.5 times when hovered. */</span>
+.box
+<span class="sign">{</span>
+    <span class="function">width</span><span class="sign">:</span> 100px<span class="sign">;</span>
+    <span class="function">height</span><span class="sign">:</span> 100px<span class="sign">;</span>
+    <span class="function">background-color</span><span class="sign">:</span> blue<span class="sign">;</span>
+    <span class="function">transition</span><span class="sign">:</span> <span class="function">transform</span> 0.5s ease<span class="sign">;</span>
+<span class="sign">}</span>
+
+.box<span class="sign">:</span><span class="function">hover</span> 
+<span class="sign">{</span>
+    <span class="function">transform</span><span class="sign">:</span> rotate(45deg) scale(1.5)<span class="sign">;</span>
+<span class="sign">}</span>
+                                    </code></pre>
+                                
+                                    <h2><code>keyframes</code></h2>
+                                    <p><code>@keyframes</code> provides a way to create more complex, multi-step animations. They allow us to define various points (or "keyframes") during an animation, specifying the style at each point.</p>
+                                
+                                    <h3>Keyframe options</h3>
+                                    <ul>
+                                        <li><code>animation-name</code>: The name of the animation (defined with <code>@keyframes</code>).</li>
+                                        <li><code>animation-duration</code>: The total duration of the animation.</li>
+                                        <li><code>animation-timing-function</code>: The speed curve of the animation (e.g., <code>linear</code>, <code>ease-in-out</code>).</li>
+                                        <li><code>animation-delay</code>: The time to wait before starting the animation.</li>
+                                        <li><code>animation-iteration-count</code>: The number of times the animation should run (e.g., <code>infinite</code>, <code>3</code>).</li>
+                                        <li><code>animation-direction</code>:  Defines the direction of the animation cycle (e.g., <code>normal</code>, <code>reverse</code>, <code>alternate</code>). Alternate means alternating between forward and reverse.</li>
+                                        <li><code>animation-fill-mode</code>: Defines how the styles should be applied before or after the animation (e.g., <code>forwards</code>, <code>backwards</code>).</li>
+                                    </ul>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">/* The .box element will move from left to right while changing color from blue to green and finally to red. 
+The animation will take 3 seconds, repeat infinitely, and use an ease-in-out timing function. */</span>
+<span class="function">@keyframes</span> move 
+<span class="sign">{</span>
+    0% 
+    <span class="sign">{</span>
+        <span class="function">left</span><span class="sign">:</span> 0<span class="sign">;</span> <span class="comment">/* this requires setting the element to position absolute or relative. */</span>
+        <span class="function">background-color</span><span class="sign">:</span> blue<span class="sign">;</span>
+    <span class="sign">}</span>
+    50%
+    <span class="sign">{</span>
+        <span class="function">left</span><span class="sign">:</span> 50%<span class="sign">;</span>
+        <span class="function">background-color</span><span class="sign">:</span> green<span class="sign">;</span>
+    <span class="sign">}</span>
+    100%
+    <span class="sign">{</span>
+        <span class="function">left</span><span class="sign">:</span> 100%<span class="sign">;</span>
+        <span class="function">background-color</span><span class="sign">:</span> red<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+.box
+<span class="sign">{</span>
+    <span class="function">position</span><span class="sign">:</span> absolute<span class="sign">;</span>
+    <span class="function">width</span><span class="sign">:</span> 100px<span class="sign">;</span>
+    <span class="function">height</span><span class="sign">:</span> 100px<span class="sign">;</span>
+    <span class="function">background-color</span><span class="sign">:</span> blue<span class="sign">;</span>
+    <span class="function">animation</span><span class="sign">:</span> move 3s ease-in-out infinite<span class="sign">;</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h2>Combining transitions, transforms, and keyframes</h2>
+                                
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">/* The button bounces up and down using a keyframe animation while also scaling up and changing colors when hovered. */</span>
+<span class="function">@keyframes</span> bounce 
+<span class="sign">{</span>
+    0% 
+    <span class="sign">{</span>
+        <span class="function">transform</span><span class="sign">:</span> translateY(0)<span class="sign">;</span>
+        <span class="function">background-color</span><span class="sign">:</span> blue<span class="sign">;</span>
+    <span class="sign">}</span>
+    50%
+    <span class="sign">{</span>
+        <span class="function">transform</span><span class="sign">:</span> translateY(-20px)<span class="sign">;</span>
+        <span class="function">background-color</span><span class="sign">:</span> green<span class="sign">;</span>
+    <span class="sign">}</span>
+    100%
+    <span class="sign">{</span>
+        <span class="function">transform</span><span class="sign">:</span> translateY(0)<span class="sign">;</span>
+        <span class="function">background-color</span><span class="sign">:</span> red<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+button 
+<span class="sign">{</span>
+    <span class="function">padding</span><span class="sign">:</span> 10px 20px<span class="sign">;</span>
+    <span class="function">font-size</span><span class="sign">:</span> 16px<span class="sign">;</span>
+    <span class="function">border</span><span class="sign">:</span> none<span class="sign">;</span>
+    <span class="function">cursor</span><span class="sign">:</span> pointer<span class="sign">;</span>
+    <span class="function">animation</span><span class="sign">:</span> bounce 2s infinite<span class="sign">;</span>
+    <span class="function">transition</span><span class="sign">:</span> <span class="function">transform</span> 0.2s ease, <span class="function">background-color</span> 0.3s ease<span class="sign">;</span>
+<span class="sign">}</span>
+
+button<span class="sign">:</span><span class="function">hover</span>
+<span class="sign">{</span>
+    <span class="function">transform</span><span class="sign">:</span> scale(1.1)<span class="sign">;</span>
+    <span class="function">background-color</span><span class="sign">:</span> purple<span class="sign">;</span>
+<span class="sign">}</span>
                                     </code></pre>
                                 </div>
                             </div>
