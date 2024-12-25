@@ -14,6 +14,19 @@
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
     <title>Basics</title>
+    <style>
+    .overflow
+    {
+        background: #eee;
+        color: black;
+        padding: 15px;
+        width: 100%;
+        height: 200px;
+        overflow: scroll;
+        border: 1px solid #ccc;
+    }
+</style>
+    </style>
 </head>
 
 <body id="page-top">
@@ -88,6 +101,8 @@
                                     <p>CSS stands for Cascading Style Sheets. It is not a programming language. It allows us to style HTML documents. The extension of a CSS file is <code>.css</code>. In CSS, a semicolon is placed after each command (not everything is a command). The term "cascade" refers to how styles are applied to elements in a structured and predictable manner. When multiple styles are defined for the same element, CSS follows a set of rules to determine which style takes precedence. The hierarchy of styles can be omitted with <code>!important</code> (added after the command - <code>color: blue !important;</code>). We can create comments between <code>/*</code> and <code>*/</code> signs. Things that we write between these signs don't count as code. Comments are often used to describe the code.</p>
                                     
                                     <p>We can style the HTML tags, IDs (indicated with <code>#</code>), and classes (marked with <code>.</code>). An ID has to be unique to a subpage. It is assigned to an element like this: <code>&lt;p id="p"&gt;&lt;/p&gt;</code>, and then styled in CSS: <code>#p {...}</code>. A class is used to style many objects on a website. An element can have many classes. They are assigned to an element like this: <code>&lt;p class="p p2"&gt;&lt;/p&gt;</code>, and then styled in CSS: <code>.p {...}</code>. An object can have both classes and an ID (the ID is higher in the hierarchy).</p>
+
+                                    <p>A container is typically used to wrap and structure the content on a web page, providing a centralized area to manage the layout and appearance of elements. Containers are often defined using the <code>&lt;div&gt;</code> element (I will talk about them in a moment), which acts as a block-level element that holds other content. The primary purpose of a container is to create a defined space in which content is organized, usually for better alignment, padding, or width control. By setting specific width, margin, and padding properties, a container ensures that its child elements are consistently styled and positioned.</p>
                                     
                                     <p>We can write CSS code inside the <code>&lt;style&gt;</code> markups in the head of the document, inline (in the style attribute of a selected element), or in an external <code>.css</code> file (recommended because of style integrity). We connect the external file in the head section like this: <code>&lt;link rel="stylesheet" href="style.css" type="text/css"/></code>.</p>
                                     
@@ -105,8 +120,6 @@
                                     <p><span style="color: blue;">blue</span> - a value</p>
 
                                     <h2>Basic commands</h2>
-
-                                    <p>The all-in-one commands do not require us to provide all values but just the ones we need.</p>
 
                                     <h4>Font</h4>
 
@@ -133,9 +146,11 @@
                                         </tr>
                                         <tr>
                                             <td><code>font</code></td>
-                                            <td>All-in-one in this order (separated by commas): <code>style</code>, <code>variant</code>, <code>weight</code>, <code>size</code>, <code>family</code>. For example: <code>font: italic small-caps bold 16px Arial;</code>.</td>
+                                            <td>All-in-one in this order (separated by commas): <code>style</code>, <code>variant</code>, <code>weight</code>, <code>size</code>, <code>family</code>. Example: <code>font: italic small-caps bold 16px Arial;</code>.</td>
                                         </tr>
                                     </table>
+
+                                    <p>The all-in-one commands do not require us to provide all values but just the ones we need.</p>
 
                                     <h4>Text</h4>
 
@@ -199,7 +214,7 @@
                                         </tr>
                                         <tr>
                                           <td><code>background</code></td>
-                                          <td>All-in-one in this order (separated by commas): <code>color</code>, <code>image</code>, <code>repeat</code>, <code>attachment</code>, <code>position</code>. For example: <code>background: #303030 url("image.jpg") no-repeat fixed left top;</code>.</td>
+                                          <td>All-in-one in this order (separated by commas): <code>color</code>, <code>image</code>, <code>repeat</code>, <code>attachment</code>, <code>position</code>. Example: <code>background: #303030 url("image.jpg") no-repeat fixed left top;</code>.</td>
                                         </tr>
                                     </table>
 
@@ -241,7 +256,7 @@
                                         </tr>
                                         <tr>
                                           <td><code>border</code></td>
-                                          <td>All-in-one in this order (separated by commas): <code>width</code>, <code>style</code>, <code>color</code>. For example: <code>border: 2px solid #303030;</code>.</td>
+                                          <td>All-in-one in this order (separated by commas): <code>width</code>, <code>style</code>, <code>color</code>. Example: <code>border: 2px solid #303030;</code>.</td>
                                         </tr>
                                         <tr>
                                             <td><code>border-radius</code></td>
@@ -290,42 +305,31 @@
                                             <td><code>cursor</code></td>
                                             <td>Setting the cursor style (<code>auto</code>, <code>crosshair</code>, <code>default</code>, <code>pointer</code>, <code>move</code>, <code>text</code>, <code>wait</code>, <code>help</code>, <code>e-resize</code>, <code>ne-resize</code>, <code>nw-resize</code>, <code>n-resize</code>, <code>se-resize</code>, <code>sw-resize</code>, <code>s-resize</code>, <code>w-resize</code>).</td>
                                         </tr>
-                                    </table>
-
-                                    <table>
                                         <tr>
-                                          <td><code>float: left;</code></td>
-                                          <td>Allows elements to appear side by side. Variants include <code>right</code>, <code>inherit</code>, and <code>none</code> (default).</td>
+                                          <td><code>opacity</code></td>
+                                          <td>Setting the transparency of an object (<code>0.1</code>, <code>0.2</code>, etc.) <code>0</code> is fully invisible, and <code>1</code> is fully visible.</td>
                                         </tr>
                                         <tr>
-                                          <td><code>clear: both;</code></td>
-                                          <td>Clears the float effect, commonly used like this: <code>&lt;div style="clear: both;"&gt;&lt;/div&gt;</code>.</td>
+                                            <td><code>outline</code></td>
+                                            <td>Setting the outline of an element, which is a line drawn outside the border. It does not affect the layout of the page and does not take up space. Commonly used for accessibility (like focus indication of the <code>&lt;input&gt;</code> tag). We can define its <code>width</code>, <code>style</code>, and <code>color</code>. Example: <code>outline: 2px solid red;</code></td>
+                                          </tr>                                          
+                                        <tr>
+                                          <td><code>filter</code></td>
+                                          <td>Adjusting the brightness of an element (<code>brightness(70%)</code>).</td>
                                         </tr>
                                         <tr>
-                                          <td><code>opacity: 0.8;</code></td>
-                                          <td>Sets the transparency. <code>0</code> is fully invisible, and <code>1</code> is fully visible.</td>
+                                            <td><code>box-sizing</code></td>
+                                            <td>Controlling how the total size of an element is calculated (<code>content-box</code>, <code>border-box</code>). Use <code>border-box</code> to include padding and border in the total width and height of a container.</td>
                                         </tr>
                                         <tr>
-                                          <td><code>display: block;</code></td>
-                                          <td>Makes the element a block-level element. If <code>display: none;</code> was used, this restores its visibility.</td>
-                                        </tr>
-                                        <tr>
-                                          <td><code>display: inline-block;</code></td>
-                                          <td>An alternative to <code>float</code>.</td>
-                                        </tr>
-                                        <tr>
-                                          <td><code>outline: none;</code></td>
-                                          <td>Removes the outline that appears when clicking a text input field (<code>&lt;input type="text"&gt;</code>).</td>
-                                        </tr>
-                                        <tr>
-                                          <td><code>filter: brightness(70%);</code></td>
-                                          <td>Adjusts the brightness of an element.</td>
+                                            <td><code>box-shadow</code></td>
+                                            <td>Adding shadow to an element. Specify horizontal offset, vertical offset, blur radius, spread radius, and color (e.g., <code>box-shadow: 2px 2px 5px 0px #000;</code>). The <code>inset</code> keyword places the shadow inside the element.</td>
                                         </tr>
                                       </table>
-     
+
                                       <h4>Links</h4>
 
-                                      <p>We can edit how links look in different states using these selectors.</p>
+                                      <p>We can edit how links look in different states using these selectors:</p>
 
                                       <table>
                                         <tr>
@@ -344,87 +348,84 @@
                                             <td><code>a:active</code></td>
                                             <td>A link during clicking</td>
                                         </tr>
-                                      </table>
+                                    </table>
                                     
-                                    <h2>Zaawansowane</h2>
+                                    <h2>The <code>&lt;div&gt;</code> tag</h2>
 
-                                    <p><code>justify-content: space-between;</code> - stworzy przerwę między obiektami.</p>
-                                    
-                                    <p><code>z-index 100;</code> - określa głębię. Im większa jest wartość <code>z-index</code> elementu, tym bliżej oczu użytkownika znajduje się obiekt.</p>
-                                    
-                                    <p><code>position: fixed;</code> - ustala stałą pozycję elementu na stronie. Przy określaniu położenia można też wykorzystać właściwości <code>top: 0;</code> i <code>left: 0;</code>. Ta komenda ma też argument <code>relative</code> i on ustawi "dziecku" pozycję relatywną do jego "rodzica" w kaskadzie.</p>
-                                    
-                                    <p><code>box-shadow: 3px 3px 30px 5px rgba(204, 204, 204, 0.9);</code> - ustawia cień elementu. Aby działał we wszystkich przeglądarkach, zamiast tej linii użyjemy kodu, który wygeneruje <a href="https://html-css-js.com/css/generator/box-shadow/" target="_blank" class="link">generator</a>.</p>
-                                    
-                                    <p><code>box-sizing: content-box;</code> - domyślny sposób dla pól <code>&lt;input type="text"></code> i <code>&lt;input type="password"></code> - szerokość obliczana jest jako suma szerokości zawartości (contentu) oraz paddingu.</p>
-                                    
-                                    <p><code>box-sizing: border-box;</code> - domyślny sposób dla pola <code>&lt;input type="submit"></code>  - szerokość definiowana jest w CSS i jest stała, co sprawia, że padding jest odejmowany od dostępnej, określonej w CSS przestrzeni.</p>
-                                    
-                                    flex-wrap: nowrap;
+                                    <p>The <code>&lt;div&gt;</code> tag is a block-level container used to group content and elements for organizational and styling purposes. It does not inherently have any visual representation or semantic meaning but serves as a versatile tool for structuring webpages. Developers often use <code>&lt;div&gt;</code> to apply CSS styles or JavaScript functionality to a specific section of the page by assigning it a unique id or class. For example, a <code>&lt;div&gt;</code> can encapsulate text, images, forms, or other HTML elements, allowing designers to layout content effectively.</p>
+
                                     <h2>Overflow</h2>
+                                                  
+                                    <p>The <code>overflow-x</code> property controls the horizontal scrollbar, and the <code>overflow-y</code> - the vertical one (<code>visible</code>, <code>hidden</code>, <code>scroll</code>, <code>auto</code>). The <code>overflow</code> attribute controls both scrollbars at once.</p>
                 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    <&lt;style>
-                                            .overflow
-                                            {
-                                                    background: #eee;
-                                                    color: black;
-                                                    padding: 15px;
-                                                    width: 100%;
-                                                    height: 200px;
-                                                    overflow: scroll;
-                                                    border: 1px solid #ccc;
-                                            }
-                                    &lt;/style>
+<span class="function">&lt;style&gt;</span>
+    .overflow
+    <span class="sign">{</span>
+        <span class="function">background</span><span class="sign">:</span> #eee<span class="sign">;</span>
+        <span class="function">color</span><span class="sign">:</span> black<span class="sign">;</span>
+        <span class="function">padding</span><span class="sign">:</span> 15px<span class="sign">;</span>
+        <span class="function">width</span><span class="sign">:</span> 100%<span class="sign">;</span>
+        <span class="function">height</span><span class="sign">:</span> 200px<span class="sign">;</span>
+        <span class="function">overflow</span><span class="sign">:</span> scroll<span class="sign">;</span>
+        <span class="function">border</span><span class="sign">:</span> 1px solid #ccc<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="function">&lt;/style&gt;</span>
 
-                                    &lt;div class="overflow" style="margin-top: 20px;">
-                                        &lt;p>Lorem ipsum...&lt;/p>
-                                    &lt;/div>
+<span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"overflow"</span>&gt;</span>
+    <span class="function">&lt;p&gt;</span>Lorem ipsum...<span class="function">&lt;/p&gt;</span>
+<span class="function">&lt;/div&gt;</span>
                                     </code></pre>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    &lt;style>
-                                            p
-                                            {
-                                                    color: #FFFFFF;
-                                                    background: #232323;
-                                                    /*Ustawia cień tekstu*/
-                                                    text-shadow: 
-                                                    2px 2px 0 #33402a, 
-                                                    -2px 2px 0 #33402a, 
-                                                    -2px -2px 0 #33402a, 
-                                                    2px -2px 0 #33402a;
-                                            }      
-                                    &lt;/style>
+                                    <div class="overflow" style="margin-top: 20px; margin-bottom: 20px;">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non turpis lobortis, mollis purus in, luctus neque. Cras sed justo sem. Sed fermentum velit dolor, ut tincidunt ex bibendum eu. Vivamus at sagittis nunc. Morbi consequat feugiat quam vitae porta. Donec consectetur diam et vehicula facilisis. Nam vulputate purus tortor, vel varius eros imperdiet id. Ut interdum enim purus, vel hendrerit leo convallis tincidunt. Fusce et orci eget ipsum tincidunt vestibulum. Nullam sit amet suscipit est, at semper augue. In nibh est, gravida ac massa eu, mattis egestas arcu. Sed urna metus, vehicula sit amet purus a, ultricies iaculis dolor. Aliquam erat volutpat. Fusce vitae varius sapien. Suspendisse fringilla ornare neque ac mattis. Sed placerat risus eget est bibendum, sed tempor tortor ultricies. Integer vitae ornare arcu. Ut laoreet ligula ex, non porta elit pretium sed. Sed vel nunc mauris. Suspendisse ex lorem, vulputate eget ex sit amet, pellentesque lobortis est. Pellentesque sollicitudin sagittis eros et facilisis. Duis commodo est at purus aliquam laoreet. Nam facilisis consectetur nisl nec finibus. Aliquam vehicula enim eros, vitae sagittis urna egestas quis. Etiam nec turpis laoreet tortor eleifend bibendum. Nam id eros eros. Vestibulum suscipit dapibus sem, id sagittis justo malesuada non. Donec porttitor dapibus velit, eu convallis magna sodales laoreet. Proin ut consectetur quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque ut mi et odio convallis luctus. Sed ut scelerisque ipsum. Maecenas tempor varius dui, consequat efficitur diam vulputate ut. Maecenas vel ipsum vel elit fermentum vulputate vel et arcu. Nam dictum mi eu nisi egestas, vel posuere nisi commodo. Pellentesque sed felis sit amet mauris lobortis tincidunt a ut ex. Phasellus sit amet sollicitudin felis. Fusce nec ante at mauris dignissim auctor quis ut urna. Quisque bibendum purus sit amet semper vulputate. Quisque commodo diam nunc, non tempor neque sodales a. Proin vitae accumsan ipsum. Vivamus eu risus lacus. Etiam ullamcorper augue nisi, vitae ultrices lorem tempor eu. Vestibulum quam arcu, vestibulum eleifend egestas vitae, semper ut turpis. Sed non tempus odio, id viverra mi. Sed sed ultrices lorem. Curabitur vel laoreet sem. Ut euismod, massa quis convallis egestas, purus ligula feugiat ante, ac dignissim quam odio id lorem. Pellentesque tincidunt arcu id fringilla vehicula. Nunc turpis nibh, iaculis quis ex a, ullamcorper dignissim ex. Quisque condimentum, dui in lobortis mattis, ligula massa facilisis diam, ac condimentum augue purus eu justo.</p>
+                                    </div>
 
-                                    &lt;p style="padding: 10px; width: 40px;">tekst</p>
-                                    </code></pre>
-                                    
-                                    <p><code>overflow-y: hidden;</code> - usunie pionowy suwak (na całej stronie, w iframie lub innym obiekcie).</p>
-                                    
-                                    <p><code>overflow-x: hidden;</code> - usunie poziomy suwak (na całej stronie, w iframie lub innym obiekcie).</p>
+                                    <h2>Browser prefixes</h2>
 
-                                    <p class="podpis">Gdy definiujemy jakieś właściwości, które nie działają we wszystkich przeglądarkach, musimy dodać przedrostki:</p>
-                                    <p class="podpis"><b>-webkit</b> - Safari i Chrome.</p>
-                                    <p class="podpis"><b>-moz</b> - Mozilla Firefox.</p>
-                                    <p class="podpis"><b>-ms</b> - Internet Explorer.</p>
-                                    <p><b>-o</b> - Opera.</p>
+                                    <p class="podpis">When defining properties that do not work across all browsers, we need to add prefixes:</p>
+                                    <ul>
+                                        <li><code>-webkit</code> - for Safari and Chrome.</li>
+                                        <li><code>-moz</code> - for Mozilla Firefox.</li>
+                                        <li><code>-ms</code> - for Internet Explorer.</li>
+                                        <li><code>-o</code> - for Opera.</li>
+                                    </ul>
+
+                                    <h2>Cascading and combinators</h2>
+                                    <p>Because CSS follows a cascading structure, we can define a style for, for example, <code>.class a</code>, which specifies styles for the <code>&lt;a&gt;</code> tag inside an element with that has a class named <code>.class</code>. Similarly, we can write: <code>ol > li > ul</code>. This defines styles for a <code>&lt;ul&gt;</code> list that is a "child" of an <code>&lt;li&gt;</code> tag, which in turn is a "child" of an <code>&lt;ol&gt;</code> list. Such combinations can be used freely to target specific elements in your CSS.</p>
+                                
+                                    <h2>Selectors and pseudo-elements</h2>
+
+                                    <p><code>input[type=text]</code> defines styles for the <code>&lt;input&gt;</code> tag with the attribute <code>type</code> equal to <code>text</code>. To define styles for <code>&lt;input&gt;</code> tags with <code>type</code> equal to <code>text</code> or <code>password</code>, write: <code>input[type=text], input[type=password]</code>. <b>Note:</b> This is not a parent-child relationship. The comma indicates that these selectors share the same style but are unrelated in the cascade.</p>
+                                
+                                    <p><code>.class:before</code> creates a pseudo-element that becomes the "first child" of the specified element.</p>
+                                    <p><code>.class:first-child</code> defines the style for the "first child" of an element with that has a class named <code>.class</code>.</p>
+                                    <p><code>input:focus</code> sets the style for an active <code>&lt;input&gt;</code> field (not hovered, but active).</p>
+
+                                    <h2>Units</h2>
+
+                                    <p>A viewport is the area of ​​the browser window. It is defined as the area in which we view the website but without the window border and possible sliders. On the other hand, the canvas can be larger than the viewport (in this case, the sliders appear). The canvas is the entire website area, even the one that does not fit in the viewport.</p>
+
+                                    <h4>Relative units</h4>
+                                    <ul>
+                                        <li><code>em</code> - Relative to the font size of the <b>parent</b> element (e.g., <code>1.5em</code>).</li>
+                                        <li><code>rem</code> - Relative to the font size of the <b>root</b> element (<code>html</code>) (e.g., <code>2rem</code>).</li>
+                                        <li><code>%</code> - Relative to the parent element's size (e.g., width or height) (e.g., <code>50%</code>).</li>
+                                        <li><code>vw</code> - 1% of the viewport's width (e.g., <code>10vw</code>).</li>
+                                        <li><code>vh</code> - 1% of the viewport's height (e.g., <code>20vh</code>).</li>
+                                        <li><code>vmax</code> - Relative to the larger of the viewport's width or height.</li>
+                                        <li><code>vmin</code> - Relative to the smaller of the viewport's width or height.</li>
+                                    </ul>
+
+                                    <h4>Absolute units</h4>
+                                    <ul>
+                                        <li><code>px</code> - Pixels, an absolute unit based on screen resolution (e.g., <code>16px</code>).</li>
+                                        <li><code>in</code> - Inches, an absolute physical measurement (e.g., <code>1in</code>).</li>
+                                        <li><code>cm</code> - Centimeters, an absolute physical measurement (e.g., <code>2cm</code>).</li>
+                                        <li><code>mm</code> - Millimeters, an absolute physical measurement (e.g., <code>5mm</code>).</li>
+                                    </ul>
                                     
-                                    <p style="margin-bottom: 0px;"><code>input[type=text]</code> - zdefiniuje wygląd dla znacznika <code>&lt;input></code> o atrybucie <code>type</code> równym <code>text</code>. Aby zdefiniować wygląd dla znacznika <code>&lt;input></code> z atrybutem <code>type</code> równym <code>text</code> lub <code>password</code>, piszemy:</p>
-                                    
-                                    <p style="margin-bottom: 0px;"><code>input[type=text], </code></p>
-                                    
-                                    <p style="margin-bottom: 0px;"><code>input[type=password]</code></p>
-                                    
-                                    <p>*Nie występuje tu relacja dziecko - rodzic. Przecinek oznacza, że te klasy mają taki sam styl, ale nie mają ze sobą nic wspólnego w kaskadzie.</p>
-                                    
-                                    <p><code>.klasa:before</code> - tworzy pseudoelement, który staje się "pierwszym dzieckiem" danego elementu.</p>
-                                    
-                                    <p><code>.klasa:first-child</code> - zdefiniuje wygląd dla "pierwszego dziecka" klasy <b>klasa</b>.</p>
-                                    
-                                    <p><code>input:focus</code> - ustawi styl dla aktywnego pola <code>&lt;input></code> (nie najechanego, tylko aktywnego).</p>
-                                    
-                                    <p>Ze względu na to, że w CSS występuje kaskadowość, możemy napisać styl dla np.: <code>.klasa a</code> i będzie to styl zdefiniowany dla znacznika <code>&lt;a></code> znajdującego się w klasie <b>klasa</b>. Można też napisać np.: <code>ol > li > ul</code> (zdefiniuje to wygląd dla listy <code>&lt;ul></code> będącej "dzieckiem" znacznika <code>&lt;li></code>, który jest "dzieckiem" listy <code>&lt;ol></code>). Takie kombinacje można stosować dowolnie.</p>
+                                    <p>The <code>calc()</code> function allows us to perform calculations to determine property values dynamically. It can be used to combine different units, such as pixels, percentages, viewport units, and more, to create more flexible layouts and designs. We can use <code>calc()</code> to calculate widths, margins, padding, or font sizes based on a combination of fixed and relative units. Example: <code>width: calc(100% - 20px);</code>. We can use these arithmetic operators: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>.</p>
                                 </div>
                             </div>
                         </div>

@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Bootstrap templates</title>
+    <title>Responsiveness using CSS</title>
 </head>
 
 <body id="page-top">
@@ -82,10 +82,30 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Bootstrap templates</h5>
+                                    <h5 class="m-0 font-weight-bold">Responsiveness using CSS</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Jeśli nie masz zbyt dużych umiejętności w posługiwaniu się Bootstrapem, możesz skorzystać z szablonów z internetu. Są to w pełni responsywne strony, które można bez problemu spersonalizować (jeśli jest się obeznanym z HTML i CSS i podstawą Bootstrapa). Są one bezpłatne. Według mnie, dwie najlepsze takie strony to: <a href="https://startbootstrap.com/themes" target="_blank" class="link">StartBootstrap</a> i <a href="https://themefisher.com/free-bootstrap-templates/" target="_blank" class="link">Themefisher</a>. Strona, na której czytasz ten tekst, sama jest stworzona na podstawie szablonu. Jeśli nie jesteś mistrzem Bootstrapa, nie ma potrzeby męczyć się z responsywnością samemu, ponieważ nawet jeśli skorzystasz z szablonu, to możesz go odpowiednio zmodyfikować, tak żeby nie był nawet podobny do oryginału.</p>
+                                    <p>In CSS, responsiveness can be achieved using the <code>@media</code> rule, which allows us to apply different styles based on the device's characteristics, such as width, height, or orientation. This is crucial for ensuring that web pages look good on various screen sizes, from mobile phones to large desktop monitors. For example, we can use <code>@media</code> to change the layout of a webpage depending on the screen width, making it more mobile-friendly by adjusting font sizes or stacking elements vertically. Here’s an example:</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">/* Default styles */</span>
+body 
+<span class="sign">{</span>
+    <span class="function">font-size</span><span class="sign">:</span> 16px<span class="sign">;</span>
+    <span class="function">display</span><span class="sign">:</span> flex<span class="sign">;</span>
+    <span class="function">flex-direction</span><span class="sign">:</span> row<span class="sign">;</span>
+<span class="sign">}</span>
+
+<span class="comment">/* Styles for screens smaller than 750px (like tablets and phones) */</span>
+<span class="function">@media</span>(<span class="function">max-width</span><span class="sign">:</span> 750px) 
+<span class="sign">{</span>
+    body 
+    <span class="sign">{</span>
+        <span class="function">font-size</span><span class="sign">:</span> 14px<span class="sign">;</span>
+        <span class="function">flex-direction</span><span class="sign">:</span> column<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

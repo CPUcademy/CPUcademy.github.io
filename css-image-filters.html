@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. This website is a personal portfolio and was created by one person.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Image filters</title>
+    <style>
+        .blur {filter: blur(4px);}
+        .brightness {filter: brightness(250%);}
+        .contrast {filter: contrast(180%);}
+        .grayscale {filter: grayscale(100%);}
+        .huerotate {filter: hue-rotate(180deg);}
+        .invert {filter: invert(100%);}
+        .opacity {filter: opacity(50%);}
+        .saturate {filter: saturate(7);}
+        .sepia {filter: sepia(100%);}
+        .shadoww {filter: drop-shadow(8px 8px 10px green);}
+
+        img
+        {
+            width: 20%;
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1200px)
+        {
+            img{width: 30%}
+        }
+
+        @media (max-width: 950px)
+        {
+            img{width: 40%}
+        }
+
+        @media (max-width: 600px)
+        {
+            img{width: 45%; margin-right: 10px; margin-bottom: 10px;}
+        }
+
+        @media (max-width: 350px)
+        {
+            img{margin-right: 5px; margin-bottom: 5px;}
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Kotlin (Android)</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics.html">Electronics</a>
+                        <a class="collapse-item" href="it-and-computer-basics.html">IT &amp; computer basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">About me</div>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="cv.html">
+                    <i class="icon-adult"></i>
+                    <span>CV</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="services.html">
+                    <i class="icon-services"></i>
+                    <span>My services</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Image filters</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>In CSS, we can alter the appearance of an image using various effects and filters.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;style&gt;</span>
+    .blur <span class="sign">{</span><span class="function">filter</span><span class="sign">: </span>blur(4px)<span class="sign">;}</span>
+    .brightness <span class="sign">{</span><span class="function">filter</span><span class="sign">: </span>brightness(250%)<span class="sign">;}</span>
+    .contrast <span class="sign">{</span><span class="function">filter</span><span class="sign">: </span>contrast(180%)<span class="sign">;}</span>
+    .grayscale <span class="sign">{</span><span class="function">filter</span><span class="sign">: </span>grayscale(100%)<span class="sign">;}</span>
+    .huerotate <span class="sign">{</span><span class="function">filter</span><span class="sign">: </span>hue-rotate(180deg)<span class="sign">;}</span>
+    .invert <span class="sign">{</span><span class="function">filter</span><span class="sign">: </span>invert(100%)<span class="sign">;}</span>
+    .opacity <span class="sign">{</span><span class="function">filter</span><span class="sign">: </span>opacity(50%)<span class="sign">;}</span>
+    .saturate <span class="sign">{</span><span class="function">filter</span><span class="sign">: </span>saturate(7)<span class="sign">;}</span>
+    .sepia <span class="sign">{</span><span class="function">filter</span><span class="sign">: </span>sepia(100%)<span class="sign">;}</span>
+    .shadow <span class="sign">{</span><span class="function">filter</span><span class="sign">: </span>drop-shadow(8px 8px 10px green)<span class="sign">;}</span>
+
+    img
+    <span class="sign">{</span>
+        <span class="function">width</span><span class="sign">:</span> 20%<span class="sign">;</span>
+        <span class="function">margin-right</span><span class="sign">:</span> 20px<span class="sign">;</span>
+        <span class="function">margin-bottom</span><span class="sign">:</span> 20px<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="function">&lt;/style&gt;</span>
+
+<span class="function">&lt;img <span class="command">src</span><span class="sign">=</span><span class="text">"imgCSS.jpg"</span> <span class="command">alt</span><span class="sign">=</span><span class="text">"Img"</span>&gt;</span>
+<span class="function">&lt;img <span class="command">class</span><span class="sign">=</span><span class="text">"blur"</span> <span class="command">src</span><span class="sign">=</span><span class="text">"imgCSS.jpg"</span> <span class="command">alt</span><span class="sign">=</span><span class="text">"Img"</span>&gt;</span>
+<span class="function">&lt;img <span class="command">class</span><span class="sign">=</span><span class="text">"brightness"</span> <span class="command">src</span><span class="sign">=</span><span class="text">"imgCSS.jpg"</span> <span class="command">alt</span><span class="sign">=</span><span class="text">"Img"</span>&gt;</span>
+<span class="function">&lt;img <span class="command">class</span><span class="sign">=</span><span class="text">"contrast"</span> <span class="command">src</span><span class="sign">=</span><span class="text">"imgCSS.jpg"</span> <span class="command">alt</span><span class="sign">=</span><span class="text">"Img"</span>&gt;</span>
+<span class="function">&lt;img <span class="command">class</span><span class="sign">=</span><span class="text">"grayscale"</span> <span class="command">src</span><span class="sign">=</span><span class="text">"imgCSS.jpg"</span> <span class="command">alt</span><span class="sign">=</span><span class="text">"Img"</span>&gt;</span>
+<span class="function">&lt;img <span class="command">class</span><span class="sign">=</span><span class="text">"huerotate"</span> <span class="command">src</span><span class="sign">=</span><span class="text">"imgCSS.jpg"</span> <span class="command">alt</span><span class="sign">=</span><span class="text">"Img"</span>&gt;</span>
+<span class="function">&lt;img <span class="command">class</span><span class="sign">=</span><span class="text">"invert"</span> <span class="command">src</span><span class="sign">=</span><span class="text">"imgCSS.jpg"</span> <span class="command">alt</span><span class="sign">=</span><span class="text">"Img"</span>&gt;</span>
+<span class="function">&lt;img <span class="command">class</span><span class="sign">=</span><span class="text">"opacity"</span> <span class="command">src</span><span class="sign">=</span><span class="text">"imgCSS.jpg"</span> <span class="command">alt</span><span class="sign">=</span><span class="text">"Img"</span>&gt;</span>
+<span class="function">&lt;img <span class="command">class</span><span class="sign">=</span><span class="text">"saturate"</span> <span class="command">src</span><span class="sign">=</span><span class="text">"imgCSS.jpg"</span> <span class="command">alt</span><span class="sign">=</span><span class="text">"Img"</span>&gt;</span>
+<span class="function">&lt;img <span class="command">class</span><span class="sign">=</span><span class="text">"sepia"</span> <span class="command">src</span><span class="sign">=</span><span class="text">"imgCSS.jpg"</span> <span class="command">alt</span><span class="sign">=</span><span class="text">"Img"</span>&gt;</span>
+<span class="function">&lt;img <span class="command">class</span><span class="sign">=</span><span class="text">"shadow"</span> <span class="command">src</span><span class="sign">=</span><span class="text">"imgCSS.jpg"</span> <span class="command">alt</span><span class="sign">=</span><span class="text">"Img"</span>&gt;</span>
+                                    </code></pre>
+
+                                    <img src="files/courses/imgCSS.jpeg" alt="Img">
+                                    <img class="blur img-fluid" src="files/courses/imgCSS.jpeg" alt="Img">
+                                    <img class="brightness img-fluid" src="files/courses/imgCSS.jpeg" alt="Img">
+                                    <img class="contrast img-fluid" src="files/courses/imgCSS.jpeg" alt="Img">
+                                    <img class="grayscale img-fluid" src="files/courses/imgCSS.jpeg" alt="Img">
+                                    <img class="huerotate img-fluid" src="files/courses/imgCSS.jpeg" alt="Img">
+                                    <img class="invert img-fluid" src="files/courses/imgCSS.jpeg" alt="Img">
+                                    <img class="opacity img-fluid" src="files/courses/imgCSS.jpeg" alt="Img">
+                                    <img class="saturat img-fluide" src="files/courses/imgCSS.jpeg" alt="Img">
+                                    <img class="sepia img-fluid" src="files/courses/imgCSS.jpeg" alt="Img">
+                                    <img class="shadoww img-fluid" src="files/courses/imgCSS.jpeg" alt="Img">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>
