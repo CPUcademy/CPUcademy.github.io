@@ -25,6 +25,12 @@
         overflow: scroll;
         border: 1px solid #ccc;
     }
+
+    [data-blue]{background-color: blue;}                                    
+    p[data-red]{background-color: red;}
+    [data-d="blue"]{background-color: blue;}
+    [data-d="red"]{background-color: red;}
+    .d[class*="a"]{background-color: red;}
 </style>
     </style>
 </head>
@@ -104,7 +110,7 @@
 
                                     <p>A container is typically used to wrap and structure the content on a web page, providing a centralized area to manage the layout and appearance of elements. Containers are often defined using the <code>&lt;div&gt;</code> element (I will talk about them in a moment), which acts as a block-level element that holds other content. The primary purpose of a container is to create a defined space in which content is organized, usually for better alignment, padding, or width control. By setting specific width, margin, and padding properties, a container ensures that its child elements are consistently styled and positioned.</p>
                                     
-                                    <p>We can write CSS code inside the <code>&lt;style&gt;</code> markups in the head of the document, inline (in the style attribute of a selected element), or in an external <code>.css</code> file (recommended because of style integrity). We connect the external file in the head section like this: <code>&lt;link rel="stylesheet" href="style.css" type="text/css"/></code>.</p>
+                                    <p>We can write CSS code inside the <code>&lt;style&gt;</code> tags in the head of the document, inline (in the style attribute of a selected element), or in an external <code>.css</code> file (recommended because of style integrity). We connect the external file in the head section like this: <code>&lt;link rel="stylesheet" href="style.css" type="text/css"/></code>.</p>
                                     
                                     <p class="podpis">CSS hierarchy:</p>
                                     <ol>
@@ -142,7 +148,7 @@
                                         </tr>
                                         <tr>
                                             <td><code>font-family</code></td>
-                                            <td>Setting the font family (<code>Arial</code>, <code>Verdana</code>, etc.).</td>
+                                            <td>Setting the font family (<code>Arial</code>, <code>Verdana</code>, etc.). Example: <code>font-family: Arial, Helvetica, sans-serif;</code> (the first available font will be chosen).</td>
                                         </tr>
                                         <tr>
                                             <td><code>font</code></td>
@@ -325,31 +331,12 @@
                                             <td><code>box-shadow</code></td>
                                             <td>Adding shadow to an element. Specify horizontal offset, vertical offset, blur radius, spread radius, and color (e.g., <code>box-shadow: 2px 2px 5px 0px #000;</code>). The <code>inset</code> keyword places the shadow inside the element.</td>
                                         </tr>
+                                        <tr>
+                                            <td><code>column-count</code></td>
+                                            <td>Specifying the number of columns an element's content should be divided into, enabling easy creation of multi-column layouts (e.g., <code>2</code>).</td>
+                                        </tr>
                                       </table>
 
-                                      <h4>Links</h4>
-
-                                      <p>We can edit how links look in different states using these selectors:</p>
-
-                                      <table>
-                                        <tr>
-                                            <td><code>a:link</code></td>
-                                            <td>A normal link</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>a:visited</code></td>
-                                            <td>A visited link</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>a:hover</code></td>
-                                            <td>A link hovered over at the moment</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>a:active</code></td>
-                                            <td>A link during clicking</td>
-                                        </tr>
-                                    </table>
-                                    
                                     <h2>The <code>&lt;div&gt;</code> tag</h2>
 
                                     <p>The <code>&lt;div&gt;</code> tag is a block-level container used to group content and elements for organizational and styling purposes. It does not inherently have any visual representation or semantic meaning but serves as a versatile tool for structuring webpages. Developers often use <code>&lt;div&gt;</code> to apply CSS styles or JavaScript functionality to a specific section of the page by assigning it a unique id or class. For example, a <code>&lt;div&gt;</code> can encapsulate text, images, forms, or other HTML elements, allowing designers to layout content effectively.</p>
@@ -362,7 +349,7 @@
 <span class="function">&lt;style&gt;</span>
     .overflow
     <span class="sign">{</span>
-        <span class="function">background</span><span class="sign">:</span> #eee<span class="sign">;</span>
+        <span class="function">background-color</span><span class="sign">:</span> #eee<span class="sign">;</span>
         <span class="function">color</span><span class="sign">:</span> black<span class="sign">;</span>
         <span class="function">padding</span><span class="sign">:</span> 15px<span class="sign">;</span>
         <span class="function">width</span><span class="sign">:</span> 100%<span class="sign">;</span>
@@ -391,16 +378,36 @@
                                         <li><code>-o</code> - for Opera.</li>
                                     </ul>
 
-                                    <h2>Cascading and combinators</h2>
-                                    <p>Because CSS follows a cascading structure, we can define a style for, for example, <code>.class a</code>, which specifies styles for the <code>&lt;a&gt;</code> tag inside an element with that has a class named <code>.class</code>. Similarly, we can write: <code>ol > li > ul</code>. This defines styles for a <code>&lt;ul&gt;</code> list that is a "child" of an <code>&lt;li&gt;</code> tag, which in turn is a "child" of an <code>&lt;ol&gt;</code> list. Such combinations can be used freely to target specific elements in your CSS.</p>
-                                
-                                    <h2>Selectors and pseudo-elements</h2>
+                                    <p>Example: <code>-moz-column-count: 2;</code>.</p>
+                                                                    
+                                    <h2>Attribute selectors</h2>
 
-                                    <p><code>input[type=text]</code> defines styles for the <code>&lt;input&gt;</code> tag with the attribute <code>type</code> equal to <code>text</code>. To define styles for <code>&lt;input&gt;</code> tags with <code>type</code> equal to <code>text</code> or <code>password</code>, write: <code>input[type=text], input[type=password]</code>. <b>Note:</b> This is not a parent-child relationship. The comma indicates that these selectors share the same style but are unrelated in the cascade.</p>
-                                
-                                    <p><code>.class:before</code> creates a pseudo-element that becomes the "first child" of the specified element.</p>
-                                    <p><code>.class:first-child</code> defines the style for the "first child" of an element with that has a class named <code>.class</code>.</p>
-                                    <p><code>input:focus</code> sets the style for an active <code>&lt;input&gt;</code> field (not hovered, but active).</p>
+                                    <p>An attribute selector is used to style HTML elements based on the presence, value, or value patterns of their attributes. It is defined using square brackets and allows targeting elements dynamically based on attributes like id, class, or custom attributes (e.g., <code>data-*</code>).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;style&gt;</span>
+    <span class="sign">[</span><span class="command">data-blue</span><span class="sign">]{</span><span class="function">background-color</span><span class="sign">:</span> blue<span class="sign">;}</span> <span class="comment">/* all elements that have this attribute */</span>                           
+    p<span class="sign">[</span><span class="command">data-red</span><span class="sign">]{</span><span class="function">background-color</span><span class="sign">:</span> red<span class="sign">;}</span> <span class="comment">/* paragraphs that have this attribute */</span>
+    <span class="sign">[</span><span class="command">data-d</span><span class="sign">=</span><span class="text">"blue"</span><span class="sign">]{</span><span class="function">background-color</span><span class="sign">:</span> blue<span class="sign">;}</span> <span class="comment">/* all elements that have this attribute with "blue" assigned */</span>
+    <span class="sign">[</span><span class="command">data-d</span><span class="sign">=</span><span class="text">"red"</span><span class="sign">]{</span><span class="function">background-color</span><span class="sign">:</span> red<span class="sign">;}</span> <span class="comment">/* all elements that have this attribute with "red" assigned */</span>
+    div<span class="sign">[</span><span class="command">class</span><span class="sign">*=</span><span class="text">"a"</span><span class="sign">]{</span><span class="function">background-color</span><span class="sign">:</span> red<span class="sign">;}</span> <span class="comment">/* divs that have a class assigned, which name has "a" in it */</span>
+<span class="function">&lt;/style&gt;</span>
+
+<span class="function">&lt;div <span class="command">data-blue</span>&gt;</span>Lorem ipsum<span class="function">&lt;/div&gt;</span>
+<span class="function">&lt;p <span class="command">data-red</span>&gt;</span>Lorem ipsum<span class="function">&lt;/p&gt;</span>
+<span class="function">&lt;div <span class="command">data-d</span><span class="sign">=</span><span class="text">"blue"</span>&gt;</span>Lorem ipsum<span class="function">&lt;/div&gt;</span>
+<span class="function">&lt;div <span class="command">data-d</span><span class="sign">=</span><span class="text">"red"</span>&gt;</span>Lorem ipsum<span class="function">&lt;/div&gt;</span>
+<span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"aoo"</span>&gt;</span>Lorem ipsum<span class="function">&lt;/div&gt;</span>
+                                    </code></pre>
+
+                                    <div data-blue>Lorem ipsum</div>
+                                    <p data-red>Lorem ipsum</p>
+                                    <div data-d="blue">Lorem ipsum</div>
+                                    <div data-d="red">Lorem ipsum</div>
+                                    <div class="aoo d">Lorem ipsum</div>
+                                    <br>
+
+                                    <p>Using attribute selectors, we can style specific form controls, e.g., <code>input[type="text"]</code>. If we want to define the same style for two elements that do not have any relationships, we can use a comma: <code>input[type="text"], input[type="password"]</code>.</p>
 
                                     <h2>Units</h2>
 
@@ -409,7 +416,7 @@
                                     <h4>Relative units</h4>
                                     <ul>
                                         <li><code>em</code> - Relative to the font size of the <b>parent</b> element (e.g., <code>1.5em</code>).</li>
-                                        <li><code>rem</code> - Relative to the font size of the <b>root</b> element (<code>html</code>) (e.g., <code>2rem</code>).</li>
+                                        <li><code>rem</code> - Relative to the font size of the <b>root</b> element (<code>html</code>) (e.g., <code>2rem</code> - 2x the root font size).</li>
                                         <li><code>%</code> - Relative to the parent element's size (e.g., width or height) (e.g., <code>50%</code>).</li>
                                         <li><code>vw</code> - 1% of the viewport's width (e.g., <code>10vw</code>).</li>
                                         <li><code>vh</code> - 1% of the viewport's height (e.g., <code>20vh</code>).</li>

@@ -85,35 +85,67 @@
                                     <h5 class="m-0 font-weight-bold">Animations</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>CSS animations offer a powerful way to enhance our websites by animating HTML elements. This can be done through various techniques, such as <code>transition</code> &amp; <code>transform</code> and <code>keyframes</code>. Each of these CSS properties has its own set of options and can be combined to create seamless, interactive, and dynamic web designs. Let’s explore these animation techniques in detail.</p>
+                                    <p>Animations in CSS can be done through various techniques, such as <code>transition</code>, <code>transform</code>, and <code>keyframes</code>. Each of these CSS properties has its own set of options and can be combined to create seamless, interactive, and dynamic web designs.</p>
                                 
                                     <h2><code>transition</code> &amp; <code>transform</code></h2>
-                                    <p><code>transition</code> allows an element to change from one style to another over a specific period of time. It is primarily used for animating changes in an element's state, like when a user interacts with it (e.g., hover or focus). The key aspect of transitions is that they smoothly interpolate between initial and final styles. <code>transform</code> allows us to change the position, size, and orientation of an element without affecting its surrounding content. It is often used in combination with transitions to create more complex animations.</p>
+                                    <p><code>transition</code> allows an element to change from one style to another over a specific period of time. It is primarily used for animating changes in an element's state. The key aspect of transitions is that they smoothly interpolate between initial and final styles. <code>transform</code> allows us to change the position, size, and orientation of an element without affecting its surrounding content. It is often used in combination with transitions to create more complex animations.</p>
 
-                                    <p>In summary, <code>transform</code> determines the change of state, appearance, and geometry of an element, and <code>transition</code> is responsible for smooth transitions (animations) between two states of an object.</p>
+                                    <p>In summary, <code>transform</code> is about the immediate change in the element's appearance, while <code>transition</code> is about how those changes are animated over time. </p>
 
                                     <h3>Transition options</h3>
-                                    <ul>
-                                        <li><code>ease</code>: Starts slowly, speeds up, then slows down again (default).</li>
-                                        <li><code>linear</code>: Same speed throughout.</li>
-                                        <li><code>ease-in</code>: Starts slow, then speeds up.</li>
-                                        <li><code>ease-out</code>: Starts fast, then slows down.</li>
-                                        <li><code>ease-in-out</code>: Starts slow, speeds up, and then slows down again.</li>
-                                        <li><code>cubic-bezier()</code>: Defines a custom easing function using four numeric parameters.</li>
-                                    </ul>
-
-                                                              
+                                    <table>
+                                        <tr>
+                                          <td><code>ease</code></td>
+                                          <td>Starts slowly, speeds up, then slows down again (default).</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>linear</code></td>
+                                          <td>Same speed throughout.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>ease-in</code></td>
+                                          <td>Starts slow, then speeds up.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>ease-out</code></td>
+                                          <td>Starts fast, then slows down.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>ease-in-out</code></td>
+                                          <td>Starts slow, speeds up, and then slows down again.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>cubic-bezier()</code></td>
+                                          <td>Defines a custom easing function using four numeric parameters.</td>
+                                        </tr>
+                                    </table>
+                           
                                     <h3>Common transform functions</h3>
-                                    <ul>
-                                        <li><code>rotate(deg)</code>: Rotates an element by a specified number of degrees.</li>
-                                        <li><code>scale(x, y)</code>: Scales an element horizontally (x) and vertically (y).</li>
-                                        <li><code>translate(x, y)</code>: Moves an element by a specified distance along the x and y axes.</li>
-                                        <li><code>skew(x, y)</code>: Skews an element along the x and y axes.</li>
-                                        <li><code>matrix(a, b, c, d, e, f)</code>: A 2D transformation function that defines a transformation using a matrix.</li>
-                                    </ul>
+                                    <table>
+                                        <tr>
+                                          <td><code>rotate(deg)</code></td>
+                                          <td>Rotates an element by a specified number of degrees.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>scale(x, y)</code></td>
+                                          <td>Scales an element horizontally (x) and vertically (y).</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>translate(x, y)</code></td>
+                                          <td>Moves an element by a specified distance along the x and y axes.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>skew(x, y)</code></td>
+                                          <td>Skews an element along the x and y axes.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>matrix(a, b, c, d, e, f)</code></td>
+                                          <td>A 2D transformation function that defines a transformation using a matrix.</td>
+                                        </tr>
+                                    </table>
                                 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">/* The button, when hovered, will smoothly changes its background color from blue to red, and scale up 1.2 times (20% larger). */</span>
+<span class="comment">/* The button, when hovered, will smoothly change its background color from blue to red and scale up 1.2 times (20% larger). */</span>
 button
 <span class="sign">{</span>
     <span class="function">background-color</span><span class="sign">:</span> blue<span class="sign">;</span>
@@ -148,15 +180,36 @@ button<span class="sign">:</span><span class="function">hover</span>
                                     <p><code>@keyframes</code> provides a way to create more complex, multi-step animations. They allow us to define various points (or "keyframes") during an animation, specifying the style at each point.</p>
                                 
                                     <h3>Keyframe options</h3>
-                                    <ul>
-                                        <li><code>animation-name</code>: The name of the animation (defined with <code>@keyframes</code>).</li>
-                                        <li><code>animation-duration</code>: The total duration of the animation.</li>
-                                        <li><code>animation-timing-function</code>: The speed curve of the animation (e.g., <code>linear</code>, <code>ease-in-out</code>).</li>
-                                        <li><code>animation-delay</code>: The time to wait before starting the animation.</li>
-                                        <li><code>animation-iteration-count</code>: The number of times the animation should run (e.g., <code>infinite</code>, <code>3</code>).</li>
-                                        <li><code>animation-direction</code>:  Defines the direction of the animation cycle (e.g., <code>normal</code>, <code>reverse</code>, <code>alternate</code>). Alternate means alternating between forward and reverse.</li>
-                                        <li><code>animation-fill-mode</code>: Defines how the styles should be applied before or after the animation (e.g., <code>forwards</code>, <code>backwards</code>).</li>
-                                    </ul>
+                                    <table>
+                                        <tr>
+                                          <td><code>animation-name</code></td>
+                                          <td>The name of the animation (defined with <code>@keyframes</code>).</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>animation-duration</code></td>
+                                          <td>The total duration of the animation (e.g., <code>3s</code>).</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>animation-timing-function</code></td>
+                                          <td>The speed curve of the animation (e.g., <code>linear</code>, <code>ease-in-out</code>).</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>animation-delay</code></td>
+                                          <td>The time to wait before starting the animation (e.g., <code>3s</code>).</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>animation-iteration-count</code></td>
+                                          <td>The number of times the animation should run (e.g., <code>infinite</code>, <code>3</code>).</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>animation-direction</code></td>
+                                          <td>Defines the direction of the animation cycle (e.g., <code>normal</code>, <code>reverse</code>, <code>alternate</code>). Alternate means alternating between forward and reverse.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>animation-fill-mode</code></td>
+                                          <td>Defines how the styles should be applied before or after the animation (e.g., <code>forwards</code>, <code>backwards</code>).</td>
+                                        </tr>
+                                    </table>                                      
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment">/* The .box element will move from left to right while changing color from blue to green and finally to red. 
