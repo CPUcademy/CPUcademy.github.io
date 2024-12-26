@@ -114,7 +114,7 @@
                                     <p>When we're ready to commit certain changes, we add ("<b>stage</b>") them to Git's <b>staging area</b> using <code>git add</code>. The staging area holds a snapshot of these changes, preparing them for the next commit. This allows us to control which changes go into each commit. The <b>working directory</b> is the local folder where we edit and save files. Any changes made here are untracked by Git until they are staged (into the staging area).</p>
 
                                     <h3><a id="configuration">Configuration</a></h3>
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                             <td><code>git config --global user.name "Your Name"</code></td>
                                             <td>Setting your username for commit attribution.</td>
@@ -123,10 +123,10 @@
                                             <td><code>git config --global user.email "you@example.com"</code></td>
                                             <td>Setting your email for commit attribution.</td>
                                         </tr>
-                                    </table>
+                                    </table></div>
                                     
                                     <h3><a id="repository-initialization-and-cloning">Repository initialization and cloning</a></h3>
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                             <td><code>git init</code></td>
                                             <td>Initializing a new Git repository in the current directory.</td>
@@ -143,10 +143,10 @@
                                             <td><code>git remote -v</code></td>
                                             <td>Viewing all remote repositories and their URLs.</td>
                                         </tr>
-                                    </table>
+                                    </table></div>
                                     
                                     <h3><a id="checking-status-and-history">Checking status and history</a></h3>
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                             <td><code>git status</code></td>
                                             <td>Showing the current state of the working directory and staging area.</td>
@@ -167,10 +167,10 @@
                                             <td><code>git diff --staged</code></td>
                                             <td>Showing staged changes.</td>
                                         </tr>
-                                    </table>
+                                    </table></div>
                                     
                                     <h3><a id="staging-and-committing-changes">Staging and committing changes</a></h3>
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                             <td><code>git add [file or directory]</code></td>
                                             <td>Staging specific files/directories.</td>
@@ -191,11 +191,11 @@
                                             <td><code>git commit</code></td>
                                             <td>Opening editor for a detailed commit message.</td>
                                         </tr>
-                                    </table>
+                                    </table></div>
                                     <p>Commit messages should answer the prompt: "If applied, this commit will …" to provide clear descriptions of code changes.</p>
                                     
                                     <h3><a id="synchronizing-with-the-remote-repository">Synchronizing with the remote repository</a></h3>
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                             <td><code>git fetch</code></td>
                                             <td>Downloading remote changes without merging.</td>
@@ -216,12 +216,12 @@
                                             <td><code>git push -u origin [branch_name]</code></td>
                                             <td>Pushing and setting an upstream branch.</td>
                                         </tr>
-                                    </table>
+                                    </table></div>
                                     <p>An upstream branch is a remote branch that the local branch is tracking, allowing for easy synchronization of changes between the two. Setting an upstream branch enables us to use simplified Git commands, such as <code>git push</code> and <code>git pull</code> (without defining the branch every time).</p>
                                     
                                     
                                     <h3><a id="branching-basics">Branching basics</a></h3>
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                             <td><code>git branch</code></td>
                                             <td>Listing local branches.</td>
@@ -266,10 +266,10 @@
                                             <td><code>git restore --staged [file]</code></td>
                                             <td>Unstaging changes while preserving modifications (Git 2.23+).</td>
                                         </tr>
-                                    </table>
+                                    </table></div>
 
                                     <h3><a id="merging-branches">Merging branches</a></h3>
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                             <td><code>git merge [branch-name]</code></td>
                                             <td>Merging a specified branch into the current branch.</td>
@@ -286,7 +286,7 @@
                                             <td><code>git pull origin main</code></td>
                                             <td>Pulling the latest changes from main after a pull request merge.</td>
                                         </tr>
-                                    </table>
+                                    </table></div>
                                                                        
                                     
                                     <h3><a id="merge-conflicts">Merge conflicts</a></h3>
@@ -345,7 +345,7 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                     <p>Reviewers can annotate lines and approve or request changes. This review process ensures code quality and promotes team collaboration. As changes are requested, additional commits can be made to the branch and pushed to the PR.</p>
 
                                     <h3><a id="reset">Reset</a></h3>
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                             <td><code>git reset [file]</code></td>
                                             <td>Unstaging a file from the staging area without deleting changes from the working directory (the local file system).</td>
@@ -358,10 +358,10 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                             <td><code>git reset --hard [commit]</code></td>
                                             <td>Moving the current branch back to a specific commit and discarding all changes in the working directory and staging area, effectively resetting the state of the repository to that commit.</td>
                                         </tr>
-                                    </table>
+                                    </table></div>
                                     
                                     <h3><a id="revert">Revert</a></h3>
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                             <td><code>git revert [commit]</code></td>
                                             <td>Creating a new commit that undoes the changes from a specified commit.</td>
@@ -370,11 +370,11 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                             <td><code>git revert --continue</code></td>
                                             <td>Continuing the revert process when multiple commits are reverted, used in cases like undoing merges.</td>
                                         </tr>
-                                    </table>
+                                    </table></div>
                                     <p><code>git reset</code> changes the repository's history by moving the branch pointer, making it useful for local changes not yet pushed. <code>git revert</code> is ideal for undoing specific commits without altering commit history, as it creates a new commit.</p>
                                     
                                     <h3><a id="stash">Stash</a></h3>
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                             <td><code>git stash</code></td>
                                             <td>Temporarily storing uncommitted changes in the local repository (they won't be pushed to the remote repository).</td>
@@ -395,12 +395,12 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                             <td><code>git stash pop</code></td>
                                             <td>Applying the most recent stash and removing it from the stash list afterwards.</td>
                                         </tr>
-                                    </table>
+                                    </table></div>
                                     
                                     <h3><a id="tags">Tags</a></h3>
                                     <p>Tags are a powerful feature that allows us to mark specific points in the project history, such as releases or significant milestones. We can create a tag using the command <code>git tag -a v1.0 -m "Version 1.0"</code>, which creates an annotated tag with a message. Tags are useful for versioning software, making it easy to reference and retrieve specific versions of the codebase in the future.</p>
                                     
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                             <td><code>git tag</code></td>
                                             <td>Listing all tags.</td>
@@ -417,7 +417,7 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                             <td><code>git tag -d [tag-name]</code></td>
                                             <td>Deleting a local tag.</td>
                                         </tr>
-                                    </table>                                    
+                                    </table></div>                                    
 
                                     <h3><a id="flags">Flags</a></h3>
                                     <p>Flags modify command behavior or add extra functionality, customizing commands with options starting with a dash (-) or double dash (--).</p>
@@ -435,7 +435,7 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                     <h3><a id="interactive-rebasing">Interactive rebasing</a> (<code>git rebase -i</code>)</h3>
                                     <p>Interactive rebasing is a powerful tool for cleaning up our commit history before sharing our code. It allows us to modify commits in various ways, including combining, editing, or removing them.</p>
         
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                             <td><code>git rebase -i HEAD~n</code></td>
                                             <td>Starting interactive rebase for the last n commits.</td>
@@ -448,7 +448,7 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                             <td><code>git rebase --abort</code></td>
                                             <td>Canceling the rebase operation.</td>
                                         </tr>
-                                    </table>
+                                    </table></div>
                                     
 
                                     <p><code>HEAD~n</code> refers to a specific commit in Git's history, where <code>HEAD</code> represents the current commit we are on, and n is a number indicating how many commits to go back from that point. For example, <code>HEAD~1</code> refers to the commit just before the current one, <code>HEAD~2</code> refers to two commits back, and so on.</p>
@@ -491,7 +491,7 @@ git rebase --continue
                                     <p>Test your code after completing the rebase.</p>
                                 
                                     <h5>Troubleshooting</h5>
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                             <td><code>git rebase --abort</code></td>
                                             <td>Canceling the rebase and returning to the previous state.</td>
@@ -504,14 +504,14 @@ git rebase --continue
                                             <td><code>git reflog</code></td>
                                             <td>Viewing history to recover from mistakes.</td>
                                         </tr>
-                                    </table>
+                                    </table></div>
                                     
                                     <div class="alert alert-warning">
                                         <b>Warning:</b> Force pushing (<code>git push --force</code>) after rebasing can cause issues for other developers. Use <code>git push --force-with-lease</code> instead as a safer alternative.
                                     </div>
                                     
                                     <h3><a id="advanced-git-commands">Advanced Git commands</a></h3>
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                             <td><code>git cherry-pick [commit]</code></td>
                                             <td>Selectively applying a specific commit to the current branch, useful for applying a fix without merging the entire branch.</td>
@@ -548,7 +548,7 @@ git rebase --continue
                                             <td><code>git submodule foreach [command]</code></td>
                                             <td>Running a Git command in each submodule, streamlining updates or operations across all submodules.</td>
                                         </tr>
-                                    </table>
+                                    </table></div>
                                     
                                     <h3><a id="branch-naming">Branch naming</a></h3>
                                     <p class="podpis">Use consistent prefixes:</p>

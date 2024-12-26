@@ -85,38 +85,240 @@
                                     <h5 class="m-0 font-weight-bold">Element positioning and Flexbox</h5>
                                 </div>
                                 <div class="card-body">
-                                    <ol>
+                                    <h2><code>float</code> and <code>clear</code></h2>
+                                    <p>The <code>float</code> property is used to position (stick) elements to the left or right of their container, allowing other objects to wrap around them. The <code>clear</code> property clears the float effect.</p>
+                            
+                                    <h3>Float options</h3>
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><code>float: left;</code></td>
+                                            <td>Floating the element to the left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>float: right;</code></td>
+                                            <td>Floating the element to the right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>float: none;</code></td>
+                                            <td>The default value (the element does not float).</td>
+                                        </tr>
+                                    </table></div>                                    
+                            
+                                    <h3>Clear options</h3>
+
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><code>clear: left;</code></td>
+                                            <td>Clearing the float effect from the left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>clear: right;</code></td>
+                                            <td>Clearing the float effect from the right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>clear: both;</code></td>
+                                            <td>Clearing the float effect from both sides.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>clear: none;</code></td>
+                                            <td>The default value (the effect is not cleared).</td>
+                                        </tr>
+                                    </table></div>
+                            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+&lt;style&gt;
+    .float-left 
+    {
+        float: left;
+        width: 50%;
+        background-color: lightblue;
+    }
+    
+    .float-right 
+    {
+        float: right;
+        width: 50%;
+        background-color: lightcoral;
+    }
+&lt;/style&gt;
+
+&lt;div class="float-left"&gt;Left Float&lt;/div&gt;
+&lt;div class="float-right"&gt;Right Float&lt;/div&gt;
+&lt;div style="clear: both;"&gt;This element clears both floats.&lt;/div&gt;
+                                    </code></pre>
+
+                                    <h2><code>position</code></h2>
+
+                                    <p>The <code>position</code> property specifies the type of positioning method used for an element. It can take several values:</p>
+                            
+                                    <h3>Position options</h3>
+                                    
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><code>position: static;</code></td>
+                                            <td>The default positioning; elements are positioned according to the normal flow of the document.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>position: relative;</code></td>
+                                            <td>Positioning the element relative to its normal position.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>position: absolute;</code></td>
+                                            <td>Positioning the element relative to its nearest positioned ancestor (not static).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>position: fixed;</code></td>
+                                            <td>Positioning the element relative to the viewport, meaning it stays in the same place even when scrolling.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>position: sticky;</code></td>
+                                            <td>A hybrid of relative and fixed; the element is treated as relative until it crosses a specified threshold, then it becomes fixed.</td>
+                                        </tr>
+                                    </table></div>
+                                    
+                            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+&lt;style&gt;
+    .relative {
+        position: relative;
+        top: 10px;
+        left: 10px;
+        background-color: lightgreen;
+    }
+    .absolute {
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        background-color: lightyellow;
+    }
+    .fixed {
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: lightpink;
+    }
+&lt;/style&gt;
+
+&lt;div class="relative"&gt;Relative Positioning&lt;/div&gt;
+&lt;div class="absolute"&gt;Absolute Positioning&lt;/div&gt;
+&lt;div class="fixed"&gt;Fixed Positioning&lt;/div&gt;
+                                    </code></pre>
+
+                                    <h2><code>display</code></h2>
+
+                                    <p>The <code>display</code> property specifies the display behavior of an element. Here are some common values:</p>
+
+                                    <h3>Display options</h3>
+                                    <div class="table-container"><table>
                                         <tr>
                                             <td><code>display: block;</code></td>
-                                            <td>Makes the element a block-level element. If <code>display: none;</code> was used, this restores its visibility.</td>
-                                          </tr>
-                                          <tr>
+                                            <td>Displaying the element as a block (takes up the full width).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>display: inline;</code></td>
+                                            <td>Displaying the element as an inline element (only takes up as much width as necessary).</td>
+                                        </tr>
+                                        <tr>
                                             <td><code>display: inline-block;</code></td>
-                                            <td>An alternative to <code>float</code>.</td>
-                                          </tr>
-                                          <tr>
-                                            <td><code>float: left;</code></td>
-                                            <td>Allows elements to appear side by side. Variants include <code>right</code>, <code>inherit</code>, and <code>none</code> (default).</td>
-                                          </tr>
-                                          <tr>
-                                            <td><code>clear: both;</code></td>
-                                            <td>Clears the float effect, commonly used like this: <code>&lt;div style="clear: both;"&gt;&lt;/div&gt;</code>.</td>
-                                          </tr>
-                                          <tr>
+                                            <td>Displaying the element as an inline-level block container, allowing width and height to be set.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>display: none;</code></td>
+                                            <td>Not displaying the element at all (it will not take up any space).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>display: flex;</code></td>
+                                            <td>Becoming a flex container, enabling the use of Flexbox properties.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>display: grid;</code></td>
+                                            <td>Becoming a grid container, enabling the use of CSS Grid properties.</td>
+                                        </tr>
+                                    </table></div>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+&lt;style&gt;
+    .block {
+        display: block;
+        background-color: lightblue;
+        margin: 10px 0;
+    }
+    .inline {
+        display: inline;
+        background-color: lightcoral;
+        margin: 5px;
+    }
+    .inline-block {
+        display: inline-block;
+        width: 100px;
+        height: 50px;
+        background-color: lightgreen;
+        margin: 5px;
+    }
+    .none {
+        display: none;
+    }
+&lt;/style&gt;
+
+&lt;div class="block"&gt;Block Element&lt;/div&gt;
+&lt;span class="inline"&gt;Inline Element&lt;/span&gt;
+&lt;span class="inline"&gt;Another Inline Element&lt;/span&gt;
+&lt;div class="inline-block"&gt;Inline Block&lt;/div&gt;
+&lt;div class="none"&gt;This element is not displayed.&lt;/div&gt;
+                                    </code></pre>
+
+                                    <h2>Flexbox</h2>
+
+                                    <p>Flexbox is a layout model that allows for the efficient arrangement of elements within a container. It provides more control over alignment, direction, and spacing of items.</p>
+
+                                    <h3>Flexbox properties</h3>
+
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><code>display</code></td>
+                                            <td>Defining a flex container (<code>flex</code>, <code>inline-flex</code>, <code>block</code>, <code>inline</code>, <code>inline-block</code>, <code>none</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>position</code></td>
+                                            <td>Defining the positioning method for an element (<code>static</code>, <code>relative</code>, <code>absolute</code>, <code>fixed</code>, <code>sticky</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>flex-direction</code></td>
+                                            <td>Defining the direction of the flex items (<code>row</code>, <code>row-reverse</code>, <code>column</code>, <code>column-reverse</code>).</td>
+                                        </tr>
+                                        <tr>
                                             <td><code>justify-content</code></td>
-                                            <td>Aligning flex items along the main axis (<code>flex-start</code>, <code>flex-end</code>, <code>center</code>, <code>space-between</code>, <code>space-around</code>, <code>space-evenly</code>).</td>
+                                            <td>Aligning flex items along the main axis (<code>flex-start</code>, <code>flex-end</code>, <code>center</code>, <code>space-between</code>, <code>space-around</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>align-items</code></td>
+                                            <td>Aligning flex items along the cross axis (<code>flex-start</code>, <code>flex-end</code>, <code>center</code>, <code>baseline</code>, <code>stretch</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>flex-wrap</code></td>
+                                            <td>Controlling whether flex items should wrap onto multiple lines (<code>nowrap</code>, <code>wrap</code>, <code>wrap-reverse</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>flex-grow</code></td>
+                                            <td>Defining the ability for a flex item to grow if necessary (e.g., <code>2</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>flex-shrink</code></td>
+                                            <td>Defining the ability for a flex item to shrink if necessary (e.g., <code>2</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>flex-basis</code></td>
+                                            <td>Defining the default size of an element before the remaining space is distributed (e.g., <code>2</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>top</code>, <code>left</code>, <code>right</code>, <code>bottom</code></td>
+                                            <td>Specifying the distance between an object and the given screen side (e.g., <code>0</code>). This requires setting the element to position absolute or relative.</td>
                                         </tr>
                                         <tr>
                                             <td><code>z-index</code></td>
-                                            <td>Setting the stack order of an element. Higher values place the element on top. <code>z-index</code> only works on positioned elements (<code>relative</code>, <code>absolute</code>, <code>fixed</code>, or <code>sticky</code>).</td>
+                                            <td>Setting the stack order of an element. Higher values place the element on top. <code>z-index</code> only works on positioned elements (relative, absolute, fixed, or sticky).</td>
                                         </tr>
-                                    </ol>              
-                                    <p><code>position: fixed;</code> - ustala stałą pozycję elementu na stronie. Przy określaniu położenia można też wykorzystać właściwości <code>top: 0;</code> i <code>left: 0;</code>. Ta komenda ma też argument <code>relative</code> i on ustawi "dziecku" pozycję relatywną do jego "rodzica" w kaskadzie.</p>
-                                    flex-wrap: nowrap;
-
-                                    <h4>Zasada pozycjonowania divów</h4>
-                                    <p>- Do wszystkich bloków ułożonych szeregowo (czyli obok siebie) dodajemy zapis CSS: <code>float: left;</code>.</p>
-                                    <p>- Kiedy już nie chcemy ustawiać ich szeregowo, tworzymy pusty <code>&lt;div></code> ze stylem: <code>clear: both;</code> (<code>&lt;div style="clear: both;">&lt;/div></code>).</p>
+                                    </table></div>
                                 </div>
                             </div>
                         </div>

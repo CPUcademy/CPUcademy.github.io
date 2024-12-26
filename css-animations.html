@@ -14,6 +14,98 @@
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
     <title>Animations</title>
+    <style>
+        button
+        {
+            background-color: blue;
+            color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-bottom: 15px;
+        }
+
+        button:hover 
+        {
+            background-color: red;
+            transform: scale(1.2);
+        }
+
+        .box
+        {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            transition: transform 0.5s ease;
+            margin-bottom: 15px;
+        }
+
+        .box:hover 
+        {
+            transform: rotate(45deg) scale(1.5);
+        }
+         
+        @keyframes move 
+        {
+            0% 
+            {
+                left: 0; /* this requires setting the element to position absolute or relative. */
+                background-color: blue;
+            }
+            50%
+            {
+                left: 50%;
+                background-color: green;
+            }
+            100%
+            {
+                left: 100%;
+                background-color: red;
+            }
+        }
+
+        .box2
+        {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            animation: move 3s ease-in-out infinite;
+        }
+
+        @keyframes bounce 
+        {
+            0% 
+            {
+                transform: translateY(0);
+                background-color: blue;
+            }
+            50%
+            {
+                transform: translateY(-20px);
+                background-color: green;
+            }
+            100%
+            {
+                transform: translateY(0);
+                background-color: red;
+            }
+        }
+
+        .button2
+        {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+        .button2:hover
+        {
+            transform: scale(1.1);
+            background-color: purple;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -93,7 +185,7 @@
                                     <p>In summary, <code>transform</code> is about the immediate change in the element's appearance, while <code>transition</code> is about how those changes are animated over time. </p>
 
                                     <h3>Transition options</h3>
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                           <td><code>ease</code></td>
                                           <td>Starts slowly, speeds up, then slows down again (default).</td>
@@ -118,10 +210,10 @@
                                           <td><code>cubic-bezier()</code></td>
                                           <td>Defines a custom easing function using four numeric parameters.</td>
                                         </tr>
-                                    </table>
+                                    </table></div>
                            
                                     <h3>Common transform functions</h3>
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                           <td><code>rotate(deg)</code></td>
                                           <td>Rotates an element by a specified number of degrees.</td>
@@ -142,7 +234,7 @@
                                           <td><code>matrix(a, b, c, d, e, f)</code></td>
                                           <td>A 2D transformation function that defines a transformation using a matrix.</td>
                                         </tr>
-                                    </table>
+                                    </table></div>
                                 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment">/* The button, when hovered, will smoothly change its background color from blue to red and scale up 1.2 times (20% larger). */</span>
@@ -160,6 +252,8 @@ button<span class="sign">:</span><span class="function">hover</span>
 <span class="sign">}</span>
                                     </code></pre>
 
+                                    <button type="button" onclick="alert('Button clicked!')">Click me</button>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment">/* The .box element will rotate by 45 degrees and scale up 1.5 times when hovered. */</span>
 .box
@@ -175,12 +269,14 @@ button<span class="sign">:</span><span class="function">hover</span>
     <span class="function">transform</span><span class="sign">:</span> rotate(45deg) scale(1.5)<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
+
+                                    <div class="box"></div>
                                 
                                     <h2><code>keyframes</code></h2>
                                     <p><code>@keyframes</code> provides a way to create more complex, multi-step animations. They allow us to define various points (or "keyframes") during an animation, specifying the style at each point.</p>
                                 
                                     <h3>Keyframe options</h3>
-                                    <table>
+                                    <div class="table-container"><table>
                                         <tr>
                                           <td><code>animation-name</code></td>
                                           <td>The name of the animation (defined with <code>@keyframes</code>).</td>
@@ -209,7 +305,7 @@ button<span class="sign">:</span><span class="function">hover</span>
                                           <td><code>animation-fill-mode</code></td>
                                           <td>Defines how the styles should be applied before or after the animation (e.g., <code>forwards</code>, <code>backwards</code>).</td>
                                         </tr>
-                                    </table>                                      
+                                    </table></div>   
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment">/* The .box element will move from left to right while changing color from blue to green and finally to red. 
@@ -243,9 +339,11 @@ The animation will take 3 seconds, repeat infinitely, and use an ease-in-out tim
 <span class="sign">}</span>
                                     </code></pre>
 
-                                    <h2>Combining transitions, transforms, and keyframes</h2>
+                                    <div class="box2"></div>
+
+                                    <h2 style="margin-top: 125px;">Combining transitions, transforms, and keyframes</h2>
                                 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE; margin-bottom: 40px;"><code markup="tt">
 <span class="comment">/* The button bounces up and down using a keyframe animation while also scaling up and changing colors when hovered. */</span>
 <span class="function">@keyframes</span> bounce 
 <span class="sign">{</span>
@@ -282,6 +380,8 @@ button<span class="sign">:</span><span class="function">hover</span>
     <span class="function">background-color</span><span class="sign">:</span> purple<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
+
+                                    <button type="button" onclick="alert('Button clicked!')" class="button2">Click me</button>
                                 </div>
                             </div>
                         </div>
