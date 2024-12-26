@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. This website is a personal portfolio and was created by one person.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Pseudo-classes, pseudo-elements, and inheritance</title>
+    <style>
+        .p:first-child
+		{
+			color: red;
+		}
+		
+		.p:last-child
+		{
+			color: blue;
+		}
+
+        .p2:nth-child(even)
+		{
+			color: red;
+		}
+		
+		.p2:nth-child(odd)
+		{
+			color: blue;
+		}
+
+        .p2:nth-child(3)
+		{
+			color: green;
+		}
+
+        .p3:not(.r){color: green;}
+        .r{color: red;}
+
+        .u{list-style-type: none;}
+        .f1::before
+        {
+            content: "♞ ";
+            color: red;
+        }
+
+        .f2::after
+        {
+            content: " ♞";
+            color: red;
+        }
+
+        #p1::first-letter{font-size: 25px;}
+		#p2::first-line{font-weight: bold;}
+
+        #p3::selection{color: red;}
+    </style>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Kotlin (Android)</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics.html">Electronics</a>
+                        <a class="collapse-item" href="it-and-computer-basics.html">IT &amp; computer basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">About me</div>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="cv.html">
+                    <i class="icon-adult"></i>
+                    <span>CV</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="services.html">
+                    <i class="icon-services"></i>
+                    <span>My services</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Pseudo-classes, pseudo-elements, and inheritance</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h2>Pseudo-classes</h2>
+
+                                    <p>A pseudo-class defines a special state of an element, allowing us to style it based on user interactions or its position in the document (e.g., <code>:hover</code>, <code>:first-child</code>). Below you can see all link-related pseudo-classes.</p>
+
+                                    <table>
+                                        <tr>
+                                            <td><code>a:link</code></td>
+                                            <td>A normal link</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>a:visited</code></td>
+                                            <td>A visited link</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>a:hover</code></td>
+                                            <td>A link hovered over at the moment</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>a:active</code></td>
+                                            <td>A link during clicking</td>
+                                        </tr>
+                                    </table>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;style&gt;</span>
+    a<span class="sign">{</span><span class="function">color</span><span class="sign">:</span> black<span class="sign">;</span><span class="sign">}</span>
+    a<span class="sign">:</span><span class="function">hover</span><span class="sign">{</span><span class="function">color</span><span class="sign">:</span> red<span class="sign">;</span><span class="sign">}</span>
+<span class="function">&lt;/style&gt;</span>
+                                    </code></pre>
+                                  
+                                    <p>We style each of these states as a separate selector. To style form controls, we use pseudoclasses like <code>:checked</code>, <code>:disabled</code>, and <code>:focus</code>. The latter indicates an input text control that the user is using now.</p>
+
+                                    <h4><code>:first-child</code> and <code>:last-child</code></h4>
+
+                                    <p>These two pseudo-classes indicate the first and the last element of a certain group.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;style&gt;</span>
+    p<span class="sign">:</span><span class="function">first-child</span><span class="sign">{</span><span class="function">color</span><span class="sign">:</span> red<span class="sign">;</span><span class="sign">}</span>
+    p<span class="sign">:</span><span class="function">last-child</span><span class="sign">{</span><span class="function">color</span><span class="sign">:</span> blue<span class="sign">;</span><span class="sign">}</span>
+<span class="function">&lt;/style&gt;</span>
+
+<span class="function">&lt;div&gt;</span>
+    <span class="function">&lt;p&gt;</span>Lorem ipsum<span class="function">&lt;/p&gt;</span>
+    <span class="function">&lt;p&gt;</span>Lorem ipsum<span class="function">&lt;/p&gt;</span>
+    <span class="function">&lt;p&gt;</span>Lorem ipsum<span class="function">&lt;/p&gt;</span>
+<span class="function">&lt;/div&gt;</span>
+                                    </code></pre>
+
+                                    <div>
+                                        <p class="podpis p">Lorem ipsum</p>
+                                        <p class="podpis p">Lorem ipsum</p>
+                                        <p class="p">Lorem ipsum</p>
+                                    </div>
+
+                                    <h4><code>:nth-child</code></h4>
+
+                                    <p>This pseudo-class indicates the even and odd elements of a certain group (based on their placement in the group). It can also indicate a specific element.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;style&gt;</span>
+    p<span class="sign">:</span><span class="function">nth-child</span>(even)<span class="sign">{</span><span class="function">color</span><span class="sign">:</span> red<span class="sign">;</span><span class="sign">}</span>
+    p<span class="sign">:</span><span class="function">nth-child</span>(odd)<span class="sign">{</span><span class="function">color</span><span class="sign">:</span> blue<span class="sign">;</span><span class="sign">}</span>
+    p<span class="sign">:</span><span class="function">nth-child</span>(3)<span class="sign">{</span><span class="function">color</span><span class="sign">:</span> green<span class="sign">;</span><span class="sign">}</span>
+<span class="function">&lt;/style&gt;</span>
+
+<span class="function">&lt;div&gt;</span>
+    <span class="function">&lt;p&gt;</span>Lorem ipsum<span class="function">&lt;/p&gt;</span>
+    <span class="function">&lt;p&gt;</span>Lorem ipsum<span class="function">&lt;/p&gt;</span>
+    <span class="function">&lt;p&gt;</span>Lorem ipsum<span class="function">&lt;/p&gt;</span>
+    <span class="function">&lt;p&gt;</span>Lorem ipsum<span class="function">&lt;/p&gt;</span>
+    <span class="function">&lt;p&gt;</span>Lorem ipsum<span class="function">&lt;/p&gt;</span>
+    <span class="function">&lt;p&gt;</span>Lorem ipsum<span class="function">&lt;/p&gt;</span>
+    <span class="function">&lt;p&gt;</span>Lorem ipsum<span class="function">&lt;/p&gt;</span>
+<span class="function">&lt;/div&gt;</span>
+                                    </code></pre>
+
+                                    <div>
+                                        <p class="podpis p2">Lorem ipsum</p>
+                                        <p class="podpis p2">Lorem ipsum</p>
+                                        <p class="podpis p2">Lorem ipsum</p>
+                                        <p class="podpis p2">Lorem ipsum</p>
+                                        <p class="podpis p2">Lorem ipsum</p>
+                                        <p class="podpis p2">Lorem ipsum</p>
+                                        <p class="p2">Lorem ipsum</p>
+                                    </div>
+
+                                    <h4><code>:not</code></h4>
+
+                                    <p>This pseudo-class styles elements that do not have a certain class assigned.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;style&gt;</span>
+    p<span class="sign">:</span><span class="function">not</span>(.r)<span class="sign">{</span><span class="function">color</span><span class="sign">:</span> green<span class="sign">;</span><span class="sign">}</span>
+    .r<span class="sign">{</span><span class="function">color</span><span class="sign">:</span> red<span class="sign">;</span><span class="sign">}</span>
+<span class="function">&lt;/style&gt;</span>
+
+<span class="function">&lt;div&gt;</span>
+    <span class="function">&lt;p <span class="command">class</span><span class="sign">=</span><span class="text">"r"</span>&gt;</span>Lorem ipsum<span class="function">&lt;/p&gt;</span>
+    <span class="function">&lt;p&gt;</span>Lorem ipsum<span class="function">&lt;/p&gt;</span>
+    <span class="function">&lt;p <span class="command">class</span><span class="sign">=</span><span class="text">"r"</span>&gt;</span>Lorem ipsum<span class="function">&lt;/p&gt;</span>
+<span class="function">&lt;/div&gt;</span>
+                                    </code></pre>
+
+                                    <div>
+                                        <p class="podpis p3 r">Lorem ipsum</p>
+                                        <p class="podpis p3">Lorem ipsum</p>
+                                        <p class="p3 r">Lorem ipsum</p>
+                                    </div>
+
+                                    <h2>Pseudo-elements</h2>
+                                    
+                                    <p>A pseudo-element creates and styles specific parts of an element's content, such as its first letter, line, or content before and after (e.g., <code>::before</code>, <code>::first-letter</code>).</p>
+
+                                    <h4><code>::before</code></h4>
+
+                                    <p>This pseudo-element adds an element before an object. It is useful for adding custom icons to lists.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;style&gt;</span>
+    ul<span class="sign">{</span><span class="function">list-style-type</span><span class="sign">:</span> none<span class="sign">;}</span>
+    li<span class="sign">::</span><span class="function">before</span>
+    <span class="sign">{</span>
+        <span class="function">content</span><span class="sign">:</span> <span class="text">"♞ "</span><span class="sign">;</span>
+        <span class="function">color</span><span class="sign">:</span> red<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="function">&lt;/style&gt;</span>
+
+<span class="function">&lt;ul&gt;</span>
+    <span class="function">&lt;li&gt;</span>First<span class="function">&lt;/li&gt;</span>
+    <span class="function">&lt;li&gt;</span>Second<span class="function">&lt;/li&gt;</span>
+<span class="function">&lt;/ul&gt;</span>
+                                    </code></pre>
+
+                                    <ul class="u">
+                                        <li class="f1">First</li>
+                                        <li class="f1">Second</li>
+                                    </ul>
+
+                                    <h4><code>::after</code></h4>
+
+                                    <p>This pseudo-element adds an element after an object.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;style&gt;</span>
+    ul<span class="sign">{</span><span class="function">list-style-type</span><span class="sign">:</span> none<span class="sign">;}</span>
+    li<span class="sign">::</span><span class="function">after</span>
+    <span class="sign">{</span>
+        <span class="function">content</span><span class="sign">:</span> <span class="text">" ♞"</span><span class="sign">;</span>
+        <span class="function">color</span><span class="sign">:</span> red<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="function">&lt;/style&gt;</span>
+
+<span class="function">&lt;ul&gt;</span>
+    <span class="function">&lt;li&gt;</span>First<span class="function">&lt;/li&gt;</span>
+    <span class="function">&lt;li&gt;</span>Second<span class="function">&lt;/li&gt;</span>
+<span class="function">&lt;/ul&gt;</span>
+                                    </code></pre>
+
+                                    <ul class="u">
+                                        <li class="f2">First</li>
+                                        <li class="f2">Second</li>
+                                    </ul>
+
+                                    <h4><code>::first-letter</code></h4>
+
+                                    <p>This pseudo-element styles the first letter of text in a block-level element (e.g., a paragraph).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;style&gt;</span>
+    p<span class="sign">::</span><span class="function">first-letter</span><span class="sign">{</span><span class="function">font-size</span><span class="sign">:</span> 25px<span class="sign">;}</span>
+<span class="function">&lt;/style&gt;</span>
+
+<span class="function">&lt;p&gt;</span>Lorem ipsum...<span class="function">&lt;/p&gt;</span>
+                                    </code></pre>
+
+                                    <p id="p1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                                    <h4><code>::first-line</code></h4>
+
+                                    <p>This pseudo-element styles the first line of text in a block-level element (e.g., a paragraph).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;style&gt;</span>
+    p<span class="sign">::</span><span class="function">first-line</span><span class="sign">{</span><span class="function">font-weight</span><span class="sign">:</span> bold<span class="sign">;}</span>
+<span class="function">&lt;/style&gt;</span>
+
+<span class="function">&lt;p&gt;</span>Lorem ipsum...<span class="function">&lt;/p&gt;</span>
+                                    </code></pre>
+
+                                    <p id="p2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                                    <h4><code>::selection</code></h4>
+
+                                    <p>This pseudo-element styles the portion of text selected by the user.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;style&gt;</span>
+    p<span class="sign">::</span><span class="function">selection</span><span class="sign">{</span><span class="function">color</span><span class="sign">:</span> red<span class="sign">;}</span>
+<span class="function">&lt;/style&gt;</span>
+
+<span class="function">&lt;p&gt;</span>Try to copy this text.<span class="function">&lt;/p&gt;</span>
+                                    </code></pre>
+
+                                    <p id="p3">Try to copy this text.</p>
+
+                                    <h2>Inheritance</h2>
+
+                                    <p>In CSS, styles can be inherited from parent elements to their child elements, allowing for consistency across a web page. For example, if a parent <code>&lt;div&gt;</code> has a color style, its child <code>&lt;p&gt;</code> elements will inherit this style unless explicitly overridden. This is part of the cascading nature of CSS, where styles are applied based on specificity and the order in which they appear. If a child element has a style set to <code>initial</code>, like <code>color: initial;</code>, it will reset the property to its default value, which is defined by the browser or the element's default style. On the other hand, using <code>inherit</code> will force the child element to inherit the exact value of the property from its parent, even if that style has been overridden at a more specific level. In the example below, the <code>&lt;p&gt;</code> tag will inherit the blue color from the <code>&lt;div&gt;</code> even if there are other styles defined elsewhere.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code>
+<span class="function">&lt;style&gt;</span>
+    div<span class="sign">{</span><span class="function">color</span><span class="sign">:</span> blue<span class="sign">;}</span>
+    p<span class="sign">{</span><span class="function">color</span><span class="sign">:</span> inherit<span class="sign">;}</span>
+<span class="function">&lt;/style></span>
+<span class="function">&lt;div&gt;</span>
+    <span class="function">&lt;p&gt;</span>This text will inherit the blue color from its parent.<span class="function">&lt;/p&gt;</span>
+<span class="function">&lt;/div&gt;</span>
+                                    </code></pre>
+
+                                    <p>Because CSS follows a cascading structure, we can define styles for specific combinations of elements. For example, writing <code>.class a</code> applies styles to an <code>&lt;a&gt;</code> tag inside an element with the class <code>.class</code> assigned. Similarly, we can use a more complex selector like <code>ol &gt; li &gt; ul</code>, which targets a <code>&lt;ul&gt;</code> list that is a direct child* of an <code>&lt;li&gt;</code>, which itself is a direct child of an ordered list (<code>&lt;ol&gt;</code>). These kinds of combinators allow us to precisely target elements, giving us flexibility and control over the styling of specific parts of the document.</p>
+
+                                    <p>*A "child" is an object inside a "parent" object.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>
