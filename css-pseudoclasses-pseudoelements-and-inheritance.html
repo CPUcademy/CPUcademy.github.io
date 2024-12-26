@@ -42,6 +42,24 @@
 
         .p3:not(.r){color: green;}
         .r{color: red;}
+
+        .u{list-style-type: none;}
+        .f1::before
+        {
+            content: "♞ ";
+            color: red;
+        }
+
+        .f2::after
+        {
+            content: " ♞";
+            color: red;
+        }
+
+        #p1::first-letter{font-size: 25px;}
+		#p2::first-line{font-weight: bold;}
+
+        #p3::selection{color: red;}
     </style>
 </head>
 
@@ -116,7 +134,7 @@
                                 <div class="card-body">
                                     <h2>Pseudo-classes</h2>
 
-                                    <p>A pseudoclass is an attribute of an attribute. It looks, e.g., like this: <code>:hover</code>. Thanks to them, we can, e.g., edit how links look in different states.</p>
+                                    <p>A pseudo-class defines a special state of an element, allowing us to style it based on user interactions or its position in the document (e.g., <code>:hover</code>, <code>:first-child</code>). Below you can see all link-related pseudo-classes.</p>
 
                                     <table>
                                         <tr>
@@ -144,11 +162,11 @@
 <span class="function">&lt;/style&gt;</span>
                                     </code></pre>
                                   
-                                    <p>We style each of these states as a separate attribute. To style form controls, we use pseudoclasses like <code>:checked</code> or <code>:disabled</code>. The <code>:focus</code> pseudoclass indicates, e.g., an input text control that the user is using now.</p>
+                                    <p>We style each of these states as a separate selector. To style form controls, we use pseudoclasses like <code>:checked</code>, <code>:disabled</code>, and <code>:focus</code>. The latter indicates an input text control that the user is using now.</p>
 
                                     <h4><code>:first-child</code> and <code>:last-child</code></h4>
 
-                                    <p>These two pseudoclasses indicate the first and the last element of a certain group.</p>
+                                    <p>These two pseudo-classes indicate the first and the last element of a certain group.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">&lt;style&gt;</span>
@@ -171,7 +189,7 @@
 
                                     <h4><code>:nth-child</code></h4>
 
-                                    <p>This pseudoclass indicates the even or odd elements of a certain group. It can also indicate a specific element.</p>
+                                    <p>This pseudo-class indicates the even and odd elements of a certain group (based on their placement in the group). It can also indicate a specific element.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">&lt;style&gt;</span>
@@ -203,7 +221,7 @@
 
                                     <h4><code>:not</code></h4>
 
-                                    <p>This pseudoclass styles elements that do not have a certain class assigned to them.</p>
+                                    <p>This pseudo-class styles elements that do not have a certain class assigned.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">&lt;style&gt;</span>
@@ -225,12 +243,118 @@
                                     </div>
 
                                     <h2>Pseudo-elements</h2>
-                                       
-                                    <p><code>.class:before</code> creates a pseudo-element that becomes the "first child" of the specified element.</p>
+                                    
+                                    <p>A pseudo-element creates and styles specific parts of an element's content, such as its first letter, line, or content before and after (e.g., <code>::before</code>, <code>::first-letter</code>).</p>
+
+                                    <h4><code>::before</code></h4>
+
+                                    <p>This pseudo-element adds an element before an object. It is useful for adding custom icons to lists.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;style&gt;</span>
+    ul<span class="sign">{</span><span class="function">list-style-type</span><span class="sign">:</span> none<span class="sign">;}</span>
+    li<span class="sign">::</span><span class="function">before</span>
+    <span class="sign">{</span>
+        <span class="function">content</span><span class="sign">:</span> <span class="text">"♞ "</span><span class="sign">;</span>
+        <span class="function">color</span><span class="sign">:</span> red<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="function">&lt;/style&gt;</span>
+
+<span class="function">&lt;ul&gt;</span>
+    <span class="function">&lt;li&gt;</span>First<span class="function">&lt;/li&gt;</span>
+    <span class="function">&lt;li&gt;</span>Second<span class="function">&lt;/li&gt;</span>
+<span class="function">&lt;/ul&gt;</span>
+                                    </code></pre>
+
+                                    <ul class="u">
+                                        <li class="f1">First</li>
+                                        <li class="f1">Second</li>
+                                    </ul>
+
+                                    <h4><code>::after</code></h4>
+
+                                    <p>This pseudo-element adds an element after an object.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;style&gt;</span>
+    ul<span class="sign">{</span><span class="function">list-style-type</span><span class="sign">:</span> none<span class="sign">;}</span>
+    li<span class="sign">::</span><span class="function">after</span>
+    <span class="sign">{</span>
+        <span class="function">content</span><span class="sign">:</span> <span class="text">" ♞"</span><span class="sign">;</span>
+        <span class="function">color</span><span class="sign">:</span> red<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="function">&lt;/style&gt;</span>
+
+<span class="function">&lt;ul&gt;</span>
+    <span class="function">&lt;li&gt;</span>First<span class="function">&lt;/li&gt;</span>
+    <span class="function">&lt;li&gt;</span>Second<span class="function">&lt;/li&gt;</span>
+<span class="function">&lt;/ul&gt;</span>
+                                    </code></pre>
+
+                                    <ul class="u">
+                                        <li class="f2">First</li>
+                                        <li class="f2">Second</li>
+                                    </ul>
+
+                                    <h4><code>::first-letter</code></h4>
+
+                                    <p>This pseudo-element styles the first letter of text in a block-level element (e.g., a paragraph).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;style&gt;</span>
+    p<span class="sign">::</span><span class="function">first-letter</span><span class="sign">{</span><span class="function">font-size</span><span class="sign">:</span> 25px<span class="sign">;}</span>
+<span class="function">&lt;/style&gt;</span>
+
+<span class="function">&lt;p&gt;</span>Lorem ipsum...<span class="function">&lt;/p&gt;</span>
+                                    </code></pre>
+
+                                    <p id="p1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                                    <h4><code>::first-line</code></h4>
+
+                                    <p>This pseudo-element styles the first line of text in a block-level element (e.g., a paragraph).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;style&gt;</span>
+    p<span class="sign">::</span><span class="function">first-line</span><span class="sign">{</span><span class="function">font-weight</span><span class="sign">:</span> bold<span class="sign">;}</span>
+<span class="function">&lt;/style&gt;</span>
+
+<span class="function">&lt;p&gt;</span>Lorem ipsum...<span class="function">&lt;/p&gt;</span>
+                                    </code></pre>
+
+                                    <p id="p2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                                    <h4><code>::selection</code></h4>
+
+                                    <p>This pseudo-element styles the portion of text selected by the user.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;style&gt;</span>
+    p<span class="sign">::</span><span class="function">selection</span><span class="sign">{</span><span class="function">color</span><span class="sign">:</span> red<span class="sign">;}</span>
+<span class="function">&lt;/style&gt;</span>
+
+<span class="function">&lt;p&gt;</span>Try to copy this text.<span class="function">&lt;/p&gt;</span>
+                                    </code></pre>
+
+                                    <p id="p3">Try to copy this text.</p>
 
                                     <h2>Inheritance</h2>
 
-                                    <p>Because CSS follows a cascading structure, we can define a style for, for example, <code>.class a</code>, which specifies styles for the <code>&lt;a&gt;</code> tag inside an element with that has a class named <code>.class</code>. Similarly, we can write: <code>ol > li > ul</code>. This defines styles for a <code>&lt;ul&gt;</code> list that is a "child" of an <code>&lt;li&gt;</code> tag, which in turn is a "child" of an <code>&lt;ol&gt;</code> list. Such combinations can be used freely to target specific elements in your CSS.</p>
+                                    <p>In CSS, styles can be inherited from parent elements to their child elements, allowing for consistency across a web page. For example, if a parent <code>&lt;div&gt;</code> has a color style, its child <code>&lt;p&gt;</code> elements will inherit this style unless explicitly overridden. This is part of the cascading nature of CSS, where styles are applied based on specificity and the order in which they appear. If a child element has a style set to <code>initial</code>, like <code>color: initial;</code>, it will reset the property to its default value, which is defined by the browser or the element's default style. On the other hand, using <code>inherit</code> will force the child element to inherit the exact value of the property from its parent, even if that style has been overridden at a more specific level. In the example below, the <code>&lt;p&gt;</code> tag will inherit the blue color from the <code>&lt;div&gt;</code> even if there are other styles defined elsewhere.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code>
+<span class="function">&lt;style&gt;</span>
+    div<span class="sign">{</span><span class="function">color</span><span class="sign">:</span> blue<span class="sign">;}</span>
+    p<span class="sign">{</span><span class="function">color</span><span class="sign">:</span> inherit<span class="sign">;}</span>
+<span class="function">&lt;/style></span>
+<span class="function">&lt;div&gt;</span>
+    <span class="function">&lt;p&gt;</span>This text will inherit the blue color from its parent.<span class="function">&lt;/p&gt;</span>
+<span class="function">&lt;/div&gt;</span>
+                                    </code></pre>
+
+                                    <p>Because CSS follows a cascading structure, we can define styles for specific combinations of elements. For example, writing <code>.class a</code> applies styles to an <code>&lt;a&gt;</code> tag inside an element with the class <code>.class</code> assigned. Similarly, we can use a more complex selector like <code>ol &gt; li &gt; ul</code>, which targets a <code>&lt;ul&gt;</code> list that is a direct child* of an <code>&lt;li&gt;</code>, which itself is a direct child of an ordered list (<code>&lt;ol&gt;</code>). These kinds of combinators allow us to precisely target elements, giving us flexibility and control over the styling of specific parts of the document.</p>
+
+                                    <p>*A "child" is an object inside a "parent" object.
                                 </div>
                             </div>
                         </div>

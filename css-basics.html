@@ -106,7 +106,7 @@
                                 <div class="card-body">
                                     <p>CSS stands for Cascading Style Sheets. It is not a programming language. It allows us to style HTML documents. The extension of a CSS file is <code>.css</code>. In CSS, a semicolon is placed after each command (not everything is a command). The term "cascade" refers to how styles are applied to elements in a structured and predictable manner. When multiple styles are defined for the same element, CSS follows a set of rules to determine which style takes precedence. The hierarchy of styles can be omitted with <code>!important</code> (added after the command - <code>color: blue !important;</code>). We can create comments between <code>/*</code> and <code>*/</code> signs. Things that we write between these signs don't count as code. Comments are often used to describe the code.</p>
                                     
-                                    <p>We can style the HTML tags, IDs (indicated with <code>#</code>), and classes (marked with <code>.</code>). An ID has to be unique to a subpage. It is assigned to an element like this: <code>&lt;p id="p"&gt;&lt;/p&gt;</code>, and then styled in CSS: <code>#p {...}</code>. A class is used to style many objects on a website. An element can have many classes. They are assigned to an element like this: <code>&lt;p class="p p2"&gt;&lt;/p&gt;</code>, and then styled in CSS: <code>.p {...}</code>. An object can have both classes and an ID (the ID is higher in the hierarchy).</p>
+                                    <p>We can style the HTML tags, IDs (indicated with <code>#</code>), and classes (marked with <code>.</code>). An ID has to be unique to a subpage. It is assigned to an element like this: <code>&lt;p id="p"&gt;&lt;/p&gt;</code>, and then styled in CSS: <code>#p {...}</code>. A class is used to style many objects on a website. An element can have many classes. They are assigned to an element like this: <code>&lt;p class="p p2"&gt;&lt;/p&gt;</code>, and then styled in CSS: <code>.p {...}</code>. An object can have both classes and an ID.</p>
 
                                     <p>A container is typically used to wrap and structure the content on a web page, providing a centralized area to manage the layout and appearance of elements. Containers are often defined using the <code>&lt;div&gt;</code> element (I will talk about them in a moment), which acts as a block-level element that holds other content. The primary purpose of a container is to create a defined space in which content is organized, usually for better alignment, padding, or width control. By setting specific width, margin, and padding properties, a container ensures that its child elements are consistently styled and positioned.</p>
                                     
@@ -119,6 +119,8 @@
                                     <li>Styles from a file - <code>p{color: blue;}</code>.</li>
                                     <li>The default value.</li>
                                     </ol>
+
+                                    <p>The object's ID is higher in the hierarchy than its class.</p>
 
                                     <p class="podpis"><span style="color: red;">p</span>{<span style="color: green;">color</span>: <span style="color: blue;">blue</span>;}</p>
                                     <p class="podpis"><span style="color: red;">p</span> - a selector</p>
@@ -296,11 +298,11 @@
                                     <table>
                                         <tr>
                                           <td><code>margin</code></td>
-                                          <td>Setting the margins (outer spacings), such as distance between containers (e.g., <code>20px</code>). We can choose a specific side for the margin to apply like this: <code>margin-top</code>.</td>
+                                          <td>Setting the margins (outer spacings), such as distance between containers (e.g., <code>20px</code>). We can choose a specific side for the margin to apply like this: <code>margin-top</code>. When providing all the values at once, they are in this order: top, right, bottom, left (clockwise).</td>
                                         </tr>
                                         <tr>
                                           <td><code>padding</code></td>
-                                          <td>Setting the paddings (inner spacings), such as text spacing from the edge of a container (e.g., <code>20px</code>). We can choose a specific side for the padding to apply like this: <code>padding-top</code>.</td>
+                                          <td>Setting the paddings (inner spacings), such as text spacing from the edge of a container (e.g., <code>20px</code>). We can choose a specific side for the padding to apply like this: <code>padding-top</code>. When providing all the values at once, they are in this order: top, right, bottom, left (clockwise).</td>
                                         </tr>
                                     </table>   
                                     
@@ -339,11 +341,11 @@
 
                                     <h2>The <code>&lt;div&gt;</code> tag</h2>
 
-                                    <p>The <code>&lt;div&gt;</code> tag is a block-level container used to group content and elements for organizational and styling purposes. It does not inherently have any visual representation or semantic meaning but serves as a versatile tool for structuring webpages. Developers often use <code>&lt;div&gt;</code> to apply CSS styles or JavaScript functionality to a specific section of the page by assigning it a unique id or class. For example, a <code>&lt;div&gt;</code> can encapsulate text, images, forms, or other HTML elements, allowing designers to layout content effectively.</p>
+                                    <p>The <code>&lt;div&gt;</code> tag is a block-level container used to group content and elements for organizational and styling purposes. It does not inherently have any visual representation or semantic meaning but serves as a versatile tool for structuring web pages. Developers often use <code>&lt;div&gt;</code> to apply CSS styles or JavaScript functionality to a specific section of the page by assigning it a unique ID or class. It allows designers to layout content effectively.</p>
 
                                     <h2>Overflow</h2>
                                                   
-                                    <p>The <code>overflow-x</code> property controls the horizontal scrollbar, and the <code>overflow-y</code> attribute - the vertical one (<code>visible</code>, <code>hidden</code>, <code>scroll</code>, <code>auto</code>). The <code>overflow</code> attribute controls both scrollbars at once.</p>
+                                    <p><code>overflow-x</code> controls the horizontal scrollbar, and <code>overflow-y</code> - the vertical one (<code>visible</code>, <code>hidden</code>, <code>scroll</code>, <code>auto</code>). The <code>overflow</code> attribute controls both scrollbars at once.</p>
                 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">&lt;style&gt;</span>
@@ -380,9 +382,9 @@
 
                                     <p>Example: <code>-moz-column-count: 2;</code>.</p>
                                                                     
-                                    <h2>Attribute selectors</h2>
+                                    <h2>Attribute selectors and custom attributes</h2>
 
-                                    <p>An attribute selector is used to style HTML elements based on the presence, value, or value patterns of their attributes. It is defined using square brackets and allows targeting elements dynamically based on attributes like id, class, or custom attributes (e.g., <code>data-*</code>).</p>
+                                    <p>An attribute selector is a type of selector that allows us to select and style HTML elements based on the presence or value of specific attributes. This includes both standard HTML attributes and custom attributes (also known as data attributes) that we can define for our purposes. Custom attributes are prefixed with <code>data-</code>. Attribute selectors are defined with square brackets. </p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">&lt;style&gt;</span>
@@ -390,7 +392,7 @@
     p<span class="sign">[</span><span class="command">data-red</span><span class="sign">]{</span><span class="function">background-color</span><span class="sign">:</span> red<span class="sign">;}</span> <span class="comment">/* paragraphs that have this attribute */</span>
     <span class="sign">[</span><span class="command">data-d</span><span class="sign">=</span><span class="text">"blue"</span><span class="sign">]{</span><span class="function">background-color</span><span class="sign">:</span> blue<span class="sign">;}</span> <span class="comment">/* all elements that have this attribute with "blue" assigned */</span>
     <span class="sign">[</span><span class="command">data-d</span><span class="sign">=</span><span class="text">"red"</span><span class="sign">]{</span><span class="function">background-color</span><span class="sign">:</span> red<span class="sign">;}</span> <span class="comment">/* all elements that have this attribute with "red" assigned */</span>
-    div<span class="sign">[</span><span class="command">class</span><span class="sign">*=</span><span class="text">"a"</span><span class="sign">]{</span><span class="function">background-color</span><span class="sign">:</span> red<span class="sign">;}</span> <span class="comment">/* divs that have a class assigned, which name has "a" in it */</span>
+    div<span class="sign">[</span><span class="command">class</span><span class="sign">*=</span><span class="text">"a"</span><span class="sign">]{</span><span class="function">background-color</span><span class="sign">:</span> red<span class="sign">;}</span> <span class="comment">/* divs that have a class assigned, whose name has "a" in it */</span>
 <span class="function">&lt;/style&gt;</span>
 
 <span class="function">&lt;div <span class="command">data-blue</span>&gt;</span>Lorem ipsum<span class="function">&lt;/div&gt;</span>
@@ -411,13 +413,13 @@
 
                                     <h2>Units</h2>
 
-                                    <p>A viewport is the area of ​​the browser window. It is defined as the area in which we view the website but without the window border and possible sliders. On the other hand, the canvas can be larger than the viewport (in this case, the sliders appear). The canvas is the entire website area, even the one that does not fit in the viewport.</p>
+                                    <p>A viewport is the area of ​​the browser window. It is defined as the area in which we view the website but without the window border and possible sliders. On the other hand, the canvas can be larger than the viewport. The canvas is the entire website area, even the one that does not fit in the viewport (on the screen).</p>
 
                                     <h4>Relative units</h4>
                                     <ul>
                                         <li><code>em</code> - Relative to the font size of the <b>parent</b> element (e.g., <code>1.5em</code>).</li>
                                         <li><code>rem</code> - Relative to the font size of the <b>root</b> element (<code>html</code>) (e.g., <code>2rem</code> - 2x the root font size).</li>
-                                        <li><code>%</code> - Relative to the parent element's size (e.g., width or height) (e.g., <code>50%</code>).</li>
+                                        <li><code>%</code> - Relative to the parent element's width or height (e.g., <code>50%</code>).</li>
                                         <li><code>vw</code> - 1% of the viewport's width (e.g., <code>10vw</code>).</li>
                                         <li><code>vh</code> - 1% of the viewport's height (e.g., <code>20vh</code>).</li>
                                         <li><code>vmax</code> - Relative to the larger of the viewport's width or height.</li>
@@ -432,7 +434,7 @@
                                         <li><code>mm</code> - Millimeters, an absolute physical measurement (e.g., <code>5mm</code>).</li>
                                     </ul>
                                     
-                                    <p>The <code>calc()</code> function allows us to perform calculations to determine property values dynamically. It can be used to combine different units, such as pixels, percentages, viewport units, and more, to create more flexible layouts and designs. We can use <code>calc()</code> to calculate widths, margins, padding, or font sizes based on a combination of fixed and relative units. Example: <code>width: calc(100% - 20px);</code>. We can use these arithmetic operators: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>.</p>
+                                    <p>The <code>calc()</code> function allows us to perform calculations to determine property values dynamically. It can be used to combine different units and to create more flexible layouts and designs. We can use <code>calc()</code> to calculate widths, margins, padding, or font sizes based on a combination of fixed and relative units. Example: <code>width: calc(100% - 20px);</code>. We can use these arithmetic operators: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>.</p>
                                 </div>
                             </div>
                         </div>
