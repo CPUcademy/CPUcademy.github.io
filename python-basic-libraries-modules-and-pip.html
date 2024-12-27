@@ -156,9 +156,9 @@ y <span class="sign">=</span> [1, 2, 3, 4]
                                     
                                     <p>These libraries are used to handle time.</p>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">import</span> datetime, time
+                                    <p>Use the <code>import datetime, time</code> command at the beginning of every example.</p>
 
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Getting the current local date</span>
 today <span class="sign">=</span> datetime.<span class="command">datetime.now</span>() <span class="comment"># a datetime object representing the current date and time</span>
 <span class="command">print</span>(today) <span class="comment"># time and date</span>
@@ -169,43 +169,57 @@ today <span class="sign">=</span> datetime.<span class="command">datetime.now</s
 <span class="command">print</span>(today.month)
 <span class="command">print</span>(today.year)
 
+<span class="comment"># Displaying the current day of the week</span>
+<span class="command">print</span>(today.<span class="command">weekday</span>())
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Stopping the program for a time specified in seconds</span>
 time.<span class="command">sleep</span>(0.5)
+                                    </code></pre>
 
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Creating a date object for a specific date</span>
 d <span class="sign">=</span> datetime.<span class="command">date</span>(2019, 11, 4)
 <span class="command">print</span>(d)
 
+<span class="comment"># Displaying the day of the week (from a specific date)</span>
+<span class="command">print</span>(d.<span class="command">weekday</span>()) <span class="comment"># 0 is Monday</span>
+<span class="command">print</span>(d.<span class="command">isoweekday</span>()) <span class="comment"># 1 is Monday</span>
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Creating a date object from a timestamp (Unix epoch)</span>
 timestamp <span class="sign">=</span> time.<span class="command">time</span>() <span class="comment"># a timestamp</span>
 <span class="command">print</span>(<span class="text">"Timestamp:"</span>, timestamp)
 
-d2 <span class="sign">=</span> datetime.<span class="command">date</span>.<span class="command">fromtimestamp</span>(timestamp) <span class="comment"># a date object</span>
-<span class="command">print</span>(<span class="text">"Date:"</span>, d2)
-
+d <span class="sign">=</span> datetime.<span class="command">date</span>.<span class="command">fromtimestamp</span>(timestamp) <span class="comment"># a date object</span>
+<span class="command">print</span>(<span class="text">"Date:"</span>, d)
+                                    </code></pre>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Creating a timestamp from a datetime object</span>
-d3 <span class="sign">=</span> datetime.<span class="command">datetime</span>(2020, 10, 4, 14, 55)
-<span class="command">print</span>(<span class="text">"Timestamp:"</span>, d3.<span class="command">timestamp</span>())
-
+d <span class="sign">=</span> datetime.<span class="command">datetime</span>(2020, 10, 4, 14, 55)
+<span class="command">print</span>(<span class="text">"Timestamp:"</span>, d.<span class="command">timestamp</span>())
+                                    </code></pre>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Converting a timestamp into a string representation of the date</span>
-timestamp2 <span class="sign">=</span> 1572879180
-<span class="command">print</span>(time.<span class="command">ctime</span>(timestamp2))
-
+timestamp <span class="sign">=</span> 1572879180
+<span class="command">print</span>(time.<span class="command">ctime</span>(timestamp))
+                                    </code></pre>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Creating a date object from a string (YYYY-MM-DD)</span>
-d4 <span class="sign">=</span> datetime.date</span>.<span class="command">fromisoformat</span>(<span class="text">"2020-12-13"</span>)
-<span class="command">print</span>(d4)
+d <span class="sign">=</span> datetime.date</span>.<span class="command">fromisoformat</span>(<span class="text">"2020-12-13"</span>)
+<span class="command">print</span>(d)
 
 <span class="comment"># Modifying a date object</span>
-d5 <span class="sign">=</span> d4.<span class="command">replace</span>(year <span class="sign">=</span> 2021) <span class="comment"># we can also change the "month" and "day"</span>
-<span class="command">print</span>(d5)
+d2 <span class="sign">=</span> d.<span class="command">replace</span>(year <span class="sign">=</span> 2021) <span class="comment"># we can also change the "month" and "day"</span>
+<span class="command">print</span>(d2)
+                                    </code></pre>
 
-<span class="comment"># Displaying the day of the week (from a specific date)</span>
-<span class="command">print</span>(d.<span class="command">weekday</span>()) <span class="comment"># 0 is Monday</span>
-<span class="command">print</span>(d.<span class="command">isoweekday</span>()) <span class="comment"># 1 is Monday</span>
-
-<span class="comment"># Displaying the current day of the week</span>
-<span class="command">print</span>(today.<span class="command">weekday</span>())
-
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Subtracting dates</span>
 date_1 <span class="sign">=</span> datetime.<span class="command">date</span>(2020, 11, 4) <span class="comment"># a date object</span>
 date_2 <span class="sign">=</span> datetime.<span class="command">date</span>(2019, 11, 4)
@@ -213,7 +227,9 @@ date_2 <span class="sign">=</span> datetime.<span class="command">date</span>(20
 datetime_1 <span class="sign">=</span> datetime.<span class="command">datetime</span>(2019, 11, 27, 11, 27, 22) <span class="comment"># a datetime object</span>
 datetime_2 <span class="sign">=</span> datetime.<span class="command">datetime</span>(2019, 11, 27, 0, 0, 0)
 <span class="command">print</span>(datetime_1 <span class="sign">-</span> datetime_2)
+                                    </code></pre>
 
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Formatting dates</span>
 <span class="command">print</span>(time.<span class="command">strftime</span>(<span class="text">"%H:%M:%S"</span>)) <span class="comment"># displaying the current date / time</span>
 <span class="comment"># %Y - year, %B - month (a string), %m - month (a number), %d - day, %H - hour, %M - minute, %S - second</span>

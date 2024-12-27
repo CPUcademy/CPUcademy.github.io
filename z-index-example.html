@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Flexbox example</title>
+    <style>
+        .middle 
+        {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 350px;
+            height: 350px;
+            background-color: orange;
+            transform: translate(-50%, -50%);
+        }
+        
+        #middle
+        {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            text-align: center; 
+            background-color: pink;
+            z-index: 5;
+            border: 3px solid teal;
+        }
+        
+        #one
+        {
+            width: 150px;
+            height: 150px;
+            background-color: brown;
+            z-index: 4;
+        }
+
+        #two
+        {
+            width: 200px;
+            height: 200px;
+            background-color: blueviolet;
+            z-index: 3;
+        }
+
+        #three
+        {
+            width: 250px;
+            height: 250px;
+            background-color: yellowgreen;
+            z-index: 2;
+        }
+
+        #four
+        {
+            width: 300px;
+            height: 300px;
+            background-color: lightblue;
+            z-index: 1;
+            box-shadow: 0 0 20px black; 
+        }
+
+        .box
+        {
+            position: absolute; 
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="middle">
+        <div class="box middle" id="middle">Example</div>
+        <div class="box middle" id="one">HTML</div>
+        <div class="box middle" id="two">CSS</div>
+        <div class="box middle" id="three">Flexbox</div>
+        <div class="box middle" id="four">Display</div>
+    </div>
+</body>
+</html>

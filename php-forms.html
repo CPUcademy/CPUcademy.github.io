@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>map(), filter(), reduce(), zip()</title>
+    <title>Forms</title>
 </head>
 
 <body id="page-top">
@@ -82,58 +82,10 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold"><code>map()</code>, <code>filter()</code>, <code>reduce()</code>, <code>zip()</code></h5>
+                                    <h5 class="m-0 font-weight-bold">Forms</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h2>The <code>map()</code> function</h2>
-            
-                                    <p>The <code>map()</code> function takes a function and a list of numbers as parameters. It applies the given function to each item in the list and returns a new one with the results.</p>
                                     
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">print</span>(<span class="command">list</span>(<span class="command">map</span>(<span class="function">lambda</span> x: x <span class="sign">+</span> 3, [1, 2, 3, 4])))
-                                    </code></pre>
-
-                                    <p>*This function doesn't have to be a <code>lambda</code> function.</p>
-                                    
-                                    <h2>The <code>filter()</code> function</h2>
-                                    
-                                    <p>The <code>filter()</code> function takes a function and a list of numbers as parameters. It applies the given function to each item in the list and returns a new one with only those items for which the function returned <code>True</code>.</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">print</span>(<span class="command">list</span>(<span class="command">filter</span>(<span class="function">lambda</span> x: x <span class="sign">%</span> 2 <span class="sign">==</span> 0, [1, 2, 3, 4])))
-                                    </code></pre>
-                                    
-                                    <h2>The <code>reduce()</code> function</h2>
-                                    
-                                    <p>The <code>reduce()</code> function takes a function and a list of numbers as parameters. It applies a rolling computation to sequential pairs of values in the list, ultimately reducing (in this case - summing) them to a single value.</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">from</span> functools <span class="command">import</span> reduce
-<span class="command">print</span>(<span class="command">reduce</span>(<span class="function">lambda</span> x, y: x <span class="sign">+</span> y, [1, 2, 3, 4]))
-                                    </code></pre>
-
-                                    <h2>The <code>zip()</code> function</h2>
-                                    
-                                    <p>The <code>zip()</code> function can be used to process multiple iterables (iterable objects) simultaneously (the first example) or to combine elements of two or more iterables into one object (the second example).</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-strings <span class="sign">=</span> [<span class="text">"a"</span>, <span class="text">"ab"</span>, <span class="text">"abc"</span>]
-counts <span class="sign">=</span> [<span class="command">len</span>(n) <span class="function">for</span> n <span class="function">in</span> strings]
-longest_string <span class="sign">=</span> <span class="function">None</span>
-max_count <span class="sign">=</span> 0
-<span class="function">for</span> string, count <span class="function">in</span> <span class="command">zip</span>(strings, counts):
-    <span class="function">if</span> count <span class="sign">&gt;</span> max_count:
-        longest_string <span class="sign">=</span> string
-        max_count <span class="sign">=</span> count
-<span class="command">print</span>(longest_string)
-                                    </code></pre>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-list1 <span class="sign">=</span> [<span class="text">"1"</span>, <span class="text">"2"</span>, <span class="text">"3"</span>, <span class="text">"4"</span>]
-list2 <span class="sign">=</span> [<span class="text">"a"</span>, <span class="text">"b"</span>, <span class="text">"c"</span>, <span class="text">"d"</span>]
-merged <span class="sign">=</span> <span class="command">list</span>(<span class="command">zip</span>(list1, list2))
-<span class="command">print</span>(merged)                                        
-                                    </code></pre>
                                 </div>
                             </div>
                         </div>

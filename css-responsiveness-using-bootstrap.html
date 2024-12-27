@@ -14,31 +14,6 @@
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
     <title>Responsiveness using Bootstrap</title>
-    <style>
-        @media (min-width: 768px)
-        {
-            #zd1
-            {
-                width: 8%;
-            }
-        }
-        
-        @media (max-width: 768px)
-        {
-            #zd1
-            {
-                width: 14%;
-            }
-        }
-        
-        @media (max-width: 304px)
-        {
-            #zd1
-            {
-                width: 25%;
-            }
-        }
-    </style>
 </head>
 
 <body id="page-top">
@@ -110,305 +85,183 @@
                                     <h5 class="m-0 font-weight-bold">Responsiveness using Bootstrap</h5>
                                 </div>
                                 <div class="card-body">
-                                    <!-- Basics -->
-                                    
-                                    <h2>Definicje</h2>
-            
-                                    <p><b>Bootstrap</b> to framework, który pozwala tworzyć responsywne strony (dopasowujące się do rozmiaru ekranu, na którym są wyświetlane).</p>
+                                    <p>Bootstrap is a popular, open-source front-end framework designed to help create responsive websites quickly. It includes a collection of pre-designed HTML, CSS, and JavaScript components. By using Bootstrap, we can save time and effort by leveraging its built-in styles and components, ensuring consistent design and responsive behavior across various devices.</p>
 
-                                    <p><b>RWD</b> - Responsive Web Design</p>
-                                    
-                                    <p class="podpis"><b>Zalety Bootstrapa:</b> szybkość, łatwość użycia, popularność, bezpieczeństwo.</p>
-                                    <p><b>Wady Bootstrapa:</b> powtarzalność layoutów, nadmiarowość kodu.</p>
+                                    <h2>Linking Bootstrap to HTML</h2>
 
-                                    <p><b>Responsywna siatka Bootstrapa</b> (ang. responsive grid) składa się z 12 kolumn, które są rozdzielone odstępami (te poziome paddingi to tzw. guttery, zostaną automatycznie przypisane przez framework). Dzięki podziałowi szerokości ekranu na dwanaście równych części, możemy tworzyć kolumny zajmujące dowolną szerokość: od 1/12 ekranu do 12/12 (cały ekran).</p>
-                                    
-                                    <p style="margin-bottom: 2px;">Typograficzne dylematy designerskie:</p>
-                                    <p style="margin-bottom: 2px;">Opcja #1 to narzucenie wybranego kroju czcionki: niezależnie od systemu / przeglądarki, niech nasza witryna prezentuje się typograficznie tak samo.</p>
-                                    <p>Opcja #2 to <b>NFS</b> - Native Font Stack (ang. stos czcionek natywnych) typografia witryny uzależniona jest od systemu / przeglądarki (w Bootstrapie 4 zaimplementowano to podejście).</p>
-                                    
-                                    <p><b>ARIA</b> - Accessible Rich Internet Applications to atrybuty ułatwiające interpretowanie kodu witryny technologiom asystującym (czytnikom kodu) - strona staje się przyjaźniejsza w codziennym użytkowaniu dla ludzi z niepełnosprawnościami.</p>
-                                    
-                                    <p>Zasada programu <b>AdSense</b> (programu reklamowego od Google). Twórcy witryn nie mogą w żaden sposób (np.: poprzez zmniejszenie odstępu pomiędzy reklamą i contentem) sztucznie powiększać liczby kliknięć w banery.</p>
-                                    
-                                    <p><b>Framework</b> (ang. struktura) to szkielet do budowy aplikacji. Definiuje on strukturę aplikacji oraz ogólny mechanizm jej działania.</p>
+                                    <p>To use Bootstrap in a project, we can either download it or link it via a CDN (Content Delivery Network).</p>
 
-                                    <p><b>Model-View-Controller</b> to wzorzec architektoniczny służący do organizowania struktury witryny w odpowiedni, przemyślny sposób.</p>
-                                    
-                                    <h2>Dołączanie Bootstrapa do witryny</h2>
-                                    
-                                    <p>Aby dołączyć Bootstrapa do witryny, tuż po innych znacznikach <code>&lt;meta></code> wklejamy:</p>
-                                    
-                                    <p><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></code></p>
-                                    
-                                    <p>Tuż przed dołączeniem naszego arkusza CSS wklejamy:</p>
-                                    
-                                    <p><code>&lt;link rel="stylesheet" href="css/bootstrap.min.css"></code></p>
-                                    
-                                    <p>Na końcu sekcji <code>&lt;body></code> wklejamy:</p>
-                                    
+                                    <h4>By download</h4>
+
+                                    <p>Download <a href="https://drive.google.com/file/d/12NFrTEu5-autmW31eaNPI1-azBReVHCK/view?usp=sharing" target="_blank" class="link">these files</a> and add them to your website folder.</p>
+
+                                    <h6>The head secion</h6>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    &lt;script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">&lt;/script>
-
-                                    &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">&lt;/script>
-
-                                    &lt;script src="js/bootstrap.min.js">&lt;/script>
+<span class="function">&lt;link <span class="command">href</span><span class="sign">=</span><span class="text">"bootstrap/css/bootstrap.min.css"</span> <span class="command">rel</span><span class="sign">=</span><span class="text">"stylesheet"</span>&gt;</span>
                                     </code></pre>
-                                    
-                                    <p class="tekst">A na koniec wrzucamy do katalogu z naszą stroną <a href="do pobrania/bootstrapPodlaczenie.zip" download="bootstrapPodlaczenie.zip">te pliki</a>.</p>
-                                    
-                                    <p>Wśród tych plików znajduje się plik normalize.css i jest to arkusz stylów, którego celem jest ujednolicenie wyglądu witryny w różnych przeglądarkach internetowych oraz naprawienie błędów zdarzających się w renderowaniu <b>HTML5</b>.</p>
-                                    
-                                    <h2>Wstęp</h2>
-                                    
-                                    <p>Aby stworzyć responsywną siatkę do znacznika semantycznego <code>&lt;main></code> przypisujemy klasę <code>.container</code> (jest to klasa zbiorczego pojemnika responsywnej siatki). Tuż pod dodajemy <code>&lt;div></code> o klasie <code>.row</code> (jest to klasa wiersza siatki - wiersz stanowi tzw. wrapper czyli opakowanie dla kolumn). Całą zawartość strony piszemy w tym <code>&lt;div></code>.</p>
-                                    
-                                    <p class="podpis">Jeśli chcemy, aby element zmieniał swój <code>width</code> razem ze zmniejszającą się szerokością ekranu to definiujemy dla niego progi (są to klasy). Tworzymy je tak: <code>col-rozmiar-x</code>.</p>
-                                    
-                                    <p class="podpis"><b>x</b> - szerokość kolumny z przedziału 1-12</p>
-                                    <p><b>rozmiar</b> - próg szerokości ekranu</p>
-                                    
-                                    <p class="podpis">Rozmiary progów:</p>
-                                    
-                                    <p class="podpis"><b>extra small</b> - (do 575px) <code>col-xs</code> - w Bootstrapie 4 zapis tej klasy w kodzie pozbawiono prefiksu <code>xs</code>.</p>
-                                    <p class="podpis"><b>small</b> - (576px-767px) <code>col-sm</code>.</p>
-                                    <p class="podpis"><b>medium</b> - (768px-991px) <code>col-md</code>.</p>
-                                    <p class="podpis"><b>large</b> - (992px-1199px) <code>col-lg</code>.</p>
-                                    <p class="podpis"><b>extra large</b> - (od 1200px w górę) <code>col-xl</code> (dodano w Bootstrapie 4).</p>
-                                    <p>Przykład: <code>class="col-md-6"</code> - od rozmiaru medium w górę kolumna z przypisaną tą klasą zajmie 6/12 ekranu.</p>
-                                    
-                                    <p>Te klasy można łączyć np.: <code>class="col-md-6 col-lg-4"</code>.</p>
-                                    
-                                    <p>W rozmiarze <b>extra small</b> kolumny i tak układają się pod sobą zajmując całą szerokość ekranu (12/12).</p>
-                                    
-                                    <p>Zamiast klasy <code>.container</code> możemy użyć klasy <code>.container-fluid</code>, a różni się ona tym, że wypełni całą dostępną przestrzeń - rozleje się.</p>
-                                    
-                                    <h2>Przydatne predefiniowane klasy</h2>
-                                    
-                                    <p><code>.offset-md-1</code> - od rozmiaru medium ustawi wyśrodkowanie o numerze 1 (im większy numer tym większy stopień wyśrodkowania, numery są od 0 do 5)</p>
 
-                                    <p><code>.no-gutters</code> - klasa wyłączy poziome odstępy między kolumnami (guttery).</p>
+                                    <h6>Bottom of the body secion</h6>
 
-                                    <p><code>.w-100</code> - klasa, którą przypisujemy do bloku siatki, aby wymusić zakończenie wiersza (nawet jeśli w wierszu będzie jeszcze miejsce, nie przesunie się tam kolejny <code>&lt;div></code>).</p>
-                                    
-                                    <p class="podpis">Predefiniowane kolory tła (<code>.bg-nazwaKoloru</code>): <b>primary</b>, <b>secondary</b>, <b>success</b>, <b>danger</b>, <b>warning</b>, <b>info</b>, <b>light</b>, <b>dark</b> i <b>white</b></p>
-                                    
-                                    <p class="podpis">Przypisanie elementowi odtępów:</p>
-                                    <p class="podpis"><code>.odstępKierunek-wielkość</code> (dla rozmiaru od <b>extra small</b>)</p>
-                                    <p class="podpis"><code>.odstępKierunek-rozmiar-wielkość</code> (dla rozmiaru od ustawionego) - możliwe rozmiary: <b>sm</b>, <b>md</b>, <b>lg</b> i <b>xl</b></p>
-                                    <p class="podpis">odstępy: <b>m</b>, <b>p</b> (<b>m</b> - <b>margin</b>, <b>p</b> - <b>padding</b>)</p>
-                                    <p class="podpis">kierunki: <b>t</b>, <b>b</b>, <b>l</b>, <b>r</b>, <b>x</b>, <b>y</b>, <b>blank</b> (<b>top</b>, <b>bottom</b>, <b>left</b>, <b>right</b>, na osi <b>x</b>, na osi <b>y</b>, ze wszystkich stron)</p>
-                                    <p>wielkości: <b>0</b>, <b>1</b>, <b>2</b>, <b>3</b>, <b>4</b>, <b>5</b>, <b>auto</b></p>
-                                    
-                                    <p><code>.text-primary</code> = zmiana koloru tekstu (i linków). Dostępne kolory to: <b>primary</b>, <b>secondary</b>, <b>success</b>, <b>danger</b>, <b>warning</b>, <b>info</b>, <b>light</b>, <b>dark</b>, <b>body</b>, <b>muted</b> i <b>white</b>.</p>
-
-                                    <p><code>.text-center</code> = wyśrodkowanie tekstu w zadanym pojemniku (np.: <code>&lt;div></code>)</p>
-
-                                    <p><code>.h2-.h6</code> = klasy umożliwiające zmianę wielkości czcionki (możemy też nadać klasę np.: <code>.h3</code> nagłówkowi <code>&lt;h2></code> - nie ma ograniczeń)</p>
-                                    
-                                    <p class="podpis"><code>.font-weight-*</code> = zmiana grubości czcionki. Możliwe do użycia klasy:</p>
-                                    <p class="podpis"><code>.font-weight-bold</code> = oznacza pogrubienie czcionki (700)</p>
-                                    <p class="podpis"><code>.font-weight-normal</code> = to klasyczna grubość czcionki (400)</p>
-                                    <p><code>.font-weight-light</code> = wersja "lekka" czcionki (300)</p>
-                                    
-                                    <p class="podpis">Transformacje tekstu:</p>
-                                    <p class="podpis"><code>.text-lowercase</code> = wszystkie litery są małe</p>
-                                    <p class="podpis"><code>.text-uppercase</code> = wszystkie litery są pisane CASPLOCKIEM</p>
-                                    <p><code>.text-capitalize</code> = wszystkie litery są pisane kapitalikami (każde słowo zaczyna się wielką literą)</p>
-
-                                    <p><code>.text-justify</code> = włączenie wyjustowania tekstu w danym pojemniku (np.: <code>&lt;div></code>). Oprócz tego istnieją też oczywiście: <code>.text-left</code>, <code>.text-right</code> i <code>.text-center</code>. Można też zrobić np.: <code>.text-lg-left</code>.</p>
-                                    
-                                    <p class="podpis">Przypisanie elementowi wyrównania:</p>
-                                    <p><code>.align-baseline</code>, <code>.align-top</code>, <code>.align-middle</code>, <code>.align-bottom</code>, <code>.align-text-bottom</code>, <code>.align-text-top</code>. Zadziała tylko dla elementów mających ustawiony <code>display</code> na: <code>inline</code>, <code>inline-block</code>, <code>inline-table</code> lub komórek tabeli.</p>
-
-                                    <!-- Navbar-->
-
-                                    <a class="link" href="https://drive.google.com/file/d/1xIh8bxhXhLHfd829OuFJsEo2MoICW9l5/view?usp=sharing"target="_blank" style="padding-right: 20px; width: 200px;">Szablon strony z navbarem</a>
-                                    
-                                    <br/><br/>
-                                    
-                                    <p>Navbar to belka nawigacyjna. Typy elementów nawigacyjnych to: menu poziome, menu pionowe, zakładki (tabs), menu rozwijane (dropdown), paginacja i pigułki (pills).</p>
-                                    
-                                    <h2>Pełna struktura navbara</h2>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example codeTooBig" data-line="" style="color: #EFEEEE;"><code markup="tt"> 
-                                    &lt;style>
-                                            body
-                                            {
-                                                    font-family: 'Open Sans', sans-serif;
-                                                    background-color: #303030;
-                                                    color: white;
-                                            }
-                                            .navbar
-                                            {
-                                                    min-height: 57px;
-                                            }
-                                            .elementNav
-                                            {
-                                                    background-color: #4aa397;
-                                                    border-radius: 10px;
-                                                    cursor: pointer;
-                                            }
-                                            .elementNav:hover
-                                           {
-                                                    background-color: #229dbb;
-                                            }
-                                            .elementNav:active
-                                            {
-                                                    -webkit-box-shadow: 1px 1px 6px 6px rgba(0, 0, 0, 0.43);
-                                                    box-shadow: 1px 1px 6px 6px rgba(0, 0, 0, 0.43);
-                                            }
-                                    &lt;/style>
-
-                                    &lt;nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #000;">
-                                    
-                                            &lt;a class="navbar-brand" href="strona-glowna">&lt;img src="" class="d-inline-block mr-1 align-bottom" alt="Logo"/>&lt;span
-                                              style="font-size: 26px;">Wonsz&lt;/span>&lt;/a>
-                                              
-                                            &lt;button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Przełącznik nawigacji">
-                                                    &lt;span class="navbar-toggler-icon">&lt;/span>
-                                            &lt;/button>
-                                              
-                                            &lt;div class="collapse navbar-collapse" id="mainmenu">
-                                                    &lt;ul class="navbar-nav mr-auto">
-                                                            &lt;li class="nav-item active mt-2 mb-2 elementNav mr-3 pl-2" style="width: 147px;">
-                                                                    &lt;a class="nav-link" href="strona-glowna"> Strona Główna &lt;/a>
-                                                            &lt;/li>
-                                                    &lt;/ul>
-                                            &lt;/div>
-                                    &lt;/nav>
-                                    </code></pre>
-                                    
-                                    <p>*Wynik wygląda brzydko, ale to dlatego, że to tylko szablon!</p>
-                                    
-                                    <h2>Klasy</h2>
-                                    
-                                    <p><code>.navbar</code> - klasa dedykowana stworzeniu głównej belki nawigacyjnej witryny.</p>
-                                    
-                                    <p><code>.navbar-brand</code> - przypisujemy tę klasę naszemu logu na pasku nawigacyjnym.</p>
-                                    
-                                    <p>Klasy <code>.navbar-light</code> i <code>.navbar-dark</code> definiują kolory elementów (nie tło) na pasku nawigacyjnym.</p>
-                                    
-                                    <p class="tekst">Przełącznik moblinej nawigacji to z ang. toggler i tworzymy go tak:</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt"> 
-                                    &lt;button class="navbar-toggler" type="button">
-                                            &lt;span class="navbar-toggler-icon">&lt;/span>
-                                    &lt;/button> 
-                                    </code></pre>
-                                    
-                                    <p class="tekst">Toggler wygląda tak:</p>
-                                    
-                                    <img class="img-fluid" src="zdjecia/samouczki/toggler.png" alt="Img" id="zd1">
-
-                                    <p class="tekst"><code>.navbar-expand-md</code> - ta klasa sprawi, że menu rozwinie się z mobilnego w normalne przy rozmiarze medium.</p>
-                                    
-                                    <p class="tekst"><code>.order-first</code> - klasa, która sprawi, że toggler będzie po lewej (dopisujemy ją do togglera).</p>
-
-                                    <p class="tekst">expand - wyjście navbara z wersji moblinej do normalnej - rozszerzenie.</p>
-                                    
-                                    <p>collapse - wyjście navbara z wersji normalnej do mobilnej - zapadnięcie.</p>
-
-                                    <p><code>.collapse</code> i <code>.navbar-collapse</code> - przypisujemy te klasy do diva, w którym umieszczamy zawartość navbara. Aby połączyć go z togglerem nadajemy mu id np.: <code>mainmenu</code>, a do <code>&lt;button></code> z togglerem przypisujemy: 
-                                    <code>data-toggle="collapse" data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Przełącznik nawigacji"</code>.</p>
-
-                                    <p><code>.navbar-nav</code> - tę klasę przypisujemy do list HTML w navbarze, klasę <code>.nav-item</code> znacznikom <code>&lt;li></code>, a klasę <code>.nav-link</code> tagom <code>&lt;a></code> w znacznikach <code>&lt;li></code>.</p>
-
-                                    <p><code>.active</code> - dodajemy tę klasę do znacznika <code>&lt;li></code> w navbarze i oznacza on, że na tej właśnie podstronie się znajdujemy (trochę rozjaśnia ten napis).</p>
-
-                                    <p><code>.disabled</code> - dodajemy tę klasę do znacznika <code>&lt;li></code> w navbarze i blokuje on kliknięcie w tę opcję (trochę wyszarza ten napis).</p>
-                                    
-                                    <h2>Dodatkowe opcje inline</h2>
-                                    
-                                    <p>Te dodatkowe opcje można dołączyć do navbara wrzucając je do znaczników <code>&lt;li></code>.</p>
-                                    
-                                    <h3>Dropdown menu</h3>
-                                    
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    &lt;div class="btn-group">
-                                            &lt;button type="button" class="btn konto">Konto&lt;/button>
-                                              
-                                            &lt;button type="button" class="btn konto1 dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&lt;/button>
-                                              
-                                            &lt;div class="dropdown-menu">
-                                                    &lt;a class="dropdown-item" href="#" style="text-decoration: none;">Konto&lt;/a>
-                                                    &lt;div class="dropdown-divider">&lt;/div>
-                                                    &lt;a class="dropdown-item" href="#" style="text-decoration: none;">Zaloguj&lt;/a>
-                                                    &lt;a class="dropdown-item" href="#" style="text-decoration: none;">Zarejestruj&lt;/a>
-                                            &lt;/div>
-                                    &lt;/div>
+<span class="function">&lt;script <span class="command">src</span><span class="sign">=</span><span class="text">"jquery/jquery.min.js"</span>&gt;</span><span class="function">&lt;/script&gt;</span>
+<span class="function">&lt;script <span class="command">src</span><span class="sign">=</span><span class="text">"bootstrap/js/bootstrap.bundle.min.js"</span>&gt;</span><span class="function">&lt;/script&gt;</span>
                                     </code></pre>
-                                    
-                                    <div class="btn-group">
-                                      <button type="button" class="btn konto">Konto</button>
-                                      <button type="button" class="btn konto1 dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      </button>
-                                      <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#" style="text-decoration: none;">Konto</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#" style="text-decoration: none;">Zaloguj</a>
-                                        <a class="dropdown-item" href="#" style="text-decoration: none;">Zarejestruj</a>
-                                      </div>
+
+                                    <h4>CDN</h4>
+
+                                    <h6>The head secion</h6>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;link <span class="command">href</span><span class="sign">=</span><span class="text">"https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"</span> <span class="command">rel</span><span class="sign">=</span><span class="text">"stylesheet"</span>&gt;</span>
+                                    </code></pre>
+
+                                    <h6>Bottom of the body secion</h6>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;script <span class="command">src</span><span class="sign">=</span><span class="text">"https://code.jquery.com/jquery-3.5.1.slim.min.js"</span>&gt;</span><span class="function">&lt;/script&gt;</span>
+<span class="function">&lt;script <span class="command">src</span><span class="sign">=</span><span class="text">"https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"</span>&gt;</span><span class="function">&lt;/script&gt;</span>
+                                    </code></pre>
+
+                                    <h2>Responsive grid system</h2>
+
+                                    <p>One of the core features of Bootstrap is its responsive grid system. It allows us to create layouts that adjust to different screen sizes. The grid system uses a 12-column layout, which is divided into different breakpoints based on the screen size. The whole grid has to be enclosed in a <code>&lt;div&gt;</code> with the <code>.container</code> or <code>.container-fluid</code> class assigned (the latter takes the entire available viewport width).</p>
+
+                                    <h4>Breakpoints</h4>
+
+                                    <p>Breakpoints are custom classes that define how many columns a container takes in a given screen size (<code>col-[breakpoint]-[number]</code>). The numbers can be from 1 to 12 (unit: columns).</p>
+
+                                    <ul>
+                                        <li><code>col-xs-*</code> - For extra small screens (phones, less than 576px)</li>
+                                        <li><code>col-sm-*</code> - For small screens (tablets, 576px and up)</li>
+                                        <li><code>col-md-*</code> - For medium screens (desktops, 768px and up)</li>
+                                        <li><code>col-lg-*</code> - For large screens (large desktops, 992px and up)</li>
+                                        <li><code>col-xl-*</code> - For extra large screens (large desktops, 1200px and up)</li>
+                                    </ul>
+
+                                    <p>Rows are fundamental components of the grid system, used to create <b>horizontal</b> groups of columns. A row is created with the <code>.row</code> class and serves as a wrapper for column elements (<code>.col-*</code>). Columns within a row are aligned based on the defined breakpoints and their respective widths. Rows use negative margins to counterbalance the padding of the container, ensuring the layout stays aligned.</p>
+
+                                    <p>In the extra small size, the columns stack on each other, taking the whole screen by default (<code>col-xs-12</code>). Because Bootstrap 4 and later versions no longer include the <code>xs</code> breakpoint, we can just use <code>col-12</code> instead.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"container"</span>&gt;</span>
+    <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"row"</span>&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"col-md-4"</span>&gt;</span>Column 1<span class="function">&lt;/div&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"col-md-4"</span>&gt;</span>Column 2<span class="function">&lt;/div&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"col-md-4"</span>&gt;</span>Column 3<span class="function">&lt;/div&gt;</span>
+    <span class="function">&lt;/div&gt;</span>
+
+    <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"row"</span>&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"col-md-8"</span>&gt;</span>Column 4<span class="function">&lt;/div&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"col-md-4"</span>&gt;</span>Column 5<span class="function">&lt;/div&gt;</span>
+    <span class="function">&lt;/div&gt;</span>
+<span class="function">&lt;/div&gt;</span>
+                                    </code></pre>
+
+                                    <p>Here, the <code>col-md-4</code> class means that each column takes up 4 out of 12 available columns on medium-sized screens <b>and larger</b>. The grid system automatically adjusts for smaller screen sizes, stacking the columns vertically.</p>
+
+                                    <p>We can create a layout that adjusts based on screen size by adding multiple breakpoint classes:</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"container"</span>&gt;</span>
+    <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"row"</span>&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"col-xs-12 col-sm-6 col-md-4"</span>&gt;</span>Column 1<span class="function">&lt;/div&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"col-xs-12 col-sm-6 col-md-4"</span>&gt;</span>Column 2<span class="function">&lt;/div&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"col-xs-12 col-sm-12 col-md-4"</span>&gt;</span>Column 3<span class="function">&lt;/div&gt;</span>
+    <span class="function">&lt;/div&gt;</span>
+<span class="function">&lt;/div&gt;</span>
+                                    </code></pre>
+
+                                    <p>This layout will display one column on extra-small screens, two columns on small screens, and three columns on medium and larger screens.</p>
+
+                                    <h2>Basic built-in classes (replacing CSS)</h2>
+
+                                    <p>Bootstrap offers many classes that replace CSS attributes. Of course, there are much more.</p>
+
+                                    <p>Bootstrap predefined colors: <code>primary</code>, <code>secondary</code>, <code>success</code>, <code>danger</code>, <code>warning</code>, <code>info</code>, <code>light</code>, <code>dark</code>, <code>white</code>.</p>
+
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><code>bg-[bootstrap-predefined-color]</code></td>
+                                            <td>Applying background color to an element.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>text-[bootstrap-predefined-color]</code></td>
+                                            <td>Applying a text color to an element.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>text-center</code></td>
+                                            <td>Centering the text horizontally within its container (also: <code>left</code>, <code>right</code>, <code>justify</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>text-uppercase</code></td>
+                                            <td>Transforming the text to uppercase (also: <code>lowercase</code>, <code>capitalize</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>text-muted</code></td>
+                                            <td>Applying a muted (lighter) color to text, often used for less important information.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>p-[size]</code></td>
+                                            <td>Applying padding to an element (e.g., <code>p-3</code> for padding of 1rem on all sides).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>m-[size]</code></td>
+                                            <td>Applying margin to an element (e.g., <code>m-3</code> for margin of 1rem on all sides).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.h1-.h6</code></td>
+                                            <td>Changing the font size to the one of the specified header type.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>img-fluid</code></td>
+                                            <td>Ensuring an image is responsive, scaling it to fit within its container while maintaining its aspect ratio (<code>width: 100%;</code> and <code>height: auto;</code>).</td>
+                                        </tr>
+                                    </table></div>
+
+                                    <h2>Components</h2>
+
+                                    <p>Bootstrap includes a variety of pre-styled components. It would be pointless to list them all here because Bootstrap has a very <a href="https://getbootstrap.com/docs/4.1/getting-started/introduction/" target="_blank" class="link">developed documentation</a>, so I will name only a few:</p>
+
+                                    <h4>Button</h4>
+
+                                    <p><code>&lt;button class="btn btn-primary"&gt;Primary Button&lt;/button&gt;</code></p>
+
+                                    <button class="btn btn-primary">Primary Button</button>
+
+                                    <h4 style="margin-top: 15px;">Alert</h4>
+
+                                    <p><code>&lt;div class="alert alert-warning"&gt;Warning message&lt;/div&gt;</code></p>
+
+                                    <div class="alert alert-warning">Warning message</div>
+
+                                    <h4 style="margin-top: 15px;">Dropdown</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"dropdown"</span>&gt;</span>
+    <span class="function">&lt;button <span class="command">class</span><span class="sign">=</span><span class="text">"btn btn-secondary dropdown-toggle"</span> <span class="command">type</span><span class="sign">=</span><span class="text">"button"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"dropdownMenuButton"</span> <span class="command">data-toggle</span><span class="sign">=</span><span class="text">"dropdown"</span> <span class="command">aria-haspopup</span><span class="sign">=</span><span class="text">"true"</span> <span class="command">aria-expanded</span><span class="sign">=</span><span class="text">"false"</span>&gt;</span>
+        Dropdown button
+    <span class="function">&lt;/button&gt;</span>
+    <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"dropdown-menu"</span> <span class="command">aria-labelledby</span><span class="sign">=</span><span class="text">"dropdownMenuButton"</span>&gt;</span>
+        <span class="function">&lt;a <span class="command">class</span><span class="sign">=</span><span class="text">"dropdown-item"</span> <span class="command">href</span><span class="sign">=</span><span class="text">"#"</span>&gt;</span>Action<span class="function">&lt;/a&gt;</span>
+        <span class="function">&lt;a <span class="command">class</span><span class="sign">=</span><span class="text">"dropdown-item"</span> <span class="command">href</span><span class="sign">=</span><span class="text">"#"</span>&gt;</span>Another action<span class="function">&lt;/a&gt;</span>
+        <span class="function">&lt;a <span class="command">class</span><span class="sign">=</span><span class="text">"dropdown-item"</span> <span class="command">href</span><span class="sign">=</span><span class="text">"#"</span>&gt;</span>Something else here<span class="function">&lt;/a&gt;</span>
+    <span class="function">&lt;/div&gt;</span>
+<span class="function">&lt;/div&gt;</span>
+                                    </code></pre>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Dropdown button
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
                                     </div>
-                                    
-                                    <p style="margin-top: 10px;">*Ten dropdown zadziała kiedy znajdzie się w navbarze.</p>
-                                    
-                                    <h3>Wyszukiwanie</h3>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">    
-                                    &lt;li class="nav-item active mt-2 mb-2 mr-3 pl-2 mar" style="width: 300px;">
-                                            &lt;form class="form-inline wyszukiwanie">
-                                                    &lt;input class="form-control mr-1 wysz" type="search" placeholder="Wyszukaj" aria-label="Wyszukaj">
-                                                    &lt;button class="btn btn-light" type="submit">Znajdź&lt;/button>
-                                            &lt;/form>
-                                    &lt;/li>
-                                    </code></pre>
-
-                                    <li class="nav-item active mt-2 mb-2 mr-3 pl-2 mar" style="width: 300px; list-style-type: none;">
-                                        <form class="form-inline wyszukiwanie">
-                                            <input class="form-control mr-1 wysz" type="search" placeholder="Wyszukaj" aria-label="Wyszukaj">
-                                            <button class="btn btn-light" type="submit">Znajdź</button>
-                                        </form>    
-                                    </li>
-
-                                    <!-- Responsiveness of other components -->
-
-                                    <p style="margin-bottom: 0px;">Responsywność obrazów:</p>
-                                    <p style="margin-bottom: 0px;">1. Przypisanie obrazowi predefinowanej klasy <code>.img-fluid</code> (w Boostrapie 3 była to <code>.img-responsive</code>). Ta klasa uczyni obraz w pełni responsywnym.</p>
-                                    <p>2. Uchwycenie obrazów dowolnym selektorem CSS i ręczne przypisanie: <code>width: 100%;</code> i <code>height: auto;</code>.</p>
-                                    
-                                    <p style="margin-bottom: 0px;"><code>.img-thumbnail</code> - również sprawia, że obraz staje się responsywny. Posiada jednak kilka dodatkowych właściwości:</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    &lt;style>
-                                        padding: 25rem;
-                                        background-color: #fff;
-                                        border: 1px solid #dee2e6;
-                                        border-radius: 25rem;
-                                    &lt;/style>
-                                    </code></pre>
-                                    
-                                    <p style="margin-bottom: 0px;"><code>&lt;blockquote class="blockquote"></code><code>&lt;/blockquote></code> - ten znacznik i klasa zmieniają typografię czcionki (font staje się większy i rozstrzelony w pionie). W praktyce przypisane są do niej następujące właściwości CSS:</p>
-                                    <p style="margin-bottom: 0px;"><code>margin-bottom: 1rem;</code></p>
-                                    <p style="margin-bottom: 0px;"><code>font-size: 1.25rem;</code></p>
-                                    <p>Zazwyczaj piszemy w nim cytaty. Jeśli dodamy do tego znacznika <code>&lt;footer></code> o klasie <code>.blockquote-footer</code> to zawartość footera będzie podpisem przy cytacie np.: "powiedział prof. Garnkowski".</p>
-                                    
-                                    <p><code>.list-unstyled</code> - klasa, którą przypisujemy raz dla całej listy (bez potrzeby dopisywania dodatkowej klasy poszczególnym itemom). Usunięty zostaje domyślny styl listy, a więc w praktyce jej marker oraz lewy margines (wcięcie <code>&lt;li></code>). Klasa usuwa właściwości tylko dla bezpośrednich itemów listy. Stąd w przypadku listy zagnieżdżonej, tak markery jak i margines listy wewnętrznej nie zmienią się po przypisaniu liście zewnętrznej tej klasy.</p>
-
-                                    <p><code>.list-inline</code> - przypisanie elementom listy ułożenia horyzontalnego (itemy układają się obok siebie). Jest to dobre dla szerokich pojemników z pomocniczą nawigacją w serwisie. Znacznik listy otrzymuje klasę <code>.list-inline</code> zaś każdy jej <code>&lt;li></code> klasę <code>.list-inline-item</code>.</p>
-                                    
-                                    <p><code>.list-group</code> - lista zmienia się w zgrupowanie przypominające kolekcję bloków (divów, tabletek, pillsów itp.). W ramach takiego zgrupowania możemy używać klas <code>.active</code> oraz <code>.disabled</code> (jak w menu głównym) o ile tylko nadamy itemom klasę <code>.list-group-item-action</code>. Jest to klasa tworząca "reagujący" item - mający hover oraz mogący używać klas <code>.active</code> czy <code>.disabled</code>. Używając jej zastępujemy <code>&lt;li></code> tagami <code>&lt;a></code> (te tagi muszą posiadać klasy: <code>.list-group-item</code> i <code>.list-group-item-action</code>).</p>
-                                    
-                                    <p><code>.float-left</code> - włączenie opływania obrazu tekstem - grafika wyrównana jest do lewej krawędzi, zaś tekst opływa obraz z prawej strony. Oczywiście istnieje też <code>.float-right</code>.</p>
-                                    
-                                    <p style="margin-bottom: 0px;">Klasa przypisująca atrybut <code>display</code> to: <code>.d-wartość</code></p>
-                                    <p><code>.d-rozmiar-wartość</code> (dla rozmiaru od ustawionego) - możliwe rozmiary to: <b>sm</b>, <b>md</b>, <b>lg</b> i <b>xl</b>, a możliwe wartości to: <code>inline</code>, <code>inline-block</code>, <code>block</code>, <code>table</code>, <code>table-cell</code>, <code>table-row</code>, <code>flex</code> i <code>inline-flex</code>.</p>
-
-                                    <p><code>.lead</code> - tekst wiodący, który wprowadza do dłuższych artykułów. W praktyce wyróżnia czcionkę dodając: <code>font-size: 1.25rem;</code> i <code>font-weight: 300;</code>.</p>
-
-                                    <!-- Templates -->
-
-                                    <p>Jeśli nie masz zbyt dużych umiejętności w posługiwaniu się Bootstrapem, możesz skorzystać z szablonów z internetu. Są to w pełni responsywne strony, które można bez problemu spersonalizować (jeśli jest się obeznanym z HTML i CSS i podstawą Bootstrapa). Są one bezpłatne. Według mnie, dwie najlepsze takie strony to: <a href="https://startbootstrap.com/themes" target="_blank" class="link">StartBootstrap</a> i <a href="https://themefisher.com/free-bootstrap-templates/" target="_blank" class="link">Themefisher</a>. Strona, na której czytasz ten tekst, sama jest stworzona na podstawie szablonu. Jeśli nie jesteś mistrzem Bootstrapa, nie ma potrzeby męczyć się z responsywnością samemu, ponieważ nawet jeśli skorzystasz z szablonu, to możesz go odpowiednio zmodyfikować, tak żeby nie był nawet podobny do oryginału.</p>
+                                    <p style="margin-top: 20px;">Download a <a href="https://drive.google.com/file/d/1xE-bCSjmyhFaB8RPo_FAh3PbFsdeYBBs/view?usp=sharing" target="_blank" class="link">Bootstrap website template</a>.</p>
                                 </div>
                             </div>
                         </div>

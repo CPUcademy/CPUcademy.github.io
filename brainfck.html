@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Data units conversion</title>
+    <title>Brainf*ck - a programming language</title>
 </head>
 
 <body id="page-top">
@@ -82,109 +82,110 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Data units conversion</h5>
+                                    <h5 class="m-0 font-weight-bold">Brainf*ck - a programming language</h5>
                                 </div>
                                 <div class="card-body">
-                                    <table style="margin-bottom: 10px;">
-                                        <tr>
-                                            <td>2<sup>0</sup></td>
-                                            <td>2<sup>1</sup></td>
-                                            <td>2<sup>2</sup></td>
-                                            <td>2<sup>3</sup></td>
-                                            <td>2<sup>4</sup></td>
-                                            <td>2<sup>5</sup></td>
-                                            <td>2<sup>6</sup></td>
-                                            <td>2<sup>7</sup></td>
-                                            <td>2<sup>8</sup></td>
-                                            <td>2<sup>9</sup></td>
-                                            <td>2<sup>10</sup></td>
-                                            <td>2<sup>11</sup></td>
-                                            <td>2<sup>12</sup></td>
-                                            <td>2<sup>13</sup></td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>4</td>
-                                            <td>8</td>
-                                            <td>16</td>
-                                            <td>32</td>
-                                            <td>64</td>
-                                            <td>128</td>
-                                            <td>256</td>
-                                            <td>512</td>
-                                            <td>1024</td>
-                                            <td>2048</td>
-                                            <td>4096</td>
-                                            <td>8192</td>
-                                        </tr>
-                                    </table></div>
+                                    <p>Brainfuck is a minimalist, esoteric programming language created by Urban Müller in 1993. It is known for its simplicity, as the entire language consists of only eight commands. Despite its simplicity, Brainfuck is Turing-complete, meaning it can theoretically solve any computational problem given enough time and memory.</p>
 
+                                    <p>While Brainfuck isn't practical for real-world applications, it is an excellent exercise in understanding the fundamentals of computation, memory management, and instruction handling. Programmers often explore Brainfuck for fun or as a challenge to better understand low-level programming concepts.</p>
+                                
+                                    <h2>The eight Brainfuck commands</h2>
                                     <div class="table-container"><table>
                                         <tr>
-                                            <td><b>Name</b></td>
-                                            <td><b>Symbol</b></td>
-                                            <td><b>Value</b></td>
+                                            <td><b>Command</b></td>
+                                            <td><b>Description</b></td>
+                                            <td><b>C language equivalent</b></td>
                                         </tr>
                                         <tr>
-                                            <td>bit</td>
-                                            <td>b</td>
-                                            <td>1b = 0, 1b = 1</td>
+                                            <td><code>&gt;</code></td>
+                                            <td>Moving the memory pointer to the right.</td>
+                                            <td><code>++p;</code></td>
                                         </tr>
                                         <tr>
-                                            <td>byte</td>
-                                            <td>B</td>
-                                            <td>1B = 8b</td>
+                                            <td><code>&lt;</code></td>
+                                            <td>Moving the memory pointer to the left.</td>
+                                            <td><code>--p;</code></td>
                                         </tr>
                                         <tr>
-                                            <td>kilobyte</td>
-                                            <td>KB</td>
-                                            <td>1KB = 1024B = 2<sup>10</sup>B = 1024*8b = 8192b = 2<sup>13</sup>b</td>
+                                            <td><code>+</code></td>
+                                            <td>Incrementing the memory cell at the pointer.</td>
+                                            <td><code>++(*p);</code></td>
                                         </tr>
                                         <tr>
-                                            <td>megabyte</td>
-                                            <td>MB</td>
-                                            <td>1MB = 1024KB = 2<sup>10</sup>KB = 2<sup>20</sup>B = 2<sup>20</sup>*2<sup>3</sup> = 2<sup>23</sup>b</td>
+                                            <td><code>-</code></td>
+                                            <td>Decrementing the memory cell at the pointer.</td>
+                                            <td><code>--(*p);</code></td>
                                         </tr>
                                         <tr>
-                                            <td>gigabyte</td>
-                                            <td>GB</td>
-                                            <td>1GB = 1024MB = 2<sup>10</sup>MB = 2<sup>10</sup>*2<sup>10</sup>*2<sup>10</sup> = 2<sup>30</sup>B*2<sup>3</sup> = 2<sup>33</sup>b</td>
+                                            <td><code>.</code></td>
+                                            <td>Displaying the character at the memory cell.</td>
+                                            <td><code>putchar(*p);</code></td>
                                         </tr>
                                         <tr>
-                                            <td>terabyte</td>
-                                            <td>TB</td>
-                                            <td>1TB = 1024GB = 2<sup>43</sup>b</td>
+                                            <td><code>,</code></td>
+                                            <td>Inputting a character and storing it in the memory cell.</td>
+                                            <td><code>*p=getchar();</code></td>
                                         </tr>
                                         <tr>
-                                            <td>petabyte</td>
-                                            <td>PB</td>
-                                            <td>1PB = 1024TB</td>
+                                            <td><code>[</code></td>
+                                            <td>Starting a loop - executing the instructions inside until the memory cell is zero.</td>
+                                            <td><code>while(*p){</code></td>
                                         </tr>
                                         <tr>
-                                            <td>...</td>
-                                            <td>...</td>
-                                            <td>...</td>
+                                            <td><code>]</code></td>
+                                            <td>Ending a loop.</td>
+                                            <td><code>}</code></td>
                                         </tr>
                                     </table></div>
-                                    
-                                    <p class="podpis" style="margin-top: 10px;">1MB = 8Mb (megabits)</p>
-                                    <p class="podpis">1GB = 8Gb (gigabits)</p>
-                                    <p class="podpis">32768B = 2<sup>15</sup>B = 2<sup>15</sup>*2<sup>3</sup> = 2<sup>18</sup>b</p>
-                                    <p class="podpis">2<sup>18</sup>b / 2<sup>10</sup> = 2<sup>8</sup>Kb (kilobits)</p>
-                                    <p class="podpis">2<sup>8</sup>Kb / 2<sup>10</sup> = 2<sup>-2</sup>Mb (megabits)</p>
-                                    <p class="podpis">2<sup>-2</sup>Mb / 2<sup>10</sup> = 2<sup>-12</sup> Gb (gigabits)</p>
-                                    <p class="podpis">0,25TB = 2Tb = 2<sup>1</sup>*2<sup>10</sup> = 2<sup>11</sup>Gb</p>
-                                    <p>2048GB = 2<sup>11</sup>GB = 2<sup>11</sup>*2<sup>10</sup>*2<sup>10</sup> = 2<sup>31</sup>KB</p>
 
-                                    <p class="podpis"><b>Exercise 1.</b> How long will it take to download a 1GB file with a 300Mb/s constant link?</p>
-                                    <p class="podpis">1GB = 1024MB = 8192Mb</p>
-                                    <p>8192/300 = 27,3s</p>
+                                    <p>Brainfuck operates on an array of memory cells (usually 30,000), each initialized to zero (<code>char array[30000] = {0};</code>). A pointer starts at the first cell and can move left or right across the array. Commands modify the value at the current memory cell or handle input/output.</p>
 
-                                    <p class="podpis"><b>Exercise 2.</b> Can we save 250 800KB files on a 32GB pendrive?</p>
-                                    <p class="podpis">32GB = 2<sup>5</sup>*2<sup>10</sup> = 2<sup>15</sup>MB*2<sup>10</sup> = 2<sup>25</sup>KB = 33554432KB</p>
-                                    <p class="podpis">33554432/800 ≈ 41943</p>
-                                    <p>Answer: Yes, we can.</p>
+                                    <h2>The ASCII table</h2>
+
+                                    <img src="files/courses/ascii.jpg" alt="ASCII" class="img-fluid" style="width: 70%; margin-bottom: 20px;">
+                                
+                                    <h2>"Hello, World!" program</h2>
+
+                                    <p>Everything that is not a Brainf*ck command is treated as a comment.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">// A loop setting convenient values (near letters in ASCII)
+
+<span class="function">++++++++++</span> // Cell 0 = 10
+<span class="function">[</span> // While loop (as long as cell 0 is not 0)
+<span class="function">&gt;+++++++</span> // Cell 1 add 7 
+<span class="function">&gt;++++++++++</span> // Cell 2 add 10
+<span class="function">&gt;+++</span> // Cell 3 add 3
+<span class="function">&gt;+</span> // Cell 4 add 1
+<span class="function">&lt;&lt;&lt;&lt;-</span> // Return to cell 0 and decrement it
+<span class="function">]</span>
+
+// After the loop ends:
+// Cell 1 = 70
+// Cell 2 = 100
+// Cell 3 = 30
+// Cell 4 = 10
+
+<span class="function">&gt;++.</span> // Cell 1 (70) add 2 = 72 (in ASCII 'H') = prints
+<span class="function">&gt;+.</span> // Cell 2 (100) add 1 = 101 (in ASCII 'e') = prints
+<span class="function">+++++++.</span> // Cell 2 (101) add 7 = 108 (in ASCII 'l') = prints
+<span class="function">.</span> // prints l
+<span class="function">+++.</span> // Cell 2 (108) add 3 = 111 (in ASCII 'o') = prints
+<span class="function">&gt;++.</span> // Cell 3 (30) add 2 = 32 (in ASCII ' ') = prints
+<span class="function">&lt;&lt;+++++++++++++++.</span> // Cell 1 (72) add 15 = 87 (in ASCII 'W') = prints
+<span class="function">&gt;.</span> // Cell 2 (111) (in ASCII 'o') = prints
+<span class="function">+++.</span> // Cell 2 (111) add 3 = 114 (in ASCII 'r') = prints
+<span class="function">------.</span> // Cell 2 (114) subtract 6 = 108 (in ASCII 'l') = prints
+<span class="function">--------.</span> // Cell 2 (114) subtract 6 = 108 (in ASCII 'l') = prints
+<span class="function">&gt;+.</span> // Cell 3 (32) add 1 = 33 (in ASCII '!') = prints
+<span class="function">&gt;.</span> // Cell 4 (10) (in ASCII '\n') = prints</span>
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">++++++++++[&gt;+++++++&gt;++++++++++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;++.&gt;+.+++++++..+++.&gt;++.&lt;&lt;+++++++++++++++.&gt;.+++.------.--------.&gt;+.&gt;.</span>
+                                    </code></pre>
+                                
+                                    <p>You can find a Brainf*ck compiler <a href="https://tio.run/#brainfuck" target="_blank" class="link">here</a>.</p>                            
                                 </div>
                             </div>
                         </div>
