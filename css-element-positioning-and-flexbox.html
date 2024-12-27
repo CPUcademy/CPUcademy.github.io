@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. This website is a personal portfolio and was created by one person.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <title>Element positioning and Flexbox</title>
+    <style>
+        iframe {
+            width: 100%;
+            height: 415px;
+            resize: both;
+            border: 3px solid #ccc;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Kotlin (Android)</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics.html">Electronics</a>
+                        <a class="collapse-item" href="it-and-computer-basics.html">IT &amp; computer basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">About me</div>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="cv.html">
+                    <i class="icon-adult"></i>
+                    <span>CV</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="services.html">
+                    <i class="icon-services"></i>
+                    <span>My services</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Element positioning and Flexbox</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h2><code>float</code> and <code>clear</code></h2>
+                                    <p>The <code>float</code> property positions (sticks) elements to the left or right of their container, allowing other objects to wrap around them. The <code>clear</code> property stops elements from wrapping around floated elements by clearing the <code>float</code> effect.</p>
+                            
+                                    <h4>Float options</h4>
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><code>float: left;</code></td>
+                                            <td>Floating the element to the left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>float: right;</code></td>
+                                            <td>Floating the element to the right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>float: none;</code></td>
+                                            <td>The default value (the element does not float).</td>
+                                        </tr>
+                                    </table></div>                                    
+                            
+                                    <h4>Clear options</h4>
+
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><code>clear: left;</code></td>
+                                            <td>Clearing the <code>float</code> effect from the left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>clear: right;</code></td>
+                                            <td>Clearing the <code>float</code> effect from the right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>clear: both;</code></td>
+                                            <td>Clearing the <code>float</code> effect from both sides.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>clear: none;</code></td>
+                                            <td>The default value (the effect is not cleared).</td>
+                                        </tr>
+                                    </table></div>
+
+                                    <p>It is recommended to use Flexbox instead of these commands, but they can be encountered on older websites.</p>
+                            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;!DOCTYPE html&gt;</span>
+<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
+<span class="function">&lt;head&gt;</span>
+    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="function">&lt;title&gt;</span>Float and Clear Example<span class="function">&lt;/title&gt;</span>
+    <span class="function">&lt;style&gt;</span>
+        .box
+        <span class="sign">{</span>
+            <span class="function">width</span><span class="sign">:</span> 100px<span class="sign">;</span>
+            <span class="function">height</span><span class="sign">:</span> 100px<span class="sign">;</span>
+            <span class="function">margin</span><span class="sign">:</span> 10px<span class="sign">;</span>
+            <span class="function">color</span><span class="sign">:</span> white<span class="sign">;</span>
+            <span class="function">text-align</span><span class="sign">:</span> center<span class="sign">;</span>
+            <span class="function">line-height</span><span class="sign">:</span> 100px<span class="sign">;</span>
+        <span class="sign">}</span>
+        
+        .box1
+        <span class="sign">{</span>
+            <span class="function">background-color</span><span class="sign">:</span> red<span class="sign">;</span>
+            <span class="function">float</span><span class="sign">:</span> left<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        .box2
+        <span class="sign">{</span>
+            <span class="function">background-color</span><span class="sign">:</span> blue<span class="sign">;</span>
+            <span class="function">float</span><span class="sign">:</span> right<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        .box3
+        <span class="sign">{</span>
+            <span class="function">background-color</span><span class="sign">:</span> green<span class="sign">;</span>
+            <span class="function">clear</span><span class="sign">:</span> both<span class="sign">;</span>
+        <span class="sign">}</span>
+    <span class="function">&lt;/style&gt;</span>
+<span class="function">&lt;/head&gt;</span>
+<span class="function">&lt;body&gt;</span>
+    <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"box box1"</span>&gt;</span>Left<span class="function">&lt;/div&gt;</span>
+    <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"box box2"</span>&gt;</span>Right<span class="function">&lt;/div&gt;</span>
+    <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"box box3"</span>&gt;</span>Cleared<span class="function">&lt;/div&gt;</span>
+<span class="function">&lt;/body&gt;</span>
+<span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
+
+                                    <iframe src="float-example.html" title="Example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="v1"></iframe>
+
+                                    <h2><code>position</code></h2>
+
+                                    <p>The <code>position</code> property specifies the positioning method used for an element. It defines how an element is placed in the document flow and interacts with other elements. Different positioning methods provide flexibility in creating layouts and controlling element placement.</p>
+
+                                    <h3>Position options</h3>
+
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><code>position: static;</code></td>
+                                            <td>The default positioning - elements are positioned according to the normal flow of the document.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>position: relative;</code></td>
+                                            <td>Positioning the element relative to its normal position.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>position: absolute;</code></td>
+                                            <td>Removing the element from the document flow, positioning it relative to the nearest positioned ancestor or the viewport if none exists.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>position: fixed;</code></td>
+                                            <td>Positioning the element relative to the viewport, meaning it stays in the same place even when scrolling.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>position: sticky;</code></td>
+                                            <td>A hybrid of <code>relative</code> and <code>fixed</code> - the element is treated as <code>relative</code> until it crosses a specified threshold, then it becomes <code>fixed</code>.</td>
+                                        </tr>
+                                    </table></div>
+
+                                    <h4><code>top</code>, <code>left</code>, <code>right</code>, <code>bottom</code></h4>
+                                    <p>These properties specify the offset distance between an element and the corresponding edge of its containing block. They only take effect when the <code>position</code> property is set to <code>relative</code>, <code>absolute</code>, <code>fixed</code>, or <code>sticky</code>. When the <code>position</code> is <code>static</code> (the default), these properties are ignored. When the <code>position</code> is <code>sticky</code>, these attributes define at what point the element becomes "stuck" at a specified scroll position (its threshold).</p>                          
+                            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;!DOCTYPE html&gt;</span>
+<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
+<span class="function">&lt;head&gt;</span>
+    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="function">&lt;title&gt;</span>CSS Position Example<span class="function">&lt;/title&gt;</span>
+    <span class="function">&lt;style&gt;</span>
+        .static
+        <span class="sign">{</span>
+            <span class="function">position</span><span class="sign">:</span> static<span class="sign">;</span>
+            <span class="function">left</span><span class="sign">:</span> 250px<span class="sign">;</span>
+            <span class="function">height</span><span class="sign">:</span> 50px<span class="sign">;</span>
+            <span class="function">border</span><span class="sign">:</span> 3px solid blue<span class="sign">;</span>
+            <span class="function">margin-bottom</span><span class="sign">:</span> 20px<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        .relative 
+        <span class="sign">{</span>
+            <span class="function">position</span><span class="sign">:</span> relative<span class="sign">;</span>
+            <span class="function">width</span><span class="sign">:</span> 600px<span class="sign">;</span>
+            <span class="function">height</span><span class="sign">:</span> 120px<span class="sign">;</span>
+            <span class="function">border</span><span class="sign">:</span> 3px solid pink<span class="sign">;</span>
+            <span class="function">margin-bottom</span><span class="sign">:</span> 20px<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        .absolute
+        <span class="sign">{</span>
+            <span class="function">position</span><span class="sign">:</span> absolute<span class="sign">;</span>
+            <span class="function">top</span><span class="sign">:</span> 200px<span class="sign">;</span>
+            <span class="function">right</span><span class="sign">:</span> 50px<span class="sign">;</span>
+            <span class="function">width</span><span class="sign">:</span> 100px<span class="sign">;</span>
+            <span class="function">height</span><span class="sign">:</span> 50px<span class="sign">;</span>
+            <span class="function">border</span><span class="sign">:</span> 3px solid green<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        .fixed
+        <span class="sign">{</span>
+            <span class="function">position</span><span class="sign">:</span> fixed<span class="sign">;</span>
+            <span class="function">top</span><span class="sign">:</span> 120px<span class="sign">;</span>
+            <span class="function">right</span><span class="sign">:</span> 0px<span class="sign">;</span>
+            <span class="function">width</span><span class="sign">:</span> 100px<span class="sign">;</span>
+            <span class="function">border</span><span class="sign">:</span> 3px solid red<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        .sticky 
+        <span class="sign">{</span>
+            <span class="function">position</span><span class="sign">:</span> sticky<span class="sign">;</span>
+            <span class="function">top</span><span class="sign">:</span> 0<span class="sign">;</span> <span class="comment">/* the threshold */</span>
+            <span class="function">width</span><span class="sign">:</span> 800px<span class="sign">;</span>
+            <span class="function">height</span><span class="sign">:</span> 50px<span class="sign">;</span>
+            <span class="function">border</span><span class="sign">:</span> 3px solid purple<span class="sign">;</span>
+        <span class="sign">}</span>
+    <span class="function">&lt;/style&gt;</span>
+<span class="function">&lt;/head&gt;</span>
+<span class="function">&lt;body <span class="command">style</span><span class="sign">=</span><span class="text">"height: 1300px;"</span>&gt;</span>
+    <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"static"</span>&gt;</span>Static<span class="function">&lt;/div&gt;</span>
+    <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"fixed"</span>&gt;</span>Fixed<span class="function">&lt;/div&gt;</span>
+    <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"relative"</span>&gt;</span>Relative<span class="function">&lt;/div&gt;</span>
+    <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"absolute"</span>&gt;</span>Absolute<span class="function">&lt;/div&gt;</span>
+    <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"sticky"</span>&gt;</span>Sticky<span class="function">&lt;/div&gt;</span>
+<span class="function">&lt;/body&gt;</span>
+<span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
+
+                                    <iframe src="positioning-example.html" title="Example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="v1"></iframe>
+
+                                    <h2><code>display</code></h2>
+
+                                    <p>The <code>display</code> property determines how an HTML element is displayed in the layout and how it interacts with other elements. It plays a crucial role in defining the element's box model behavior.</p>
+
+                                    <h4>Display options</h4>
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><code>display: block;</code></td>
+                                            <td>The element is displayed as a block, taking up the full width of its container.</td>
+                                          </tr>
+                                          <tr>
+                                            <td><code>display: inline;</code></td>
+                                            <td>The element is displayed as an inline element, taking up only as much width as necessary.</td>
+                                          </tr>
+                                          <tr>
+                                            <td><code>display: inline-block;</code></td>
+                                            <td>The element behaves as an inline-level block, allowing width and height to be set.</td>
+                                          </tr>
+                                          <tr>
+                                            <td><code>display: none;</code></td>
+                                            <td>The element is not rendered and does not occupy any space in the layout (it is completly gone).</td>
+                                          </tr>
+                                          <tr>
+                                            <td><code>display: flex;</code></td>
+                                            <td>The element becomes a flex container, enabling the use of Flexbox layout properties.</td>
+                                          </tr>
+                                          <tr>
+                                            <td><code>display: grid;</code></td>
+                                            <td>The element becomes a grid container, enabling the use of CSS Grid layout properties.</td>
+                                          </tr>
+                                          <tr>
+                                            <td><code>display: inline-flex;</code></td>
+                                            <td>Similar to <code>flex</code>, but the container is treated as an inline element.</td>
+                                          </tr>
+                                          <tr>
+                                            <td><code>display: inline-grid;</code></td>
+                                            <td>Similar to <code>grid</code>, but the container is treated as an inline element.</td>
+                                          </tr>
+                                          <tr>
+                                            <td><code>display: list-item;</code></td>
+                                            <td>The element is displayed as a list item, with a marker if used in a list.</td>
+                                          </tr>
+                                          <tr>
+                                            <td><code>display: table;</code></td>
+                                            <td>The element is displayed as a table container, mimicking the behavior of an HTML table.</td>
+                                          </tr>
+                                    </table></div>
+                                    
+                                    <p>Every HTML element has a default <code>display</code> value defined by the browser. For example, <code>&lt;div&gt;</code> is block-level by default, while <code>&lt;span&gt;</code> is inline by default.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;!DOCTYPE html&gt;</span>
+<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
+<span class="function">&lt;head&gt;</span>
+    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="function">&lt;title&gt;</span>CSS Display example<span class="function">&lt;/title&gt;</span>
+    <span class="function">&lt;style&gt;</span>
+        .example-container 
+        <span class="sign">{</span>
+            <span class="function">margin-bottom</span><span class="sign">:</span> 20px<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        .block 
+        <span class="sign">{</span>
+            <span class="function">display</span><span class="sign">:</span> block<span class="sign">;</span>
+            <span class="function">background-color</span><span class="sign">:</span> #f4a261<span class="sign">;</span>
+            <span class="function">padding</span><span class="sign">:</span> 10px<span class="sign">;</span>
+            <span class="function">margin-bottom</span><span class="sign">:</span> 10px<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        .inline 
+        <span class="sign">{</span>
+            <span class="function">display</span><span class="sign">:</span> inline<span class="sign">;</span>
+            <span class="function">background-color</span><span class="sign">:</span> #2a9d8f<span class="sign">;</span>
+            <span class="function">padding</span><span class="sign">:</span> 5px<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        .inline-block 
+        <span class="sign">{</span>
+            <span class="function">display</span><span class="sign">:</span> inline-block<span class="sign">;</span>
+            <span class="function">background-color</span><span class="sign">:</span> #e76f51<span class="sign">;</span>
+            <span class="function">padding</span><span class="sign">:</span> 10px<span class="sign">;</span>
+            <span class="function">width</span><span class="sign">:</span> 100px<span class="sign">;</span>
+            <span class="function">height</span><span class="sign">:</span> 50px<span class="sign">;</span>
+            <span class="function">text-align</span><span class="sign">:</span> center<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        .none 
+        <span class="sign">{</span>
+            <span class="function">display</span><span class="sign">:</span> none<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        .flex 
+        <span class="sign">{</span>
+            <span class="function">display</span><span class="sign">:</span> flex<span class="sign">;</span>
+            <span class="function">gap</span><span class="sign">:</span> 10px<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        .grid 
+        <span class="sign">{</span>
+            <span class="function">display</span><span class="sign">:</span> grid<span class="sign">;</span>
+            <span class="function">grid-template-columns</span><span class="sign">:</span> repeat(3, 1fr)<span class="sign">;</span>
+            <span class="function">gap</span><span class="sign">:</span> 10px<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        .flex-item, .grid-item 
+        <span class="sign">{</span>
+            <span class="function">background-color</span><span class="sign">:</span> #264653<span class="sign">;</span>
+            <span class="function">color</span><span class="sign">:</span> white<span class="sign">;</span>
+            <span class="function">padding</span><span class="sign">:</span> 10px<span class="sign">;</span>
+        <span class="sign">}</span>
+    <span class="function">&lt;/style&gt;</span>
+<span class="function">&lt;/head&gt;</span>
+<span class="function">&lt;body&gt;</span>
+  <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"example-container"</span>&gt;</span>
+      <span class="function">&lt;h3&gt;</span>Block Display<span class="function">&lt;/h3&gt;</span>
+      <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"block"</span>&gt;</span>This is a block element.<span class="function">&lt;/div&gt;</span>
+  <span class="function">&lt;/div&gt;</span>
+
+  <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"example-container"</span>&gt;</span>
+      <span class="function">&lt;h3&gt;</span>Inline Display<span class="function">&lt;/h3&gt;</span>
+      <span class="function">&lt;span <span class="command">class</span><span class="sign">=</span><span class="text">"inline"</span>&gt;</span>This is an inline element.<span class="function">&lt;/span&gt;</span>
+      <span class="function">&lt;span <span class="command">class</span><span class="sign">=</span><span class="text">"inline"</span>&gt;</span>This is another inline element.<span class="function">&lt;/span&gt;</span>
+  <span class="function">&lt;/div&gt;</span>
+
+  <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"example-container"</span>&gt;</span>
+      <span class="function">&lt;h3&gt;</span>Inline-Block Display<span class="function">&lt;/h3&gt;</span>
+      <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"inline-block"</span>&gt;</span>Inline-Block 1<span class="function">&lt;/div&gt;</span>
+      <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"inline-block"</span>&gt;</span>Inline-Block 2<span class="function">&lt;/div&gt;</span>
+  <span class="function">&lt;/div&gt;</span>
+
+  <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"example-container"</span>&gt;</span>
+      <span class="function">&lt;h3&gt;</span>Flex Display<span class="function">&lt;/h3&gt;</span>
+      <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"flex"</span>&gt;</span>
+          <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"flex-item"</span>&gt;</span>Flex Item 1<span class="function">&lt;/div&gt;</span>
+          <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"flex-item"</span>&gt;</span>Flex Item 2<span class="function">&lt;/div&gt;</span>
+          <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"flex-item"</span>&gt;</span>Flex Item 3<span class="function">&lt;/div&gt;</span>
+      <span class="function">&lt;/div&gt;</span>
+  <span class="function">&lt;/div&gt;</span>
+
+  <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"example-container"</span>&gt;</span>
+      <span class="function">&lt;h3&gt;</span>Grid Display<span class="function">&lt;/h3&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"grid"</span>&gt;</span>
+          <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"grid-item"</span>&gt;</span>Grid Item 1<span class="function">&lt;/div&gt;</span>
+          <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"grid-item"</span>&gt;</span>Grid Item 2<span class="function">&lt;/div&gt;</span>
+          <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"grid-item"</span>&gt;</span>Grid Item 3<span class="function">&lt;/div&gt;</span>
+      <span class="function">&lt;/div&gt;</span>
+  <span class="function">&lt;/div&gt;</span>
+
+  <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"example-container"</span>&gt;</span>
+      <span class="function">&lt;h3&gt;</span>None Display<span class="function">&lt;/h3&gt;</span>
+      <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"none"</span>&gt;</span>This element is hidden and takes no space.<span class="function">&lt;/div&gt;</span>
+      <span class="function">&lt;p&gt;</span>Notice there is no hidden element here because its display is set to "none".<span class="function">&lt;/p&gt;</span>
+  <span class="function">&lt;/div&gt;</span>
+<span class="function">&lt;/body&gt;</span>
+<span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
+
+                                    <iframe src="display-example.html" title="Example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="v1"></iframe>
+
+                                    <h2>Flexbox</h2>
+
+                                    <p>Flexbox is a layout model that enables the efficient arrangement of elements within a container. It provides more control over the alignment, direction, and spacing of items, allowing for flexible and responsive designs. Except for <code>position</code> and <code>display</code>, it features:</p>
+
+                                    <div class="table-container">
+                                      <table>
+                                        <tr>
+                                          <td><code>flex-direction</code></td>
+                                          <td>Specifying the direction of the flex items within the flex container (<code>row</code>, <code>row-reverse</code>, <code>column</code>, <code>column-reverse</code>).</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>justify-content</code></td>
+                                          <td>Aligning flex items along the main axis in the direction specified by <code>flex-direction</code> (<code>flex-start</code>, <code>flex-end</code>, <code>center</code>, <code>space-between</code>, <code>space-around</code>).</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>align-items</code></td>
+                                          <td>Aligning flex items along the cross axis perpendicular to the main axis (<code>flex-start</code>, <code>flex-end</code>, <code>center</code>, <code>baseline</code>, <code>stretch</code>).</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>flex-wrap</code></td>
+                                          <td>Controlling whether flex items should wrap onto multiple lines (<code>nowrap</code>, <code>wrap</code>, <code>wrap-reverse</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>flex-grow</code></td>
+                                            <td>Specifying the ability for a flex item to grow if necessary. The value defines how much the item will grow relative to other items in the flex container. For example, a value of <code>2</code> means the item will grow twice as much as an item with <code>flex-grow: 1</code>. A value of <code>0</code> means the item will not grow at all.</td>
+                                        </tr>
+                                        <tr>                                          
+                                            <td><code>flex-shrink</code></td>
+                                            <td>Specifying the ability for a flex item to shrink if necessary. A value of <code>2</code> means the item can shrink twice as much as an item with <code>flex-shrink: 1</code>.</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>flex-basis</code></td>
+                                          <td>Defining the default size of an element before the remaining space is distributed (e.g., <code>2</code>).</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>z-index</code></td>
+                                          <td>Controlling the stacking order of elements. The higher the value, the closer the element will appear on top of other elements. <code>z-index</code> works only on positioned elements (elements with <code>position</code> set to <code>relative</code>, <code>absolute</code>, <code>fixed</code>, or <code>sticky</code>).</td>
+                                        </tr>
+                                    </table></div>
+
+                                    <h2>Other examples</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;!DOCTYPE html&gt;</span>
+<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
+<span class="function">&lt;head&gt;</span>
+    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="function">&lt;title&gt;</span>CSS Flexbox example<span class="function">&lt;/title&gt;</span>
+    <span class="function">&lt;style&gt;</span>
+        .middle 
+        <span class="sign">{</span>
+            <span class="function">position</span><span class="sign">:</span> absolute<span class="sign">;</span>
+            <span class="function">top</span><span class="sign">:</span> 50%<span class="sign">;</span>
+            <span class="function">left</span><span class="sign">:</span> 50%<span class="sign">;</span>
+            <span class="function">width</span><span class="sign">:</span> 310px<span class="sign">;</span>
+            <span class="function">height</span><span class="sign">:</span> 310px<span class="sign">;</span>
+            <span class="function">transform</span><span class="sign">:</span> translate(-50%, -50%)<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        #middle
+        <span class="sign">{</span>
+            <span class="function">display</span><span class="sign">:</span> flex<span class="sign">;</span>
+            <span class="function">align-items</span><span class="sign">:</span> center<span class="sign">;</span>
+            <span class="function">text-align</span><span class="sign">:</span> center<span class="sign">;</span> 
+            <span class="function">background-color</span><span class="sign">:</span> pink<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        #right2
+        <span class="sign">{</span>
+            <span class="function">top</span><span class="sign">:</span> 208px<span class="sign">;</span>
+            <span class="function">background-color</span><span class="sign">:</span> yellowgreen<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        #left2
+        <span class="sign">{</span>
+            <span class="function">top</span><span class="sign">:</span> 208px<span class="sign">;</span>
+            <span class="function">left</span><span class="sign">:</span> 0px<span class="sign">;</span>
+            <span class="function">background-color</span><span class="sign">:</span> lightblue<span class="sign">;</span>
+        <span class="sign">}</span>
+        
+        .box
+        <span class="sign">{</span>
+            <span class="function">position</span><span class="sign">:</span> absolute<span class="sign">;</span> 
+            <span class="function">top</span><span class="sign">:</span> 0px<span class="sign">;</span> 
+            <span class="function">left</span><span class="sign">:</span> 208px<span class="sign">;</span>
+        <span class="sign">}</span>
+        
+        .box2
+        <span class="sign">{</span>
+            <span class="function">width</span><span class="sign">:</span> 100px<span class="sign">;</span>
+            <span class="function">height</span><span class="sign">:</span> 100px<span class="sign">;</span>
+            <span class="function">border</span><span class="sign">:</span> 1px solid black<span class="sign">;</span>
+            <span class="function">background-color</span><span class="sign">:</span> brown<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        #rounded
+        <span class="sign">{</span>
+            <span class="function">background-color</span><span class="sign">:</span> blueviolet<span class="sign">;</span>
+            <span class="function">border-radius</span><span class="sign">:</span> 7px<span class="sign">;</span>
+        <span class="sign">}</span>
+    <span class="function">&lt;/style&gt;</span>
+<span class="function">&lt;/head&gt;</span>
+<span class="function">&lt;body&gt;</span>
+    <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"middle"</span>&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"middle box2"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"middle"</span>&gt;</span>Example<span class="function">&lt;/div&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"box2"</span>&gt;</span>HTML<span class="function">&lt;/div&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"box box2"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"rounded"</span>&gt;</span>CSS<span class="function">&lt;/div&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"box box2"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"right2"</span>&gt;</span>Flexbox<span class="function">&lt;/div&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"box box2"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"left2"</span>&gt;</span>Display<span class="function">&lt;/div&gt;</span>
+    <span class="function">&lt;/div&gt;</span>
+<span class="function">&lt;/body&gt;</span>
+<span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
+
+                                    <iframe src="flexbox-example.html" title="Example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="v1"></iframe>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;!DOCTYPE html&gt;</span>
+<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
+<span class="function">&lt;head&gt;</span>
+    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="function">&lt;title&gt;</span>CSS Flexbox example<span class="function">&lt;/title&gt;</span>
+    <span class="function">&lt;style&gt;</span>
+        .middle 
+        <span class="sign">{</span>
+            <span class="function">position</span><span class="sign">:</span> absolute<span class="sign">;</span>
+            <span class="function">top</span><span class="sign">:</span> 50%<span class="sign">;</span>
+            <span class="function">left</span><span class="sign">:</span> 50%<span class="sign">;</span>
+            <span class="function">width</span><span class="sign">:</span> 350px<span class="sign">;</span>
+            <span class="function">height</span><span class="sign">:</span> 350px<span class="sign">;</span>
+            <span class="function">background-color</span><span class="sign">:</span> orange;
+            <span class="function">transform</span><span class="sign">:</span> <span class="function">translate</span>(-50%, -50%)<span class="sign">;</span>
+        <span class="sign">}</span>
+        
+        #middle
+        <span class="sign">{</span>
+            <span class="function">width</span><span class="sign">:</span> 100px<span class="sign">;</span>
+            <span class="function">height</span><span class="sign">:</span> 100px<span class="sign">;</span>
+            <span class="function">display</span><span class="sign">:</span> flex<span class="sign">;</span>
+            <span class="function">align-items</span><span class="sign">:</span> center<span class="sign">;</span>
+            <span class="function">text-align</span><span class="sign">:</span> center<span class="sign">;</span> 
+            <span class="function">background-color</span><span class="sign">:</span> pink<span class="sign">;</span>
+            <span class="function">z-index</span><span class="sign">:</span> 5<span class="sign">;</span>
+            <span class="function">border</span><span class="sign">:</span> 3px solid teal<span class="sign">;</span>
+        <span class="sign">}</span>
+        
+        #one
+        <span class="sign">{</span>
+            <span class="function">width</span><span class="sign">:</span> 150px<span class="sign">;</span>
+            <span class="function">height</span><span class="sign">:</span> 150px<span class="sign">;</span>
+            <span class="function">background-color</span><span class="sign">:</span> brown<span class="sign">;</span>
+            <span class="function">z-index</span><span class="sign">:</span> 4<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        #two
+        <span class="sign">{</span>
+            <span class="function">width</span><span class="sign">:</span> 200px<span class="sign">;</span>
+            <span class="function">height</span><span class="sign">:</span> 200px<span class="sign">;</span>
+            <span class="function">background-color</span><span class="sign">:</span> blueviolet<span class="sign">;</span>
+            <span class="function">z-index</span><span class="sign">:</span> 3<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        #three
+        <span class="sign">{</span>
+            <span class="function">width</span><span class="sign">:</span> 250px<span class="sign">;</span>
+            <span class="function">height</span><span class="sign">:</span> 250px<span class="sign">;</span>
+            <span class="function">background-color</span><span class="sign">:</span> yellowgreen<span class="sign">;</span>
+            <span class="function">z-index</span><span class="sign">:</span> 2<span class="sign">;</span>
+        <span class="sign">}</span>
+
+        #four
+        <span class="sign">{</span>
+            <span class="function">width</span><span class="sign">:</span> 300px<span class="sign">;</span>
+            <span class="function">height</span><span class="sign">:</span> 300px<span class="sign">;</span>
+            <span class="function">background-color</span><span class="sign">:</span> lightblue<span class="sign">;</span>
+            <span class="function">z-index</span><span class="sign">:</span> 1<span class="sign">;</span>
+            <span class="function">box-shadow</span><span class="sign">:</span> 0 0 20px black<span class="sign">;</span> 
+        <span class="sign">}</span>
+
+        .box
+        <span class="sign">{</span>
+            <span class="function">position</span><span class="sign">:</span> absolute<span class="sign">;</span> 
+            <span class="function">border</span><span class="sign">:</span> 1px solid black<span class="sign">;</span>
+        <span class="sign">}</span>
+    <span class="function">&lt;/style&gt;</span>
+<span class="function">&lt;/head&gt;</span>
+<span class="function">&lt;body&gt;</span>
+    <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"middle"</span>&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"box middle"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"middle"</span>&gt;</span>Example<span class="function">&lt;/div&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"box middle"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"one"</span>&gt;</span>HTML<span class="function">&lt;/div&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"box middle"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"two"</span>&gt;</span>CSS<span class="function">&lt;/div&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"box middle"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"three"</span>&gt;</span>Flexbox<span class="function">&lt;/div&gt;</span>
+        <span class="function">&lt;div <span class="command">class</span><span class="sign">=</span><span class="text">"box middle"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"four"</span>&gt;</span>Display<span class="function">&lt;/div&gt;</span>
+    <span class="function">&lt;/div&gt;</span>
+<span class="function">&lt;/body&gt;</span>
+<span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
+
+                                    <iframe src="z-index-example.html" title="Example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="v1"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>
