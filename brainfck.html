@@ -85,7 +85,107 @@
                                     <h5 class="m-0 font-weight-bold">Brainf*ck - a programming language</h5>
                                 </div>
                                 <div class="card-body">
-                                    
+                                    <p>Brainfuck is a minimalist, esoteric programming language created by Urban Müller in 1993. It is known for its simplicity, as the entire language consists of only eight commands. Despite its simplicity, Brainfuck is Turing-complete, meaning it can theoretically solve any computational problem given enough time and memory.</p>
+
+                                    <p>While Brainfuck isn't practical for real-world applications, it is an excellent exercise in understanding the fundamentals of computation, memory management, and instruction handling. Programmers often explore Brainfuck for fun or as a challenge to better understand low-level programming concepts.</p>
+                                
+                                    <h2>The eight Brainfuck commands</h2>
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><b>Command</b></td>
+                                            <td><b>Description</b></td>
+                                            <td><b>C language equivalent</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>&gt;</code></td>
+                                            <td>Moving the memory pointer to the right.</td>
+                                            <td><code>++p;</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>&lt;</code></td>
+                                            <td>Moving the memory pointer to the left.</td>
+                                            <td><code>--p;</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>+</code></td>
+                                            <td>Incrementing the memory cell at the pointer.</td>
+                                            <td><code>++(*p);</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>-</code></td>
+                                            <td>Decrementing the memory cell at the pointer.</td>
+                                            <td><code>--(*p);</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.</code></td>
+                                            <td>Displaying the character at the memory cell.</td>
+                                            <td><code>putchar(*p);</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>,</code></td>
+                                            <td>Inputting a character and storing it in the memory cell.</td>
+                                            <td><code>*p=getchar();</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>[</code></td>
+                                            <td>Starting a loop - executing the instructions inside until the memory cell is zero.</td>
+                                            <td><code>while(*p){</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>]</code></td>
+                                            <td>Ending a loop.</td>
+                                            <td><code>}</code></td>
+                                        </tr>
+                                    </table></div>
+
+                                    <p>Brainfuck operates on an array of memory cells (usually 30,000), each initialized to zero (<code>char array[30000] = {0};</code>). A pointer starts at the first cell and can move left or right across the array. Commands modify the value at the current memory cell or handle input/output.</p>
+
+                                    <h2>The ASCII table</h2>
+
+                                    <img src="files/courses/ascii.jpg" alt="ASCII" class="img-fluid" style="width: 70%; margin-bottom: 20px;">
+                                
+                                    <h2>"Hello, World!" program</h2>
+
+                                    <p>Everything that is not a Brainf*ck command is treated as a comment.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">// A loop setting convenient values (near letters in ASCII)
+
+<span class="function">++++++++++</span> // Cell 0 = 10
+<span class="function">[</span> // While loop (as long as cell 0 is not 0)
+<span class="function">&gt;+++++++</span> // Cell 1 add 7 
+<span class="function">&gt;++++++++++</span> // Cell 2 add 10
+<span class="function">&gt;+++</span> // Cell 3 add 3
+<span class="function">&gt;+</span> // Cell 4 add 1
+<span class="function">&lt;&lt;&lt;&lt;-</span> // Return to cell 0 and decrement it
+<span class="function">]</span>
+
+// After the loop ends:
+// Cell 1 = 70
+// Cell 2 = 100
+// Cell 3 = 30
+// Cell 4 = 10
+
+<span class="function">&gt;++.</span> // Cell 1 (70) add 2 = 72 (in ASCII 'H') = prints
+<span class="function">&gt;+.</span> // Cell 2 (100) add 1 = 101 (in ASCII 'e') = prints
+<span class="function">+++++++.</span> // Cell 2 (101) add 7 = 108 (in ASCII 'l') = prints
+<span class="function">.</span> // prints l
+<span class="function">+++.</span> // Cell 2 (108) add 3 = 111 (in ASCII 'o') = prints
+<span class="function">&gt;++.</span> // Cell 3 (30) add 2 = 32 (in ASCII ' ') = prints
+<span class="function">&lt;&lt;+++++++++++++++.</span> // Cell 1 (72) add 15 = 87 (in ASCII 'W') = prints
+<span class="function">&gt;.</span> // Cell 2 (111) (in ASCII 'o') = prints
+<span class="function">+++.</span> // Cell 2 (111) add 3 = 114 (in ASCII 'r') = prints
+<span class="function">------.</span> // Cell 2 (114) subtract 6 = 108 (in ASCII 'l') = prints
+<span class="function">--------.</span> // Cell 2 (114) subtract 6 = 108 (in ASCII 'l') = prints
+<span class="function">&gt;+.</span> // Cell 3 (32) add 1 = 33 (in ASCII '!') = prints
+<span class="function">&gt;.</span> // Cell 4 (10) (in ASCII '\n') = prints</span>
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">++++++++++[&gt;+++++++&gt;++++++++++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;++.&gt;+.+++++++..+++.&gt;++.&lt;&lt;+++++++++++++++.&gt;.+++.------.--------.&gt;+.&gt;.</span>
+                                    </code></pre>
+                                
+                                    <p>You can find a Brainf*ck compiler <a href="https://tio.run/#brainfuck" target="_blank" class="link">here</a>.</p>                            
                                 </div>
                             </div>
                         </div>
