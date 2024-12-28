@@ -88,24 +88,110 @@
                                     <p>We can do something like the example below because classes are also objects.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-def fun():
-    class C:
-        pass
-    return C
+<span class="function">def</span> fun():
+    <span class="function">class</span> C:
+        <span class="function">pass</span>
+    <span class="function">return</span> C
                                     </code></pre>
 
-                                    <p>Every object needs another higher-level object that creates them. A class is that object for its instances (it defines its attributes), and a metaclass is that object for a class itself. An instance of a metaclass is a class. They are always working automatically in the background, and today, we will learn how to use them for our purposes.</p>
+                                    <p>Every object needs another higher-level object that creates them. A class is that object for its instances (it defines its attributes), and a metaclass is that object for a class itself. An instance of a metaclass is a class. They are always working automatically in the background, and today, we will learn how to leverage them for our purposes.</p>
 
-                                    <p>The type of this class is <code>&lt;class 'type'&gt;</code>. <code>'type'</code> is what defines the rules and creates the class. This object is a metaclass. Whenever we write a class, we call the <code>'type'</code> constructor that creates the class object.</p>
+                                    <p>The type of a class is <code>&lt;class 'type'&gt;</code>. <code>'type'</code> is what defines the rules and creates the class. It is a metaclass. Whenever we write a class, we call the <code>'type'</code> constructor that creates the class object.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-class C:
-    def method(self):
-        print("Method.")
-print(type(C))
+<span class="function">class</span> C:
+    <span class="function">def</span> method(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Method"</span>)
+
+<span class="command">print</span>(<span class="function">C</span>()) <span class="comment"># &lt;__main__.C object at ...&gt; (an instance of a class)</span>
+<span class="command">print</span>(<span class="function">type</span>(<span class="function">C</span>())) <span class="comment"># &lt;class '__main__.C'&gt; (type of a class instance)</span>
+<span class="command">print</span>(<span class="function">type</span>(<span class="function">C</span>)) <span class="comment"># &lt;class 'type'&gt; (type of a class itself)</span>
                                     </code></pre>
 
-                                    <p>This means that we can create a class using <code>type</code> directly, as shown below. The parameters of the <code>type()</code> function are: the class name, a tuple of classes it inherits from (its bases), and a dictionary of attributes.</p>
+                                    <p>This means that we can create a class using the <code>type()</code> function directly, as shown below. The parameters of the <code>type()</code> function are: the class name, a tuple of classes it inherits from (its bases), and a dictionary of attributes.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> method(<span class="function">self</span>):
+    <span class="function">self</span>.y <span class="sign">=</span> 3
+
+C <span class="sign">=</span> <span class="function">type</span>(<span class="text">"C"</span>, (), {<span class="text">"x"</span>: 3, <span class="text">"method"</span>: method}) <span class="comment"># we write the function name without parentheses because we want to get the function object and not to call it</span>
+cc <span class="sign">=</span> <span class="function">C</span>()
+<span class="command">print</span>(cc.x)
+
+cc.method()
+<span class="command">print</span>(cc.y)
+
+<span class="command">print</span>(<span class="function">C</span>()) <span class="comment"># &lt;__main__.C object at ...&gt;</span>
+                                    </code></pre>
+
+                                    <h4>Creating a metaclass</h4>
+
+                                    <p>All metaclasses have to inherit from <code>type</code>. Inside them, we use the <code>__new__</code> dunder method. It is called before the <code>__init__</code> method and defines how the object itself is constructed (<code>__init__</code> initializes it, defines its attributes, etc.) This method has to return a <code>type</code> object so the class is created. When used inside a metaclass, we can utilize it to change the structure of the classes using this metaclass. In the example below, we change nothing but only print the attributes of the <code>C</code> class.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Meta(<span class="function">type</span>):
+    <span class="function">def __new__</span>(<span class="function">self</span>, class_name, bases, attributes):
+        <span class="command">print</span>(attributes)
+        <span class="function">return</span> <span class="function">type</span>(class_name, bases, attributes)
+
+<span class="function">class</span> C(<span class="command">metaclass</span> <span class="sign">=</span> Meta):
+    x <span class="sign">=</span> 5
+    y <span class="sign">=</span> 8
+    <span class="function">def</span> method(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Method"</span>)
+
+c <span class="sign">=</span> <span class="function">C</span>() <span class="comment"># even without an instance, the attributes would still be printed out because the class object itself was created</span>
+<span class="command">print</span>(c.x) <span class="comment"># 5</span>
+                                    </code></pre>
+
+                                    <p>Below, we can see an example of how we can modify the class structure from the metaclass. We swap the <code>x</code> and <code>y</code> attributes, and even though the <code>x</code> is defined as 5 in the class, when we print it, the result will be 8. We could also, e.g., change all attributes (except the dunder methods like <code>__qualname__</code> which means the class name) to uppercase. This is just an example useless in real-world applications, but it effectively shows how metaclasses work.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Meta(<span class="function">type</span>):
+    <span class="function">def __new__</span>(<span class="function">self</span>, class_name, bases, attributes):
+        <span class="command">print</span>(attributes)
+        attrs <span class="sign">=</span> {}
+        <span class="function">for</span> name, value <span class="function">in</span> attributes.<span class="command">items</span>():
+            <span class="function">if</span> name <span class="sign">==</span> <span class="text">"x"</span>:
+                attrs[<span class="text">"y"</span>] <span class="sign">=</span> value
+            <span class="function">elif</span> name <span class="sign">==</span> <span class="text">"y"</span>:
+                attrs[<span class="text">"x"</span>] <span class="sign">=</span> value
+            <span class="function">else</span>:
+                attrs[name] <span class="sign">=</span> value
+
+        <span class="command">print</span>(attrs)
+        <span class="function">return</span> <span class="function">type</span>(class_name, bases, attrs)
+
+<span class="function">class</span> C(<span class="command">metaclass</span> <span class="sign">=</span> Meta):
+    x <span class="sign">=</span> 5
+    y <span class="sign">=</span> 8
+    <span class="function">def</span> method(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Method"</span>)
+
+c <span class="sign">=</span> <span class="function">C</span>()
+<span class="command">print</span>(c.x) <span class="comment"># 8</span>
+                                    </code></pre>
+
+                                    <h4>Real-world applications</h4>
+
+                                    <p>Metaclasses are not commonly used in everyday programming, but they become necessary in certain situations, such as when we have to add mandatory attributes (variables or methods) to every class or enforce specific rules across multiple classes. They are primarily used in the development of libraries or frameworks. The example below shows how we can add a method to every class using our metaclass.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> getX(<span class="function">self</span>):
+    <span class="function">return self</span>._C__x  <span class="comment"># accessing the private attribute</span>
+
+<span class="function">class</span> Meta(<span class="function">type</span>):
+    <span class="function">def __new__</span>(<span class="function">self</span>, class_name, bases, attributes):
+        attributes[<span class="text">"getX"</span>] <span class="sign">=</span> getX
+        <span class="function">return</span> <span class="function">type</span>(class_name, bases, attributes)
+
+<span class="function">class</span> C(<span class="command">metaclass</span> <span class="sign">=</span> Meta):
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.__x <span class="sign">=</span> 5
+
+c <span class="sign">=</span> <span class="function">C</span>()
+<span class="command">print</span>(c.getX())
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

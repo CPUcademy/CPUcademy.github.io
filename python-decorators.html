@@ -89,9 +89,9 @@
             
                                     <h2>Class methods</h2>
                                     
-                                    <p>Class methods are bound to the class, not to individual class objects like regular methods. We create them by writing a <code>@classmethod</code> decorator before them. They take the <code>cls</code> argument (not <code>self</code>). It works the same as <code>self</code>, except that <code>self</code> refers to an object of a class (its instance), and <code>cls</code> refers to the class itself. Class methods don't have access to the fields (objects with <code>self</code>), but they can refer to class attributes (via <code>cls</code> or the class name). Class attributes are, in other words, static variables (they do not contain <code>self</code> and are placed outside methods). A static variable is a variable that won't be deleted even after deleting the instance of its class (its address is reserved only once). It is shared by all objects.</p>
+                                    <p>Class methods are bound to the class, not to individual class objects (instances) like regular methods. We create them by writing a <code>@classmethod</code> decorator before them. They take the <code>cls</code> argument (not <code>self</code>). It works the same as <code>self</code>, except that <code>self</code> refers to an object of a class (its instance), and <code>cls</code> refers to the class itself. Class methods don't have access to the fields (objects with <code>self</code>), but they can refer to class attributes (via <code>cls</code> or the class name). Class attributes are, in other words, static variables (they do not contain <code>self</code> and are placed outside methods). A static variable is a variable that won't be deleted even after deleting the instance of its class (its address is reserved only once). It is shared by all objects and not tied to any class instance.</p>
 
-                                    <p>Class methods are used to modify the value of static variables inside the class and create alternative constructors and factory methods. Factory methods are class methods that return an instance of the class. They are used for, e.g., creating alternative constructors. They can be useful when there are several variations of arguments a class can take, e.g., instead of the user's age, we can take his date of birth and then calculate the age.</p>
+                                    <p>Class methods are used to modify the value of static variables inside the class and create factory methods. Factory methods are class methods that return an instance of the class. They are used for, e.g., creating alternative constructors. They can be useful when there are several variations of arguments a class can take. For example, instead of the user's age, we can take his date of birth and then calculate the age. We can call class methods using the class directly without creating its instance.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Overall example</span>
@@ -114,8 +114,8 @@ e.method()
 <span class="command">del</span> e
 <span class="command">print</span>(<span class="function">Example</span>.x)
 
-<span class="comment"># e.classMethod() - this shouldn't be used</span>
-<span class="comment"># Example.method() - this won't work</span>
+<span class="comment"># e.classMethod() - this shouldn't be used (we should call class methods using the class directly: Example.classMethod())</span>
+<span class="comment"># Example.method() - this won't work ("normal" methods can be called only through a class instance)</span>
                                     </code></pre>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -130,7 +130,7 @@ e.method()
 
     <span class="command">@classmethod</span></span>
     <span class="function">def</span> from_birth_year(<span class="function">cls</span>, name, birth_year): <span class="comment"># the alternative constructor</span>
-        <span class="function">return cls</span>(name, 2024 <span class="sign">-</span> birth_year) <span class="comment"># calling the class constructor</span>
+        <span class="function">return cls</span>(name, 2024 <span class="sign">-</span> birth_year) <span class="comment"># invoking (calling) the class constructor</span>
 
 e <span class="sign">=</span> <span class="function">Person</span>(<span class="text">"Josh"</span>, 25)
 e2 <span class="sign">=</span> <span class="function">Person</span>.from_birth_year(<span class="text">"John"</span>, 1980) <span class="comment"># using the alternative constructor</span>
@@ -150,14 +150,16 @@ e2 <span class="sign">=</span> <span class="function">Person</span>.from_birth_y
     <span class="function">def</span> class_method(<span class="function">cls</span>):
         <span class="function">return cls</span>.y
 
-<span class="command">print</span>(<span class="function">Example</span>.class_method()) <span class="comment"># 0</span>
+<span class="command">print</span>(<span class="function">Example</span>.class_method()) <span class="comment"># 0, because no instances have been created yet</span>
 e <span class="sign">=</span> <span class="function">Example</span>()
 <span class="command">print</span>(<span class="function">Example</span>.class_method()) <span class="comment"># 1</span>
                                     </code></pre>
                                     
                                     <h2>Static methods</h2>
                                     
-                                    <p>The same rule as with static variables applies to methods. We can call static methods using the class directly without creating its instance. They take neither a <code>self</code> nor a <code>cls</code> argument, which makes them essentially ordinary functions within the class. They have no access to the class's objects. Static methods differ from outside functions because we can override them later in a child class.</p>
+                                    <p>The same rule as with static variables applies to methods. We can call static methods using the class directly without creating its instance (like class methods). They take neither a <code>self</code> nor a <code>cls</code> argument, which makes them essentially ordinary functions within the class. They have no access to the class's objects. Static methods differ from outside functions because we can override them later in a child class.</p>
+
+                                    <p>In summary: class methods are bound to the class and take <code>cls</code> as their first parameter, allowing them to access and modify class-level attributes (static variables) or create alternative constructors. Static methods, on the other hand, act as utility functions within the class that cannot access or modify class or instance attributes.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Example:
