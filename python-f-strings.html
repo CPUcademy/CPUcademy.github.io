@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
     <link rel="stylesheet" href="css/styles.css" type="text/css"/>
-    <title>Creating your own modules</title>
+    <title>F strings</title>
 </head>
 
 <body id="page-top">
@@ -82,20 +82,22 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Creating your own modules</h5>
+                                    <h5 class="m-0 font-weight-bold">F strings</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>In this lesson, you will learn how to create your own module (library) and deploy it in PyPi so anyone can install and use it. First, make sure you have the <code>pip</code> command added to <code>PATH</code> like shown <a href="python-popular-problems-no-module-named-pygame.html" class="link">here</a>.</p>
+                                    <p>F strings make it easier to combine strings, variables, and data structures. We use them by putting the letter "f" before a string. We can enter the names of variables and data structures in curly brackets inside the string, and they won't be considered just part of the text (their values will be incorporated into the string).</p>
 
-                                    <ol>
-                                        <li>Create an account at <a href="https://pypi.org/" target="_blank" class="link">PyPi</a>.</li>
-                                        <li>In the account settings, generate an API token and save it for later.</li>
-                                        <li>Download all the necessary files from <a href="https://drive.google.com/drive/folders/1q1r3Xxxa6N1ucbnA54rmZionkQDASitg?usp=sharing" target="_blank" class="link">here</a>. Customize the <code>setup.py</code>, <code>README.rst</code>, <code>MANIFEST.in</code>, and <code>LICENSE.txt</code> files. Your classes go in the <code>__init__.py</code> file.</li>
-                                        <li>Install the <code>setuptools</code> and <code>twine</code> libraries using the <code>pip install</code> command.</li>
-                                        <li>Go to the folder with downloaded files in CMD using the <code>cd</code> command.</li>
-                                        <li>Execute the following commands: <code>python setup.py sdist</code>, <code>python -m twine upload dist/*</code>. The second command will ask you for authorization using the API token. After these commands finished executing, your library will be ready.</li>
-                                        <li>Install your library using the <code>pip install</code> command and enjoy! Its documentation (the <code>README.rst</code> content) is available on the PyPi website.</li>
-                                    </ol>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+list1 <span class="sign">=</span> [<span class="text">"a"</span>, <span class="text">"b"</span>, <span class="text">"c"</span>]
+<span class="command">print</span>(<span class="text">f"{list1[0]}, {list1[1]}, {list1[2]}"</span>)
+                                    </code></pre>
+                                    
+                                    <p>While using F strings, we can round a <code>float</code> number to a selected number of decimal places.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+number <span class="sign">=</span> 5.42284712349824149000741293
+<span class="command">print</span>(<span class="text">f"{number:.2f}"</span>)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

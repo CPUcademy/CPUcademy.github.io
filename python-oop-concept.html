@@ -85,7 +85,7 @@
                                     <h5 class="m-0 font-weight-bold">OOP concept</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>OOP stands for Object-Oriented Programming. In OOP, we use classes, which are templates that define the structure and behavior of objects. Objects are the basic units in OOP. A class is a mold for creating objects. It represents a set of objects (an object is a being belonging to a class). Functions that are created inside classes are called methods. When we assign a class to a variable, we can use the methods of this class by referring to this variable. Attributes are variables associated with an object. An instance of a class is an object that belongs to that class. By convention, names of classes start with a capital letter (the first letter in the name of a function should be in lowercase).</p>
+                                    <p>OOP stands for Object-Oriented Programming. In OOP, we use classes, which are templates that define the structure and behavior of objects. Objects are the basic units in OOP. A class is a mold for creating objects. It represents a set of objects (an object is a being belonging to a class). Functions that are created inside classes are called methods. When we assign a class to a variable, we can use the methods of this class by referring to this variable. Attributes are objects (variables and methods) associated with a class. An instance of a class is an object of that class. By convention, names of classes start with a capital letter (the first letter in the name of a function should be in lowercase).</p>
                 
                                     <h2>Abstraction</h2>
                                     
@@ -159,7 +159,7 @@ b.withdraw(400)
 
                                     <h2>Static objects</h2>
                                 
-                                    <p>A static variable is a variable that won't be deleted while "exiting" a method (its address is reserved only once). A variable of this type will still exist even if an instance of the class does not. It is shared by all objects. We create static variables outside methods. I will cover static methods in a lesson about decorators.</p>
+                                    <p>A static variable is a variable that won't be deleted while "exiting" a method (its address is reserved only once). A variable of this type will still exist even if an instance of the class does not. It is shared by all objects and not tied to any class instance. We create static variables outside methods. A static variable is also called a class attribute. I will cover static methods in a lesson about decorators.</p>
                                 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Example:
@@ -171,8 +171,13 @@ x <span class="sign">=</span> <span class="function">Example</span>()
 x.method()
 x2 <span class="sign">=</span> <span class="function">Example</span>()
 x2.method()
-<span class="command">print</span>(x.static_variable, x2.static_variable)
+<span class="command">print</span>(x.static_variable, x2.static_variable, <span class="function">Example</span>.static_variable)
+
+<span class="function">Example</span>.static_variable2 <span class="sign">=</span> 3 <span class="comment"># we can also create class attributes outside the class</span>
+<span class="command">print</span>(<span class="function">Example</span>.static_variable2)
                                     </code></pre>
+
+
                                     
                                     <h2>Method errors</h2>
                                     

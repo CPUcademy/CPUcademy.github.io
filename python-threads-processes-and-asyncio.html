@@ -194,7 +194,7 @@ threads <span class="sign">=</span> []
 
                                     <h2><a id="processes">Processes, GIL (Global Interpreter Lock)</a></h2>
 
-                                    <p>The Global Interpreter Lock (GIL) is a mechanism used in CPython (the most widely used Python interpreter) to ensure that only one thread executes Python bytecode simultaneously in a single process. This limitation prevents true parallelism in CPU-bound tasks but <b>does not affect I/O-bound tasks</b>. If our program is CPU-bound and we want to take full advantage of multiple CPU cores, we can bypass the GIL by using the <code>multiprocessing</code> library, which spawns separate processes, each with its own Python interpreter and GIL. Use this library specifically for CPU-bound tasks to utilize multiple cores.</p>
+                                    <p>The Global Interpreter Lock (GIL) is a mechanism used in CPython (the most widely used Python interpreter) to ensure that only one thread executes Python bytecode simultaneously in a single process. This limitation prevents true parallelism in CPU-bound tasks but <b>does not affect I/O-bound tasks</b> like network or file operations. If our program is CPU-bound and we want to take full advantage of multiple CPU cores, we can bypass the GIL by using the <code>multiprocessing</code> library, which spawns separate processes, each with its own Python interpreter and GIL. Use this library specifically for CPU-bound tasks to utilize multiple cores.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> multiprocessing

@@ -289,13 +289,34 @@ m =</span> os.<span class="command">system</span>(<span class="text">"mkdir dir"
                                     <p>If we want to execute a function only if it's running from this file and is not imported from another file, we can use a conditional statement like shown below. It is commonly used to execute the main function of a program.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">if</span> __name__ <span class="sign">==</span> <span class="text">"__main__"</span>:
+<span class="function">if __name__</span> <span class="sign">==</span> <span class="text">"__main__"</span>:
     <span class="function">pass</span>
                                     </code></pre>
                                     
                                     <h2>Pip</h2>
                                     
                                     <p>At this level, everyone has probably already encountered this command. It is the official and default package management system for the Python language environment, using a dedicated repository called Python Package Index or other remote and local repositories. The list of modules that can be downloaded with pip is available at the <a href="https://pypi.org/" target="_blank" class="link">pypi.org</a> website. The <code>pip</code> module can be found in this folder: <code>C:\Users\[username]\AppData\Local\Programs\Python\Python311\Scripts</code>. To use it, we must move to this location in the CMD console using the <code>cd</code> command. Then, we can execute, for example, the <code>pip install ...</code> command, which will install a library that is not installed by default. If we want to update a library, we have to type: <code>pip install --upgrade ...</code>. To update <code>pip</code> itself, we would have to use this command: <code>python.exe -m pip install --upgrade pip</code>. Check out <a href="python-popular-problems-no-module-named-pygame.html" class="link">this</a> article to learn about <code>PATH</code>.</p>
+
+                                    <h2>Executing programs from a terminal</h2>
+
+                                    <p><code>python file.py</code> (remember that you have to be in the same folder as the file in CMD)</p>
+
+                                    <h4>Executing programs that take arguments</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> sys
+
+<span class="function">if</span> <span class="command">len</span>(sys.<span class="command">argv</span>) <span class="sign">&gt;</span> 1:
+    script_name <span class="sign">=</span> sys.<span class="command">argv</span>[0]
+    <span class="command">print</span>(<span class="text">"Script Name:"</span>, script_name)
+    <span class="command">print</span>(<span class="text">"Arguments:"</span>)
+    <span class="function">for</span> x <span class="function">in</span> sys.<span class="command">argv</span>[1:]:
+        <span class="command">print</span>(x)
+<span class="function">else</span>:
+    <span class="command">print</span>(<span class="text">"No arguments passed."</span>)
+                                    </code></pre>
+
+                                    <p>Example calling: <code>python file.py 3 3.5 "f"</code>.</p>
                                 </div>
                             </div>
                         </div>

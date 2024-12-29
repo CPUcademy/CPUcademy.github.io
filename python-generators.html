@@ -115,6 +115,34 @@ iter_l <span class="sign">=</span> <span class="command">iter</span>(l)
     <span class="function">pass</span>                         
                                     </code></pre>
                                     
+                                    <p>The example shows how we can use a custom iterable class (<code>MyList</code>) and apply OOP principles to iterate over a list using <code>__iter__</code> and <code>__next__</code> (dunder methods equivalents for <code>next()</code> and <code>iter()</code>).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> MyList:
+    <span class="function">def __init__</span>(<span class="function">self</span>, values):
+        <span class="function">self</span>.values <span class="sign">=</span> values
+
+    <span class="function">def __iter__</span>(<span class="function">self</span>):
+        <span class="comment"># Initializing the iterator (starting position)</span>
+        <span class="function">self</span>.index <span class="sign">=</span> 0
+        <span class="function">return self</span>
+
+    <span class="function">def __next__</span>(<span class="function">self</span>):
+        <span class="comment"># Checking if there are still elements left</span>
+        <span class="function">if self</span>.index <span class="sign">&lt;</span> <span class="command">len</span>(<span class="function">self</span>.values):
+            value <span class="sign">=</span> <span class="function">self</span>.values[<span class="function">self</span>.index]
+            <span class="function">self</span>.index <span class="sign">+=</span> 1
+            <span class="function">return</span> value
+        <span class="function">else</span>:
+            <span class="function">raise StopIteration</span>
+
+my_list <span class="sign">=</span> <span class="function">MyList</span>([<span class="text">"1"</span>, <span class="text">"2"</span>, <span class="text">"3"</span>])
+
+<span class="comment"># Using the iterator in a loop</span>
+<span class="function">for</span> item <span class="function">in</span> my_list:
+    <span class="command">print</span>(item)
+                                    </code></pre>
+                                    
                                     <p>A generator is a special type of iterable object that allows us to iterate over a sequence of items without needing to store the entire sequence in memory at once. It is defined using functions that contain one or more <code>yield</code> statements instead of <code>return</code>.</p>
                                     
                                     <p>When the <code>yield</code> keyword executes, it pauses the execution of the function, returns a value to whatever is iterating through the generator object, and comes back to the function. This means it returns a value multiple times and comes back to executing the next iterations after each yield (unless the iterator has ended) instead of storing the whole sequence in the memory and returning it at the end. The two examples below have the same output, except the last value of the second program is <code>4</code> and not <code>y</code>, because the <code>next()</code> function ends the iteration once it completes the last <code>yield</code>. When we manually call <code>next()</code>, the function halts after yielding all its values and doesn’t proceed to the <code>print("y")</code> statement. The loop going through the generator (from the first example) handles the entire iteration and reaches the final <code>print("y")</code>.</p>
