@@ -85,13 +85,30 @@
                                     <h5 class="m-0 font-weight-bold">Decorators</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>A decorator is a design pattern that allows us to add new functionalities to an existing object without modifying its structure. A design pattern is a reusable solution to a commonly occurring problem in software design.</p>
+                                    <p>A decorator is a function to which we give another function as an argument, and it returns a new function that usually extends or modifies the behavior of the original function. One function can have multiple decorators assigned. They are used to add reusable code and improve its readability and maintainability.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> decorator_method(func):
+    <span class="function">def</span> wrapper(x):
+        <span class="command">print</span>(<span class="text">"Before the function call"</span>)
+        func(x)
+        <span class="command">print</span>(<span class="text">"After the function call"</span>)
+        <span class="function">return</span> wrapper
+
+<span class="command">@decorator_method</span>
+<span class="function">def</span> f(x):
+    <span class="command">print</span>(x)
+
+f(<span class="text">"Function"</span>)                             
+                                    </code></pre>
+
+                                    <p>There are a lot of default decorators that allow us to enhance our classes.</p>
             
                                     <h2>Class methods</h2>
                                     
-                                    <p>Class methods are bound to the class, not to individual class objects (instances) like regular methods. We create them by writing a <code>@classmethod</code> decorator before them. They take the <code>cls</code> argument (not <code>self</code>). It works the same as <code>self</code>, except that <code>self</code> refers to an object of a class (its instance), and <code>cls</code> refers to the class itself. Class methods don't have access to the fields (objects with <code>self</code>), but they can refer to class attributes (via <code>cls</code> or the class name). Class attributes are, in other words, static variables (they do not contain <code>self</code> and are placed outside methods). A static variable is a variable that won't be deleted even after deleting the instance of its class (its address is reserved only once). It is shared by all objects and not tied to any class instance.</p>
+                                    <p>Class methods are bound to the class, not to individual class objects (instances) like regular methods. We create them by writing a <code>@classmethod</code> decorator before them. They take the <code>cls</code> argument (not <code>self</code>). It works the same as <code>self</code>, except that <code>self</code> refers to an object of a class (its instance), and <code>cls</code> refers to the class itself. Class methods don't have access to the fields (objects with <code>self</code>), but they can refer to class attributes (via <code>cls</code> or the class name). Class attributes are, in other words, static variables.</p>
 
-                                    <p>Class methods are used to modify the value of static variables inside the class and create factory methods. Factory methods are class methods that return an instance of the class. They are used for, e.g., creating alternative constructors. They can be useful when there are several variations of arguments a class can take. For example, instead of the user's age, we can take his date of birth and then calculate the age. We can call class methods using the class directly without creating its instance.</p>
+                                    <p>Class methods are used to modify the value of static variables inside the class and create factory methods. Factory methods are class methods that return an instance of the class. They are used for, e.g., creating alternative constructors. They can be useful when there are several variations of arguments a class can take. For example, instead of the user's age, we can take his date of birth and then calculate the age. We call class methods using the class directly without creating its instance (<code>Example.classMethod()</code>).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Overall example</span>

@@ -94,9 +94,9 @@
     <span class="function">return</span> C
                                     </code></pre>
 
-                                    <p>Every object needs another higher-level object that creates them. A class is that object for its instances (it defines its attributes), and a metaclass is that object for a class itself. An instance of a metaclass is a class. They are always working automatically in the background, and today, we will learn how to leverage them for our purposes.</p>
+                                    <p>Every object needs a higher-level object (such as a class or metaclass) to define its structure and behavior. A class is that object for its instances (it defines its attributes), and a metaclass is that object for a class itself. An instance of a metaclass is a class. They are always working automatically in the background, and today, we will learn how to leverage them for our purposes.</p>
 
-                                    <p>The type of a class is <code>&lt;class 'type'&gt;</code>. <code>'type'</code> is what defines the rules and creates the class. It is a metaclass. Whenever we write a class, we call the <code>'type'</code> constructor that creates the class object.</p>
+                                    <p>The type of a class is <code>&lt;class 'type'&gt;</code>. <code>type</code> is what defines the rules and creates the class. It is a metaclass. Whenever we write a class, we call the <code>type</code> constructor that creates the class object.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> C:
@@ -144,7 +144,7 @@ c <span class="sign">=</span> <span class="function">C</span>() <span class="com
 <span class="command">print</span>(c.x) <span class="comment"># 5</span>
                                     </code></pre>
 
-                                    <p>Below, we can see an example of how we can modify the class structure from the metaclass. We swap the <code>x</code> and <code>y</code> attributes, and even though the <code>x</code> is defined as 5 in the class, when we print it, the result will be 8. We could also, e.g., change all attributes (except the dunder methods like <code>__qualname__</code> which means the class name) to uppercase. This is just an example useless in real-world applications, but it effectively shows how metaclasses work.</p>
+                                    <p>Below, we can see an example of how we can modify the class structure from the metaclass. We swap the <code>x</code> and <code>y</code> attributes, and even though the <code>x</code> is defined as 5 in the class, when we print it, the result will be 8. We could also, e.g., change all attributes to uppercase (except the dunder methods like <code>__qualname__</code> which means the class name). This is just an example useless in real-world applications, but it effectively shows how metaclasses work.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Meta(<span class="function">type</span>):
@@ -153,9 +153,9 @@ c <span class="sign">=</span> <span class="function">C</span>() <span class="com
         attrs <span class="sign">=</span> {}
         <span class="function">for</span> name, value <span class="function">in</span> attributes.<span class="command">items</span>():
             <span class="function">if</span> name <span class="sign">==</span> <span class="text">"x"</span>:
-                attrs[<span class="text">"y"</span>] <span class="sign">=</span> value
+                attrs[<span class="text">"y"</span>] <span class="sign">=</span> value <span class="comment"># assigning the value of "x" to "y"</span>
             <span class="function">elif</span> name <span class="sign">==</span> <span class="text">"y"</span>:
-                attrs[<span class="text">"x"</span>] <span class="sign">=</span> value
+                attrs[<span class="text">"x"</span>] <span class="sign">=</span> value <span class="comment"># assigning the value of "y" to "x"</span>
             <span class="function">else</span>:
                 attrs[name] <span class="sign">=</span> value
 
@@ -174,7 +174,7 @@ c <span class="sign">=</span> <span class="function">C</span>()
 
                                     <h4>Real-world applications</h4>
 
-                                    <p>Metaclasses are not commonly used in everyday programming, but they become necessary in certain situations, such as when we have to add mandatory attributes (variables or methods) to every class or enforce specific rules across multiple classes. They are primarily used in the development of libraries or frameworks. The example below shows how we can add a method to every class using our metaclass.</p>
+                                    <p>Metaclasses are not commonly used in everyday programming, but they become necessary in certain situations, such as when we have to add mandatory attributes (variables or methods) to every class or enforce specific rules across multiple classes. They are primarily used in the development of libraries or frameworks. The example below shows how we can add a default method to every class using our metaclass.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> getX(<span class="function">self</span>):
