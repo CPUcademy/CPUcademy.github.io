@@ -85,7 +85,9 @@
                                     <h5 class="m-0 font-weight-bold">Generators</h5>
                                 </div>
                                 <div class="card-body">                                 
-                                    <p>An iterator is an object pointing at a particular position inside a container (a list). We use it to get to certain elements inside the list. Not all elements inside a container are in a row inside the memory (this was the case with arrays). An iterator is basically an object that contains a countable number of values. The <code>next()</code> function is a built-in function used to advance the iterator to the next item and return its value.</p>
+                                    <p>An iterator is an object that iterates over a container (e.g., a list), returning one value at a time. It allows sequential access to elements of a container which means it doesn't store it all in memory at once. The <code>next()</code> function is a built-in function that advances the iterator to the next item in the container and return its value.</p>
+
+                                    <p>Do not confuse it with an iterable which is a data structure we can iterate through with a loop.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 l <span class="sign">=</span> [<span class="text">"1"</span>, <span class="text">"2"</span>, <span class="text">"3"</span>]
@@ -115,7 +117,16 @@ iter_l <span class="sign">=</span> <span class="command">iter</span>(l)
     <span class="function">pass</span>                         
                                     </code></pre>
                                     
-                                    <p>The example shows how we can use a custom iterable class (<code>MyList</code>) and apply OOP principles to iterate over a list using <code>__iter__</code> and <code>__next__</code> (dunder methods equivalents for <code>next()</code> and <code>iter()</code>).</p>
+                                    <p>We can prevent the <code>StopIteration</code> error by providing a second argument to the <code>iter()</code> function (a callable object).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+l <span class="sign">=</span> [<span class="text">"1"</span>, <span class="text">"2"</span>, <span class="text">"3"</span>]
+iter_l <span class="sign">=</span> <span class="command">iter</span>(<span class="function">lambda</span>: <span class="text">"End"</span>, l)
+<span class="function">while True</span>:
+    <span class="command">print</span>(<span class="command">next</span>(iter_l))
+                                    </code></pre>
+                                    
+                                    <p>We can create custom iterators by defining a class that implements <code>__next__()</code> and <code>__iter__()</code> dunder methods.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> MyList:
@@ -143,9 +154,9 @@ my_list <span class="sign">=</span> <span class="function">MyList</span>([<span 
     <span class="command">print</span>(item)
                                     </code></pre>
                                     
-                                    <p>A generator is a special type of iterable object that allows us to iterate over a sequence of items without needing to store the entire sequence in memory at once. It is defined using functions that contain one or more <code>yield</code> statements instead of <code>return</code>.</p>
+                                    <p>A generator is a better way to create an iterator object. It is defined using functions that contain one or more <code>yield</code> statements instead of <code>return</code>.</p>
                                     
-                                    <p>When the <code>yield</code> keyword executes, it pauses the execution of the function, returns a value to whatever is iterating through the generator object, and comes back to the function. This means it returns a value multiple times and comes back to executing the next iterations after each yield (unless the iterator has ended) instead of storing the whole sequence in the memory and returning it at the end. The two examples below have the same output, except the last value of the second program is <code>4</code> and not <code>y</code>, because the <code>next()</code> function ends the iteration once it completes the last <code>yield</code>. When we manually call <code>next()</code>, the function halts after yielding all its values and doesn’t proceed to the <code>print("y")</code> statement. The loop going through the generator (from the first example) handles the entire iteration and reaches the final <code>print("y")</code>.</p>
+                                    <p>When the <code>yield</code> keyword executes, it pauses the execution of the function, returns a value to whatever is iterating through the generator object, and comes back to the function. This means it returns a value multiple times and comes back to executing the next iterations after each yield (unless the iterator has ended) instead of storing the whole sequence in the memory and returning it at the end. The two examples below have the same output, except the last value of the second program is <code>4</code> and not <code>y</code>, because the <code>next()</code> function ends the iteration once it completes the last <code>yield</code>. When we manually call <code>next()</code>, the function halts after yielding all its values and doesn’t proceed to the <code>print("y")</code> statement (the second example). The loop going through the generator (from the first example) handles the entire iteration and reaches the final <code>print("y")</code>.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> generator(n):
