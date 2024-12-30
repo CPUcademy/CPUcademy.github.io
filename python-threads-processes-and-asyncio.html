@@ -221,13 +221,13 @@ processes <span class="sign">=</span> []
 
                                     <h2><a id="async">Async IO</a></h2>
 
-                                    <p>Async IO is a single-threaded, single-process concurrency model that excels at handling I/O-bound and high-level structured network code. The Async IO concurrency model comes down to pausing the execution of a certain function if it is waiting for, e.g., a response from a server and allowing other functions to run at that time. The event loop is the core of Async IO, responsible for managing and coordinating the execution of asynchronous tasks. It schedules tasks, processes their execution, and handles which task is currently executed.</p>
+                                    <p>Async IO is a single-threaded, single-process concurrency model that excels at handling I/O-bound and high-level structured network code. The Async IO concurrency model comes down to pausing the execution of a certain function if it is waiting for, e.g., a response from a server and allowing other functions to run at that time. The event loop is the core of Async IO, responsible for managing and coordinating the execution of asynchronous tasks. It schedules them, processes their execution, and handles which task is currently being executed.</p>
                                         
-                                    <p>A coroutine is a special function defined with <code>async def</code>, and a coroutine object is a coroutine that hasn't been scheduled or awaited to run in the event loop. A scheduled coroutine is called a task. A coroutine can be executed in two ways. It can either be scheduled (become a task) and then awaited or just awaited directly. The difference is that tasks can be executed <b>concurrently</b>. Tasks do not run concurrently in the sense of simultaneous execution (like threads or processes), but they are managed in a way that allows them to run concurrently within the event loop by pausing and resuming during waiting periods. They pause at <code>await</code> points, allowing other tasks to execute while waiting for results, but they don't just run "without pausing." Coroutines that are just awaited can't run concurrently in any sense - they just pause when on hold.</p>
+                                    <p>A coroutine is a special function defined with <code>async def</code>, and a coroutine object is a coroutine that hasn't been scheduled or awaited to run in the event loop. A scheduled coroutine is called a task. A coroutine can be executed in two ways. It can either be scheduled (become a task) and then awaited or just awaited directly. The difference is that tasks can be executed <b>concurrently</b>. Tasks do not run concurrently in the sense of simultaneous execution (like threads or processes), but they are managed in a way that allows them to run concurrently within the event loop by pausing and resuming during waiting periods. They pause at <code>await</code> points, allowing other tasks to execute while waiting for results, but they don't just run "without pausing." Coroutines that are just awaited can't run concurrently at all - they just pause execution when on hold.</p>
 
                                     <p>A function that is the main coroutine must be passed as an argument to the <code>asyncio.run()</code> function to start the event loop.</p>
 
-                                    <p>When <code>await</code> is called within a working task, it yields control to the event loop, stopping the current process and enabling the awaited coroutine to run while this one is on hold. The event loop continues to operate until all tasks and coroutines have been completed. The <code>async</code> keyword defines a function as asynchronous, meaning it can perform these non-blocking operations.</p>
+                                    <p>When a coroutine is awaited (with the <code>await</code> instruction), the execution of the current coroutine is paused, allowing the event loop to run the awaited one. Once the awaited coroutine finishes, the event loop resumes the execution of the paused coroutine. The <code>async</code> keyword defines a function as asynchronous, meaning it can perform these non-blocking operations.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> asyncio
@@ -250,7 +250,7 @@ asyncio.<span class="command">run</span>(main())
 
                                     <h4>Tasks</h4>
 
-                                    <p>As I said earlier, a task is a scheduled coroutine run by the event loop. <code>asyncio.create_task()</code> is used to schedule a coroutine for <b>concurrent</b> execution. It converts a coroutine into a <code>Task</code> object. In the example below, using Async IO will shorten the execution time from 6 to 3 seconds because that is the execution time of the function that takes the longest.</p>
+                                    <p>As I said earlier, a task is a scheduled coroutine run by the event loop. <code>asyncio.create_task()</code> creates a <code>Task</code> object. In the example below, using Async IO will shorten the execution time from 6 to 3 seconds because that is the execution time of the function that takes the longest.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> asyncio
@@ -262,7 +262,7 @@ asyncio.<span class="command">run</span>(main())
 
 <span class="function">async def</span> main():
     <span class="comment"># Method 1</span>
-    task1 <span class="sign">=</span> asyncio.<span class="command">create_task</span>(fetch(1, 1)) <span class="comment"># scheduling a coroutine (a task)</span>
+    task1 <span class="sign">=</span> asyncio.<span class="command">create_task</span>(fetch(1, 1)) <span class="comment"># scheduling a coroutine (creating a task)</span>
     task2 <span class="sign">=</span> asyncio.<span class="command">create_task</span>(fetch(2, 2))
     task3 <span class="sign">=</span> asyncio.<span class="command">create_task</span>(fetch(3, 3))
 
@@ -272,8 +272,7 @@ asyncio.<span class="command">run</span>(main())
 
     <span class="command">print</span>(result1, result2, result3)
 
-    <span class="comment"># Method 2
-    # This method is worse for error handling because if one coroutine fails, it won't cancel out the rest.</span>
+    <span class="comment"># Method 2</span>
     results <span class="sign">=</span> <span class="function">await</span> asyncio.<span class="command">gather</span>(fetch(1, 1), fetch(2, 2), fetch(3, 3))
     <span class="function">for</span> result <span class="function">in</span> results:
         <span class="command">print</span>(result)
@@ -281,7 +280,7 @@ asyncio.<span class="command">run</span>(main())
 asyncio.<span class="command">run</span>(main())
                                     </code></pre>
 
-                                    <p>In the example below, we can see a <code>TaskGroup</code> usage example. It simplifies error handling, as any exception in a task cancels the entire group, maintaining a clean and predictable execution flow. It ensures all tasks are complete or canceled together.</p>
+                                    <p>In the example below, we can see a <code>TaskGroup</code> usage example. It simplifies error handling when working with multiple tasks, ensuring that all tasks are either completed or canceled together.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> asyncio
@@ -313,7 +312,7 @@ asyncio.<span class="command">run</span>(main())
 
                                     <p>Async IO locks have the same purpose as thread locks. In the example below, five coroutines increment a shared resource 1,000 times each. The lock ensures synchronized access to avoid data corruption. The execution might take longer due to sequential access, but the shared data remains consistent.</p>
 
-                                    <p>We may even use locks for "normal" coroutines (not only tasks), even though they do not run concurrently in the traditional sense. This is because a paused coroutine might still be accessing or modifying a shared resource, and if another coroutine accesses that resource while it’s paused, it could lead to data races or corruption.</p>
+                                    <p>We use locks also for "normal" coroutines (not only tasks), even though they do not run concurrently. This is because a paused coroutine might be in the process of accessing or modifying a shared resource, and if another coroutine accesses that resource during that period, the data could become corrupted. This is also considered <b>concurrent access</b>.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> asyncio
@@ -336,11 +335,11 @@ lock <span class="sign">=</span> asyncio.<span class="function">Lock</span>()
 asyncio.<span class="command">run</span>(main())
                                     </code></pre>
 
-                                    <p>*The "star" in <code>gather()</code> unpacks this generator expression into individual coroutine arguments for <code>asyncio.gather()</code>, enabling it to run all the <code>increment()</code> coroutines concurrently. The key difference is that a generator expression creates an iterator that produces items one at a time, whereas a list comprehension creates an entire list in memory.</p>
+                                    <p>The asterisk (<code>*</code>) unpacks the generator expression into individual coroutine arguments for <code>gather()</code>, allowing all the <code>increment()</code> coroutines to run concurrently. A <b>generator expression</b> creates an iterator that produces items one at a time, which is more memory-efficient than a list comprehension, which generates an entire list in memory.</p>
 
                                     <h5>Semaphore</h5>
 
-                                    <p>Unlike a lock, a semaphore permits a chosen number of coroutines to access the resource. In the example below, each coroutine sleeps for 1 second while accessing the resource, demonstrating controlled access to the resource with the semaphore.</p>
+                                    <p>Unlike a lock, a semaphore allows a specified number of coroutines to access a resource concurrently. The example below demonstrates controlled access to the resource. By setting the semaphore limit to 2, only two coroutines can access the resource at the same time.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> asyncio
@@ -352,7 +351,7 @@ asyncio.<span class="command">run</span>(main())
         <span class="command">print</span>(<span class="text">"Releasing resource:"</span>, id)
 
 <span class="function">async def</span> main():
-    semaphore <span class="sign">=</span> asyncio.<span class="function">Semaphore</span>(2) <span class="comment"># allowing two coroutines</span>
+    semaphore <span class="sign">=</span> asyncio.<span class="function">Semaphore</span>(2)
     <span class="function">await</span> asyncio.<span class="function">gather</span>(<span class="sign">*</span>(access_resource(semaphore, i) <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(5)))
 
 asyncio.<span class="command">run</span>(main())
