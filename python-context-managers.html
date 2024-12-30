@@ -85,7 +85,46 @@
                                     <h5 class="m-0 font-weight-bold">Context managers</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Text</p>
+                                    <p>Context managers are a powerful feature for managing resources such as files, database connections, and network sockets.</p>
+
+                                    <p>A problem that can be solved with a context manager arises if, while reading a file, the program crashes and doesn't reach the <code>close()</code> command. This could lead to file corruption. Of course, we could solve it with <code>try</code>, <code>except</code>, and <code>finally</code>, but a better way would be to use the <code>with</code> keyword. It uses a context manager under the hood, which means it already has the "<code>try</code>, <code>except</code>, <code>finally</code>" structure implemented (files will be properly closed even if when reading from them, the program crashes). We can create custom context managers to define what exactly happens while entering the file and during the closeup (error handling). We can do so using the <code>__enter__()</code> and <code>__exit__()</code> dunder methods and the <code>with</code> instruction.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> File:
+    <span class="function">def __init__</span>(<span class="function">self</span>, file_name, method):
+        <span class="function">self</span>.file <span class="sign">=</span> <span class="command">open</span>(file_name, method)
+
+    <span class="function">def __enter__</span>(<span class="function">self</span>): <span class="comment"># the first thing that happens (entering the "with" block)</span>
+        <span class="command">print</span>(<span class="text">"Enter"</span>)
+        <span class="function">return</span> <span class="function">self</span>.file
+
+    <span class="function">def __exit__</span>(<span class="function">self</span>, exc_type, exc_value, exc_tb): <span class="comment"># the last thing that happens (handling the exception - closing the file)</span>
+        <span class="command">print</span>(<span class="text">"Exit"</span>)
+        <span class="function">self</span>.file.<span class="command">close</span>()
+        <span class="function">if</span> exc_type <span class="function">is Exception</span>:
+            <span class="function">return True</span> <span class="comment"># telling Python that we handled the exception ("return True" suppresses it so no exception will arise)</span>
+
+<span class="function">with File</span>(<span class="text">"file.txt"</span>, <span class="text">"w"</span>) <span class="function">as</span> f:
+    f.<span class="command">write</span>(<span class="text">"File"</span>)
+    <span class="function">raise Exception</span>()
+                                    </code></pre>
+
+                                    <p>The <code>@contextmanager</code> decorator from the <code>contextlib</code> library provides an easier and cleaner way to create a context manager using a generator.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> contextlib <span class="command">import</span> contextmanager
+
+<span class="command">@contextmanager</span>
+<span class="function">def</span> file(file_name, method):
+    file <span class="sign">=</span> <span class="command">open</span>(file_name, method)
+    <span class="function">yield</span> file
+    file.<span class="command">close</span>()
+
+<span class="function">with</span> file(<span class="text">"file.txt"</span>, <span class="text">"w"</span>) <span class="function">as</span> f:
+    f.<span class="command">write</span>(<span class="text">"File"</span>)
+                                    </code></pre>
+
+                                    <p>Context managers can also be used to make sure a thread unlocks a thread lock.</p>
                                 </div>
                             </div>
                         </div>
