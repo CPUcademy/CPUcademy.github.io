@@ -111,13 +111,13 @@
                                           <td>A static variable is a variable that won't be deleted while "exiting" a method (its address is reserved only once). A variable of this type will still exist even if an instance of the class does not. It is shared by all objects and not tied to any class instance. We create static variables outside methods. A static variable is also called a <b>class attribute</b>.</td>
                                         </tr>
                                         <tr>
-                                          <td>Static methods</td>
-                                          <td>The same rule as with static variables applies to methods. We can call static methods using the class directly without creating its instance (like class methods). They take neither a <code>self</code> nor a <code>cls</code> argument, which makes them essentially ordinary functions within the class. They have no access to the class's objects. Static methods differ from outside functions because we can override them later in a child class.</td>
-                                        </tr>
-                                        <tr>
                                           <td>Class methods</td>
                                           <td>Class methods are used to modify the value of static variables inside the class and create alternative constructors. They can be useful when there are several variations of arguments a class can take. For example, instead of the user's age, we can take his date of birth and then calculate the age. We call class methods using the class directly without creating its instance (<code>Example.classMethod()</code>).
                                           </td>
+                                        </tr>
+                                        <tr>
+                                          <td>Static methods</td>
+                                          <td>The same rule as with static variables applies to methods. We can call static methods using the class directly without creating its instance (like class methods). They take neither a <code>self</code> nor a <code>cls</code> argument, which makes them essentially ordinary functions within the class. They have no access to the class's objects. Static methods differ from outside functions because we can override them later in a child class.</td>
                                         </tr>
                                         <tr>
                                           <td>Abstract methods</td>
@@ -129,47 +129,47 @@
                                         </tr>
                                         <tr>
                                           <td>Decorators</td>
-                                          <td>Decorators are functions that modify the behavior of other functions or methods.</td>
+                                          <td>A decorator is a function we give to another function as an argument to extend or modify its behavior. One function can have multiple decorators assigned. They are used to add reusable code and improve its readability and maintainability.</td>
                                         </tr>
                                         <tr>
                                           <td>Composition</td>
-                                          <td>Composition is a design principle where one object contains instances of other objects, implying a "has-a" relationship.</td>
+                                          <td>Inheritance is used for is a relationships (e.g., a cat is an animal), and composition is used for has a relationships (e.g., a house has rooms). It involves attaching objects to a class instead of inheriting a whole class of these objects.</td>
                                         </tr>
                                         <tr>
                                           <td>Aggregation</td>
-                                          <td>Aggregation is a special form of association where one object is a part of another object, but they can exist independently.</td>
+                                          <td>The difference between aggregation and composition is the degree of ownership of the existing class. Aggregation implies a relationship where the child class can exist independently of the parent class. Example: school and students. Delete the school, and the students will still exist. Composition implies a relationship where the child cannot exist independently of the parent.</td>
                                         </tr>
                                         <tr>
                                           <td>Association</td>
-                                          <td>Association represents a relationship where one object is connected to another, but they can exist independently.</td>
+                                          <td>Association is a relationship between two or more classes, where each class acknowledges the involvement of the other classes. Unlike composition and aggregation, association does not imply ownership or containment but rather a more general relationship.</td>
                                         </tr>
                                         <tr>
                                           <td>Nested classes</td>
-                                          <td>A nested class is a class defined inside another class.</td>
+                                          <td>We can put classes in each other. This solution is used for logically grouping related classes, enhancing encapsulation by restricting visibility to the outer class, and improving code organization. Inner classes have access to the outer class's objects.</td>
                                         </tr>
                                         <tr>
                                           <td>Generators</td>
-                                          <td>Generators are iterators that allow you to iterate over a sequence of values, but they generate values one at a time as needed.</td>
+                                          <td>A generator is a function that uses <code>yield</code> to produce a sequence of values lazily, allowing iteration without storing the entire sequence in memory.</td>
                                         </tr>
                                         <tr>
                                           <td>Threads</td>
-                                          <td>Threads allow concurrent execution of code in the same process, useful for I/O-bound tasks.</td>
+                                          <td>A thread is a unit of execution within a process that allows tasks to run concurrently, sharing the same memory space.</td>
                                         </tr>
                                         <tr>
                                           <td>Processes</td>
-                                          <td>Processes run independently, using separate memory, and are ideal for CPU-bound tasks.</td>
+                                          <td>A process is an independent execution unit with its own memory space, enabling tasks to run in parallel on separate CPU cores.</td>
                                         </tr>
                                         <tr>
                                           <td>Async IO</td>
-                                          <td>Async IO is a single-threaded, non-blocking concurrency model that is efficient for I/O-bound tasks.</td>
+                                          <td>Async IO is a concurrency framework that uses an event loop to run asynchronous tasks cooperatively, allowing efficient handling of I/O-bound operations.</td>
                                         </tr>
                                         <tr>
                                           <td>Metaclasses</td>
-                                          <td>Metaclasses define the behavior of classes, allowing you to modify class creation and inheritance.</td>
+                                          <td>A metaclass is a class that defines the behavior and structure of other classes, allowing dynamic creation and modification of class definitions.</td>
                                         </tr>
                                         <tr>
                                           <td>Context managers</td>
-                                          <td>Context managers allow you to allocate and release resources precisely when needed, using the `with` statement.</td>
+                                          <td>Context managers allow us to allocate and release resources precisely when needed, using the <code>with</code> statement.</td>
                                         </tr>
                                       </table>                                      
                                 </div>

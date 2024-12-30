@@ -116,13 +116,16 @@ iter_l <span class="sign">=</span> <span class="command">iter</span>(l)
     <span class="function">pass</span>                         
                                     </code></pre>
                                     
-                                    <p>We can prevent the <code>StopIteration</code> error by providing a second argument to the <code>iter()</code> function (a callable object that will be called instead of the exception).</p>
+                                    <p>We can prevent the <code>StopIteration</code> error by providing a second argument to the <code>next()</code> function (a default value for an exhausted iterator).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 l <span class="sign">=</span> [<span class="text">"1"</span>, <span class="text">"2"</span>, <span class="text">"3"</span>]
-iter_l <span class="sign">=</span> <span class="command">iter</span>(<span class="function">lambda</span>: <span class="text">"End"</span>, l)
+iter_l <span class="sign">=</span> <span class="command">iter</span>(l)
 <span class="function">while True</span>:
-    <span class="command">print</span>(<span class="command">next</span>(iter_l))
+    value <span class="sign">=</span> <span class="command">next</span>(iter_l, <span class="text">"End"</span>)
+    <span class="function">if</span> value <span class="sign">==</span> <span class="text">"End"</span>:
+        <span class="function">break</span>
+    <span class="command">print</span>(value)
                                     </code></pre>
                                     
                                     <p>We can create custom iterators by defining a class that implements <code>__next__()</code> and <code>__iter__()</code> dunder methods.</p>
@@ -155,7 +158,7 @@ my_list <span class="sign">=</span> <span class="function">MyList</span>([<span 
                                     
                                     <p>A generator is a more convenient and efficient way to create an iterator object. Unlike traditional iterators, generators are defined using functions that contain one or more <code>yield</code> statements instead of <code>return</code>.</p>
                                     
-                                    <p>When the <code>yield</code> instruction executes inside the generator, it pauses its execution, returns a value to the caller (e.g., a <code>for</code> loop or the <code>next()</code> instruction), and resumes the execution. The state of the function, including its local variables and the point of execution, is preserved so that it can resume from where it left off. This behavior allows the generator to produce a sequence of values lazily, one at a time, without storing the entire sequence in memory. Unlike traditional functions that use <code>return</code> and terminate after returning a single value, a generator can yield multiple values over time.</p> 
+                                    <p>When the <code>yield</code> instruction executes inside the generator, it pauses its execution, returns a value to the caller (e.g., a <code>for</code> loop or the <code>next()</code> instruction), and resumes the execution. The state of the function, including its local variables and the point of execution, is preserved so that it can resume from where it left off. This behavior allows the generator to produce a sequence of values lazily, one at a time, without storing the entire sequence in memory. Because of that, they are very memory-efficient. Unlike traditional functions that use <code>return</code> and terminate after returning a single value, a generator can yield multiple values over time.</p> 
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> gen(n):
