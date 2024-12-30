@@ -85,9 +85,9 @@
                                     <h5 class="m-0 font-weight-bold">Context managers</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Context managers are a powerful feature for managing resources such as files, database connections, and network sockets. They are typically used in conjunction with the <code>with</code> statement to ensure that certain operations are performed before and after a block of code runs, especially to handle resource cleanup tasks.</p>
+                                    <p>Context managers are a powerful feature for managing resources such as files, database connections, and network sockets.</p>
 
-                                    <p>A problem that can be solved with a context manager arises if, while reading a file, the program crashes and doesn't reach the <code>close()</code> command. This could lead to file corruption. Of course, we could solve it with <code>try</code>, <code>except</code>, and <code>finally</code>, but a better way would be to use the <code>with</code> keyword. It uses a context manager under the hood, and this means it already has the "<code>try</code>, <code>except</code>, <code>finally</code>" structure implemented (files will be properly closed even if when reading from them, the program crashes). We can create our context managers using the <code>__enter__()</code> and <code>__exit__()</code> dunder methods.</p>
+                                    <p>A problem that can be solved with a context manager arises if, while reading a file, the program crashes and doesn't reach the <code>close()</code> command. This could lead to file corruption. Of course, we could solve it with <code>try</code>, <code>except</code>, and <code>finally</code>, but a better way would be to use the <code>with</code> keyword. It uses a context manager under the hood, which means it already has the "<code>try</code>, <code>except</code>, <code>finally</code>" structure implemented (files will be properly closed even if when reading from them, the program crashes). We can create custom context managers to define what exactly happens while entering the file and during the closeup (error handling). We can do so using the <code>__enter__()</code> and <code>__exit__()</code> dunder methods and the <code>with</code> instruction.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> File:
@@ -102,7 +102,7 @@
         <span class="command">print</span>(<span class="text">"Exit"</span>)
         <span class="function">self</span>.file.<span class="command">close</span>()
         <span class="function">if</span> exc_type <span class="function">is Exception</span>:
-            <span class="function">return True</span> <span class="comment"># telling Python that we handled the exception ("return True" suppresses it)</span>
+            <span class="function">return True</span> <span class="comment"># telling Python that we handled the exception ("return True" suppresses it so no exception will arise)</span>
 
 <span class="function">with File</span>(<span class="text">"file.txt"</span>, <span class="text">"w"</span>) <span class="function">as</span> f:
     f.<span class="command">write</span>(<span class="text">"File"</span>)
@@ -113,6 +113,7 @@
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> contextlib <span class="command">import</span> contextmanager
+
 <span class="command">@contextmanager</span>
 <span class="function">def</span> file(file_name, method):
     file <span class="sign">=</span> <span class="command">open</span>(file_name, method)
