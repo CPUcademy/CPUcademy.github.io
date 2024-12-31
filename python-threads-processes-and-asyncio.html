@@ -129,9 +129,9 @@
                                     </table></div>                                    
 
                                     <h2><a id="threads">Threads</a></h2>
-                                    <p>Threads are a fundamental part of the Python concurrency model, allowing multiple tasks to run simultaneously within a single program. By utilizing threads, we can create more responsive and efficient applications, particularly in scenarios where tasks can be performed in parallel. Python provides built-in support for multithreading through the <code>threading</code> library.</p>
+                                    <p>Threads are a fundamental part of the Python concurrency model. They allow multiple tasks to run simultaneously (in parallel) within a single program. Python provides built-in support for multithreading through the <code>threading</code> library.</p>
 
-                                    <p>To create a thread, we instantiate a <code>Thread</code> object and select a function (its target), which contains the code to be executed by the thread. Once the thread is created, it can be started using the <code>start()</code> method. The <code>join()</code> method ensures the main thread waits until the "side" thread(s) complete execution and continues only then. It is useful because some resources may be necessary for the rest of the program.</p>
+                                    <p>To create a thread, we instantiate a <code>Thread</code> object and select a function (its target), which contains the code to be executed by the thread. Once the thread is created, it can be started using the <code>start()</code> method. The <code>join()</code> method ensures the main thread waits until the "side" thread(s) complete execution before proceeding further. It is useful because some resources may be necessary for the rest of the program.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> threading
@@ -225,6 +225,8 @@ processes <span class="sign">=</span> []
                                         
                                     <p>A coroutine is a special function defined with <code>async def</code>, and a coroutine object is a coroutine that hasn't been scheduled or awaited to run in the event loop. A scheduled coroutine is called a task. A coroutine can be executed in two ways. It can either be scheduled (become a task) and then awaited or just awaited directly. The difference is that tasks can be executed <b>concurrently</b>. Tasks do not run concurrently in the sense of simultaneous execution (like threads or processes), but they are managed in a way that allows them to run concurrently within the event loop by pausing and resuming during waiting periods. They pause at <code>await</code> points, allowing other tasks to execute while waiting for results, but they don't just run "without pausing." Concurrency in Async IO is based on cooperative multitasking, not true parallelism, and tasks interleave at <code>await</code> points. Coroutines that are awaited directly can't run <b>truly</b> concurrently - they just pause execution when on hold.</p>
 
+                                    <p>Clarification: Once scheduled, the event loop manages the task's execution right away. Awaiting a task is required to retrieve its result or ensure its completion. If we don’t await a task, it runs in the background, and we risk not handling its results or exceptions.</p>
+
                                     <p>A function that is the main coroutine must be passed as an argument to the <code>asyncio.run()</code> function to start the event loop. The <code>async</code> keyword defines a function as asynchronous, meaning it can perform these non-blocking operations.</p>
 
                                     <p>When a coroutine reaches an <code>await</code> instruction, the execution of the current coroutine is paused, yielding control back to the event loop and allowing it to manage other tasks or coroutines. The coroutine being awaited is then scheduled to run in the event loop, but it does not necessarily run immediately. The event loop determines when to execute it, based on other pending tasks and their readiness (e.g., I/O completion or delays). Once the awaited coroutine completes, either by returning a result or raising an exception, the event loop resumes the paused coroutine from the <code>await</code> point, using the result of the awaited coroutine. If multiple tasks are running concurrently, the event loop interleaves their execution, switching between tasks at <code>await</code> points to allow progress during waiting periods. However, if no other tasks or coroutines are pending, the event loop may proceed with the awaited coroutine immediately.</p>
@@ -232,7 +234,7 @@ processes <span class="sign">=</span> []
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> asyncio
 
-<span class="function">async def</span> fetch():
+<span class="function">async def</span> fetch(): <span class="comment"># defining a coroutine</span>
     <span class="command">print</span>(<span class="text">"Fetching..."</span>)
     <span class="function">await</span> asyncio.<span class="command">sleep</span>(2) <span class="comment"># simulating work</span>
     <span class="command">print</span>(<span class="text">"Data fetched."</span>)
@@ -306,7 +308,7 @@ asyncio.<span class="command">run</span>(main())
 asyncio.<span class="command">run</span>(main())                                        
                                     </code></pre>
 
-                                    <p>In summary: A coroutine is a special function defined with <code>async def</code>. When called, it returns a coroutine object, which must be scheduled or awaited to be executed within the event loop. A task is a coroutine that has been scheduled for execution within the event loop. It is created using <code>asyncio.create_task()</code> and can be used to track the coroutine's result.</p>
+                                    <p>In summary: A coroutine is a special function defined with <code>async def</code>. When called, it returns a coroutine object, which must be scheduled or awaited to be executed within the event loop. A task is a coroutine that has been scheduled for execution within the event loop (defined with <code>asyncio.create_task()</code>). Once scheduled, the event loop manages the task's execution, allowing it to run concurrently with other tasks. Awaiting a task is required to retrieve its result or ensure its completion.</p>
 
                                     <h4>Synchronization</h4>
 
