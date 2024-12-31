@@ -85,7 +85,486 @@
                                     <h5 class="m-0 font-weight-bold">Basics</h5>
                                 </div>
                                 <div class="card-body">
+                                    <p>PHP is a cross-platform <b>deprecated</b> scripting language. It allows developers to write code for web development projects of all sizes. PHP is <b>still widely used</b> in server-side web development, database management, and creating content management systems because it would be <b>costly to replace all the architectures</b>. It is an interpreted, high-level, and general-purpose language. PHP supports procedural, object-oriented, and functional programming paradigms. The extension of a PHP file is <code>.php</code>.</p>
+
+                                    <p>To write in PHP, we need a server. We can host a local one on our computer. It is called XAMPP. You can download it from <a href="https://www.apachefriends.org/download.html" target="_blank" class="link">here</a>. After installation, start the Apache service, and you can run your PHP scripts by placing them in the <code>htdocs</code> folder inside the |<code>xampp</code> directory. Then, you can access your scripts through a web browser by navigating to <code>localhost/your_script_name.php</code>.</p>
+
+                                    <p>I do not recommend learning it unless you absolutely have to. Do not learn it as your first language. In this short tutorial, I will assume you know all the basic programming concepts and only superficially describe the syntax (I will not explain these concepts). The more in-depth part of this tutorial will be about HTML forms and communication with a MySQL database.</p>
+
+                                    <h2>Basic structure and commands</h2>
+
+                                    <p>PHP code is written within the body section of an HTML document (with a <code>.php</code> extension), enclosed between the <code>&lt;?php</code> and <code>?&gt;</code> tags. The <code>echo</code> instruction is used to print values on the web page. Inside it, we can use HTML elements that will be rendered as part of the output, allowing us to mix PHP and HTML code seamlessly. This enables dynamic content generation within static HTML structures.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;!DOCTYPE html&gt;</span>
+<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
+<span class="function">&lt;head&gt;</span>
+    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"description"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"PHP basics"</span>&gt;</span>
+    <span class="function">&lt;title&gt;</span>PHP basics<span class="function">&lt;/title&gt;</span>
+<span class="function">&lt;/head&gt;</span>
+<span class="function">&lt;body&gt;</span>
+    <span class="function">&lt;?php</span>
+        <span class="command">echo</span> <span class="text">"&lt;br&gt;&lt;b&gt;Hello World!&lt;/b&gt;&lt;br&gt;"</span><span class="sign">;</span>
+                    
+        <span class="function">$</span>x <span class="sign">=</span> 4<span class="sign">;</span> 
+        <span class="command">echo</span> <span class="function">$</span>x<span class="sign">;</span>
+        
+        <span class="comment">// Quotation marks and apostrophes differ only when displaying variables.</span>
+        <span class="command">echo</span> <span class="text">'&lt;br&gt;'</span><span class="sign">;</span>
+        <span class="command">echo</span> 'The value of <span class="function">$</span>x', " is <span class="function">$</span>x"<span class="sign">;</span>
+        <span class="command">echo</span> <span class="text">"&lt;br&gt;"</span><span class="sign">;</span>
+        
+        <span class="function">$</span>z <span class="sign">=</span> "World!"<span class="sign">;</span>
+        <span class="command">echo</span> "Hello ", <span class="function">$</span>z, <span class="text">"&lt;br&gt;"</span><span class="sign">;</span>
+        
+        <span class="comment">// The operators in PHP are the same as those in C++.</span>
+        <span class="function">$</span>y <span class="sign">=</span> 3<span class="sign">;</span>
+        <span class="command">echo</span> <span class="function">$</span>x + <span class="function">$</span>y, <span class="text">"&lt;br&gt;"</span><span class="sign">;</span>
+        <span class="command">echo</span> <span class="function">$</span>x - <span class="function">$</span>y, <span class="text">"&lt;br&gt;"</span><span class="sign">;</span>
+        <span class="command">echo</span> <span class="function">$</span>x * <span class="function">$</span>y, <span class="text">"&lt;br&gt;"</span><span class="sign">;</span>
+        <span class="command">echo</span> <span class="function">$</span>x / <span class="function">$</span>y, <span class="text">"&lt;br&gt;"</span><span class="sign">;</span>
+        <span class="command">echo</span> <span class="function">$</span>x % <span class="function">$</span>y, <span class="text">"&lt;br&gt;"</span><span class="sign">;</span>
+        <span class="command">echo</span> "<span class="function">$</span>x + <span class="function">$</span>y = " . (<span class="function">$</span>x + <span class="function">$</span>y)<span class="sign">;</span> <span class="command">// dot is a concatenation operator</span>
+
+        <span class="function">$</span>a <span class="sign">=</span> 2<span class="sign">;</span>
+        <span class="function">$</span>b <span class="sign">=</span> 1<span class="sign">;</span>
+        <span class="function">$</span>b <span class="sign">=</span> <span class="function">$</span>a++<span class="sign">;</span> <span class="comment">// $a-- also exists</span>
+        <span class="command">echo</span> "&lt;br&gt; <span class="function">$</span>b&lt;br&gt;"<span class="sign">;</span>
+        <span class="function">$</span>b <span class="sign">= ++</span><span class="function">$</span>a<span class="sign">;</span> <span class="comment">// --$a  also exists</span>
+        <span class="command">echo</span> "<span class="function">$</span>b &lt;br&gt;"<span class="sign">;</span>
+        
+        <span class="function">$</span>x <span class="sign">=</span> 2<span class="sign">;</span>
+        <span class="function">$</span>x <span class="sign">+=</span> 1<span class="sign">;</span> // -=, *=, /=, %= etc.</span>
+
+        <span class="comment">// ----</span>
+
+        <span class="function">$</span>y <span class="sign">=</span> NULL<span class="sign">;</span>
+        <span class="command">echo</span> is_array(<span class="function">$</span>x)<span class="sign">;</span>
+        <span class="command">echo</span> is_bool(<span class="function">$</span>x)<span class="sign">;</span>
+        <span class="command">echo</span> is_float(<span class="function">$</span>x)<span class="sign">;</span>
+        <span class="command">echo</span> is_integer(<span class="function">$</span>x)<span class="sign">;</span>
+        <span class="command">echo</span> is_null(<span class="function">$</span>x)<span class="sign">;</span>
+        <span class="command">echo</span> is_string(<span class="function">$</span>x)<span class="sign">;</span>
+        <span class="command">echo</span> <span class="text">"&lt;br&gt;"</span> . gettype(<span class="function">$</span>x) . <span class="text">"&lt;br&gt;"</span><span class="sign">;</span>
+        
+        <span class="function">$</span>a <span class="sign">=</span> "2"<span class="sign">;</span>
+        <span class="function">$</span>b <span class="sign">=</span> (int)<span class="function">$</span>x<span class="sign">;</span>
+        
+        <span class="comment">// ----</span>
+    
+        <span class="function">$</span>text <span class="sign">=</span> "&lt;br&gt;Text"<span class="sign">;</span>
+# heredoc		
+<span class="function">$</span>lorem <span class="sign">=</span> &lt;&lt;&lt;EOD
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat, lacus non aliquet sagittis, justo lectus mollis lorem, quis tempus augue velit a enim. Mauris finibus tellus odio. <span class="function">$</span>text
+EOD;
+        <span class="command">echo</span> <span class="function">$</span>lorem . <span class="text">"&lt;br&gt;"</span><span class="sign">;</span>
+
+# nowdoc
+<span class="function">$</span>lorem1 <span class="sign">=</span> &lt;&lt;&lt;'EOD'
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat, lacus non aliquet sagittis, justo lectus mollis lorem, quis tempus augue velit a enim. Mauris finibus tellus odio. <span class="function">$</span>text
+EOD;
+        <span class="command">echo</span> <span class="function">$</span>lorem1<span class="sign">;</span>
+        
+        <span class="comment">// ----</span>
+        
+        // Defining constants
+        define("PI", 3.1415)<span class="sign">;</span>
+        const NAME = 3.1415<span class="sign">;</span>
+    <span class="function">?&gt;</span>
+<span class="function">&lt;/body&gt;</span>
+<span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
+
+                                    <h2>Loops</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;!DOCTYPE html&gt;</span>
+<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
+<span class="function">&lt;head&gt;</span>
+    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"description"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"PHP basics"</span>&gt;</span>
+    <span class="function">&lt;title&gt;</span>PHP basics<span class="function">&lt;/title&gt;</span>
+<span class="function">&lt;/head&gt;</span>
+<span class="function">&lt;body&gt;</span>
+    <span class="function">&lt;?php</span>
+        // Multiplication table from a random range
+        <span class="function">$</span>n = rand(10, 30);
+        <span class="command">echo</span> "&lt;table style='width: 300px; height: 300px;' border=1&gt;";
+        for(<span class="function">$</span>i=1; <span class="function">$</span>i&lt;=<span class="function">$</span>n; <span class="function">$</span>i++)
+        {
+            <span class="command">echo</span> "&lt;tr&gt;";
+            for(<span class="function">$</span>j=1; <span class="function">$</span>j&lt;=<span class="function">$</span>n; <span class="function">$</span>j++)
+            {
+                <span class="command">echo</span> "&lt;td&gt;" . (<span class="function">$</span>i*<span class="function">$</span>j) . "&lt;/td&gt;";
+            }
+            <span class="command">echo</span> "&lt;/tr&gt;";
+        }
+        <span class="command">echo</span> "&lt;/table&gt;";
+        
+        <span class="function">$</span>number = 132;
+        <span class="command">echo</span> "The number <span class="function">$</span>number written in reverse order is: ";
+        while(<span class="function">$</span>number > 0)
+        {
+            <span class="command">echo</span> <span class="function">$</span>number % 10;
+            <span class="function">$</span>number = floor(<span class="function">$</span>number/10);
+        }
+        
+        <span class="function">$</span>i = 1;
+        do
+        {
+            <span class="command">echo</span> "X";
+        } while(<span class="function">$</span>i &lt; 1);
+        
+        <span class="function">$</span>sum = 0;
+        <span class="function">$</span>array = [7, 45, 23, 79, 90, 12, 34, 7, -4, 3];
+        foreach(<span class="function">$</span>array as <span class="function">$</span>value)
+        {
+            <span class="command">echo</span> <span class="function">$</span>value . <span class="text">"&lt;br&gt;"</span>;
+            <span class="function">$</span>sum += <span class="function">$</span>value;
+        }
+        <span class="command">echo</span> "The sum of the array values is <span class="function">$</span>sum";
+        
+        <span class="function">$</span>array = array('Anna' => 'Kowalska', 'Joanna' => 'Nowak', 'Jerzy' => 'Grzegorzewski', 'Piotr' => 'Nowak');
+        foreach(<span class="function">$</span>array as <span class="function">$</span>key => <span class="function">$</span>value)
+        {
+            <span class="command">echo</span> <span class="function">$</span>key . " " . <span class="function">$</span>value . <span class="text">"&lt;br&gt;"</span>;
+        }    
+    <span class="function">?&gt;</span>
+<span class="function">&lt;/body&gt;</span>
+<span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
+
+                                    <h2>Conditional statements</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;!DOCTYPE html&gt;</span>
+<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
+<span class="function">&lt;head&gt;</span>
+    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"description"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"PHP basics"</span>&gt;</span>
+    <span class="function">&lt;title&gt;</span>PHP basics<span class="function">&lt;/title&gt;</span>
+<span class="function">&lt;/head&gt;</span>
+<span class="function">&lt;body&gt;</span>
+    <span class="function">&lt;?php</span>
+        <span class="function">$</span>x = 126;
+        if (<span class="function">$</span>x % 2 == 0)
+        {
+            <span class="command">echo</span> "Number <span class="function">$</span>x is even";
+        }
+        elseif(<span class="function">$</span>x == 0) // you can also write else if
+        {
+            <span class="command">echo</span> "Number <span class="function">$</span>x is equal to 0";
+        }
+        else
+        {
+            <span class="command">echo</span> "Number <span class="function">$</span>x is odd";
+        }
+        
+        <span class="function">$</span>sign = "+";
+        <span class="function">$</span>a = rand(0, 100); // generating a random number from 0 to 100
+        <span class="function">$</span>b = rand(0, 100);
+        <span class="command">echo</span> "The generated numbers are <span class="function">$</span>a and <span class="function">$</span>b &gt;br&gt;";
+        switch(<span class="function">$</span>sign)
+        {
+            case "+":
+                <span class="command">echo</span> <span class="function">$</span>a + <span class="function">$</span>b;
+                break;
+            case "-":
+                <span class="command">echo</span> <span class="function">$</span>a - <span class="function">$</span>b;
+                break;
+            case "*":
+                <span class="command">echo</span> <span class="function">$</span>a * <span class="function">$</span>b;
+                break;
+            default:
+                <span class="command">echo</span> "Operation not selected";
+                break;
+        }
+        
+        <span class="function">$</span>x = 10;
+        <span class="function">$</span>condition = (<span class="function">$</span>x > 10) ? 5 : 6;    
+    <span class="function">?&gt;</span>
+<span class="function">&lt;/body&gt;</span>
+<span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
                                     
+                                    <h2>Strings</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;!DOCTYPE html&gt;</span>
+<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
+<span class="function">&lt;head&gt;</span>
+    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"description"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"PHP basics"</span>&gt;</span>
+    <span class="function">&lt;title&gt;</span>PHP basics<span class="function">&lt;/title&gt;</span>
+<span class="function">&lt;/head&gt;</span>
+<span class="function">&lt;body&gt;</span>
+    <span class="function">&lt;?php</span>
+        <span class="function">$</span>s = 'Programming language PHP';
+        for (<span class="function">$</span>i = 0; <span class="function">$</span>i &lt; strlen(<span class="function">$</span>s); <span class="function">$</span>i++) 
+            <span class="command">echo</span>(<span class="function">$</span>s[<span class="function">$</span>i] . <span class="text">'&lt;br&gt;'</span>);
+        
+        <span class="function">$</span>display = "I really";
+        <span class="function">$</span>display .= " like it&lt;br&gt;";
+        <span class="command">echo</span> (<span class="function">$</span>display);
+        
+        <span class="function">$</span>data[0] = "18";
+        <span class="function">$</span>data[1] = "07";
+        <span class="function">$</span>data[2] = "2023";
+        <span class="function">$</span>display_date = implode(" - ", <span class="function">$</span>data);
+        // will display "18 - 07 - 2023"
+        <span class="command">echo</span> <span class="function">$</span>display_date;
+        
+        <span class="command">echo</span> <span class="text">"&lt;br&gt;"</span>;
+        
+        <span class="function">$</span>personal_data = "Marcin,Wesel,Bielsko-Biała";
+        // using the explode function with a comma
+        <span class="function">$</span>personal_info = explode(",", <span class="function">$</span>personal_data);
+        // displaying the resulting array
+        <span class="command">echo</span> <span class="function">$</span>personal_info[0] . <span class="text">"&lt;br&gt;"</span>;
+        <span class="command">echo</span> <span class="function">$</span>personal_info[1] . <span class="text">"&lt;br&gt;"</span>;
+        <span class="command">echo</span> <span class="function">$</span>personal_info[2] . <span class="text">"&lt;br&gt;"</span>;
+        
+        <span class="function">$</span>mystring = 'abc';
+        <span class="function">$</span>findme = 'a';
+        <span class="function">$</span>pos = strpos(<span class="function">$</span>mystring, <span class="function">$</span>findme);
+        // Note our use of ===. Simply == would not work as expected
+        // because the position of 'a' is the 0th (first) character.
+        if (<span class="function">$</span>pos === false) {
+            <span class="command">echo</span> "The string '<span class="function">$</span>findme' was not found in the string '<span class="function">$</span>mystring'";
+        } else {
+            <span class="command">echo</span> "The string '<span class="function">$</span>findme' was found in the string '<span class="function">$</span>mystring'";
+            <span class="command">echo</span> " and exists at position <span class="function">$</span>pos";
+        }
+        
+        <span class="command">echo</span> <span class="text">"&lt;br&gt;"</span>;
+        <span class="function">$</span>text = "Lithuania, my homeland, You are like health.";
+        <span class="function">$</span>words = explode(" ", <span class="function">$</span>text);
+        // will display the number of words in the variable <span class="function">$</span>text
+        <span class="command">echo</span> count(<span class="function">$</span>words);
+        
+        <span class="command">echo</span> <span class="text">"&lt;br&gt;"</span>;
+        <span class="function">$</span>display = "I really like mango";
+        <span class="function">$</span>uppercase = mb_strtoupper(<span class="function">$</span>display); // mb adds support for "local" characters
+        // will display: I REALLY LIKE MANGO
+        <span class="command">echo</span> <span class="function">$</span>uppercase;
+        
+        <span class="command">echo</span> <span class="text">"&lt;br&gt;"</span>;
+        <span class="function">$</span>display = "BarDzo Lubię PlaCki";
+        <span class="function">$</span>lowercase = mb_strtolower(<span class="function">$</span>display);
+        // will display: bardzo lubię placki
+        <span class="command">echo</span> <span class="function">$</span>lowercase;
+        
+        <span class="function">$</span>sentence = ucwords(<span class="function">$</span>display);
+        // will display: Bardzo Lubię Placki
+        <span class="command">echo</span> <span class="function">$</span>sentence;
+        
+        <span class="function">$</span>display = "i really like pancakes";
+        <span class="function">$</span>length = strlen(<span class="function">$</span>display);
+        if (<span class="function">$</span>length > 20)
+            <span class="command">echo</span> "Content longer than 20 characters.";
+        else
+            <span class="command">echo</span> "Content contains 20 characters or fewer.";
+        
+        <span class="function">$</span>display = " i really like pancakes ";
+        <span class="function">$</span>sentence = trim(<span class="function">$</span>display);
+        // will display: "i really like pancakes"
+        // ltrim() and rtrim() remove characters from the left and right, respectively
+        <span class="command">echo</span> <span class="function">$</span>sentence . <span class="text">"&lt;br&gt;"</span>;
+        
+        <span class="function">$</span>text = "gfsDFSGAasdfs";
+        <span class="command">echo</span> ucfirst(mb_strtolower(<span class="function">$</span>text)); // first letter uppercase, rest lowercase
+        
+        function polish_char_filter(<span class="function">$</span>input)
+        {
+            <span class="function">$</span>letters = array('Ł' => 'l', 'Ć' => 'c', 'Ń' => 'n', 'Ó' => 'o', 'Ś' => 's', 'Ź' => 'z', 'Ż' => 'z', 'ą' => 'a', 'ć' => 'c', 'ę' => 'e', 'ł' => 'l', 'ń' => 'n', 'ó' => 'o', 'ś' => 's', 'ź' => 'z', 'ż' => 'z');
+            <span class="function">$</span>output = strtr(<span class="function">$</span>input, <span class="function">$</span>letters);
+            return <span class="function">$</span>output;
+        }
+        
+        /*
+        Other functions
+        
+        str_word_count() - Counts the number of words in a string
+        strrev() - Reverses a string
+        str_replace() - <span class="command">echo</span> str_replace("world","Dolly","Hello world!");
+        str_shuffle() - Shuffles characters in a string
+        str_repeat() - <span class="command">echo</span> str_repeat("Hey",5);
+        ord() - Returns ASCII code <span class="command">echo</span> ord("h");
+        chr() - Returns character from ASCII table <span class="command">echo</span> chr(52);
+        lcfirst() - Converts first letter to lowercase
+        str_split() - Converts string to array
+        count_chars() - Counts character occurrences
+        
+        Functions for substring search in a string:
+        strstr() - Checks if a substring is present; if not, returns FALSE; otherwise, returns the part of the string from the found substring to the end; case-sensitive.
+        strpos() - Checks if a substring exists in the string; if found, returns its position; has three arguments: the source string, the search substring, and the position in the source string from where the search starts.
+        substr() - Returns part of the source string; has three arguments: the source string, the start index, and an optional length for the substring.
+        strtok() - Splits the source string into substrings; has two arguments: the source string and the delimiter.
+        
+        Example:
+        <span class="function">$</span>str = "Hello Friend";
+        <span class="function">$</span>arr1 = str_split(<span class="function">$</span>str);
+        <span class="function">$</span>arr2 = str_split(<span class="function">$</span>str, 3);
+        */    
+    <span class="function">?&gt;</span>
+<span class="function">&lt;/body&gt;</span>
+<span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
+
+                                    <h2>Arrays</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;!DOCTYPE html&gt;</span>
+<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
+<span class="function">&lt;head&gt;</span>
+    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"description"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"PHP basics"</span>&gt;</span>
+    <span class="function">&lt;title&gt;</span>PHP basics<span class="function">&lt;/title&gt;</span>
+<span class="function">&lt;/head&gt;</span>
+<span class="function">&lt;body&gt;</span>
+    <span class="function">&lt;?php</span>
+        <span class="function">$</span>array = array(2, 5, 7);
+        <span class="function">$</span>array2 = [2, 5, 7];
+        <span class="command">echo</span> <span class="text">"&lt;br&gt;"</span> . <span class="function">$</span>array[0];
+        
+        <span class="function">$</span>assoc_array = array("a" => "b", "c" => "d");
+        <span class="command">echo</span> <span class="text">"&lt;br&gt;"</span> . <span class="function">$</span>assoc_array["a"];
+        <span class="function">$</span>assoc_array["c"] = "e";
+        <span class="command">echo</span> <span class="text">"&lt;br&gt;"</span> . <span class="function">$</span>assoc_array["c"];
+        <span class="function">$</span>assoc_array["f"] = "g";
+        <span class="command">echo</span> <span class="text">"&lt;br&gt;"</span> . <span class="function">$</span>assoc_array["f"];
+        
+        <span class="function">$</span>names = array("Alicja", "Paulina", "Katarzyna", "Małgorzata", "Agnieszka", "Jolanta", "Celina"); 
+        <span class="function">$</span>length = count(<span class="function">$</span>names);
+        <span class="command">echo</span> "<b>Array before sorting:</b> &lt;br&gt;"; 
+        foreach (<span class="function">$</span>names as <span class="function">$</span>name) {
+            <span class="command">echo</span> "<span class="function">$</span>name ";
+        }
+        sort(<span class="function">$</span>names);
+        <span class="command">echo</span> "&lt;br&gt;<b>Array after sorting:</b> &lt;br&gt;";
+        foreach (<span class="function">$</span>names as <span class="function">$</span>name) {
+            <span class="command">echo</span> "<span class="function">$</span>name ";
+        }
+        
+        <span class="function">$</span>names_assoc = array("Alicja" => "Kowalska", "Paulina" => "Nowak", "Katarzyna" => "Malinowska", "Małgorzata" => "Nowak", "Agnieszka" => "Czekalska", "Jolanta" => "Kowalska", "Celina" => "Brzęczyszczykiewicz");
+        <span class="command">echo</span> "<b>Array before sorting:</b> &lt;br&gt;";
+        foreach(<span class="function">$</span>names_assoc as <span class="function">$</span>key => <span class="function">$</span>name) {
+            <span class="command">echo</span> "<span class="function">$</span>name <span class="function">$</span>key&lt;br&gt; ";
+        }
+        asort(<span class="function">$</span>names_assoc);
+        <span class="command">echo</span> "<b>Array after sorting by value:</b> &lt;br&gt;";
+        foreach(<span class="function">$</span>names_assoc as <span class="function">$</span>key => <span class="function">$</span>name) {
+            <span class="command">echo</span> "<span class="function">$</span>name <span class="function">$</span>key&lt;br&gt; ";
+        }
+        ksort(<span class="function">$</span>names_assoc);
+        <span class="command">echo</span> "<b>Array after sorting by key:</b> &lt;br&gt;";
+        foreach(<span class="function">$</span>names_assoc as <span class="function">$</span>key => <span class="function">$</span>name) {
+            <span class="command">echo</span> "<span class="function">$</span>name <span class="function">$</span>key&lt;br&gt; ";
+        }
+        
+        /* Array functions
+        is_array(<span class="function">$</span>t) - checks if <span class="function">$</span>t is an array
+        in_array(<span class="function">$</span>x, <span class="function">$</span>t) - checks if element <span class="function">$</span>x exists in the array <span class="function">$</span>t
+        count(<span class="function">$</span>t) - returns the number of elements in the array <span class="function">$</span>t (equivalent to sizeof(<span class="function">$</span>t))
+        asort(<span class="function">$</span>t) - sorts the array in ascending order
+        sort(<span class="function">$</span>t) - sorts the contents of the array <span class="function">$</span>t in ascending order (uppercase letters are considered smaller than lowercase)
+        rsort(<span class="function">$</span>t) - sorts the contents of the array <span class="function">$</span>t in descending order
+        arsort(<span class="function">$</span>t) - sorts an associative array in ascending order based on the value
+        ksort(<span class="function">$</span>t) - sorts an associative array by key (index)
+        array_pop(<span class="function">$</span>t) – returns the last element of the array <span class="function">$</span>t and removes it
+        array_shift(<span class="function">$</span>t) - returns the first element of the array <span class="function">$</span>t and removes it
+        array_push(<span class="function">$</span>t, <span class="function">$</span>v1, <span class="function">$</span>v2, ...) – adds variables <span class="function">$</span>v1, <span class="function">$</span>v2, ... to the array <span class="function">$</span>t
+        array_reverse(<span class="function">$</span>t) - returns a copy of the array <span class="function">$</span>t with reversed element order
+        array_slice(<span class="function">$</span>t, <span class="function">$</span>o, <span class="function">$</span>m) - returns an array with <span class="function">$</span>m elements from array <span class="function">$</span>t starting from index <span class="function">$</span>o
+        array_sum(<span class="function">$</span>t) - returns the sum of the elements in the array <span class="function">$</span>t
+        array_unique(<span class="function">$</span>t) - removes duplicate values from the array <span class="function">$</span>t
+        array_flip(<span class="function">$</span>t) - swaps the keys and values of the array
+        array_values(<span class="function">$</span>t) - returns the values of the array as an indexed array (also works for associative arrays)
+        array_merge(<span class="function">$</span>t1, <span class="function">$</span>t2) - merges two arrays
+        range(<span class="function">$</span>s, <span class="function">$</span>k[<span class="function">$</span>c]) - creates an array containing integers from <span class="function">$</span>s to <span class="function">$</span>k [with step <span class="function">$</span>c]
+        shuffle(<span class="function">$</span>t) - shuffles the array <span class="function">$</span>t
+        print_r(<span class="function">$</span>t) - prints the contents of the array
+        var_dump(<span class="function">$</span>t) - prints the contents of the array with no argument limit
+        min(<span class="function">$</span>t), max(<span class="function">$</span>t) - returns the minimum and maximum values
+        */    
+    <span class="function">?&gt;</span>
+<span class="function">&lt;/body&gt;</span>
+<span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
+
+                                    <h2>Functions</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;!DOCTYPE html&gt;</span>
+<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
+<span class="function">&lt;head&gt;</span>
+    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"description"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"PHP basics"</span>&gt;</span>
+    <span class="function">&lt;title&gt;</span>PHP basics<span class="function">&lt;/title&gt;</span>
+<span class="function">&lt;/head&gt;</span>
+<span class="function">&lt;body&gt;</span>
+    <span class="function">&lt;?php</span>
+        function greeting()
+        {
+            <span class="command">echo</span> "Hello world!&lt;br&gt;";
+        }
+        greeting();
+        
+        function calculate()
+        {
+            <span class="function">$</span>x = 3;
+            <span class="function">$</span>x += 5;
+            return <span class="function">$</span>x;
+        }
+        if(calculate() > 5)
+        {
+            <span class="command">echo</span> "The function returns a value greater than 5.";
+        }
+        
+        // Local variables (inside functions), global variables (entire script except functions), and superglobal variables (entire script)
+        <span class="function">$</span>x = 7;
+        function area()
+        {
+            global <span class="function">$</span>x; // or <span class="function">$</span>x = <span class="function">$</span>GLOBALS['x'];
+            <span class="function">$</span>area = <span class="function">$</span>x * <span class="function">$</span>x;
+            <span class="command">echo</span> "The area of a square with side <span class="function">$</span>x is <span class="function">$</span>area.";
+        }
+        area();
+        
+        function count()
+        {
+            static <span class="function">$</span>a = 0; // static variable
+            <span class="command">echo</span> <span class="function">$</span>a;
+            <span class="function">$</span>a++;
+        }
+        count();
+        count();
+        count();
+        
+        function increment(&<span class="function">$</span>a)
+        {
+            <span class="function">$</span>a++;
+        }
+        <span class="function">$</span>a = 5;
+        increment(<span class="function">$</span>a);
+        <span class="command">echo</span> <span class="function">$</span>a;
+        
+        function default_parameters(<span class="function">$</span>x = 1)
+        {
+            <span class="command">echo</span> <span class="function">$</span>x;
+        }
+        default_parameters();    
+    <span class="function">?&gt;</span>
+<span class="function">&lt;/body&gt;</span>
+<span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
