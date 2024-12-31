@@ -85,7 +85,129 @@
                                     <h5 class="m-0 font-weight-bold">Forms</h5>
                                 </div>
                                 <div class="card-body">
-                                    
+                                <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;!DOCTYPE html&gt;</span>
+<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
+<span class="function">&lt;head&gt;</span>
+    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"description"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"PHP basics"</span>&gt;</span>
+    <span class="function">&lt;title&gt;</span>Multiplication table<span class="function">&lt;/title&gt;</span>
+<span class="function">&lt;/head&gt;</span>
+<span class="function">&lt;body&gt;</span>
+    &lt;!-- Main file --&gt;
+    &lt;h3&gt;Podaj zakres tabliczki mnożenia&lt;/h3&gt;
+    
+    &lt;form action="index8-2-tabliczka.php" method="post"&gt;
+        &lt;p&gt;Liczba wierszy:&lt;/p&gt;
+        &lt;input type="text" name="n"&gt;
+        
+        &lt;p&gt;Liczba kolumn:&lt;/p&gt;
+        &lt;input type="text" name="m"&gt;
+        
+        &lt;br&gt;&lt;br&gt;
+        &lt;input type="submit" value="Wyślij zamówienie"&gt;
+    &lt;/form&gt;
+<span class="function">&lt;/body&gt;</span>
+<span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;!DOCTYPE html&gt;</span>
+<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
+<span class="function">&lt;head&gt;</span>
+    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"description"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"PHP basics"</span>&gt;</span>
+    <span class="function">&lt;title&gt;</span>Multiplication table<span class="function">&lt;/title&gt;</span>
+<span class="function">&lt;/head&gt;</span>
+<span class="function">&lt;body&gt;</span>
+    &lt;!-- Second file --&gt;
+    <span class="function">&lt;?php</span>
+        $n = $_POST['n'];
+        $m = $_POST['m'];
+        
+        echo "&lt;table style='width: 300px; height: 300px;' border=1 cellpadding='0' cellspacing='0'&gt;";
+        for($i=1; $i&lt;=$n; $i++)
+        {
+            echo "&lt;tr&gt;";
+            for($j=1; $j&lt;=$m; $j++)
+            {
+                echo "&lt;td&gt;" . ($i*$j) . "&lt;/td&gt;";
+            }
+            echo "&lt;/tr&gt;";
+        }
+        echo "&lt;/table&gt;";
+    <span class="function">?&gt;</span>
+<span class="function">&lt;/body&gt;</span>
+<span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;!DOCTYPE html&gt;</span>
+<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
+<span class="function">&lt;head&gt;</span>
+    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"description"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"PHP basics"</span>&gt;</span>
+    <span class="function">&lt;title&gt;</span>PostBack<span class="function">&lt;/title&gt;</span>
+<span class="function">&lt;/head&gt;</span>
+<span class="function">&lt;body&gt;</span>
+    &lt;?php
+    function formularz($imie = "", $nazwisko = "", $zawod = "", $email = "", $mailing_checked = false){ ?&gt;
+        &lt;form action="" method="post"&gt;
+            &lt;div&gt;
+                Imię: &lt;br&gt;
+                &lt;input name="imie" value="&lt;?= $imie; ?&gt;"&gt;&lt;br&gt;
+                Nazwisko: &lt;br&gt;
+                &lt;input name="nazwisko" value="&lt;?= $nazwisko; ?&gt;"&gt;&lt;br&gt;
+                Zawód: &lt;br&gt;
+                &lt;input name="zawod" value="&lt;?= $zawod; ?&gt;"&gt;&lt;br&gt;
+                Adres e-mail: &lt;br&gt;
+                &lt;input name="email" value="&lt;?= $email; ?&gt;"&gt;&lt;br&gt;
+                &lt;input type="checkbox" name="mailing" checked &lt;?php if($mailing_checked) echo " checked"; ?&gt;&gt;Chcę otrzymywać informacje handlowe&lt;br&gt;&lt;br&gt;
+                
+                &lt;input type="submit" value="Wyślij" name="submit" &gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+    &lt;?php } ?&gt;
+
+    &lt;!-- Odbieranie w tym samym pliku - PostBack + isset() i empty() --&gt;
+    <span class="function">&lt;?php</span>
+        if(isset($_POST["submit"]))
+        {
+            $mailing = false;
+            if(isset($_POST["mailing"]))
+                $mailing = true;
+            formularz($_POST["imie"], $_POST["nazwisko"], $_POST["zawod"], $_POST["email"], $mailing);
+            if(empty($_POST["imie"]) || empty($_POST["nazwisko"]) || 
+                    empty($_POST["zawod"]) || empty($_POST["email"]))
+                echo "&lt;p style=\"color:red\"&gt;Musisz wypelnić wszystkie pola!&lt;/p&gt;";
+            else
+            {
+                echo "&lt;p&gt;Dziękujemy za wypełnienie formularza!&lt;/p&gt;"; ?&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Imię: &lt;b&gt;&lt;?= trim($_POST["imie"]); ?&gt;&lt;/b&gt;&lt;/li&gt;
+                    &lt;li&gt;Nazwisko: &lt;b&gt;&lt;?= trim($_POST["nazwisko"]); ?&gt;&lt;/b&gt;&lt;/li&gt;
+                    &lt;li&gt;Zawód: &lt;b&gt;&lt;?= trim($_POST["zawod"]); ?&gt;&lt;/b&gt;&lt;/li&gt;
+                    &lt;li&gt;Adres e-mail: &lt;b&gt;&lt;?= trim($_POST["email"]); ?&gt;&lt;/b&gt;&lt;/li&gt;
+                    &lt;?php
+                    if(isset($_POST["mailing"]))
+                        echo "&lt;li&gt;Chcesz otrzymywać informacje handlowe.&lt;/li&gt;";
+                    else 
+                        echo "&lt;li&gt;Nie chcesz otrzymywać informacji handlowych.&lt;/li&gt;";
+                    ?&gt;
+                &lt;/ul&gt;
+            &lt;?php }
+        }
+        else
+            formularz();
+    <span class="function">?&gt;</span>
+<span class="function">&lt;/body&gt;</span>
+<span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
+
+                                    + ewentualnie więcej kontrolek
                                 </div>
                             </div>
                         </div>
