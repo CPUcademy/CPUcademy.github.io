@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
     <title>Operators</title>
 </head>
 
@@ -85,7 +85,178 @@
                                     <h5 class="m-0 font-weight-bold">Operators</h5>
                                 </div>
                                 <div class="card-body">
+                                    <h2>Arithmetic operators</h2>
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="sign">+</span> <span class="comment">// addition</span>
+<span class="sign">-</span> <span class="comment">// subtraction</span>
+<span class="sign">*</span> <span class="comment">// multiplication</span>
+<span class="sign">/</span> <span class="comment">// division</span>
+<span class="sign">%</span> <span class="comment">// modulo division (the rest from division)</span>
+<span class="sign">**</span> <span class="comment">// exponentiation</span>
+                                    </code></pre>
                                     
+                                    <p>Remember that a decimal separator is a dot and not a comma.</p>
+                                    
+                                    <h2>Assignment operators</h2>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+x <span class="sign">=</span> 5
+x <span class="sign">+=</span> 5 <span class="comment">// equal to x = x + 5</span>
+x <span class="sign">-=</span> 5 <span class="comment">// equal to x = x - 5</span>
+x <span class="sign">*=</span> 5 <span class="comment">// equal to x = x * 5</span>
+x <span class="sign">/=</span> 5 <span class="comment">// equal to x = x / 5</span>
+x <span class="sign">%=</span> 5 <span class="comment">// equal to x = x % 5</span>
+x <span class="sign">**=</span> 5 <span class="comment">// equal to x = x ** 5</span>
+                                    </code></pre>
+                                                                        
+                                    <h2>Incrementation and decrementation operators</h2>
+
+                                    <p class="podpis">Incrementation means increasing by 1 (the operator is <code>++</code>).</p>    
+                                    <p class="podpis">Post-incrementation - the value is first written and then incremented in the memory (<code>i++</code>).</p>
+                                    <p class="podpis">Pre-incrementation - the value is first incremented in the memory and then written (<code>++i</code>).</p>
+                                    <p>Decrementation means reducing by 1. Post-decrementation and pre-decrementation also exist and work on the same principles (their operator is <code>--</code>).</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">let</span> i <span class="sign">=</span> 2
+<span class="command">console</span>.<span class="command">log</span>(<span class="sign">i++</span>)
+<span class="command">console</span>.<span class="command">log</span>(i)
+<span class="command">console</span>.<span class="command">log</span>(<span class="sign">++</span>i)
+
+<span class="function">let</span> i2 <span class="sign">=</span> 2
+<span class="command">console</span>.<span class="command">log</span>(i2<span class="sign">--</span>)
+<span class="command">console</span>.<span class="command">log</span>(i2)
+<span class="command">console</span>.<span class="command">log</span>(<span class="sign">--</span>i2)
+<span class="command">console</span>.<span class="command">log</span>(i2)
+                                    </code></pre>
+                                    
+                                    <h2>Relational operators</h2>
+                                    
+                                    <p>Relational operators are used to compare different variables and values, e.g., in conditional statements, which I will discuss later.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">console</span>.<span class="command">log</span>(10 <span class="sign">==</span> 2) <span class="comment">// equal to</span>
+<span class="command">console</span>.<span class="command">log</span>(10 <span class="sign">!=</span> 2) <span class="comment">// not equal to</span>
+<span class="command">console</span>.<span class="command">log</span>(10 <span class="sign">&gt;</span> 2) <span class="comment">// greater than</span>
+<span class="command">console</span>.<span class="command">log</span>(10 <span class="sign">&lt;</span> 2) <span class="comment">// lesser than</span>
+<span class="command">console</span>.<span class="command">log</span>(10 <span class="sign">&gt;=</span> 2) <span class="comment">// greater than or equal to</span>
+<span class="command">console</span>.<span class="command">log</span>(10 <span class="sign">&lt;=</span> 2) <span class="comment">// lesser than or equal to</span>
+                                    </code></pre>
+                                    
+                                    <h2>Logical operators</h2>
+                                    
+                                    <p>Logical operators are used to create various conditions. The <code>&amp;&amp;</code> (and) checks if two values are simultaneously <code>true</code>, and the <code>||</code> (or) inspects if one of two values is <code>true</code>. In both cases, if the answer is yes, they return <code>true</code>, and if not - <code>false</code>. The <code>!</code> operator is a negation operator (it changes <code>true</code> to <code>false</code> and vice versa).</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">console</span>.<span class="command">log</span>((5 <span class="sign">&lt;</span> 7) <span class="sign">&&</span> (8 <span class="sign">&gt;</span> 3)) <span class="comment">// true</span>
+<span class="command">console</span>.<span class="command">log</span>((5 <span class="sign">&lt;</span> 7) <span class="sign">&&</span> (8 <span class="sign">&lt;</span> 3)) <span class="comment">// false</span>
+
+<span class="command">console</span>.<span class="command">log</span>((5 <span class="sign">&lt;</span> 7) <span class="sign">||</span> (8 <span class="sign">&gt;</span> 3)) <span class="comment">// true</span>
+<span class="command">console</span>.<span class="command">log</span>((5 <span class="sign">&lt;</span> 7) <span class="sign">||</span> (8 <span class="sign">&lt;</span> 3)) <span class="comment">// true</span>
+
+<span class="command">console</span>.<span class="command">log</span>(<span class="sign">!</span>((5 <span class="sign">&lt;</span> 7) <span class="sign">&&</span> (8 <span class="sign">&gt;</span> 3))) <span class="comment">// false</span>
+<span class="command">console</span>.<span class="command">log</span>(<span class="sign">!</span>((5 <span class="sign">&lt;</span> 7) <span class="sign">&&</span> (8 <span class="sign">&lt;</span> 3))) <span class="comment">// true</span>
+                                    </code></pre>
+                                    
+                                    <p>Logical operators are based on logic gates. If you want to know more about them, click <a href="boolean-algebra-and-logic-gates.html" target="_blank" class="link">here</a>.</p>
+                                    
+                                    <h2>Bitwise operators</h2>
+                                    
+                                    <p>This knowledge is not mandatory at this level. If it is too complicated, move on and come back later.</p>
+                                    
+                                    <p>Bitwise operators operate on binary representations of numbers, not on the numbers themselves. To understand what's going on here, you'll need some basic knowledge about number systems conversion, which you can find <a href="number-systems-conversion.html" target="_blank" class="link">here</a>. There are 6 types of bitwise operators:</p>
+                                    
+                                    <p><code>&amp;</code> - bitwise <code>and</code> - results bit 1 if both operand bits are 1. Otherwise, results bit 0.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">console</span>.<span class="command">log</span>(10 <span class="sign">&amp;</span> 2)
+<span class="comment">"""
+1 0 1 0
+0 0 1 0
+-------
+0 0 1 0 (this number in decimal is 2, and that's the result)
+"""</span>
+                                    </code></pre>
+                                    
+                                    <p><code>|</code> - bitwise <code>or</code> - results bit 1 if any of the operand bits is 1. Otherwise, results bit 0.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">console</span>.<span class="command">log</span>(10 <span class="sign">|</span> 2)
+<span class="comment">"""
+1 0 1 0
+0 0 1 0
+-------
+1 0 1 0 (this number in decimal is 10, and that's the result)
+"""</span>
+                                    </code></pre>
+                                    
+                                    <p><code>~</code> - bitwise <code>not</code> - inverts individual bits. This operator will convert all 0s to 1s and vice versa, but since integers are stored in 4 bytes, i.e., 32 bits, there will be 28 zeros in front of our number (0010 in this case), which will be converted to 1s (the result in decimal is number -3).</p>
+                                    <pre rel="Python" class="wp-block-csstricks-code-block code-example" data-line="" style="color:     #EFEEEE;"><code markup="tt">
+<span class="command">console</span>.<span class="command">log</span>(<span class="sign">~</span>2)
+<span class="comment">"""
+0 0 1 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+-------
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1
+"""</span>
+                                    </code></pre>
+                                    
+                                    <p><code>^</code> - bitwise <code>xor</code> - results bit 1 if any of the operand bits is 1 but not both. Otherwise, results bit 0.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">console</span>.<span class="command">log</span>(10 <span class="sign">^</span> 2)
+<span class="comment">"""
+1 0 1 0
+0 0 1 0
+-------
+1 0 0 0 (this number in decimal is 8, and that's the result)
+"""</span>
+                                    </code></pre>
+                                    
+                                    <p><code>&gt;&gt;</code> - bitwise right shift - each bit shifts one place to the right (if it runs out of space on the right, the particular bit disappears). The value on the left side of the operator is the one we are moving (1010 in binary is ten), and the one on the right tells us by how many places the bits will move.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">console</span>.<span class="command">log</span>(10 <span class="sign">&gt;&gt;</span> 1)
+<span class="comment">"""
+1 0 1 0
+-------
+0 1 0 1 (this number in decimal is 5, and that's the result)
+"""</span>
+
+<span class="command">console</span>.<span class="command">log</span>(10 <span class="sign">&gt;&gt;</span> 2)
+<span class="comment">"""
+1 0 1 0
+-------
+0 0 1 0 (this number in decimal is 2, and that's the result)
+"""</span>
+
+<span class="command">console</span>.<span class="command">log</span>(10 <span class="sign">&gt;&gt;</span> 3)
+<span class="comment">"""
+1 0 1 0
+-------
+0 0 0 1 (this number in decimal is 1, and that's the result)
+"""</span>
+                                    </code></pre>
+                                    
+                                    <p><code>&lt;&lt;</code> - bitwise left shift - each bit shifts one place to the left (if it runs out of space on the right, the particular bit disappears). In this case, bits have more space to move (the number is written on 32 bits, which aren't shown because they are zeros). The value on the left side of the operator is the one we are moving, and the one on the right tells us by how many places the bits will move.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">console</span>.<span class="command">log</span>(10 <span class="sign">&lt;&lt;</span> 1)
+<span class="comment">"""
+0 1 0 1 0
+-------
+1 0 1 0 0 (this number in decimal is 20, and that's the result)
+"""</span>    
+
+<span class="command">console</span>.<span class="command">log</span>(10 <span class="sign">&lt;&lt;</span> 2)
+<span class="comment">"""
+0 0 1 0 1 0
+-------
+1 0 1 0 0 0 (this number in decimal is 40, and that's the result)
+"""</span>    
+
+<span class="command">console</span>.<span class="command">log</span>(10 <span class="sign">&lt;&lt;</span> 3)
+<span class="comment">"""
+0 0 0 1 0 1 0
+-------
+1 0 1 0 0 0 0 (this number in decimal is 80, and that's the result)
+"""</span>    
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

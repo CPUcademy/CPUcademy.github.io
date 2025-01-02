@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
     <title>Loops</title>
 </head>
 
@@ -87,12 +87,16 @@
                                 <div class="card-body">
                                     <h2>The <code>for</code> loop</h2>
 
-                                    <p>The <code>for</code> loop is a repetition loop. It repeats given instructions a certain number of times (of course, this number can be typed in as a variable). In the example below, the loop will work from 0 to 6 (6 times) for the x variable (this variable didn't have to be created earlier). This variable is called an iterator. We don't have to add the zero before the number of times because it will add itself, but we can write, e.g., from 1 to 7, and the result will be the same. As long as we don't use nested loops (a loop in a loop), we can use the same variable names as iterators in each of the loops because their value resets during reinitialization.</p>
+                                    <p>The <code>for</code> loop is a repetition loop. It repeats given instructions a certain number of times (of course, this number can be typed in as a variable). In the example below, the loop will work from 0 to 6 (6 times because the start value is inclusive, and the stop value is exclusive) for the <code>x</code> variable (this variable didn't have to be created earlier). This variable is called an iterator.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(0, 6):
-    <span class="command">print</span>(<span class="text">"Hello World!"</span>)
-    
+    <span class="command">print</span>(x)
+                                    </code></pre>
+
+                                    <p>We don't have to add the <b>zero</b> before the number of executions because it will add itself. We could also write, e.g., from 1 to 7, and the number of executions would be the same. As long as we don't use nested loops (a loop in a loop), we can use the same variable names as iterators in each loop because their value resets during reinitialization (<code>for x in ...</code>).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(6):
     <span class="command">print</span>(<span class="text">"Hello World!"</span>)
     
@@ -121,9 +125,9 @@ x <span class="sign">=</span> 6
                                     <p>The <code>while</code> loop repeats instructions as long as the condition is met. The "The user entered a negative number." string from the example below will display after the loop stops executing.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-x <span class="sign">=</span> <span class="command">input</span>(<span class="text">"Enter a negative number: "</span>)
+x <span class="sign">=</span> <span class="command">int</span>(<span class="command">input</span>(<span class="text">"Enter a negative number: "</span>))
 <span class="function">while</span> x <span class="sign">&gt;</span> 0:
-    x <span class="sign">=</span> <span class="command">input</span>(<span class="text">"Try again: "</span>)
+    x <span class="sign">=</span> <span class="command">int</span>(<span class="command">input</span>(<span class="text">"Try again: "</span>))
 <span class="command">print</span>(<span class="text">"The user entered a negative number."</span>)
                                     </code></pre>
                                     

@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="files/logo.png" rel="icon">
     <link href="files/logo.png" rel="apple-touch-icon">
-    <link rel="stylesheet" href="css/fontello.css" type="text/css"/>
-    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <link rel="stylesheet" href="css/fontello.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
     <title>Basics</title>
 </head>
 
@@ -85,7 +85,73 @@
                                     <h5 class="m-0 font-weight-bold">Basics</h5>
                                 </div>
                                 <div class="card-body">
+                                    <p>JavaScript is a versatile, cross-platform programming language widely used for web development. It allows developers to create interactive, dynamic web pages and applications. JavaScript is primarily used for client-side scripting, but it can also be used on the server side with environments like Node.js. It is an event-driven, functional, and imperative language that runs in web browsers. JavaScript supports procedural, object-oriented, and functional programming. It is primarily used for building websites, web applications, mobile applications, and server-side tools. The extension of a JavaScript file is <code>.js</code>.</p>
+
+                                    <p>We can write JavaScript code inside the <code>&lt;script&gt;</code> tags placed within the body section of an HTML document or in an external <code>.js</code> file. We connect the external file in the head section or at the bottom of the body section like this: <code>&lt;script src="script.js"&gt;&lt;/script&gt;</code>. If we just want to test some simple scripts, we can run them in the browser console by opening the "Console" tab from the developer tools. It's a quick way to run and debug scripts without needing an HTML file.</p>
+
+                                    <h2>Fundamental rules</h2>
+                                    <p>We count from zero, not from one.</p>
+                                    <p>Quotation marks and apostrophes mean the same, although we can't close one string between a quotation mark and an apostrophe.</p>
+                                    <p>In JavaScript, a semicolon can but doesn't have to be placed after each command (not everything is a command). We must indicate which commands belong to, e.g., a loop, by putting them in braces (unless it's only one line).</p>
+                                    <p>We can create comments by using the <code>//</code> symbols. Things that we write after these signs don't count as code. Comments are often used to describe the code. Multiline comments can be written between <code>/*</code> and <code>*/</code> signs.</p>
+
+                                    <h2>Variables</h2>
                                     
+                                    <p class="podpis">A variable is a "drawer" for data in the RAM. We can store every sort of data in them. We have five types of variables:</p>
+                                    <p class="podpis"><code>int</code> - integers</p>
+                                    <p class="podpis"><code>float</code> - decimals</p>
+                                    <p class="podpis"><code>string</code> - texts (a number can also be a part of it, e.g., "abc123")</p>            
+                                    <p class="podpis"><code>bool</code> (boolean) - <code>true</code> (all numbers except 0) and <code>false</code> (0) values</p>     
+                                    <p><code>null</code> - an object used to indicate the absence of a value.</p>     
+                                    
+                                    <p>In JavaScript (unlike in, e.g., C++), we do not have to define the type when creating a variable. It is assigned automatically based on the value.</p>
+                                    
+                                    <p>Everything on the left side of the <code>=</code> sign is a variable's name (it cannot contain spaces), and on the right is a value.</p>
+                                    
+                                    <p>Be cautious because, e.g., variables <code>x</code> and <code>X</code> are not the same!</p>
+
+                                    <p><code>let number = 4</code> will initialize an <code>int</code> variable called "number" and immediately assign it the value 4. We can later change its value in the same way. Instead of <code>let</code>, we can use <code>var</code>. A variable initialized with the former is local and with the latter - global (I will talk about it in the upcoming lessons).</p>
+                                    
+                                    <p>While naming the variables, we cannot add any numbers or spaces at the beginning. The first letter of the variable should not be uppercase. We should write variable names in one of these three ways: <code>prime_number</code>, <code>primeNumber</code>, <code>nPrimeNumber</code>.</p>
+                                    
+                                    <p>We can change a variable to a constant, whose value cannot be changed, by adding const before the variable definition (e.g., <code>const NAME = "text"</code>). There is an unwritten rule that the names of constants should be in uppercase.</p>
+
+                                    <p><code>\n</code> symbolizes the enter key and can be used inside strings.</p>
+
+                                    <p>*In the examples I provide, I will not always give the entire code but fragments of it.</p>
+
+                                    <h2>Displaying data</h2>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Displaying text in the console</span>
+<span class="command">console</span>.<span class="command">log</span>(<span class="text">"Hello World!"</span>)
+
+<span class="comment"># Displaying text in the HTML document</span>
+<span class="command">document</span>.<span class="command">write</span>(<span class="text">"Hello World!"</span>)
+
+<span class="comment"># Displaying text in a pop-up window</span>
+<span class="command">alert</span>(<span class="text">"Hello World!"</span>)
+                                    </code></pre>
+                                    
+                                    <h2>User input</h2>        
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Displaying text in a OK / Cancel pop-up window and saving the boolean value in a variable</span>
+value <span class="sign">=</span> <span class="command">confirm</span>(<span class="text">"Are you sure?"</span>)
+
+<span class="comment"># Displaying text in a pop-up window with a textbox and saving the string value in a variable</span>
+value2 <span class="sign">=</span> <span class="command">prompt</span>(<span class="text">"What is your name?"</span>)
+                                    </code></pre>
+
+                                    <h2>Type casting</h2>
+                                    
+                                    <p>Type casting, also known as type conversion, is the process of converting one data type to another (e.g., <code>float</code> to <code>int</code>).</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">let</span> x <span class="sign">=</span> 5.5
+<span class="function">let</span> y <span class="sign">=</span> <span class="command">parseInt</span>(x) <span class="comment">// there is also parseFloat(), etc.</span>
+<span class="command">console</span>.<span class="command">log</span>(y)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
