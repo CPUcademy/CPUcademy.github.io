@@ -100,15 +100,17 @@
                                     <p class="podpis">A variable is a "drawer" for data in the RAM. We can store every sort of data in them. We have five types of variables:</p>
                                     <p class="podpis"><code>int</code> - integers</p>
                                     <p class="podpis"><code>float</code> - decimals</p>
-                                    <p class="podpis"><code>str</code> (string) - texts (a number can also be a part of it, e.g., "abc123")</p>            
+                                    <p class="podpis"><code>string</code> - texts (a number can also be a part of it, e.g., "abc123")</p>            
                                     <p class="podpis"><code>bool</code> (boolean) - <code>true</code> (all numbers except 0) and <code>false</code> (0) values</p>     
-                                    <p><code>null</code> is an object used to indicate the absence of a value.</p>     
+                                    <p><code>null</code> - an object used to indicate the absence of a value.</p>     
                                     
                                     <p>In JavaScript (unlike in, e.g., C++), we do not have to define the type when creating a variable. It is assigned automatically based on the value.</p>
                                     
                                     <p>Everything on the left side of the <code>=</code> sign is a variable's name (it cannot contain spaces), and on the right is a value.</p>
                                     
                                     <p>Be cautious because, e.g., variables <code>x</code> and <code>X</code> are not the same!</p>
+
+                                    <p><code>let number = 4</code> will initialize an <code>int</code> variable called "number" and immediately assign it the value 4. We can later change its value in the same way. Instead of <code>let</code>, we can use <code>var</code>. A variable initialized with the former is local and with the latter - global (I will talk about it in the upcoming lessons).</p>
                                     
                                     <p>While naming the variables, we cannot add any numbers or spaces at the beginning. The first letter of the variable should not be uppercase. We should write variable names in one of these three ways: <code>prime_number</code>, <code>primeNumber</code>, <code>nPrimeNumber</code>.</p>
                                     
@@ -129,31 +131,26 @@
 
 <span class="comment"># Displaying text in a pop-up window</span>
 <span class="command">alert</span>(<span class="text">"Hello World!"</span>)
-
+                                    </code></pre>
+                                    
+                                    <h2>User input</h2>        
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Displaying text in a OK / Cancel pop-up window and saving the boolean value in a variable</span>
 value <span class="sign">=</span> <span class="command">confirm</span>(<span class="text">"Are you sure?"</span>)
 
-<span class="comment"># Displaying text in a pop-up window with a text box and saving the string value in a variable</span>
+<span class="comment"># Displaying text in a pop-up window with a textbox and saving the string value in a variable</span>
 value2 <span class="sign">=</span> <span class="command">prompt</span>(<span class="text">"What is your name?"</span>)
                                     </code></pre>
-                                    
-                                    <h2>The <code>input()</code> command</h2>        
-                                    
-                                    <p>The <code>input()</code> command retrieves data from the user and saves it to a variable.</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-x <span class="sign">=</span> <span class="command">input</span>()
-<span class="command">print</span>(x)
 
-<span class="comment"># Adding a text that will be displayed before the answer field</span>
-x <span class="sign">=</span> <span class="command">input</span>(<span class="text">"Enter some data: "</span>)
-<span class="command">print</span>(x)
-                                    </code></pre>
+                                    <h2>Type casting</h2>
                                     
-                                    <p>We can add an intended type to input. It is a form of pre-validation. If the user inputs a value of a different type than the suggested one, an error will occur.</p>
+                                    <p>Type casting, also known as type conversion, is the process of converting one data type to another (e.g., <code>float</code> to <code>int</code>).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-x <span class="sign">=</span> <span class="command">int</span>(<span class="command">input</span>(<span class="text">"Enter an integer: "</span>))
+<span class="function">let</span> x <span class="sign">=</span> 5.5
+<span class="function">let</span> y <span class="sign">=</span> <span class="command">parseInt</span>(x) <span class="comment">// there is also parseFloat(), etc.</span>
+<span class="command">console</span>.<span class="command">log</span>(y)
                                     </code></pre>
                                 </div>
                             </div>
