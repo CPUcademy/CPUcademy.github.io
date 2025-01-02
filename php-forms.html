@@ -85,32 +85,9 @@
                                     <h5 class="m-0 font-weight-bold">Forms</h5>
                                 </div>
                                 <div class="card-body">
-                                <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">&lt;!DOCTYPE html&gt;</span>
-<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
-<span class="function">&lt;head&gt;</span>
-    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
-    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
-    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"description"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"PHP basics"</span>&gt;</span>
-    <span class="function">&lt;title&gt;</span>Multiplication table<span class="function">&lt;/title&gt;</span>
-<span class="function">&lt;/head&gt;</span>
-<span class="function">&lt;body&gt;</span>
-    &lt;!-- Main file --&gt;
-    &lt;h3&gt;Podaj zakres tabliczki mnożenia&lt;/h3&gt;
-    
-    &lt;form action="index8-2-tabliczka.php" method="post"&gt;
-        &lt;p&gt;Liczba wierszy:&lt;/p&gt;
-        &lt;input type="text" name="n"&gt;
-        
-        &lt;p&gt;Liczba kolumn:&lt;/p&gt;
-        &lt;input type="text" name="m"&gt;
-        
-        &lt;br&gt;&lt;br&gt;
-        &lt;input type="submit" value="Wyślij zamówienie"&gt;
-    &lt;/form&gt;
-<span class="function">&lt;/body&gt;</span>
-<span class="function">&lt;/html&gt;</span>
-                                    </code></pre>
+                                    <h2>Method 1 - two files</h2>
+
+                                    <h4>Main file</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">&lt;!DOCTYPE html&gt;</span>
@@ -122,26 +99,66 @@
     <span class="function">&lt;title&gt;</span>Multiplication table<span class="function">&lt;/title&gt;</span>
 <span class="function">&lt;/head&gt;</span>
 <span class="function">&lt;body&gt;</span>
-    &lt;!-- Second file --&gt;
-    <span class="function">&lt;?php</span>
-        $n = $_POST['n'];
-        $m = $_POST['m'];
+    <span class="function">&lt;h3&gt;</span>Enter the multiplication table range<span class="function">&lt;/h3&gt;</span>
+
+    <span class="function">&lt;form <span class="command">action</span><span class="sign">=</span><span class="text">"multiplication_table.php"</span> <span class="command">method</span><span class="sign">=</span><span class="text">"post"</span>&gt;</span>
+        <span class="function">&lt;p&gt;</span>Number of rows:<span class="function">&lt;/p&gt;</span>
+        <span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"text"</span> <span class="command">name</span><span class="sign">=</span><span class="text">"n"</span>&gt;</span>
         
-        echo "&lt;table style='width: 300px; height: 300px;' border=1 cellpadding='0' cellspacing='0'&gt;";
-        for($i=1; $i&lt;=$n; $i++)
-        {
-            echo "&lt;tr&gt;";
-            for($j=1; $j&lt;=$m; $j++)
-            {
-                echo "&lt;td&gt;" . ($i*$j) . "&lt;/td&gt;";
-            }
-            echo "&lt;/tr&gt;";
-        }
-        echo "&lt;/table&gt;";
+        <span class="function">&lt;p&gt;</span>Number of columns:<span class="function">&lt;/p&gt;</span>
+        <span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"text"</span> <span class="command">name</span><span class="sign">=</span><span class="text">"m"</span>&gt;</span>
+        
+        <span class="function">&lt;br&gt;&lt;br&gt;</span>
+        <span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"submit"</span> <span class="command">value</span><span class="sign">=</span><span class="text">"Submit"</span>&gt;</span>
+    <span class="function">&lt;/form&gt;</span>
+<span class="function">&lt;/body&gt;</span>
+<span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
+
+                                    <h4>Second file</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;!DOCTYPE html&gt;</span>
+<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
+<span class="function">&lt;head&gt;</span>
+    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"description"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"PHP basics"</span>&gt;</span>
+    <span class="function">&lt;title&gt;</span>Multiplication table<span class="function">&lt;/title&gt;</span>
+    <span class="function">&lt;style&gt;</span>
+        table, td
+        <span class="sign">{</span>
+            <span class="function">border</span><span class="sign">:</span> 1px solid black<span class="sign">;</span>
+            <span class="function">border-spacing</span><span class="sign">:</span> 0<span class="sign">;</span>
+        <span class="sign">}</span>
+    <span class="function">&lt;/style&gt;</span>
+<span class="function">&lt;/head&gt;</span>
+<span class="function">&lt;body&gt;</span>
+    <span class="function">&lt;?php</span>
+        <span class="function">$</span>n <span class="sign">=</span> <span class="function">$</span><span class="command">_POST</span>[<span class="text">'n'</span>]<span class="sign">;</span> <span class="comment">// receiving the value using the POST method</span>
+        <span class="function">$</span>m <span class="sign">=</span> <span class="function">$</span><span class="command">_POST</span>[<span class="text">'m'</span>]<span class="sign">;</span>
+        
+        <span class="command">echo</span> <span class="text">"&lt;table&gt;"</span><span class="sign">;</span>
+        <span class="function">for</span>(<span class="function">$</span>i <span class="sign">=</span> 1<span class="sign">;</span> <span class="function">$</span>i <span class="sign">&lt;=</span> <span class="function">$</span>n<span class="sign">;</span> <span class="function">$</span>i<span class="sign">++</span>)
+        <span class="sign">{</span>
+            <span class="command">echo</span> <span class="text">"&lt;tr&gt;"</span><span class="sign">;</span>
+            <span class="function">for</span>(<span class="function">$</span>j <span class="sign">=</span> 1<span class="sign">;</span> <span class="function">$</span>j <span class="sign">&lt;=</span> <span class="function">$</span>m<span class="sign">;</span> <span class="function">$</span>j<span class="sign">++</span>)
+                <span class="command">echo</span> <span class="text">"&lt;td&gt;"</span> <span class="sign">.</span> (<span class="function">$</span>i <span class="sign">*</span> <span class="function">$</span>j) <span class="sign">.</span> <span class="text">"&lt;/td&gt;"</span><span class="sign">;</span>
+            <span class="command">echo</span> <span class="text">"&lt;/tr&gt;"</span><span class="sign">;</span>
+        <span class="sign">}</span>
+        <span class="command">echo</span> <span class="text">"&lt;/table&gt;"</span><span class="sign">;</span>
     <span class="function">?&gt;</span>
 <span class="function">&lt;/body&gt;</span>
 <span class="function">&lt;/html&gt;</span>
                                     </code></pre>
+
+                                    <h2>Method 2 - one file (PostBack)</h2>
+
+                                    <p>We can interleave the PHP tags between instructions. For example, we can exit PHP in the middle of an <code>else</code> instruction, put some HTML elements there that will only display if this instruction was executed, and then come back to PHP.</p>
+
+                                    <p>The <code>isset()</code> command checks if a variable is set and is not <code>null</code>. It returns <code>true</code> if the variable exists and is not <code>null</code>, and <code>false</code> otherwise.</p>
+                                        
+                                    <p>The <code>empty()</code> command determines if a variable is empty, meaning it is unset, <code>null</code>, <code>false</code>, an empty string, 0, or an empty array. It returns <code>true</code> if the variable is empty and <code>false</code> if it has a non-empty value.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">&lt;!DOCTYPE html&gt;</span>
@@ -153,61 +170,78 @@
     <span class="function">&lt;title&gt;</span>PostBack<span class="function">&lt;/title&gt;</span>
 <span class="function">&lt;/head&gt;</span>
 <span class="function">&lt;body&gt;</span>
-    &lt;?php
-    function formularz($imie = "", $nazwisko = "", $zawod = "", $email = "", $mailing_checked = false){ ?&gt;
-        &lt;form action="" method="post"&gt;
-            &lt;div&gt;
-                Imię: &lt;br&gt;
-                &lt;input name="imie" value="&lt;?= $imie; ?&gt;"&gt;&lt;br&gt;
-                Nazwisko: &lt;br&gt;
-                &lt;input name="nazwisko" value="&lt;?= $nazwisko; ?&gt;"&gt;&lt;br&gt;
-                Zawód: &lt;br&gt;
-                &lt;input name="zawod" value="&lt;?= $zawod; ?&gt;"&gt;&lt;br&gt;
-                Adres e-mail: &lt;br&gt;
-                &lt;input name="email" value="&lt;?= $email; ?&gt;"&gt;&lt;br&gt;
-                &lt;input type="checkbox" name="mailing" checked &lt;?php if($mailing_checked) echo " checked"; ?&gt;&gt;Chcę otrzymywać informacje handlowe&lt;br&gt;&lt;br&gt;
-                
-                &lt;input type="submit" value="Wyślij" name="submit" &gt;
-            &lt;/div&gt;
-        &lt;/form&gt;
-    &lt;?php } ?&gt;
+    <span class="function">&lt;?php function</span> form(<span class="function">$</span>firstName <span class="sign">=</span> <span class="text">""</span>, <span class="function">$</span>lastName <span class="sign">=</span> <span class="text">""</span>, <span class="function">$</span>profession <span class="sign">=</span> <span class="text">""</span>, <span class="function">$</span>email <span class="sign">=</span> <span class="text">""</span>, <span class="function">$</span>mailingChecked <span class="sign">=</span> <span class="function">false</span>, <span class="function">$</span>gender <span class="sign">=</span> <span class="text">""</span>, <span class="function">$</span>education <span class="sign">=</span> <span class="text">""</span>) 
+    <span class="sign">{</span> <span class="function">?&gt;</span>
+        <span class="function">&lt;form <span class="command">action</span><span class="sign">=</span><span class="text">""</span> <span class="command">method</span><span class="sign">=</span><span class="text">"post"</span>&gt;</span>
+            <span class="function">&lt;div&gt;</span>
+                <span class="function">&lt;p&gt;</span>First name:<span class="function">&lt;/p&gt;</span>
+                <span class="function">&lt;input <span class="command">name</span><span class="sign">=</span><span class="text">"firstName"</span> <span class="command">value</span><span class="sign">=</span><span class="text">"&lt;?= $firstName; ?&gt;"</span>&gt;&lt;br&gt;</span>
+                <span class="function">&lt;p&gt;</span>Last name:<span class="function">&lt;/p&gt;</span>
+                <span class="function">&lt;input <span class="command">name</span><span class="sign">=</span><span class="text">"lastName"</span> <span class="command">value</span><span class="sign">=</span><span class="text">"&lt;?= $lastName; ?&gt;"</span>&gt;&lt;br&gt;</span>
+                <span class="function">&lt;p&gt;</span>Profession:<span class="function">&lt;/p&gt;</span>
+                <span class="function">&lt;input <span class="command">name</span><span class="sign">=</span><span class="text">"profession"</span> <span class="command">value</span><span class="sign">=</span><span class="text">"&lt;?= $profession; ?&gt;"</span>&gt;&lt;br&gt;</span>
+                <span class="function">&lt;p&gt;</span>Email address:<span class="function">&lt;/p&gt;</span>
+                <span class="function">&lt;input <span class="command">name</span><span class="sign">=</span><span class="text">"email"</span> <span class="command">value</span><span class="sign">=</span><span class="text">"&lt;?= $email; ?&gt;"</span>&gt;&lt;br&gt;</span>
 
-    &lt;!-- Odbieranie w tym samym pliku - PostBack + isset() i empty() --&gt;
+                <span class="function">&lt;p&gt;</span>Gender:<span class="function">&lt;/p&gt;</span>
+                <span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"radio"</span> <span class="command">name</span><span class="sign">=</span><span class="text">"gender"</span> <span class="command">value</span><span class="sign">=</span><span class="text">"Male"</span> <span class="function">&lt;?php</span> if</span>(<span class="function">$</span>gender <span class="sign">===</span> <span class="text">"Male"</span>) <span class="command">echo</span> <span class="text">"checked"</span><span class="sign">;</span> <span class="function">?&gt;&gt;&lt;label <span class="command">for</span><span class="sign">=</span><span class="text">"Male"</span>&gt;</span>Male<span class="function">&lt;/label&gt;&lt;br&gt;</span>
+                <span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"radio"</span> <span class="command">name</span><span class="sign">=</span><span class="text">"gender"</span> <span class="command">value</span><span class="sign">=</span><span class="text">"Female"</span> <span class="function">&lt;?php</span> if</span>(<span class="function">$</span>gender <span class="sign">===</span> <span class="text">"Female"</span>) <span class="command">echo</span> <span class="text">"checked"</span><span class="sign">;</span> <span class="function">?&gt;&gt;&lt;label <span class="command">for</span><span class="sign">=</span><span class="text">"Female"</span>&gt;</span>Female<span class="function">&lt;/label&gt;&lt;br&gt;</span>
+
+                <span class="function">&lt;p&gt;</span>Education:<span class="function">&lt;/p&gt;</span>
+                <span class="function">&lt;select <span class="command">name</span><span class="sign">=</span><span class="text">"education"</span>&gt;</span>
+                    <span class="function">&lt;option <span class="command">value</span><span class="sign">=</span><span class="text">""</span>&gt;</span>-- Select --<span class="function">&lt;/option&gt;</span>
+                    <span class="function">&lt;option</span> <span class="command">value</span><span class="sign">=</span><span class="text">"High School"</span> <span class="function">&lt;?php</span></span> <span class="function">if</span>(<span class="function">$</span>education <span class="sign">===</span> <span class="text">"High School"</span>) <span class="command">echo</span> <span class="text">"selected"</span><span class="sign">;</span> <span class="function">?&gt;&gt;</span>High School<span class="function">&lt;/option&gt;</span>
+                    <span class="function">&lt;option</span> <span class="command">value</span><span class="sign">=</span><span class="text">"Bachelor's"</span> <span class="function">&lt;?php</span></span> <span class="function">if</span>(<span class="function">$</span>education <span class="sign">===</span> <span class="text">"Bachelor's"</span>) <span class="command">echo</span> <span class="text">"selected"</span><span class="sign">;</span> <span class="function">?&gt;&gt;</span>Bachelor's<span class="function">&lt;/option&gt;</span>
+                    <span class="function">&lt;option</span> <span class="command">value</span><span class="sign">=</span><span class="text">"Master's"</span> <span class="function">&lt;?php</span></span> <span class="function">if</span>(<span class="function">$</span>education <span class="sign">===</span> <span class="text">"Master's"</span>) <span class="command">echo</span> <span class="text">"selected"</span><span class="sign">;</span> <span class="function">?&gt;&gt;</span>Master's<span class="function">&lt;/option&gt;</span>
+                    <span class="function">&lt;option</span> <span class="command">value</span><span class="sign">=</span><span class="text">"PhD"</span> <span class="function">&lt;?php</span></span> <span class="function">if</span>(<span class="function">$</span>education <span class="sign">===</span> <span class="text">"PhD"</span>) <span class="command">echo</span> <span class="text">"selected"</span><span class="sign">;</span> <span class="function">?&gt;&gt;</span>PhD<span class="function">&lt;/option&gt;</span>
+                <span class="function">&lt;/select&gt;&lt;br&gt;&lt;br&gt;</span>
+
+                <span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"checkbox"</span> <span class="command">name</span><span class="sign">=</span><span class="text">"mailing"</span> &lt;?php if</span>(<span class="function">$</span>mailingChecked) <span class="command">echo</span> <span class="text">"checked"</span><span class="sign">;</span> <span class="function">?&gt;&gt;</span>I want to receive commercial information<span class="function">&lt;br&gt;</span><span class="function">&lt;br&gt;</span>
+                
+                <span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"submit"</span> <span class="command">value</span><span class="sign">=</span><span class="text">"Submit"</span> <span class="command">name</span><span class="sign">=</span><span class="text">"submit"</span>&gt;</span>
+            <span class="function">&lt;/div&gt;</span>
+        <span class="function">&lt;/form&gt;</span>
+    <span class="function">&lt;?php</span> <span class="sign">}</span> <span class="function">?&gt;</span>
+    
     <span class="function">&lt;?php</span>
-        if(isset($_POST["submit"]))
-        {
-            $mailing = false;
-            if(isset($_POST["mailing"]))
-                $mailing = true;
-            formularz($_POST["imie"], $_POST["nazwisko"], $_POST["zawod"], $_POST["email"], $mailing);
-            if(empty($_POST["imie"]) || empty($_POST["nazwisko"]) || 
-                    empty($_POST["zawod"]) || empty($_POST["email"]))
-                echo "&lt;p style=\"color:red\"&gt;Musisz wypelnić wszystkie pola!&lt;/p&gt;";
-            else
-            {
-                echo "&lt;p&gt;Dziękujemy za wypełnienie formularza!&lt;/p&gt;"; ?&gt;
-                &lt;ul&gt;
-                    &lt;li&gt;Imię: &lt;b&gt;&lt;?= trim($_POST["imie"]); ?&gt;&lt;/b&gt;&lt;/li&gt;
-                    &lt;li&gt;Nazwisko: &lt;b&gt;&lt;?= trim($_POST["nazwisko"]); ?&gt;&lt;/b&gt;&lt;/li&gt;
-                    &lt;li&gt;Zawód: &lt;b&gt;&lt;?= trim($_POST["zawod"]); ?&gt;&lt;/b&gt;&lt;/li&gt;
-                    &lt;li&gt;Adres e-mail: &lt;b&gt;&lt;?= trim($_POST["email"]); ?&gt;&lt;/b&gt;&lt;/li&gt;
-                    &lt;?php
-                    if(isset($_POST["mailing"]))
-                        echo "&lt;li&gt;Chcesz otrzymywać informacje handlowe.&lt;/li&gt;";
-                    else 
-                        echo "&lt;li&gt;Nie chcesz otrzymywać informacji handlowych.&lt;/li&gt;";
-                    ?&gt;
-                &lt;/ul&gt;
-            &lt;?php }
-        }
-        else
-            formularz();
+        <span class="function">if</span>(<span class="command">isset</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"submit"</span>])) 
+        <span class="sign">{</span>
+            <span class="function">$</span>mailing <span class="sign">=</span> <span class="command">isset</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"mailing"</span>]);
+            <span class="function">$</span>gender <span class="sign">=</span> <span class="command">isset</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"gender"</span>]) ? <span class="function">$</span><span class="command">_POST</span>[<span class="text">"gender"</span>] <span class="sign">:</span> <span class="text">""</span><span class="sign">;</span>
+            <span class="function">$</span>education <span class="sign">=</span> <span class="command">isset</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"education"</span>]) ? <span class="function">$</span><span class="command">_POST</span>[<span class="text">"education"</span>] <span class="sign">:</span> <span class="text">""</span><span class="sign">;</span>
+            
+            form(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"firstName"</span>], <span class="function">$</span><span class="command">_POST</span>[<span class="text">"lastName"</span>], <span class="function">$</span><span class="command">_POST</span>[<span class="text">"profession"</span>], <span class="function">$</span><span class="command">_POST</span>[<span class="text">"email"</span>], <span class="function">$</span>mailing, <span class="function">$</span>gender, <span class="function">$</span>education);
+            
+            <span class="function">if</span>(<span class="command">empty</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"firstName"</span>]) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"lastName"</span>]) <span class="sign">||</span> 
+            <span class="command">empty</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"profession"</span>]) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"email"</span>]) <span class="sign">||</span> 
+            <span class="command">empty</span>(<span class="function">$</span>gender) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span>education)) {
+                <span class="command">echo</span> <span class="text">"&lt;p style='color: red;'&gt;You must fill in all fields!&lt;/p&gt;"</span><span class="sign">;</span>
+            <span class="sign">}</span> <span class="function">else</span> 
+            <span class="sign">{</span>
+                <span class="command">echo</span> <span class="text">"&lt;p&gt;Thank you for filling out the form!&lt;/p&gt;"</span><span class="sign">;</span>
+                <span class="function">?&gt;</span>
+                <span class="function">&lt;ul&gt;</span>
+                    <span class="function">&lt;li&gt;</span>First name: <span class="function">&lt;b&gt;&lt;?=</span> <span class="command">trim</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"firstName"</span>])<span class="sign">;</span> <span class="function">?&gt;&lt;/b&gt;&lt;/li&gt;</span>
+                    <span class="function">&lt;li&gt;</span>Last name: <span class="function">&lt;b&gt;&lt;?=</span> <span class="command">trim</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"lastName"</span>])<span class="sign">;</span> <span class="function">?&gt;&lt;/b&gt;&lt;/li&gt;</span>
+                    <span class="function">&lt;li&gt;</span>Profession: <span class="function">&lt;b&gt;&lt;?=</span> <span class="command">trim</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"profession"</span>])<span class="sign">;</span> <span class="function">?&gt;&lt;/b&gt;&lt;/li&gt;</span>
+                    <span class="function">&lt;li&gt;</span>Email address: <span class="function">&lt;b&gt;&lt;?=</span> <span class="command">trim</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"email"</span>])<span class="sign">;</span> <span class="function">?&gt;&lt;/b&gt;&lt;/li&gt;</span>
+                    <span class="function">&lt;li&gt;</span>Gender: <span class="function">&lt;b&gt;&lt;?=</span> <span class="function">$</span>gender<span class="sign">;</span> <span class="function">?&gt;&lt;/b&gt;&lt;/li&gt;</span>
+                    <span class="function">&lt;li&gt;</span>Education: <span class="function">&lt;b&gt;&lt;?=</span> <span class="function">$</span>education<span class="sign">;</span> <span class="function">?&gt;&lt;/b&gt;&lt;/li&gt;</span>
+                    <span class="function">&lt;?php</span>
+                        <span class="function">if</span>(<span class="function">$</span>mailing)
+                            <span class="command">echo</span> <span class="text">"&lt;li&gt;You want to receive commercial information.&lt;/li&gt;"</span><span class="sign">;</span>
+                        <span class="function">else</span>
+                            <span class="command">echo</span> <span class="text">"&lt;li&gt;You do not want to receive commercial information.&lt;/li&gt;"</span><span class="sign">;</span>
+                    <span class="function">?&gt;</span>
+                <span class="function">&lt;/ul&gt;</span>
+                <span class="function">&lt;?php</span>
+           <span class="sign">}</span>
+        <span class="sign">}</span> <span class="function">else</span>
+            form()<span class="sign">;</span>
     <span class="function">?&gt;</span>
 <span class="function">&lt;/body&gt;</span>
 <span class="function">&lt;/html&gt;</span>
                                     </code></pre>
-
-                                    + ewentualnie więcej kontrolek
                                 </div>
                             </div>
                         </div>
