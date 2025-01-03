@@ -85,7 +85,112 @@
                                     <h5 class="m-0 font-weight-bold">Conditional statements</h5>
                                 </div>
                                 <div class="card-body">
+                                    <h2><code>if</code> conditional statement</h2>
+            
+                                    <p>The <code>if</code> conditional statement allows us to check if a given condition is fulfilled. We commonly use logical operators in conditional statements.</p>
                                     
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">let</span> x <span class="sign">=</span> <span class="command">parseInt</span>(<span class="command">prompt</span>(<span class="text">"Enter a number:"</span>))
+<span class="function">if</span>(x <span class="sign">===</span> 5)
+    <span class="command">console</span>.<span class="command">log</span>(<span class="text">"The user entered the number 5."</span>)
+                                    </code></pre>
+                                    
+                                    <p>We use the modulo operator very often in conditional statements. In the example below, the condition checks if the <code>x</code> variable is divisible by 2 (whether it is even).</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">let</span> x <span class="sign">=</span> <span class="command">parseInt</span>(<span class="command">prompt</span>(<span class="text">"Enter a number:"</span>))
+<span class="function">if</span>(x <span class="sign">%</span> 2 <span class="sign">===</span> 0)
+    <span class="command">console</span>.<span class="command">log</span>(<span class="text">"The user entered an even number."</span>)
+                                    </code></pre>
+                                    
+                                    <p>We can simplify the <code>if</code> statement by using boolean conditions. We can just write <code>if(x)</code>, and if <code>x</code> is <code>true</code>, the instruction will be executed. <code>true</code> means any value other than 0.</p>
+                                    
+                                    <h2><code>else</code> and <code>else if</code> conditional statements</h2>
+                                    
+                                    <p><code>else</code> is a statement that allows us to simplify our code by avoiding the need for another <code>if</code> statement, replacing it with an alternative action when the original condition is <code>false</code>.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">let</span> x <span class="sign">=</span> <span class="command">parseInt</span>(<span class="command">prompt</span>(<span class="text">"Enter a number:"</span>))
+<span class="function">if</span>(x <span class="sign">&gt;</span> 0)
+    <span class="command">console</span>.<span class="command">log</span>(<span class="text">"The user entered a positive number."</span>)
+<span class="function">else</span>
+    <span class="command">console</span>.<span class="command">log</span>(<span class="text">"The user entered a negative number."</span>)
+                                    </code></pre>
+                                    
+                                    <p>The code above doesn't handle the case where the user enters 0. To do that, we need <code>else if</code>. It works similarly to <code>else</code>, but allows us to specify an additional condition (like in an <code>if</code> statement). We can use as many <code>else if</code> instructions as we want, relating to a single <code>if</code>.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">let</span> x <span class="sign">=</span> <span class="command">parseInt</span>(<span class="command">prompt</span>(<span class="text">"Enter a number:"</span>))
+<span class="function">if</span>(x <span class="sign">&gt;</span> 0)
+    <span class="command">console</span>.<span class="command">log</span>(<span class="text">"The user entered a positive number."</span>)
+<span class="function">else if</span>(x <span class="sign">&lt;</span> 0)
+    <span class="command">console</span>.<span class="command">log</span>(<span class="text">"The user entered a negative number."</span>)
+<span class="function">else</span>
+    <span class="command">console</span>.<span class="command">log</span>(<span class="text">"The user entered 0."</span>)
+                                    </code></pre>
+                                    
+                                    <p>We use this instruction because if any of the conditions relating to a single <code>if</code> statement have been met, the rest will not be considered, which wouldn't be the case if we wrote multiple <code>if</code> statements.</p>
+                                    
+                                    <h2><code>break</code> and <code>continue</code> keywords</h2>
+                                    
+                                    <p>The <code>break</code> keyword is used to break the continuity of a loop, and <code>continue</code> can skip particular iterations within it.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">let</span> x
+<span class="function">while</span>(<span class="function">true</span>) 
+<span class="sign">{</span>
+    x <span class="sign">=</span> <span class="command">parseInt</span>(<span class="command">prompt</span>(<span class="text">"Enter a number:"</span>))
+    <span class="function">if</span>(x <span class="sign">&gt;</span> 0)
+        <span class="function">break</span>
+<span class="sign">}</span>
+
+<span class="function">for</span>(<span class="function">let</span> y <span class="sign">=</span> 1<span class="sign">;</span> y <span class="sign">&lt;=</span> 10<span class="sign">;</span> y<span class="sign">++</span>)
+<span class="sign">{</span>
+    <span class="function">if</span>(y <span class="sign">===</span> 4 <span class="sign">||</span> y <span class="sign">===</span> 8) 
+        <span class="function">continue</span>
+    <span class="command">console</span>.<span class="command">log</span>(y)
+<span class="sign">}</span>
+                                    </code></pre>
+                                    
+                                    <h2><code>switch</code> conditional statement</h2>
+                                    
+                                    <p><code>switch</code> is an instruction that simplifies complex conditions with <code>if</code> and <code>else if</code> statements.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">let</span> x <span class="sign">=</span> <span class="command">parseInt</span>(<span class="command">prompt</span>(<span class="text">"Enter a number:"</span>))
+
+<span class="function">switch</span>(x) 
+<span class="sign">{</span>
+    <span class="function">case</span> 0:
+        <span class="command">console</span>.<span class="command">log</span>(<span class="text">"x equals 0"</span>)
+        <span class="function">break</span>
+    <span class="function">case</span> 25:
+        <span class="command">console</span>.<span class="command">log</span>(<span class="text">"x equals 25"</span>)
+        <span class="function">break</span>
+    <span class="function">case</span> 50:
+        <span class="command">console</span>.<span class="command">log</span>(<span class="text">"x equals 50"</span>)
+        <span class="function">break</span>
+    <span class="function">default</span>:
+        <span class="command">console</span>.<span class="command">log</span>(<span class="text">"x doesn't equal 0, 25, or 50"</span>)
+<span class="sign">}</span>
+                                    </code></pre>
+                                    
+                                    <p>A parameter of the <code>switch</code> statement is usually an integer or a string (but it could be something else).</p> 
+                                    
+                                    <p>If we want several <code>cases</code> to be called upon in a given <code>case</code>, we do not put the <code>break</code> statement at the end of it (they will execute until a <code>break</code> is encountered or the <code>switch</code> instruction ends).</p>
+                                    
+                                    <h2>The ternary operator (<code>?</code>)</h2>
+                                    
+                                    <p>The ternary operator allows us to create a simplifed one-line version of the <code>if-else</code> statement. If the condition is <code>true</code>, the instruction on the left side of the colon will execute, and if not - the one on the right side. Check the results in your editor.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">console</span>.<span class="command">log</span>(7 <span class="sign">&gt;</span> 4 <span class="sign">?</span> 4 <span class="sign">:</span> 7)
+
+<span class="function">let</span> a <span class="sign">=</span> 7, b <span class="sign">=</span> 10
+<span class="function">let</span> x <span class="sign">=</span> a <span class="sign">&gt;=</span> b <span class="sign">?</span> <span class="text">"a &gt;= b"</span> <span class="sign">:</span> <span class="text">"a &lt;= b"</span>
+
+<span class="command">console</span>.<span class="command">log</span>(x)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

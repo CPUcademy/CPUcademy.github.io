@@ -96,7 +96,7 @@
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"The user entered the number 5."</span><span class="sign">;</span>
                                     </code></pre>
                                     
-                                    <p>We also very often use the modulo operator in this instruction. In the example below, the instruction says that if the <code>x</code> variable is divisible by 2, it is even.</p>
+                                    <p>We use the modulo operator very often in conditional statements. In the example below, the condition checks if the <code>x</code> variable is divisible by 2 (whether it is even).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> x<span class="sign">;</span>
@@ -105,11 +105,11 @@
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"The user entered an even number."</span><span class="sign">;</span>
                                     </code></pre>
                                     
-                                    <p>With this instruction, we can make use of boolean variables. We can just write <code>if(x)</code>, and if <code>x</code> is <code>true</code>, the instruction will be executed.</p>
+                                    <p>We can simplify the <code>if</code> statement by using boolean conditions. We can just write <code>if(x)</code>, and if <code>x</code> is <code>true</code>, the instruction will be executed. <code>true</code> means any value other than 0.</p>
                                     
                                     <h2><code>else</code> and <code>else if</code> conditional statements</h2>
                                     
-                                    <p><code>else</code> is an instruction that lets us simplify our code by not writing another <code>if</code> but replacing it.</p>
+                                    <p><code>else</code> is a statement that allows us to simplify our code by avoiding the need for another <code>if</code> statement, replacing it with an alternative action when the original condition is <code>false</code>.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> x<span class="sign">;</span>
@@ -120,7 +120,7 @@
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"The user entered a negative number."</span><span class="sign">;</span>
                                     </code></pre>
                                     
-                                    <p>The code from the example above isn't accurate because we could type in 0. In this case, we need <code>else if</code>. It works similarly to <code>else</code>, but allows us to specify a condition (like in an <code>if</code> statement). We can use as many of them as we want, relating to a single <code>if</code>.</p>
+                                    <p>The code above doesn't handle the case where the user enters 0. To do that, we need <code>else if</code>. It works similarly to <code>else</code>, but allows us to specify an additional condition (like in an <code>if</code> statement). We can use as many <code>else if</code> instructions as we want, relating to a single <code>if</code>.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> x<span class="sign">;</span>
@@ -133,11 +133,11 @@
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"The user entered 0."</span><span class="sign">;</span>
                                     </code></pre>
                                     
-                                    <p>We use it because if any of the conditions have been met, the rest won't be considered, which wouldn't be the case if we wrote multiple <code>if</code> statements.</p>
+                                    <p>We use this instruction because if any of the conditions relating to a single <code>if</code> statement have been met, the rest will not be considered, which wouldn't be the case if we wrote multiple <code>if</code> statements.</p>
                                     
                                     <h2><code>break</code> and <code>continue</code> keywords</h2>
                                     
-                                    <p>The <code>break</code> keyword is used to break the continuity of a loop, and <code>continue</code> can skip iterations within it.</p>
+                                    <p>The <code>break</code> keyword is used to break the continuity of a loop, and <code>continue</code> can skip particular iterations within it.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> x<span class="sign">;</span>
@@ -184,9 +184,9 @@
                                     
                                     <p>If we want several <code>cases</code> to be called upon in a given <code>case</code>, we do not put the <code>break</code> statement at the end of it (they will execute until a <code>break</code> is encountered or the <code>switch</code> instruction ends).</p>
                                     
-                                    <h2>Instructions with <code>?</code></h2>
+                                    <h2>The ternary operator (<code>?</code>)</h2>
                                     
-                                    <p>The <code>?</code> sign allows us to build less complicated conditions. If the condition is <code>true</code>, the instruction on the left side of the colon will execute, and if not - the one on the right side. Check the results in your editor.</p>
+                                    <p>The ternary operator allows us to create a simplifed one-line version of the <code>if-else</code> statement. If the condition is <code>true</code>, the instruction on the left side of the colon will execute, and if not - the one on the right side. Check the results in your editor.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> (7 <span class="sign">&gt;</span> 4 <span class="sign">?</span> 4<span class="sign">:</span> 7) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
