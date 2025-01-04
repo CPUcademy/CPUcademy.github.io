@@ -165,7 +165,7 @@
 )
 <span class="function">BEGIN</span>
     <span class="function">DECLARE EXIT HANDLER FOR SQLEXCEPTION</span> <span class="comment">-- This handler will not be triggered until an error occurs after the transaction has already started. 
-    -- Therefore, it's not an issue that the ROLLBACK inside is placed before the transaction starts.</span>
+    -- Therefore, it's not an issue that the ROLLBACK inside it, is placed before START TRANSACTION in the code.</span>
     <span class="function">BEGIN</span>
         <span class="comment">-- Rollback the transaction in case of an error</span>
         <span class="function">ROLLBACK</span>;

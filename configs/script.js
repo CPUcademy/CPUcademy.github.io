@@ -34,7 +34,6 @@ if(window.location.pathname.endsWith('index.html') || (window.location.pathname.
       {
         text1 = document.getElementById('importantlinks');
         text2 = document.getElementById('services');
-        text3 = document.getElementById('donations');
       }
       imgElement = document.querySelector('#flag');
 
@@ -44,7 +43,6 @@ if(window.location.pathname.endsWith('index.html') || (window.location.pathname.
           textElement.innerHTML = polishText
           text1.innerHTML = "Ważne odnośniki"
           text2.innerHTML = "Moje usługi"
-          text3.innerHTML = "Darowizny na rozwój moich bezpłatnych kursów"
         }
         else
         {
@@ -56,7 +54,6 @@ if(window.location.pathname.endsWith('index.html') || (window.location.pathname.
           textElement.innerHTML = englishText
           text1.innerHTML = "Important links"
           text2.innerHTML = "My services"
-          text3.innerHTML = "Donations for the development of my free courses"
         }
         else
         {

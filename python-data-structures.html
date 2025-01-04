@@ -143,7 +143,7 @@ y <span class="sign">=</span> <span class="text">"y"</span>
                                     
                                     <h2><a id="list">Lists</a></h2>
                                     
-                                    <p>We use lists to store lots of objects of all types. It is a variable with square brackets assigned. We can immediately fill these brackets  with objects after commas or leave them empty and use them later. Remember that we can't name a list "list" because it is its keyword, and we use it in type casting (I will explain it at the end of the lesson). Just like with strings, we can use the <code>index()</code> method to get the index of any item on the list and check how many elements it has using the <code>len()</code> method.</p>
+                                    <p>We use lists to store many objects of all types. We create them using square brackets. We can immediately fill the array with objects after commas or leave it empty. Remember that we can't name a list "list" because it is its keyword, and we use it in type casting (I will explain it at the end of this lesson). A list index is the position number used to access or reference a specific element within an array, starting from 0. Just like with strings, we can use the <code>index()</code> method to get the index of any item in the list and check how many elements it has using the <code>len()</code> method.</p>
                                     
                                     <h4><code>append()</code></h4>
                                     
@@ -185,10 +185,10 @@ x <span class="sign">=</span> [<span class="text">"a"</span>, <span class="text"
 <span class="command">print</span>(x[1<span class="sign">:</span>3]) <span class="comment"># from the 2nd element (included) to the 4th (excluded) - ["b", "c"]</span>
                                     </code></pre>
             
-                                    <h4>Iterating a list</h4>
+                                    <h4>Iterating over a list</h4>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># Getting access to every single list element independently</span>
+<span class="comment"># Accessing every single list element independently</span>
 x <span class="sign">=</span> [3, 3.5, <span class="text">"Python"</span>]
 <span class="function">for</span> y <span class="function">in</span> x:
     <span class="command">print</span>(y)
@@ -217,6 +217,16 @@ x <span class="sign">=</span> [[<span class="text">"a"</span>, 1], [<span class=
 
                                     <p>Replace <code>range()</code> with <code>enumerate()</code> as often as possible (by <b>PEP8</b> guidelines).</p>
             
+                                    <h4><code>sorted()</code></h4>
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Sorting a list (alphabetically by default)</span>
+x <span class="sign">=</span> [<span class="text">"b"</span>, <span class="text">"e"</span>, <span class="text">"r"</span>, <span class="text">"z"</span>, <span class="text">"a"</span>]
+y <span class="sign">=</span> [6, 1, 4, 3, 5, 7]
+<span class="command">print</span>(<span class="command">sorted</span>(x))
+<span class="command">print</span>(<span class="command">sorted</span>(y))
+                                    </code></pre>
+
                                     <h4><code>max()</code> and <code>min()</code></h4>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -225,35 +235,25 @@ x <span class="sign">=</span> [1, 2, 3, 4, 5]
 <span class="command">print</span>(<span class="command">min</span>(x)) <span class="comment"># the smallest number from a list</span>
                                     </code></pre>
             
-                                    <p>If the list contains letters, these methods will sort alphabetically.</p>
+                                    <p>If the list contains letters, the sorting is alphabetical.</p>
                                     
                                     <h4><code>insert()</code></h4>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># Adding an element to a list by giving its designated index (the rest of the items will move)</span>
+<span class="comment"># Adding an element to a list on a particular index (the rest of the items will move)</span>
 x <span class="sign">=</span> [<span class="text">"a"</span>, <span class="text">"b"</span>, <span class="text">"c"</span>, <span class="text">"d"</span>]
 x.<span class="command">insert</span>(0, <span class="text">"e"</span>)
 <span class="command">print</span>(x)
                                     </code></pre>
             
-                                    <h4><code>sorted()</code></h4>
-            
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># Sorting a list</span>
-x <span class="sign">=</span> [<span class="text">"b"</span>, <span class="text">"e"</span>, <span class="text">"r"</span>, <span class="text">"z"</span>, <span class="text">"a"</span>]
-y <span class="sign">=</span> [6, 1, 4, 3, 5, 7]
-<span class="command">print</span>(<span class="command">sorted</span>(x))
-<span class="command">print</span>(<span class="command">sorted</span>(y))
-                                    </code></pre>
-            
-                                        <h4><code>pop()</code></h4>
+                                    <h4><code>pop()</code></h4>
                                         
-                                        <p>This command also works with sets and dictionaries.</p>
+                                    <p>This command also works with sets and dictionaries.</p>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Deleting an item chosen by index from a list (if no argument given - the last element)</span>
 x <span class="sign">=</span> [<span class="text">"a"</span>, <span class="text">"b"</span>, <span class="text">"c"</span>, <span class="text">"d"</span>]
-x.<span class="command">pop</span>(2)
+x.<span class="command">pop</span>(2) <span class="comment"># if we assign this command to a variable, it will equal this deleted value</span>
 <span class="command">print</span>(x)
                                     </code></pre>
             
