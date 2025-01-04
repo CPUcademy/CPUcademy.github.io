@@ -156,7 +156,7 @@ result <span class="sign">=</span> {
 
                                     <h4>Memoization</h4>
 
-                                    <p>Memoization is an optimization technique that stores the results of expensive function calls and reuses the cached result when the same inputs occur again. In the example below, I counted the execution time for the first and second calls to a memoized function to demonstrate the performance improvement after the result is cached.</p>
+                                    <p>Memoization is an optimization technique that stores the results of expensive function calls and reuses the cached result when the same inputs occur again. In the example below, I counted the execution time of the first and second calls of a memoized function to demonstrate the performance improvement after the result is cached.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> math, time
@@ -171,12 +171,64 @@ memoized_values <span class="sign">=</span> {}
 start_time <span class="sign">=</span> time.<span class="command">time</span>()
 <span class="command">print</span>(memoized_cos(1))
 end_time <span class="sign">=</span> time.<span class="command">time</span>()
-<span class="command">print</span>(<span class="text">f"Execution time for first call: {end_time - start_time:.10f} seconds."</span>)
+<span class="command">print</span>(<span class="text">f"Execution time of the first call: {end_time - start_time:.10f} seconds."</span>)
 
 start_time <span class="sign">=</span> time.<span class="command">time</span>()
 <span class="command">print</span>(memoized_cos(1))
 end_time <span class="sign">=</span> time.<span class="command">time</span>()
-<span class="command">print</span>(<span class="text">f"Execution time for second call: {end_time - start_time:.10f} seconds."</span>)
+<span class="command">print</span>(<span class="text">f"Execution time of the second call: {end_time - start_time:.10f} seconds."</span>)
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Memoization using closures</span>
+<span class="command">import</span> math, time
+
+<span class="function">def</span> memoizer():
+    memoized_values <span class="sign">=</span> {}
+    <span class="function">def</span> memoized_cos(x):
+        <span class="function">if</span> x <span class="function">not in</span> memoized_values:
+            memoized_values[x] <span class="sign">=</span> math.<span class="command">cos</span>(x)
+        <span class="function">return</span> memoized_values[x]
+    <span class="function">return</span> memoized_cos
+
+memoized_cos <span class="sign">=</span> memoizer()
+
+start_time <span class="sign">=</span> time.<span class="command">time</span>()
+<span class="command">print</span>(memoized_cos(1))
+end_time <span class="sign">=</span> time.<span class="command">time</span>()
+<span class="command">print</span>(<span class="text">f"Execution time of the first call: {end_time - start_time:.10f} seconds."</span>)
+
+start_time <span class="sign">=</span> time.<span class="command">time</span>()
+<span class="command">print</span>(memoized_cos(1))
+end_time <span class="sign">=</span> time.<span class="command">time</span>()
+<span class="command">print</span>(<span class="text">f"Execution time of the second call: {end_time - start_time:.10f} seconds."</span>)
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Memoization using a custom decorator</span>
+<span class="command">import</span> math, time
+
+<span class="function">def</span> memoize(func):
+    memoized_values <span class="sign">=</span> {}
+    <span class="function">def</span> wrapper(x):
+        <span class="function">if</span> x <span class="function">not in</span> memoized_values:
+            memoized_values[x] <span class="sign">=</span> <span class="command">func</span>(x)
+        <span class="function">return</span> memoized_values[x]
+    <span class="function">return</span> wrapper
+
+<span class="function">@memoize</span>
+<span class="function">def</span> cos_function(x):
+    <span class="command">return</span> math.<span class="command">cos</span>(x)
+
+start_time <span class="sign">=</span> time.<span class="command">time</span>()
+<span class="command">print</span>(cos_function(1))
+end_time <span class="sign">=</span> time.<span class="command">time</span>()
+<span class="command">print</span>(<span class="text">f"Execution time of the first call (with decorator): {end_time - start_time:.10f} seconds."</span>)
+
+start_time <span class="sign">=</span> time.<span class="command">time</span>()
+<span class="command">print</span>(cos_function(1))
+end_time <span class="sign">=</span> time.<span class="command">time</span>()
+<span class="command">print</span>(<span class="text">f"Execution time of the second call (with decorator): {end_time - start_time:.10f} seconds."</span>)
                                     </code></pre>
                                     
                                     <h2>Testy jednostkowe</h2>
