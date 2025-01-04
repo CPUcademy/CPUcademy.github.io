@@ -85,17 +85,17 @@
                                     <h5 class="m-0 font-weight-bold">Decorators</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>A decorator is a function we give to another function as an argument to extend or modify its behavior. One function can have multiple decorators assigned. They are used to add reusable code and improve its readability and maintainability.</p>
+                                    <p>A decorator is a higher-order function that takes another function (or method) as its argument, enhances or modifies its behavior, and returns the modified function. One function can have multiple decorators assigned. They are used to add reusable code and improve its readability and maintainability.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">def</span> decorator_method(func):
+<span class="function">def</span> decorator_function(func):
     <span class="function">def</span> wrapper(x):
         <span class="command">print</span>(<span class="text">"Before the function call"</span>)
         func(x)
         <span class="command">print</span>(<span class="text">"After the function call"</span>)
     <span class="function">return</span> wrapper
 
-<span class="command">@decorator_method</span>
+<span class="command">@decorator_function</span>
 <span class="function">def</span> f(x):
     <span class="command">print</span>(x)
 

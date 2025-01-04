@@ -102,7 +102,7 @@ l <span class="sign">=</span> <span class="function">lambda</span> a, b: a <span
 <span class="command">print</span>((<span class="function">lambda</span> a, b: a <span class="sign">*</span> 2 <span class="sign">+</span> b <span class="sign">*</span> 2)(5, 6))
                                     </code></pre>
 
-                                    <p>The following code checks the squares of numbers in a given range and sorts the list of them ​​from smallest to largest.</p>
+                                    <p>The following code checks the squares of numbers in a given range and sorts them ​​from smallest to largest.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 list1 <span class="sign">=</span> <span class="command">sorted</span>(<span class="command">range</span>(<span class="sign">-</span>3, 12), key <span class="sign">=</span> <span class="function">lambda</span> x: x <span class="sign">**</span> 2)
@@ -111,48 +111,99 @@ list1 <span class="sign">=</span> <span class="command">sorted</span>(<span clas
 
                                     <h2>Closures</h2>
 
-                                    <p>A closure is a function inside a function that retains access to variables from its enclosing scope, even after the outer function has finished executing. This behavior occurs because the inner function "remembers" the environment in which it was created. Closures allow for the creation of functions with private variables and can be used to preserve state across multiple calls. They are also used for creating function factories, callback function, memoization, and function composition.</p>
+                                    <p>A closure is a function inside a function that retains access to variables from its enclosing scope, even after the outer function has finished executing. This behavior occurs because the inner function "remembers" the environment in which it was created. Closures allow for the creation of functions with private variables and can be used to preserve variable states across multiple function calls. They are also used for creating function factories, memoization, and function composition.</p>
 
-                                    <p>In the example below, <code>inner_function()</code> is a closure because it uses the variable <code>x</code> from the enclosing function <code>outer_function()</code>. Even though <code>outer_function()</code> has finished executing, <code>inner_function()</code> retains access to <code>x</code>.</p>
+                                    <p><code>inner_function()</code> from the example below is a closure because it uses the <code>x</code> variable from the enclosing scope of  <code>outer_function()</code>. Even after <code>outer_function()</code> has finished executing, <code>inner_function()</code> retains access to <code>x</code>.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-def outer_function(x): # the enclosing function
-    def inner_function(y): # the closure function
-        return x + y
-    return inner_function
+<span class="function">def</span> outer_function(x): <span class="comment"># the enclosing function</span>
+    <span class="function">def</span> inner_function(y): <span class="comment"># the closure function</span>
+        <span class="function">return</span> x <span class="sign">+</span> y
+    <span class="function">return</span> inner_function
 
-add_five = outer_function(5) # creating a closure
-print(add_five(3))  # calling the closure (output: 8)
+add_five <span class="sign">=</span> outer_function(5) <span class="comment"># creating a closure</span>
+<span class="command">print</span>(add_five(3)) <span class="comment"># calling the closure (output: 8)</span>
                                     </code></pre>
 
-                                    <p>In the example below, <code>counter()</code> is a closure that preserves the state of the count variable between function calls. Each call to <code>counter_func()</code> increments the count and returns the updated value.</p>
+                                    <h4>Creating functions with private variables</h4>
+
+                                    <p>The private variable below can be accessed only through the inner method (encapsulation like in OOP).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-def counter():
-    count = 0  # this variable is preserved across calls
-    def increment():
-        nonlocal count  # referring to the "count" variable in the enclosing scope
-        count += 1
-        return count
-    return increment
+<span class="function">def</span> outer():
+    private <span class="sign">=</span> <span class="text">"Private"</span>
+    <span class="function">def</span> inner():
+        <span class="function">return</span> private
+    <span class="function">return</span> inner
 
-counter_func = counter() # creating a closure
-
-# Calling the closure multiple times
-print(counter_func()) # 1
-print(counter_func()) # 2
-print(counter_func()) # 3
+private_function <span class="sign">=</span> outer()
+<span class="command">print</span>(private_function())
                                     </code></pre>
 
+                                    <h4>Preserving variable states across multiple function calls</h4>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># Using lambdas as closure functions</span>
+<span class="function">def</span> counter():
+    count <span class="sign">=</span> 0 <span class="comment"># this variable is preserved across all calls</span>
+    <span class="function">def</span> increment():
+        <span class="function">nonlocal</span> count <span class="comment"># referring to the "count" variable in the enclosing scope</span>
+        count <span class="sign">+=</span> 1
+        <span class="function">return</span> count
+    <span class="function">return</span> increment
+
+counter_func <span class="sign">=</span> counter() <span class="comment"># creating a closure</span>
+
+<span class="comment"># Calling the closure multiple times</span>
+<span class="command">print</span>(counter_func()) <span class="comment"># 1</span>
+<span class="command">print</span>(counter_func()) <span class="comment"># 2</span>
+<span class="command">print</span>(counter_func()) <span class="comment"># 3</span>
+                                    </code></pre>
+
+                                    <h4>Using lambdas as closure functions</h4>
+
+                                    <p>The lambda expression below remembers the <code>n</code> variable from the enclosing <code>function()</code> even after it has finished executing.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> function(n):
     <span class="function">return lambda</span> x: x <span class="sign">+</span> n      
 f <span class="sign">=</span> function(10)
 <span class="command">print</span>(f(11))
                                     </code></pre>
 
-                                    <p>*The lambda function remembers the variable <code>n</code> from the enclosing <code>function(n)</code> even after it has executed.</p>
+                                    <h4>Function factories</h4>
+
+                                    <p>A function factory is a higher-order function that creates and returns other functions, customized based on the input parameters provided to the factory.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> power_of(exponent):
+    <span class="function">return lambda</span> base: base <span class="sign">**</span> exponent
+
+square <span class="sign">=</span> power_of(2)
+cube <span class="sign">=</span> power_of(3)
+
+<span class="command">print</span>(square(5))
+<span class="command">print</span>(cube(3))
+                                    </code></pre>
+                                    
+                                    <h4>Function composition</h4>
+
+                                    <p>Function compositions are used to compose multiple functions together, where the output of one function becomes the input of another.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> compose(f, g):
+    <span class="function">return lambda</span> x: f(g(x))
+
+<span class="function">def</span> double(x):
+    <span class="function">return</span> x <span class="sign">*</span> 2
+
+<span class="function">def</span> add_three(x):
+    <span class="function">return</span> x <span class="sign">+</span> 3
+
+composed_function <span class="sign">=</span> compose(double, add_three)
+<span class="command">print</span>(composed_function(5)) <span class="comment"># 16 (5 + 3 = 8, 8 * 2 = 16)</span>
+                                    </code></pre>
+
+                                    <p>Memoization will be discussed in a lesson about writing clean code.</p>
                                 </div>
                             </div>
                         </div>
