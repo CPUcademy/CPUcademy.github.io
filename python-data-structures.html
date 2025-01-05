@@ -251,9 +251,9 @@ x.<span class="command">insert</span>(0, <span class="text">"e"</span>)
                                     <p>This command also works with sets and dictionaries.</p>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># Deleting an item chosen by index from a list (if no argument given - the last element)</span>
+<span class="comment"># Deleting an element chosen by index from a list (if no argument is given - the last element)</span>
 x <span class="sign">=</span> [<span class="text">"a"</span>, <span class="text">"b"</span>, <span class="text">"c"</span>, <span class="text">"d"</span>]
-x.<span class="command">pop</span>(2) <span class="comment"># if we assign this command to a variable, it will equal this deleted value</span>
+x.<span class="command">pop</span>(2) <span class="comment"># if we assign this command to a variable, it will equal this deleted value (this command returns it)</span>
 <span class="command">print</span>(x)
                                     </code></pre>
             
@@ -627,16 +627,23 @@ numbers2 <span class="sign">=</span> [line[::2] <span class="function">for</span
                                     <p>Type casting, also known as type conversion, is the process of converting one data type to another (e.g., <code>list</code> to <code>str</code>). We can perform such operations on all data structures except dictionaries. We can check the variable's type with this command: <code>type(x)</code>. If we write <code>type(x).__qualname__</code>, we will get only, e.g., <code>int</code> instead of <code>&lt;class 'int'&gt;</code>. Here are a few examples of type casting:</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># String to list</span>
+<span class="comment"># String to list (every character as a separate value)</span>
 string <span class="sign">=</span> <span class="text">"Python"</span>
 list1 <span class="sign">=</span> <span class="command">list</span>(string)
 <span class="command">print</span>(list1)
                                     </code></pre>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># String to list using split() (breaking a string into a list by dividing it every time a given delimiter is encountered)</span>
+a <span class="sign">=</span> <span class="command">input</span>() <span class="comment"># the string can be entered by the user</span>
+b <span class="sign">=</span> a.<span class="command">split</span>() <span class="comment"># a space is the default delimiter</span>
+<span class="command">print</span>(b)
+                                    </code></pre>
         
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># List to string (joining elements of a list into a string using a delimiter)</span>
+<span class="comment"># List to string (joining the elements of a list into a string using a delimiter)</span>
 list1 <span class="sign">=</span> [<span class="text">"Python"</span>, <span class="text">"Coding"</span>] <span class="comment"># this list cannot contain numbers</span>
-string <span class="sign">=</span> <span class="text">" "</span>.<span class="command">join</span>(list1) <span class="comment"># the space is a delimiter (we can choose a different one)</span>
+string <span class="sign">=</span> <span class="text">" "</span>.<span class="command">join</span>(list1) <span class="comment"># the space is the delimiter (we can choose a different one)</span>
 <span class="command">print</span>(string)
                                     </code></pre>
                                     

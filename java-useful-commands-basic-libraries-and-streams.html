@@ -217,20 +217,29 @@ stream.<span class="function">forEach</span>(<span class="function">System</span
         <span class="function">String</span> str <span class="sign">=</span> <span class="text">"Hello world!"</span><span class="sign">;</span>
         
         <span class="comment">// Checking the number of characters in a string (its length)</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>("String length: " + str.length())<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"String length: "</span> <span class="sign">+</span> str.<span class="command">length</span>())<span class="sign">;</span>
 
-        <span class="comment">// Extracting a substring</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>("Substring: " + str.substring(0, 5))<span class="sign">;</span> <span class="comment">// "Hello"</span>
+        <span class="comment">// Returning a part of a string (a substring)</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Substring: "</span> <span class="sign">+</span> str.<span class="command">substring</span>(0, 5))<span class="sign">;</span> <span class="comment">// "Hello" (start - inclusive, stop - exclusive)</span>
 
         <span class="comment">// Lowercase to uppercase</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>("Uppercase: " + str.toUpperCase())<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Uppercase: "</span> <span class="sign">+</span> str.<span class="command">toUpperCase</span>())<span class="sign">;</span>
         
         <span class="comment">// Uppercase to lowercase</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>("Lowercase: " + str.toLowerCase())<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Lowercase: "</span> <span class="sign">+</span> str.<span class="command">toLowerCase</span>())<span class="sign">;</span>
         
         <span class="comment">// Comparing strings</span>
         <span class="function">String</span> str2 <span class="sign">=</span> <span class="text">"Hello world!"</span><span class="sign">;</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Strings are equal: "</span> <span class="sign">+</span> str.<span class="command">equals</span>(str2))<span class="sign">;</span>
+
+        <span class="comment">// Breaking a string into an array by dividing it every time a given delimiter is encountered</span>
+        <span class="function">String</span>[] words <span class="sign">=</span> str.<span class="command">split</span>(<span class="text">" "</span>)<span class="sign">;</span> <span class="comment">// the space is the delimiter (we can choose a different one)</span>
+        <span class="function">for</span>(<span class="function">String</span> word<span class="sign">:</span> words)
+            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(word)<span class="sign">;</span>
+
+        <span class="comment">// Joining the elements of an array into a string using a delimiter</span>
+        <span class="function">String</span> joined <span class="sign">=</span> <span class="function">String</span>.<span class="command">join</span>(<span class="text">" "</span>, words)<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(joined)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
