@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. This website is a personal portfolio and was created by one person.">
+    <meta name="description" content="ifyou're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. This website is a personal portfolio and was created by one person.">
     <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
@@ -14,6 +14,15 @@
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
     <title>A simple game</title>
+    <style>
+        iframe {
+            width: 100%;
+            height: 515px;
+            resize: both;
+            border: 3px solid #ccc;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -85,7 +94,177 @@
                                     <h5 class="m-0 font-weight-bold">A simple game</h5>
                                 </div>
                                 <div class="card-body">
-                                    
+                                    <p>Click on the sub-window below. Move with the Arrow keys. Avoid the blue squares. <a href="js-game.html" target="_blank" class="link">Open in a different window</a> ifyou'd like.</p>
+
+                                    <iframe src="js-game.html" title="Example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="v1"></iframe>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;!DOCTYPE html&gt;</span>
+<span class="function">&lt;html <span class="command">lang</span><span class="sign">=</span><span class="text">"en"</span>&gt;</span>
+<span class="function">&lt;head&gt;</span>
+    <span class="function">&lt;meta <span class="command">charset</span><span class="sign">=</span><span class="text">"UTF-8"</span>&gt;</span>
+    <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"viewport"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="function">&lt;title&gt;</span>Game<span class="function">&lt;/title&gt;</span>
+<span class="function">&lt;/head&gt;</span>
+<span class="function">&lt;body&gt;</span>
+    <span class="function">&lt;p <span class="command">id</span><span class="sign">=</span><span class="text">"pkt"</span>&gt;</span>Points: 0<span class="function">&lt;/p&gt;</span>
+    <span class="function">&lt;div <span class="command">id</span><span class="sign">=</span><span class="text">"dino"</span> <span class="command">class</span><span class="sign">=</span><span class="text">"obj"</span>&gt;</span><span class="function">&lt;/div&gt;</span>
+    
+    <span class="function">&lt;script&gt;</span>
+        <span class="function">var</span> pkt <span class="sign">=</span> 0 <span class="comment">// score counter</span>
+        <span class="function">const</span> level <span class="sign">=</span> 10 <span class="comment">// difficulty level, influences enemy speed</span>
+        <span class="function">let</span> gameActive <span class="sign">=</span> <span class="function">true</span> <span class="comment">// flag to control game state</span>
+        <span class="function">const</span> pressed <span class="sign">=</span> {} <span class="comment">// tracking keys pressed by the player</span></span>
+
+        <span class="comment">// Player class, handling player object and actions</span>
+        <span class="function">class</span> Player <span class="sign">{</span>
+            <span class="function">constructor</span>(element) <span class="sign">{</span>
+                <span class="function">this</span>.element <span class="sign">=</span> element
+                <span class="function">this</span>.position <span class="sign">=</span> <span class="sign">{</span>x: 200, y: 200<span class="sign">}</span> <span class="comment">// initial position of the player</span>
+                <span class="function">this</span>.speed <span class="sign">=</span> 5 <span class="comment">// movement speed</span>
+                <span class="function">this</span>.updatePosition() <span class="comment">// setting the player's initial position</span>
+                <span class="function">this</span>.addEventListeners() <span class="comment">// listening for key events to control movement</span>
+                
+                <span class="comment">// Player's appearance</span>
+                <span class="function">this</span>.element.<span class="command">style</span>.<span class="command">backgroundColor</span> <span class="sign">=</span> <span class="text">"red"</span>
+                <span class="function">this</span>.element.<span class="command">style</span>.<span class="command">width</span> <span class="sign">=</span> <span class="text">"50px"</span>
+                <span class="function">this</span>.element.<span class="command">style</span>.<span class="command">height</span> <span class="sign">=</span> <span class="text">"50px"</span>
+                <span class="function">this</span>.element.<span class="command">style</span>.<span class="command">position</span> <span class="sign">=</span> <span class="text">"absolute"</span>
+            <span class="sign">}</span>
+
+            <span class="comment">// Updating the player's position based on x and y coordinates</span>
+            updatePosition() <span class="sign">{</span>
+                <span class="function">this</span>.element.<span class="command">style</span>.<span class="command">left</span> <span class="sign">=</span> <span class="function">this</span>.position.x <span class="sign">+</span> <span class="text">"px"</span>
+                <span class="function">this</span>.element.<span class="command">style</span>.<span class="command">top</span> <span class="sign">=</span> <span class="function">this</span>.position.y <span class="sign">+</span> <span class="text">"px"</span>
+            <span class="sign">}</span>
+
+            <span class="comment">// Moving the player based on key inputs (Arrow keys)</span>
+            move() <span class="sign">{</span>
+                <span class="function">if</span>(<span class="sign">!</span>gameActive) <span class="function">return</span> <span class="comment">// if the game is over, stop movement (empty return - it will work like the break instruction but for a function)</span>
+
+                <span class="comment">// Adjusting the player's position based on key inputs</span>
+                <span class="function">if</span>(pressed[<span class="text">"ArrowUp"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.y <span class="sign">&gt;</span> 0)
+                    <span class="function">this</span>.position.y <span class="sign">-=</span> <span class="function">this</span>.speed
+                <span class="function">if</span>(pressed[<span class="text">"ArrowDown"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.y <span class="sign">&lt;</span> <span class="function">window</span>.innerHeight <span class="sign">-</span> 50)
+                    <span class="function">this</span>.position.y <span class="sign">+=</span> <span class="function">this</span>.speed
+                <span class="function">if</span>(pressed[<span class="text">"ArrowLeft"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.x <span class="sign">&gt;</span> 0)
+                    <span class="function">this</span>.position.x <span class="sign">-=</span> <span class="function">this</span>.speed
+                <span class="function">if</span>(pressed[<span class="text">"ArrowRight"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.x <span class="sign">&lt;</span> <span class="function">window</span>.innerWidth <span class="sign">-</span> 50)
+                    <span class="function">this</span>.position.x <span class="sign">+=</span> <span class="function">this</span>.speed
+                <span class="function">this</span>.updatePosition() <span class="comment">// recalculating and updating the position on screen</span>
+            <span class="sign">}</span>
+
+            <span class="comment">// Attaching key event listeners to detect when keys are pressed/released</span>
+            <span class="function">addEventListeners</span>() <span class="sign">{</span>
+                <span class="function">window</span>.<span class="function">addEventListener</span>(<span class="text">"keydown"</span>, (event) <span class="sign">=> {</span>
+                    pressed[<span class="function">event</span>.key] <span class="sign">=</span> <span class="function">true</span>
+                })
+
+                <span class="function">window</span>.<span class="function">addEventListener</span>(<span class="text">"keyup"</span>, (event) <span class="sign">=> {</span>
+                    pressed[<span class="function">event</span>.key] <span class="sign">=</span> <span class="function">false</span>
+                })
+            <span class="sign">}</span>
+
+            <span class="comment">// Checking for collisions with opponents using bounding box logic</span>
+            checkCollision(opponent) <span class="sign">{</span>
+                <span class="function">const</span> element1 <span class="sign">=</span> <span class="function">this</span>.element.getBoundingClientRect()
+                <span class="function">const</span> element2 <span class="sign">=</span> opponent.element.getBoundingClientRect()
+
+                <span class="comment">// If the player's and opponent's bounding boxes intersect, it's a collision</span>
+                return !(
+                    element1.top &gt; element2.bottom ||
+                    element1.bottom &lt; element2.top ||
+                    element1.left &gt; element2.right ||
+                    element1.right &lt; element2.left
+                )
+            <span class="sign">}</span>
+        <span class="sign">}</span>
+
+        <span class="comment">// Opponent class, controlling the enemy's behavior and movement</span>
+        <span class="function">class</span> Opponent <span class="sign">{</span>
+            <span class="function">constructor</span>(element) <span class="sign">{</span>
+                <span class="function">this</span>.element <span class="sign">=</span> element
+                <span class="function">this</span>.position <span class="sign">=</span> <span class="sign">{</span> x: Math.random() * (<span class="function">window</span>.innerWidth - 50), y: Math.random() * (<span class="function">window</span>.innerHeight - 50) <span class="sign">}</span>
+                <span class="function">this</span>.speed <span class="sign">=</span> level <span class="comment">// using the defined level to set speed</span>
+                <span class="function">this</span>.direction <span class="sign">=</span> <span class="sign">{</span> x: 1, y: 1 <span class="sign">}</span> <span class="comment">// direction of movement (initially set to move diagonally)</span>
+                <span class="function">this</span>.updatePosition() <span class="comment">// setting the initial position</span>
+                <span class="function">this</span>.move() <span class="comment">// starting movement towards the opponent</span>
+
+                <span class="comment">// Opponent's appearance</span>
+                <span class="function">this</span>.element.<span class="command">style</span>.backgroundColor <span class="sign">=</span> "blue"
+                <span class="function">this</span>.element.<span class="command">style</span>.width <span class="sign">=</span> "50px"
+                <span class="function">this</span>.element.<span class="command">style</span>.height <span class="sign">=</span> "50px"
+                <span class="function">this</span>.element.<span class="command">style</span>.position <span class="sign">=</span> "absolute"
+            <span class="sign">}</span>
+
+            <span class="comment">// Updating the opponent's position on the screen</span>
+            updatePosition() <span class="sign">{</span>
+                <span class="function">this</span>.element.<span class="command">style</span>.left <span class="sign">=</span> <span class="function">this</span>.position.x + "px"
+                <span class="function">this</span>.element.<span class="command">style</span>.top <span class="sign">=</span> <span class="function">this</span>.position.y + "px"
+            <span class="sign">}</span>
+
+            <span class="comment">// Moving the opponent around the screen, bouncing when hitting boundaries</span>
+            move() <span class="sign">{</span>
+                setInterval(() <span class="sign">=> {</span>
+                    <span class="function">if</span>(!gameActive) return <span class="comment">// if the game is over, stop movement</span>
+
+                    <span class="comment">// Adjusting the opponent's position based on its speed and direction</span>
+                    <span class="function">this</span>.position.x += <span class="function">this</span>.speed * <span class="function">this</span>.direction.x
+                    <span class="function">this</span>.position.y += <span class="function">this</span>.speed * <span class="function">this</span>.direction.y
+
+                    <span class="comment">// Reversing direction when the opponent hits a screen boundary</span>
+                    <span class="function">if</span>(<span class="function">this</span>.position.x <span class="sign">&lt;=</span> 0 || <span class="function">this</span>.position.x >= <span class="function">window</span>.innerWidth - 50) <span class="sign">{</span>
+                        <span class="function">this</span>.direction.x *= -1
+                    <span class="sign">}</span>
+                    <span class="function">if</span>(<span class="function">this</span>.position.y <span class="sign">&lt;=</span> 0 || <span class="function">this</span>.position.y >= <span class="function">window</span>.innerHeight - 50) <span class="sign">{</span>
+                        <span class="function">this</span>.direction.y *= -1
+                    <span class="sign">}</span>
+
+                    <span class="function">this</span>.updatePosition() <span class="comment">// updating the opponent's position on screen</span>
+                }, 1000 / 60) <span class="comment">// moving at 60 FPS</span>
+            <span class="sign">}</span>
+        <span class="sign">}</span>
+
+        <span class="comment">// Geting player element and initializing player</span>
+        <span class="function">const</span> playerElement <span class="sign">=</span> document.getElementById("dino")
+        <span class="function">const</span> player <span class="sign">=</span> new Player(playerElement)
+        <span class="function">const</span> opponentList <span class="sign">=</span> [] <span class="comment">// an array to keep track of opponents</span>
+
+        <span class="comment">// Function to create new opponents every 3 seconds</span>
+        <span class="function">const</span> createOpponent <span class="sign">=</span> () <span class="sign">=> {</span>
+            <span class="function">if</span>(!gameActive) return <span class="comment">// don't create enemies if the game is over</span>
+
+            <span class="function">const</span> opponentElement <span class="sign">=</span> document.createElement("div") <span class="comment">// Creating a new opponent element</span>
+            opponentElement.className <span class="sign">=</span> "obj"
+            document.body.appendChild(opponentElement) <span class="comment">// appending to body</span>
+            <span class="function">const</span> opponent <span class="sign">=</span> new Opponent(opponentElement) <span class="comment">// initializing the opponent</span>
+            opponentList.push(opponent) <span class="comment">// adding to the list of opponents</span>
+            pkt++ <span class="comment">// incrementing points</span>
+            document.getElementById("pkt").textContent <span class="sign">=</span> "Points: " + pkt <span class="comment">// updating points display</span>
+        <span class="sign">}</span>
+
+        <span class="comment">// Calling createOpponent function every 3 seconds</span>
+        setInterval(createOpponent, 3000)
+
+        <span class="comment">// Checking for collisions between the player and all opponents every 100ms</span>
+        setInterval(() <span class="sign">=> {</span>
+            <span class="function">if</span>(!gameActive) return <span class="comment">// stop checking collisions if the game is over</span>
+
+            opponentList.forEach(opponent <span class="sign">=> {</span>
+                <span class="function">if</span>(player.checkCollision(opponent)) <span class="sign">{</span>
+                    gameActive <span class="sign">=</span> false <span class="comment">// end the game ifa collision occurs</span>
+                <span class="sign">}</span>
+            })
+        }, 100)
+
+        <span class="comment">// Moving the player every 1/60th of a second (60 FPS)</span>
+        setInterval(() <span class="sign">=> {</span>
+            player.move()
+        }, 1000 / 60)
+	<span class="function">&lt;/script&gt;</span>
+<span class="function">&lt;/body&gt;</span>
+<span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
