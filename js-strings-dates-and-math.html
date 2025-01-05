@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Functions</title>
+    <title>Strings, dates, and math</title>
 </head>
 
 <body id="page-top">
@@ -82,90 +82,67 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Functions</h5>
+                                    <h5 class="m-0 font-weight-bold">Strings, dates, and math</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>A function is a sequence of program instructions that performs a specific task, packaged as a unit. When we create a function, we can name the arguments it takes (but we don't have to). Arguments are variables that we give to the function so that it can operate on them (generally, a function cannot access objects created outside it due to variable scopes, which I will discuss in a moment).</p>
-            
-                                    <p>A function can return objects to the outside (variables, numbers, arithmetic operations, etc.) When it does, the function's return value is the result of its "calling." To see that value, we have to display this "calling" in the console using <code>console.log()</code> directly or assign it to a variable and then display it. The <code>return</code> instruction ends the function's execution. To call a function (run it), we write its name and a parenthesis. If it takes any arguments, we write them inside the parenthesis. The names of the arguments don't have to be the same as the passed variables.</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">function</span> func() 
-<span class="sign">{</span>
-    <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Function"</span>)
-<span class="sign">}</span>
+                                    <h2>Strings</h2>
 
-<span class="function">function</span> addition(x, y) 
-<span class="sign">{</span>
-    <span class="function">return</span> x <span class="sign">+</span> y
-<span class="sign">}</span>
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><code>length</code></td>
+                                            <td>Returning the length of a string. Example: <code>"Hello".length</code> (returns: <code>5</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>toLowerCase()</code>, <code>toUpperCase()</code></td>
+                                            <td>Converting a string to lowercase / uppercase. Example: <code>"Hello".toLowerCase()</code> (returns: <code>"hello"</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>split()</code></td>
+                                            <td>Breaking a string into an array using a delimiter. Example: <code>"apple,banana,cherry".split(",")</code> (returns: <code>["apple", "banana", "cherry"]</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>trim()</code></td>
+                                            <td>Removing whitespace characters from both ends of a string. Example: <code>"  hello  ".trim()</code> (returns: <code>"hello"</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>replace()</code></td>
+                                            <td>Replacing all occurrences of a substring with another substring. Example: <code>"I like apples".replace("apples", "oranges")</code> (returns: <code>"I like oranges"</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>substring()</code></td>
+                                            <td>Returning a part of a string. Example: <code>"Hello World!".substring(6, 11)</code> (returns: <code>"World"</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>indexOf()</code></td>
+                                            <td>Finding the position of the first occurrence of a substring in a string (the index of the substring's first letter). Example: <code>"Hello World!".indexOf("World")</code> (returns: <code>6</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>concat()</code></td>
+                                            <td>Joining two or more strings into one. Example: <code>"Hello".concat(" ", "World")</code> (returns: <code>"Hello World"</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>str.split("").reverse().join("")</code></td>
+                                            <td>Reversing a string.</td>
+                                        </tr>
+                                    </table></div>
 
-func()
-<span class="function">let</span> x <span class="sign">=</span> 2
-<span class="function">let</span> y <span class="sign">=</span> 4
-<span class="command">console</span>.<span class="command">log</span>(addition(x, y))
-                                    </code></pre>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">// Setting default arguments (we can, but don't have to give them)</span>
-<span class="function">function</span> func1(x, y <span class="sign">=</span> 1) 
-<span class="sign">{</span>
-    <span class="function">return</span> x <span class="sign">+</span> y
-<span class="sign">}</span>
-<span class="command">console</span>.<span class="command">log</span>(func1(1))
-<span class="command">console</span>.<span class="command">log</span>(func1(1, 2))
-                                    </code></pre>
-                                    
-                                    <h2>Variable scopes</h2>
-                                    
-                                    <p>Not every variable is accessible in every part of the program. Variables created in the main block (outside of any functions) are called <code>global</code> variables. They are accessible in all functions and instructions unless they are shadowed by a <code>local</code> variable with the same name. <code>local</code> variables are variables created inside a block (a loop, conditional statement, function, etc.) and are accessible only inside this block.</p>
+                                    <h2>Dates</h2>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">let</span> global_variable <span class="sign">=</span> 5
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><code>length</code></td>
+                                            <td>Returning the length of a string. Example: <code>"Hello".length</code> (returns: <code>5</code>).</td>
+                                        </tr>
+                                    </table></div>
 
-<span class="function">function</span> func() 
-<span class="sign">{</span>
-    global_variable += 1
-    <span class="command">console</span>.<span class="command">log</span>("Global:", global_variable)
-<span class="sign">}</span>
+                                    <h2>Math</h2>
 
-<span class="function">function</span> func2(local_variable) 
-<span class="sign">{</span>
-    local_variable += 1
-    <span class="command">console</span>.<span class="command">log</span>("Local:", local_variable)
-<span class="sign">}</span>
-
-<span class="function">function</span> func3(local_variable) 
-<span class="sign">{</span>
-    local_variable += 1
-    <span class="command">console</span>.<span class="command">log</span>("Local:", local_variable)
-    return local_variable <span class="comment">// to see the changes of a local variable in the outer block, we have to return its value</span>
-<span class="sign">}</span>
-
-func()
-global_variable <span class="sign">=</span> 6
-func()
-
-<span class="function">let</span> local_variable <span class="sign">=</span> 7
-func2(local_variable)
-console.log(global_variable, local_variable); // 6 7
-
-local_variable = func3(local_variable);
-console.log(local_variable); // 8
-                                    </code></pre>
-                                    
-                                    <h2>Recursive functions</h2>
-                                    
-                                    <p>A recursive function is a function that calls itself. Recursion is often used in various algorithms.</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">function</span> func() 
-<span class="sign">{</span>
-    <span class="command">console</span>.<span class="command">log</span>(<span class="text"></span>"x"</span>)
-    func()
-<span class="sign">}</span>
-func()
-                                    </code></pre>                              
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><code>length</code></td>
+                                            <td>Returning the length of a string. Example: <code>"Hello".length</code> (returns: <code>5</code>).</td>
+                                        </tr>
+                                    </table></div>
                                 </div>
                             </div>
                         </div>

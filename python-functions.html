@@ -87,7 +87,7 @@
                                 <div class="card-body">
                                     <p>A function is a sequence of program instructions that performs a specific task, packaged as a unit. When we create a function, we can name the arguments it takes (but we don't have to). Arguments are variables that we give to the function so that it can operate on them (generally, a function cannot access objects created outside it due to variable scopes, which I will discuss in a moment).</p>
             
-                                    <p>A function can return objects to the outside (variables, numbers, arithmetic operations, etc.) When it does, the function's return value is the result of its "calling." To see that value, we have to display this "calling" in the console (using <code>print()</code> directly) or assign it to a variable and then display it. To call a function (run it), we write its name and a parenthesis. If it takes any arguments, we write them inside the parenthesis. The names of the arguments don't have to be the same as the passed variables.</p>
+                                    <p>A function can return objects to the outside (variables, numbers, arithmetic operations, etc.) When it does, the function's return value is the result of its "calling." To see that value, we have to display this "calling" in the console using <code>print()</code> directly or assign it to a variable and then display it. The <code>return</code> instruction ends the function's execution. To call a function (run it), we write its name and a parenthesis. If it takes any arguments, we write them inside the parenthesis. The names of the arguments don't have to be the same as the passed variables.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> function():
@@ -106,12 +106,12 @@ y <span class="sign">=</span> 4
                                     
                                     <h2>Variable scopes</h2>
                                     
-                                    <p>Not every variable is accessible in every part of the program. Variables created in the main block (outside of any functions) are called <code>global</code> variables. They are accessible in all functions and instructions (under one condition, which I will discuss in a moment). Variables created inside the same block we want to use them from are called <code>local</code> variables and are always available.</p>
+                                    <p>Not every variable is accessible in every part of the program. Variables created in the main block (outside of any functions) are called <code>global</code> variables. They are accessible in all functions and instructions (under one condition, which I will discuss in a moment). <code>local</code> variables are variables created inside a block (a loop, conditional statement, function, etc.) and are accessible only inside this block.</p>
                                     
                                     <p>To get access to a <code>global</code> variable inside a function, we "import" this variable to the function scope with the <code>global</code> keyword. In Python, we also have a <code>nonlocal</code> variable scope. <code>Nonlocal</code> variables are variables that are declared within nested functions. We can "import" a <code>nonlocal</code> variable the same way as the <code>global</code> variable (using the <code>nonlocal</code> keyword).</p>
                                     
-                                    <p>Now that we know what variable scopes are, we can see that in the example above, even if we change the values of the <code>x</code> and <code>y</code> variables in the <code>addition()</code> function, their values in the main block will not change. These variables, when in the <code>addition()</code> function, are <code>local</code> variables whose values have been imported as arguments and then are returned only to the <code>print()</code> command in the main block (they are not assigned to their equivalents from the main block, so their value doesn't change).</p>
-                                    
+                                    <p>In the example below, if we didn't "import" these variables to the <code>func2()</code> scope, Python would create new <code>local</code> variables instead, and our changes would not affect the outer scopes.</p>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 x <span class="sign">=</span> 3
 
@@ -123,12 +123,42 @@ x <span class="sign">=</span> 3
         x <span class="sign">=</span> 5
         y <span class="sign">=</span> 6
     func2()
-<span class="command">print</span>(x, y)
+    <span class="command">print</span>(x, y)
 
 func1()
+<span class="command">print</span>(x)
                                     </code></pre>
                                     
                                     <p>Remember that nesting variables in the context of variable scopes is only relevant for functions, not for loops and conditional statements.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+global_variable <span class="sign">=</span> 5
+
+<span class="function">def</span> func(): 
+    <span class="function">global</span> global_variable <span class="comment"># the "global" keyword is only required if we modify the global variable within the function</span>
+    global_variable <span class="sign">+=</span> 1
+    <span class="command">print</span>(<span class="text">"Global:"</span>, global_variable) 
+
+<span class="function">def</span> func2(local_variable):
+    local_variable <span class="sign">+=</span> 1
+    <span class="command">print</span>(<span class="text">"Local:"</span>, local_variable)
+
+<span class="function">def</span> func3(local_variable):
+    local_variable <span class="sign">+=</span> 1
+    <span class="command">print</span>(<span class="text">"Local:"</span>, local_variable)
+    <span class="function">return</span> local_variable <span class="comment"># to see the changes of a local variable in the outer block, we have to return its value</span>            
+
+func()
+global_variable <span class="sign">=</span> 6
+func()
+
+local_variable <span class="sign">=</span> 7
+func2(local_variable)
+<span class="command">print</span>(global_variable, local_variable) <span class="comment"># 7 7</span>
+
+local_variable = func3(local_variable)
+<span class="command">print</span>(local_variable) <span class="comment"># 8</span>
+                                    </code></pre>
                                     
                                     <h2>Arguments</h2>
                                     
@@ -139,7 +169,7 @@ list1 <span class="sign">=</span> [1, 2]
     <span class="function">return</span> list1 <span class="sign">*</span> x
 <span class="command">print</span>(function(3))
         
-<span class="comment"># Setting default arguments (we can, but don't have to give them) - one is the default value</span>
+<span class="comment"># Setting default arguments (we can, but don't have to give them)</span>
 <span class="function">def</span> func1(x, y <span class="sign">=</span> 1):
     <span class="function">return</span> x<span class="sign"> + </span>y
 <span class="command">print</span>(func1(1))
@@ -169,7 +199,7 @@ function()
 
                                     <h2>Important clarification</h2>
 
-                                    <p>The <code>for x in range(5)</code> loop iterates over a sequence (a list) of integers generated by the <code>range(5)</code> function. The <code>in</code> keyword indicates that <code>x</code> will take on each value in this sequence. This means we could write, e.g., <code>for x in [1, 2]:</code>.</p>                                    
+                                    <p>The <code>for x in range(5)</code> loop iterates over a sequence (a list) of integers generated by the <code>range(5)</code> function. The <code>in</code> keyword indicates that <code>x</code> will take on each value in this sequence. This means we could also write, e.g., <code>for x in [1, 2]:</code>.</p>                                    
                                 </div>
                             </div>
                         </div>
