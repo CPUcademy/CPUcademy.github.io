@@ -89,9 +89,9 @@
             
                                     <p>A function is a sequence of program instructions that performs a specific task, packaged as a unit. When we create a function, we can name the arguments it takes (but we don't have to). Arguments are variables that we give to the function so that it can operate on them.</p>
                                     
-                                    <p>A function can return objects to the outside (variables, numbers, arithmetic operations, etc.) When it does, the function's return value is the result of its "calling." To see that value, we have to display this "calling" in the console (using <code>System.our.println</code> directly) or assign it to a variable and then display it. We create functions using this pattern: "type of the object it returns - name - parenthesis" (<code>int func()</code>), and below it, we write the content in braces. If the function doesn't return anything, we can use the <code>void</code> type. However, if we want to stop executing such a function, we can use an empty return (<code>return;</code>). It will work like the <code>break</code> command but for a function.</p>
+                                    <p>A function can return objects to the outside (variables, numbers, arithmetic operations, etc.) When it does, the function's return value is the result of its "calling." To see that value, we have to display this "calling" in the console (using <code>System.our.println</code> directly) or assign it to a variable and then display it. The <code>return</code> instruction ends the function's execution. We create functions using this pattern: "type of the object it returns - name - parenthesis", and below it, the content in braces. If the function doesn't return anything, we can use the <code>void</code> type. However, if we want to stop executing such a function, we can use an empty return (<code>return;</code>). It will work like the <code>break</code> command but for a function.</p>
                                     
-                                    <p>To call a function (run it), we write its name and a parenthesis (we type a semicolon at the end only if this line isn't, e.g., inside a <code>System.out.println</code>, but stands alone). If it takes any arguments, we write them inside the parenthesis.</p>
+                                    <p>To call a function (run it), we write its name and a parenthesis (we type a semicolon at the end only if this line isn't, e.g., inside a <code>System.out.println</code>, but stands alone). If it takes any arguments, we write them inside the parenthesis. The names of the arguments don't have to be the same as the passed variables.</p>
                                     
                                     <p>The term "function" exists only in structural programming, and Java is an object-oriented language. Here, functions are called "methods".</p>
 
@@ -99,7 +99,9 @@
                                     
                                     <p>OOP stands for Object-Oriented Programming. In OOP, we use classes, which are templates that define the structure and behavior of objects. Objects are the basic units in OOP. A class is a mold for creating objects. It represents a set of objects (an object is a being belonging to a class). Functions that are created inside classes are called methods. When we assign a class to a variable, we can use the methods of this class by referring to this variable. Attributes are objects (variables and methods) associated with a class. An instance of a class is an object of that class. By convention, names of classes start with a capital letter (the first letter in the name of a function should be in lowercase).</p>
 
-                                    <p>Every object can be <code>public</code>, <code>protected</code>, or <code>private</code>. We give these access modifiers by adding their keyword before the object's type. <code>public</code> means that the objects are also available outside the class. <code>protected</code> means that the objects are <code>private</code>, except for the class's subclasses (I will explain this in a lesson about inheritance). <code>private</code> means that the objects can be accessed only inside the class. These modes are called access modifiers.</p>
+                                    <p>Every object can be <code>public</code>, <code>protected</code>, or <code>private</code>. We grant these access modifiers by adding their keyword before the object's type. <code>public</code> means that the objects are also available outside the class. <code>protected</code> means that the objects are <code>private</code>, except for the class's subclasses (I will explain this in a lesson about inheritance). <code>private</code> means that the objects can be accessed only inside the class.</p>
+
+                                    <p>If no access modifier is specified (i.e., no <code>public</code>, <code>protected</code>, or <code>private</code> keyword), the default access level is <code>package-private</code> (also known as default access). This means the object can be accessed only within classes in the same package (I will talk about packages in the upcoming lessons).</p>
                                     
                                     <h2>Abstraction</h2>
                                     
@@ -240,28 +242,30 @@
                                     </code></pre>
 
                                     <p>A static context refers to a situation in programming where methods or variables are associated with a class rather than any specific instance of that class. In this context, methods can be called directly using the class name without needing to create an instance, which is particularly useful for utility methods or constants. This approach enhances code organization and efficiency by allowing access to related functionality without the overhead of object instantiation. However, non-static methods require an instance of the class to be invoked because they often operate on instance-specific data, and attempting to call them from a static context would not have a reference to any particular object, leading to potential errors.</p>
+
+                                    <p><code>local</code> variables are variables created inside a block (a loop, conditional statement, method, etc.) and are accessible only inside this block. In contrast, static variables, if declared <code>public</code>, can be accessed from anywhere in the program using the class name, effectively behaving like <code>global</code> variables.</p>
                                     
                                     <h2>Method overloading (polymorphism)</h2>
                                     
-                                    <p>Two methods can have the same name as long as they have a different number of arguments and/or they have various types. This behavior is called method overloading, or in other words - polymorphism. For example, if we provide two <code>double</code> arguments, Java will know that we want to use the specific version of the function that takes those arguments and not, e.g., the one that takes two integers.</p>
+                                    <p>Two methods can have the same name as long as they have a different number of arguments and/or they have various types. This behavior is called method overloading, or in other words - polymorphism. For example, if we provide two <code>double</code> arguments to the <code>addition()</code> function, the compiler will know that we want to use the specific version of the function that takes those arguments and not, e.g., the one that takes two integers.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main
 <span class="sign">{</span>
-    <span class="function">static int</span> add(<span class="function">int</span> x, <span class="function">int</span> y) <span class="comment">// this method has to be static because we are referring to it from the main method (a static context)</span>
+    <span class="function">static int</span> addition(<span class="function">int</span> x, <span class="function">int</span> y) <span class="comment">// this method has to be static because we are referring to it from the main method (a static context)</span>
     <span class="sign">{</span>
         <span class="function">return</span> x <span class="sign">+</span> y<span class="sign">;</span>
     <span class="sign">}</span>
 
-    <span class="function">static double</span> add(<span class="function">double</span> x, <span class="function">double</span> y)
+    <span class="function">static double</span> addition(<span class="function">double</span> x, <span class="function">double</span> y)
     <span class="sign">{</span>
         <span class="function">return</span> x <span class="sign">+</span> y<span class="sign">;</span>
     <span class="sign">}</span>
 
     <span class="function">public static void</span> main(<span class="function">String</span>[] args)
     <span class="sign">{</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(add(5, 6))<span class="sign">;</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(add(5.5, 6.6))<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(addition(5, 6))<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(addition(5.5, 6.6))<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
