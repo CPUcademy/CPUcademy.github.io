@@ -98,11 +98,11 @@
                                         </tr>
                                         <tr>
                                             <td><code>split()</code></td>
-                                            <td>Breaking a string into an array using a delimiter. Example: <code>"apple,banana,cherry".split(",")</code> (returns: <code>["apple", "banana", "cherry"]</code>).</td>
+                                            <td>Breaking a string into an array by dividing it every time a given delimiter is encountered. Example: <code>"apple banana cherry".split(" ")</code> (returns: <code>["apple", "banana", "cherry"]</code>).</td>
                                         </tr>
                                         <tr>
                                             <td><code>join()</code></td>
-                                            <td>Joining elements of an array into a string using a delimiter. Example: <code>["apple", "banana", "cherry"].join(", ")</code> (returns: <code>"apple, banana, cherry"</code>).</td>
+                                            <td>Joining elements of an array into a string using a delimiter. Example: <code>["apple", "banana", "cherry"].join(" ")</code> (returns: <code>"apple banana cherry"</code>).</td>
                                           </tr>
                                         <tr>
                                             <td><code>trim()</code></td>
@@ -114,37 +114,104 @@
                                         </tr>
                                         <tr>
                                             <td><code>substring()</code></td>
-                                            <td>Returning a part of a string. Example: <code>"Hello World!".substring(6, 11)</code> (returns: <code>"World"</code>).</td>
+                                            <td>Returning a part of a string. Example: <code>"Hello World!".substring(6, 11)</code> (returns: <code>"World"</code>). Start - inclusive, stop - exclusive.</td>
                                         </tr>
                                         <tr>
                                             <td><code>indexOf()</code></td>
-                                            <td>Finding the position of the first occurrence of a substring in a string (the index of the substring's first letter). Example: <code>"Hello World!".indexOf("World")</code> (returns: <code>6</code>).</td>
+                                            <td>Finding the position of the first occurrence of a substring in a string (the index of the substring's first letter). If there are more than one - the index of the first one encountered. Example: <code>"Hello World!".indexOf("World")</code> (returns: <code>6</code>).</td>
                                         </tr>
                                         <tr>
                                             <td><code>concat()</code></td>
-                                            <td>Joining two or more strings into one. Example: <code>"Hello".concat(" ", "World")</code> (returns: <code>"Hello World"</code>).</td>
+                                            <td>Joining two or more strings into one. Example: <code>"Hello".concat(" ", "World", "!")</code> (returns: <code>"Hello World!"</code>).</td>
                                         </tr>
                                         <tr>
                                             <td><code>str.split("").reverse().join("")</code></td>
-                                            <td>Reversing a string.</td>
+                                            <td>Reversing a string (converting to an array, reversing, and joining into a string).</td>
                                         </tr>
                                     </table></div>
 
                                     <h2>Dates</h2>
 
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">let</span> d <span class="sign">=</span> <span class="function">new Date</span>()
+a <span class="sign">=</span> d.<span class="command">getDay</span>()
+                                    </code></pre>
+
                                     <div class="table-container"><table>
                                         <tr>
-                                            <td><code>length</code></td>
-                                            <td>Returning the length of a string. Example: <code>"Hello".length</code> (returns: <code>5</code>).</td>
+                                          <td><code>getDate()</code></td>
+                                          <td>Day as a number (1-31)</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>getDay()</code></td>
+                                          <td>Weekday as a number (0-6)</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>getFullYear()</code></td>
+                                          <td>Four-digit year (yyyy)</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>getHours()</code></td>
+                                          <td>Hour (0-23)</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>getMilliseconds()</code></td>
+                                          <td>Milliseconds (0-999)</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>getMinutes()</code></td>
+                                          <td>Minutes (0-59)</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>getMonth()</code></td>
+                                          <td>Month (0-11)</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>getSeconds()</code></td>
+                                          <td>Seconds (0-59)</td>
+                                        </tr>
+                                        <tr>
+                                          <td><code>getTime()</code></td>
+                                          <td>Milliseconds since January 1, 1970</td>
                                         </tr>
                                     </table></div>
 
                                     <h2>Math</h2>
 
+                                    <p>The functions with no parameters listed take only one - the number (or none).</p>
+
                                     <div class="table-container"><table>
                                         <tr>
-                                            <td><code>length</code></td>
-                                            <td>Returning the length of a string. Example: <code>"Hello".length</code> (returns: <code>5</code>).</td>
+                                            <td><code>Math.round()</code></td>
+                                            <td>Rounding a number to the nearest integer.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Math.random() * 10</code></td>
+                                            <td>Returning a random number between 0 (inclusive) and 10 (exclusive).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Math.floor()</code></td>
+                                            <td>Rounding a number down to the nearest integer.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Math.ceil()</code></td>
+                                            <td>Rounding a number up to the nearest integer.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Math.abs()</code></td>
+                                            <td>Returning the absolute value of a number.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Math.sqrt()</code></td>
+                                            <td>Returning the square root of a number.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Math.pow(base, exponent)</code></td>
+                                            <td>Raising the base to the power of the exponent.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Math.min(0, 3, 1)</code>, <code>Math.max(0, 3, 1)</code></td>
+                                            <td>Returning the smallest / largest of the given numbers.</td>
                                         </tr>
                                     </table></div>
                                 </div>
