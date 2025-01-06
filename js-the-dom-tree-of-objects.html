@@ -85,7 +85,116 @@
                                     <h5 class="m-0 font-weight-bold">The DOM tree of objects</h5>
                                 </div>
                                 <div class="card-body">
-                                    
+                                    <p>The DOM tree is a representation of an HTML document in the browser. It allows JavaScript to interact with, manipulate, and traverse the elements of a web page.</p>
+
+                                    <p>Each HTML tag is a node in the tree, and there are three primary types of nodes:</p>
+                                    <ul>
+                                      <li><b>Element nodes</b> - representing HTML elements like <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, etc.</li>
+                                      <li><b>Text nodes</b> - representing the text inside HTML elements.</li>
+                                      <li><b>Attribute nodes</b> - representing the attributes of elements (e.g., <code>class</code>, <code>id</code>).</li>
+                                    </ul>
+                                
+                                    <h2>Structure of the DOM tree</h2>
+                                    <p>The DOM tree has a hierarchical structure. Consider the following HTML:</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+    <span class="function">&lt;!DOCTYPE html&gt;</span>
+    <span class="function">&lt;html&gt;</span>
+    <span class="function">&lt;head&gt;</span>
+        <span class="function">&lt;title&gt;</span>Example<span class="function">&lt;/title&gt;</span>
+    <span class="function">&lt;/head&gt;</span>
+    <span class="function">&lt;body&gt;</span>
+        <span class="function">&lt;h1&gt;</span>Hello World<span class="function">&lt;/h1&gt;</span>
+        <span class="function">&lt;p&gt;</span>This is a paragraph.<span class="function">&lt;/p&gt;</span>
+    <span class="function">&lt;/body&gt;</span>
+    <span class="function">&lt;/html&gt;</span>
+                                    </code></pre>
+                                
+                                    <p>This HTML generates the following DOM tree:</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+Document
+└── html
+    ├── head
+    │   └── title
+    │       └── Text: "Example"
+    └── body
+        ├── h1
+        │   └── Text: "Hello World"
+        └── p
+            └── Text: "This is a paragraph."
+                                    </code></pre>
+                                
+                                    <h2>Interacting with the DOM tree</h2>
+                                
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">const</span> heading <span class="sign">=</span> <span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"h1"</span>) <span class="comment">// selecting the &lt;h1&gt; tag</span>
+heading.<span class="command">textContent</span> <span class="sign">=</span> <span class="text">"Welcome to the DOM!"</span> <span class="comment">// changing the text inside the &lt;h1&gt; tag</span>
+
+<span class="function">const</span> newParagraph <span class="sign">=</span> <span class="function">document</span>.<span class="command">createElement</span>(<span class="text">"p"</span>) <span class="comment">// creating a new HTML element (a paragraph)</span>
+newParagraph.<span class="command">textContent</span> <span class="sign">=</span> <span class="text">"This paragraph was added dynamically."</span> <span class="comment">// setting the text inside the new paragraph</span>
+<span class="function">document</span>.<span class="function">body</span>.<span class="command">appendChild</span>(newParagraph) <span class="comment">// adding the new element to the &lt;body&gt;</span>
+                                    </code></pre>
+
+                                    <p>The <code>querySelector()</code> command can also address IDs or classes like this: <code>document.querySelector("#id")</code>, <code>document.querySelector(".class")</code>. Alternatively, we can use specific commands to address each element type: <code>getElementById("id")</code>, <code>getElementsByClassName("class")</code>, <code>getElementsByTagName("h1")</code>.</p>
+
+                                    <p>The <code>querySelectorAll()</code> command allows us to select all elements that match a specific CSS selector, returning a static NodeList, like this: <code>document.querySelectorAll(".class")</code>, <code>document.querySelectorAll("p")</code>. The "normal" <code>querySelector()</code> command chooses the first element encountered if there are many.</p>
+
+                                    <p>Note that the <code>querySelectorAll()</code> command returns a <b>static</b> NodeList, meaning that if the DOM changes after the selection, the NodeList will not reflect the new changes. On the other hand, methods like <code>getElementsByClassName("class")</code> return a <b>live</b> NodeList, which automatically updates when the DOM is changed.</p>
+
+                                    <h4>Text and image modification example</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;p <span class="command">id</span><span class="sign">=</span><span class="text">"t"</span>&gt;</span>Text<span class="function">&lt;/p&gt;</span>
+<span class="function">&lt;img <span class="command">src</span><span class="sign">=</span><span class="text">""</span> <span class="command">alt</span><span class="sign">=</span><span class="text">"Img"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"i"</span>&gt;</span>
+
+<span class="function">&lt;script&gt;</span>
+    <span class="function">let</span> text <span class="sign">=</span> <span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"#t"</span>)
+    text.<span class="command">innerHTML</span> <span class="sign">=</span> <span class="text">"TEXT"</span>
+    text.<span class="command">style</span>.<span class="command">color</span> <span class="sign">=</span> <span class="text">"orange"</span>
+    text.<span class="command">style</span>.<span class="command">backgroundColor</span> <span class="sign">=</span> <span class="text">"black"</span>
+    text.<span class="command">style</span>.<span class="command">fontSize</span> <span class="sign">=</span> <span class="text">"20px"</span>
+
+    <span class="function">let</span> image <span class="sign">=</span> <span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"#i"</span>)
+    image.<span class="command">src</span> <span class="sign">=</span> <span class="text">"img.jpg"</span>
+    image.<span class="command">style</span>.<span class="command">width</span> <span class="sign">=</span> <span class="text">"30%"</span>
+<span class="function">&lt;/script&gt;</span>    
+                                    </code></pre>
+
+                                    <p id="t">Text</p>
+                                    <img src="" alt="Img" id="i" style="margin-bottom: 20px;">
+                                
+                                    <script>
+                                        let text = document.querySelector("#t")
+                                        text.innerHTML = "TEXT"
+                                        text.style.color = "orange"
+                                        text.style.backgroundColor = "black"
+                                        text.style.fontSize = "20px"
+                                
+                                        let image = document.querySelector("#i")
+                                        image.src = "files/courses/imgCSS.jpeg"
+                                        image.style.width = "30%"
+                                    </script>
+
+                                    <p>The <code>innerHTML</code> attribute differs from <code>textContent</code> because <code>innerHTML</code> can retrieve or set HTML content, including tags, while <code>textContent</code> only deals with plain text, excluding any HTML.</p>
+
+                                    <h4>Dynamically adding an HTML list</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">let</span> arr <span class="sign">=</span> [<span class="text">"a"</span>, <span class="text">"b"</span>, <span class="text">"c"</span>, <span class="text">"d"</span>, <span class="text">"e"</span>]
+document</span>.<span class="command">write</span>(<span class="text">"&lt;ol&gt;"</span>)
+<span class="function">for</span>(<span class="function">let</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> arr.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
+    <span class="function">document</span>.<span class="command">write</span>(<span class="text">"&lt;li&gt;"</span> <span class="sign">+</span> arr[i] <span class="sign">+</span> <span class="text">"&lt;/li&gt;"</span>)
+<span class="function">document</span>.<span class="command">write</span>(<span class="text">"&lt;/ol&gt;"</span>)
+                                    </code></pre>
+
+                                    <script>
+                                        let arr = ["a", "b", "c", "d", "e"]
+                                        document.write("<ol>")
+                                        for (let i = 0; i < arr.length; i++)
+                                            document.write("<li>" + arr[i] + "</li>")
+                                        document.write("</ol>")
+                                    </script>
+
+                                    <p>I will talk more about the DOM tree in the upcoming lessons.</p>
                                 </div>
                             </div>
                         </div>

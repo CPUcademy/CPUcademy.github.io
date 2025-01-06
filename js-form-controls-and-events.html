@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. This website is a personal portfolio and was created by one person.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <title>Form controls and events</title>
+    <style>
+        #example
+        {
+            p
+            {
+                margin-top: 20px;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Kotlin (Android)</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics.html">Electronics</a>
+                        <a class="collapse-item" href="it-and-computer-basics.html">IT &amp; computer basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">About me</div>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="cv.html">
+                    <i class="icon-adult"></i>
+                    <span>CV</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="services.html">
+                    <i class="icon-services"></i>
+                    <span>My services</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Form controls and events</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h2>Dynamically adding paragraphs from input</h2>
+
+                                    <p>An HTML <code>onclick</code> attribute is an event. It determines what function executes when a button is clicked. Of course, there are many event types, but the most used (besides <code>onclick</code>) is <code>onchange</code>, which defines what happens when, e.g., the "input text" control's value gets changed (no need for a confirm button). When using form controls with JavaScript, they do not need to be enclosed in the <code>&lt;form&gt;</code> tag.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"text"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"textInput"</span> <span class="command">style</span>=</span><span class="text">"float: left; margin-right: 10px;"</span>&gt;</span>
+<span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"button"</span> <span class="command">value</span><span class="sign">=</span><span class="text">"Add"</span> <span class="command">onclick</span>=</span><span class="text">"add()"</span>&gt;</span>
+<span class="function">&lt;h4 <span class="command">style</span><span class="sign">=</span><span class="text">"margin-top: 10px; clear: both;"</span>&gt;</span>Values<span class="function">&lt;/h4&gt;</span>
+<span class="function">&lt;div <span class="command">id</span><span class="sign">=</span><span class="text">"container"</span>&gt;</span><span class="function">&lt;/div&gt;</span>
+
+<span class="function">&lt;script&gt;</span>
+    <span class="function">function</span> add() 
+    <span class="sign">{</span>
+        <span class="function">let</span> t =</span> <span class="function">document</span>.<span class="command">getElementById</span>(<span class="text">"textInput"</span>).<span class="command">value</span> <span class="comment">// accessing the value of an "input text" form control</span>
+        <span class="function">let</span> container <span class="sign">=</span> <span class="function">document</span>.<span class="command">getElementById</span>(<span class="text">"container"</span>)
+        <span class="function">let</span> newValue <span class="sign">=</span> <span class="function">document</span>.<span class="command">createElement</span>(<span class="text">"p"</span>)
+        newValue.<span class="command">className</span> <span class="sign">=</span> <span class="text">"newValue"</span>
+        newValue.<span class="command">style</span>.<span class="command">margin</span> <span class="sign">=</span> <span class="text">"0px"</span>
+        newValue.<span class="command">innerText</span> <span class="sign">=</span> t
+        container.<span class="command">insertBefore</span>(newValue, container.<span class="command">firstChild</span>) <span class="comment">// inserting the new value at the top of the container (as its "firstChild")</span>
+    <span class="sign">}</span>
+<span class="function">&lt;/script&gt;</span>
+                                    </code></pre>
+
+                                    <div style="padding: 10px; margin-bottom: 20px;">
+                                        <input type="text" id="textInput" style="float: left; margin-right: 10px;">
+                                        <input type="button" value="Add" onclick="add()">
+                                        <h4 style="margin-top: 10px; clear: both;">Values</h4>
+                                        <div id="container"></div>
+                                        
+                                        <script>
+                                            function add() 
+                                            {
+                                                let t = document.getElementById("textInput").value
+                                                let container = document.getElementById("container")
+                                                let newValue = document.createElement("p")
+                                                newValue.className = "newValue"
+                                                newValue.style.margin = "0px"
+                                                newValue.innerText = t
+                                                container.insertBefore(newValue, container.firstChild)
+                                            }
+                                        </script>
+
+                                        <h2>Form controls - example</h2>
+
+                                        <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;div <span class="command">id</span><span class="sign">=</span><span class="text">"example"</span>&gt;</span>
+    <span class="function">&lt;p&gt;</span>Background color<span class="function">&lt;/p&gt;</span>
+
+    <span class="function">&lt;button <span class="command">id</span><span class="sign">=</span><span class="text">"orange"</span> <span class="command">onclick</span><span class="sign">=</span><span class="text">"color('orange')"</span>&gt;</span>Orange<span class="function">&lt;/button&gt;</span>
+    <span class="function">&lt;button <span class="command">id</span><span class="sign">=</span><span class="text">"lightblue"</span> <span class="command">onclick</span><span class="sign">=</span><span class="text">"color('lightblue')"</span>&gt;</span>Lightblue<span class="function">&lt;/button&gt;</span>
+    <span class="function">&lt;button <span class="command">id</span><span class="sign">=</span><span class="text">"green"</span> <span class="command">onclick</span><span class="sign">=</span><span class="text">"color('green')"</span>&gt;</span>Green<span class="function">&lt;/button&gt;</span>
+
+    <span class="function">&lt;p&gt;</span>Font color<span class="function">&lt;/p&gt;</span>
+
+    <span class="function">&lt;select <span class="command">name</span><span class="sign">=</span><span class="text">"font"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"font"</span> <span class="command">onclick</span><span class="sign">=</span><span class="text">"font(this.value)"</span>&gt;</span>
+        <span class="function">&lt;option <span class="command">value</span><span class="sign">=</span><span class="text">"black"</span>&gt;</span>Black<span class="function">&lt;/option&gt;</span>
+        <span class="function">&lt;option <span class="command">value</span><span class="sign">=</span><span class="text">"red"</span>&gt;</span>Red<span class="function">&lt;/option&gt;</span>
+        <span class="function">&lt;option <span class="command">value</span><span class="sign">=</span><span class="text">"yellow"</span>&gt;</span>Yellow<span class="function">&lt;/option&gt;</span>
+        <span class="function">&lt;option <span class="command">value</span><span class="sign">=</span><span class="text">"purple"</span>&gt;</span>Purple<span class="function">&lt;/option&gt;</span>
+    <span class="function">&lt;/select&gt;</span>
+
+    <span class="function">&lt;p&gt;</span>Font size, e.g., 200%<span class="function">&lt;/p&gt;</span>
+
+    <span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"text"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"size"</span> <span class="command">name</span><span class="sign">=</span><span class="text">"size"</span> <span class="command">value</span><span class="sign">=</span><span class="text">"100%"</span> <span class="command">onchange</span><span class="sign">=</span><span class="text">"font_size(this.value)"</span>&gt;</span>
+
+    <span class="function">&lt;p&gt;</span>Change the list style type<span class="function">&lt;/p&gt;</span>
+
+    <span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"radio"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"disc"</span> <span class="command">name</span><span class="sign">=</span><span class="text">"r"</span> <span class="command">value</span><span class="sign">=</span><span class="text">"disc"</span> <span class="command">onclick</span><span class="sign">=</span><span class="text">"style_type(this.value)"</span>&gt;</span><span class="function">&lt;label <span class="command">for</span><span class="sign">=</span><span class="text">"disc"</span>&gt;</span>Disc<span class="function">&lt;/label&gt;</span>
+    <span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"radio"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"square"</span> <span class="command">name</span><span class="sign">=</span><span class="text">"r"</span> <span class="command">value</span><span class="sign">=</span><span class="text">"square"</span> <span class="command">onclick</span><span class="sign">=</span><span class="text">"style_type(this.value)"</span>&gt;</span><span class="function">&lt;label <span class="command">for</span><span class="sign">=</span><span class="text">"square"</span>&gt;</span>Square<span class="function">&lt;/label&gt;</span>
+    <span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"radio"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"circle"</span> <span class="command">name</span><span class="sign">=</span><span class="text">"r"</span> <span class="command">value</span><span class="sign">=</span><span class="text">"circle"</span> <span class="command">onclick</span><span class="sign">=</span><span class="text">"style_type(this.value)"</span>&gt;</span><span class="function">&lt;label <span class="command">for</span><span class="sign">=</span><span class="text">"circle"</span>&gt;</span>Circle<span class="function">&lt;/label&gt;</span>
+
+    <span class="function">&lt;ul <span class="command">id</span><span class="sign">=</span><span class="text">"list"</span>&gt;</span>
+        <span class="function">&lt;li&gt;</span>a<span class="function">&lt;/li&gt;</span>
+        <span class="function">&lt;li&gt;</span>b<span class="function">&lt;/li&gt;</span>
+        <span class="function">&lt;li&gt;</span>c<span class="function">&lt;/li&gt;</span>
+    <span class="function">&lt;/ul&gt;</span>
+    
+    <span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"checkbox"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"border"</span> <span class="command">name</span><span class="sign">=</span><span class="text">"border"</span> <span class="command">onclick</span><span class="sign">=</span><span class="text">"add_border()"</span>&gt;</span><span class="function">&lt;label <span class="command">for</span><span class="sign">=</span><span class="text">"border"</span>&gt;</span>Add border to the <span class="function">&lt;code&gt;</span>&amp;lt;div&amp;gt;<span class="function">&lt;/code&gt;</span><span class="function">&lt;/label&gt;</span>
+<span class="function">&lt;/div&gt;</span>
+
+<span class="function">&lt;script&gt;</span>
+    <span class="function">function</span> color(c)<span class="sign">{</span><span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"#example"</span>).<span class="command">style</span>.<span class="command">backgroundColor</span> <span class="sign">=</span> c<span class="sign">}</span>
+    <span class="function">function</span> font(c)<span class="sign">{</span><span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"#example"</span>).<span class="command">style</span>.<span class="command">color</span> <span class="sign">=</span> c<span class="sign">}</span>
+    <span class="function">function</span> font_size(c)<span class="sign">{</span><span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"#example"</span>).<span class="command">style</span>.<span class="command">fontSize</span> <span class="sign">=</span> c<span class="sign">}</span>
+    <span class="function">function</span> style_type(c)<span class="sign">{</span><span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"#list"</span>).<span class="command">style</span>.<span class="command">listStyleType</span> <span class="sign">=</span> c<span class="sign">}</span>
+
+    <span class="function">function</span> add_border()
+    <span class="sign">{</span>
+        <span class="function">let</span> img <span class="sign">=</span> <span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"#example"</span>)
+        <span class="function">if</span>(<span class="function">document</span>.<span class="command">getElementById</span>(<span class="text">"border"</span>).<span class="command">checked</span>)
+            img.<span class="command">style</span>.<span class="command">border</span> <span class="sign">=</span> <span class="text">"5px solid black"</span>
+        <span class="function">else</span>
+            img.<span class="command">style</span>.<span class="command">borderWidth</span> <span class="sign">=</span> <span class="text">"0px"</span>
+    <span class="sign">}</span>
+<span class="function">&lt;/script&gt;</span>
+                                        </code></pre>
+
+                                        <div id="example">
+                                            <p>Background color</p>
+
+                                            <button id="orange" onclick="color('orange')">Orange</button>
+                                            <button id="lightblue" onclick="color('lightblue')">Lightblue</button>
+                                            <button id="green" onclick="color('green')">Green</button>
+
+                                            <p>Font color</p>
+
+                                            <select name="font" id="font" onclick="font(this.value)">
+                                                <option value="black">Black</option>
+                                                <option value="red">Red</option>
+                                                <option value="yellow">Yellow</option>
+                                                <option value="purple">Purple</option>
+                                            </select>
+
+                                            <p>Font size, e.g., 200%</p>
+
+                                            <input type="text" id="size" name="size" value="100%" onchange="font_size(this.value)">
+
+                                            <p>Change the list style type</p>
+
+                                            <input type="radio" id="disc" name="r" value="disc" onclick="style_type(this.value)"><label for="disc" style="margin-right: 5px;">Disc</label>
+                                            <input type="radio" id="square" name="r" value="square" onclick="style_type(this.value)"><label for="square" style="margin-right: 5px;">Square</label>
+                                            <input type="radio" id="circle" name="r" value="circle" onclick="style_type(this.value)"><label for="circle">Circle</label>
+
+                                            <ul id="list">
+                                                <li>a</li>
+                                                <li>b</li>
+                                                <li>c</li>
+                                            </ul>
+                                            
+                                            <input type="checkbox" id="border" name="border" onclick="add_border()"><label for="border">Add border to the <code>&lt;div&gt;</code></label>
+                                        </div>
+
+                                        <script>
+                                            function color(c){document.querySelector("#example").style.backgroundColor = c}
+                                            function font(c){document.querySelector("#example").style.color = c}
+                                            function font_size(c){document.querySelector("#example").style.fontSize = c}
+                                            function style_type(c){document.querySelector("#list").style.listStyleType = c}
+
+                                            function add_border()
+                                            {
+                                                let img = document.querySelector("#example")
+                                                if(document.getElementById("border").checked)
+                                                    img.style.border = "5px solid black"
+                                                else
+                                                    img.style.borderWidth = "0px"
+                                            }
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>
