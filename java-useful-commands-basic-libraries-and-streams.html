@@ -85,7 +85,7 @@
                                     <h5 class="m-0 font-weight-bold">Useful commands, basic libraries, and streams</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Libraries in Java are collections of related classes and methods. To use them, we have to first import them using the <code>import</code> command.</p>
+                                    <p>A library is a collection of related modules that provides reusable functionality to simplify development. To add a library to our program, we use the <code>import</code> command, e.g., <code>import java.util.Random;</code>.</p>
 
                                     <h2>The <code>Random</code> library</h2>
                                                                         
@@ -214,13 +214,13 @@ stream.<span class="function">forEach</span>(<span class="function">System</span
 <span class="sign">{</span>
     <span class="function">public static void</span> main(<span class="function">String</span>[] args)
     <span class="sign">{</span>
-        <span class="function">String</span> str <span class="sign">=</span> <span class="text">"Hello world!"</span><span class="sign">;</span>
+        <span class="function">String</span> str <span class="sign">=</span> <span class="text">"Hello World!"</span><span class="sign">;</span>
         
         <span class="comment">// Checking the number of characters in a string (its length)</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"String length: "</span> <span class="sign">+</span> str.<span class="command">length</span>())<span class="sign">;</span>
 
         <span class="comment">// Returning a part of a string (a substring)</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Substring: "</span> <span class="sign">+</span> str.<span class="command">substring</span>(0, 5))<span class="sign">;</span> <span class="comment">// "Hello" (start - inclusive, stop - exclusive)</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Substring: "</span> <span class="sign">+</span> str.<span class="command">substring</span>(0, 5))<span class="sign">;</span> <span class="comment">// "Hello" (starting index - inclusive, stopping index - exclusive)</span>
 
         <span class="comment">// Lowercase to uppercase</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Uppercase: "</span> <span class="sign">+</span> str.<span class="command">toUpperCase</span>())<span class="sign">;</span>
@@ -229,7 +229,7 @@ stream.<span class="function">forEach</span>(<span class="function">System</span
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Lowercase: "</span> <span class="sign">+</span> str.<span class="command">toLowerCase</span>())<span class="sign">;</span>
         
         <span class="comment">// Comparing strings</span>
-        <span class="function">String</span> str2 <span class="sign">=</span> <span class="text">"Hello world!"</span><span class="sign">;</span>
+        <span class="function">String</span> str2 <span class="sign">=</span> <span class="text">"Hello World!"</span><span class="sign">;</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Strings are equal: "</span> <span class="sign">+</span> str.<span class="command">equals</span>(str2))<span class="sign">;</span>
 
         <span class="comment">// Breaking a string into an array by dividing it every time a given delimiter is encountered</span>
@@ -237,9 +237,20 @@ stream.<span class="function">forEach</span>(<span class="function">System</span
         <span class="function">for</span>(<span class="function">String</span> word<span class="sign">:</span> words)
             <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(word)<span class="sign">;</span>
 
-        <span class="comment">// Joining the elements of an array into a string using a delimiter</span>
+        <span class="comment">// Joining the elements of a list into a single string by inserting a delimiter between each element</span>
         <span class="function">String</span> joined <span class="sign">=</span> <span class="function">String</span>.<span class="command">join</span>(<span class="text">" "</span>, words)<span class="sign">;</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(joined)<span class="sign">;</span>
+
+        <span class="comment">// Checking if a string contains a specified substring</span>
+        <span class="function">boolean</span> result <span class="sign">=</span> str.<span class="command">contains</span>(<span class="text">"World"</span>)<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(result)<span class="sign">;</span>
+
+        <span class="comment">// Finding the position of the first occurrence of a substring in a string (the index of the substring's first letter). If there are more than one - the index of the first one encountered.</span>
+        <span class="function">int</span> pos <span class="sign">=</span> str.<span class="command">indexOf</span>(<span class="text">"World"</span>)<span class="sign">;</span>
+        <span class="function">if</span>(pos <span class="sign">!= -</span>1) <span class="comment">// checking if the substring was found</span>
+            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Found at position: "</span> <span class="sign">+</span> pos)<span class="sign">;</span>
+        <span class="function">else</span>
+            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Not found"</span>)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
@@ -257,12 +268,12 @@ stream.<span class="function">forEach</span>(<span class="function">System</span
         <span class="function">StringBuilder</span> sb <span class="sign">=</span> <span class="function">new StringBuilder</span>(<span class="text">"Hello"</span>)<span class="sign">;</span>
         
         <span class="comment">// Appending to the string</span>
-        sb.<span class="command">append</span>(<span class="text">" world!"</span>)<span class="sign">;</span>
+        sb.<span class="command">append</span>(<span class="text">" World!"</span>)<span class="sign">;</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(sb)<span class="sign">;</span> <span class="comment">// "Hello World!"</span>
         
         <span class="comment">// Inserting into the string</span>
         sb.<span class="command">insert</span>(5, <span class="text">","</span>)<span class="sign">;</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(sb)<span class="sign">;</span> <span class="comment">// "Hello, world!"</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(sb)<span class="sign">;</span> <span class="comment">// "Hello, World!"</span>
         
         <span class="comment">// Reversing the string</span>
         sb.<span class="command">reverse</span>()<span class="sign">;</span>

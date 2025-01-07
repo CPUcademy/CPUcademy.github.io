@@ -231,7 +231,7 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
                                     
                                     <h2><a id="writing-to-a-file">Writing to a file</a></h2>
                                     
-                                    <p>To write to a file, we have to create an instance of a <code>PrintWriter</code> class, which uses a <code>FileWriter</code> object (with our file's name assigned). After the file name, we can add a second argument - <code>true</code>. Then, we would not override the file but add to it. The <code>PrintWriter</code> speeds up the whole writing process done by <code>FileWriter</code>. The <code>printf()</code> command is a version of the <code>print()</code> command that supports formatting (<code>println()</code> adds an enter - it is not the basic form of the <code>print()</code> command). We can incorporate variables into it through symbols with the <code>%</code> sign. Each symbol represents a specific data type (<code>%d</code> - integer, <code>%.2f</code> - float with two decimal numbers, <code>%s</code> - string). The variables are substituted in order with the arguments of this command that stand after the main string.</p>
+                                    <p>To write to a file, we have to create an instance of a <code>PrintWriter</code> class, which uses a <code>FileWriter</code> object (its first argument is the file name). A file can be opened in two modes for saving: append mode, which adds new content to the end of the file, and write mode, which overwrites the existing content with new data. If the file doesn’t exist, it creates a new one (the append mode does too). It is specified using the second argument of <code>FileWriter</code> (<code>true</code> - append, <code>false</code> - write). The <code>PrintWriter</code> object speeds up the whole writing process done by <code>FileWriter</code>. The <code>printf()</code> command is a version of the <code>print()</code> command that supports formatting (<code>println()</code> is also its variation that adds an enter - it is not the basic command for displaying data). We can incorporate variables into it through symbols with the <code>%</code> sign. Each symbol represents a specific data type (<code>%d</code> - integer, <code>%.2f</code> - float with two decimal numbers, <code>%s</code> - string). The variables are substituted in order with the arguments of this command that stand after the main string.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.io.<span class="sign">*;</span>
@@ -243,9 +243,9 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
         <span class="function">PrintWriter</span> x <span class="sign">=</span> <span class="function">new PrintWriter</span>(<span class="function">new FileWriter</span>(<span class="text">"file.txt"</span>, <span class="function">true</span>))<span class="sign">;</span>
 
         x.<span class="command">println</span>(1234)<span class="sign">;</span>
-        x.<span class="command">write</span>(<span class="text">"abcd"</span>)<span class="sign">;</span> <span class="comment">// could be also "append"</span>
+        x.<span class="command">write</span>(<span class="text">"abcd"</span>)<span class="sign">;</span>
         x.<span class="command">println</span>()<span class="sign">;</span>
-        x.<span class="command">printf</span>(<span class="text">"He weights <span class="command">%d</span> kg and is <span class="command">%.2f</span> <span class="command">%s</span> tall."</span>, 50, 60.5, <span class="text">"cm"</span>)<span class="sign">;</span>
+        x.<span class="command">printf</span>(<span class="text">"He weights %d kg and is %.2f %s tall."</span>, 50, 60.5, <span class="text">"cm"</span>)<span class="sign">;</span>
         x.<span class="command">close</span>()<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
@@ -362,7 +362,7 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
                                     
                                     <h2><a id="serialization">Serialization</a></h2>
                                     
-                                    <p>Serialization means writing the instances of our objects (classes) to a file. The class that is serialized has to implement the <code>Serializable</code> interface. The example below uses the class from the previous example but with added <code>implements Serializable</code>. Of course, we can later import the saved classes.</p>
+                                    <p>Serialization means saving the instances of our objects (classes) to a file. The class that is to be serialized has to implement the <code>Serializable</code> interface. The example below uses the class from the previous example but with added <code>implements Serializable</code>. We can later import the object from the file in another program.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.io.<span class="sign">*;</span>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+</head>
+<body>
+    <p id="pkt">Points: 0</p>
+    <div id="dino" class="obj"></div>
+    
+    <script>
+        var pkt = 0 // score counter
+        const level = 10 // difficulty level, influences enemy speed
+        let gameActive = true // flag to control game state
+        const pressed = {} // tracking keys pressed by the player
+
+        // Player class, handling player object and actions
+        class Player {
+            constructor(element) {
+                this.element = element
+                this.position = {x: 200, y: 200} // initial position of the player
+                this.speed = 5 // movement speed
+                this.updatePosition() // setting the player's initial position
+                this.addEventListeners() // listening for key events to control movement
+                
+                // Player's appearance
+                this.element.style.backgroundColor = "red"
+                this.element.style.width = "50px"
+                this.element.style.height = "50px"
+                this.element.style.position = "absolute"
+            }
+
+            // Updating the player's position based on x and y coordinates
+            updatePosition() {
+                this.element.style.left = this.position.x + "px"
+                this.element.style.top = this.position.y + "px"
+            }
+
+            // Moving the player based on key inputs (Arrow keys)
+            move() {
+                if(!gameActive) return // if the game is over, stop movement (empty return - it will work like the break instruction but for a function)
+
+                // Adjusting the player's position based on key inputs
+                if(pressed["ArrowUp"] && this.position.y > 0)
+                    this.position.y -= this.speed
+                if(pressed["ArrowDown"] && this.position.y < window.innerHeight - 50)
+                    this.position.y += this.speed
+                if(pressed["ArrowLeft"] && this.position.x > 0)
+                    this.position.x -= this.speed
+                if(pressed["ArrowRight"] && this.position.x < window.innerWidth - 50)
+                    this.position.x += this.speed
+                this.updatePosition() // recalculating and updating the position on screen
+            }
+
+            // Attaching key event listeners to detect when keys are pressed/released
+            addEventListeners() {
+                window.addEventListener("keydown", (event) => {
+                    pressed[event.key] = true
+                })
+
+                window.addEventListener("keyup", (event) => {
+                    pressed[event.key] = false
+                })
+            }
+
+            // Checking for collisions with opponents using bounding box logic
+            checkCollision(opponent) {
+                const element1 = this.element.getBoundingClientRect()
+                const element2 = opponent.element.getBoundingClientRect()
+
+                // If the player's and opponent's bounding boxes intersect, it's a collision
+                return !(
+                    element1.top > element2.bottom ||
+                    element1.bottom < element2.top ||
+                    element1.left > element2.right ||
+                    element1.right < element2.left
+                )
+            }
+        }
+
+        // Opponent class, controlling the enemy's behavior and movement
+        class Opponent {
+            constructor(element) {
+                this.element = element
+                this.position = {x: Math.random() * (window.innerWidth - 50), y: Math.random() * (window.innerHeight - 50)}
+                this.speed = level // using the defined level to set speed
+                this.direction = {x: 1, y: 1} // direction of movement (initially set to move diagonally)
+                this.updatePosition() // setting the initial position
+                this.move() // starting movement towards the opponent
+
+                // Opponent's appearance
+                this.element.style.backgroundColor = "blue"
+                this.element.style.width = "50px"
+                this.element.style.height = "50px"
+                this.element.style.position = "absolute"
+            }
+
+            // Updating the opponent's position on the screen
+            updatePosition() {
+                this.element.style.left = this.position.x + "px"
+                this.element.style.top = this.position.y + "px"
+            }
+
+            // Moving the opponent around the screen, bouncing when hitting boundaries
+            move() {
+                setInterval(() => {
+                    if(!gameActive) return // if the game is over, stop movement
+
+                    // Adjusting the opponent's position based on its speed and direction
+                    this.position.x += this.speed * this.direction.x
+                    this.position.y += this.speed * this.direction.y
+
+                    // Reversing direction when the opponent hits a screen boundary
+                    if(this.position.x <= 0 || this.position.x >= window.innerWidth - 50) {
+                        this.direction.x *= -1
+                    }
+                    if(this.position.y <= 0 || this.position.y >= window.innerHeight - 50) {
+                        this.direction.y *= -1
+                    }
+
+                    this.updatePosition() // updating the opponent's position on screen
+                }, 1000 / 60) // moving at 60 FPS
+            }
+        }
+
+        // Geting the HTML player element and initializing it
+        const playerElement = document.getElementById("dino")
+        const player = new Player(playerElement)
+        const opponentList = [] // an array to keep track of opponents
+
+        // Function to create a new opponent
+        const createOpponent = () => {
+            if(!gameActive) return // don't create enemies if the game is over
+
+            const opponentElement = document.createElement("div") // Creating a new opponent element
+            opponentElement.className = "obj"
+            document.body.appendChild(opponentElement) // appending to body
+            const opponent = new Opponent(opponentElement) // initializing the opponent
+            opponentList.push(opponent) // adding to the array of opponents
+            pkt++ // incrementing points
+            document.getElementById("pkt").textContent = "Points: " + pkt // updating points display
+        }
+
+        // Calling the createOpponent() function every 3 seconds
+        setInterval(createOpponent, 3000)
+
+        // Checking for collisions between the player and all opponents every 100ms
+        setInterval(() => {
+            if(!gameActive) return // stop checking collisions if the game is over
+
+            opponentList.forEach(opponent => {
+                if(player.checkCollision(opponent)) {
+                    gameActive = false // end the game if a collision occurs
+                }
+            })
+        }, 100)
+
+        // Moving the player every 1/60th of a second (60 FPS)
+        setInterval(() => {
+            player.move()
+        }, 1000 / 60)
+	</script>
+</body>
+</html>

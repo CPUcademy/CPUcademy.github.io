@@ -90,7 +90,9 @@ x <span class="sign">=</span> <span class="command">open</span>(<span class="tex
 x.<span class="command">close</span>()
                                     </code></pre>
                                     
-                                    <p>We can open a file with this command: <code>open("file.txt", "r", encoding="utf8")</code>. The second argument determines what operations can be performed. <code>r</code> means reading, <code>w</code> - overwriting the content, <code>a</code> - modifying the content, and <code>r+</code> - reading and modifying the content. <code>x</code> is the name of the variable to which we assign the file object (basically its content). <code>utf8</code> is the most common encoding for a file because it helps to prevent many errors. When we finish the operations on a file, we have to close it (using the <code>close()</code> command). The <code>open()</code> command returns an iterable object (we can go with a loop through it). Of course, we can handle files with extensions other than <code>.txt</code> using <code>open()</code>, but this won't be covered in this lesson.</p>
+                                    <p>We can open a file with this command: <code>open("file.txt", "r", encoding="utf8")</code>. The second argument determines what operations can be performed. <code>r</code> means reading, <code>w</code> - overwriting the content, <code>a</code> - modifying the content, and <code>r+</code> - reading and modifying the content. <code>x</code> is the name of the variable to which we assign the file object (basically its content). <code>utf8</code> is the most common encoding for a file because it can handle text that includes special or non-ASCII characters. When we finish the operations on a file, we have to close it (using the <code>close()</code> command). The <code>open()</code> command returns an iterable object (we can go with a loop through it). Of course, we can handle files with extensions other than <code>.txt</code> using <code>open()</code>, but this won't be covered in this lesson.</p>
+
+                                    <p>A file can be opened in a mode just for reading, just for writing, or for reading and writing. There is also an append mode, which adds new content to the end of the file, in contrast to the write mode, which overwrites the existing content with new data.</p>
                                     
                                     <h2><code>r</code> (read)</h2>
                                     
@@ -130,32 +132,32 @@ x.<span class="command">close</span>()
                                     
                                     <h2><code>w</code> (write)</h2>
                                     
-                                    <p>The <code>write()</code> command replaces the contents of a file. It creates a new file with the same name and deletes the previous one.</p>
+                                    <p>The <code>write()</code> command overwrites the contents of a file. If the file doesn’t exist, it creates a new one.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 x <span class="sign">=</span> <span class="command">open</span>(<span class="text">"file.txt"</span>, <span class="text">"w"</span>, <span class="command">encoding</span> <span class="sign">=</span> <span class="text">"utf8"</span>)
 y <span class="sign">=</span> <span class="command">input</span>()
 x.<span class="command">write</span>(y)
-x.<span class="command">close</span>())
+x.<span class="command">close</span>()
                                     </code></pre>
                                     
                                     <h2><code>a</code> (append)</h2>
                                     
-                                    <p>In this mode, we also use the <code>write()</code> command, but here, it adds content to a file.</p>
+                                    <p>In this mode, we also use the <code>write()</code> command, but here, it adds content to a file (without overwriting).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Adding a string in the last line (no spaces)</span>
 x <span class="sign">=</span> <span class="command">open</span>(<span class="text">"file.txt"</span>, <span class="text">"a"</span>, <span class="command">encoding</span> <span class="sign">=</span> <span class="text">"utf8"</span>)
 y <span class="sign">=</span> <span class="command">input</span>()
 x.<span class="command">write</span>(y)
-x.<span class="command">close</span>())
+x.<span class="command">close</span>()
                                     </code></pre>
                                     
-                                    <p>If we want to add a space or write in a new line, we use <code>" " + y</code> or <code>"\n" + y</code>.</p>
+                                    <p>We can add a space or write in a new line like this: <code>" " + y</code> or <code>"\n" + y</code>.</p>
                                     
                                     <h2><code>r+</code> (read+)</h2>
                                     
-                                    <p>In this mode, we can use all the commands from the read mode and the <code>write()</code> command from the append mode.</p>
+                                    <p>In this mode, we can use all the commands from the read mode and the <code>write()</code> command from the append mode. If the file doesn't exist, it will throw an error.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 x <span class="sign">=</span> <span class="command">open</span>(<span class="text">"file.txt"</span>, <span class="text">"r+"</span>, <span class="command">encoding</span> <span class="sign">=</span> <span class="text">"utf8"</span>)
