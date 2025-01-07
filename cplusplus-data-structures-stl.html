@@ -91,7 +91,7 @@
 
                                     <h2>Vectors</h2>
 
-                                    <p>Vectors are dynamic arrays, so we do not have to know their size at the beginning (but we have to determine the type of its elements). It works because the memory is reserved in advance based on how many elements we added in the past. That reserved in advance memory is the vector's capacity, and its size is how much of this memory is used. We must include the <code>&lt;vector&gt;</code> library for all of this to work.</p>
+                                    <p>Vectors are dynamic arrays, meaning we do not have to know their size at the beginning (but we have to determine the type of its elements). It works because the memory is reserved in advance based on how many elements we added in the past. That reserved in advance memory is the vector's capacity, and its size is how much of this memory is used. We must include the <code>&lt;vector&gt;</code> library for all of this to work.</p>
             
                                     <p>The <code>push_back()</code> command will add an element at the end of a vector. If we want to use all of the vector's features, e.g., assigning values at declaration (<code>vector&lt;int&gt; numbers {1, 2, 3, 4, 5};</code>), we have to enable C++ 11 in the editor. In Dev C++, we can do that here: <code>Tools / Compiler Options / Settings / Code Generation / Language Standard (-std) - GNU C++11</code>. Vector's elements can be accessed by index (like with arrays).</p>
                                     
@@ -109,10 +109,11 @@
     
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers[0] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers.<span class="command-c">at</span>(0) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// the same as integers[0]</span>
-    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers[1] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers.<span class="command-c">front</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// the first value</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers.<span class="command-c">back</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// the last value</span>
-    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers.<span class="command-c">size</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// length of the vector</span>
+    integers.<span class="command-c">at</span>(0) <span class="sign">=</span> 3<span class="sign">;</span>  <span class="comment">// changing the value under the given index</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers.<span class="command-c">at</span>(0) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers.<span class="command-c">size</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// the length of the vector</span>
     integers.<span class="command-c">pop_back</span>()<span class="sign">;</span> <span class="comment">// deleting the last element</span>
 
     <span class="function">return</span> 0<span class="sign">;</span>
@@ -120,8 +121,8 @@
                                     </code></pre>
 
                                     <p>If we want to make a vector of arrays, we have to import the <code>&lt;array&gt;</code> library and write, e.g., <code>vector&lt;array&lt;string, 5&gt;&gt; data;</code>. In this example, each array in the vector has five string elements. Of course, we can also nest vectors.</p>
-                                    
-                                    <h3>Iterators</h3>
+
+                                    <h4>Iterators</h4>
                                     
                                     <p>An iterator is an object pointing at a particular position inside a container (a vector). We use it to get to certain elements inside the vector. We create iterators using this pattern: "type_of_the_container::iterator_name;". Not all elements inside a container are in a row inside the memory (this was the case with arrays). An iterator is basically an object that contains a countable number of values. The <code>++</code> operator is used to advance the iterator to the next item, and the dereference operator (<code>*</code>) is used to retrieve the value at the current position.</p>
 
@@ -161,7 +162,7 @@
 <span class="sign">}</span>                                   
                                     </code></pre>
                                     
-                                    <h3><code>auto</code> type</h3>
+                                    <h4><code>auto</code> type</h4>
                                     
                                     <p><code>auto</code> is a data type that decides which type a variable is based on its value. We can check the variable's type with the <code>typeid(x).name()</code> command from the <code>&lt;typeinfo&gt;</code> library.</p>
                                     
@@ -174,7 +175,7 @@
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="sign">*</span>i <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
                                     </code></pre>
                                     
-                                    <h3>Enhanced <code>for</code></h3>
+                                    <h4>Enhanced <code>for</code></h4>
                                     
                                     <p>Enhanced <code>for</code> is a type of the <code>for</code> loop with the syntax shown below.</p>
                                     
@@ -190,6 +191,32 @@
                                     </code></pre>
 
                                     <p>*Adding an ampersand after the <code>auto</code> keyword allows us to edit the values of a vector inside the loop.</p>
+
+                                    <h4>The <code>&lt;sstream&gt;</code> library</h4>
+
+                                    <p>Dividing a string with delimiters using the <code>&lt;sstream&gt;</code> library.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command-c">#include &lt;iostream&gt;</span>
+<span class="command-c">#include &lt;vector&gt;</span>
+<span class="command-c">#include &lt;sstream&gt;</span>
+<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
+
+<span class="function">int</span> main()
+<span class="sign">{</span>
+    <span class="function">string</span> str <span class="sign">=</span> <span class="text">"abc;de;f;ghij"</span><span class="sign">;</span>
+    <span class="function">stringstream</span> ss(str)<span class="sign">;</span> <span class="comment">// a stringstream object used to process the input string</span>
+    <span class="function">string</span> t<span class="sign">;</span> <span class="comment">// a variable used to temporarily store each substring extracted from the input</span>
+    <span class="function">vector</span><span class="sign">&lt;</span><span class="function">string</span><span class="sign">&gt;</span> values<span class="sign">;</span>
+    <span class="comment">// This loop will execute until getline() cannot extract any more substrings.</span>
+    <span class="function">while</span>(<span class="command-c">getline</span>(ss, t, <span class="text">';'</span>)) <span class="comment">// getline() extracts a substring from the stringstream 'ss' until it encounters the specified delimiter (';') and stores the result in 't'</span>
+        values.<span class="command-c">push_back</span>(t)<span class="sign">;</span> <span class="comment">// adding the extracted value to the vector</span>
+
+    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> values.<span class="command-c">size</span>()<span class="sign">;</span> i<span class="sign">++</span>)
+        <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> values.<span class="command-c">at</span>(i) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    <span class="function">return</span> 0<span class="sign">;</span>
+<span class="sign">}</span>
+                                    </code></pre>
 
                                     <h2>Stacks &amp; queues</h2>
 
@@ -238,6 +265,7 @@
     integers.<span class="command-c">pop_back</span>()<span class="sign">;</span> <span class="comment">// deleting an element at the end</span>
     integers.<span class="command-c">push_front</span>(1)<span class="sign">;</span> <span class="comment">// adding an element at the beginning</span>
     integers.<span class="command-c">pop_front</span>()<span class="sign">;</span> <span class="comment">// deleting an element at the beginning</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers.<span class="command-c">front</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// integers.back() would return the same number as there is only one</span>
 
     <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> integers.<span class="command-c">size</span>()<span class="sign">;</span> i<span class="sign">++</span>)
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> integers[i] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
@@ -270,7 +298,7 @@
 
                                     <h2>Maps</h2>
 
-                                    <p>Maps work on the key-value coding rule, which states that searching for the key will give us the value. Using the map keys, we can get the assigned values. In the example below, "C++" and "map" are keys, and "programming language" and "data structure" are values.</p>
+                                    <p>Maps work on the key-value coding rule, which states that searching for the key will give us the value. Using the map keys, we can fetch the assigned values. In the example below, "C++" and "map" are keys, and "programming language" and "data structure" are values.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
@@ -284,8 +312,11 @@
     x.<span class="command-c">insert</span>(<span class="sign">{</span><span class="text">"map"</span>, <span class="text">"data structure"</span><span class="sign">}</span>)<span class="sign">;</span>
     x.<span class="command-c">erase</span>(<span class="text">"map"</span>)<span class="sign">;</span>
 
-    <span class="function">for</span>(<span class="function">auto</span> i <span class="sign">:</span> x)
+    <span class="function">for</span>(<span class="function">auto</span> i <span class="sign">:</span> x) <span class="comment">// accessing all elements of a map in a loop</span>
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> i.<span class="command-c">first</span> <span class="sign">&lt;&lt;</span> <span class="text">" - "</span> <span class="sign">&lt;&lt;</span> i.<span class="command-c">second</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+
+    x[<span class="text">"C++"</span>] <span class="sign">=</span> <span class="text">"language"</span><span class="sign">;</span>  <span class="comment">// editing the value under a given key</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x.<span class="command-c">at</span>(<span class="text">"C++"</span>) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// displaying the value under a given key</span>
 
     <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>                                         

@@ -104,14 +104,17 @@
                                     
                                     <p>This section provides all the information you will ever use unless you want to get really advanced, so you don't have to read the whole article.</p>
 
-                                    <p>To perform operations on text files, we need to include the <code>&lt;fstream&gt;</code> library. Firstly, we have to create a variable of the <code>fstream</code> type and then use the <code>open()</code> command on it. Its first argument is the file's name, and the second is flags, which can be separated by the <code>|</code> sign. The flags are modes in which the file can be opened, and they can be:</p>
+                                    <p class="podpis">To perform operations on text files, we need to include the <code>&lt;fstream&gt;</code> library. Firstly, we have to create a variable of the <code>fstream</code> type and then use the <code>open()</code> command on it. Its first argument is the file's name, and the second is flags. We can add multiple flags using the <code>|</code> sign. They are modes in which the file can be opened, and they can be:</p>
                                     <ul type="disc">
-                                        <li><code>ios::out</code> - output - writing to the file, and if there isn't one - creating a new file. If the file exists, it deletes its previous content and overwrites it (unless we add the <code>ios::in</code> mode after the <code>|</code> sign). <code>ios::in</code> stands for input (reading from the file).</li>
+                                        <li><code>ios::out</code> - output - writing to a file (if the file doesn’t exist, it creates a new one). If the file exists, it overwrites its content with new data.</li>
+                                        <li><code>ios::in</code> - input - reading from a file.</li>
                                         <li><code>ios::trunc</code> - truncate - erasing the whole content.</li>
-                                        <li><code>ios::ate</code> - at the end - starting from the end of the file with the possibilities of reading and writing.</li>
-                                        <li><code>ios::app</code> - append - writing at the end of the file (without deleting the previous content).</li>
+                                        <li><code>ios::app</code> - append - writing at the end of a file (without overwriting the content).</li>
+                                        <li><code>ios::ate</code> - at the end - starting from the end of a file with the possibilities of reading and writing.</li>
                                         <li><code>ios::binary</code> - binary type (it will still be interpreted as a text, but we could, e.g., open an image in the form of zeros and ones).</li>
                                     </ul>
+
+                                    <p>For all operations, we have to first specify, whether we want to write or read, and only then add flags like <code>ios::app</code> using <code>|</code>.</p>
                                     
                                     <p>In the example below, after we check if the file has been opened properly with the <code>is_open()</code> command, we write two lines of text in it and close it (it is necessary). Then, we read from it.</p>
                                     
@@ -148,7 +151,7 @@
 <span class="sign">}</span>
                                     </code></pre>
                                     
-                                    <p>Instead of creating the <code>fstream</code> variable, we could make an <code>ofstream</code> or an <code>ifstream</code> variable. The former's default mode is <code>ios::out</code>, and the latter's - <code>ios::in</code> (we don't have to write them).</p>
+                                    <p>Instead of creating the <code>fstream</code> variable, we could make an <code>ofstream</code> or an <code>ifstream</code> variable. The former's default mode is <code>ios::out</code>, and the latter's - <code>ios::in</code> (we wouldn't have to write them).</p>
                                     
                                     <h2><a id="errors">Errors</a></h2>
                                     
@@ -449,7 +452,7 @@ c <span class="sign">=</span> <span class="command-c">cin</span>.<span class="co
                                     
                                     <h2><a id="write"><code style="color: #f5d67b;">write()</code></a></h2>
                                     
-                                    <p>The <code>write()</code> command writes to a file. It differs from the previously used <code>file << "Text";</code> because it writes exactly the number of bytes we tell it to (if the given number of bytes is longer than the given string, it will write some memory addresses). In the example below, we have to subtract one from the size of our text because we don't want the <code>NULL</code> at the end to be written.</p>
+                                    <p>The <code>write()</code> command writes to a file. It differs from the previously used <code>file &lt;&lt; "Text";</code> because it writes exactly the number of bytes we tell it to (if the given number of bytes is longer than the given string, it will write some memory addresses). In the example below, we have to subtract one from the size of our text because we don't want the <code>NULL</code> at the end to be written.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">fstream</span> file<span class="sign">;</span>

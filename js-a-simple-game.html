@@ -94,11 +94,17 @@
                                     <h5 class="m-0 font-weight-bold">A simple game (intervals, listeners, arrow functions)</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Click on the sub-window below. Move with the Arrow keys. Avoid the blue squares. <a href="js-game.html" target="_blank" class="link">Open the game in a different window</a> if you'd like.</p>
+                                    <p>Click on the sub-window below. Move with the Arrow keys. Avoid the blue squares. Points increase each time an opponent is generated. <a href="js-game.html" target="_blank" class="link">Open the game in a different window</a> if you'd like.</p>
 
                                     <iframe src="js-game.html" title="Example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="v1"></iframe>
 
-                                    clearInterval, setInterval - gra i inne
+                                    <p>Intervals are used to repeatedly execute a function at specified time intervals, allowing us to schedule actions to be performed after a certain delay. The <code>setInterval()</code> function sets up an interval to repeatedly call a function at the specified time, while <code>clearInterval()</code> is used to stop the interval from running further.</p>
+
+                                    <p>Event listeners are used to monitor and respond to specific events, such as clicks or key presses, e.g., on DOM elements. The <code>addEventListener()</code> method attaches an event listener to an element, while <code>removeEventListener()</code> is used to remove an event listener when it is no longer needed.</p>
+
+                                    <p>Arrow functions provide a concise syntax for writing functions. They are defined using the <code>=></code> sign and differ from regular functions by not having their own <code>this</code> context, instead inheriting <code>this</code> from the surrounding scope. The are simillar to Lambda functions from other languages.</p>
+
+                                    <p>You will find examples of all these concepts in the code below. If you have any questions, contact me on my <a href="https://discord.gg/GcKFBZCvhs" target="_blank" class="link">Discord server</a>.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">&lt;!DOCTYPE html&gt;</span>
@@ -144,27 +150,27 @@
             move() <span class="sign">{</span>
                 <span class="function">if</span>(<span class="sign">!</span>gameActive) <span class="function">return</span> <span class="comment">// if the game is over, stop movement (empty return - it will work like the break instruction but for a function)</span>
 
-                <span class="comment">// Adjusting the player's position based on key inputs</span>
-                <span class="function">if</span>(pressed[<span class="text">"ArrowUp"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.y <span class="sign">&gt;</span> 0)
+                <span class="comment">// Adjusting the player's position based on key inputs and prohibiting him from exiting the screen</span>
+                <span class="function">if</span>(pressed[<span class="text">"ArrowUp"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.y <span class="sign">&gt;</span> 0) <span class="comment">// moving the player up if a key is pressed, its name is "ArrowUp," and the y coordinate is greater than 0</span>
                     <span class="function">this</span>.position.y <span class="sign">-=</span> <span class="function">this</span>.speed
-                <span class="function">if</span>(pressed[<span class="text">"ArrowDown"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.y <span class="sign">&lt;</span> <span class="function">window</span>.innerHeight <span class="sign">-</span> 50)
+                <span class="function">if</span>(pressed[<span class="text">"ArrowDown"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.y <span class="sign">&lt;</span> <span class="function">window</span>.innerHeight <span class="sign">-</span> 50) <span class="comment">// the second condition specifies that the player can't be at the bottom "border" of the screen</span>
                     <span class="function">this</span>.position.y <span class="sign">+=</span> <span class="function">this</span>.speed
-                <span class="function">if</span>(pressed[<span class="text">"ArrowLeft"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.x <span class="sign">&gt;</span> 0)
+                <span class="function">if</span>(pressed[<span class="text">"ArrowLeft"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.x <span class="sign">&gt;</span> 0) <span class="comment">// the (0,0) point is at the top-left corner of the screen, so when checking the top and left border, we address 0</span>
                     <span class="function">this</span>.position.x <span class="sign">-=</span> <span class="function">this</span>.speed
-                <span class="function">if</span>(pressed[<span class="text">"ArrowRight"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.x <span class="sign">&lt;</span> <span class="function">window</span>.innerWidth <span class="sign">-</span> 50)
+                <span class="function">if</span>(pressed[<span class="text">"ArrowRight"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.x <span class="sign">&lt;</span> <span class="function">window</span>.innerWidth <span class="sign">-</span> 50) <span class="comment">// the second condition specifies that the player can't be at the right "border" of the screen</span>
                     <span class="function">this</span>.position.x <span class="sign">+=</span> <span class="function">this</span>.speed
-                <span class="function">this</span>.updatePosition() <span class="comment">// recalculating and updating the position on screen</span>
+                <span class="function">this</span>.updatePosition() <span class="comment">// recalculating and updating the position on the screen</span>
             <span class="sign">}</span>
 
             <span class="comment">// Attaching key event listeners to detect when keys are pressed/released</span>
-            <span class="function">addEventListeners</span>() <span class="sign">{</span>
+            addEventListeners() <span class="sign">{</span>
                 <span class="function">window</span>.<span class="function">addEventListener</span>(<span class="text">"keydown"</span>, (event) <span class="sign">=> {</span>
-                    pressed[<span class="function">event</span>.key] <span class="sign">=</span> <span class="function">true</span>
-                })
+                    pressed[<span class="function">event</span>.key] <span class="sign">=</span> <span class="function">true</span> <span class="comment">// indicating that a key is pressed</span>
+                <span class="sign">}</span>)
 
                 <span class="function">window</span>.<span class="function">addEventListener</span>(<span class="text">"keyup"</span>, (event) <span class="sign">=> {</span>
                     pressed[<span class="function">event</span>.key] <span class="sign">=</span> <span class="function">false</span>
-                })
+                <span class="sign">}</span>)
             <span class="sign">}</span>
 
             <span class="comment">// Checking for collisions with opponents using bounding box logic</span>

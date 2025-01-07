@@ -85,7 +85,7 @@
                                     <h5 class="m-0 font-weight-bold">Useful commands, basic libraries, and multiple file projects</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>A library is a collection of related modules that provides reusable functionality to simplify development.</p>
+                                    <p>A library is a collection of related modules that provides reusable functionality to simplify development. To add a library to our program, we use the <code>#include</code> command, e.g., <code>#include &lt;iostream&gt;</code>.</p>
 
                                     <h2>Files</h2>
                                     
@@ -145,10 +145,31 @@
                                     <h4><code>length()</code></h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">// Length of a string</span>
+<span class="comment">// A number of characters in a string (its length)</span>
 <span class="function">string</span> x <span class="sign">=</span> <span class="text">"abcd"</span><span class="sign">;</span>
 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x.<span class="command-c">length</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
                                     </code></pre> 
+
+                                    <h4><code>substring()</code></h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">// Extracting a substring from a string</span>
+<span class="command-c">string</span> str <span class="sign">=</span> <span class="text">"Hello World!"</span><span class="sign">;</span>
+<span class="command-c">string</span> sub <span class="sign">=</span> str.<span class="command-c">substr</span>(6, 5)<span class="sign">;</span> <span class="comment">// (starting index, length)</span>
+<span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> sub <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+                                    </code></pre>
+
+                                    <h4><code>find()</code></h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">// Finding the position of the first occurrence of a substring in a string (the index of the substring's first letter). If there are more than one - the index of the first one encountered.</span>
+<span class="command-c">string</span> str <span class="sign">=</span> <span class="text">"Hello World!"</span><span class="sign">;</span>
+<span class="function">int</span> pos <span class="sign">=</span> str.<span class="command-c">find</span>(<span class="text">"World"</span>)<span class="sign">;</span>
+<span class="command-c">if</span>(pos <span class="sign">!=</span> <span class="function">string</span><span class="sign">::</span><span class="function">npos</span>) <span class="comment">// checking if the substring was found (find() returns string::npos if not found)</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Found at position: "</span> <span class="sign">&lt;&lt;</span> pos <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+<span class="command-c">else</span>
+    <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Not found"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> 
+                                    </code></pre>
 
                                     <h4><code>abs()</code> - the <code>&lt;cmath&gt;</code> library</h4>
 

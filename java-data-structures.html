@@ -117,12 +117,13 @@
         integers.<span class="command">add</span>(2)<span class="sign">;</span> <span class="comment">// adding an element at the end</span>
         integers.<span class="command">add</span>(4)<span class="sign">;</span>
 
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(integers.<span class="command">get</span>(0))<span class="sign">;</span> <span class="comment">// the same as integers[0] in arrays</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(integers.<span class="command">get</span>(0))<span class="sign">;</span> <span class="comment">// the same as integers[0] with arrays</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(integers.<span class="command">getFirst</span>())<span class="sign">;</span> <span class="comment">// the first value</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(integers.<span class="command">getLast</span>())<span class="sign">;</span> <span class="comment">// the last value</span>
-        integers.<span class="command">set</span>(1, 3)<span class="sign">;</span> <span class="comment">// changing the value under the given index</span>
+        integers.<span class="command">set</span>(1, 3)<span class="sign">;</span> <span class="comment">// changing the value under a given index</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(integers.<span class="command">get</span>(1))<span class="sign">;</span>
-        integers.<span class="command">remove</span>(1)<span class="sign">;</span> <span class="comment">// deleting the element under the given index</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(integers.<span class="command">size</span>())<span class="sign">;</span> <span class="comment">// the length of the list</span>
+        integers.<span class="command">remove</span>(1)<span class="sign">;</span> <span class="comment">// deleting the element under a given index</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
@@ -159,7 +160,7 @@
 
                                     <h2>Iterators</h2>
 
-                                    <p>An iterator is an object pointing at a particular position inside a container (a list). We use it to get to certain elements inside the list. Not all elements inside a container are in a row inside the memory (this was the case with arrays). An iterator is basically an object that contains a countable number of values. The <code>next()</code> function is a built-in function used to advance the iterator to the next item and return its value.</p>
+                                    <p>An iterator is an object pointing at a particular position inside a container (a list). We use it to get to certain elements inside the list. Not all elements inside a container are in a row inside the memory (this was the case with arrays). An iterator is basically an object that contains a countable number of values. The <code>next()</code> function is a built-in function used to advance the iterator to the next item and retrieve the value at the current position.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.util.<span class="sign">*;</span>
@@ -263,6 +264,9 @@
         integers.<span class="command">addFirst</span>(1)<span class="sign">;</span> <span class="comment">// adding an element at the beginning</span>
         integers.<span class="command">removeFirst</span>()<span class="sign">;</span> <span class="comment">// deleting an element at the beginning</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(integers.<span class="command">getFirst</span>())<span class="sign">;</span> <span class="comment">// integers.getLast() would return the same number as there is only one</span>
+
+        <span class="function">for</span>(<span class="function">Integer</span> integer<span class="sign">:</span> integers)
+            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(integer)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
@@ -315,7 +319,7 @@
 
                                     <h2>Maps</h2>
 
-                                    <p>Maps work on the key-value coding rule, which states that searching for the key will give us the value. Using the map keys, we can get the assigned values. In the example below, "Java" and "map" are keys, and "programming language" and "data structure" are values.</p>
+                                    <p>Maps work on the key-value coding rule, which states that searching for the key will give us the value. Using the map keys, we can fetch the assigned values. In the example below, "Java" and "map" are keys, and "programming language" and "data structure" are values.</p>
 
                                     <ul>
                                         <li><b>HashMap</b>
@@ -350,12 +354,12 @@
     <span class="function">public static void</span> main(<span class="function">String</span>[] args)
     <span class="sign">{</span>
         <span class="function">Map</span><span class="sign">&lt;</span><span class="function">String</span>, <span class="function">String</span><span class="sign">&gt;</span> myMap <span class="sign">=</span> <span class="function">new HashMap</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
-        myMap.<span class="command">put</span>(<span class="text">"Java"</span>, <span class="text">"programming language"</span>)<span class="sign">;</span> <span class="comment">// adding an element</span>
+        myMap.<span class="command">put</span>(<span class="text">"Java"</span>, <span class="text">"programming language"</span>)<span class="sign">;</span> <span class="comment">// adding an element / editing the value under a given key</span>
         myMap.<span class="command">put</span>(<span class="text">"map"</span>, <span class="text">"data structure"</span>)<span class="sign">;</span>
 
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(myMap.<span class="command">get</span>(<span class="text">"Java"</span>))<span class="sign">;</span> <span class="comment">// displaying the value under the given key</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(myMap.<span class="command">containsKey</span>(<span class="text">"Java"</span>))<span class="sign">;</span> <span class="comment">// checking whether the map contains the given key</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(myMap.<span class="command">containsValue</span>(<span class="text">"Java"</span>))<span class="sign">;</span> <span class="comment">// checking whether the map contains the given value</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(myMap.<span class="command">get</span>(<span class="text">"Java"</span>))<span class="sign">;</span> <span class="comment">// displaying the value under a given key</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(myMap.<span class="command">containsKey</span>(<span class="text">"Java"</span>))<span class="sign">;</span> <span class="comment">// checking whether the map contains a given key</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(myMap.<span class="command">containsValue</span>(<span class="text">"Java"</span>))<span class="sign">;</span> <span class="comment">// checking whether the map contains a given value</span>
         myMap.<span class="command">remove</span>(<span class="text">"Java"</span>)<span class="sign">;</span>
 
         <span class="function">for</span> (<span class="function">String</span> i<span class="sign">:</span> myMap.<span class="command">keySet</span>()) <span class="comment">// going through a list of the map keys</span>
