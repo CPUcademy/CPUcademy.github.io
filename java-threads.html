@@ -85,7 +85,7 @@
                                     <h5 class="m-0 font-weight-bold">Threads</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Threads are a fundamental part of the Java concurrency model, allowing multiple tasks to run simultaneously within a single program. By utilizing threads, we can create more responsive and efficient applications, particularly in scenarios where tasks can be performed in parallel. Java provides built-in support for multithreading through the <code>Thread</code> class or the <code>Runnable</code> interface.</p>
+                                    <p>Threads are a fundamental part of the Java concurrency model, allowing multiple tasks to run simultaneously within a single program. By utilizing threads, we can create more responsive and efficient applications, particularly in scenarios where tasks can be performed in parallel. Java provides built-in support for multithreading through the <code>Thread</code> class or the <code>Runnable</code> interface (with <code>Thread</code> being used under the hood).</p>
 
                                     <p>To create a thread, we extend the <code>Thread</code> class and override its <code>run()</code> method, which contains the code to be executed by the thread. Once the thread is created, it can be started using the <code>start()</code> method. The <code>join()</code> method ensures the main thread waits until the "side" thread(s) complete execution and continues only then. It is useful because some resources may be necessary for the rest of the program. Threads can be also put to sleep using the <code>Thread.sleep(milliseconds)</code> method, allowing for controlled pauses in execution.</p>
 
@@ -94,6 +94,7 @@
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Task1 <span class="function">extends Thread</span> 
 <span class="sign">{</span>
+    <span class="command">@Override</span>
     <span class="function">public void</span> run() 
     <span class="sign">{</span>
         <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 10000<span class="sign">;</span> i<span class="sign">++</span>) 
@@ -106,6 +107,7 @@
 
 <span class="function">class</span> Task2 <span class="function">extends Thread</span> 
 <span class="sign">{</span>
+    <span class="command">@Override</span>
     <span class="function">public void</span> run() 
     <span class="sign">{</span>
         <span class="function">int</span> sum <span class="sign">=</span> 0<span class="sign">;</span>
