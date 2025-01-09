@@ -160,6 +160,8 @@ task2.<span class="command">join</span>()
 <span class="command">print</span>(<span class="text">"Both tasks completed."</span>)                                        
                                     </code></pre>
 
+                                    <p>Of course, using <code>join()</code> is not necessary. We do not use it if we want to start two separate threads that have absolutely nothing to do with each other. However, if we deleted it from the example above, the "Both tasks completed." string would be displayed weirdly (check it in your editor) because it would not wait for both threads to display their results.</p>
+
                                     <p>Threads can be synchronized to prevent concurrent access to shared resources, ensuring data consistency. Synchronization is applied using the <code>Lock</code> object. It ensures that only one thread accesses shared resources at a time. Synchronization ensures data consistency but can reduce performance if overused.</p>
 
                                     <p>In the example below, the <code>Lock</code> object prevents multiple threads from modifying the <code>shared_resource</code> variable simultaneously, which could lead to inconsistencies due to race conditions. Without the lock, threads can interfere with each other while accessing the shared resource, causing the final result to be unpredictable. For example, two threads might read the same value of <code>shared_resource</code>, increment it, and write it back, effectively skipping one increment. This may result in a final value being lower than expected. When a thread enters the block <code>with lock</code>, it first tries to acquire the lock. If another thread already holds the lock, the current thread will wait until the lock is released. Inside the locked block, the shared resource is modified. Once the other thread finishes modifying <code>shared_resource</code>, the lock is automatically released.</p>
@@ -380,7 +382,7 @@ asyncio.<span class="command">run</span>(main())
     
 <span class="function">async def</span> main():
     event <span class="sign">=</span> asyncio.<span class="function">Event</span>()
-    <span class="function">await</span> asyncio.<span class="command">gather</span>(f1 (event), f2 (event))
+    <span class="function">await</span> asyncio.<span class="command">gather</span>(f1(event), f2(event))
 
 asyncio.<span class="command">run</span>(main())
                                     </code></pre>
