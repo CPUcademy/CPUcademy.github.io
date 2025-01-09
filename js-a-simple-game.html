@@ -98,13 +98,13 @@
 
                                     <iframe src="js-game.html" title="Example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="v1"></iframe>
 
-                                    <p>Intervals are used to repeatedly execute a function at specified time intervals, allowing us to schedule actions to be performed after a certain delay. The <code>setInterval()</code> function sets up an interval to repeatedly call a function at the specified time, while <code>clearInterval()</code> is used to stop the interval from running further.</p>
+                                    <p>Intervals are used to repeatedly execute a function at specified time intervals, allowing us to schedule actions to be performed after a certain delay. The <code>setInterval()</code> function sets up an interval to repeatedly call a function after a delay specified in milliseconds, while <code>clearInterval()</code> is used to stop the interval from running further.</p>
 
                                     <p>Event listeners are used to monitor and respond to specific events, such as clicks or key presses, e.g., on DOM elements. The <code>addEventListener()</code> method attaches an event listener to an element, while <code>removeEventListener()</code> is used to remove an event listener when it is no longer needed.</p>
 
                                     <p>Arrow functions provide a concise syntax for writing functions. They are defined using the <code>=></code> sign and differ from regular functions by not having their own <code>this</code> context, instead inheriting <code>this</code> from the surrounding scope. The are simillar to Lambda functions from other languages.</p>
 
-                                    <p>You will find examples of all these concepts in the code below. If you have any questions, contact me on my <a href="https://discord.gg/GcKFBZCvhs" target="_blank" class="link">Discord server</a>.</p>
+                                    <p>You can find all these concepts in the game code and the additional examples provided below. If you have any questions, contact me on my <a href="https://discord.gg/GcKFBZCvhs" target="_blank" class="link">Discord server</a>.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">&lt;!DOCTYPE html&gt;</span>
@@ -273,6 +273,60 @@
 <span class="function">&lt;/body&gt;</span>
 <span class="function">&lt;/html&gt;</span>
                                     </code></pre>
+
+                                    <h2>Additional examples</h2>
+
+                                    <p>The <code>setTimeout()</code> command executes a function once after a delay specified in milliseconds (<code>setTimeout(() => {console.log("Timeout")}, 1000)</code>).</p>
+
+                                    <h4>Event listeners</h4>
+
+                                    <h5>Input event listener</h5>
+
+                                    <p>Open the console and write something in the <code>&lt;input&gt;</code> form control. The content of the <code>&lt;input&gt;</code> will be displayed in the console.</p>
+
+                                    <input type="text" id="inputField" placeholder="Write something...">
+                                    <script>
+                                        const inputField = document.getElementById("inputField");
+                                        inputField.addEventListener("input", (event) => {
+                                            console.log("Current value:", event.target.value)
+                                        })
+                                    </script>
+                                    
+                                    <h5 style="margin-top: 20px;">Mouse event listeners</h5>
+
+                                    <p>Open the console and hover over the paragraph below. In the console, the mouse coordinates will be displayed while it's hovering over the paragraph.</p>
+
+                                    <p id="paragraph">Hover over this paragraph and move your mouse!</p>
+
+                                    <script>
+                                        const paragraph = document.getElementById("paragraph")
+
+                                        paragraph.addEventListener("mousemove", (event) => {
+                                            console.log(`Mouse moved to X: ${event.clientX}, Y: ${event.clientY}`)
+                                        })
+
+                                        paragraph.addEventListener("mouseenter", () => {
+                                            paragraph.textContent = "Mouse entered the paragraph!"
+                                        });
+
+                                        paragraph.addEventListener("mouseleave", () => {
+                                            paragraph.textContent = "Mouse left the paragraph!"
+                                        });
+                                    </script>
+
+                                    <h5>Click listener</h5>
+
+                                    <p>Open the console and click on any code snippet or example on this page. In the console, the value of the clicked <code>&lt;code&gt;</code> tag will be displayed.</p>
+
+                                    <script>
+                                        document.addEventListener("click", (event) => {console.log("click")})
+                                        const codeElements = document.querySelectorAll("code")
+                                        codeElements.forEach((codeElement) => {
+                                            codeElement.addEventListener("click", (event) => {
+                                                console.log("Clicked on:", event.target)
+                                            })
+                                        })
+                                    </script>
                                 </div>
                             </div>
                         </div>

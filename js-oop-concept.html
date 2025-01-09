@@ -85,46 +85,40 @@
                                     <h5 class="m-0 font-weight-bold">OOP concept</h5>
                                 </div>
                                 <div class="card-body">
+                                    wyjaśnić foreach, wyjaśnić asynchroniczność listenerów
+
+                                    <p>Primitive numbers (e.g., numbers) are passed to functions by value (as a copy). On the other hand, objects are passed by reference, meaning the function receives a reference to the original object, meaning any changes made to the object within the function will affect the object in the outer scope without the need for returning it.</p>
+
                                     <h2>Object literals</h2>
 
-                                    <p>Operatory równości w przypadku sprawdzania obiektów tylko stwierdzają czy dwa obiekty mają ten sam adres w pamięci!</p>
-
-                                    delete person.firstName
-
-                                    kurs:
-                                    dokończyć całość - funkcje w JS
-                                    zaawansowany:
-                                    setTimeout
-                                    sklaryfikować addEventListner
-                                    sklaryfikować funkcję strzałkową
-
-                                    dokończyć całość - drzewo DOM
-                                    
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-const person = {
-    firstName: "John", // A string property
-    lastName: "Doe",
-    age: 30, // A number property
-    isEmployed: true, // A boolean property
-    hobbies: ["reading", "traveling", "cycling"], // An array property
-    address: { // A nested object
-        street: "123 Main St",
-        city: "New York",
+<span class="function">let</span> person <span class="sign">= {</span>
+    firstName: <span class="text">"John"</span>, <span class="comment">// a property</span>
+    lastName: <span class="text">"Doe"</span>,
+    age: 30,
+    isEmployed: <span class="function">true</span>,
+    hobbies: [<span class="text">"reading"</span>, <span class="text">"traveling"</span>, <span class="text">"cycling"</span>],
+    address: <span class="sign">{</span> <span class="comment">// a nested object</span>
+        street: <span class="text">"123 Main St"</span>,
+        city: <span class="text">"New York"</span>,
         zipCode: 10001
-    },
-    greet: function() { // A method (function inside the object)
-        console.log(`Hello, my name is ${this.firstName} ${this.lastName}.`);
-    }
-};
+    <span class="sign">}</span>,
+    greet: <span class="function">function</span>() <span class="sign">{</span> <span class="comment">// a method</span>
+        <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Hello, my name is ${this.firstName} ${this.lastName}."</span>)
+    <span class="sign">}</span>
+<span class="sign">}</span>
 
-// Accessing properties
-console.log(person.firstName); // "John"
-console.log(person.hobbies[1]); // "traveling"
-console.log(person.address.city); // "New York"
+<span class="command">console</span>.<span class="command">log</span>(person.firstName)
+<span class="command">console</span>.<span class="command">log</span>(person.hobbies[1])
+<span class="command">console</span>.<span class="command">log</span>(person.address.city)
 
-// Calling the method
-person.greet(); // "Hello, my name is John Doe."                                        
+person.greet()  
+<span class="function">delete</span> person.firstName <span class="comment">// deleting a property</span>
                                     </code></pre>
+
+                                    <div class="alert alert-warning">
+                                        <b>Warning:</b> The equality operators, when checking objects, only check whether two objects have the same address in memory.
+                                    </div>
                                 </div>
                             </div>
                         </div>
