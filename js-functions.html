@@ -139,7 +139,7 @@ func()
 <span class="sign">{</span>
     local_variable <span class="sign">+=</span> 1
     <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Local:"</span>, local_variable)
-    return local_variable <span class="comment">// to see the changes of a local variable in the outer block, we have to return its value</span>
+    <span class="function">return</span> local_variable <span class="comment">// to see the changes of a local variable in the outer block, we have to return its value</span>
 <span class="sign">}</span>
 
 func()
@@ -165,7 +165,26 @@ local_variable <span class="sign">=</span> func3(local_variable)
     func()
 <span class="sign">}</span>
 func()
-                                    </code></pre>                              
+                                    </code></pre>   
+                                    
+                                    <h2>The rest operator</h2>
+
+                                    <p>The rest operator (<code>...</code>) is used to collect multiple elements (e.g., function arguments) into a single array. It is also used to split the elements of an array, but then its name changes to the spread operator.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">function</span> func(<span class="sign">...</span>args) <span class="sign">{</span>
+    <span class="command">console</span>.<span class="command">log</span>(args)
+<span class="sign">}</span>
+func(1, 2, 3, 4, 5)
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">function</span> func(a, b, c, d, e) <span class="sign">{</span>
+    <span class="command">console</span>.<span class="command">log</span>(a, b, c, d, e)
+<span class="sign">}</span>
+<span class="function">let</span> arr <span class="sign">=</span> [1, 2, 3, 4, 5]
+func(<span class="sign">...</span>arr)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

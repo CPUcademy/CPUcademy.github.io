@@ -97,14 +97,17 @@
 
                                     <h2>Variables</h2>
                                     
-                                    <p class="podpis">A variable is a "drawer" for data in the RAM. We can store every sort of data in them. We have five basic types of variables:</p>
+                                    <p class="podpis">A variable is a "drawer" for data in the RAM. We can store every sort of data in them. We have five basic variable types:</p>
                                     <p class="podpis"><code>int</code> - integers</p>
                                     <p class="podpis"><code>float</code> - decimals</p>
                                     <p class="podpis"><code>string</code> - texts (a number can also be a part of it, e.g., "abc123")</p>            
                                     <p class="podpis"><code>bool</code> (boolean) - <code>true</code> (all numbers except 0) and <code>false</code> (0) values</p>     
-                                    <p><code>null</code> - an object used to indicate the absence of a value.</p>     
+                                    <p class="podpis"><code>null</code> - an object used to indicate the absence of a value.</p>     
+                                    <p><code>undefined</code> - the default value of uninitialized variables.</p>     
                                     
-                                    <p>In JavaScript (unlike in, e.g., C++), we do not have to define the type when creating a variable. It is assigned automatically based on the value.</p>
+                                    <p>In JavaScript (unlike in, e.g., C++), we do not have to define the type when creating a variable. It is assigned automatically based on the value. Here, integers and floating-point numbers are all handled by the "number" type, however keep in mind that <code>int</code> and <code>float</code> operate "below." There is also a type called <code>BigInt</code>, and it is used for really long integers. We indicate its usage by adding an <code>n</code> at the end of the number, e.g., <code>1234567890123456789012345678901234567890n</code>.</p>
+                                    
+                                    <p>We can check the variable's type using the <code>typeof x</code> command.</p>
                                     
                                     <p>Everything on the left side of the <code>=</code> sign is a variable's name (it cannot contain spaces), and on the right is a value.</p>
                                     
@@ -116,7 +119,13 @@
                                     
                                     <p>While naming the variables, we cannot add any numbers or spaces at the beginning. The first letter of the variable should not be uppercase. We should write variable names in one of these three ways: <code>prime_number</code>, <code>primeNumber</code>, <code>nPrimeNumber</code>.</p>
                                     
-                                    <p>We can change a variable to a constant, whose value cannot be changed, by adding const before the variable definition (e.g., <code>const NAME = "text"</code>). There is an unwritten rule that the names of constants should be in uppercase.</p>
+                                    <p>Variables can be declared in bulk, e.g., <code>let a, b, c</code>. They can also be defined in the same way: <code>let a = 1, b, c = 2</code> (we can define only some of them if we want).</p>
+
+                                    <p>We can define a variable as a constant, whose value cannot be changed, by adding <code>const</code> before the variable definition (e.g., <code>const NAME = "text"</code>). There is a convention that the names of constants should be in uppercase.</p>
+
+                                    <p>Variables in JavaScript can change their type during the program runtime (they are dynamically typed).</p>
+
+                                    <p>A "falsy" number is a number that, after conversion to a boolean, e.g., in a conditional statement, equals <code>false</code>, e.g., 0.</p>
 
                                     <p><code>\n</code> symbolizes the enter key and can be used inside strings.</p>
                                     
