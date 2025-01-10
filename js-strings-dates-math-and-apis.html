@@ -223,41 +223,62 @@ a <span class="sign">=</span> d.<span class="command">getDay</span>()
 
                                     <h2>APIs</h2>
 
-                                    <!-- Display fetched data -->
+                                    <p>An API (Application Programming Interface) is a set of rules and tools that allows different software applications to communicate and interact with each other. Fetching data from an API means requesting information from a remote server or service and receiving the response to use in our application. APIs often provide endpoints (URLs) that return data in a structured format like JSON. When we "fetch" data, we make an HTTP request to these endpoints, asking for specific information. The server processes the request and sends back a response, which we can use to, e.g., display content. APIs enable interactive web applications that rely on real-time or external data.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+&lt;div id="dataContainer"&gt;Fetching data...&lt;/div&gt;
+&lt;script&gt;
+    const apiURL = "https://jsonplaceholder.typicode.com/posts" // an example URL
+
+    fetch(apiURL)
+        .then((response) =&gt; {
+            if (!response.ok)
+                throw new Error(`HTTP error! Status: ${response.status}`)
+            return response.json()
+        })
+        .then((data) =&gt; {
+            const dataContainer = document.getElementById("dataContainer")
+            dataContainer.innerHTML = data
+                .slice(0, 1) // limiting to 1 item
+                .map(
+                    (post) =&gt; `
+                &lt;div&gt;
+                    &lt;h5&gt;${post.title}&lt;/h5&gt;
+                    &lt;p&gt;${post.body}&lt;/p&gt;
+                &lt;/div&gt;
+                `).join("") // combining the HTML strings
+        })
+        .catch((error) =&gt; {
+            document.getElementById("dataContainer").textContent = "Failed to fetch data."
+        })
+&lt;/script&gt;
+                                    </code></pre>
+
                                     <div id="dataContainer">Fetching data...</div>
                                     <script>
-                                    // Example API URL
-                                    const apiURL = "https://jsonplaceholder.typicode.com/posts";
+                                        const apiURL = "https://jsonplaceholder.typicode.com/posts" // an example URL
 
-                                    // Fetching data from the API
-                                    fetch(apiURL)
-                                        .then((response) => {
-                                            if (!response.ok) {
-                                                throw new Error(`HTTP error! Status: ${response.status}`);
-                                            }
-                                            return response.json(); // Parsing response as JSON
-                                        })
-                                        .then((data) => {
-                                            console.log("Fetched data:", data);
-                                            const dataContainer = document.getElementById("dataContainer");
-
-                                            // Displaying the fetched data
-                                            dataContainer.innerHTML = data
-                                                .slice(0, 1) // Limiting to 1 item for brevity
-                                                .map(
-                                                    (post) => `
-                                                <div>
-                                                    <h3>${post.title}</h3>
-                                                    <p>${post.body}</p>
-                                                </div>
-                                            `
-                                                )
-                                                .join(""); // Combine the HTML strings
-                                        })
-                                        .catch((error) => {
-                                            console.error("Error fetching data:", error);
-                                            document.getElementById("dataContainer").textContent = "Failed to fetch data.";
-                                        });
+                                        fetch(apiURL)
+                                            .then((response) => {
+                                                if (!response.ok)
+                                                    throw new Error(`HTTP error! Status: ${response.status}`)
+                                                return response.json()
+                                            })
+                                            .then((data) => {
+                                                const dataContainer = document.getElementById("dataContainer")
+                                                dataContainer.innerHTML = data
+                                                    .slice(0, 1) // limiting to 1 item
+                                                    .map(
+                                                        (post) => `
+                                                    <div>
+                                                        <h5>${post.title}</h5>
+                                                        <p>${post.body}</p>
+                                                    </div>
+                                                    `).join("") // combining the HTML strings
+                                            })
+                                            .catch((error) => {
+                                                document.getElementById("dataContainer").textContent = "Failed to fetch data."
+                                            })
                                     </script>
                                 </div>
                             </div>

@@ -100,7 +100,7 @@
 
                                     <p>Intervals are used to repeatedly execute a function at specified time intervals, allowing us to schedule actions to be performed after a certain delay. The <code>setInterval()</code> function sets up an interval to repeatedly call a function after a delay specified in milliseconds, while <code>clearInterval()</code> is used to stop the interval from running further.</p>
 
-                                    <p>Event listeners are used to monitor and respond to specific events, such as clicks or key presses, e.g., on DOM elements. The <code>addEventListener()</code> method attaches an event listener to an element, while <code>removeEventListener()</code> is used to remove an event listener when it is no longer needed.</p>
+                                    <p>Event listeners are used to monitor and respond to specific events, such as clicks or key presses, e.g., on DOM elements. The <code>addEventListener()</code> method attaches an event listener to an element, while <code>removeEventListener()</code> is used to remove an event listener when it is no longer needed. Event listeners are asynchronous because they respond to events like clicks or inputs without blocking the execution of other code. When an event occurs, its associated callback function is queued in the event loop, which manages the event execution.</p>
 
                                     <p>Arrow functions provide a concise syntax for writing functions. They are defined using the <code>=></code> sign and differ from regular functions by not having their own <code>this</code> context, instead inheriting <code>this</code> from the surrounding scope. The are simillar to Lambda functions from other languages.</p>
 
@@ -258,8 +258,8 @@
         <span class="function">setInterval</span>(() <span class="sign">=> {</span>
             <span class="function">if</span>(<span class="sign">!</span>gameActive) <span class="function">return</span> <span class="comment">// stop checking collisions if the game is over</span>
 
-            opponentList.<span class="function">forEach</span>(opponent <span class="sign">=> {</span>
-                <span class="function">if</span>(player.checkCollision(opponent)) <span class="sign">{</span>
+            opponentList.<span class="function">forEach</span>(opponent <span class="sign">=> {</span> <span class="comment">// iterating over each opponent in the "opponentList" array</span>
+                <span class="function">if</span>(player.checkCollision(opponent)) <span class="sign">{</span> <span class="comment">// checking if the player collides with the currently considered opponent</span>
                     gameActive <span class="sign">=</span> <span class="function">false</span> <span class="comment">// end the game if a collision occurs</span>
                 <span class="sign">}</span>
             <span class="sign">}</span>)
@@ -282,11 +282,21 @@
 
                                     <h5>Input event listener</h5>
 
-                                    <p>Open the console and write something in the <code>&lt;input&gt;</code> form control. The content of the <code>&lt;input&gt;</code> will be displayed in the console.</p>
+                                    <p>Open the console and write something in the <code>&lt;input&gt;</code> form control below. The updated value of the input field will be displayed in the console whenever the user types.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+&lt;input type="text" id="inputField" placeholder="Write something..."&gt;
+&lt;script&gt;
+    const inputField = document.getElementById("inputField")
+    inputField.addEventListener("input", (event) =&gt; {
+        console.log("Current value:", event.target.value)
+    })
+&lt;/script&gt;
+                                    </code></pre>
 
                                     <input type="text" id="inputField" placeholder="Write something...">
                                     <script>
-                                        const inputField = document.getElementById("inputField");
+                                        const inputField = document.getElementById("inputField")
                                         inputField.addEventListener("input", (event) => {
                                             console.log("Current value:", event.target.value)
                                         })
@@ -294,10 +304,28 @@
                                     
                                     <h5 style="margin-top: 20px;">Mouse event listeners</h5>
 
-                                    <p>Open the console and hover over the paragraph below. In the console, the mouse coordinates will be displayed while it's hovering over the paragraph.</p>
+                                    <p>Open the console and hover over the paragraph below. While the mouse moves over the paragraph, its coordinates will be displayed in the console.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+&lt;p id="paragraph"&gt;Hover over this paragraph and move your mouse!&lt;/p&gt;
+&lt;script&gt;
+    const paragraph = document.getElementById("paragraph")
+
+    paragraph.addEventListener("mousemove", (event) =&gt; {
+        console.log(`Mouse moved to X: ${event.clientX}, Y: ${event.clientY}`)
+    })
+
+    paragraph.addEventListener("mouseenter", () =&gt; {
+        paragraph.textContent = "Mouse entered the paragraph!"
+    })
+
+    paragraph.addEventListener("mouseleave", () =&gt; {
+        paragraph.textContent = "Mouse left the paragraph!"
+    })
+&lt;/script&gt;
+                                    </code></pre>
 
                                     <p id="paragraph">Hover over this paragraph and move your mouse!</p>
-
                                     <script>
                                         const paragraph = document.getElementById("paragraph")
 
@@ -307,16 +335,28 @@
 
                                         paragraph.addEventListener("mouseenter", () => {
                                             paragraph.textContent = "Mouse entered the paragraph!"
-                                        });
+                                        })
 
                                         paragraph.addEventListener("mouseleave", () => {
                                             paragraph.textContent = "Mouse left the paragraph!"
-                                        });
+                                        })
                                     </script>
 
                                     <h5>Click listener</h5>
 
-                                    <p>Open the console and click on any code snippet or example on this page. In the console, the value of the clicked <code>&lt;code&gt;</code> tag will be displayed.</p>
+                                    <p>Open the console and click on any code snippet or example on this page. Its value will be displayed in the console.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+&lt;script&gt;
+    document.addEventListener("click", (event) =&gt; {console.log("click")})
+    const codeElements = document.querySelectorAll("code")
+    codeElements.forEach((codeElement) =&gt; {
+        codeElement.addEventListener("click", (event) =&gt; {
+            console.log("Clicked on:", event.target)
+        })
+    })
+&lt;/script&gt;
+                                    </code></pre>
 
                                     <script>
                                         document.addEventListener("click", (event) => {console.log("click")})
