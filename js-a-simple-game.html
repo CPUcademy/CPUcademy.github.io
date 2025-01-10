@@ -164,11 +164,11 @@
 
             <span class="comment">// Attaching key event listeners to detect when keys are pressed/released</span>
             addEventListeners() <span class="sign">{</span>
-                <span class="function">window</span>.<span class="function">addEventListener</span>(<span class="text">"keydown"</span>, (event) <span class="sign">=> {</span>
+                <span class="function">window</span>.<span class="function">addEventListener</span>(<span class="text">"keydown"</span>, (<span class="function">event</span>) <span class="sign">=> {</span>
                     pressed[<span class="function">event</span>.key] <span class="sign">=</span> <span class="function">true</span> <span class="comment">// indicating that a key is pressed</span>
                 <span class="sign">}</span>)
 
-                <span class="function">window</span>.<span class="function">addEventListener</span>(<span class="text">"keyup"</span>, (event) <span class="sign">=> {</span>
+                <span class="function">window</span>.<span class="function">addEventListener</span>(<span class="text">"keyup"</span>, (<span class="function">event</span>) <span class="sign">=> {</span>
                     pressed[<span class="function">event</span>.key] <span class="sign">=</span> <span class="function">false</span>
                 <span class="sign">}</span>)
             <span class="sign">}</span>
@@ -260,7 +260,7 @@
 
             opponentList.<span class="function">forEach</span>(opponent <span class="sign">=> {</span> <span class="comment">// iterating over each opponent in the "opponentList" array</span>
                 <span class="function">if</span>(player.checkCollision(opponent)) <span class="sign">{</span> <span class="comment">// checking if the player collides with the currently considered opponent</span>
-                    gameActive <span class="sign">=</span> <span class="function">false</span> <span class="comment">// end the game if a collision occurs</span>
+                    gameActive <span class="sign">=</span> <span class="function">false</span> <span class="comment">// ending the game if a collision occurs</span>
                 <span class="sign">}</span>
             <span class="sign">}</span>)
         <span class="sign">}</span>, 100)
@@ -285,13 +285,13 @@
                                     <p>Open the console and write something in the <code>&lt;input&gt;</code> form control below. The updated value of the input field will be displayed in the console whenever the user types.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-&lt;input type="text" id="inputField" placeholder="Write something..."&gt;
-&lt;script&gt;
-    const inputField = document.getElementById("inputField")
-    inputField.addEventListener("input", (event) =&gt; {
-        console.log("Current value:", event.target.value)
-    })
-&lt;/script&gt;
+<span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"text"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"inputField"</span> <span class="command">placeholder</span><span class="sign">=</span><span class="text">"Write something..."</span>&gt;</span>
+<span class="function">&lt;script&gt;</span>
+    <span class="function">const</span> inputField <span class="sign">=</span> <span class="function">document</span>.<span class="command">getElementById</span>(<span class="text">"inputField"</span>)
+    inputField.<span class="function">addEventListener</span>(<span class="text">"input"</span>, (<span class="function">event</span>) <span class="sign">=&gt; {</span>
+        <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Current value:"</span>, <span class="function">event</span>.<span class="function">target</span>.<span class="function">value</span>)
+    <span class="sign">}</span>)
+<span class="function">&lt;/script&gt;</span>
                                     </code></pre>
 
                                     <input type="text" id="inputField" placeholder="Write something...">
@@ -307,22 +307,22 @@
                                     <p>Open the console and hover over the paragraph below. While the mouse moves over the paragraph, its coordinates will be displayed in the console.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-&lt;p id="paragraph"&gt;Hover over this paragraph and move your mouse!&lt;/p&gt;
-&lt;script&gt;
-    const paragraph = document.getElementById("paragraph")
+<span class="function">&lt;p <span class="command">id</span><span class="sign">=</span><span class="text">"paragraph"</span>&gt;</span>Hover over this paragraph and move your mouse!<span class="function">&lt;/p&gt;</span>
+<span class="function">&lt;script&gt;</span>
+    <span class="function">const</span> paragraph <span class="sign">=</span> <span class="function">document</span>.<span class="command">getElementById</span>(<span class="text">"paragraph"</span>)
 
-    paragraph.addEventListener("mousemove", (event) =&gt; {
-        console.log(`Mouse moved to X: ${event.clientX}, Y: ${event.clientY}`)
-    })
+    paragraph.<span class="function">addEventListener</span>(<span class="text">"mousemove"</span>, (<span class="function">event</span>) <span class="sign">=&gt; {</span>
+        <span class="command">console</span>.<span class="command">log</span>(<span class="text">`Mouse moved to X: ${event.clientX}, Y: ${event.clientY}`</span>)
+    <span class="sign">}</span>)
 
-    paragraph.addEventListener("mouseenter", () =&gt; {
-        paragraph.textContent = "Mouse entered the paragraph!"
-    })
+    paragraph.<span class="function">addEventListener</span>(<span class="text">"mouseenter"</span>, () <span class="sign">=&gt; {</span> <span class="comment">// event listeners can be attached to individual HTML elements, not just the entire webpage</span>
+        paragraph.<span class="command">textContent</span> <span class="sign">=</span> <span class="text">"Mouse entered the paragraph!"</span>
+    <span class="sign">}</span>)
 
-    paragraph.addEventListener("mouseleave", () =&gt; {
-        paragraph.textContent = "Mouse left the paragraph!"
-    })
-&lt;/script&gt;
+    paragraph.<span class="function">addEventListener</span>(<span class="text">"mouseleave"</span>, () <span class="sign">=&gt; {</span>
+        paragraph.<span class="command">textContent</span> <span class="sign">=</span> <span class="text">"Mouse left the paragraph!"</span>
+    <span class="sign">}</span>)
+<span class="function">&lt;/script&gt;</span>
                                     </code></pre>
 
                                     <p id="paragraph">Hover over this paragraph and move your mouse!</p>
@@ -347,15 +347,15 @@
                                     <p>Open the console and click on any code snippet or example on this page. Its value will be displayed in the console.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-&lt;script&gt;
-    document.addEventListener("click", (event) =&gt; {console.log("click")})
-    const codeElements = document.querySelectorAll("code")
-    codeElements.forEach((codeElement) =&gt; {
-        codeElement.addEventListener("click", (event) =&gt; {
-            console.log("Clicked on:", event.target)
-        })
-    })
-&lt;/script&gt;
+<span class="function">&lt;script&gt;</span>
+    <span class="function">document</span>.<span class="function">addEventListener</span>(<span class="text">"click"</span>, (<span class="function">event</span>) <span class="sign">=&gt; {</span><span class="command">console</span>.<span class="command">log</span>(<span class="text">"click"</span>)<span class="sign">}</span>)
+    <span class="function">const</span> codeElements <span class="sign">=</span> <span class="function">document</span>.<span class="command">querySelectorAll</span>(<span class="text">"code"</span>)
+    codeElements.<span class="function">forEach</span>((codeElement) <span class="sign">=&gt; {</span>
+        codeElement.<span class="function">addEventListener</span>(<span class="text">"click"</span>, (<span class="function">event</span>) <span class="sign">=&gt; {</span>
+            <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Clicked on:"</span>, <span class="function">event</span>.<span class="function">target</span>)
+        <span class="sign">}</span>)
+    <span class="sign">}</span>)
+<span class="function">&lt;/script&gt;</span>
                                     </code></pre>
 
                                     <script>
