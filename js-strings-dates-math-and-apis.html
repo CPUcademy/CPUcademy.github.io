@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Strings, dates, and math</title>
+    <title>Strings, dates, math, and APIs</title>
 </head>
 
 <body id="page-top">
@@ -82,7 +82,7 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Strings, dates, and math</h5>
+                                    <h5 class="m-0 font-weight-bold">Strings, dates, math, and APIs</h5>
                                 </div>
                                 <div class="card-body">
                                     <h2>Strings</h2>
@@ -102,7 +102,7 @@
                                         </tr>
                                         <tr>
                                             <td><code>join()</code></td>
-                                            <td>Joining the elements of a list into a single string by inserting a delimiter between each element. Example: <code>["apple", "banana", "cherry"].join(" ")</code> (returns: <code>"apple banana cherry"</code>).</td>
+                                            <td>Joining the elements of an array into a single string by inserting a delimiter between each element. Example: <code>["apple", "banana", "cherry"].join(" ")</code> (returns: <code>"apple banana cherry"</code>).</td>
                                           </tr>
                                         <tr>
                                             <td><code>trim()</code></td>
@@ -220,6 +220,66 @@ a <span class="sign">=</span> d.<span class="command">getDay</span>()
                                     </table></div>
 
                                     <p>NaN (Not a Number) is a special JavaScript value that represents an invalid number or the result of an invalid mathematical operation. A NaN value is, e.g., <code>0 / 0</code>. A comparison <code>NaN === NaN</code> would return <code>false</code>. To check if a value is NaN, we can use this function: <code>Number.isNaN()</code>. NaN is commonly used in scenarios such as handling errors in mathematical computations, input validation, or when a function returns an undefined or impossible result.</p>
+
+                                    <h2>APIs</h2>
+
+                                    <p>An API (Application Programming Interface) is a set of rules and tools that allows different software applications to communicate and interact with each other. Fetching data from an API means requesting information from a remote server or service and receiving the response to use in our application. APIs often provide endpoints (URLs) that return data in a structured format like JSON. When we "fetch" data, we make an HTTP request to these endpoints, asking for specific information. The server processes the request and sends back a response, which we can use to, e.g., display content. APIs enable interactive web applications that rely on real-time or external data.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">&lt;div <span class="command">id</span><span class="sign">=</span><span class="text">"dataContainer"</span>&gt;</span>Fetching data...<span class="function">&lt;/div&gt;</span>
+<span class="function">&lt;script&gt;</span>
+    <span class="function">const</span> apiURL <span class="sign">=</span> <span class="text">"https://jsonplaceholder.typicode.com/posts"</span> <span class="comment">// an example URL</span>
+
+    <span class="function">fetch</span>(apiURL)
+        .<span class="function">then</span>((response) <span class="sign">=&gt; {</span>
+            <span class="function">if</span>(<span class="sign">!</span>response.<span class="function">ok</span>)
+                <span class="function">throw new Error</span>(<span class="text">`HTTP error! Status: ${response.status}`</span>)
+            <span class="function">return</span> response.<span class="command">json</span>()
+        <span class="sign">}</span>)
+        .<span class="function">then</span>((data) <span class="sign">=&gt; {</span>
+            <span class="function">const</span> dataContainer <span class="sign">=</span> <span class="function">document</span>.<span class="command">getElementById</span>(<span class="text">"dataContainer"</span>)
+            dataContainer.<span class="command">innerHTML</span> <span class="sign">=</span> data
+                .<span class="command">slice</span>(0, 1) <span class="comment">// limiting to 1 item</span>
+                .<span class="command">map</span>(
+                    (post) <span class="sign">=&gt;</span> <span class="text">`
+                &lt;div&gt;
+                    &lt;h5&gt;${post.title}&lt;/h5&gt;
+                    &lt;p&gt;${post.body}&lt;/p&gt;
+                &lt;/div&gt;
+                `</span>).<span class="command">join</span>(<span class="text">""</span>) <span class="comment">// combining the HTML strings</span>
+        <span class="sign">}</span>)
+        .<span class="function">catch</span>((error) <span class="sign">=&gt; {</span>
+            <span class="function">document</span>.<span class="command">getElementById</span>(<span class="text">"dataContainer"</span>).<span class="command">textContent</span> <span class="sign">=</span> <span class="text">"Failed to fetch data."</span>
+        <span class="sign">}</span>)
+<span class="function">&lt;/script&gt;</span>
+                                    </code></pre>
+
+                                    <div id="dataContainer">Fetching data...</div>
+                                    <script>
+                                        const apiURL = "https://jsonplaceholder.typicode.com/posts" // an example URL
+
+                                        fetch(apiURL)
+                                            .then((response) => {
+                                                if (!response.ok)
+                                                    throw new Error(`HTTP error! Status: ${response.status}`)
+                                                return response.json()
+                                            })
+                                            .then((data) => {
+                                                const dataContainer = document.getElementById("dataContainer")
+                                                dataContainer.innerHTML = data
+                                                    .slice(0, 1) // limiting to 1 item
+                                                    .map(
+                                                        (post) => `
+                                                    <div>
+                                                        <h5>${post.title}</h5>
+                                                        <p>${post.body}</p>
+                                                    </div>
+                                                    `).join("") // combining the HTML strings
+                                            })
+                                            .catch((error) => {
+                                                document.getElementById("dataContainer").textContent = "Failed to fetch data."
+                                            })
+                                    </script>
                                 </div>
                             </div>
                         </div>

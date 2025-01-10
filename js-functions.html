@@ -115,6 +115,8 @@ func()
 <span class="command">console</span>.<span class="command">log</span>(func1(1))
 <span class="command">console</span>.<span class="command">log</span>(func1(1, 2))
                                     </code></pre>
+
+                                    <p>Function parameters are placeholders defined in a function declaration (<code>function addition(x, y)</code>), while arguments are the actual values passed to the function during its call (<code>addition(2, 4)</code>).</p>
                                     
                                     <h2>Variable scopes</h2>
                                     
@@ -169,7 +171,7 @@ func()
                                     
                                     <h2>The rest operator</h2>
 
-                                    <p>The rest operator (<code>...</code>) is used to collect multiple elements (e.g., function arguments) into a single array. It is also used to split the elements of an array, but then its name changes to the spread operator.</p>
+                                    <p>The rest operator (<code>...</code>) is used to collect multiple elements (e.g., function arguments) into a single array. It is also used to split the elements of an array into variables, but then its name changes to the spread operator.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">function</span> func(<span class="sign">...</span>args) <span class="sign">{</span>
@@ -184,6 +186,22 @@ func(1, 2, 3, 4, 5)
 <span class="sign">}</span>
 <span class="function">let</span> arr <span class="sign">=</span> [1, 2, 3, 4, 5]
 func(<span class="sign">...</span>arr)
+                                    </code></pre>
+
+                                    <h2>The <code>arguments</code> object</h2>
+
+                                    <p>The <code>arguments</code> object is an array-like object available inside all non-arrow functions (I will talk about arrow functions in the upcoming lessons). It holds all the arguments passed to the function.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">function</span> sum() 
+<span class="sign">{</span>
+    <span class="function">let</span> total <span class="sign">=</span> 0
+    <span class="function">for</span>(<span class="function">let</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> <span class="function">arguments</span>.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
+        total <span class="sign">+=</span> <span class="function">arguments</span>[i]
+    <span class="function">return</span> total
+<span class="sign">}</span>
+
+<span class="command">console</span>.<span class="command">log</span>(<span class="command">sum</span>(1, 2, 3, 4)) <span class="comment">// the sum of the given arguments</span>
                                     </code></pre>
                                 </div>
                             </div>

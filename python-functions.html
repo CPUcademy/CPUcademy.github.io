@@ -91,7 +91,7 @@
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> function():
-    <span class="command">print</span>(<span class="function">"Function"</span>)
+    <span class="command">print</span>(<span class="text">"Function"</span>)
 
 <span class="function">def</span> addition(x, y):
     <span class="function">return</span> x <span class="sign">+</span> y
@@ -104,6 +104,8 @@ y <span class="sign">=</span> 4
                                     
                                     <p>If we want to leave a function empty for a while, we can write <code>pass</code> as its content to prevent a syntax error. This keyword also works with loops, conditional statements, etc.</p>
                                     
+                                    <p>Function parameters are placeholders defined in a function declaration (<code>def addition(x, y)</code>), while arguments are the actual values passed to the function during its call (<code>addition(2, 4)</code>).</p>
+
                                     <h2>Variable scopes</h2>
                                     
                                     <p>Not every variable is accessible in every part of the program. Variables created in the main block (outside of any functions) are called <code>global</code> variables. They are accessible in all functions and instructions (under one condition, which I will discuss in a moment). <code>local</code> variables are variables created inside a block (a loop, conditional statement, function, etc.) and are accessible only inside this block.</p>
@@ -175,15 +177,29 @@ list1 <span class="sign">=</span> [1, 2]
 <span class="command">print</span>(func1(1))
 <span class="command">print</span>(func1(1, 2))
 
-<span class="comment"># Telling another programmer what types the arguments should be (it doesn't obligate anyone to do anything)</span>
-<span class="function">def</span> func2(x:<span class="function">int</span>, y:<span class="function">int</span>):
+<span class="comment"># Setting a hint of what types the arguments should be</span>
+<span class="function">def</span> func2(x:<span class="command">int</span>, y:<span class="command">int</span>):
     <span class="function">return</span> x<span class="sign"> + </span>y
 <span class="command">print</span>(func2(1, 2))
 
-<span class="comment"># Telling another programmer what type the returned value should be (it doesn't obligate anyone to do anything)</span>
-<span class="function">def</span> func3(x, y) <span class="sign">-></span> <span class="function">str</span>:
+<span class="comment"># Setting a hint of what type the returned value should be</span>
+<span class="function">def</span> func3(x, y) <span class="sign">-></span> <span class="command">str</span>:
     <span class="function">return</span> <span class="function">str</span>(x<span class="sign"> + </span>y)
 <span class="command">print</span>(func3(1, 2))
+                                    </code></pre>
+
+                                    <p>We can also set type hints for lists, etc.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Method 1</span>
+l: <span class="command">list</span>[<span class="command">int</span>] <span class="sign">=</span> []
+l.<span class="command">append</span>(2)
+<span class="command">print</span>(l)
+
+<span class="comment"># Method 2</span>
+l2 <span class="sign">=</span> <span class="command">list</span>[<span class="command">int</span>]()
+l2.<span class="command">append</span>(4)
+<span class="command">print</span>(l2)
                                     </code></pre>
                                     
                                     <h2>Recursive functions</h2>
