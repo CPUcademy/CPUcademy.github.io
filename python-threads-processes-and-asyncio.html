@@ -267,7 +267,7 @@ asyncio.<span class="command">run</span>(main())
     <span class="function">return</span> <span class="text">f"Data from coroutine {ID}"</span>
 
 <span class="function">async def</span> main():
-    <span class="comment"># Method 1</span>
+    <span class="comment"># Method nr. 1</span>
     task1 <span class="sign">=</span> asyncio.<span class="command">create_task</span>(fetch(1, 1)) <span class="comment"># scheduling a coroutine (creating a task)</span>
     task2 <span class="sign">=</span> asyncio.<span class="command">create_task</span>(fetch(2, 2))
     task3 <span class="sign">=</span> asyncio.<span class="command">create_task</span>(fetch(3, 3))
@@ -278,7 +278,7 @@ asyncio.<span class="command">run</span>(main())
 
     <span class="command">print</span>(result1, result2, result3)
 
-    <span class="comment"># Method 2</span>
+    <span class="comment"># Method nr. 2</span>
     results <span class="sign">=</span> <span class="function">await</span> asyncio.<span class="command">gather</span>(fetch(1, 1), fetch(2, 2), fetch(3, 3))
     <span class="function">for</span> result <span class="function">in</span> results:
         <span class="command">print</span>(result)

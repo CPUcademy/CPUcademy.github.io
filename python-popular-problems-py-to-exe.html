@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>".py" to ".exe" (works with every library)</title>
+    <title>.py to .exe</title>
 </head>
 
 <body id="page-top">
@@ -82,36 +82,22 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">".py" to ".exe" (works with every library)</h5>
+                                    <h5 class="m-0 font-weight-bold"><code>.py</code> to <code>.exe</code></h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Jeśli chcesz, żeby twoje działania zgadzały się z moimi, zainstaluj edytor PyCharm.</p>
-            
-                                    <h2>".py" na ".exe"</h2>
+                                    <ol>
+                                        <li>Install the <code>auto-py-to-exe</code> library using <code>pip</code> (<a href="python-popular-problems-no-module-named-pygame.html" class="link">it doesn't work?</a>).</li>  
+                                        <li>Run <code>python -m auto_py_to_exe</code> in CMD (a graphic window shown below will open).</li>
                                     
-                                    <p>1. Wchodzimy w CMD i przenosimy się do projektów PyCharm (<code>cd C:\Users\[nazwaUżytkownika]\PycharmProjects\[nazwaProjektu]\venv\Scripts</code>).</p>
+                                    <img class="img-fluid img-article img-f" src="files/courses//auto-py-to-exe.png" alt="Img" style="border: 1px solid black; margin-top: 10px;">
+                                    
+                                    <li>Enter the <code>.py</code> file path. Select <code>One File</code> for the app to be standalone and <code>Window Based (hide the console)</code> if the app has a GUI. Choose the icon, if you have any.</li>
+                                    
+                                    <li>Click "Convert .py to .exe," wait, and press "Open output folder" to copy your app file(s).</li>
+                                </ol>
 
-                                    <p>2. Instalujemy bibliotekę <code>auto-py-to-exe</code> tą komendą: <code>pip install auto-py-to-exe</code>.</p>
-                                    
-                                    <p>3. Po jej zainstalowaniu, wpisujemy do CMD: <code>auto-py-to-exe</code> i czekamy chwilę, aż wyświetli się nam graficzne okienko.</p>
-                                    
-                                    <img class="img-fluid" src="zdjecia/samouczki/auto-py-to-exe.png" alt="Img" style="margin-bottom: 20px; width: 50%;">
-                                    
-                                    <p>4. Wpisujemy ścieżkę do pliku, który chcemy przekonwertować, zaznaczamy <code>One File</code> i <code>Window Based (hide the console)</code>. Następnie wybieramy ikonę (jeśli ją posiadamy) i klikamy <code>CONVERT .PY TO .EXE</code> (nie wybieramy potrzebnych plików w <code>Additional Files</code>, nawet jeśli takie są).</p>
-                                    
-                                    <p>5. Gotową aplikację <code>.exe</code> możemy znaleźć w folderze wyjściowym (po zakończeniu działań pojawi się przycisk <code>open output folder</code>).</p>
-                                    
-                                    <h2>Pygame na ".exe"</h2>
-                                    
-                                    <p>1. Wchodzimy w CMD i przenosimy się do projektów PyCharm (<code>cd C:\Users\[nazwaUżytkownika]\PycharmProjects\[nazwaProjektu]\venv\Scripts</code>).</p>
-
-                                    <p>2. Instalujemy <code>Nuitkę</code> tą komendą: <code>python -m pip install -U nuitka</code>.</p>
-                                    
-                                    <p>3. Po jej zainstalowaniu, wpisujemy do CMD komendę: <code>python -m nuitka C:\Users\[nazwaUżytkownika]\PycharmProjects\[nazwaProjektu]\[nazwaPliku]</code>. Jeśli mamy ikonę, którą chcielibyśmy dodać, po słowie <code>nuitka</code> dopisujemy <code>--windows-icon-from-ico=[ścieżkaDoPliku]icon.ico</code>.</p>
-                                    
-                                    <p>4. Po chwili wszystkie procesy się zakończą, a nasz plik <code>.exe</code> znajdziemy w tej lokalizacji: <code>C:\Users\[nazwaUżytkownika]\PycharmProjects\[nazwaProjektu]\venv\Scripts</code>.</p>
-                                    
-                                    <h2>Customtkinter na ".exe"</h2>
+                                <div class="alert alert-warning">
+                                    <b>Troubleshooting:</b> External libraries your app uses may contain "hidden imports," meaning they can depend on different libraries that are not explicitly imported in your code. If your program does not open, compile it once again but without hiding the console, and when trying to run it, hold the CMD window with your mouse (so that it doesn't disappear) to see the error, which will probably be <code>'No module named ...'</code>. Then, head back to the auto-py-to-exe GUI, add the missing library name in the <code>--hidden-import</code> field in the "Advanced" section, and try again.
                                 </div>
                             </div>
                         </div>

@@ -85,86 +85,56 @@
                                     <h5 class="m-0 font-weight-bold">Turtle</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Biblioteka <code>Turtle</code> pozwala tworzyć różne rysunki i jest przeznaczona wyłącznie do nauki.</p>
+                                    <p>The <code>turtle</code> library is designed for creating drawings and serves as a tool for learning how to code.</p>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    from turtle import *
+<span class="command">from</span> turtle <span class="command">import</span> *
 
-                                    #Komenda <span style="color: red;">forward()</span> powoduje poruszenie się żółwia do przodu. Można ją też zapisać jako <span style="color: red;">fd()</span>.
-                                    forward(100)
+<span class="command">forward</span>(100) <span class="comment"># moving forward the given number of pixels (also: fd())</span>
+<span class="command">right</span>(90) <span class="comment"># turning right by 90 degrees</span>
+<span class="command">backward</span>(100) <span class="comment"># moving backward the given number of pixels (also: bk() or back())</span>
+<span class="command">left</span>(90) <span class="comment"># turning left by 90 degrees</span>
 
-                                    #Komenda <span style="color: red;">backward()</span> powoduje poruszenie się żółwia do tyłu. Można ją też zapisać jako <span style="color: red;">bk()</span> lub <span style="color: red;">back()</span>.
-                                    backward(200)
+<span class="command">circle</span>(100) <span class="comment"># drawing a circle</span>
+<span class="command">undo</span>() <span class="comment"># undoing the last action</span>
 
-                                    #Komenda <span style="color: red;">right()</span> powoduje poruszenie się żółwia w prawo. Można ją też zapisać jako <span style="color: red;">rt()</span>.
-                                    right(90)
-                                    forward(100)
+<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(4):
+    <span class="command">left</span>(90)
+    <span class="command">dot</span>(20) <span class="comment"># placing a dot</span>
+    <span class="command">penup</span>() <span class="comment"># lifting the pen up</span>
+    <span class="command">forward</span>(100)
+    <span class="command">pendown</span>() <span class="comment"># lowering the pen down</span>
 
-                                    #Komenda <span style="color: red;">left()</span> powoduje poruszenie się żółwia w lewo. Można ją też zapisać jako <span style="color: red;">lt()</span>.
-                                    left(90)
-                                    forward(100)
+<span class="command">speed</span>(3) <span class="comment"># setting the drawing speed (fastest: 0, fast: 10, normal: 6, slow: 3, slowest: 1)</span>
+<span class="command">shape</span>(<span class="text">"turtle"</span>) <span class="comment"># setting the turtle's shape (arrow, turtle, circle, square, triangle, and classic)</span>
+<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(4):
+    <span class="command">penup</span>()
+    <span class="command">forward</span>(120)
+    <span class="command">pendown</span>()
+    <span class="command">stamp</span>() <span class="comment"># placing a stamp that looks like that the turtle's shape</span>
+    <span class="function">if</span> x <span class="sign">&lt;</span> 2:
+        <span class="command">left</span>(90)
+    <span class="function">else</span>:
+        <span class="command">right</span>(90)
 
-                                    #Komenda <span style="color: red;">circle()</span> powoduje narysowanie koła przez żółwia.
-                                    circle(100)
+<span class="command">goto</span>(0, 0) <span class="comment"># moving to the specified coordinates</span>
+<span class="command">forward</span>(100)
 
-                                    #Komenda <span style="color: red;">penup()</span> podnosi pisak, a <span style="color: red;">pendown()</span> go opuszcza (kiedy jest podniesiony, żółw nie może rysować).
-                                    #Komenda <span style="color: red;">dot()</span> powoduje postawienie przez żółwia kropki.
-                                    for x in range(4):
-                                            left(90)
-                                            dot(20)
-                                            penup()
-                                            forward(100)
-                                            pendown()
+<span class="command">print</span>(position()) <span class="comment"># retrieving the current coordinates</span>
 
-                                    #Komenda <span style="color: red;">speed()</span> ustawia prędkość żółwia (najszybsza: 0, szybka: 10, 
-                                    #normalna: 6, wolna: 3, najwolniejsza: 1).
-                                    speed(10)
+<span class="command">pencolor</span>(<span class="text">"red"</span>) <span class="comment"># changing the pen color</span>
+<span class="command">forward</span>(100)
 
-                                    #Komenda <span style="color: red;">undo()</span> cofa ostatnią akcję żółwia.
+<span class="command">fillcolor</span>(<span class="text">"red"</span>) <span class="comment"># setting the fill color</span>
+<span class="command">begin_fill</span>() <span class="comment"># starting the filling procedure</span>
+<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(4):
+    <span class="command">forward</span>(100)
+    <span class="command">right</span>(90)
+<span class="command">end_fill</span>() <span class="comment"># ending the filling procedure</span>
 
-                                    #Komenda <span style="color: red;">shape()</span> ustawia kształt żółwia (domyślnie jest to strzałka, ale może to być np. żółw).
-                                    shape("turtle")
-                                    #Inne możliwe kształty to: <span style="color: red;">arrow</span>, <span style="color: red;">turtle</span>, <span style="color: red;">circle</span>, <span style="color: red;">square</span>, <span style="color: red;">triangle</span> i <span style="color: red;">classic</span>.
-
-                                    #Po użyciu komendy <span style="color: red;">stamp()</span>, żółw idąc, będzie stawiał naklejki wyglądające jak jego obecny <span style="color: red;">shape</span>.
-                                    for x in range(4):
-                                            penup()
-                                            forward(120)
-                                            pendown()
-                                            stamp()
-                                            if x &lt; 2:
-                                                    left(90)
-                                            else:
-                                                    right(90)
-
-                                    #Komenda <span style="color: red;">clearstamps()</span> kasuje tyle stampów, ile podamy w nawiasie (ta komenda liczy od 1). 
-
-                                    #Komenda <span style="color: red;">goto()</span> przeniesie żółwia na współrzędne, które wprowadzisz.
-                                    goto(0, 0)
-                                    forward(100)
-
-                                    #Komenda <span style="color: red;">position()</span> pobiera aktualne położenie żółwia.
-                                    print(position())
-
-                                    #Komenda <span style="color: red;">pencolor()</span> ustawia kolor pisaka.
-                                    pencolor("red")
-                                    left(90)
-                                    forward(100)
-
-                                    #Komenda <span style="color: red;">fillcolor()</span> ustawia kolor wypełnienia kształtu. 
-                                    #W miejscu, w którym chcemy zacząć wypełniać, używamy komendy <span style="color: red;">begin_fill()</span>, 
-                                    #a w miejscu, w którym chcemy skończyć - <span style="color: red;">end_fill()</span>.
-                                    fillcolor("red")
-                                    begin_fill()
-                                    for x in range(4):
-                                            forward(100); right(90)
-                                    end_fill()
-
-                                    #Komenda <span style="color: red;">home()</span> ustawia żółwia na współrzędnych startowych (0, 0).
-                                    home()
+<span class="command">home</span>() <span class="comment"># moving to the (0, 0) coordinates</span>
                                     </code></pre>    
                                     
-                                    <p>Więcej znajdziesz w <a href="https://docs.python.org/3/library/turtle.html" target="_blank" class="link" >oficialnej dokumentacji Turtle</a>.</p>
                                 </div>
                             </div>
                         </div>
