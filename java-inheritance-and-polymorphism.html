@@ -192,7 +192,7 @@
                                     
                                     <p>Polymorphism means operating the same way on objects of different types (it states that an object can have many forms). For example, the <code>+</code> operator behaves polymorphically because it can add numbers and concatenate strings (it works with various data types). It is the fourth concept of object-oriented programming. Example: A man can be a father, a husband, a student, etc. One person can have different roles.</p>
                                     
-                                    <p>An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects, so we can use them only in its child classes. It also can't have its own instances. An abstract method is a method that is in an abstract class. These classes provide a base for subclasses to extend and implement abstract methods and are used as a blueprint for other classes. An abstract class forces all its child classes to override all its abstract methods. We create abstract objects by adding the <code>abstract</code> keyword before their type.</p>
+                                    <p>An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects, so we can use them only in its child classes. It also can't have its own instances. We create abstract objects by adding the <code>abstract</code> keyword before their type. An abstract method is a method that is in an abstract class and has the <code>abstract</code> keyword before its type. Abstract classes provide a base for subclasses to extend and implement abstract methods and are used as a blueprint for other classes. An abstract class forces all its child classes to override all its abstract methods.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main
@@ -208,6 +208,7 @@
 <span class="sign">{</span>
     <span class="function">protected int</span> lifespan <span class="sign">=</span> 10<span class="sign">;</span> <span class="comment">// public in child classes but private outside</span>
     <span class="function">abstract void</span> voice()<span class="sign">;</span>
+    <span class="function">void</span> voice2()<span class="sign">{};</span> <span class="comment">// it isn't mandatory to overwrite a non-abstract method from an abstract class</span>
 <span class="sign">}</span>
 
 <span class="function">class</span> Cat <span class="function">extends Animal</span>
@@ -217,10 +218,49 @@
         lifespan <span class="sign">=</span> 14<span class="sign">;</span>
     <span class="sign">}</span>
 
-    <span class="command">@Override</span> <span class="comment">// telling the compiler we want to override a method from a superclass. If the method signature (name and parameters) doesn't match, the compiler will generate an error.</span>
+    <span class="command">@Override</span> <span class="comment">// indicating we want to override a method from the superclass. If the method signature (name and parameters) doesn't match, the compiler will generate an error.</span>
     <span class="function">void</span> voice()
     <span class="sign">{</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Meow!"</span>)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">abstract class</span> Person 
+<span class="sign">{</span>
+    <span class="function">abstract void</span> role()<span class="sign">;</span> <span class="comment">// an abstract method to be implemented by subclasses</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> Father <span class="function">extends Person</span> 
+<span class="sign">{</span>
+    <span class="command">@Override</span>
+    <span class="function">void</span> role()<span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a father!"</span>)<span class="sign">;}
+}</span>
+
+<span class="function">class</span> Husband <span class="function">extends Person</span> 
+<span class="sign">{</span>
+    <span class="command">@Override</span>
+    <span class="function">void</span> role()<span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a husband!"</span>)<span class="sign">;}
+}</span>
+
+<span class="function">class</span> Student <span class="function">extends Person</span> 
+<span class="sign">{</span>
+    <span class="command">@Override</span>
+    <span class="function">void</span> role()<span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a student!"</span>)<span class="sign">;}
+}</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">Person</span> father <span class="sign">=</span> <span class="function">new Father</span>()<span class="sign">;</span>
+        <span class="function">Person</span> husband <span class="sign">=</span> <span class="function">new Husband</span>()<span class="sign">;</span>
+        <span class="function">Person</span> student <span class="sign">=</span> <span class="function">new Student</span>()<span class="sign">;</span>
+        
+        <span class="function">Person</span>[] people <span class="sign">= {</span>father, husband, student<span class="sign">};</span>
+        <span class="function">for</span>(<span class="function">Person</span> person<span class="sign">:</span> people)
+            person.role()<span class="sign">;</span> <span class="comment">// polymorphism: calling the same method "role()" on different objects</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>

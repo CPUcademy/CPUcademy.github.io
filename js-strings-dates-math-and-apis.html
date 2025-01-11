@@ -225,6 +225,8 @@ a <span class="sign">=</span> d.<span class="command">getDay</span>()
 
                                     <p>An API (Application Programming Interface) is a set of rules and tools that allows different software applications to communicate and interact with each other. Fetching data from an API means requesting information from a remote server or service and receiving the response to use in our application. APIs often provide endpoints (URLs) that return data in a structured format like JSON. When we "fetch" data, we make an HTTP request to these endpoints, asking for specific information. The server processes the request and sends back a response, which we can use to, e.g., display content. APIs enable interactive web applications that rely on real-time or external data.</p>
 
+                                    <p>An exception is an error-caused event that disrupts the normal flow of a program. It can be handled to maintain program stability. We can "throw" exceptions if we know an error will occur (e.g., the user divides by zero), so they are handled in the <code>catch</code> block.</p>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">&lt;div <span class="command">id</span><span class="sign">=</span><span class="text">"dataContainer"</span>&gt;</span>Fetching data...<span class="function">&lt;/div&gt;</span>
 <span class="function">&lt;script&gt;</span>
@@ -233,22 +235,21 @@ a <span class="sign">=</span> d.<span class="command">getDay</span>()
     <span class="function">fetch</span>(apiURL)
         .<span class="function">then</span>((response) <span class="sign">=&gt; {</span>
             <span class="function">if</span>(<span class="sign">!</span>response.<span class="function">ok</span>)
-                <span class="function">throw new Error</span>(<span class="text">`HTTP error! Status: ${response.status}`</span>)
-            <span class="function">return</span> response.<span class="command">json</span>()
+                <span class="function">throw new Error</span>(<span class="text">`HTTP error! Status: ${response.status}`</span>) <span class="comment">// throwing an error if the response is not OK</span>
+            <span class="function">return</span> response.<span class="command">json</span>() <span class="comment">// parsing the response to JSON</span>
         <span class="sign">}</span>)
         .<span class="function">then</span>((data) <span class="sign">=&gt; {</span>
             <span class="function">const</span> dataContainer <span class="sign">=</span> <span class="function">document</span>.<span class="command">getElementById</span>(<span class="text">"dataContainer"</span>)
             dataContainer.<span class="command">innerHTML</span> <span class="sign">=</span> data
                 .<span class="command">slice</span>(0, 1) <span class="comment">// limiting to 1 item</span>
-                .<span class="command">map</span>(
-                    (post) <span class="sign">=&gt;</span> <span class="text">`
+                .<span class="command">map</span>((post) <span class="sign">=&gt;</span> <span class="text">`
                 &lt;div&gt;
                     &lt;h5&gt;${post.title}&lt;/h5&gt;
                     &lt;p&gt;${post.body}&lt;/p&gt;
                 &lt;/div&gt;
                 `</span>).<span class="command">join</span>(<span class="text">""</span>) <span class="comment">// combining the HTML strings</span>
         <span class="sign">}</span>)
-        .<span class="function">catch</span>((error) <span class="sign">=&gt; {</span>
+        .<span class="function">catch</span>((error) <span class="sign">=&gt; {</span> <span class="comment">// catching an error</span>
             <span class="function">document</span>.<span class="command">getElementById</span>(<span class="text">"dataContainer"</span>).<span class="command">textContent</span> <span class="sign">=</span> <span class="text">"Failed to fetch data."</span>
         <span class="sign">}</span>)
 <span class="function">&lt;/script&gt;</span>
@@ -268,8 +269,7 @@ a <span class="sign">=</span> d.<span class="command">getDay</span>()
                                                 const dataContainer = document.getElementById("dataContainer")
                                                 dataContainer.innerHTML = data
                                                     .slice(0, 1) // limiting to 1 item
-                                                    .map(
-                                                        (post) => `
+                                                    .map((post) => `
                                                     <div>
                                                         <h5>${post.title}</h5>
                                                         <p>${post.body}</p>

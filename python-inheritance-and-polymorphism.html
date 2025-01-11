@@ -162,28 +162,28 @@ cat.voice()
                                     <p>Polymorphism means operating the same way on objects of different types (it states that an object can have many forms). For example, the <code>+</code> operator behaves polymorphically because it can add numbers and concatenate strings (it works with various data types). It is the fourth concept of object-oriented programming. Example: A man can be a father, a husband, a student, etc. One person can have different roles.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> Example1:
-    <span class="function">def</span> x(<span class="function">self</span>):
-        <span class="command">print</span>(<span class="text">"x1"</span>)
-    <span class="function">def</span> y(<span class="function">self</span>):
-        <span class="command">print</span>(<span class="text">"y1"</span>)
-    <span class="function">def</span> z(<span class="function">self</span>):
-        <span class="command">print</span>(<span class="text">"z1"</span>)
+<span class="function">class</span> Person:
+    <span class="function">def</span> role(<span class="function">self</span>):
+        <span class="function">pass</span> <span class="comment"># a placeholder method to be implemented by the subclasses</span>
 
-<span class="function">class</span> Example2:
-    <span class="function">def</span> x(<span class="function">self</span>):
-        <span class="command">print</span>(<span class="text">"x2"</span>)
-    <span class="function">def</span> y(<span class="function">self</span>):
-        <span class="command">print</span>(<span class="text">"y2"</span>)
-    <span class="function">def</span> z(<span class="function">self</span>):
-        <span class="command">print</span>(<span class="text">"z2"</span>)
+<span class="function">class</span> Father(<span class="function">Person</span>):
+    <span class="function">def</span> role(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"I am a father!"</span>)
 
-e1 <span class="sign">=</span> <span class="function">Example1</span>()
-e2 <span class="sign">=</span> <span class="function">Example2</span>()
-<span class="function">for</span> a <span class="function">in</span> [e1, e2]:
-    a.x()
-    a.y()
-    a.z()
+<span class="function">class</span> Husband(<span class="function">Person</span>):
+    <span class="function">def</span> role(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"I am a husband!"</span>)
+
+<span class="function">class</span> Student(<span class="function">Person</span>):
+    <span class="function">def</span> role(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"I am a student!"</span>)
+
+father <span class="sign">=</span> <span class="function">Father</span>()
+husband <span class="sign">=</span> <span class="function">Husband</span>()
+student <span class="sign">=</span> <span class="function">Student</span>()
+
+<span class="function">for</span> person <span class="function">in</span> [father, husband, student]:
+    person.role() <span class="comment"># polymorphism: calling the same method "role()" on different objects</span>
                                     </code></pre>
                                                 
                                     <p>This mechanism can also be used in structural programming.</p>

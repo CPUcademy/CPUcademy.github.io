@@ -85,120 +85,71 @@
                                     <h5 class="m-0 font-weight-bold">OOP concept</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h2>OOP concept</h2>
-                                    
-                                    <p>OOP stands for Object-Oriented Programming. In OOP, we use classes, which are templates that define the structure and behavior of objects. Objects are the basic units in OOP. A class is a mold for creating objects. It represents a set of objects (an object is a being belonging to a class). Functions that are created inside classes are called methods. When we assign a class to a variable, we can use the methods of this class by referring to this variable. Attributes are objects (variables and methods) associated with a class. An instance of a class is an object of that class. By convention, names of classes start with a capital letter (the first letter in the name of a function should be in lowercase).</p>
-
-                                    <p>Every object can be <code>public</code>, <code>protected</code>, or <code>private</code>. We grant these access modifiers by adding their keyword before the object's type. <code>public</code> means that the objects are also available outside the class. <code>protected</code> means that the objects are <code>private</code>, except for the class's subclasses (I will explain this in a lesson about inheritance). <code>private</code> means that the objects can be accessed only inside the class.</p>
-
-                                    <p>If no access modifier is specified (i.e., no <code>public</code>, <code>protected</code>, or <code>private</code> keyword), the default access level is <code>package-private</code> (also known as default access). This means the object can be accessed only within classes in the same package (I will talk about packages in the upcoming lessons).</p>
+                                    <p>OOP (Object-Oriented Programming) is a programming paradigm that organizes code into reusable objects, making it modular, easier to maintain, and more scalable. In OOP, we define classes, which serve as blueprints for creating objects. Objects represent real-world entities or concepts. A class defines the structure and behavior of these objects, serving as a template. Inside classes, we define methods, which are functions that determine the behavior of objects. Methods are invoked using an object of the class they belong to. Attributes (also called fields or properties) are variables or methods associated with an object, representing the state or characteristics of the object. An instance of a class is simply an object created from that class (a variable the class is assigned to). A class can have many instances. Once an instance is created, we can access and modify the class attributes and call its methods through it. By convention, class names begin with a capital letter, while method names start with a lowercase letter.</p>
                                     
                                     <h2>Abstraction</h2>
                                     
-                                    <p>Abstraction is a process that deals with complexity by hiding unnecessary information from the user. It simplifies reality by creating a version of an object that consists only of essential information. Data is visible only to semantically related functions to prevent misuse. In this approach, we use the <code>public</code> mode often. Example: We can do many things on a computer, but it doesn't show us how it's doing them because we don't need that information. The implementation parts are hidden. It is the first concept of object-oriented programming.</p>
+                                    <p>Abstraction is a process that deals with complexity by hiding unnecessary information from the user. It simplifies reality by creating a version of an object that consists only of essential information. Data is visible only to semantically related functions to prevent misuse. Example: We can do many things on a computer, but it doesn't show us how it's doing them because we don't need that information. The implementation parts are hidden. It is the first concept of object-oriented programming.</p>
                                     
-                                    <p>A constructor (<code>NameOfTheClass()</code>) is a method called by the compiler when an object of the class is created. A destructor (<code>~NameOfTheClass()</code>) is called by the compiler when the object is destroyed. In Java, constructors are not mandatory, and destructors DON'T EXIST. It is because Java has an advanced Garbage Collector. The constructor is commonly used for setting the initial values of variables. It never features the <code>return</code> instruction. Methods can take arguments. If a constructor takes them, we give them while assigning the class to a variable (e.g., <code>Human x(5);</code>). A class can have a few constructors that execute according to the number of given arguments, e.g., if we give three arguments when creating a new instance, the constructor that takes three arguments of that specific type is called.</p>
-                                    
+                                    <p>A constructor (<code>constructor()</code>) is a method called by the compiler when an object of the class is created. A destructor is called by the compiler when the object is destroyed. In JavaScript, constructors are not mandatory (the default constructor is executed anyway), and destructors DON'T EXIST. The constructor is commonly used for setting the initial values of variables. It never features the <code>return</code> instruction. Methods can take arguments. If a constructor takes them, we give them while assigning the class to a variable, and in other words - creating its instance (e.g., <code>Human h = new Human(20)</code>).</p>
+
                                     <p>A field is a variable of any type that is declared inside the class. In a class, the order of methods and other objects is irrelevant because all objects have access to the whole class the whole time.</p>
                                     
                                     <p>A getter is a method that returns values outside of a class, and a setter is a method that edits an object of the class. We should use them because, inside them, we can add, e.g., validation rules.</p>
                                     
-                                    <p><code>this</code> keyword can replace the class name when addressing objects (it indicates the class it is used in). <code>this.x</code> and <code>x</code> are different variables. The former indicates an object of a class, and the latter is just a variable.</p>
+                                    <p>The <code>this</code> keyword indicates the class it is used in. <code>this.x</code> and <code>x</code> are different variables. The former indicates an object of a class, and the latter is just a variable.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main <span class="comment">// this name has to be the same as the file name</span>
+<span class="function">class</span> Human 
 <span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="comment">// the main method of the main class that executes automatically</span>
+    <span class="function">constructor</span>() 
     <span class="sign">{</span>
-        <span class="function">Human</span> h <span class="sign">=</span> <span class="function">new Human</span>()<span class="sign">;</span> <span class="comment">// an instance of a class</span>
-        h.age <span class="sign">=</span> 20<span class="sign">;</span>
-        h.setAge(10)<span class="sign">;</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(h.getAge())<span class="sign">;</span>
-
-        <span class="function">Human</span> h2 <span class="sign">=</span> <span class="function">new Human</span>(20)<span class="sign">;</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(h2.getAge())<span class="sign">;</span>
-
-        <span class="function">Human</span>[] h3 <span class="sign">=</span> <span class="function">new Human</span>[3]<span class="sign">;</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 3<span class="sign">;</span> i<span class="sign">++</span>)
-        <span class="sign">{</span>
-            h3[i] <span class="sign">=</span> <span class="function">new Human</span>(30 <span class="sign">+</span> i)<span class="sign">;</span>
-            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(h3[i].getAge())<span class="sign">;</span>
-        <span class="sign">}</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>            
-
-<span class="function">class</span> Human
-<span class="sign">{</span>
-    <span class="function">Human</span>()
-    <span class="sign">{</span>
-        age <span class="sign">=</span> 0<span class="sign">;</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Constructor"</span>)<span class="sign">;</span>
+        <span class="function">this</span>.age <span class="sign">=</span> 0 <span class="comment">// a field of a method</span>
+        <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Constructor"</span>)
     <span class="sign">}</span>
 
-    <span class="function">Human</span>(<span class="function">int</span> age)
-    <span class="sign">{</span>
-        <span class="function">this</span>.age <span class="sign">=</span> age<span class="sign">;</span>
-    <span class="sign">}</span>
-
-    <span class="function">int</span> getAge()
-    <span class="sign">{</span>
-        <span class="function">return</span> age<span class="sign">;</span>
-    <span class="sign">}</span>
-
-    <span class="function">void</span> setAge(<span class="function">int</span> age)
-    <span class="sign">{</span>
-        <span class="function">this</span>.age <span class="sign">=</span> age<span class="sign">;</span>
-    <span class="sign">}</span>
-
-    <span class="function">int</span> age<span class="sign">;</span>
+    getAge()<span class="sign">{</span><span class="function">return this</span>.age<span class="sign">}</span>
+    setAge(age)<span class="sign">{</span><span class="function">this</span>.age <span class="sign">=</span> age<span class="sign">}</span>
 <span class="sign">}</span>
+
+<span class="function">const</span> h <span class="sign">=</span> <span class="function">new Human</span>() <span class="comment">// an instance of a class</span>
+h.age <span class="sign">=</span> 20
+h.setAge(10)
+<span class="command">console</span>.<span class="command">log</span>(h.getAge())
                                     </code></pre>
 
                                     <h2>Encapsulation</h2>
                                     
                                     <p>Encapsulation prevents external code from being concerned with the internal workings of an object. It involves hiding the fields and methods of a class so that they are not accessible from the outside but only inside the class. The difference between abstraction and encapsulation is that abstraction hides objects and processes to show only the result at the end because it is the only thing that matters, while encapsulation hides them and blocks access to them, e.g., because some data should not be changed directly without a setter with validation rules inside. It is the second concept of object-oriented programming.</p>
                                     
-                                    <p>If an object is created in <code>private</code> mode, it cannot be called outside its class. Encapsulation blocks the possibility of bypassing certain instructions by, for example, editing the output variable outside of the class. Most objects should be private, and outside of the class, they should be edited only through methods of this class (setters). If we try to get or change the value of a private object outside the class, we will get an error.</p>
+                                    <p>If there is a <code>#</code> before a field or a method name, it is a private attribute that cannot be called outside its class. Encapsulation blocks the possibility of bypassing certain instructions by, for example, editing the output variable outside the class. Most objects should be private, and outside of the class, they should be edited only through methods of this class (setters). If we try to access or change the value of a private object outside the class, we will get an error (when working with newer JS environments).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
+<span class="function">class</span> Bank 
 <span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="function">Bank</span> b <span class="sign">=</span> <span class="function">new Bank</span>()<span class="sign">;</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(b.getBalance())<span class="sign">;</span>
-        b.withdraw(400)<span class="sign">;</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(b.getBalance())<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
+    <span class="sign">#</span>balance <span class="comment">// a private field</span>
+    <span class="function">constructor</span>()<span class="sign">{</span><span class="function">this</span>.<span class="sign">#</span>balance <span class="sign">=</span> 1000<span class="sign">}</span>
+    getBalance(){</span><span class="function">return this</span>.<span class="sign">#</span>balance<span class="sign">}</span>
 
-<span class="function">class</span> Bank
-<span class="sign">{</span>
-    <span class="function">private int</span> balance<span class="sign">;</span>
-    <span class="function">private void</span> setBalance(<span class="function">int</span> balance)
+    <span class="sign">#</span>setBalance(balance) <span class="comment">// a private method</span>
     <span class="sign">{</span>
-        <span class="function">this</span>.balance <span class="sign">=</span> balance<span class="sign">;</span>
+        <span class="function">this</span>.<span class="sign">#</span>balance <span class="sign">=</span> balance
     <span class="sign">}</span>
 
-    <span class="function">Bank</span>()
+    withdraw(howMuch) 
     <span class="sign">{</span>
-        balance <span class="sign">=</span> 1000<span class="sign">;</span>
-    <span class="sign">}</span>
-
-    <span class="function">int</span> getBalance()
-    <span class="sign">{</span>
-        <span class="function">return</span> balance<span class="sign">;</span>
-    <span class="sign">}</span>
-
-    <span class="function">boolean</span> withdraw(<span class="function">int</span> howMuch)
-    <span class="sign">{</span>
-        <span class="function">if</span>(balance <span class="sign">&lt;</span> howMuch)
-            <span class="function">return false</span><span class="sign">;</span>
+        <span class="function">if</span>(<span class="function">this</span>.<span class="sign">#</span>balance <span class="sign">&lt;</span> howMuch)
+            <span class="function">return false</span>
         <span class="function">else</span>
-            setBalance(balance <span class="sign">-</span> howMuch)<span class="sign">;</span>
-        <span class="function">return true</span><span class="sign">;</span>
+            <span class="function">this</span>.<span class="sign">#</span>setBalance(<span class="function">this</span>.<span class="sign">#</span>balance <span class="sign">-</span> howMuch)
+        <span class="function">return true</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
+
+<span class="function">const</span> b <span class="sign">=</span> <span class="function">new Bank</span>()
+<span class="command">console</span>.<span class="command">log</span>(b.getBalance())
+b.withdraw(400)
+<span class="command">console</span>.<span class="command">log</span>(b.getBalance())
                                     </code></pre>
                                     
                                     <h2>Static objects</h2>
@@ -207,130 +158,40 @@
                                     
                                     <p>The same rule applies to methods - we can call them using the class directly without creating its instance. They have no access to the class's objects. Static methods differ from outside functions because we can override them later in a child class.</p>
 
-                                    <p>We create all static objects by adding the <code>static</code> keyword before their type.</p>
+                                    <p>We create all static objects by adding the <code>static</code> keyword before their definition.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
+<span class="function">class</span> Example 
 <span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="function">Example</span> x <span class="sign">=</span> <span class="function">new Example</span>()<span class="sign">;</span>
-        x.method()<span class="sign">;</span>
-        <span class="function">Example</span>.method()<span class="sign">;</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(x.static_variable <span class="sign">+</span> <span class="text">" "</span> <span class="sign">+</span> <span class="function">Example</span>.static_variable)<span class="sign">;</span>
-    <span class="sign">}</span>
+    <span class="function">static</span> static_variable <span class="sign">=</span> 0
+    <span class="function">static</span> method()<span class="sign">{</span><span class="function">this</span>.static_variable<span class="sign">++}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Example
-<span class="sign">{</span>
-    <span class="function">static void</span> method()
-    <span class="sign">{</span>
-        static_variable<span class="sign">++;</span>
-    <span class="sign">}</span>
-    <span class="function">static int</span> static_variable <span class="sign">=</span> 0<span class="sign">;</span>
-<span class="sign">}</span>
+<span class="function">const</span> x <span class="sign">=</span> <span class="function">new Example</span>()
+x.<span class="function">constructor</span>.method() <span class="comment">// accessing a static method via the instance's constructor (in this case - the default one)</span>
+<span class="function">Example</span>.method() <span class="comment">// accessing a static method directly through the class</span>
+
+<span class="command">console</span>.<span class="command">log</span>(x.<span class="function">constructor</span>.static_variable <span class="sign">+</span> <span class="text">" "</span> <span class="sign">+</span> <span class="function">Example</span>.static_variable)
                                     </code></pre>
-
-                                    <p>A static context refers to a situation in programming where methods or variables are associated with a class rather than any specific instance of that class. In this context, methods can be called directly using the class name without needing to create an instance, which is particularly useful for utility methods or constants. This approach enhances code organization and efficiency by allowing access to related functionality without the overhead of object instantiation. However, non-static methods require an instance of the class to be invoked because they often operate on instance-specific data, and attempting to call them from a static context would not have a reference to any particular object, leading to potential errors.</p>
-
-                                    <p><code>local</code> variables are variables created inside a block (a loop, conditional statement, method, etc.) and are accessible only inside this block. In contrast, static variables, if declared <code>public</code>, can be accessed from anywhere in the program using the class name, effectively behaving like <code>global</code> variables.</p>
                                     
-                                    <h2>Method overloading (polymorphism)</h2>
-                                    
-                                    <p>Two methods can have the same name as long as they have a different number of arguments and/or they have various types. This behavior is called method overloading, or in other words - polymorphism. For example, if we provide two <code>double</code> arguments to the <code>addition()</code> function, the compiler will know that we want to use the specific version of the function that takes those arguments and not, e.g., the one that takes two integers.</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">static int</span> addition(<span class="function">int</span> x, <span class="function">int</span> y) <span class="comment">// this method has to be static because we are referring to it from the main method (a static context)</span>
-    <span class="sign">{</span>
-        <span class="function">return</span> x <span class="sign">+</span> y<span class="sign">;</span>
-    <span class="sign">}</span>
-
-    <span class="function">static double</span> addition(<span class="function">double</span> x, <span class="function">double</span> y)
-    <span class="sign">{</span>
-        <span class="function">return</span> x <span class="sign">+</span> y<span class="sign">;</span>
-    <span class="sign">}</span>
-
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(addition(5, 6))<span class="sign">;</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(addition(5.5, 6.6))<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-                                    </code></pre>
-
                                     <h2>Inheritance</h2>
 
                                     <p>Classes can inherit objects (methods) from each other. The class that is being inherited from is called a parent class (also a base class or a superclass). The class that inherits from another class is called a child class (also a derived class or a subclass). It is the third concept of object-oriented programming.</p>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
+<span class="function">class</span> Animal 
 <span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="function">Cat</span> cat <span class="sign">=</span> <span class="function">new Cat</span>()<span class="sign">;</span>
-        cat.voice()<span class="sign">;</span>
-        cat.breed()<span class="sign">;</span>
-    <span class="sign">}</span>
+    voice()<span class="sign">{</span><span class="command">console</span>.<span class="command">log</span>(<span class="text">"Voice!"</span>)<span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Animal
+<span class="function">class</span> Cat <span class="function">extends Animal </span>
 <span class="sign">{</span>
-    <span class="function">void</span> voice()
-    <span class="sign">{</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Voice!"</span>)<span class="sign">;</span>
-    <span class="sign">}</span>
+    breed()<span class="sign">{</span><span class="command">console</span>.<span class="command">log</span>(<span class="text">"I am a Bengal cat!"</span>)<span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Cat <span class="function">extends Animal</span>
-<span class="sign">{</span>
-    <span class="function">void</span> breed()
-    <span class="sign">{</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a Bengal cat!"</span>)<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-                                    </code></pre>
-                                    
-                                    <h2>Multiple inheritance</h2>
-                                    
-                                    <p>A class can inherit features from more than one parent class but only indirectly, e.g., class <code>A</code> inherits from class <code>B</code>, class <code>B</code> inherits from class <code>C</code>, and not: class <code>A</code> inherits from classes <code>B</code> and <code>C</code>.</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="function">Cat</span> cat <span class="sign">=</span> <span class="function">new Cat</span>()<span class="sign">;</span>
-        cat.voice()<span class="sign">;</span>
-        cat.sound()<span class="sign">;</span>
-        cat.breed()<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-
-<span class="function">class</span> Animal
-<span class="sign">{</span>
-    <span class="function">void</span> voice()
-    <span class="sign">{</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Voice!"</span>)<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-
-<span class="function">class</span> Tiger <span class="function">extends Animal</span>
-<span class="sign">{</span>
-    <span class="function">void</span> sound()
-    <span class="sign">{</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Raah!"</span>)<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-
-<span class="function">class</span> Cat <span class="function">extends Tiger</span>
-<span class="sign">{</span>
-    <span class="function">void</span> breed()
-    <span class="sign">{</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a Bengal cat!"</span>)<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
+<span class="function">const</span> cat <span class="sign">=</span> <span class="function">new Cat</span>()
+cat.voice()
+cat.breed()
                                     </code></pre>
                                     
                                     <h2><code>super</code></h2>
@@ -338,73 +199,64 @@
                                     <p>This function is used while overwriting inherited methods because it allows us to reference the original version of the method from the parent class.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
+<span class="function">class</span> Animal 
 <span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="function">Cat</span> cat <span class="sign">=</span> <span class="function">new Cat</span>()<span class="sign">;</span>
-        cat.voice()<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-
-<span class="function">class</span> Animal
-<span class="sign">{</span>
-    <span class="function">void</span> voice()
-    <span class="sign">{</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Voice!"</span>)<span class="sign">;</span>
-    <span class="sign">}</span>
+    voice()<span class="sign">{</span><span class="command">console</span>.<span class="command">log</span>(<span class="text">"Voice!"</span>)<span class="sign">}</span>
 <span class="sign">}</span>
 
 <span class="function">class</span> Cat <span class="function">extends Animal</span>
 <span class="sign">{</span>
-    <span class="function">void</span> voice()
+    voice() 
     <span class="sign">{</span>
-        <span class="command">super</span>.voice()<span class="sign">;</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Meow!"</span>)<span class="sign">;</span>
+        <span class="function">super</span>.voice()
+        <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Meow!"</span>)
     <span class="sign">}</span>
 <span class="sign">}</span>
+
+<span class="function">const</span> cat <span class="sign">=</span> <span class="function">new Cat</span>()
+cat.voice()
                                     </code></pre>
                                     
-                                    <h2>Abstract objects, polymorphism</h2>
+                                    <h2>Polymorphism</h2>
                                     
                                     <p>Polymorphism means operating the same way on objects of different types (it states that an object can have many forms). For example, the <code>+</code> operator behaves polymorphically because it can add numbers and concatenate strings (it works with various data types). It is the fourth concept of object-oriented programming. Example: A man can be a father, a husband, a student, etc. One person can have different roles.</p>
                                     
-                                    <p>An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects, so we can use them only in its child classes. It also can't have its own instances. An abstract method is a method that is in an abstract class. These classes provide a base for subclasses to extend and implement abstract methods and are used as a blueprint for other classes. An abstract class forces all its child classes to override all its abstract methods. We create abstract objects by adding the <code>abstract</code> keyword before their type.</p>
-                                    
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="function">Animal</span> cat <span class="sign">=</span> <span class="function">new Cat</span>()<span class="sign">;</span> <span class="comment">// we can create many different objects (e.g., Cat or Dog) using only one type (Animal) - polymorphism</span>
-        cat.voice()<span class="sign">;</span>
-    <span class="sign">}</span>
+<span class="function">class</span> Person <span class="sign">{</span>
+    role()<span class="sign">{}</span> <span class="comment">// a placeholder method to be implemented by the subclasses</span>
 <span class="sign">}</span>
 
-<span class="function">abstract class</span> Animal
-<span class="sign">{</span>
-    <span class="function">protected int</span> lifespan <span class="sign">=</span> 10<span class="sign">;</span> <span class="comment">// public in child classes but private outside</span>
-    <span class="function">abstract void</span> voice()<span class="sign">;</span>
+<span class="function">class</span> Father <span class="function">extends Person</span> <span class="sign">{</span>
+    role()<span class="sign">{</span><span class="command">console</span>.<span class="command">log</span>(<span class="text">"I am a father!"</span>)<span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Cat <span class="function">extends Animal</span>
-<span class="sign">{</span>
-    <span class="function">Cat</span>() <span class="comment">// the default constructor is public by default</span>
-    <span class="sign">{</span>
-        lifespan <span class="sign">=</span> 14<span class="sign">;</span>
-    <span class="sign">}</span>
-
-    <span class="command">@Override</span> <span class="comment">// telling the compiler we want to override a method from a superclass. If the method signature (name and parameters) doesn't match, the compiler will generate an error.</span>
-    <span class="function">void</span> voice()
-    <span class="sign">{</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Meow!"</span>)<span class="sign">;</span>
-    <span class="sign">}</span>
+<span class="function">class</span> Husband <span class="function">extends Person</span> <span class="sign">{</span>
+    role()<span class="sign">{</span><span class="command">console</span>.<span class="command">log</span>(<span class="text">"I am a husband!"</span>)<span class="sign">}</span>
 <span class="sign">}</span>
+
+<span class="function">class</span> Student <span class="function">extends Person</span> <span class="sign">{</span>
+    role()<span class="sign">{</span><span class="command">console</span>.<span class="command">log</span>(<span class="text">"I am a student!"</span>)<span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">const</span> father <span class="sign">=</span> <span class="function">new Father</span>()
+<span class="function">const</span> husband <span class="sign">=</span> <span class="function">new Husband</span>()
+<span class="function">const</span> student <span class="sign">=</span> <span class="function">new Student</span>()
+
+<span class="function">const</span> people <span class="sign">=</span> [father, husband, student]
+people.<span class="function">forEach</span>(person <span class="sign">=></span> person.role()) <span class="comment">// polymorphism: calling the same method "role()" on different objects</span>
                                     </code></pre>
                                     
-                                    <p>Primitive numbers (e.g., numbers) are passed to functions by value (as a copy). On the other hand, objects are passed by reference, meaning the function receives a reference to the original object, meaning any changes made to the object within the function will affect the object in the outer scope without the need for returning it.</p>
+                                    <div class="alert alert-info">
+                                        <b>Info:</b> Primitive variables (e.g., numbers) are passed to functions by value (as a copy). On the other hand, objects are passed by reference, meaning the function receives a reference to the original object (any changes made to the object within the function will affect the object in the outer scope without the need for returning it).
+                                    </div>
+
+                                    <div class="alert alert-warning">
+                                        <b>Warning:</b> The equality operators, when checking objects, only check whether the two objects have the same address in memory.
+                                    </div>
 
                                     <h2>Object literals</h2>
+
+                                    <p>Object literals are the simplest way to create objects in JavaScript. They use key-value pairs to define properties and methods.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">let</span> person <span class="sign">= {</span>
@@ -419,7 +271,7 @@
         zipCode: 10001
     <span class="sign">}</span>,
     greet: <span class="function">function</span>() <span class="sign">{</span> <span class="comment">// a method</span>
-        <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Hello, my name is ${this.firstName} ${this.lastName}."</span>)
+        <span class="command">console</span>.<span class="command">log</span>(<span class="text">'Hello, my name is ${this.firstName} ${this.lastName}.'</span>) <span class="comment">// we can incorporate variables into a string created with apostrophes</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
@@ -430,10 +282,6 @@
 person.greet()  
 <span class="function">delete</span> person.firstName <span class="comment">// deleting a property</span>
                                     </code></pre>
-
-                                    <div class="alert alert-warning">
-                                        <b>Warning:</b> The equality operators, when checking objects, only check whether two objects have the same address in memory.
-                                    </div>
                                 </div>
                             </div>
                         </div>
