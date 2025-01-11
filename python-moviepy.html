@@ -85,137 +85,119 @@
                                     <h5 class="m-0 font-weight-bold">Moviepy</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Biblioteka Moviepy służy do edycji filmów i dźwięków. Aby można było wyświetlać filmy i odtwarzać dźwięki, należy zainstalować także bibliotekę <code>pygame</code> (bez niej można je edytować, ale nie uruchamiać). Ta biblioteka wymaga dodatkowego zainstalowania. Aby dowiedzieć się, jak ją zainstalować, przejdź <a href="faqP1.html" target="_blank" class="link">tutaj</a>.</p>
+                                    <p>The <code>moviepy</code> library is used to edit video and audio. If we also want to play them, we have to install the <code>pygame</code> library (as shown <a href="python-popular-problems-no-module-named-pygame.html" class="link">here</a>).</p>
         
-                                    <h2 style="text-align: center; font-size: 50px; margin-bottom: 20px;">Obsługa filmów</h2>
+                                    <h2>Video</h2>
                                 
-                                    <h2>Odtwarzanie filmu</h2>
+                                    <h4>Playing a video</h4>
                                             
-                                    <p>Komenda <code>preview()</code> pochodzi z biblioteki <code>pygame</code> i służy do wyświetlania filmów (wyświetla się on wtedy na cały ekran i nie można go zatrzymać).</p>
-                                            
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    from moviepy.editor import *
-                                    clip = VideoFileClip("intro.mp4")
-                                    clip.preview()
-                                    </code></pre>
-
-                                    <h2>Przekręcanie filmu</h2>
-                                    
-                                    <p>Komenda <code>rotate()</code> obróci film o wybrany stopień, a <code>write_videofile()</code> wyeksportuje go.</p>
-                                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    from moviepy.editor import *
-                                    clip = VideoFileClip("intro.mp4")
-                                    flipped = clip.rotate(35)
-                                    flipped.write_videofile("intro-flipped.mp4")
-                                    </code></pre>
-                                    
-                                    <h2>Przycinanie filmu</h2>
-                                    
-                                    <p>Poniższy kod skróci film o połowę.</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    from moviepy.editor import *
-                                    clip = VideoFileClip("intro.mp4")
-                                    czas = clip.duration
-                                    shortened = clip.subclip(0, czas/2)
-                                    shortened.write_videofile("intro-shortened.mp4")
-                                    </code></pre>
-
-                                    <h2>Przyspieszanie filmu</h2>
-                                    
-                                    <p>Poniższy kod przyspieszy film 2x.</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    from moviepy.editor import *
-                                    clip = VideoFileClip("intro.mp4").fx(vfx.speedx, 2)
-                                    clip.write_videofile("intro-accelerated.mp4")
-                                    </code></pre>
-
-                                    <h2>Łączenie filmów</h2>
-                                    
-                                    <p>Poniższy kod sprawi, że dwa filmy scalą się w jeden.</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    from moviepy.editor import *
-                                    clip1 = VideoFileClip("intro.mp4")
-                                    clip2 = VideoFileClip("outro.mp4")
-                                    mix = concatenate_videoclips([clip1, clip2])
-                                    mix.write_videofile("mix.mp4")
-                                    </code></pre>
-                                    
-                                    <h2>Mieszanie filmów</h2>
-                                            
-                                    <p>Poniższy kod stworzy cztery kopie filmu, ale do każdej zastosuje inny efekt, a następnie złączy je w "kolaż".</p>
+                                    <p>A video played using <code>preview()</code> displays in full-screen mode and can't be stopped.</p>
                                             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    from moviepy.editor import *
-                                    clip1 = VideoFileClip("intro.mp4").margin(10)
-                                    clip2 = clip1.fx(vfx.mirror_x)
-                                    clip3 = clip1.fx(vfx.mirror_y)
-                                    clip4 = clip1.resize(0.60)
-                                    clip = clips_array([clip1, clip2], [clip3, clip4])
-                                    clip.resize(width=480).write_videofile("intro-collage.mp4")
+<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+clip <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video.mp4"</span>) <span class="comment"># the video object</span>
+clip.<span class="command">preview</span>() <span class="comment"># this command comes from the pygame library</span>
+                                    </code></pre>
+
+                                    <h4>Rotating a video</h4>
+                                
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+clip <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video.mp4"</span>)
+flipped <span class="sign">=</span> clip.<span class="command">rotate</span>(35) <span class="comment"># rotating the video by 35 degrees</span>
+flipped.<span class="command">write_videofile</span>(<span class="text">"video-flipped.mp4"</span>) <span class="comment"># exporting the video</span>
                                     </code></pre>
                                     
-                                    <h2>.mp4 na .gif</h2>
+                                    <h4>Trimming a video</h4>
                                     
-                                    <p>Poniższy kod skonwertuje plik <code>.mp4</code> na plik <code>.gif</code>.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+clip <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video.mp4"</span>)
+duration <span class="sign">=</span> clip.<span class="command">duration</span>
+shortened <span class="sign">=</span> clip.<span class="command">subclip</span>(0, duration <span class="sign">/</span> 2) <span class="comment"># trimming the video by half</span>
+shortened.<span class="command">write_videofile</span>(<span class="text">"video-shortened.mp4"</span>)
+                                    </code></pre>
+
+                                    <h4>Speeding up a video</h4>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+clip <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video.mp4"</span>).<span class="command">fx</span>(<span class="command">vfx</span>.<span class="command">speedx</span>, 2) <span class="comment"># speeding up the video two times</span>
+clip.<span class="command">write_videofile</span>(<span class="text">"video-accelerated.mp4"</span>)
+                                    </code></pre>
+
+                                    <h4>Merging video files</h4>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+clip1 <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video.mp4"</span>)
+clip2 <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video2.mp4"</span>)
+mix <span class="sign">=</span> <span class="command">concatenate_videoclips</span>([clip1, clip2]) <span class="comment"># merging two video files</span>
+mix.<span class="command">write_videofile</span>(<span class="text">"mix.mp4"</span>)
+                                    </code></pre>
+                                    
+                                    <h4>Creating a video collage</h4>
+                                            
+                                    <p>The example below will create four copies of a video, transform each of them differently, and join them into a collage.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    from moviepy.editor import *
-                                    clip = VideoFileClip("intro.mp4")
-                                    clip.write_gif("intro-gif.gif")
+<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+clip1 <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video.mp4"</span>).<span class="command">margin</span>(10)
+clip2 <span class="sign">=</span> clip1.<span class="command">fx</span>(<span class="command">vfx</span>.<span class="command">mirror_x</span>)
+clip3 <span class="sign">=</span> clip1.<span class="command">fx</span>(<span class="command">vfx</span>.<span class="command">mirror_y</span>)
+clip4 <span class="sign">=</span> clip1.<span class="command">resize</span>(0.60)
+clip <span class="sign">=</span> <span class="command">clips_array</span>([[clip1, clip2], [clip3, clip4]])
+clip.<span class="command">resize</span>(<span class="command">width</span> <span class="sign">=</span> 480).<span class="command">write_videofile</span>(<span class="text">"video-collage.mp4"</span>)
+                                    </code></pre>
+                                    
+                                    <h4><code>.mp4</code> to <code>.gif</code></h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+clip <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video.mp4"</span>)
+clip.<span class="command">write_gif</span>(<span class="text">"video-gif.gif"</span>)
                                     </code></pre>    
                                     
-                                    <h2 style="text-align: center; font-size: 50px; margin-bottom: 20px;">Obsługa dźwięków</h2>
-                                    
-                                    <h2>Odtwarzanie dźwięku</h2>
-                                    
-                                    <p>Komenda <code>preview()</code> służy także do odtwarzania dźwięków (tego dźwięku nie można zatrzymać).</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    from moviepy.editor import *
-                                    clip = AudioFileClip("audio.mp3")
-                                    clip.preview()
-                                    </code></pre>
-
-                                    <h2>Podmienianie dźwięku w filmie</h2>
+                                    <h2>Audio</h2>
                                 
-                                    <p>Poniższy kod podmieni dźwięk w filmie <code>intro.mp4</code> na <code>audio.mp3</code> i wyeksportuje film ze zmienionym dźwiękiem.</p>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    from moviepy.editor import *
-                                    videoclip = VideoFileClip("intro.mp4")
-                                    audioclip = AudioFileClip("audio.mp3")
-                                    videoclip2 = videoclip.set_audio(audioclip)
-                                    videoclip2.write_videofile("intro2.mp4")
-                                    </code></pre>
-
-                                    <h2>Przyspieszanie dźwięku</h2>
-                                    
-                                    <p>Poniższy kod przyspieszy dźwięk 2x.</p>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    from moviepy.editor import *
-                                    clip = AudioFileClip("audio.mp3").fx(vfx.speedx, 2)
-                                    clip.write_audiofile("audio-accelerated.mp3")
-                                    </code></pre>
-
-                                    <h2>Łączenie dźwięków</h2>
-                                    
-                                    <p>Poniższy kod złączy trzy pliki audio.</p>
+                                    <p>An audio played using <code>preview()</code> can't be stopped.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    from moviepy.editor import *
-                                    clip1 = AudioFileClip("audio1.mp3")
-                                    clip2 = AudioFileClip("audio2.mp3")
-                                    clip3 = AudioFileClip("audio3.mp3")
-                                    mix = concatenate_audioclips([clip1, clip2, clip3])
-                                    mix.write_audiofile("mix.mp3")
+<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+clip <span class="sign">=</span> <span class="function">AudioFileClip</span>(<span class="text">"audio.mp3"</span>) <span class="comment"># the audio object</span>
+clip.<span class="command">preview</span>()
                                     </code></pre>
 
-                                    <p>Więcej znajdziesz w <a href="https://zulko.github.io/moviepy/" target="_blank" class="link" >oficialnej dokumentacji Moviepy</a>.</p>
+                                    <h4>Changing the soundtrack in a video</h4>
+                            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+videoclip <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video.mp4"</span>)
+audioclip <span class="sign">=</span> <span class="function">AudioFileClip</span>(<span class="text">"audio.mp3"</span>)
+videoclip2 <span class="sign">=</span> videoclip.<span class="command">set_audio</span>(audioclip) <span class="comment"># changing the soundtrack</span>
+videoclip2.<span class="command">write_videofile</span>(<span class="text">"video2.mp4"</span>) <span class="comment"># exporting the video</span>
+                                    </code></pre>
+
+                                    <h4>Speeding up an audio</h4>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+clip <span class="sign">=</span> <span class="function">AudioFileClip</span>(<span class="text">"audio.mp3"</span>).<span class="command">fx</span>(<span class="command">vfx</span>.<span class="command">speedx</span>, 2) <span class="comment"># speeding up the audio two times</span>
+clip.<span class="command">write_audiofile</span>(<span class="text">"audio-accelerated.mp3"</span>) <span class="comment"># exporting the audio</span>
+                                    </code></pre>
+
+                                    <h4>Merging audio files</h4>
+
+                                    <p>The example below will merge three audio files into one (one soundtrack after another).</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+clip1 <span class="sign">=</span> <span class="function">AudioFileClip</span>(<span class="text">"audio1.mp3"</span>)
+clip2 <span class="sign">=</span> <span class="function">AudioFileClip</span>(<span class="text">"audio2.mp3"</span>)
+clip3 <span class="sign">=</span> <span class="function">AudioFileClip</span>(<span class="text">"audio3.mp3"</span>)
+mix <span class="sign">=</span> <span class="command">concatenate_audioclips</span>([clip1, clip2, clip3])
+mix.<span class="command">write_audiofile</span>(<span class="text">"mix.mp3"</span>)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

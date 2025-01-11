@@ -87,6 +87,10 @@
                                 <div class="card-body">
                                     <p>A library is a collection of related modules that provides reusable functionality to simplify development. To add a library to our program, we use the <code>import</code> command, e.g., <code>import random</code>. However, we would have to write the library's name before every command that comes from it. If we don't want to do this, instead of <code>import ...</code>, we can use the <code>from ... import *</code> command.</p>
                             
+                                    <p>A Python package is a collection of modules and sub-packages bundled together, while a library is a broader term referring to any collection of pre-written code, which could include one or more packages, that helps developers perform common tasks.</p>
+
+                                    <p>A Python module is a single file containing Python code that defines functions, classes, or variables, and can be imported into other Python programs to reuse its functionality.</p>
+
                                     <h2>The <code>random</code> library</h2>
                                     
                                     <p>The <code>random</code> library is used to generate random numbers. The numbers generated using this library are pseudorandom, which means they are drawn according to a certain pattern. The initial value used by the generator is called a seed. If we know the value of the seed, we can predict the rest of the numbers produced by the generator because, for a given seed, the same numbers will always be generated (in the same order). The seed can be set with the <code>random.seed(value)</code> command.</p>
@@ -281,12 +285,10 @@ m =</span> os.<span class="command">system</span>(<span class="text">"mkdir dir"
                                     <div class="alert alert-warning">
                                         <b>Warning:</b> When importing some libraries (e.g., <code>pygame</code>), the following error appears: <code>ModuleNotFoundError: No module named 'pygame'</code>. What to do in that case? Find out from <a href="python-popular-problems-no-module-named-pygame.html" class="link alert-warning alert-link">here</a>.
                                     </div>
+
+                                    <h2><code>__name__</code></h2>
                                     
-                                    <h2>Modules</h2>
-                                    
-                                    <p>Modules are our <code>.py</code> files imported into our program, just like libraries (because libraries are <code>.py</code> files created by somebody else).</p>
-                                    
-                                    <p>If we want to execute a function only if it's running from this file and is not imported from another file, we can use a conditional statement like shown below. It is commonly used to execute the main function of a program.</p>
+                                    <p>The conditional statement below checks if the Python file is being run directly (not imported as a module). If it is, the code inside the block is executed. This is a common practice to ensure certain code only runs when the script is executed directly.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">if __name__</span> <span class="sign">==</span> <span class="text">"__main__"</span>:
@@ -295,7 +297,7 @@ m =</span> os.<span class="command">system</span>(<span class="text">"mkdir dir"
                                     
                                     <h2>Pip</h2>
                                     
-                                    <p>At this level, everyone has probably already encountered this command. It is the official and default package management system for the Python language environment, using a dedicated repository called Python Package Index or other remote and local repositories. The list of modules that can be downloaded with pip is available at the <a href="https://pypi.org/" target="_blank" class="link">pypi.org</a> website. The <code>pip</code> module can be found in this folder: <code>C:\Users\[username]\AppData\Local\Programs\Python\Python311\Scripts</code>. To use it, we must move to this location in the CMD console using the <code>cd</code> command. Then, we can execute, for example, the <code>pip install ...</code> command, which will install a library that is not installed by default. If we want to update a library, we have to type: <code>pip install --upgrade ...</code>. To update <code>pip</code> itself, we would have to use this command: <code>python.exe -m pip install --upgrade pip</code>. Check out <a href="python-popular-problems-no-module-named-pygame.html" class="link">this</a> article to learn about the <code>PATH</code>.</p>
+                                    <p><code>pip</code> is the official and default package management system for the Python language environment, using a dedicated repository called Python Package Index or other remote and local repositories. We can install external Python libraries using the <code>pip</code> command (the list of those libraries is available at the <a href="https://pypi.org/" target="_blank" class="link">pypi.org</a> website). To use it, we have to add it to the <code>PATH</code>, as shown <a href="python-popular-problems-no-module-named-pygame.html" class="link">here</a>. After that, we can install the required library using <code>pip install libraryName</code> in CMD. To update a library, we have to add the <code>--upgrade</code> flag: <code>pip install --upgrade libraryName</code>. To update <code>pip</code> itself, write: <code>python -m pip install --upgrade pip</code> (or <code>python.exe</code> if needed).</p>
 
                                     <p><code>pip install</code> directly calls the <code>pip</code> executable, while <code>python -m pip install</code> runs <code>pip</code> as a module within a specific Python interpreter, ensuring the package is installed in the correct Python environment (the specific Python version). We can specify the version like this: <code>python3.9 -m pip install</code>. When using <code>python -m pip install</code>, the <code>pip</code> module is invoked directly through the Python interpreter, so <code>pip</code> itself does not need to be added to the <code>PATH</code>. Instead, it relies on the Python installation, which is configured in the <code>PATH</code> by default.</p>
 
