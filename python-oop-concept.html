@@ -99,7 +99,7 @@
                                     
                                     <p>A getter is a method that returns values outside of a class, and a setter is a method that edits an object of the class. We should use them because, inside them, we can add, e.g., validation rules.</p>
                                     
-                                    <p>We can use the fields from the <code>__init__()</code> method anywhere in a given class. The same goes for the other methods, but they must be called first (we cannot use a variable created in a method that hasn't been called yet). All the <code>self</code> variables should (but don't have to) be created first in the <code>__init__()</code> method, even if their value would initially be <code>None</code> so that they are always accessible everywhere in the class (they should be "declared" in <code>__init__()</code>).</p>
+                                    <p>We can use the fields created in the <code>__init__()</code> method anywhere inside the given class. The same goes for the other methods, but they must be called first (we cannot use a variable created in a method that hasn't been called yet). All the <code>self</code> variables should (but don't have to) be created first in the <code>__init__()</code> method, even if their value would initially be <code>None</code> so that they are always accessible everywhere inside the class (they should be "declared" in <code>__init__()</code>).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Human:
@@ -204,13 +204,30 @@ x <span class="sign">=</span> <span class="function">Example</span>()
 <span class="command">except AttributeError</span>:
     <span class="command">print</span>(<span class="text">"Error"</span>)
                                     </code></pre>
+
+                                    <h4><code>getattr()</code></h4>
+
+                                    <p>The <code>getattr()</code> function takes an object, the name of an attribute, and a default value (optional). It returns the value of the named attribute if it exists. If it doesn't, it returns the default value (if provided) or raises an <code>AttributeError</code>.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Person:
+    <span class="function">def __init__</span>(<span class="function">self</span>, name, age):
+        <span class="function">self</span>.name <span class="sign">=</span> name
+        <span class="function">self</span>.age <span class="sign">=</span> age
+
+person <span class="sign">=</span> <span class="function">Person</span>(<span class="text">"Alice"</span>, 30)
+
+name <span class="sign">=</span> <span class="command">getattr</span>(person, <span class="text">"name"</span>, <span class="text">"unknown"</span>)
+address <span class="sign">=</span> <span class="command">getattr</span>(person, <span class="text">"address"</span>, <span class="text">"unknown"</span>)
+<span class="command">print</span>(name, address)
+                                    </code></pre>
                                     
                                     <h2>Serialization</h2>
                                     
                                     <p>Serialization means saving the instances of our objects (classes) to a file. We can do so using the <code>pickle</code> library (the file will have the <code>.objc</code> extension). We can later import the object from the file in another program.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">import</span> pickle <span class="command">as</span> pick
+<span class="command">import</span> pickle <span class="function">as</span> pick
 
 <span class="function">class</span> Example:
     <span class="function">def</span> method(<span class="function">self</span>):
@@ -218,12 +235,12 @@ x <span class="sign">=</span> <span class="function">Example</span>()
 e <span class="sign">=</span> <span class="function">Example</span>()
 
 <span class="command">try</span>:
-    <span class="command">with</span> <span class="command">open</span>(<span class="text">"file.objc"</span>, <span class="text">"wb"</span>) <span class="command">as</span> file:
+    <span class="command">with</span> <span class="command">open</span>(<span class="text">"file.objc"</span>, <span class="text">"wb"</span>) <span class="function">as</span> file:
         pick.<span class="command">dump</span>(e, file)
 <span class="command">except</span>:
     <span class="command">print</span>(<span class="text">"Error"</span>)
 
-<span class="command">with</span> <span class="command">open</span>(<span class="text">"file.objc"</span>, <span class="text">"rb"</span>) <span class="command">as</span> file:
+<span class="command">with</span> <span class="command">open</span>(<span class="text">"file.objc"</span>, <span class="text">"rb"</span>) <span class="function">as</span> file:
     example <span class="sign">=</span> pick.<span class="command">load</span>(file)
 example.method()
                                     </code></pre>

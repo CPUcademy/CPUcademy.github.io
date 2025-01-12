@@ -174,7 +174,7 @@ shared_resource <span class="sign">=</span> 0
 lock <span class="sign">=</span> threading.<span class="function">Lock</span>()
 
 <span class="function">def</span> increment():
-    <span class="command">global</span> shared_resource
+    <span class="function">global</span> shared_resource
     <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(1000):
         <span class="comment"># Acquiring the lock before accessing the shared resource</span>
         <span class="function">with</span> lock:
@@ -331,7 +331,7 @@ shared_resource <span class="sign">=</span> 0
 lock <span class="sign">=</span> asyncio.<span class="function">Lock</span>()
 
 <span class="function">async def</span> increment():
-    <span class="command">global</span> shared_resource
+    <span class="function">global</span> shared_resource
     <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(1000):
         <span class="function">async with</span> lock:
             <span class="command">print</span>(<span class="text">"Before modification:"</span>, shared_resource)

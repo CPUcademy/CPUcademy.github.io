@@ -157,60 +157,6 @@ x <span class="sign">=</span> [[<span class="text">"a"</span>, 1], [<span class=
 <span class="function">for</span> index, [name, number] <span class="function">in</span> <span class="command">enumerate</span>(x):
     <span class="command">print</span>(<span class="text">f"{index}: {number} belongs to {name}"</span>)
                                     </code></pre>
-
-                                    <div class="alert alert-info">
-                                        <b>Info:</b> The following commands are not as important as the ones above, but they often come in handy.
-                                    </div>
-
-                                    <h2>The <code>getattr()</code> function</h2>
-
-                                    <p>The <code>getattr()</code> function takes an object, the name of an attribute, and a default argument, and it returns the value of the named attribute if it exists. If it doesn't exist, it returns the default value (if provided) or raises an <code>AttributeError</code>.</p>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> Person:
-    <span class="function">def __init__</span>(<span class="function">self</span>, name, age):
-        <span class="function">self</span>.name <span class="sign">=</span> name
-        <span class="function">self</span>.age <span class="sign">=</span> age
-
-person <span class="sign">=</span> <span class="function">Person</span>(<span class="text">"Alice"</span>, 30)
-
-name <span class="sign">=</span> <span class="command">getattr</span>(person, <span class="text">"name"</span>, <span class="text">"unknown"</span>)
-address <span class="sign">=</span> <span class="command">getattr</span>(person, <span class="text">"address"</span>, <span class="text">"unknown"</span>)
-<span class="command">print</span>(name, address)
-                                    </code></pre>
-
-                                    <h2>The <code>eval()</code> function</h2>
-
-                                    <p>The <code>eval()</code> function takes a string with a mathematical expression and calculates it. Its version from the <code>ast</code> library, <code>literal_eval()</code>, takes a string with a literal (a list, a dict, etc.) and turns it into a data structure we can operate on.</p>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-expression <span class="sign">=</span> <span class="text">"3 * (4 + 5)"</span>
-result <span class="sign">=</span> <span class="command">eval</span>(expression)
-<span class="command">print</span>(result)
-                                    </code></pre>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">import</span> ast
-literal_list <span class="sign">=</span> <span class="text">"[1, 2, 3, 4, 5]"</span>
-literal_dict <span class="sign">=</span> <span class="text">"{'a': 1, 'b': 2}"</span>
-result_list <span class="sign">=</span> ast.<span class="command">literal_eval</span>(literal_list)
-result_dict <span class="sign">=</span> ast.<span class="command">literal_eval</span>(literal_dict)
-<span class="command">print</span>(result_list)
-<span class="command">print</span>(result_dict)
-                                    </code></pre>
-
-                                    <h2>The <code>compile()</code> and <code>exec()</code> functions</h2>
-
-                                    <p>The <code>compile()</code> function takes a string with Python code, and <code>exec()</code> executes it.</p>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-code <span class="sign">=</span> <span class="text">"""
-for i in range(5):
-    print(i)
-"""</span>
-compiled_code <span class="sign">=</span> <span class="command">compile</span>(code, <span class="text">"&lt;string&gt;"</span>, <span class="text">"exec"</span>)
-<span class="command">exec</span>(compiled_code)
-                                    </code></pre>
                                 </div>
                             </div>
                         </div>

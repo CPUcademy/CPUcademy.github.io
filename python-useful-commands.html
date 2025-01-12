@@ -124,6 +124,39 @@ x <span class="sign">=</span> 5
 x <span class="sign">=</span> <span class="command">abs</span>(<span class="sign">-</span>5)
 <span class="command">print</span>(x)
                                     </code></pre>
+
+                                    <h4><code>eval()</code></h4>
+
+                                    <p>The <code>eval()</code> function takes a string with a mathematical expression and calculates it. Its version from the <code>ast</code> library, <code>literal_eval()</code>, takes a string with a literal (a list, a dict, etc.) and turns it into a data structure we can operate on.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+expression <span class="sign">=</span> <span class="text">"3 * (4 + 5)"</span>
+result <span class="sign">=</span> <span class="command">eval</span>(expression)
+<span class="command">print</span>(result)
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> ast
+literal_list <span class="sign">=</span> <span class="text">"[1, 2, 3, 4, 5]"</span>
+literal_dict <span class="sign">=</span> <span class="text">"{'a': 1, 'b': 2}"</span>
+result_list <span class="sign">=</span> ast.<span class="command">literal_eval</span>(literal_list)
+result_dict <span class="sign">=</span> ast.<span class="command">literal_eval</span>(literal_dict)
+<span class="command">print</span>(result_list)
+<span class="command">print</span>(result_dict)
+                                    </code></pre>
+
+                                    <h4><code>compile()</code> and <code>exec()</code></h4>
+
+                                    <p>The <code>compile()</code> function takes a string with Python code, converts it to "code," and <code>exec()</code> executes it.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+code <span class="sign">=</span> <span class="text">"""
+for i in range(5):
+    print(i)
+"""</span>
+compiled_code <span class="sign">=</span> <span class="command">compile</span>(code, <span class="text">"&lt;string&gt;"</span>, <span class="text">"exec"</span>)
+<span class="command">exec</span>(compiled_code)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
