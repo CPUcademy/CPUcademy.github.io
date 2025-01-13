@@ -179,11 +179,11 @@ c <span class="sign">=</span> <span class="function">C</span>()
                                     <p>Metaclasses are not commonly used in everyday programming, but they become necessary in certain situations, such as when we have to add mandatory attributes (variables or methods) to every class or enforce specific rules across multiple classes. They are primarily used in the development of libraries or frameworks. The example below shows how we can add a default method to every class using our metaclass.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">def</span> getX(<span class="function">self</span>):
-    <span class="function">return self</span>._C__x  <span class="comment"># accessing the private attribute</span>
-
 <span class="function">class</span> Meta(<span class="function">type</span>):
     <span class="function">def __new__</span>(<span class="function">self</span>, class_name, bases, attributes):
+        <span class="function">def</span> getX(<span class="function">self</span>):
+            <span class="function">return</span> <span class="command">getattr</span>(<span class="function">self</span>, <span class="text">f"_{class_name}__x"</span>) <span class="comment"># accessing the private attribute</span>
+
         attributes[<span class="text">"getX"</span>] <span class="sign">=</span> getX
         <span class="function">return</span> <span class="function">type</span>(class_name, bases, attributes)
 
@@ -191,8 +191,15 @@ c <span class="sign">=</span> <span class="function">C</span>()
     <span class="function">def __init__</span>(<span class="function">self</span>):
         <span class="function">self</span>.__x <span class="sign">=</span> 5
 
+<span class="function">class</span> D(<span class="command">metaclass</span> <span class="sign">=</span> Meta):
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.__x <span class="sign">=</span> 4
+
 c <span class="sign">=</span> <span class="function">C</span>()
 <span class="command">print</span>(c.getX())
+
+d <span class="sign">=</span> <span class="function">D</span>()
+<span class="command">print</span>(d.getX())
                                     </code></pre>
                                 </div>
                             </div>
