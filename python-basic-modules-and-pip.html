@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Basic libraries, modules, and pip</title>
+    <title>Basic modules and pip</title>
 </head>
 
 <body id="page-top">
@@ -82,20 +82,18 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Basic libraries, modules, and pip</h5>
+                                    <h5 class="m-0 font-weight-bold">Basic modules and pip</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>A library is a collection of related modules that provides reusable functionality to simplify development. To add a library to our program, we use the <code>import</code> command, e.g., <code>import random</code>. However, we would have to write the library's name before every command that comes from it. If we don't want to do this, instead of <code>import ...</code>, we can use the <code>from ... import *</code> command.</p>
-                            
-                                    <p>A Python package is a collection of modules and sub-packages bundled together, while a library is a broader term referring to any collection of pre-written code, which could include one or more packages, that helps developers perform common tasks.</p>
-
-                                    <p>A Python module is a single file containing Python code that defines functions, classes, or variables, and can be imported into other Python programs to reuse its functionality.</p>
-
-                                    <h2>The <code>random</code> library</h2>
+                                    <p>A library is a collection of related modules that provides reusable functionality to simplify development. A module is a single file containing Python code that defines functions, classes, or variables, and can be imported into other Python programs to reuse its functionality. To add a module to our program, we use the <code>import</code> statement, e.g., <code>import random</code>. However, we would have to write the module's name before every method that comes from it. If we don't want to do this, instead of <code>import ...</code>, we can use the <code>from ... import *</code> statement to directly import the functions, classes, or variables.</p>
                                     
-                                    <p>The <code>random</code> library is used to generate random numbers. The numbers generated using this library are pseudorandom, which means they are drawn according to a certain pattern. The initial value used by the generator is called a seed. If we know the value of the seed, we can predict the rest of the numbers produced by the generator because, for a given seed, the same numbers will always be generated (in the same order). The seed can be set with the <code>random.seed(value)</code> command.</p>
+                                    <p>A package is a collection of related modules, which may also contain sub-packages. A library, on the other hand, is a broader term that refers to any collection of pre-written code that can include one or more packages, and helps developers perform common tasks.</p>                                    
+
+                                    <h2>The <code>random</code> module</h2>
                                     
-                                    <p>Use the <code>import random</code> command at the beginning of every example.</p>
+                                    <p>The <code>random</code> module is used to generate random numbers. The numbers generated using this module are pseudorandom, which means they are drawn according to a certain pattern. The initial value used by the generator is called a seed. If we know the value of the seed, we can predict the rest of the numbers produced by the generator because, for a given seed, the same numbers will always be generated (in the same order). The seed can be set with the <code>random.seed(value)</code> method.</p>
+                                    
+                                    <p>Use the <code>import random</code> statement at the beginning of every example.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Drawing integers (we determine the range in the arguments - start, stop)</span>
@@ -132,9 +130,9 @@ x <span class="sign">=</span> random.<span class="command">uniform</span>(20, 60
                                         <b>Warning:</b> People starting to learn Python often get this error: <code>'random' has no attribute 'randint'</code>. What to do in that case? Find out from <a href="python-popular-problems-random-has-no-attribute-randint.html" class="link alert-warning alert-link">here</a>.
                                     </div>
                                     
-                                    <h2>The <code>math</code> library</h2>
+                                    <h2>The <code>math</code> module</h2>
 
-                                    <p>The <code>math</code> library provides more complex mathematical operations.</p>
+                                    <p>The <code>math</code> module provides more complex mathematical operations.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> math
@@ -154,13 +152,13 @@ y <span class="sign">=</span> [1, 2, 3, 4]
 <span class="command">print</span>(math.<span class="command">e</span>) <span class="comment"># displaying the E number</span>
                                     </code></pre>
 
-                                    <p>We can check the complete list of commands a library contains by typing <code>print(dir([library_name]))</code>.</p>
+                                    <p>We can check the complete list of methods a module contains by typing <code>print(dir([moduleName]))</code>.</p>
                                     
                                     <h2>The <code>time</code> and <code>datetime</code> libraries</h2>
                                     
                                     <p>These libraries are used to handle time.</p>
 
-                                    <p>Use the <code>import datetime, time</code> command at the beginning of every example.</p>
+                                    <p>Use the <code>import datetime, time</code> statement at the beginning of every example.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Getting the current local date</span>
@@ -273,7 +271,7 @@ os.<span class="command">rmdir</span>(<span class="text">"dir"</span>) <span cla
 os.<span class="command">makedirs</span>(<span class="text">"dir/dir2"</span>) <span class="comment"># creating a directory and its subdirectories</span>
 os.<span class="command">removedirs</span>(<span class="text">"dir/dir2"</span>) <span class="comment"># deleting a directory and its subdirectories</span>
 
-<span class="comment"># We can create a file using the open() command (refer to the lesson about text files)</span>
+<span class="comment"># We can create a file using the open() method (refer to the lesson about text files)</span>
 <span class="function">if</span> os.<span class="command">path.exists</span>(<span class="text">"[the_path]/file.txt"</span>): <span class="comment"># checking whether a given file or directory exists</span>
     <span class="command">print</span>(<span class="text">"The file exists"</span>)
     os.<span class="command">remove</span>(<span class="text">"[the_path]/file.txt"</span>) <span class="comment"># deleting a given file</span>
@@ -297,7 +295,7 @@ m =</span> os.<span class="command">system</span>(<span class="text">"mkdir dir"
                                     
                                     <h2>Pip</h2>
                                     
-                                    <p><code>pip</code> is the official and default package management system for the Python language environment, using a dedicated repository called Python Package Index or other remote and local repositories. We can install external Python libraries using the <code>pip</code> command (the list of those libraries is available at the <a href="https://pypi.org/" target="_blank" class="link">pypi.org</a> website). To use it, we have to add it to the <code>PATH</code>, as shown <a href="python-popular-problems-no-module-named-pygame.html" class="link">here</a>. After that, we can install the required library using <code>pip install libraryName</code> in CMD. To update a library, we have to add the <code>--upgrade</code> flag: <code>pip install --upgrade libraryName</code>. To update <code>pip</code> itself, write: <code>python -m pip install --upgrade pip</code> (or <code>python.exe</code> if needed).</p>
+                                    <p><code>pip</code> is the official and default package management system for the Python language environment, using a dedicated repository called Python Package Index or other remote and local repositories. We can install external Python libraries using the <code>pip</code> command (the list of those libraries is available at the <a href="https://pypi.org/" target="_blank" class="link">pypi.org</a> website). To use it, we have to add it to the <code>PATH</code>, as shown <a href="python-popular-problems-no-module-named-pygame.html" class="link">here</a>. After that, we can install the required module using <code>pip install moduleName</code> in CMD. To update a module, we have to add the <code>--upgrade</code> flag: <code>pip install --upgrade moduleName</code>. To update <code>pip</code> itself, write: <code>python -m pip install --upgrade pip</code> (or <code>python.exe</code> if needed).</p>
 
                                     <p><code>pip install</code> directly calls the <code>pip</code> executable, while <code>python -m pip install</code> runs <code>pip</code> as a module within a specific Python interpreter, ensuring the package is installed in the correct Python environment (the specific Python version). We can specify the version like this: <code>python3.9 -m pip install</code>. When using <code>python -m pip install</code>, the <code>pip</code> module is invoked directly through the Python interpreter, so <code>pip</code> itself does not need to be added to the <code>PATH</code>. Instead, it relies on the Python installation, which is configured in the <code>PATH</code> by default.</p>
 

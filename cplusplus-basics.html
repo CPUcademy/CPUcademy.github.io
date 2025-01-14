@@ -88,12 +88,12 @@
                                     <h2>Fundamental rules</h2>
                                     <p>We count from zero, not from one.</p>
                                     <p>Quotation marks and apostrophes mean something slightly different, and I will explain it later.</p>
-                                    <p>In C++, a semicolon is placed after each statement. We must indicate which commands belong to, e.g., a loop, by putting them in braces (unless it's only one line).</p>
+                                    <p>In C++, a semicolon is placed after each statement. We must indicate which instructions belong to, e.g., a loop, by putting them in braces (unless it's only one line).</p>
                                     <p>We can create comments by using the <code>//</code> symbols. Things that we write after these signs don't count as code. Comments are often used to describe the code. Multiline comments can be written between <code>/*</code> and <code>*/</code> signs.</p>
                                     
                                     <h2>Hello World program</h2>
                                     
-                                    <p>The <code>&lt;iostream&gt;</code> (input-output stream) library provides basic commands. We import different libraries with the <code>#include</code> command (a library is a set of connected modules that serve a related purpose). <code>namespace std;</code> sets <code>std</code> as a standard (without this, we would have to write <code>std::</code> every time before a lot of instructions). <code>main()</code> is the primary function that executes at the beginning. <code>int</code> before this function defines its type (<code>int</code> is an integer, and the entire function returns 0 with the <code>return 0;</code> command at the end). I will explain functions more thoroughly in the upcoming lessons. <code>cout</code> displays data of all types on the screen (C + OUT). The <code>endl</code> (end line) command acts like an enter in the console. The <code>&lt;&lt;</code> characters symbolize the output stream, and we can connect different elements with them, e.g., when we want to display a text and a variable at once (in the example below, we connect a text with the <code>endl</code> command). Joining strings (e.g., with these signs) is called concatenation.</p>        
+                                    <p>The <code>&lt;iostream&gt;</code> (input-output stream) library provides basic methods. We import different libraries with the <code>#include</code> instruction (a library is a set of connected modules that serve a related purpose). <code>namespace std;</code> sets <code>std</code> as a standard (without this, we would have to write <code>std::</code> every time before a lot of instructions). <code>main()</code> is the primary function that executes at the beginning. <code>int</code> before this function defines its type (<code>int</code> is an integer, and the entire function returns 0 with the <code>return 0;</code> statement at the end). I will explain functions more thoroughly in the upcoming lessons. <code>cout</code> displays data of all types on the screen (C + OUT). The <code>endl</code> (end line) manipulator acts like an enter in the console. The <code>&lt;&lt;</code> characters symbolize the output stream, and we can connect different elements with them, e.g., when we want to display a text and a variable at once (in the example below, we connect a text with the <code>endl</code> manipulator). Joining strings (e.g., with these signs) is called concatenation.</p>        
                             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
@@ -142,7 +142,7 @@ number2 <span class="sign">=</span> 6<span class="sign">;</span>
                                     
                                     <p>While naming the variables, we cannot add any numbers or spaces at the beginning. The first letter of the variable should not be uppercase. We should write variable names in one of these three ways: <code>prime_number</code>, <code>primeNumber</code>, <code>nPrimeNumber</code>.</p>
                                     
-                                    <p>We can define a variable as a constant, whose value cannot be changed, by adding <code>const</code> before the variable definition (e.g., <code>const string NAME = "text";</code>). We can also define constants this way: <code>#define PI 3.14</code> (this command should be placed under <code>#include &lt;iostream&gt;</code>). There is a convention that the names of constants should be in uppercase.</p>
+                                    <p>We can define a variable as a constant, whose value cannot be changed, by adding <code>const</code> before the variable definition (e.g., <code>const string NAME = "text";</code>). We can also define constants this way: <code>#define PI 3.14</code> (this statement should be placed under <code>#include &lt;iostream&gt;</code>). There is a convention that the names of constants should be in uppercase.</p>
                                     
                                     <p>Variables can be declared in bulk, e.g., <code>int a, b, c;</code>. They can also be defined in the same way: <code>int a = 1, b, c = 2;</code> (we can define only some of them if we want). In this case, the <code>b</code> variable is not empty, although it has no value assigned. It contains a value previously stored at its address in the computer memory. It is always safer to assign a value to a variable at the beginning to avoid errors (even if this value would be 0).</p>
                                     
@@ -162,9 +162,9 @@ number2 <span class="sign">=</span> 6<span class="sign">;</span>
 
                                     <p><code>\n</code> symbolizes the enter key and can be used inside of strings. It will work like <code>endl</code>.</p>
                                     
-                                    <h2>The <code>cin</code> command</h2>
+                                    <h2>The <code>cin</code> statement</h2>
                                     
-                                    <p>The <code>cin</code> command retrieves data from the user and saves it to a variable.</p>
+                                    <p>The <code>cin</code> statement retrieves data from the user and saves it to a variable.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> x, y, z<span class="sign">;</span>
@@ -190,9 +190,9 @@ number2 <span class="sign">=</span> 6<span class="sign">;</span>
                                     
                                     <p>It is better to use the conversion in the C++ language style because it also checks if this operation can be performed.</p>
 
-                                    <h2>The <code>printf()</code> command</h2>
+                                    <h2>The <code>printf()</code> method</h2>
                                     
-                                    <p>The <code>printf()</code> command is an alternative for <code>cout</code> that makes incorporating variables into the output string easier. It is a command characteristic of the C language, so if possible, it is better to use <code>cout</code>.</p>
+                                    <p>The <code>printf()</code> statement is an alternative for <code>cout</code> that makes incorporating variables into the output string easier. It is characteristic of the C language, so if possible, it is better to use <code>cout</code>.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">char</span> str[] <span class="sign">=</span> <span class="text">"abc"</span><span class="sign">;</span> <span class="comment">// an array of chars (I will talk about arrays later)</span>
