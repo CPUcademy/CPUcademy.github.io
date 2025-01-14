@@ -314,6 +314,20 @@ match =</span> pattern.<span class="command">search</span>(<span class="text">"1
                                     </code></pre>
 
                                     <h2>The <code>FlashText</code> module</h2>
+
+                                    <p>The flashtext module is used for fast keyword searching and replacing text. It is much faster than regular expressions, especially when handling large amounts of text or numerous keywords. This module has to be installed (<code>pip install flashtext</code>).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> flashtext <span class="command">import</span> KeywordProcessor
+
+keyword_processor <span class="sign">=</span> <span class="function">KeywordProcessor</span>()
+keyword_processor.<span class="command">add_keyword</span>(<span class="text">"Python"</span>)
+keyword_processor.<span class="command">add_keyword</span>(<span class="text">"programming"</span>)
+
+text <span class="sign">=</span> <span class="text">"Python is a popular programming language."</span>
+found_keywords <span class="sign">=</span> keyword_processor.<span class="command">extract_keywords</span>(text)
+<span class="command">print</span>(<span class="text">"Found keywords:"</span>, found_keywords)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
