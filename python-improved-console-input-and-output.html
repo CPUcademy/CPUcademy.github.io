@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Subprocess</title>
+    <title>Improved console input and output</title>
 </head>
 
 <body id="page-top">
@@ -82,10 +82,45 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Subprocess</h5>
+                                    <h5 class="m-0 font-weight-bold">Improved console input and output</h5>
                                 </div>
                                 <div class="card-body">
-                                    503-510 ANZZP, gazetka
+                                    <h2>The <code>pyinputplus</code> module</h2>
+                                    
+                                    <p>This module is used to simplify input validation by providing functions that ensure user input meets specified criteria, such as type, range, or format.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> pyinputplus <span class="function">as</span> pyip
+
+response <span class="sign">=</span> pyip.<span class="command">inputNum</span>(<span class="command">prompt</span><span class="sign">=</span><span class="text">"Enter a number between 1 and 10: "</span>, <span class="command">min</span><span class="sign">=</span>1, <span class="command">max</span><span class="sign">=</span>10)
+<span class="command">print</span>(<span class="text">"You entered:"</span>, response)
+
+response <span class="sign">=</span> pyip.<span class="command">inputYesNo</span>(<span class="command">prompt</span><span class="sign">=</span><span class="text">"Do you want to continue? (yes/no): "</span>)
+<span class="function">if</span> response <span class="sign">==</span> <span class="text">"yes"</span>:
+    <span class="command">print</span>(<span class="text">"You chose to continue."</span>)
+<span class="function">else</span>:
+    <span class="command">print</span>(<span class="text">"You chose not to continue."</span>)
+                                    </code></pre>
+
+                                    <h2>The <code>pprint</code> module</h2>
+
+                                    <p>This module is used to format and print (pretty-print) complex data structures in a more readable and aesthetically pleasing way.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> pprint
+
+data <span class="sign">=</span> {
+    <span class="text">"name"</span>: <span class="text">"Alice"</span>,
+    <span class="text">"age"</span>: 25,
+    <span class="text">"hobbies"</span>: [<span class="text">"reading"</span>, <span class="text">"hiking"</span>, <span class="text">"coding"</span>],
+    <span class="text">"details"</span>: {
+        <span class="text">"location": "New York"</span>,
+        <span class="text">"languages"</span>: [<span class="text">"Python"</span>, <span class="text">"JavaScript"</span>],
+    },
+}
+
+pprint.<span class="command">pprint</span>(data)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

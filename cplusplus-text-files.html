@@ -104,7 +104,7 @@
                                     
                                     <p>This section provides all the information you will ever use unless you want to get really advanced, so you don't have to read the whole article.</p>
 
-                                    <p class="podpis">To perform operations on text files, we need to include the <code>&lt;fstream&gt;</code> library. Firstly, we have to create a variable of the <code>fstream</code> type and then use the <code>open()</code> command on it. Its first argument is the file's name, and the second is flags. We can add multiple flags using the <code>|</code> sign. They are modes in which the file can be opened, and they can be:</p>
+                                    <p class="podpis">To perform operations on text files, we need to include the <code>&lt;fstream&gt;</code> library. Firstly, we have to create a variable of the <code>fstream</code> type and then use the <code>open()</code> method on it. Its first argument is the file's name, and the second is flags. We can add multiple flags using the <code>|</code> sign. They are modes in which the file can be opened, and they can be:</p>
                                     <ul type="disc">
                                         <li><code>ios::out</code> - output - writing to a file (if the file doesn’t exist, it creates a new one). If the file exists, it overwrites its content with new data.</li>
                                         <li><code>ios::in</code> - input - reading from a file.</li>
@@ -116,7 +116,7 @@
 
                                     <p>For all operations, we have to first specify, whether we want to write or read, and only then add flags like <code>ios::app</code> using <code>|</code>.</p>
                                     
-                                    <p>In the example below, after we check if the file has been opened properly with the <code>is_open()</code> command, we write two lines of text in it and close it (it is necessary). Then, we read from it.</p>
+                                    <p>In the example below, after we check if the file has been opened properly with the <code>is_open()</code> method, we write two lines of text in it and close it (it is necessary). Then, we read from it.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
@@ -195,7 +195,7 @@ file.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <
 
                                     <h2><a id="seek-and-tell">Seek and tell</a></h2>
                                     
-                                    <p>Here, we should use the <code>ios::binary</code> flag to avoid errors. When we want to read something specific from a file, we can use <code>seekg()</code> and <code>tellg()</code>. <code>seekg()</code> stands for "seek get", and it moves the <code>get</code> pointer to a desired location (this pointer is used for reading from the file). <code>tellg()</code> stand for "tell get", and it says where the <code>get</code> pointer is in a file. <code>seekg()</code> takes two arguments: how many bytes (one character is one byte) should it jump, and from where. It can start from the beginning of the file (<code>ios::beg</code>), from the end (<code>ios::end</code>), or from the moment when the reading of the file finished last time, which is the current moment (<code>ios::cur</code>). <code>ios::beg</code> is the default second argument, so we don't have to write it. <code>tellg()</code> doesn't take any arguments. Keep in mind that after we reach the end of the file, we have to set the pointer at the beginning if we want to use it again. These two commands won't be available with <code>ofstream</code>.</p>
+                                    <p>Here, we should use the <code>ios::binary</code> flag to avoid errors. When we want to read something specific from a file, we can use <code>seekg()</code> and <code>tellg()</code>. <code>seekg()</code> stands for "seek get", and it moves the <code>get</code> pointer to a desired location (this pointer is used for reading from the file). <code>tellg()</code> stand for "tell get", and it says where the <code>get</code> pointer is in a file. <code>seekg()</code> takes two arguments: how many bytes (one character is one byte) should it jump, and from where. It can start from the beginning of the file (<code>ios::beg</code>), from the end (<code>ios::end</code>), or from the moment when the reading of the file finished last time, which is the current moment (<code>ios::cur</code>). <code>ios::beg</code> is the default second argument, so we don't have to write it. <code>tellg()</code> doesn't take any arguments. Keep in mind that after we reach the end of the file, we have to set the pointer at the beginning if we want to use it again. These two methods won't be available with <code>ofstream</code>.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">fstream</span> file<span class="sign">;</span>
@@ -234,7 +234,7 @@ file.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <
 <span class="sign">}</span>
                                     </code></pre>
                                     
-                                    <p>We can do the same thing but in the writing mode. For this, we use <code>seekp()</code> and <code>tellp()</code>. Everything is the same, except that we can use these methods while writing in a file. <code>seekp()</code> stands for "seek put", and <code>tellp()</code> for "tell put". <code>put</code> is a pointer used for writing inside of the file. <code>ios::beg</code> is a default second argument for <code>seekp()</code>. These two commands won't be available with <code>ifstream</code>.</p>
+                                    <p>We can do the same thing but in the writing mode. For this, we use <code>seekp()</code> and <code>tellp()</code>. Everything is the same, except that we can use these methods while writing in a file. <code>seekp()</code> stands for "seek put", and <code>tellp()</code> for "tell put". <code>put</code> is a pointer used for writing inside of the file. <code>ios::beg</code> is a default second argument for <code>seekp()</code>. These two methods won't be available with <code>ifstream</code>.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">if</span>(file.<span class="command-c">is_open</span>())
@@ -251,7 +251,7 @@ file.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <
                                     
                                     <h2><a id="getline-get-and-ignore"><code style="color: #f5d67b;">getline()</code>, <code style="color: #f5d67b;">get()</code>, and <code style="color: #f5d67b;">ignore()</code></a></h2>
                                     
-                                    <p><code>getline()</code> will read from a file until it encounters a delimiter (by default - the enter sign) or exceeds a given range of characters. It also deletes the delimiter after it meets it, so while reading from the file the next time, it won't stop on the first character. <code>get()</code> works on the same principles, except it doesn't delete the delimiter. Both take three arguments: where to save the text, how many characters to read, and the delimiter (a character that, if encountered, stops the execution). With <code>file.get()</code>, we don't have to give any arguments, but then we must use the <code>ignore()</code> command after it. It takes two arguments: how many characters to ignore and a delimiter.</p>
+                                    <p><code>getline()</code> will read from a file until it encounters a delimiter (by default - the enter sign) or exceeds a given range of characters. It also deletes the delimiter after it meets it, so while reading from the file the next time, it won't stop on the first character. <code>get()</code> works on the same principles, except it doesn't delete the delimiter. Both take three arguments: where to save the text, how many characters to read, and the delimiter (a character that, if encountered, stops the execution). With <code>file.get()</code>, we don't have to give any arguments, but then we must use the <code>ignore()</code> method after it. It takes two arguments: how many characters to ignore and a delimiter.</p>
                                     
                                     <p>Open the file in these modes: <code>ios::in | ios::binary</code>, and write the examples from below inside the <code>if(file.is_open())</code> conditional statement. These examples won't work when put together because of the pointer position. Remember to close the file. In the test <code>.txt</code> file, write these three lines:</p>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -379,7 +379,7 @@ file.<span class="command-c">get</span>(temp, 50)<span class="sign">;</span>
                                     
                                     <h2><a id="put"><code style="color: #f5d67b;">put()</code></a></h2>
                                     
-                                    <p>The <code>put()</code> command puts something inside a stream, e.g., <code>cout.put('a');</code> puts <code>'a'</code> inside the output stream.</p>
+                                    <p>The <code>put()</code> method puts something inside a stream, e.g., <code>cout.put('a');</code> puts <code>'a'</code> inside the output stream.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">string</span> text <span class="sign">=</span> <span class="text">"text"</span><span class="sign">;</span>
@@ -407,7 +407,7 @@ file.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <
                                     
                                     <h2><a id="peek"><code style="color: #f5d67b;">peek()</code></a></h2>
                                     
-                                    <p>The <code>peek()</code> command peeks at the first character. In the example below, based on the first character from the input stream, we determine if it is a string or a number (of course, it could be wrong, e.g., "5d" would be considered a number). It can be applied while reading from text files.</p>
+                                    <p>The <code>peek()</code> method peeks at the first character. In the example below, based on the first character from the input stream, we determine if it is a string or a number (of course, it could be wrong, e.g., "5d" would be considered a number). It can be applied while reading from text files.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">char</span> c<span class="sign">;</span>
@@ -429,7 +429,7 @@ c <span class="sign">=</span> <span class="command-c">cin</span>.<span class="co
                                     
                                     <h2><a id="putback"><code style="color: #f5d67b;">putback()</code></a></h2>
                                     
-                                    <p>The <code>get()</code> command takes a character out of the stream, so it isn't there anymore. To put it back, we use the <code>putback()</code> command. It can be applied while reading from text files.</p>
+                                    <p>The <code>get()</code> method takes a character out of the stream, so it isn't there anymore. To put it back, we use the <code>putback()</code> method. It can be applied while reading from text files.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">char</span> c<span class="sign">;</span>
@@ -452,7 +452,7 @@ c <span class="sign">=</span> <span class="command-c">cin</span>.<span class="co
                                     
                                     <h2><a id="write"><code style="color: #f5d67b;">write()</code></a></h2>
                                     
-                                    <p>The <code>write()</code> command writes to a file. It differs from the previously used <code>file &lt;&lt; "Text";</code> because it writes exactly the number of bytes we tell it to (if the given number of bytes is longer than the given string, it will write some memory addresses). In the example below, we have to subtract one from the size of our text because we don't want the <code>NULL</code> at the end to be written.</p>
+                                    <p>The <code>write()</code> method writes to a file. It differs from the previously used <code>file &lt;&lt; "Text";</code> because it writes exactly the number of bytes we tell it to (if the given number of bytes is longer than the given string, it will write some memory addresses). In the example below, we have to subtract one from the size of our text because we don't want the <code>NULL</code> at the end to be written.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">fstream</span> file<span class="sign">;</span>

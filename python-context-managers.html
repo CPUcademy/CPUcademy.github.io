@@ -87,7 +87,7 @@
                                 <div class="card-body">
                                     <p>Context managers are a powerful feature for managing resources such as files, database connections, and network sockets.</p>
 
-                                    <p>A problem that can be solved with a context manager arises if, while reading a file, the program crashes and doesn't reach the <code>close()</code> command. This could lead to file corruption. Of course, we could solve it with <code>try</code>, <code>except</code>, and <code>finally</code>, but a better way would be to use the <code>with</code> keyword. It uses a context manager under the hood, which means it already has the "<code>try</code>, <code>except</code>, <code>finally</code>" structure implemented (files will be properly closed even if when reading from them, the program crashes). We can create custom context managers to define what exactly happens while entering the file and during the closeup (error handling). We can do so using the <code>__enter__()</code> and <code>__exit__()</code> dunder methods and the <code>with</code> instruction.</p>
+                                    <p>A problem that can be solved with a context manager arises if, while reading a file, the program crashes and doesn't reach the <code>close()</code> method. This could lead to file corruption. Of course, we could solve it with <code>try</code>, <code>except</code>, and <code>finally</code>, but a better way would be to use the <code>with</code> keyword. It uses a context manager under the hood, which means it already has the "<code>try</code>, <code>except</code>, <code>finally</code>" structure implemented (files will be properly closed even if when reading from them, the program crashes). We can create custom context managers to define what exactly happens while entering the file and during the closeup (error handling). We can do so using the <code>__enter__()</code> and <code>__exit__()</code> dunder methods and the <code>with</code> instruction.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> File:
@@ -109,7 +109,7 @@
     <span class="function">raise Exception</span>()
                                     </code></pre>
 
-                                    <p>The <code>@contextmanager</code> decorator from the <code>contextlib</code> library provides an easier and cleaner way to create a context manager using a generator.</p>
+                                    <p>The <code>@contextmanager</code> decorator from the <code>contextlib</code> module provides an easier and cleaner way to create a context manager using a generator.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> contextlib <span class="command">import</span> contextmanager

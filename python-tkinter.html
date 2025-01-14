@@ -85,19 +85,528 @@
                                     <h5 class="m-0 font-weight-bold">Tkinter</h5>
                                 </div>
                                 <div class="card-body">
-                                    <ol>
-                                        <li><a href="python-tkinter-basics.html" target="_blank" class="link" style="color: blue;">Tkinter basics</a></li>
-                                        <li><a href="python-tkinter-displaying-text.html" target="_blank" class="link" style="color: blue;">Displaying text</a></li>
-                                        <li><a href="python-tkinter-buttons.html" target="_blank" class="link" style="color: blue;">Buttons</a></li>
-                                        <li><a href="python-tkinter-input.html" target="_blank" class="link" style="color: blue;">Input</a></li>
-                                        <li><a href="python-tkinter-frames.html" target="_blank" class="link" style="color: blue;">Frames</a></li>
-                                        <li><a href="python-tkinter-error-messages.html" target="_blank" class="link" style="color: blue;">Error messages</a></li>
-                                        <li><a href="python-tkinter-useful-widgets-pt-1.html" target="_blank" class="link" style="color: blue;">Useful widgets pt. 1</a></li>
-                                        <li><a href="python-tkinter-useful-widgets-pt-2.html" target="_blank" class="link" style="color: blue;">Useful widgets pt. 2</a></li>
-                                        <li><a href="python-tkinter-important-functions.html" target="_blank" class="link" style="color: blue;">Important functions</a></li>
-                                        <li><a href="python-tkinter-other-widgets.html" target="_blank" class="link" style="color: blue;">Other widgets</a></li>
-                                        <li><a href="python-tkinter-customtkinter.html" target="_blank" class="link" style="color: blue;">Customtkinter - aesthetic version</a></li>
-                                    </ol> 
+                                    <p>The <code>tkinter</code> module is used to create simple GUI applications.</p>
+
+                                    <h2>Creating a basic window</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>() <span class="comment"># creating a window</span>
+root.<span class="command">title</span>(<span class="text">"Window"</span>) <span class="comment"># setting the window's title</span>
+root.<span class="command">geometry</span>(<span class="text">"300x200+100+200"</span>) <span class="comment"># setting the window's size (width x height), and where it will appear (x, y)</span>
+root.<span class="command">resizable</span>(<span class="function">False</span>, <span class="function">False</span>) <span class="comment"># if the window's width (first value) and height (second value) are resizable</span>
+root.<span class="command">configure</span>(<span class="command">bg</span><span class="sign">=</span><span class="text">"lightblue"</span>) <span class="comment"># setting the window's background color</span>
+<span class="comment"># root.iconbitmap("app_icon.ico") # setting the window's icon</span>
+
+<span class="function">def</span> on_close():
+    <span class="command">print</span>(<span class="text">"The window has closed."</span>)
+    root.<span class="command">destroy</span>() <span class="comment"># closing the window</span>
+root.<span class="command">protocol</span>(<span class="text">"WM_DELETE_WINDOW"</span>, on_close) <span class="comment"># overriding the default behavior of the close button</span>
+
+root.<span class="command">after</span>(3000, root.<span class="command">destroy</span>) <span class="comment"># closing the window after 3 seconds</span>
+root.<span class="command">mainloop</span>() <span class="comment"># running the window</span>
+                                    </code></pre>
+
+                                    <h2>Displaying text</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+root.<span class="command">geometry</span>(<span class="text">"300x200"</span>)
+tk.<span class="function">Label</span></span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"CPUcademy"</span>).<span class="command">pack</span>() <span class="comment"># creating a label with the text "CPUcademy" and loading it into the window named root</span>
+
+text <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Python"</span>, <span class="command">width</span><span class="sign">=</span>10, <span class="command">height</span><span class="sign">=</span>4) <span class="comment"># (width of 10 characters, height of 4 lines)</span>
+text.<span class="command">pack</span>()
+
+tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Java"</span>).<span class="command">pack</span>(<span class="command">side</span><span class="sign">=</span>tk.<span class="function">LEFT</span>) <span class="comment"># setting the position of the label (could also be also: tk.RIGHT, tk.TOP, tk.BOTTOM)</span>
+
+myLabel <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Tkinter"</span>, <span class="command">bg</span><span class="sign">=</span><span class="text">"red"</span>, <span class="command">fg</span><span class="sign">=</span><span class="text">"white"</span>, <span class="command">font</span><span class="sign">=</span>(<span class="text">"Arial"</span>, 20)) <span class="comment"># (background color red, font color whit, font Arial with size 20)</span>
+myLabel.<span class="command">pack</span>()
+myLabel.<span class="command">place</span>(<span class="command">x</span><span class="sign">=</span>100, <span class="command">y</span><span class="sign">=</span>100) <span class="comment"># placing the label at an absolute position</span>
+
+myLabel <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Tkinter 2"</span>, <span class="command">anchor</span><span class="sign">=</span><span class="text">"e"</span>, <span class="command">width</span><span class="sign">=</span>10, <span class="command">bg</span><span class="sign">=</span><span class="text">"blue"</span>) <span class="comment"># anchor to the right (east) side of the Label's space</span>
+myLabel.<span class="command">pack</span>()
+myLabel.<span class="command">place</span>(<span class="command">relx</span><span class="sign">=</span>0.5, <span class="command">rely</span><span class="sign">=</span>0.5) <span class="comment"># placing a widget at a position relative to the window</span>
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <span style="color: red;">USING PLACE WITHOUT PACK</span>
+
+                                    <p>Most arguments like width are also applicable in other widgets.</p>
+
+                                    <h2>Buttons</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+<span class="function">def</span> buttonClicked():
+    <span class="command">print</span>(<span class="text">"CPUcademy"</span>)
+
+myButton <span class="sign">=</span> tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Button"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked) <span class="comment"># we write the function name without parentheses because we want to get the function object and not to call it</span>
+myButton.<span class="command">pack</span>()
+
+<span class="comment"># Changing the status of a button (or any other widget)</span>
+tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Button 2"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked, <span class="command">state</span><span class="sign">=</span><span class="text">"active"</span>).<span class="command">pack</span>() <span class="comment"># the button is fully functional (the default state)</span>
+tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Button 2"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked, <span class="command">state</span><span class="sign">=</span><span class="text">"normal"</span>).<span class="command">pack</span>() <span class="comment"># the button is still functional, but the visual appearance is altered</span>
+tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Button 2"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked, <span class="command">state</span><span class="sign">=</span><span class="text">"disabled"</span>).<span class="command">pack</span>() <span class="comment"># the button is disabled</span>
+
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h4>Checkboxes and radiobuttons (handing functions with arguments)</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+<span class="function">def</span> buttonClicked(text):
+    l <span class="sign">=</span> [0, 1]
+    <span class="function">if</span> text <span class="function">in</span> l:
+        <span class="function">global</span> ifSelected
+        text <span class="sign">=</span> l[1] <span class="function">if</span> text <span class="sign">==</span> l[0] <span class="function">else</span> l[0]
+        ifSelected <span class="sign">=</span> text
+    <span class="command">print</span>(text)
+
+ifSelected <span class="sign">=</span> 0
+myCheckbutton <span class="sign">=</span> tk.<span class="function">Checkbutton</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Checkbutton"</span>, <span class="command">command</span><span class="sign">=</span><span class="function">lambda</span>: buttonClicked(ifSelected))
+myCheckbutton.<span class="command">pack</span>(<span class="command">padx</span><span class="sign">=</span>20, <span class="command">pady</span><span class="sign">=</span>20) <span class="comment"># padx - padding on the x-axis, pady - padding on the y-axis (from both sides)</span>
+
+v <span class="sign">=</span> tk.<span class="function">IntVar</span>() <span class="comment"># a variable to store the value of the selected radiobutton</span>
+myRadiobutton1 <span class="sign">=</span> tk.<span class="function">Radiobutton</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Python"</span>, <span class="command">variable</span><span class="sign">=</span>v, <span class="command">value</span><span class="sign">=</span>1, <span class="command">command</span><span class="sign">=</span><span class="function">lambda</span>: buttonClicked(<span class="text">"Python"</span>))
+myRadiobutton1.<span class="command">pack</span>(<span class="command">anchor</span><span class="sign">=</span><span class="text">"w"</span>, <span class="command">padx</span><span class="sign">=</span>20)
+myRadiobutton2 <span class="sign">=</span> tk.<span class="function">Radiobutton</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Java"</span>, <span class="command">variable</span><span class="sign">=</span>v, <span class="command">value</span><span class="sign">=</span>2, <span class="command">command</span><span class="sign">=</span><span class="function">lambda</span>: buttonClicked(<span class="text">"Java"</span>))
+myRadiobutton2.<span class="command">pack</span>(<span class="command">anchor</span><span class="sign">=</span><span class="text">"w"</span>, <span class="command">padx</span><span class="sign">=</span>20)
+myRadiobutton3 <span class="sign">=</span> tk.<span class="function">Radiobutton</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"C++"</span>, <span class="command">variable</span><span class="sign">=</span>v, <span class="command">value</span><span class="sign">=</span>3, <span class="command">command</span><span class="sign">=</span><span class="function">lambda</span>: buttonClicked(<span class="text">"C++"</span>))
+myRadiobutton3.<span class="command">pack</span>(<span class="command">anchor</span><span class="sign">=</span><span class="text">"w"</span>, <span class="command">padx</span><span class="sign">=</span>20)
+
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h2>Input</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+<span class="function">def</span> myGet():
+    x <span class="sign">=</span> <span class="command">str</span>(myEntry.<span class="command">get</span>())
+    <span class="command">print</span>(x)
+
+defaultText <span class="sign">=</span> tk.<span class="function">StringVar</span>()    
+defaultText.<span class="command">set</span>(<span class="text">"Write something..."</span>) <span class="comment"># setting the default text in the Entry widget</span>
+
+myEntry <span class="sign">=</span> tk.<span class="function">Entry</span>(root, <span class="command">textvariable</span><span class="sign">=</span>defaultText)
+myEntry.<span class="command">pack</span>()
+tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Confirm"</span>, <span class="command">command</span><span class="sign">=</span>myGet).<span class="command">pack</span>()
+
+myPasswordEntry <span class="sign">=</span> tk.<span class="function">Entry</span>(root, <span class="command">show</span><span class="sign">=</span><span class="text">"*"</span>) <span class="comment"># hiding the text in the Entry widget</span>
+myPasswordEntry.<span class="command">pack</span>()
+
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <p>The example below creates a placeholder (a text that will disappear when the user enters it) instead of a default value.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+<span class="function">def</span> on_focus_in(event):
+    <span class="function">if</span> defaultText.myGet() <span class="sign">==</span> <span class="text">"Write something..."</span>:
+        defaultText.<span class="command">set</span>(<span class="text">""</span>)
+        
+<span class="function">def</span> on_focus_out(event):
+    <span class="function">if</span> defaultText.myGet() <span class="sign">==</span> <span class="text">""</span>:
+        defaultText.<span class="command">set</span>(<span class="text">"Write something..."</span>)
+
+<span class="function">def</span> myGet():
+    x <span class="sign">=</span> <span class="command">str</span>(myEntry.<span class="command">get</span>())
+    <span class="command">print</span>(x)
+
+defaultText <span class="sign">=</span> tk.<span class="function">StringVar</span>()
+defaultText.<span class="command">set</span>(<span class="text">"Write something..."</span>)
+
+myEntry <span class="sign">=</span> tk.<span class="function">Entry</span>(root, <span class="command">textvariable</span><span class="sign">=</span>defaultText)
+myEntry.<span class="command">pack</span>()
+tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Confirm"</span>, <span class="command">command</span><span class="sign">=</span>myGet).<span class="command">pack</span>()
+myEntry.<span class="command">bind</span>(<span class="text">"&lt;FocusIn&gt;"</span>, on_focus_in)
+myEntry.<span class="command">bind</span>(<span class="text">"&lt;FocusOut&gt;"</span>, on_focus_out)
+
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h2>Grid</h2>
+                                    
+                                    <p>We can create a grid inside the window in order to easily place widgets in it.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+myLabel1 <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"First:"</span>)
+myLabel2 <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Second:"</span>)
+
+myLabel1.<span class="command">grid</span>(<span class="command">row</span><span class="sign">=</span>0, <span class="command">column</span><span class="sign">=</span>0, <span class="command">pady</span><span class="sign">=</span>2)
+myLabel2.<span class="command">grid</span>(<span class="command">row</span><span class="sign">=</span>1, <span class="command">column</span><span class="sign">=</span>0, <span class="command">pady</span><span class="sign">=</span>2)
+
+myEntry1 <span class="sign">=</span> tk.<span class="function">Entry</span>(root)
+myEntry2 <span class="sign">=</span> tk.<span class="function">Entry</span>(root)
+
+myEntry1.<span class="command">grid</span>(<span class="command">row</span><span class="sign">=</span>0, <span class="command">column</span><span class="sign">=</span>1, <span class="command">pady</span><span class="sign">=</span>2)
+myEntry2.<span class="command">grid</span>(<span class="command">row</span><span class="sign">=</span>1, <span class="command">column</span><span class="sign">=</span>1, <span class="command">pady</span><span class="sign">=</span>2)
+
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h2>Frames</h2>
+
+                                    <p>A frame is a container in which we can place various widgets and then change the position of the entire frame relative to the window.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+myFrame <span class="sign">=</span> tk.<span class="function">Frame</span>(root)
+myFrame.<span class="command">pack</span>()
+
+tk.<span class="function">Label</span>(myFrame, <span class="command">text</span><span class="sign">=</span><span class="text">"First:"</span>).<span class="command">pack</span>()
+myEntry <span class="sign">=</span> tk.<span class="function">Entry</span>(myFrame)
+myEntry.<span class="command">pack</span>()
+
+tk.<span class="function">Label</span>(myFrame, <span class="command">text</span><span class="sign">=</span><span class="text">"Second:"</span>).<span class="command">pack</span>()
+myEntry2 <span class="sign">=</span> tk.<span class="function">Entry</span>(myFrame)
+myEntry2.<span class="command">pack</span>()
+
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h2>Messagebox</h2>
+
+                                    <p>A messagebox is a window with a notification like: "Do you want to continue?".</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">       
+<span class="command">from</span> tkinter <span class="command">import</span> messagebox
+
+messagebox.<span class="command">showinfo</span>(<span class="text">"show info"</span>, <span class="text">"Information"</span>)
+messagebox.<span class="command">showwarning</span>(<span class="text">"show warning"</span>, <span class="text">"Warning"</span>)
+messagebox.<span class="command">showerror</span>(<span class="text">"show error"</span>, <span class="text">"Error"</span>)
+messagebox.<span class="command">askquestion</span>(<span class="text">"ask question"</span>, <span class="text">"Are you sure?"</span>)
+messagebox.<span class="command">askokcancel</span>(<span class="text">"ask ok cancel"</span>, <span class="text">"Do you want to continue?"</span>)
+messagebox.<span class="command">askyesno</span>(<span class="text">"ask yes no"</span>, <span class="text">"Find the value?"</span>)
+messagebox.<span class="command">askretrycancel</span>(<span class="text">"ask retry cancel"</span>, <span class="text">"Try again?"</span>)
+
+<span class="comment"># Accessing the selected value</span>
+x <span class="sign">=</span> messagebox.<span class="command">askretrycancel</span>(<span class="text">"ask retry cancel"</span>, <span class="text">"Try again?"</span>)
+<span class="function">if</span> x:
+    <span class="command">print</span>(<span class="text">"Yes"</span>)
+<span class="function">else</span>:
+    <span class="command">print</span>(<span class="text">"No"</span>)
+                                    </code></pre>
+
+                                    <h2>Toplevel</h2>
+
+                                    <p>In Tkinter, a top-level window is a separate window that is not the main application window. It is used to create additional windows (e.g., dialogs, pop-ups). The main window is typically created with <code>Tk()</code>, while additional windows are created using the <code>Toplevel()</code> widget. It features the same attributes as <code>Tk()</code> (<code>title</code>, <code>geometry</code>, etc.)</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+<span class="function">def</span> open_window():
+    top <span class="sign">=</span> tk.<span class="function">Toplevel</span>(root)
+    tk.<span class="function">Label</span>(top, <span class="command">text</span><span class="sign">=</span><span class="text">"This is a top-level window."</span>).<span class="command">pack</span>()
+
+tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Open a new window"</span>, <span class="command">command</span><span class="sign">=</span>open_window).<span class="command">pack</span>()
+
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h2>Other widgets</h2>
+
+                                    <h4>Text</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+<span class="function">def</span> myGet():
+    values <span class="sign">=</span> []
+    text <span class="sign">=</span> <span class="command">str</span>(myText<span class="command">.get</span>(1.0, tk.<span class="function">END</span>))
+    latestEnter <span class="sign">=</span> 0
+    <span class="function">for</span> x, y <span class="function">in</span> <span class="command">enumerate</span>(text):
+        <span class="function">if</span> y <span class="sign">==</span> <span class="text">"\n"</span>:
+            toAppend <span class="sign">=</span> text[latestEnter:x]
+            <span class="function">if</span> <span class="text">"\n"</span> <span class="function">in</span> toAppend:
+                toAppend <span class="sign">=</span> toAppend.<span class="command">replace</span>(<span class="text">"\n"</span>, <span class="text">""</span>)
+            <span class="function">else</span>:
+                toAppend <span class="sign">=</span> text[:x]
+            values.<span class="command">append</span>(toAppend)
+            latestEnter <span class="sign">=</span> x
+    <span class="command">print</span>(values)
+
+myText <span class="sign">=</span> tk.<span class="function">Text</span>(root, <span class="command">height</span><span class="sign">=</span>5, <span class="command">width</span><span class="sign">=</span>20, <span class="command">wrap</span><span class="sign">=</span>tk.<span class="function">WORD</span>)
+myText.<span class="command">pack</span>()
+tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Confirm"</span>, <span class="command">command</span><span class="sign">=</span>myGet).<span class="command">pack</span>()
+
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h4>Images</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+img <span class="sign">=</span> tk.<span class="function">PhotoImage</span>(<span class="command">file</span><span class="sign">=</span><span class="text">"img.png"</span>)
+tk.<span class="function">Label</span>(root, <span class="command">image</span><span class="sign">=</span>img).<span class="command">pack</span>() <span class="comment"># this would also work for a button</span>
+
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h4>Colorchooser</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+<span class="command">from</span> tkinter <span class="command">import</span> colorchooser
+
+<span class="function">def</span> choose_color():
+    color_code <span class="sign">=</span> colorchooser.<span class="command">askcolor</span>(<span class="command">title</span><span class="sign">=</span><span class="text">"Choose a color"</span>)[1]
+    <span class="function">if</span> color_code:
+        root.<span class="command">config</span>(<span class="command">bg</span><span class="sign">=</span>color_code)
+
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+color_button <span class="sign">=</span> tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Choose a color"</span>, <span class="command">command</span><span class="sign">=</span>choose_color)
+color_button.<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>20)
+
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h4>Tabs</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+<span class="command">from</span> tkinter <span class="command">import</span> ttk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+notebook <span class="sign">=</span> ttk.<span class="function">Notebook</span>(root)
+notebook.<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>10, <span class="command">expand</span><span class="sign">=</span><span class="function">True</span>)
+
+tab1 <span class="sign">=</span> ttk.<span class="function">Frame</span>(notebook)
+tab2 <span class="sign">=</span> ttk.<span class="function">Frame</span>(notebook)
+
+notebook.<span class="command">add</span>(tab1, <span class="command">text</span><span class="sign">=</span><span class="text">"Tab 1"</span>)
+notebook.<span class="command">add</span>(tab2, <span class="command">text</span><span class="sign">=</span><span class="text">"Tab 2"</span>)
+
+tk.<span class="function">Label</span>(tab1, <span class="command">text</span><span class="sign">=</span><span class="text">"This is Tab 1"</span>).<span class="command">pack</span>(<span class="command">padx</span><span class="sign">=</span>10, <span class="command">pady</span><span class="sign">=</span>10)
+tk.<span class="function">Label</span>(tab2, <span class="command">text</span><span class="sign">=</span><span class="text">"This is Tab 2"</span>).<span class="command">pack</span>(<span class="command">padx</span><span class="sign">=</span>10, <span class="command">pady</span><span class="sign">=</span>10)
+
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h4>Progressbar</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+<span class="command">from</span> tkinter <span class="command">import</span> ttk
+<span class="command">import</span> time
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+<span class="function">def</span> start_progress():
+    <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(101):
+        progress_bar[<span class="text">"value"</span>] <span class="sign">=</span> i <span class="comment"># setting the progress bar's value</span>
+        root.<span class="command">update_idletasks</span>() <span class="comment"># updating the GUI</span>
+        time.<span class="command">sleep</span>(0.05) <span class="comment"># simulating work</span>
+
+progress_bar <span class="sign">=</span> ttk.<span class="function">Progressbar</span>(root, <span class="command">length</span><span class="sign">=</span>300, <span class="command">mode</span><span class="sign">=</span><span class="text">"determinate"</span>, <span class="command">maximum</span><span class="sign">=</span>100) <span class="comment"># try also: mode="indeterminate"</span>
+progress_bar.<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>20)
+tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Start"</span>, <span class="command">command</span><span class="sign">=</span>start_progress).<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>10)
+
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h4>Treeview</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+<span class="command">from</span> tkinter <span class="command">import</span> ttk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+<span class="function">def</span> on_select(event):
+    selected_item <span class="sign">=</span> treeview.<span class="command">selection</span>()[0] <span class="comment"># getting the selected item</span>
+    <span class="command">print</span>(<span class="text">f"Selected item: {treeview.item(selected_item)['text']}"</span>)
+
+treeview <span class="sign">=</span> ttk.<span class="function">Treeview</span>(root)
+treeview.<span class="command">pack</span>(<span class="command">padx</span><span class="sign">=</span>20, <span class="command">pady</span><span class="sign">=</span>20)
+
+<span class="comment"># Defining the columns (treeview has an implicit column 0)</span>
+treeview[<span class="text">"columns"</span>] <span class="sign">=</span> (<span class="text">"Size"</span>, <span class="text">"Type"</span>)
+
+<span class="comment"># Configuring the columns</span>
+treeview.<span class="command">column</span>(<span class="text">"#0"</span>, <span class="command">width</span><span class="sign">=</span>150, <span class="command">minwidth</span><span class="sign">=</span>150, <span class="command">anchor</span><span class="sign">=</span><span class="text">"w"</span>)
+treeview.<span class="command">column</span>(<span class="text">"Size"</span>, <span class="command">width</span><span class="sign">=</span>100, <span class="command">minwidth</span><span class="sign">=</span>100, <span class="command">anchor</span><span class="sign">=</span><span class="text">"e"</span>)
+treeview.<span class="command">column</span>(<span class="text">"Type"</span>, <span class="command">width</span><span class="sign">=</span>100, <span class="command">minwidth</span><span class="sign">=</span>100, <span class="command">anchor</span><span class="sign">=</span><span class="text">"w"</span>)
+
+<span class="comment"># Defining the headings (titles for the columns)</span>
+treeview.<span class="command">heading</span>(<span class="text">"#0"</span>, <span class="command">text</span><span class="sign">=</span><span class="text">"Name"</span>, <span class="command">anchor</span><span class="sign">=</span><span class="text">"w"</span>)
+treeview.<span class="command">heading</span>(<span class="text">"Size"</span>, <span class="command">text</span><span class="sign">=</span><span class="text">"Size"</span>, <span class="command">anchor</span><span class="sign">=</span><span class="text">"e"</span>)
+treeview.<span class="command">heading</span>(<span class="text">"Type"</span>, <span class="command">text</span><span class="sign">=</span><span class="text">"Type"</span>, <span class="command">anchor</span><span class="sign">=</span><span class="text">"w"</span>)
+
+<span class="comment"># Adding data (parent nodes and child nodes)</span>
+root_node <span class="sign">=</span> treeview.<span class="command">insert</span>(<span class="text">""</span>, <span class="text">"end"</span>, <span class="command">text</span><span class="sign">=</span><span class="text">"Root Folder"</span>, <span class="command">values</span><span class="sign">=</span>(<span class="text">""</span>, <span class="text">"Folder"</span>))
+treeview.<span class="command">insert</span>(root_node, <span class="text">"end"</span>, <span class="command">text</span><span class="sign">=</span><span class="text">"File1.txt"</span>, <span class="command">values</span><span class="sign">=</span>(<span class="text">"15KB"</span>, <span class="text">"File"</span>))
+treeview.<span class="command">insert</span>(root_node, <span class="text">"end"</span>, <span class="command">text</span><span class="sign">=</span><span class="text">"File2.txt"</span>, <span class="command">values</span><span class="sign">=</span>(<span class="text">"25KB"</span>, <span class="text">"File"</span>))
+
+folder_node <span class="sign">=</span> treeview.<span class="command">insert</span>(<span class="text">""</span>, <span class="text">"end"</span>, <span class="command">text</span><span class="sign">=</span><span class="text">"Another Folder"</span>, <span class="command">values</span><span class="sign">=</span>(<span class="text">""</span>, <span class="text">"Folder"</span>))
+treeview.<span class="command">insert</span>(folder_node, <span class="text">"end"</span>, <span class="command">text</span><span class="sign">=</span><span class="text">"File3.txt"</span>, <span class="command">values</span><span class="sign">=</span>(<span class="text">"30KB"</span>, <span class="text">"File"</span>))
+
+treeview.<span class="command">bind</span>(<span class="text">"&lt;&lt;TreeviewSelect&gt;&gt;"</span>, on_select)
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h4>Spinbox</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+<span class="function">def</span> show_value():
+    <span class="command">print</span>(<span class="text">f"Selected value: {spinbox.get()}"</span>)
+
+spinbox <span class="sign">=</span> tk.<span class="function">Spinbox</span>(root, <span class="command">from_</span><span class="sign">=</span>0, <span class="command">to</span><span class="sign">=</span>10)
+spinbox.<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>20)
+tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Show value"</span>, <span class="command">command</span><span class="sign">=</span>show_value).<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>10)
+
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h4>Scrollbar and listbox</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+myScrollbar <span class="sign">=</span> tk.<span class="function">Scrollbar</span>(root)
+myScrollbar.<span class="command">pack</span>(<span class="command">side</span><span class="sign">=</span>tk.<span class="function">RIGHT</span>, <span class="command">fill</span><span class="sign">=</span>tk.<span class="function">Y</span>)
+
+myListbox <span class="sign">=</span> tk.<span class="function">Listbox</span>(root, <span class="command">yscrollcommand</span><span class="sign">=</span>myScrollbar.<span class="command">set</span>) <span class="comment"># creating a listbox widget with a scrollbar</span>
+
+items <span class="sign">=</span> [<span class="text">"a"</span>, <span class="text">"b"</span>, <span class="text">"c"</span>, <span class="text">"d"</span>, <span class="text">"e"</span>, <span class="text">"f"</span>, <span class="text">"g"</span>, <span class="text">"h"</span>, <span class="text">"i"</span>, <span class="text">"j"</span>, <span class="text">"k"</span>, <span class="text">"l"</span>, <span class="text">"m"</span>, <span class="text">"n"</span>, <span class="text">"o"</span>, <span class="text">"p"</span>, <span class="text">"r"</span>, <span class="text">"s"</span>, <span class="text">"t"</span>, <span class="text">"u"</span>, <span class="text">"w"</span>, <span class="text">"y"</span>, <span class="text">"z"</span>]
+<span class="function">for</span> item <span class="function">in</span> items:
+    myListbox.<span class="command">insert</span>(tk.<span class="function">END</span>, item)
+
+myListbox.<span class="command">pack</span>(<span class="command">side</span><span class="sign">=</span>tk.<span class="function">LEFT</span>, <span class="command">fill</span><span class="sign">=</span>tk.<span class="function">BOTH</span>, <span class="command">expand</span><span class="sign">=</span><span class="function">True</span>)
+myScrollbar.<span class="command">config</span>(<span class="command">command</span><span class="sign">=</span>myListbox.<span class="command">yview</span>)
+
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h4>Scale</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+<span class="function">def</span> show_value(value):
+    <span class="command">print</span>(<span class="text">f"Selected value: {value}"</span>)
+
+scale <span class="sign">=</span> tk.<span class="function">Scale</span>(root, <span class="command">from_</span><span class="sign">=</span>0, <span class="command">to</span><span class="sign">=</span>100, <span class="command">orient</span><span class="sign">=</span>tk.<span class="function">HORIZONTAL</span>, <span class="command">command</span><span class="sign">=</span>show_value)
+scale.<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>20)
+
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h4>Filedialog</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+<span class="command">from</span> tkinter <span class="command">import</span> filedialog
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+<span class="function">def</span> open_file():
+    <span class="comment"># Opening a file dialog and getting the selected file's path</span>
+    file_path <span class="sign">=</span> filedialog.<span class="command">askopenfilename</span>(<span class="command">title</span><span class="sign">=</span><span class="text">"Open a File"</span>, <span class="command">filetypes</span><span class="sign">=</span>((<span class="text">"Text Files"</span>, <span class="text">"*.txt"</span>), (<span class="text">"All Files"</span>, <span class="text">"*.*"</span>)))
+    <span class="function">if</span> file_path:
+        <span class="function">with</span> <span class="command">open</span>(file_path, <span class="text">"r"</span>) <span class="function">as</span> file:
+            content <span class="sign">=</span> file.<span class="command">read</span>()
+            text_widget.<span class="command">delete</span>(1.0, tk.<span class="function">END</span>) <span class="comment"># clearing the existing content of the Text widget</span>
+            text_widget.<span class="command">insert</span>(tk.<span class="function">END</span>, content) <span class="comment"># inserting new content to the Text widget</span>
+
+<span class="function">def</span> save_file():
+    <span class="comment"># Opening a save file dialog and getting the selected file's path</span>
+    file_path <span class="sign">=</span> filedialog.<span class="command">asksaveasfilename</span>(<span class="command">title</span><span class="sign">=</span><span class="text">"Save a File"</span>, <span class="command">defaultextension</span><span class="sign">=</span><span class="text">".txt"</span>, <span class="command">filetypes</span><span class="sign">=</span>((<span class="text">"Text Files"</span>, <span class="text">"*.txt"</span>), (<span class="text">"All Files"</span>, <span class="text">"*.*"</span>)))
+    <span class="function">if</span> file_path:
+        content <span class="sign">=</span> text_widget.<span class="command">get</span>(1.0, tk.<span class="function">END</span>) <span class="comment"># getting the content from the Text widget</span>
+        <span class="function">with</span> <span class="command">open</span>(file_path, <span class="text">"w"</span>) <span class="function">as</span> file:
+            file.<span class="command">write</span>(content) <span class="comment"># saving the content of the Text widget to a file</span>
+
+text_widget <span class="sign">=</span> tk.<span class="function">Text</span>(root, <span class="command">wrap</span><span class="sign">=</span>tk.<span class="function">WORD</span>, <span class="command">width</span><span class="sign">=</span>50, <span class="command">height</span><span class="sign">=</span>15)
+text_widget.<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>10)
+
+tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Open File"</span>, <span class="command">command</span><span class="sign">=</span>open_file).<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>5)
+tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Save File"</span>, <span class="command">command</span><span class="sign">=</span>save_file).<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>5)
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h2>Menu</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+<span class="function">def</span> buttonClicked():
+    <span class="command">print</span>(<span class="text">"CPUcademy"</span>)
+
+menu <span class="sign">=</span> tk.<span class="function">Menu</span>(root, <span class="command">tearoff</span><span class="sign">=</span>0)
+root.<span class="command">config</span>(<span class="command">menu</span><span class="sign">=</span>menu)
+filemenu <span class="sign">=</span> tk.<span class="function">Menu</span>(menu)
+
+menu.<span class="command">add_cascade</span>(<span class="command">label</span><span class="sign">=</span><span class="text">"File"</span>, <span class="command">menu</span><span class="sign">=</span>filemenu)
+filemenu.<span class="command">add_command</span>(<span class="command">label</span><span class="sign">=</span><span class="text">"Open"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked)
+filemenu.<span class="command">add_separator</span>()
+filemenu.<span class="command">add_command</span>(label</span><span class="sign">=</span><span class="text">"Save"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked)
+
+menu.<span class="command">add_cascade</span>(<span class="command">label</span><span class="sign">=</span><span class="text">"Settings"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked)
+
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h4>Right-click context menu</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> tkinter <span class="function">as</span> tk
+root <span class="sign">=</span> tk.<span class="function">Tk</span>()
+
+<span class="function">def</span> buttonClicked():
+    <span class="command">print</span>(<span class="text">"CPUcademy"</span>)
+
+<span class="function">def</span> show_menu(event):
+    menu.<span class="command">post</span>(event.<span class="command">x_root</span>, event.<span class="command">y_root</span>) <span class="comment"># displaying the menu on right-click</span>
+
+menu <span class="sign">=</span> tk.<span class="function">Menu</span>(root, <span class="command">tearoff</span><span class="sign">=</span>0)
+
+filemenu <span class="sign">=</span> tk.<span class="function">Menu</span>(menu, <span class="command">tearoff</span><span class="sign">=</span>0)
+filemenu.<span class="command">add_command</span>(<span class="command">label</span><span class="sign">=</span><span class="text">"Open"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked)
+filemenu.<span class="command">add_separator</span>()
+filemenu.<span class="command">add_command</span>(<span class="command">label</span><span class="sign">=</span><span class="text">"Save"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked)
+menu.<span class="command">add_cascade</span>(<span class="command">label</span><span class="sign">=</span><span class="text">"File"</span>, <span class="command">menu</span><span class="sign">=</span>filemenu)
+
+menu.<span class="command">add_command</span>(<span class="command">label</span><span class="sign">=</span><span class="text">"Settings"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked)
+
+root.<span class="command">bind</span>(<span class="text">"&lt;Button-3&gt;"</span>, show_menu)
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
+
+                                    <h2>CustomTkinter - aesthetic Tkinter</h2>
+
+                                    <p>CustomTkinter is a module based on Tkinter that provides pre-styled widgets to make your application look more modern and appealing. It works the same way as Tkinter but with a sleeker design. Once you have installed (<code>pip install customtkinter</code>) and imported CustomTkinter, the only change you need to make to your existing Tkinter code is to add the <code>CTk</code> prefix to the widgets you use (e.g., <code>CTkLabel</code>, <code>CTkButton</code>, etc.). You can find the GitHub repository of this module <a href="https://github.com/TomSchimansky/CustomTkinter" target="_blank" class="link">here</a>.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> customtkinter <span class="function">as</span> ctk
+root <span class="sign">=</span> ctk.<span class="function">CTk</span>()
+ctk.<span class="function">CTkLabel</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Hello World!"</span>).<span class="command">pack</span>()
+root.<span class="command">mainloop</span>()
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

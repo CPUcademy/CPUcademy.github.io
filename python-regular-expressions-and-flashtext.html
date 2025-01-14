@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Regular expressions</title>
+    <title>Regular expressions and FlashText</title>
 </head>
 
 <body id="page-top">
@@ -82,12 +82,12 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Regular expressions</h5>
+                                    <h5 class="m-0 font-weight-bold">Regular expressions and FlashText</h5>
                                 </div>
                                 <div class="card-body">  
-                                    <p>Regular expressions (regex) are a powerful tool for pattern matching and text manipulation. They allow us to define search patterns for strings, enabling complex string operations such as validation, searching, and replacing. Python provides the <code>re</code> library for this purpose.</p>
+                                    <p>Regular expressions (regex) are a powerful tool for pattern matching and text manipulation. They allow us to define search patterns for strings, enabling complex string operations such as validation, searching, and replacing. Python provides the <code>re</code> module for this purpose.</p>
                                         
-                                    <p>Use the <code>import re</code> command at the beginning of every example.</p>
+                                    <p>Use the <code>import re</code> statement at the beginning of every example.</p>
                                     
                                     <h4><code>search()</code> - finding a match in a string</h4>  
 
@@ -311,6 +311,22 @@ pattern <span class="sign">=</span> re.<span class="command">compile</span>(<spa
 match =</span> pattern.<span class="command">search</span>(<span class="text">"123-45-6789"</span>)
 <span class="function">if</span> match:  
     <span class="command">print</span>(<span class="text">"Verbose match found!"</span>)
+                                    </code></pre>
+
+                                    <h2>The <code>FlashText</code> module</h2>
+
+                                    <p>The flashtext module is used for fast keyword searching and replacing text. It is much faster than regular expressions, especially when handling large amounts of text or numerous keywords. This module has to be installed (<code>pip install flashtext</code>).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> flashtext <span class="command">import</span> KeywordProcessor
+
+keyword_processor <span class="sign">=</span> <span class="function">KeywordProcessor</span>()
+keyword_processor.<span class="command">add_keyword</span>(<span class="text">"Python"</span>)
+keyword_processor.<span class="command">add_keyword</span>(<span class="text">"programming"</span>)
+
+text <span class="sign">=</span> <span class="text">"Python is a popular programming language."</span>
+found_keywords <span class="sign">=</span> keyword_processor.<span class="command">extract_keywords</span>(text)
+<span class="command">print</span>(<span class="text">"Found keywords:"</span>, found_keywords)
                                     </code></pre>
                                 </div>
                             </div>

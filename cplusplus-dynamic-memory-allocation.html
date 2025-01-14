@@ -105,7 +105,7 @@
 <span class="sign">}</span>
                                     </code></pre>
                                     
-                                    <p>If we use the <code>delete</code> command on <code>pointer</code>, <code>p</code> will have the same address as previously <code>pointer</code> because it has been released. Because of this, after releasing memory, we have to immediately assign another value to it. This value can be <code>NULL</code>, which means an absence of a value. We don't have to do this if <code>delete</code> is the last command in braces (everything will disappear anyway). We do all this to prevent errors.</p>
+                                    <p>If we use the <code>delete</code> operator on <code>pointer</code>, <code>p</code> will have the same address as previously <code>pointer</code> because it has been released. Because of this, after releasing memory, we have to immediately assign another value to it. This value can be <code>NULL</code>, which means an absence of a value. We don't have to do this if <code>delete</code> is the last statement in braces (everything will disappear anyway). We do all this to prevent errors.</p>
                                     
                                     <p>When displaying the values of pointers, we don't always know if it won't be <code>NULL</code>, so it's safer to write: <code>if(pointer != NULL) cout &lt;&lt; *pointer &lt;&lt; endl;</code>.</p>
 
@@ -127,7 +127,7 @@ a[1] <span class="sign">=</span> 20<span class="sign">;</span>
 <span class="function">delete</span>[] a<span class="sign">;</span>
                                     </code></pre>
                                     
-                                    <p>We must be careful when incrementing pointers used for allocating dynamic memory because by doing so, we replace the first index. It is a mistake because the <code>delete</code> command clears a given number of addresses from the first index, which has now changed. To prevent this mistake, we should set a pointer as a constant and create a new pointer to manipulate the first one. Then, the array will always keep its original first address, and we will be able to release the memory correctly. All pointers used to dynamically allocate memory should be constants.</p>
+                                    <p>We must be careful when incrementing pointers used for allocating dynamic memory because by doing so, we replace the first index. It is a mistake because the <code>delete</code> operator clears a given number of addresses from the first index, which has now changed. To prevent this mistake, we should set a pointer as a constant and create a new pointer to manipulate the first one. Then, the array will always keep its original first address, and we will be able to release the memory correctly. All pointers used to dynamically allocate memory should be constants.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">char</span> <span class="sign">*</span> <span class="function">const</span> text <span class="sign">=</span> <span class="function">new char</span>[10]<span class="sign">;</span>
@@ -154,7 +154,7 @@ pointer <span class="sign">=</span> <span class="function">NULL</span><span clas
 <span class="function">string</span> text2 <span class="sign">=</span> <span class="text">"abcd\0efg"</span><span class="sign">;</span> <span class="comment">// a b c d</span>
                                     </code></pre>
                                     
-                                    <p>The <code>c_str()</code> command turns a string into a string of a type that appears in the C language (literally an array of chars).</p>
+                                    <p>The <code>c_str()</code> method turns a string into a string of a type that appears in the C language (literally an array of chars).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">string</span> text <span class="sign">=</span> <span class="text">"abcdefg"</span><span class="sign">;</span>

@@ -89,7 +89,7 @@
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Powering on an LED</span>
 
-<span class="command">import</span> RPi.GPIO <span class="command">as</span> gpio
+<span class="command">import</span> RPi.GPIO <span class="function">as</span> gpio
 <span class="command">import</span> time
 led_pin <span class="sign">=</span> 17 <span class="comment"># setting the GPIO number we used on the board</span>
 gpio.<span class="command">setmode</span>(gpio.BCM) <span class="comment"># setting the right numeration of the GPIO's</span>
@@ -107,7 +107,7 @@ gpio.<span class="command">cleanup</span>() <span class="comment"># resetting th
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Powering on an LED when a button is pressed</span>
 
-<span class="command">import</span> RPi.GPIO <span class="command">as</span> gpio
+<span class="command">import</span> RPi.GPIO <span class="function">as</span> gpio
 <span class="command">import</span> time
 led_pin <span class="sign">=</span> 17
 button_pin <span class="sign">=</span> 26
@@ -129,7 +129,7 @@ gpio.<span class="command">cleanup</span>()
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Powering on one LED after another when a button is pressed (and turning off the previous one) - three LEDs</span>
 
-<span class="command">import</span> RPi.GPIO <span class="command">as</span> gpio
+<span class="command">import</span> RPi.GPIO <span class="function">as</span> gpio
 <span class="command">import</span> time
 gpio.<span class="command">setmode</span>(gpio.BCM)
 pins <span class="sign">=</span> [17, 27, 22] <span class="comment"># three LEDs</span>
@@ -201,7 +201,7 @@ yag.send(to <span class="sign">=</span> <span class="text">"youremail@gmail.com"
 <span class="comment"># Creating a local server</span>
 
 <span class="command">from</span> flask <span class="command">import</span> Flask
-<span class="command">import</span> RPi.GPIO <span class="command">as</span> gpio
+<span class="command">import</span> RPi.GPIO <span class="function">as</span> gpio
 
 button_pin <span class="sign">=</span> 26
 gpio.<span class="command">setmode</span>(gpio.BCM)
@@ -232,7 +232,7 @@ app <span class="sign">=</span> <span class="function">Flask</span>(<span class=
 <span class="comment"># Turning the LEDs on and off based on the website subpage opened</span>
 
 <span class="command">from</span> flask <span class="command">import</span> Flask
-<span class="command">import</span> RPi.GPIO <span class="command">as</span> gpio
+<span class="command">import</span> RPi.GPIO <span class="function">as</span> gpio
 
 led_pins <span class="sign">=</span> [17, 22, 27]
 gpio.<span class="command">setmode</span>(gpio.BCM)
@@ -263,7 +263,7 @@ app.run(host <span class="sign">=</span> <span class="text">"0.0.0.0"</span>) <s
 gpio.<span class="command">cleanup</span>()                                        
                                     </code></pre>
 
-                                    <p>We should always place the code in the <code>try</code> block and the <code>gpio.cleanup()</code> command in the main and the <code>except</code> block. This way, we will prevent not executing this command by killing the program.</p>
+                                    <p>We should always place the code in the <code>try</code> block and the <code>gpio.cleanup()</code> method in the main and the <code>except</code> block. This way, we will prevent not executing this method by killing the program.</p>
                                 </div>
                             </div>
                         </div>

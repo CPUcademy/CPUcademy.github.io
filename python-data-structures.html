@@ -97,7 +97,7 @@
                                         <li>Boolean structure: <code>bool</code></li>
                                         <li>Null structure: <code>None</code></li>
                                         <li>Binary structures: <code><a href="#bytes" style="color: #f5d67b;" class="link">bytes</a></code>, <code><a href="#bytearray" style="color: #f5d67b;" class="link">bytearray</a></code></li>
-                                        <li>From the <code>collections</code> library: <code><a href="#deque" style="color: #f5d67b;" class="link">deque</a></code></li>
+                                        <li>From the <code>collections</code> module: <code><a href="#deque" style="color: #f5d67b;" class="link">deque</a></code></li>
                                     </ul>
                                     
                                     <p>In this lesson, we will also learn about <a href="#multidimensional-structures" class="link">multidimensional structures</a> and <a href="#type-casting" class="link">type casting</a>. Some of the names above are links to specific sections of this page.</p>
@@ -248,12 +248,12 @@ x.<span class="command">insert</span>(0, <span class="text">"e"</span>)
             
                                     <h4><code>pop()</code></h4>
                                         
-                                    <p>This command also works with sets and dictionaries.</p>
+                                    <p>This method also works with sets and dictionaries.</p>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Deleting an element chosen by index from a list (if no argument is given - the last element)</span>
 x <span class="sign">=</span> [<span class="text">"a"</span>, <span class="text">"b"</span>, <span class="text">"c"</span>, <span class="text">"d"</span>]
-x.<span class="command">pop</span>(2) <span class="comment"># if we assign this command to a variable, it will equal this deleted value (this command returns it)</span>
+x.<span class="command">pop</span>(2) <span class="comment"># if we assign this method to a variable, it will equal this deleted value (this method returns it)</span>
 <span class="command">print</span>(x)
                                     </code></pre>
             
@@ -277,7 +277,7 @@ x.<span class="command">extend</span>(y)
             
                                     <h4><code>copy()</code></h4>
                                     
-                                    <p>This command also works with sets and dictionaries.</p>
+                                    <p>This method also works with sets and dictionaries.</p>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Copying a list (this is useful because lists are mutable)</span>
@@ -299,7 +299,7 @@ y.<span class="command">append</span>(<span class="text">"e"</span>)
             
                                     <h4><code>clear()</code></h4>
                                     
-                                    <p>This command also works with sets and dictionaries.</p>
+                                    <p>This method also works with sets and dictionaries.</p>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Purging a list</span>
@@ -421,7 +421,7 @@ x[<span class="text">"tuple"</span>] <span class="sign">=</span> <span class="te
 <span class="command">print</span>(x)
                                     </code></pre>
             
-                                    <p>The <code>keys()</code> command gives us a list of keys in the dictionary, while the <code>values()</code> command provides a list of its values. The <code>items()</code> command creates a list of tuples with keys and values inside them.</p>
+                                    <p>The <code>keys()</code> method gives us a list of keys in the dictionary, while the <code>values()</code> method provides a list of its values. The <code>items()</code> method creates a list of tuples with keys and values inside them.</p>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 x <span class="sign">=</span> {<span class="text">"Python"</span>: <span class="text">"programming language"</span>, <span class="text">"list"</span>: <span class="text">"data structure"</span>}
@@ -472,7 +472,7 @@ y <span class="sign">=</span> x.<span class="command">setdefault</span>(<span cl
                                     <h4><code>popitem()</code></h4>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># Deleting the last element from a dictionary (if we assign this command to a variable, it will equal this deleted value)</span>
+<span class="comment"># Deleting the last element from a dictionary (if we assign this method to a variable, it will equal this deleted value)</span>
 x <span class="sign">=</span> {<span class="text">"a"</span>: 1, <span class="text">"b"</span>: 2, <span class="text">"c"</span>: 3}
 x.<span class="command">popitem</span>()
 <span class="command">print</span>(x)
@@ -531,11 +531,11 @@ data <span class="sign">=</span> <span class="command">bytearray</span>(10)
 
                                     <h2><a id="tuple">Tuples</a></h2>
                                     
-                                    <p>Tuples are similar to lists, but they are immutable. When we add an object to a tuple, Python creates another tuple with the same name and items plus the added one (the previous one deletes itself). We write its elements in parentheses. They share most commands with lists.</p>
+                                    <p>Tuples are similar to lists, but they are immutable. When we add an object to a tuple, Python creates another tuple with the same name and items plus the added one, while the previous one deletes itself. We write its elements in parentheses. Tuples share most methods with lists.</p>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 x <span class="sign">=</span> (3, 3.5)
-x <span class="sign">+=</span> (<span class="text">"Python"</span>,) <span class="comment"># the comma at the end is necessary (otherwise it would be considered a string)</span>
+x <span class="sign">+=</span> (<span class="text">"Python"</span>,) <span class="comment"># the comma at the end is necessary (otherwise this would be considered a string)</span>
 <span class="command">print</span>(x)
                                     </code></pre>    
             
@@ -575,7 +575,7 @@ x <span class="sign">=</span> text.<span class="command">encode</span>(<span cla
                                     
                                     <h2><a id="deque">Deque</a></h2>
 
-                                    <p>Deque stands for Double-Ended Queue. With it, we can easily add and remove elements not only at the end (like with lists) but also at the beginning. Its elements can be accessed by index. This data structure has to be imported from the <code>collections</code> library.</p>
+                                    <p>Deque stands for Double-Ended Queue. With it, we can easily add and remove elements not only at the end (like with lists) but also at the beginning. Its elements can be accessed by index. This data structure has to be imported from the <code>collections</code> module.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> collections <span class="command">import</span> deque
@@ -626,7 +626,7 @@ numbers2 <span class="sign">=</span> [line[::2] <span class="function">for</span
                                     
                                     <h2><a id="type-casting">Type casting</a></h2>
                                     
-                                    <p>Type casting, also known as type conversion, is the process of converting one data type to another (e.g., <code>list</code> to <code>str</code>). We can't perform a conversion from, e.g., <code>dict</code> to <code>list</code> because it wouldn't make sense. We can check the variable's type using the <code>type(x)</code> command. If we write <code>type(x).__qualname__</code>, we will get only, e.g., <code>int</code> instead of <code>&lt;class 'int'&gt;</code>. Here are a few examples of type casting:</p>
+                                    <p>Type casting, also known as type conversion, is the process of converting one data type to another (e.g., <code>list</code> to <code>str</code>). We can't perform a conversion from, e.g., <code>dict</code> to <code>list</code> because it wouldn't make sense. We can check the variable's type using the <code>type(x)</code> method. If we write <code>type(x).__qualname__</code>, we will get only, e.g., <code>int</code> instead of <code>&lt;class 'int'&gt;</code>. Here are a few examples of type casting:</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># String to list (every character as a separate value)</span>
