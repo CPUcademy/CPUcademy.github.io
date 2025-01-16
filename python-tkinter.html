@@ -94,7 +94,7 @@
 root <span class="sign">=</span> tk.<span class="function">Tk</span>() <span class="comment"># creating a window</span>
 root.<span class="command">title</span>(<span class="text">"Window"</span>) <span class="comment"># setting the window's title</span>
 root.<span class="command">geometry</span>(<span class="text">"300x200+100+200"</span>) <span class="comment"># setting the window's size (width x height), and where it will appear (x, y)</span>
-root.<span class="command">resizable</span>(<span class="function">False</span>, <span class="function">False</span>) <span class="comment"># if the window's width (first value) and height (second value) are resizable</span>
+root.<span class="command">resizable</span>(<span class="function">False</span>, <span class="function">False</span>) <span class="comment"># setting whether the window's width (first value) and height (second value) are resizable</span>
 root.<span class="command">configure</span>(<span class="command">bg</span><span class="sign">=</span><span class="text">"lightblue"</span>) <span class="comment"># setting the window's background color</span>
 <span class="comment"># root.iconbitmap("app_icon.ico") # setting the window's icon</span>
 
@@ -103,7 +103,7 @@ root.<span class="command">configure</span>(<span class="command">bg</span><span
     root.<span class="command">destroy</span>() <span class="comment"># closing the window</span>
 root.<span class="command">protocol</span>(<span class="text">"WM_DELETE_WINDOW"</span>, on_close) <span class="comment"># overriding the default behavior of the close button</span>
 
-root.<span class="command">after</span>(3000, root.<span class="command">destroy</span>) <span class="comment"># closing the window after 3 seconds</span>
+<span class="comment"># root.after(3000, root.destroy) # closing the window after 3 seconds</span>
 root.<span class="command">mainloop</span>() <span class="comment"># running the window</span>
                                     </code></pre>
 
@@ -118,21 +118,18 @@ tk.<span class="function">Label</span></span>(root, <span class="command">text</
 text <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Python"</span>, <span class="command">width</span><span class="sign">=</span>10, <span class="command">height</span><span class="sign">=</span>4) <span class="comment"># (width of 10 characters, height of 4 lines)</span>
 text.<span class="command">pack</span>()
 
-tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Java"</span>).<span class="command">pack</span>(<span class="command">side</span><span class="sign">=</span>tk.<span class="function">LEFT</span>) <span class="comment"># setting the position of the label (could also be also: tk.RIGHT, tk.TOP, tk.BOTTOM)</span>
+tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Java"</span>).<span class="command">pack</span>(<span class="command">side</span><span class="sign">=</span>tk.<span class="function">LEFT</span>) <span class="comment"># setting the position of the label (could be also: tk.RIGHT, tk.TOP, tk.BOTTOM)</span>
 
-myLabel <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Tkinter"</span>, <span class="command">bg</span><span class="sign">=</span><span class="text">"red"</span>, <span class="command">fg</span><span class="sign">=</span><span class="text">"white"</span>, <span class="command">font</span><span class="sign">=</span>(<span class="text">"Arial"</span>, 20)) <span class="comment"># (background color red, font color whit, font Arial with size 20)</span>
-myLabel.<span class="command">pack</span>()
+myLabel <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Tkinter"</span>, <span class="command">bg</span><span class="sign">=</span><span class="text">"red"</span>, <span class="command">fg</span><span class="sign">=</span><span class="text">"white"</span>, <span class="command">font</span><span class="sign">=</span>(<span class="text">"Arial"</span>, 20)) <span class="comment"># (background color red, font color white, font Arial with size 20)</span>
 myLabel.<span class="command">place</span>(<span class="command">x</span><span class="sign">=</span>100, <span class="command">y</span><span class="sign">=</span>100) <span class="comment"># placing the label at an absolute position</span>
 
 myLabel <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Tkinter 2"</span>, <span class="command">anchor</span><span class="sign">=</span><span class="text">"e"</span>, <span class="command">width</span><span class="sign">=</span>10, <span class="command">bg</span><span class="sign">=</span><span class="text">"blue"</span>) <span class="comment"># anchor to the right (east) side of the Label's space</span>
-myLabel.<span class="command">pack</span>()
 myLabel.<span class="command">place</span>(<span class="command">relx</span><span class="sign">=</span>0.5, <span class="command">rely</span><span class="sign">=</span>0.5) <span class="comment"># placing a widget at a position relative to the window</span>
+
 root.<span class="command">mainloop</span>()
                                     </code></pre>
 
-                                    <span style="color: red;">USING PLACE WITHOUT PACK</span>
-
-                                    <p>Most arguments like width are also applicable in other widgets.</p>
+                                    <p>Arguments like <code>width</code>, <code>fg</code>, etc., can also be used with other widgets.</p>
 
                                     <h2>Buttons</h2>
 
@@ -146,7 +143,7 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 myButton <span class="sign">=</span> tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Button"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked) <span class="comment"># we write the function name without parentheses because we want to get the function object and not to call it</span>
 myButton.<span class="command">pack</span>()
 
-<span class="comment"># Changing the status of a button (or any other widget)</span>
+<span class="comment"># Changing the status of a button (also works with other widgets)</span>
 tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Button 2"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked, <span class="command">state</span><span class="sign">=</span><span class="text">"active"</span>).<span class="command">pack</span>() <span class="comment"># the button is fully functional (the default state)</span>
 tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Button 2"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked, <span class="command">state</span><span class="sign">=</span><span class="text">"normal"</span>).<span class="command">pack</span>() <span class="comment"># the button is still functional, but the visual appearance is altered</span>
 tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Button 2"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked, <span class="command">state</span><span class="sign">=</span><span class="text">"disabled"</span>).<span class="command">pack</span>() <span class="comment"># the button is disabled</span>
@@ -154,7 +151,7 @@ tk.<span class="function">Button</span>(root, <span class="command">text</span><
 root.<span class="command">mainloop</span>()
                                     </code></pre>
 
-                                    <h4>Checkboxes and radiobuttons (handing functions with arguments)</h4>
+                                    <h4>Checkboxes and radiobuttons (handling functions with arguments)</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> tkinter <span class="function">as</span> tk
@@ -200,24 +197,24 @@ myEntry <span class="sign">=</span> tk.<span class="function">Entry</span>(root,
 myEntry.<span class="command">pack</span>()
 tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Confirm"</span>, <span class="command">command</span><span class="sign">=</span>myGet).<span class="command">pack</span>()
 
-myPasswordEntry <span class="sign">=</span> tk.<span class="function">Entry</span>(root, <span class="command">show</span><span class="sign">=</span><span class="text">"*"</span>) <span class="comment"># hiding the text in the Entry widget</span>
+myPasswordEntry <span class="sign">=</span> tk.<span class="function">Entry</span>(root, <span class="command">show</span><span class="sign">=</span><span class="text">"*"</span>) <span class="comment"># hiding the text in the Entry widget (password protection)</span>
 myPasswordEntry.<span class="command">pack</span>()
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
 
-                                    <p>The example below creates a placeholder (a text that will disappear when the user enters it) instead of a default value.</p>
+                                    <p>The example below creates a placeholder (a text that will disappear when the user enters the widget) for the input field.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> tkinter <span class="function">as</span> tk
 root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 
 <span class="function">def</span> on_focus_in(event):
-    <span class="function">if</span> defaultText.myGet() <span class="sign">==</span> <span class="text">"Write something..."</span>:
+    <span class="function">if</span> defaultText.<span class="command">get</span>() <span class="sign">==</span> <span class="text">"Write something..."</span>:
         defaultText.<span class="command">set</span>(<span class="text">""</span>)
         
 <span class="function">def</span> on_focus_out(event):
-    <span class="function">if</span> defaultText.myGet() <span class="sign">==</span> <span class="text">""</span>:
+    <span class="function">if</span> defaultText.<span class="command">get</span>() <span class="sign">==</span> <span class="text">""</span>:
         defaultText.<span class="command">set</span>(<span class="text">"Write something..."</span>)
 
 <span class="function">def</span> myGet():
@@ -238,7 +235,7 @@ root.<span class="command">mainloop</span>()
 
                                     <h2>Grid</h2>
                                     
-                                    <p>We can create a grid inside the window in order to easily place widgets in it.</p>
+                                    <p>We can create a grid inside the window to easily place widgets in it.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> tkinter <span class="function">as</span> tk
@@ -306,7 +303,7 @@ x <span class="sign">=</span> messagebox.<span class="command">askretrycancel</s
 
                                     <h2>Toplevel</h2>
 
-                                    <p>In Tkinter, a top-level window is a separate window that is not the main application window. It is used to create additional windows (e.g., dialogs, pop-ups). The main window is typically created with <code>Tk()</code>, while additional windows are created using the <code>Toplevel()</code> widget. It features the same attributes as <code>Tk()</code> (<code>title</code>, <code>geometry</code>, etc.)</p>
+                                    <p>In Tkinter, a top-level window is a separate window that is not the main application window. The main window typically uses <code>Tk()</code>, while additional windows are created using <code>Toplevel()</code>. It features the same attributes as <code>Tk()</code> (<code>title</code>, <code>geometry</code>, etc.)</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> tkinter <span class="function">as</span> tk
@@ -346,7 +343,7 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 
 myText <span class="sign">=</span> tk.<span class="function">Text</span>(root, <span class="command">height</span><span class="sign">=</span>5, <span class="command">width</span><span class="sign">=</span>20, <span class="command">wrap</span><span class="sign">=</span>tk.<span class="function">WORD</span>)
 myText.<span class="command">pack</span>()
-tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Confirm"</span>, <span class="command">command</span><span class="sign">=</span>myGet).<span class="command">pack</span>()
+tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Show value"</span>, <span class="command">command</span><span class="sign">=</span>myGet).<span class="command">pack</span>()
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
@@ -486,6 +483,13 @@ root.<span class="command">mainloop</span>()
 <span class="command">import</span> tkinter <span class="function">as</span> tk
 root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 
+<span class="function">def</span> get_selected_item():
+    selected_index <span class="sign">=</span> myListbox.<span class="command">curselection</span>()
+    <span class="function">if</span> selected_index:
+        <span class="function">return</span> myListbox.<span class="command">get</span>(selected_index)
+    <span class="function">else</span>:
+        <span class="function">return None</span>
+
 myScrollbar <span class="sign">=</span> tk.<span class="function">Scrollbar</span>(root)
 myScrollbar.<span class="command">pack</span>(<span class="command">side</span><span class="sign">=</span>tk.<span class="function">RIGHT</span>, <span class="command">fill</span><span class="sign">=</span>tk.<span class="function">Y</span>)
 
@@ -497,6 +501,8 @@ items <span class="sign">=</span> [<span class="text">"a"</span>, <span class="t
 
 myListbox.<span class="command">pack</span>(<span class="command">side</span><span class="sign">=</span>tk.<span class="function">LEFT</span>, <span class="command">fill</span><span class="sign">=</span>tk.<span class="function">BOTH</span>, <span class="command">expand</span><span class="sign">=</span><span class="function">True</span>)
 myScrollbar.<span class="command">config</span>(<span class="command">command</span><span class="sign">=</span>myListbox.<span class="command">yview</span>)
+
+tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Show value"</span>, <span class="command">command</span><span class="sign">=</span><span class="function">lambda</span>: <span class="command">print</span>(get_selected_item())).<span class="command">pack</span>()
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
@@ -530,7 +536,7 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
         <span class="function">with</span> <span class="command">open</span>(file_path, <span class="text">"r"</span>) <span class="function">as</span> file:
             content <span class="sign">=</span> file.<span class="command">read</span>()
             text_widget.<span class="command">delete</span>(1.0, tk.<span class="function">END</span>) <span class="comment"># clearing the existing content of the Text widget</span>
-            text_widget.<span class="command">insert</span>(tk.<span class="function">END</span>, content) <span class="comment"># inserting new content to the Text widget</span>
+            text_widget.<span class="command">insert</span>(tk.<span class="function">END</span>, content) <span class="comment"># inserting new content into the Text widget</span>
 
 <span class="function">def</span> save_file():
     <span class="comment"># Opening a save file dialog and getting the selected file's path</span>
@@ -599,7 +605,7 @@ root.<span class="command">mainloop</span>()
 
                                     <h2>CustomTkinter - aesthetic Tkinter</h2>
 
-                                    <p>CustomTkinter is a module based on Tkinter that provides pre-styled widgets to make your application look more modern and appealing. It works the same way as Tkinter but with a sleeker design. Once you have installed (<code>pip install customtkinter</code>) and imported CustomTkinter, the only change you need to make to your existing Tkinter code is to add the <code>CTk</code> prefix to the widgets you use (e.g., <code>CTkLabel</code>, <code>CTkButton</code>, etc.). You can find the GitHub repository of this module <a href="https://github.com/TomSchimansky/CustomTkinter" target="_blank" class="link">here</a>.</p>
+                                    <p>CustomTkinter is a module based on Tkinter that provides pre-styled widgets to make your application look more modern and appealing. It works the same way as Tkinter but with a sleeker design. Once you have installed (<code>pip install customtkinter</code>) and imported CustomTkinter, the only change you need to make to your existing Tkinter code is to add the <code>CTk</code> prefix to the widgets you used (e.g., <code>CTkLabel</code>, <code>CTkButton</code>, etc.). You can find the GitHub repository of this module <a href="https://github.com/TomSchimansky/CustomTkinter" target="_blank" class="link">here</a>.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> customtkinter <span class="function">as</span> ctk
