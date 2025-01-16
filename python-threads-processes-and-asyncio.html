@@ -229,23 +229,23 @@ processes <span class="sign">=</span> []
 
                                     <ul>
                                         <li>A coroutine is a special function defined with <code>async def</code>, and a coroutine object is a coroutine that hasn't been scheduled or awaited to run in the event loop.</li>
-                                        <li>A scheduled coroutine is called a task.</li>
+                                        <li>A coroutine scheduled to run in the event loop is called a task.</li>
                                         <li>A coroutine can be executed in two ways. It can either be scheduled (become a task) and then awaited or just awaited directly. The difference is that tasks can be executed <b>concurrently</b>. Tasks do not run in parallel in the sense of simultaneous execution, but they are managed in a way that allows them to run concurrently within the event loop by pausing and resuming during waiting periods. They pause at <code>await</code> points, allowing other tasks to execute while waiting for results, but they don't just run "without pausing."</li>
                                         <li>Concurrency in Async IO is based on cooperative multitasking, not true parallelism, and tasks interleave at <code>await</code> points. Coroutines that are awaited directly can't run concurrently like tasks - they yield control to the event loop at <code>await</code> points but run sequentially.</li>
                                     </ul>
 
-                                    <p> Concurrency in Async IO is based on cooperative multitasking, not true parallelism, and tasks interleave at <code>await</code> points. Coroutines that are awaited directly can't run concurrently like tasks - they yield control to the event loop at <code>await</code> points but run sequentially.</p>
+                                    <p><b>Clarification:</b> Once scheduled, the event loop manages the task's execution right away. Awaiting a task is required to retrieve its result or ensure its completion. If we don’t await a task, it runs in the background, and we risk not handling its results or exceptions.</p>
+                                        
+                                    <p>The main coroutine must be passed as an argument to the <code>asyncio.run()</code> function to start the event loop.</p>
 
-                                    <p><b>Clarification:</b> Once scheduled, the event loop manages the task's execution right away. Awaiting a task is required to retrieve its result or ensure its completion. If we don’t await a task, it runs in the background, and we risk not handling its results or exceptions. A function that is the main coroutine must be passed as an argument to the <code>asyncio.run()</code> function to start the event loop.</p>
-
-                                    <p>When a task or a coroutine reaches an <code>await</code> instruction, its execution is paused, yielding control back to the event loop and allowing it to manage other tasks or coroutines. The task or coroutine being awaited is then scheduled to run in the event loop, but it does not necessarily run immediately. The event loop determines when to execute it based on other pending tasks and their readiness (e.g., I/O completion or delays). Once the awaited task or coroutine is completed, either by returning a result or raising an exception, the event loop resumes the paused coroutine from the <code>await</code> point, using the result of the awaited task or coroutine. If no other tasks or coroutines are pending, the event loop may proceed with the awaited task or coroutine immediately.</p>
+                                    <p>When a coroutine reaches an <code>await</code> instruction, its execution is paused, yielding control back to the event loop and allowing it to manage other coroutines. The awaited coroutine is then queued to run in the event loop (it does not necessarily run immediately). The event loop determines when to execute it based on other pending coroutines and their readiness (e.g., I/O completion or delays). Once the awaited coroutine is completed, either by returning a result or raising an exception, the event loop resumes the paused coroutine from the <code>await</code> point, using the result of the awaited coroutine (<code>result = await coroutine</code>).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> asyncio
 
 <span class="function">async def</span> fetch(): <span class="comment"># defining a coroutine</span>
     <span class="command">print</span>(<span class="text">"Fetching..."</span>)
-    <span class="function">await</span> asyncio.<span class="command">sleep</span>(2) <span class="comment"># simulating work (causing the program to pause, yielding control to the event loop)</span>
+    <span class="function">await</span> asyncio.<span class="command">sleep</span>(2) <span class="comment"># simulating work, yielding control to the event loop</span>
     <span class="command">print</span>(<span class="text">"Data fetched."</span>)
     <span class="function">return</span> <span class="text">"data"</span>
 
