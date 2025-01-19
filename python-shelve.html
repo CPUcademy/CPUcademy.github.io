@@ -85,7 +85,19 @@
                                     <h5 class="m-0 font-weight-bold">Shelve</h5>
                                 </div>
                                 <div class="card-body">
-                                    281 ANZZP
+                                    <p>The <code>shelve</code> module allows us to store Python objects in a file using a dictionary-like interface. It automatically serializes objects so that we can save most Python data types, including lists and dictionaries, in a file. The data is persistent, meaning it stays available across program runs. When using <code>shelve.open()</code>, we specify the name of the binary file in which the data will be stored (binary files are more efficient than text files). The main benefits of <code>shelve</code> are its simplicity and automatic persistence, so objects can be easily saved, retrieved, and updated.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> shelve
+
+<span class="function">with</span> shelve.<span class="command">open</span>(<span class="text">"mydata"</span>) <span class="function">as</span> db:
+    db[<span class="text">"name"</span>] <span class="sign">=</span> <span class="text">"Alice"</span>
+    db[<span class="text">"age"</span>] <span class="sign">=</span> 30
+    
+<span class="function">with</span> shelve.<span class="command">open</span>(<span class="text">"mydata"</span>) <span class="function">as</span> db:
+    <span class="command">print</span>(db[<span class="text">"name"</span>])
+    <span class="command">print</span>(db[<span class="text">"age"</span>])
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

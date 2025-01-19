@@ -97,7 +97,9 @@
                                 </ol>
 
                                 <div class="alert alert-warning">
-                                    <b>Troubleshooting:</b> External modules your app uses may contain "hidden imports," meaning they can depend on different modules that are not explicitly imported in your code. If your program does not open, compile it once again but without hiding the console, and when trying to run it, hold the CMD window with your mouse (so that it doesn't disappear) to see the error, which will probably be <code>'No module named ...'</code>. Then, head back to the auto-py-to-exe GUI, add the missing module name in the <code>--hidden-import</code> field in the "Advanced" section, and try again.
+                                    <p><b>Troubleshooting:</b> External modules your app uses may contain "hidden imports," meaning they can depend on different modules that are not explicitly imported in your code. If your program does not open, compile it once again but without hiding the console, and when trying to run it, hold the CMD window with your mouse (so that it doesn't disappear) to see the error, which will probably be <code>'No module named ...'</code>. Then, head back to the auto-py-to-exe GUI, add the missing module name in the <code>--hidden-import</code> field in the "Advanced" section, and try again.</p>
+
+                                    <p style="margin-bottom: 0px;">For example, to convert an app using CustomTkinter to an <code>.exe</code> file, we need to include <code>tkinter</code>, <code>distutils</code>, <code>ctypes.wintypes</code>, and <code>tkinter.ttk</code> to <code>--hidden-imports</code>. We also have to add the <code>customtkinter/</code> and <code>darkdetect/</code> module folders from the directory with installed Python modules to <code>Additional Files</code>.</p>
                                 </div>
                             </div>
                         </div>

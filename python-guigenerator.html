@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Introduction</title>
+    <title>GUIgenerator</title>
 </head>
 
 <body id="page-top">
@@ -82,24 +82,28 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Introduction</h5>
+                                    <h5 class="m-0 font-weight-bold">GUIgenerator</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Python is a cross-platform programming language known for its simplicity and readability. It allows developers to write clear and logical code for small and large-scale projects. Python is widely used in web development, data analysis, artificial intelligence, scientific computing, and automation. It is an interpreted, high-level, and general-purpose language. It supports procedural, object-oriented, and functional programming. Python has an extensive set of available modules. The extension of a Python file is <code>.py</code>.</p>
-                                    
-                                    <h2>Python IDLE</h2>
-            
-                                    <p>You can download Python from <a href="https://www.python.org/downloads/" target="_blank" class="link">this website</a>. In Python IDLE, we work on two windows. After launching, the Shell Window will appear. The results of our programs will be displayed in it. To create a new file, click <code>File / New File (Ctrl + N)</code>. To open an existing file, click <code>File / Open (Ctrl + O)</code>. We can't open <code>.py</code> files by clicking on them - we have to open them in the <code>Shell Window</code>. In the other window, which will appear after creating or opening a file, we will write our code. We can run it by clicking <code>Run / Run Module</code>.</p>
+                                    <a href="https://github.com/CPUcademy/Python_GUIgenerator" target="_blank" class="link"><img src="files/github.png" alt="Icon" style="padding: 0px; width: 50px; height: 50px; margin-right: 8px; margin-left: 10px;" id="flag"></a>
+                                    <a href="https://pypi.org/project/gui-generator/" target="_blank" class="link"><img src="files/pypi-icon.png" alt="Icon" style="padding: 0px; width: 50px; height: 50px; margin-right: 8px; margin-left: 10px;" id="flag"></a>
 
-                                    <img class="img-fluid" src="files/courses/p-idle-1.png" style="margin-right: 20px; margin-bottom: 10px;" alt="Img">
-                                    
-                                    <img class="img-fluid" src="files/courses/p-idle-2.png" alt="Img">
-                                    
-                                    <h2>PyCharm</h2>
+                                    <p>If you do not mind, please read this article on <a href="https://medium.com/@cpucademy/guigenerator-python-gui-in-a-few-lines-2ead2ff9210d" target="_blank" class="link">Medium</a>.</p>
 
-                                    <p>You can download PyCharm from <a href="https://www.jetbrains.com/pycharm/download/#section=windows" target="_blank" class="link">this website</a> (select the free Community Edition). To use PyCharm, you also need to install Python, as PyCharm is only an Integrated Development Environment and requires an interpreter. PyCharm is popular because it simplifies coding by providing features like syntax suggestions. It has a single-window interface, and program results are displayed at the bottom of the screen after clicking <code>Run / Run</code>. To create a new file, go to <code>File / New File</code> and enter the file name. For a new project (which can include multiple <code>.py</code> files), choose <code>File / New Project</code>. If you've closed a project and need to reopen it, click on the project name in the left-side tab and expand it. All projects and their files are saved here: <code>C:\Users\[username]\PycharmProjects\</code>. Alternatively, you can use other editors like VS Code, Atom, Spyder, Sublime Text, Vim, or Jupyter.</p>
+                                    <p>The <code>gui-generator</code> module facilitates the process of creating simple GUI applications and can be installed using the <code>pip</code> package manager (<code>pip install gui-generator</code>). It was created by me. To generate a GUI window, we only need to provide a function for the program to execute and, if there are any, specify parameter names (not the variable names but the labels that display next to the input fields). The parameter names have to be entered in the same order as the function's parameters. After entering the values and clicking "Confirm," the given function is executed. If additional values need to be entered during program execution, the <code>addInput()</code> method can be used to create a separate window at runtime for collecting input. The value returned by the function is displayed in a new window.</p>
 
-                                    <img class="img-fluid" src="files/courses/pycharm.png" alt="Img">
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> gui_generator <span class="command">import</span> *
+
+<span class="function">def</span> Average(n):
+    s <span class="sign">=</span> 0
+    <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(n):
+        s <span class="sign">+=</span> <span class="function">int</span>(g.<span class="command">addInput</span>())
+    <span class="function">return</span> s <span class="sign">/</span> n
+
+g <span class="sign">=</span> <span class="function">GUIgenerator</span>()
+g.<span class="command">create</span>(Average, <span class="command">args</span><span class="sign">=</span>[<span class="text">"How many numbers:"</span>])
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

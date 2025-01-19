@@ -16,10 +16,10 @@ const m3_e = "I started working on the project in February 2023, got to know the
 const m4_e = "My app can be useful for people who are easily distracted, e.g., with ADHD, but still want to be fit. Of course, the app can also be used without the device, which means that training plans and challenges can also be completed outside the home. During this project, I managed to build a mobile app from scratch and combine its functionalities with an AI model on a microcomputer. Its implementation taught me a lot, and the result exceeded my expectations because it is my first project on such a scale. As always, there is still room for improvement. I plan to connect the AI above model directly to the app, which would make it possible to use its functions everywhere, even outdoors, without the need for an additional device (and paying for it). The app would then be available everywhere for everyone. While creating the project, I learned most things on the fly. This skill will be useful in my future work, so I am glad I developed it."
 const m5_e = "Explory competition project poster (2024/2025):"
 
-if(window.location.pathname.endsWith('index.html') || (window.location.pathname.endsWith('cv.html')))
+if(window.location.pathname.endsWith("index.html") || (window.location.pathname.endsWith("cv.html")))
 {
-  textElement = document.getElementById('cv');
-  if(window.location.pathname.endsWith('cv.html'))
+  textElement = document.getElementById("cv");
+  if(window.location.pathname.endsWith("cv.html"))
   {
     textElement.innerHTML = englishTextE;
   }
@@ -32,10 +32,10 @@ if(window.location.pathname.endsWith('index.html') || (window.location.pathname.
   {
       if(additional)
       {
-        text1 = document.getElementById('importantlinks');
-        text2 = document.getElementById('services');
+        text1 = document.getElementById("importantlinks");
+        text2 = document.getElementById("services");
       }
-      imgElement = document.querySelector('#flag');
+      imgElement = document.querySelector("#flag");
 
       if (textElement.innerHTML === englishText || textElement.innerHTML === englishTextE) {
         if(additional)
@@ -68,13 +68,13 @@ if(window.location.pathname.endsWith('index.html') || (window.location.pathname.
   }
 }
 
-if(window.location.pathname.endsWith('muscleup.html'))
+if(window.location.pathname.endsWith("muscleup.html"))
 {
-  m1 = document.getElementById('m1');
-  m2 = document.getElementById('m2');
-  m3 = document.getElementById('m3');
-  m4 = document.getElementById('m4');
-  m5 = document.getElementById('m5');
+  m1 = document.getElementById("m1");
+  m2 = document.getElementById("m2");
+  m3 = document.getElementById("m3");
+  m4 = document.getElementById("m4");
+  m5 = document.getElementById("m5");
   m1.innerHTML = m1_e
   m2.innerHTML = m2_e
   m3.innerHTML = m3_e
@@ -83,7 +83,7 @@ if(window.location.pathname.endsWith('muscleup.html'))
 
   function languageM() 
   {
-      imgElement = document.querySelector('#flag');
+      imgElement = document.querySelector("#flag");
 
       if (m1.innerHTML == m1_e) {
           m1.innerHTML = m1_p
@@ -107,7 +107,7 @@ if(window.location.pathname.endsWith('muscleup.html'))
 }
 
 /*!
- * This message applies to the code below.
+ * This license applies to the code below.
  * Start Bootstrap - SB Admin 2 v4.1.3 (https://startbootstrap.com/theme/sb-admin-2)
  * Copyright 2013-2021 Start Bootstrap
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-sb-admin-2/blob/master/LICENSE)
@@ -118,46 +118,33 @@ if(window.location.pathname.endsWith('muscleup.html'))
  */
 
 (function($) {
-  "use strict";
-  $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
-    $("body").toggleClass("sidebar-toggled");
-    $(".sidebar").toggleClass("toggled");
-    if ($(".sidebar").hasClass("toggled")) {
-      $('.sidebar .collapse').collapse('hide');
-    };
-  });
+  "use strict"
+
+  $("#sidebarToggle, #sidebarToggleTop").on("click", function(e) {
+    $("body").toggleClass("sidebar-toggled")
+    $(".sidebar").toggleClass("toggled")
+    if ($(".sidebar").hasClass("toggled"))
+      $(".sidebar .collapse").collapse("hide")
+  })
+
   $(window).resize(function() {
     if ($(window).width() < 768) {
-      $('.sidebar .collapse').collapse('hide');
-    };
+      $(".sidebar .collapse").collapse("hide")
+    }
     if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
-      $("body").addClass("sidebar-toggled");
-      $(".sidebar").addClass("toggled");
-      $('.sidebar .collapse').collapse('hide');
-    };
-  });
-  $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function(e) {
+      $("body").addClass("sidebar-toggled")
+      $(".sidebar").addClass("toggled")
+      $(".sidebar .collapse").collapse("hide")
+    }
+  })
+
+  $("body.fixed-nav .sidebar").on("mousewheel DOMMouseScroll wheel", function(e) {
     if ($(window).width() > 768) {
       var e0 = e.originalEvent,
-        delta = e0.wheelDelta || -e0.detail;
-      this.scrollTop += (delta < 0 ? 1 : -1) * 30;
+        delta = e0.wheelDelta || -e0.detail
+      this.scrollTop += (delta < 0 ? 1 : -1) * 30
       e.preventDefault();
     }
-  });
-  $(document).on('scroll', function() {
-    var scrollDistance = $(this).scrollTop();
-    if (scrollDistance > 100) {
-      $('.scroll-to-top').fadeIn();
-    } else {
-      $('.scroll-to-top').fadeOut();
-    }
-  });
-  $(document).on('click', 'a.scroll-to-top', function(e) {
-    var $anchor = $(this);
-    $('html, body').stop().animate({
-      scrollTop: ($($anchor.attr('href')).offset().top)
-    }, 1000, 'easeInOutExpo');
-    e.preventDefault();
-  });
+  })
 
-})(jQuery);
+})(jQuery)
