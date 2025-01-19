@@ -87,61 +87,21 @@
                                 <div class="card-body">
                                     <p>If you don't have a good graphics card (preferably Nvidia, as it's dedicated for this project), <span style="color: red;">it's best not to proceed</span>, as it could overload your computer!</p> 
                                     
-                                    <p>A deepfake is a type of synthetic media where artificial intelligence is used to manipulate or replace a person's face and voice in video or audio, making it appear as though they are saying or doing something they never actually did. To make one, you need to install DeepFaceLab from their <a href="https://github.com/iperov/DeepFaceLab" target="_blank" class="link">GitHub repository</a> or directly from <a href="https://drive.google.com/file/d/1ahbt1lhtdrFtzFcYjKuoInQFvrHPqj7C/view?usp=sharing" target="_blank" class="link">here</a>. The downloaded folder will include everything you need to create a deepfake, along with demo videos featuring Elon Musk and Robert Downey Jr, whose faces will swapped in this tutorial.</p>
+                                    <p>A deepfake is a type of synthetic media where artificial intelligence is used to manipulate or replace a person's face and voice in video, making it appear as though they are saying or doing something they never actually did. To make one, you have to install DeepFaceLab from its <a href="https://github.com/iperov/DeepFaceLab" target="_blank" class="link">GitHub repository</a> or directly from <a href="https://drive.google.com/file/d/1_9nlGPj3ivok4EllQe1qLpE0DRSuRaBV/view?usp=sharing" target="_blank" class="link">here</a>. The downloaded folder will include everything you need to create a deepfake, along with demo videos featuring Elon Musk and Robert Downey Jr, whose faces will swapped in this tutorial.</p>
 
                                     <ol>
-                                        <li>Run the <code>2) extract images from video data_src</code> file. A CMD console will open, where you will respond to all questions by pressing enter (inserting the default value).</li>
-                                        <li>The frames from the video with the same name will be extracted to the <code>data_src</code> folder (this is the face from this file that we will cut out and place into the second video). Next, open the file <code>3) extract images from video data_dst FULL FPS</code> and choose the default value by pressing enter. This will extract all frames from the <code>data_dst</code> video and place them in a folder with the same name.</li>
+                                        <li>Run the <code>2) extract images from video data_src</code> script. A CMD console will open, where you will respond to all questions by pressing ENTER (inserting the default value). The frames from the <code>data_src</code> video will be extracted to the <code>data_src</code> folder. This video contains the person whose face is to be cut out and merged into the other video.</li>
+                                        <li>Run the <code>3) extract images from video data_dst FULL FPS</code> script and again choose the default values by pressing ENTER. This script will extract all frames from the <code>data_dst</code> video to the <code>data_dst</code> folder.</li>
+                                        <li>Run the <code>4) data_src faceset extract</code> script and enter the default values. It will extract the face from each frame stored in the <code>data_src</code> folder to <code>data_src / aligned</code>.</li>
+                                        <li>To view the extracted faces, run <code>4.1) data_src view aligned result</code>. There, you can delete any frames you don’t like, but it’s not necessary.</li>
+                                        <li>Run the <code>5) data_dst faceset extract</code> script (here, also enter the default values). This script will also extract faces, but from the frames stored in the <code>data_dst</code> directory.</li>
+                                        <li>Begin training the model using the <code>6) train Quick96</code> script. Enter the project's name, insert the default values, and wait. A preview window will appear (press <code>p</code> on your keyboard to update it). When the iteration count (<code>Iter</code>) reaches about 150.000, close the window by pressing ENTER.
+                                        <img src="files/courses/deepfacelab.png" alt="Img" class="img-fluid" style="display: block; margin-bottom: 10px; margin-top: 10px;"></li>
+                                        <li><span style="display: block;">Run the <code>7) merge Quick96</code> script, confirm the default values, and wait. Once a window appears, set <code>erode mask</code> to 20 and <code>blur mask</code> to 100 (using the listed keys). The values set for the current frame can be viewed in the console. Press TAB to switch to the video preview. You will need to adjust the mentioned values accordingly along with the video (use <code>&gt;</code> and <code>&lt;</code> to navigate frames).</span>
+                                        <img src="files/courses/deepfacelab2.png" alt="Img" class="img-fluid" style="margin-bottom: 10px; margin-top: 10px; margin-right: 10px;">
+                                        <img src="files/courses/deepfacelab3.png" alt="Img" class="img-fluid" style="margin-bottom: 10px; margin-top: 10px;"></li>
+                                        <li>Run the <code>8) merged to mp4</code> script and set the default values. It will export the video to an <code>.mp4</code> file in the <code>workspace</code> folder. When everything is done and you no longer wish to make any changes, move the final file to another folder and run <code>1) clear workspace</code> to delete all files (extracted frames, etc.).</li>
                                     </ol>
-
-                                    <p>The frames from the video with the same name will be extracted to the <code>data_src</code> folder (this is the face from this file that we will cut out and place into the second video). Next, open the file <code>3) extract images from video data_dst FULL FPS</code> and choose the default value by pressing enter. This will extract all frames from the <code>data_dst</code> video and place them in a folder with the same name.</p>
-
-                                    <p>Now, run the file <code>4) data_src faceset extract</code> and enter the default values. This process will extract the face from each frame of the <code>data_src</code> video to the <code>data_src / aligned</code> folder.</p>
-
-                                    <img src="zdjecia/samouczki/deep2.png" alt="Img" style="margin-bottom: 10px;" class="img-fluid, zd1">
-
-                                    <p>To view the extracted faces, go to <code>4.1) data_src view aligned result</code>. The XnView MP program will open. You can delete any frames you don’t like, but it’s not necessary. Close the program afterward. Next, open the file <code>5) data_dst faceset extract</code>. This will also extract faces, but from the <code>data_dst</code> video. In the console that appears, select exactly the same values as for <code>data_src</code>.</p>
-
-                                    <p>When the previous task finishes, begin training the model using <code>6) train Quick96</code>. Enter <code>demo</code> and wait. A window with faces will appear. To update the preview, press the <code>p</code> key on your keyboard. When the iteration count (<code>Iter</code>) reaches about 160,000, you can close the window (by pressing enter).</p>
-
-                                    <img src="zdjecia/samouczki/deep3.png" alt="Img" style="margin-bottom: 10px; width: 100%;">
-
-                                    <p>Now, run the file <code>7) merge Quick96</code>. In CMD, select the default values and a window will appear for clip editing. The <code>erode mask</code> value should be around 20, and the <code>blur mask</code> value should be around 100 (current values can be seen in the console). You can edit these values using the keys listed in the window. Once you’ve memorized them, press TAB to move to the video preview, where you can adjust the face using these keys. Due to lighting and other factors, you will need to adjust these values as the video progresses. To move between frames, press <code>></code> and the up arrow (to move backward, press <code>&lt;</code> and the up arrow). Hold these keys to go through all the frames of the video.</p>
-
-                                    <img src="zdjecia/samouczki/deep4.png" alt="Img" style="margin-bottom: 10px; width: 100%;">
-
-                                    <p>Once that’s done, run the file <code>8) merged to mp4</code> and leave the default values. It will export the video in mp4 format to the <code>workspace</code> folder. When everything is done and you no longer wish to make any changes, move the final video to another folder and run the file <code>1) clear workspace</code> to delete all files (extracted frames, etc.).</p>
-
-                                    <p>The result looks like this (you can make it more refined and better align the face in each frame, but for this demo, it’s not necessary as it’s just a test):</p>
-                                    
-                                    <p>Pobierze się folder zip. Po rozpakowaniu go, pojawi się nam duży folder (ok. 7.5 GB). Znajdują się w nim wszystkie pliki potrzebne do wykonania fotomontażu wideo, a także filmy demo z Elonem Muskiem i Robertem Downeyem Juniorem. Będziemy podmieniać twarze właśnie tym dwóm osobom.</p>
-                                    
-                                    <p>Otwieramy plik <code>2) extract images from video data_src</code>. Uruchomi się konsola CMD, w której odpowiadamy na pytania, tak jak poniżej (jako że są to wartości domyślne, można po prostu kliknąć enter, zamiast wpisywać):</p>
-                                    
-                                    <img src="zdjecia/samouczki/deep1.png" alt="Img" style="margin-bottom: 10px;" class="img-fluid, zd1">
-                                    
-                                    <p>Do folderu <code>data_src</code> wyekstraktują się wszystkie klatki z filmu o tej samej nazwie (to twarz z tego pliku wytniemy i podstawimy do drugiego wideo). Następnie otwieramy plik <code>3) extract images from video data_dst FULL FPS</code> i wybieramy wartość domyślną, klikając enter. To z kolei wyekstraktuje wszystkie klatki z filmu <code>data_dst</code> i umiesci je w folderze o tej samej nazwie.</p>
-                                    
-                                    <p>Teraz uruchamiamy plik <code>4) data_src faceset extract</code> i wpisujemy wartości domyślne. Ten proces wyodrębni twarz z każdej klatki filmu <code>data_src</code> to folderu <code>data_src / aligned</code>.</p>
-                                    
-                                    <img src="zdjecia/samouczki/deep2.png" alt="Img" style="margin-bottom: 10px;" class="img-fluid, zd1">
-                                    
-                                    <p>Żeby przejrzeć wyodrębnione twarze, wchodzimy w <code>4.1) data_src view aligned result</code>. Otworzy się nam program XnView MP. Możemy tam pokasować wszystkie klatki, które nam się nie podobają, ale nie jest to konieczne. Zamykamy ten program. Następnie otwieramy plik <code>5) data_dst faceset extract</code>. Też wyekstraktuje to twarze, tylko że z wideo <code>data_dst</code>. W konsoli, która się wyświetli, zaznaczamy dokładnie to samo, co w przypadku <code>data_src</code>.</p>
-                                    
-                                    <p>Kiedy poprzednie zadanie się zakończy, zaczynamy trenować model za pomocą <code>6) train Quick96</code>. Wpisujemy <code>demo</code> i czekamy. Pojawi się okienko z twarzami. Żeby zaktualizować podgląd klikamy przycisk <code>p</code> na klawiaturze. Kiedy iteracji (<code>Iter</code>) będzie około 160000, można zamknąć okienko (klikając enter).</p>
-                                    
-                                    <img src="zdjecia/samouczki/deep3.png" alt="Img" style="margin-bottom: 10px; width: 100%;">
-                                    
-                                    <p>Teraz uruchamiamy plik <code>7) merge Quick96</code>. W CMD wybieramy domyślne wartości i pojawia nam się okienko do edycji klipu. Wartość <code>erode mask</code> powinna wynosić około 20, a <code>blur mask</code> około 100 (aktualne wartości można zobaczyć w konsoli). Te wartości można edytować klawiszami wypisanymi w okienku. Jeśli już je zapamiętamy, klikamy TAB i przechodzimy do podglądu filmu, w którym możemy dopasowywać twarz za pomocą właśnie tych klawiszy. Ze względu na oświetlenie i inne czynniki, w trakcie trwania filmu, trzeba będzie zmieniać wcześniej ustawione wartości. Żeby przesuwać się po klatkach filmu jednocześnie przyciskamy klawisz <code>></code> i strzałka w górę (żeby pszesuwać się do tyłu - <code>&lt;</code> i strzałka w górę). Trzymając tak klawisze, trzeba przejechać przez wszystkie klatki filmu.</p>
-                                    
-                                    <img src="zdjecia/samouczki/deep4.png" alt="Img" style="margin-bottom: 10px; width: 100%;">
-                                    
-                                    <p>Kiedy już się to zrobiło, trzeba odpalić plik <code>8) merged to mp4</code> i zostawić domyślne wartości. Wyeksportuje on film w formacie mp4 do folderu <code>workspace</code>. Kiedy już wszytko skończyliśmy i nie chcemy już nic zmieniać, przenosimy wynikowy film do innego folderu i uruchamiamy plik <code>1) clear workspace</code>, który wyczyści wszystkie pliki (wyodrębnione klatki itd.).</p>
-                                    
-                                    <p>Wynik wygląda tak (można się do tego bardziej przyłożyć i lepiej dopasować twarz w każdej klatce, ale przy demo nie ma takiej potrzeby, ponieważ jest to tylko test):</p>
-                                    
-                                    <div style="width: 100%;">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/r1XyKmtR6qk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="responsive-iframe"></iframe>
                                 </div>
                             </div>
                         </div>

@@ -88,7 +88,22 @@
                                     <a href="https://github.com/CPUcademy/Python_GUIgenerator" target="_blank" class="link"><img src="files/github.png" alt="Icon" style="padding: 0px; width: 50px; height: 50px; margin-right: 8px; margin-left: 10px;" id="flag"></a>
                                     <a href="https://pypi.org/project/gui-generator/" target="_blank" class="link"><img src="files/pypi-icon.png" alt="Icon" style="padding: 0px; width: 50px; height: 50px; margin-right: 8px; margin-left: 10px;" id="flag"></a>
 
-                                    <p>If you do not mind, please read this article on <a href="https://medium.com/@cpucademy/publish-a-python-module-in-7-simple-steps-9f1cea3bf918" target="_blank" class="link">Medium</a>.</p>
+                                    <p>If you do not mind, please read this article on <a href="https://medium.com/@cpucademy/guigenerator-python-gui-in-a-few-lines-2ead2ff9210d" target="_blank" class="link">Medium</a>.</p>
+
+                                    <p>The <code>gui-generator</code> module facilitates the process of creating simple GUI applications and can be installed using the <code>pip</code> package manager (<code>pip install gui-generator</code>). It was created by me. To generate a GUI window, we only need to provide a function for the program to execute and, if there are any, specify parameter names (not the variable names but the labels that display next to the input fields). The parameter names have to be entered in the same order as the function's parameters. After entering the values and clicking "Confirm," the given function is executed. If additional values need to be entered during program execution, the <code>addInput()</code> method can be used to create a separate window at runtime for collecting input. The value returned by the function is displayed in a new window.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> gui_generator <span class="command">import</span> *
+
+<span class="function">def</span> Average(n):
+    s <span class="sign">=</span> 0
+    <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(n):
+        s <span class="sign">+=</span> <span class="function">int</span>(g.<span class="command">addInput</span>())
+    <span class="function">return</span> s <span class="sign">/</span> n
+
+g <span class="sign">=</span> <span class="function">GUIgenerator</span>()
+g.<span class="command">create</span>(Average, <span class="command">args</span><span class="sign">=</span>[<span class="text">"How many numbers:"</span>])
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

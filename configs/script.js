@@ -107,7 +107,7 @@ if(window.location.pathname.endsWith("muscleup.html"))
 }
 
 /*!
- * This message applies to the code below.
+ * This license applies to the code below.
  * Start Bootstrap - SB Admin 2 v4.1.3 (https://startbootstrap.com/theme/sb-admin-2)
  * Copyright 2013-2021 Start Bootstrap
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-sb-admin-2/blob/master/LICENSE)
