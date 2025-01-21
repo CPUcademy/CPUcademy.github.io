@@ -90,7 +90,9 @@
 
                                     <p>If you do not mind, please read this article on <a href="https://medium.com/@cpucademy/guigenerator-python-gui-in-a-few-lines-2ead2ff9210d" target="_blank" class="link">Medium</a>.</p>
 
-                                    <p>The <code>gui-generator</code> module facilitates the process of creating simple GUI applications and can be installed using the <code>pip</code> package manager (<code>pip install gui-generator</code>). It was created by me. To generate a GUI window, we only need to provide a function for the program to execute and, if there are any, specify parameter names (not the variable names but the labels that display next to the input fields). The parameter names have to be entered in the same order as the function's parameters. After entering the values and clicking "Confirm," the given function is executed. If additional values need to be entered during program execution, the <code>addInput()</code> method can be used to create a separate window at runtime for collecting input. The value returned by the function is displayed in a new window.</p>
+                                    <p>The <code>gui-generator</code> module facilitates the creation of simple GUI applications and can be installed using the <code>pip</code> package manager (<code>pip install gui-generator</code>). I created it. To generate a GUI window, we only need to provide a function for the program to execute and, if it takes any parameters, specify their descriptions that will display next to the input fields. They have to be entered in the same order as the function's parameters. We can also provide an additional description that will display at the top of the window by adding the <code>desc</code> parameter. After the user enters the values and clicks "Confirm," the given function will execute. The value it returns is displayed in a new window.</p>
+                                        
+                                    <p>The <code>addInput()</code> method creates a separate window at runtime for collecting additional input. It can take an argument with a description that will display next to the input field.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> gui_generator <span class="command">import</span> *
@@ -98,11 +100,11 @@
 <span class="function">def</span> Average(n):
     s <span class="sign">=</span> 0
     <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(n):
-        s <span class="sign">+=</span> <span class="function">int</span>(g.<span class="command">addInput</span>())
+        s <span class="sign">+=</span> <span class="function">int</span>(g.<span class="command">addInput</span>(<span class="text">"Enter a value:"</span>))
     <span class="function">return</span> s <span class="sign">/</span> n
 
 g <span class="sign">=</span> <span class="function">GUIgenerator</span>()
-g.<span class="command">create</span>(Average, <span class="command">args</span><span class="sign">=</span>[<span class="text">"How many numbers:"</span>])
+g.<span class="command">create</span>(Average, <span class="command">args</span><span class="sign">=</span>[<span class="text">"How many numbers:"</span>], <span class="command">desc</span><span class="sign">=</span><span class="text">"Calculate the average value."</span>)
                                     </code></pre>
                                 </div>
                             </div>

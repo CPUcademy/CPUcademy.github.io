@@ -171,7 +171,7 @@
                                         <br>
                                         <li><b>LAN media</b> - The physical and data transmission methods used in Local Area Networks (LANs). Examples include twisted-pair cables (Ethernet), coaxial cables, and fiber-optic cables for wired communication. LAN media enable fast and reliable data transmission within a small area, such as homes or offices.
                                             <ul>
-                                                <li><b>Category 5e cable</b> - A twisted-pair cable used in networking, supporting high-speed data transmission for LANs.</li>
+                                                <li><b>Category 5e cable</b> - A twisted-pair cable used in networking, supporting high-speed data transmission for LANs. The twist in the pairs reduces electromagnetic interference, ensuring reliable and stable data communication.</li>
 
                                                 <li><b>Coaxial cable</b> - A cable with an inner conductor surrounded by insulation, a metallic shield, and an outer jacket, used for cable TV and internet connections.</li>
         
@@ -197,6 +197,33 @@
                                     <h2>Localhost VS 127.0.0.1</h2>
 
                                     <p>Both localhost and 127.0.0.1 refer to the loopback address used for testing network services on the local machine. The key difference lies in their resolution: localhost is a hostname that resolves to the loopback address (typically 127.0.0.1) via the system's DNS or hosts file, while 127.0.0.1 is the numeric IP address directly associated with the loopback interface. Though functionally similar, localhost depends on correct hostname resolution, whereas 127.0.0.1 directly bypasses this, making it more reliable in certain misconfigured environments.</p>
+
+                                    <h2>The OSI model</h2>
+
+                                    <p>The OSI (Open Systems Interconnection) model is a conceptual framework used to understand and implement networking protocols in seven layers. Each layer has a distinct function and interacts with the layers above and below it, ensuring standardization in communication across diverse systems.</p>
+
+                                    <ul>
+                                        <li><b>Layer 7: Application Layer</b> - The topmost layer that provides user interfaces and directly interacts with software applications. Examples include HTTP (web browsing), SMTP (email), and FTP (file transfer).</li>
+                                        <li><b>Layer 6: Presentation Layer</b> - Handles data translation, encryption, and compression, ensuring data is in a readable format for the application layer. Examples include JPEG (image formatting) and SSL/TLS (encryption).</li>
+                                        <li><b>Layer 5: Session Layer</b> - Manages sessions between applications by establishing, maintaining, and terminating communication sessions. Protocols include NetBIOS and PPTP.</li>
+                                        <li><b>Layer 4: Transport Layer</b> - Ensures reliable data transfer, error recovery, and flow control between devices. Key protocols are TCP (reliable) and UDP (fast but unreliable).</li>
+                                        <li><b>Layer 3: Network Layer</b> - Determines how data packets are routed between devices using logical addressing (e.g., IP addresses). Key protocols include IPv4, IPv6, and ICMP.</li>
+                                        <li><b>Layer 2: Data Link Layer</b> - Facilitates node-to-node data transfer and handles physical addressing (MAC addresses) and error detection. Technologies include Ethernet, PPP, and Wi-Fi (MAC layer).</li>
+                                        <li><b>Layer 1: Physical Layer</b> - The foundation of the model, defining the physical medium, hardware, and signals for data transmission. Examples include twisted-pair cables, fiber optics, and radio frequencies.</li>
+                                    </ul>
+                
+                                    <p>The OSI model standardizes networking protocols, simplifies troubleshooting, and enhances interoperability across diverse hardware and software systems. Modern networks use protocols from the OSI model, such as TCP/IP, which correspond to specific layers, ensuring efficient communication and data exchange.</p>
+
+                                    <h2>The access layer</h2>
+
+                                    <p>The access layer is the foundational layer in a hierarchical network design, responsible for connecting end devices such as computers, printers, and IoT devices to the network. It provides wired and wireless connectivity using technologies like Ethernet cables and Wi-Fi while managing traffic through features like VLANs (Virtual LANs) to enhance performance and security. This layer enforces access control mechanisms, such as authentication protocols (e.g., 802.1X) and access control lists (ACLs), to ensure secure and controlled network access. Common devices in the access layer include switches, which facilitate device connectivity and support features like QoS (Quality of Service), and wireless access points (APs) that provide cable-free connectivity for mobile and stationary devices. The access layer plays a crucial role in delivering secure, efficient, and reliable network access, forming the backbone of user connectivity in modern network designs.</p>
+
+                                    <ul>
+                                        <li><b>802.1</b> - A set of IEEE standards that define network architecture and protocols for Local Area Networks (LANs) and Virtual LANs (VLANs), focusing on network access and management.</li>
+                                        <li><b>CRC (Cyclic Redundancy Check)</b> - A method used to detect errors in data by applying a polynomial division algorithm, ensuring data integrity during transmission.</li>
+                                        <li><b>Ethernet frame</b> - A data packet used in Ethernet networks to transmit data between devices. It consists of several fields, including the destination and source MAC addresses, the Ethertype field (indicating the protocol used in the payload, such as IPv4 or ARP), the payload (the actual data being transmitted), and the Frame Check Sequence (FCS) for error detection. The frame's structure ensures that data is delivered accurately and efficiently across a network, with error checking and addressing mechanisms that allow devices to communicate within a Local Area Network (LAN).</li>
+                                        <li><b>FCS (Frame Check Sequence)</b> - A field in Ethernet frames that contains a CRC value used for error detection, verifying the integrity of the transmitted data frame.</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
