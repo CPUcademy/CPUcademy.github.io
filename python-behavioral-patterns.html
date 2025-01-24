@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Overloading operators</title>
+    <title>Behavioral patterns</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -89,50 +89,10 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Overloading operators</h5>
+                                    <h5 class="m-0 font-weight-bold">Behavioral patterns</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Overloading an operator means overwriting its functionalities so it can work with, e.g., our class's objects. In Java, we cannot overload operators directly as we do in languages like C++ (e.g., <code>==</code>, <code>&lt;&lt;</code>). Here, we overwrite methods corresponding to the operators (e.g., <code>equals</code>()</code> equals <code>==</code>). The <code>toString()</code> method corresponds to the <code>System.out.println()</code> method (it defines what will be displayed if a class is used in this method). The example below shows how to overload the <code>equals()</code> method so it can compare classes and the <code>toString()</code> method so we can display them.</p>
-            
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> Comparison 
-<span class="sign">{</span>
-    <span class="function">private int</span> x<span class="sign">;</span>
-    <span class="function">private int</span> y<span class="sign">;</span>
-
-    <span class="function">public Comparison</span>(<span class="function">int</span> x, <span class="function">int</span> y)
-    <span class="sign">{</span>
-        <span class="function">this</span>.x <span class="sign">=</span> x<span class="sign">;</span>
-        <span class="function">this</span>.y <span class="sign">=</span> y<span class="sign">;</span>
-    <span class="sign">}</span>
-
-    <span class="command">@Override</span>
-    <span class="function">public boolean</span> equals(<span class="function">Object</span> obj) 
-    <span class="sign">{</span>
-        <span class="function">Comparison</span> other <span class="sign">=</span> (<span class="function">Comparison</span>) obj<span class="sign">;</span> <span class="comment">// casting the object from the argument to the "Comparison" type</span>
-        <span class="function">return this</span>.x <span class="sign">==</span> other.x <span class="sign">&amp;&amp;</span> <span class="function">this</span>.y <span class="sign">==</span> other.y<span class="sign">;</span>
-    <span class="sign">}</span>
-
-    <span class="command">@Override</span>
-    <span class="function">public String</span> toString() 
-    <span class="sign">{</span>
-        <span class="function">return</span> <span class="text">"x: "</span> <span class="sign">+</span> x <span class="sign">+</span> <span class="text">", y: "</span> <span class="sign">+</span> y<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="function">Comparison</span> x <span class="sign">=</span> <span class="function">new Comparison</span>(10, 20)<span class="sign">;</span>
-        <span class="function">Comparison</span> y <span class="sign">=</span> <span class="function">new Comparison</span>(10, 20)<span class="sign">;</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(y)<span class="sign">;</span>
-
-        <span class="function">if</span>(x.equals(y))
-            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"a and b are the same"</span>)<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>                                   
-                                    </code></pre>
+                                    
                                 </div>
                             </div>
                         </div>

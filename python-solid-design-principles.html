@@ -92,7 +92,7 @@
                                     <h5 class="m-0 font-weight-bold">Solid Design Principles</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p class="podpis">The SOLID design principles are a set of five principles aimed at improving software design and making it more understandable, flexible, and maintainable. They are frequently referred to in Design Patterns literature so I will mention them in this section. The acronym SOLID stands for:</p>
+                                    <p class="podpis">Design patterns are common architectural approaches. They are universally relevant. The SOLID design principles are a set of five principles aimed at improving software design and making it more understandable, flexible, and maintainable. They are frequently mentioned along design patterns but they are not a part of that group. The acronym SOLID stands for:</p>
                                     <ul>
                                         <li>S - <a href="#single-responsibility-principle" class="link">Single Responsibility Principle (SRP) / Separation Of Concerns (SOC)</a></li>
                                         <li>O - <a href="#open-closed-principle" class="link">Open/Closed Principle (OCP)</a></li>
@@ -103,23 +103,213 @@
                                       
                                     <h2><a id="single-responsibility-principle">Single Responsibility Principle / Separation Of Concerns</a></h2>
 
-                                    <p>A class should have only one reason to change, meaning it should have only one job or responsibility.</p>
+                                    <p>A class should have only one, primary responsibility, and it musn't have more. It should not be overloaded with "things" it can do. Different classes should handle different tasks, so that they can be, e.g., changed independently.</p>
+
+                                    <p>A God object is a class that has too many responsibilities, and it is considered an antipattern.</p>
+
+                                    <h4>Issue</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+
+    def print_details(self):
+        print(f"Title: {self.title}, Author: {self.author}")
+
+    def save_to_file(self, filename):
+        with open(filename, 'w') as file:
+            file.write(f"Title: {self.title}, Author: {self.author}")
+
+book = Book("1984", "George Orwell")
+book.print_details()  # Printing book details
+book.save_to_file("book.txt")  # Saving book to a file
+                                    </code></pre>
+
+                                    <p>The <code>Book</code> class has multiple responsibilities: managing book data, printing details, and saving data to a file. For example, the function that handles saving to a file should be in another class so that it can be modified once for objects using it when, e.g., switching to a database. Each concern should be separated into a different class.</p>
+
+                                    <h4>Solution</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+
+class BookPrinter:
+    @staticmethod
+    def print_details(book):
+        print(f"Title: {book.title}, Author: {book.author}")
+
+class BookSaver:
+    @staticmethod
+    def save_to_file(book, filename):
+        with open(filename, 'w') as file:
+            file.write(f"Title: {book.title}, Author: {book.author}")
+
+# Usage for SRP
+book = Book("1984", "George Orwell")
+
+# Printing book details
+BookPrinter.print_details(book)
+
+# Saving book to a file
+BookSaver.save_to_file(book, "book.txt")
+                                    </code></pre>
                                     
                                     <h2><a id="open-closed-principle">Open/Closed Principle</a></h2>
 
-                                    <p>Software entities (classes, modules, functions) should be open for extension but closed for modification, meaning you can add new functionality without changing existing code.</p>
+                                    <p>Software entities (classes, modules, functions) should be open for extension but closed for modification, so that we could add a new functionality without changing the existing code. Functionalities should be added throguh extension, not modification.</p>
+                                    
+                                    <h4>Issue</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class DiscountCalculator:
+    def calculate(self, customer_type, price):
+        if customer_type == "regular":
+            return price * 0.9  # 10% discount
+        elif customer_type == "premium":
+            return price * 0.8  # 20% discount
+        else:
+            return price
+
+calculator = DiscountCalculator()
+print(calculator.calculate("regular", 100))  # Output: 90.0
+print(calculator.calculate("premium", 100))  # Output: 80.0
+print(calculator.calculate("new", 100))  # Output: 100.0
+                                    </code></pre>
+
+                                    <p>Adding a new discount would require modifying the existing class, and modifications can introduce bugs and require retesting the entire method.</p>
+
+                                    <h4>Solution</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+from abc import ABC, abstractmethod
+
+# Base class for discounts
+class DiscountStrategy(ABC):
+    @abstractmethod
+    def apply_discount(self, price):
+        pass
+
+# Specific discount strategies
+class RegularCustomerDiscount(DiscountStrategy):
+    def apply_discount(self, price):
+        return price * 0.9  # 10% discount
+
+class PremiumCustomerDiscount(DiscountStrategy):
+    def apply_discount(self, price):
+        return price * 0.8  # 20% discount
+
+class NoDiscount(DiscountStrategy):
+    def apply_discount(self, price):
+        return price  # No discount
+
+# DiscountCalculator is now open for extension but closed for modification
+class DiscountCalculator:
+    def __init__(self, discount_strategy: DiscountStrategy):
+        self.discount_strategy = discount_strategy
+
+    def calculate(self, price):
+        return self.discount_strategy.apply_discount(price)
+
+# Usage for OCP
+# Regular customer discount
+regular_discount = DiscountCalculator(RegularCustomerDiscount())
+print(regular_discount.calculate(100))  # Output: 90.0
+
+# Premium customer discount
+premium_discount = DiscountCalculator(PremiumCustomerDiscount())
+print(premium_discount.calculate(100))  # Output: 80.0
+
+# No discount
+no_discount = DiscountCalculator(NoDiscount())
+print(no_discount.calculate(100))  # Output: 100.0
+                                    </code></pre>
 
                                     <h2><a id="liskov-substitution-principle">Liskov Substitution Principle</a></h2>
 
-                                    <p>Objects of a superclass should be replaceable with objects of its subclass without affecting the correctness of the program.</p>
+                                    <p>Objects of a superclass should be replaceable with objects of its subclass without affecting the correctness of the program. We should always be able to substitute a base type for a subtype.</p>
+
+                                    <h4>Issue</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Bird:
+    def fly(self):
+        print("Flying")
+
+class Penguin(Bird):
+    def fly(self):
+        raise NotImplementedError("Penguins can't fly")
+
+# Usage for bad example
+birds = [Bird(), Penguin()]
+for bird in birds:
+    bird.fly()  # This will raise an error for Penguin
+                                    </code></pre>
+
+                                    <h4>Solution</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+from abc import ABC, abstractmethod
+
+class Bird(ABC):
+    @abstractmethod
+    def move(self):
+        pass
+
+class FlyingBird(Bird):
+    def move(self):
+        print("Flying")
+
+class NonFlyingBird(Bird):
+    def move(self):
+        print("Walking")
+
+class Sparrow(FlyingBird):
+    pass
+
+class Penguin(NonFlyingBird):
+    pass
+
+# Usage for good example
+birds = [Sparrow(), Penguin()]
+for bird in birds:
+    bird.move()  # Output: "Flying" for Sparrow, "Walking" for Penguin
+                                    </code></pre>
 
                                     <h2><a id="interface-segregation-principle">Interface Segregation Principle</a></h2>
 
-                                    <p>Clients should not be forced to depend on interfaces they do not use, meaning you should prefer smaller, more specific interfaces over larger, more general ones.</p>
+                                    <p>Clients should not be forced to implement interface methods they do not need, meaning we should use smaller, more specific interfaces over larger, more general ones. YAGNI - You Ain't Going To Need It (why force people to implement something the are not going to need)</p>
+
+                                    <h4>Issue</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                        
+                                    </code></pre>
+
+                                    <h4>Solution</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                        
+                                    </code></pre>
 
                                     <h2><a id="dependency-inversion-principle">Dependency Inversion Principle</a></h2>
 
-                                    <p>High-level modules should not depend on low-level modules; both should depend on abstractions. Additionally, abstractions should not depend on details, but details should depend on abstractions.</p>
+                                    <p>High-level modules should not depend on low-level modules, but on abstractions (abstract classes). Additionally, abstractions should not depend on details, but details should depend on abstractions. We want to depend on interfaces rather than concrete implementations because that way we can swap one for the other.</p>
+
+                                    <h4>Issue</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                        
+                                    </code></pre>
+
+                                    <h4>Solution</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                        
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
