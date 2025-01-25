@@ -109,7 +109,7 @@
                                     
                                     <p>A constructor (<code>__init__</code>) is a method called by the compiler when an object of the class is created. A destructor (<code>__del__</code>) is called by the compiler when the object is destroyed. In Python, they are not mandatory (the default constructor is executed anyway). Besides, the destructor isn't called automatically and is rarely used. The constructor is commonly used for setting the initial values of variables. These two methods never feature the <code>return</code> instruction. Methods can take arguments. If a constructor takes them, we give them while assigning the class to a variable, and in other words - creating its instance (e.g., <code>x = Human(5)</code>).</p>
                                     
-                                    <p>Every method has a mandatory argument - <code>self</code>, which isn't passed during the call. The <code>self</code> keyword indicates the class it is used in and allows to address all objects of the class at any point in the class. A field is a variable of any type that is declared in one of the methods of the class and is its object (has the <code>self</code> keyword before it - <code>self.x</code>). <code>self.x</code> and <code>x</code> are different variables. The former indicates an object of a class (a field), and the latter is just a variable.</p>
+                                    <p>Every method has a mandatory argument - <code>self</code>, which isn't passed during the call. The <code>self</code> keyword represents the class it is used in and allows to address all objects of the class at any point in the class. A field is a variable of any type that is declared in one of the methods of the class and is its object (has the <code>self</code> keyword before it - <code>self.x</code>). <code>self.x</code> and <code>x</code> are different variables. The former indicates an object of a class (a field), and the latter is just a variable.</p>
                                     
                                     <p>A getter is a method that returns values outside of a class, and a setter is a method that edits an object of the class. We should use them because, inside them, we can add, e.g., validation rules.</p>
                                     
@@ -141,7 +141,7 @@ h.setAge(10)
                                     
                                     <p>Encapsulation prevents external code from being concerned with the internal workings of an object. It involves hiding the fields and methods of a class so that they are not accessible from the outside but only inside the class. The difference between abstraction and encapsulation is that abstraction hides objects and processes to show only the result at the end because it is the only thing that matters, while encapsulation hides them and blocks access to them, e.g., because some data should not be changed directly without a setter with validation rules inside. It is the second concept of object-oriented programming.</p>
                                     
-                                    <p>If there is a <code>__</code> before a field or a method name, it is a private attribute that cannot be called outside its class. Encapsulation blocks the possibility of bypassing certain instructions by, for example, editing the output variable outside the class. Most objects should be private, and outside of the class, they should be edited only through methods of this class (setters). If we try to access or change the value of a private object outside the class, we will get an error.</p>
+                                    <p>If there is a <code>__</code> before a field or a method name, it is a private attribute that cannot be called outside its class. Encapsulation blocks the possibility of bypassing certain instructions by, for example, editing the output variable outside the class. Most objects should be private, and outside of the class, they should be edited only through methods of this class (setters). If we try to access or change the value of a private object outside the class, we will get an error. The process of making a class attribute private is called mangling.</p>
                                     
                                     <p>We can also write <code>_</code> before a field or a method name. It means a protected attribute, which is ONLY A SUGGESTION to other programmers (it is a convention). In other languages, protected objects have the same properties as private ones, except that they are public for their subclasses (I will explain this in a lesson about inheritance). These underscores are called access modifiers.</p>
 
@@ -171,9 +171,11 @@ b.withdraw(400)
 <span class="command">print</span>(b.getBalance())
                                     </code></pre>
 
+                                    <p>In the example above, we could write something like this outside the class: <code>b.__balance = 1</code>, however it would create a new class attribute and not access the private one.</p>
+
                                     <h2>Static objects</h2>
                                 
-                                    <p>A static variable is a variable that won't be deleted while "exiting" a method (its address is reserved only once). A variable of this type will still exist even if an instance of the class does not. It is shared by all objects and not tied to any class instance. We create static variables outside methods. A static variable is also called a class attribute. I will cover static methods in a lesson about decorators.</p>
+                                    <p>A static variable is a variable that retains its value between method calls. Its memory address is allocated once, and it exists for the duration of the program. A variable of this type will still exist even if an instance of the class does not. It is shared by all objects and not tied to any class instance. We create static variables outside methods. A static variable is also called a class attribute. I will cover static methods in a lesson about decorators.</p>
                                 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Example:
@@ -237,8 +239,8 @@ address <span class="sign">=</span> <span class="command">getattr</span>(person,
                                     </code></pre>
                                     
                                     <h2>Serialization</h2>
-                                    
-                                    <p>Serialization means saving the instances of our objects (classes) to a file. We can do so using the <code>pickle</code> module (the file will have the <code>.objc</code> extension). We can later import the object from the file in another program.</p>
+
+                                    <p>Serialization means converting the state of an object (its data) into a format that can be easily stored and reused. We can serialize an instance of a class using the <code>pickle</code> module (the file will have the <code>.objc</code> extension). We can later import the object from the file in another program.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> pickle <span class="function">as</span> pick

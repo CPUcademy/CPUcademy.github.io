@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Nested classes</title>
+    <title>Creational patterns</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -89,35 +89,15 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Nested classes</h5>
+                                    <h5 class="m-0 font-weight-bold">Creational patterns</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>We can put classes in each other. This solution is used for logically grouping related classes, enhancing encapsulation by restricting visibility, and improving code organization. Inner classes have access to the outer class's objects. The example below perfectly represents all three applications of nested classes.</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> BankAccount:
-    <span class="function">def __init__</span>(<span class="function">self</span>, balance):
-        <span class="function">self</span>.__balance <span class="sign">=</span> balance <span class="comment"># private attribute</span>
-
-    <span class="function">def</span> getBalance(<span class="function">self</span>):
-        <span class="function">return self</span>.__balance
-
-    <span class="function">def</span> updateBalance(<span class="function">self</span>, amount):
-        <span class="function">self</span>.__balance <span class="sign">+=</span> amount
-
-    <span class="function">def</span> start(<span class="function">self</span>, interestRate):
-        <span class="function">self</span>.__interest <span class="sign">=</span> <span class="function">self</span>.<span class="function">Interest</span>(interestRate, self)
-
-    <span class="function">class</span> Interest: <span class="comment"># nested / inner class</span>
-        <span class="function">def __init__</span>(<span class="function">self</span>, interestRate, bankacc):
-            <span class="function">self</span>.__interestRate <span class="sign">=</span> interestRate <span class="comment"># private attribute</span>
-            bankacc.updateBalance((bankacc.getBalance() <span class="sign">*</span> <span class="function">self</span>.__interestRate) <span class="sign">/</span> 100)
-
-bankacc <span class="sign">=</span> <span class="function">BankAccount</span>(1000)
-<span class="command">print</span>(bankacc.getBalance())
-bankacc.start(5)
-<span class="command">print</span>(bankacc.getBalance())
-                                    </code></pre>
+                                    - builder
+                                    - factories
+                                        - abstract factory
+                                        - factory method
+                                    - prototype
+                                    - singleton
                                 </div>
                             </div>
                         </div>
