@@ -92,7 +92,7 @@
                                     <h5 class="m-0 font-weight-bold">Solid Design Principles</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p class="podpis">Design patterns are common architectural approaches. They are universally relevant. The SOLID design principles are a set of five principles aimed at improving software design and making it more understandable, flexible, and maintainable. They are frequently mentioned along design patterns but they are not a part of that group. The acronym SOLID stands for:</p>
+                                    <p class="podpis">Design patterns are common architectural approaches. They are universally relevant. The SOLID design principles are five principles aimed at improving software design and making it more understandable, flexible, and maintainable. They are frequently mentioned along design patterns but are not a part of that group. The acronym SOLID stands for:</p>
                                     <ul>
                                         <li>S - <a href="#single-responsibility-principle" class="link">Single Responsibility Principle (SRP) / Separation Of Concerns (SOC)</a></li>
                                         <li>O - <a href="#open-closed-principle" class="link">Open/Closed Principle (OCP)</a></li>
@@ -101,83 +101,76 @@
                                         <li>D - <a href="#dependency-inversion-principle" class="link">Dependency Inversion Principle (DIP)</a></li>
                                     </ul>
                                       
-                                    <h2><a id="single-responsibility-principle">Single Responsibility Principle / Separation Of Concerns</a></h2>
+                                    <h2><a id="single-responsibility-principle">Single Responsibility Principle (SRP) / Separation Of Concerns (SOC)</a></h2>
 
-                                    <p>A class should have only one, primary responsibility, and it musn't have more. It should not be overloaded with "things" it can do. Different classes should handle different tasks, so that they can be, e.g., changed independently.</p>
-
-                                    <p>A God object is a class that has too many responsibilities, and it is considered an antipattern.</p>
+                                    <p>A class should have only one primary responsibility, and it mustn't have more. It should not be overloaded with "things" it can do. Different classes should handle different tasks so they can be, e.g., changed independently. A God object is a class with too many responsibilities, and it is considered an antipattern.</p>
 
                                     <h4>Issue</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-class Book:
-    def __init__(self, title, author):
-        self.title = title
-        self.author = author
+<span class="function">class</span> Book:
+    <span class="function">def</span> <span class="function">__init__</span>(<span class="function">self</span>, title, author):
+        <span class="function">self</span>.title <span class="sign">=</span> title
+        <span class="function">self</span>.author <span class="sign">=</span> author
 
-    def print_details(self):
-        print(f"Title: {self.title}, Author: {self.author}")
+    <span class="function">def</span> print_details(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">f"Title: {self.title}, Author: {self.author}"</span>)
 
-    def save_to_file(self, filename):
-        with open(filename, 'w') as file:
-            file.write(f"Title: {self.title}, Author: {self.author}")
+    <span class="function">def</span> save_to_file(<span class="function">self</span>, filename):
+        <span class="function">with</span> <span class="command">open</span>(filename, <span class="text">"w"</span>) <span class="function">as</span> file:
+            file.<span class="command">write</span>(<span class="text">f"Title: {self.title}, Author: {self.author}"</span>)
 
-book = Book("1984", "George Orwell")
-book.print_details()  # Printing book details
-book.save_to_file("book.txt")  # Saving book to a file
+book <span class="sign">=</span> <span class="function">Book</span>(<span class="text">"1984"</span>, <span class="text">"George Orwell"</span>)
+book.print_details()
+book.save_to_file(<span class="text">"book.txt"</span>)
                                     </code></pre>
 
-                                    <p>The <code>Book</code> class has multiple responsibilities: managing book data, printing details, and saving data to a file. For example, the function that handles saving to a file should be in another class so that it can be modified once for objects using it when, e.g., switching to a database. Each concern should be separated into a different class.</p>
+                                    <p>The <code>Book</code> class has multiple responsibilities: managing book data, printing details, and saving data to a file. For example, the method that handles saving to a file should be placed in another class so it can be modified once for all objects using it when, e.g., switching to a database. Each concern should be separated into a different class.</p>
 
                                     <h4>Solution</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-class Book:
-    def __init__(self, title, author):
-        self.title = title
-        self.author = author
+<span class="function">class</span> Book:
+    <span class="function">def</span> <span class="function">__init__</span>(<span class="function">self</span>, title, author):
+        <span class="function">self</span>.title <span class="sign">=</span> title
+        <span class="function">self</span>.author <span class="sign">=</span> author
 
-class BookPrinter:
-    @staticmethod
-    def print_details(book):
-        print(f"Title: {book.title}, Author: {book.author}")
+<span class="function">class</span> BookPrinter:
+    <span class="command">@staticmethod</span>
+    <span class="function">def</span> print_details(book):
+        <span class="command">print</span>(<span class="text">f"Title: {book.title}, Author: {book.author}"</span>)
 
-class BookSaver:
-    @staticmethod
-    def save_to_file(book, filename):
-        with open(filename, 'w') as file:
-            file.write(f"Title: {book.title}, Author: {book.author}")
+<span class="function">class</span> BookSaver:
+    <span class="command">@staticmethod</span>
+    <span class="function">def</span> save_to_file(book, filename):
+        <span class="function">with</span> <span class="command">open</span>(filename, <span class="text">"w"</span>) <span class="function">as</span> file:
+            file.<span class="command">write</span>(<span class="text">f"Title: {book.title}, Author: {book.author}"</span>)
 
-# Usage for SRP
-book = Book("1984", "George Orwell")
-
-# Printing book details
-BookPrinter.print_details(book)
-
-# Saving book to a file
-BookSaver.save_to_file(book, "book.txt")
+book <span class="sign">=</span> <span class="function">Book</span>(<span class="text">"1984"</span>, <span class="text">"George Orwell"</span>)
+<span class="function">BookPrinter</span>.print_details(book)
+<span class="function">BookSaver</span>.save_to_file(book, <span class="text">"book.txt"</span>)
                                     </code></pre>
                                     
-                                    <h2><a id="open-closed-principle">Open/Closed Principle</a></h2>
+                                    <h2><a id="open-closed-principle">Open/Closed Principle (OCP)</a></h2>
 
-                                    <p>Software entities (classes, modules, functions) should be open for extension but closed for modification, so that we could add a new functionality without changing the existing code. Functionalities should be added throguh extension, not modification.</p>
+                                    <p>Software entities (classes, modules, functions) should be open for extension but closed for modification so we could add a new functionality without changing the existing code. Functionalities should be added through extension, not modification.</p>
                                     
                                     <h4>Issue</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-class DiscountCalculator:
-    def calculate(self, customer_type, price):
-        if customer_type == "regular":
-            return price * 0.9  # 10% discount
-        elif customer_type == "premium":
-            return price * 0.8  # 20% discount
-        else:
-            return price
+<span class="function">class</span> DiscountCalculator:
+    <span class="function">def</span> calculate(<span class="function">self</span>, customer_type, price):
+        <span class="function">if</span> customer_type <span class="sign">==</span> <span class="text">"regular"</span>:
+            <span class="function">return</span> price <span class="sign">*</span> 0.9 <span class="comment"># 10% discount</span>
+        <span class="function">elif</span> customer_type <span class="sign">==</span> <span class="text">"premium"</span>:
+            <span class="function">return</span> price <span class="sign">*</span> 0.8 <span class="comment"># 20% discount</span>
+        <span class="function">else</span>:
+            <span class="function">return</span> price
 
-calculator = DiscountCalculator()
-print(calculator.calculate("regular", 100))  # Output: 90.0
-print(calculator.calculate("premium", 100))  # Output: 80.0
-print(calculator.calculate("new", 100))  # Output: 100.0
+calculator <span class="sign">=</span> <span class="function">DiscountCalculator</span>()
+<span class="command">print</span>(calculator.calculate(<span class="text">"regular"</span>, 100))
+<span class="command">print</span>(calculator.calculate(<span class="text">"premium"</span>, 100))
+<span class="command">print</span>(calculator.calculate(<span class="text">"new"</span>, 100))
                                     </code></pre>
 
                                     <p>Adding a new discount would require modifying the existing class, and modifications can introduce bugs and require retesting the entire method.</p>
@@ -185,350 +178,298 @@ print(calculator.calculate("new", 100))  # Output: 100.0
                                     <h4>Solution</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-from abc import ABC, abstractmethod
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
 
-# Base class for discounts
-class DiscountStrategy(ABC):
-    @abstractmethod
-    def apply_discount(self, price):
-        pass
+<span class="function">class</span> DiscountStrategy(<span class="function"></span>ABC</span>):
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> apply_discount(<span class="function">self</span>, price):
+        <span class="function">pass</span>
 
-# Specific discount strategies
-class RegularCustomerDiscount(DiscountStrategy):
-    def apply_discount(self, price):
-        return price * 0.9  # 10% discount
+<span class="function">class</span> RegularCustomerDiscount(<span class="function">DiscountStrategy</span>):
+    <span class="function">def</span> apply_discount(<span class="function">self</span>, price):
+        <span class="function">return</span> price <span class="sign">*</span> 0.9 <span class="comment"># 10% discount</span>
 
-class PremiumCustomerDiscount(DiscountStrategy):
-    def apply_discount(self, price):
-        return price * 0.8  # 20% discount
+<span class="function">class</span> PremiumCustomerDiscount(<span class="function">DiscountStrategy</span>):
+    <span class="function">def</span> apply_discount(<span class="function">self</span>, price):
+        <span class="function">return</span> price <span class="sign">*</span> 0.8 <span class="comment"># 20% discount</span>
 
-class NoDiscount(DiscountStrategy):
-    def apply_discount(self, price):
-        return price  # No discount
+<span class="function">class</span> NoDiscount(<span class="function">DiscountStrategy</span>):
+    <span class="function">def</span> apply_discount(<span class="function">self</span>, price):
+        <span class="function">return</span> price <span class="comment"># no discount</span>
 
-# DiscountCalculator is now open for extension but closed for modification
-class DiscountCalculator:
-    def __init__(self, discount_strategy: DiscountStrategy):
-        self.discount_strategy = discount_strategy
+<span class="function">class</span> DiscountCalculator:
+    <span class="function">def</span> <span class="function">__init__</span>(<span class="function">self</span>, discount_strategy: <span class="function">DiscountStrategy</span>):
+        <span class="function">self</span>.discount_strategy <span class="sign">=</span> discount_strategy
 
-    def calculate(self, price):
-        return self.discount_strategy.apply_discount(price)
+    <span class="function">def</span> calculate(<span class="function">self</span>, price):
+        <span class="function">return</span> <span class="function">self</span>.discount_strategy.apply_discount(price)
 
-# Usage for OCP
-# Regular customer discount
-regular_discount = DiscountCalculator(RegularCustomerDiscount())
-print(regular_discount.calculate(100))  # Output: 90.0
+regular_discount <span class="sign">=</span> <span class="function">DiscountCalculator</span>(<span class="function">RegularCustomerDiscount</span>())
+<span class="command">print</span>(regular_discount.calculate(100))
 
-# Premium customer discount
-premium_discount = DiscountCalculator(PremiumCustomerDiscount())
-print(premium_discount.calculate(100))  # Output: 80.0
+premium_discount <span class="sign">=</span> <span class="function">DiscountCalculator</span>(<span class="function">PremiumCustomerDiscount</span>())
+<span class="command">print</span>(premium_discount.calculate(100))
 
-# No discount
-no_discount = DiscountCalculator(NoDiscount())
-print(no_discount.calculate(100))  # Output: 100.0
+no_discount <span class="sign">=</span> <span class="function">DiscountCalculator</span>(<span class="function">NoDiscount</span>())
+<span class="command">print</span>(no_discount.calculate(100))
                                     </code></pre>
 
-                                    <h2><a id="liskov-substitution-principle">Liskov Substitution Principle</a></h2>
+                                    <h2><a id="liskov-substitution-principle">Liskov Substitution Principle (LSP)</a></h2>
 
                                     <p>Objects of a superclass should be replaceable with objects of its subclass without affecting the correctness of the program. We should always be able to substitute a base type for a subtype.</p>
 
                                     <h4>Issue</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-# Base class for Employee
-class Employee:
-    def __init__(self, name, salary):
-        self._name = name
-        self._salary = salary
+<span class="function">class</span> Rectangle:
+    <span class="function">def __init__</span>(<span class="function">self</span>, width, height):
+        <span class="function">self</span>._height <span class="sign">=</span> height
+        <span class="function">self</span>._width <span class="sign">=</span> width
 
-    @property
-    def salary(self):
-        return self._salary
+    <span class="command">@property</span>
+    <span class="function">def</span> area(<span class="function">self</span>):
+        <span class="function">return self</span>._width <span class="sign">*</span> <span class="function">self</span>._height
 
-    @salary.setter
-    def salary(self, value):
-        if value &lt; 0:
-            raise ValueError("Salary cannot be negative")
-        self._salary = value
+    <span class="command">@property</span>
+    <span class="function">def</span> width(<span class="function">self</span>):
+        <span class="function">return self</span>._width
 
-    def __str__(self):
-        return f"Employee: {self._name}, Salary: {self._salary}"
+    <span class="command">@width.setter</span>
+    <span class="function">def</span> width(<span class="function">self</span>, value):
+        <span class="function">self</span>._width <span class="sign">=</span> value
 
+    <span class="command">@property</span>
+    <span class="function">def</span> height(<span class="function">self</span>):
+        <span class="function">return self</span>._height
 
-# Subclass for Manager
-class Manager(Employee):
-    def __init__(self, name, salary, bonus):
-        super().__init__(name, salary)
-        self._bonus = bonus
+    <span class="command">@height.setter</span>
+    <span class="function">def</span> height(<span class="function">self</span>, value):
+        <span class="function">self</span>._height <span class="sign">=</span> value
 
-    # Overriding the salary setter to include bonus automatically
-    @Employee.salary.setter # using the property decorator for x setter from the Employee class
-    def salary(self, value):
-        if value &lt; 0:
-            raise ValueError("Salary cannot be negative")
-        # Sets both salary and bonus as a fixed proportion of the salary
-        self._salary = value
-        self._bonus = value * 0.1  # Bonus is always 10% of the salary
+<span class="function">class</span> Square(<span class="function">Rectangle</span>):
+    <span class="function">def __init__</span>(<span class="function">self</span>, size):
+        <span class="command">super</span>().<span class="function">__init__</span>(size, size)
 
-    @property
-    def bonus(self):
-        return self._bonus
+    <span class="command">@Rectangle.width.setter</span>
+    <span class="function">def</span> width(<span class="function">self</span>, value):
+        <span class="function">self</span>._width <span class="sign">=</span> <span class="function">self</span>._height <span class="sign">=</span> value
 
+    <span class="command">@Rectangle.height.setter</span>
+    <span class="function">def</span> height(<span class="function">self</span>, value):
+        <span class="function">self</span>._height <span class="sign">=</span> <span class="function">self</span>._width <span class="sign">=</span> value
 
-# Client function that expects Employee behavior
-def adjust_salary(employee):
-    original_salary = employee.salary
-    employee.salary = original_salary + 500  # Increment salary by $500
-    print(f"Expected new salary: {original_salary + 500}, Actual: {employee.salary}")
+<span class="function">def</span> calculate(obj):
+    w <span class="sign">=</span> obj.width
+    obj.height <span class="sign">=</span> 10
+    <span class="command">print</span>(<span class="text">f"Expected: {w*10}, got: {obj.area}"</span>)
 
+rectangle <span class="sign">=</span> <span class="function">Rectangle</span>(2, 3)
+calculate(rectangle)
 
-# Test cases
-employee = Employee("John Doe", 3000)
-manager = Manager("Jane Smith", 5000, 500)
-
-print("Using Employee:")
-adjust_salary(employee)  # Works as expected
-
-print("\nUsing Manager:")
-adjust_salary(manager)  # LSP violation: Manager's behavior is unexpected
-
-Using Employee:
-Expected new salary: 3500, Actual: 3500
-
-Using Manager:
-Expected new salary: 5500, Actual: 5500.0
+square <span class="sign">=</span> <span class="function">Square</span>(5)
+calculate(square)
                                     </code></pre>
+
+                                    <p>The setters overwritten in the <code>Square</code> class break the LSP because they modify the behavior of the <code>Rectangle</code> class in unexpected ways. Specifically, while the <code>Rectangle</code> class allows independent manipulation of width and height, the <code>Square</code> class forces both the width and height to be the same when either is set. This means that substituting a <code>Square</code> for a <code>Rectangle</code> in the code leads to inconsistent and unpredictable behavior. The <code>calculate()</code> function works only for <code>Rectangle</code> (a superclass) and not for <code>Square</code> (a subclass) when substituted.</p>
 
                                     <h4>Solution</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-# Base class for Employee
-class Employee:
-    def __init__(self, name, salary):
-        self._name = name
-        self._salary = salary
+<span class="function">class</span> Rectangle:
+    <span class="function">def __init__</span>(<span class="function">self</span>, width, height, is_square<span class="sign">=</span><span class="function">False</span>):
+        <span class="function">self</span>._height <span class="sign">=</span> height
+        <span class="function">self</span>._width <span class="sign">=</span> width
+        <span class="function">self</span>._is_square <span class="sign">=</span> is_square
 
-    @property
-    def salary(self):
-        return self._salary
+    <span class="command">@property</span>
+    <span class="function">def</span> area(<span class="function">self</span>):
+        <span class="function">return self</span>._width <span class="sign">*</span> <span class="function">self</span>._height
 
-    @salary.setter
-    def salary(self, value):
-        if value &lt; 0:
-            raise ValueError("Salary cannot be negative")
-        self._salary = value
+    <span class="command">@property</span>
+    <span class="function">def</span> width(<span class="function">self</span>):
+        <span class="function">return self</span>._width
 
-    def __str__(self):
-        return f"Employee: {self._name}, Salary: {self._salary}"
+    <span class="command">@width.setter</span>
+    <span class="function">def</span> width(<span class="function">self</span>, value):
+        <span class="function">if self</span>._is_square:
+            <span class="function">self</span>._height <span class="sign">=</span> value <span class="comment"># if it's a square, adjust height as well</span>
+        <span class="function">self</span>._width <span class="sign">=</span> value
 
+    <span class="command">@property</span>
+    <span class="function">def</span> height(<span class="function">self</span>):
+        <span class="function">return self</span>._height
 
-# Subclass for Manager (Corrected)
-class Manager(Employee):
-    def __init__(self, name, salary, bonus):
-        super().__init__(name, salary)
-        self._bonus = bonus
+    <span class="command">@height.setter</span>
+    <span class="function">def</span> height(<span class="function">self</span>, value):
+        <span class="function">if self</span>._is_square:
+            <span class="function">self</span>._width <span class="sign">=</span> value <span class="comment"># if it's a square, adjust width as well</span>
+        <span class="function">self</span>._height <span class="sign">=</span> value
 
-    # No longer overriding the salary setter to include bonus automatically
-    def update_bonus(self):
-        self._bonus = self._salary * 0.1
+<span class="function">def</span> calculate(obj):
+    obj.height <span class="sign">=</span> 10
+    <span class="command">print</span>(<span class="text">f"Area: {obj.area}"</span>) <span class="comment"># the output is the same, but the code works predictably</span>
 
-    @property
-    def bonus(self):
-        return self._bonus
+rectangle <span class="sign">=</span> <span class="function">Rectangle</span>(2, 3)
+calculate(rectangle)
 
-
-# Client function that expects Employee behavior
-def adjust_salary(employee):
-    original_salary = employee.salary
-    employee.salary = original_salary + 500  # Increment salary by $500
-    print(f"Expected new salary: {original_salary + 500}, Actual: {employee.salary}")
-
-
-# Test cases
-employee = Employee("John Doe", 3000)
-manager = Manager("Jane Smith", 5000, 500)
-
-print("Using Employee:")
-adjust_salary(employee)  # Works as expected
-
-print("\nUsing Manager:")
-adjust_salary(manager)  # Works without unexpected side effects
-
-Using Employee:
-Expected new salary: 3500, Actual: 3500
-
-Using Manager:
-Expected new salary: 5500, Actual: 5500
+square <span class="sign">=</span> <span class="function">Rectangle</span>(5, 5, <span class="function">True</span>)
+calculate(square)
                                     </code></pre>
 
-                                    <h2><a id="interface-segregation-principle">Interface Segregation Principle</a></h2>
+                                    <h2><a id="interface-segregation-principle">Interface Segregation Principle (ISP)</a></h2>
 
-                                    <p>Clients should not be forced to implement interface methods they do not need, meaning we should use smaller, more specific interfaces over larger, more general ones. YAGNI - You Ain't Going To Need It (why force people to implement something the are not going to need)</p>
+                                    <p>Clients should not be forced to implement interface methods they do not need, meaning we should use smaller, more specific interfaces over larger, more general ones. In compliance with the YAGNI rule (You Ain't Going To Need It), why would we force people to implement something they aren't going to need?</p>
 
                                     <h4>Issue</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-from abc import ABC, abstractmethod
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
 
-# A single interface for all printer functionalities
-class Printer(ABC):
-    @abstractmethod
-    def print_document(self, document):
-        pass
+<span class="function">class</span> Printer(<span class="function">ABC</span>):
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> print_document(<span class="function">self</span>, document):
+        <span class="function">pass</span>
 
-    @abstractmethod
-    def scan_document(self, document):
-        pass
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> scan_document(<span class="function">self</span>, document):
+        <span class="function">pass</span>
 
-    @abstractmethod
-    def fax_document(self, document):
-        pass
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> fax_document(<span class="function">self</span>, document):
+        <span class="function">pass</span>
 
-# Basic printer that only supports printing
-class BasicPrinter(Printer):
-    def print_document(self, document):
-        print(f"Printing document: {document}")
+<span class="function">class</span> BasicPrinter(<span class="function">Printer</span>):
+    <span class="function">def</span> print_document(<span class="function">self</span>, document):
+        <span class="command">print</span>(<span class="text">f"Printing document: {document}"</span>)
 
-    def scan_document(self, document):
-        raise NotImplementedError("BasicPrinter does not support scanning.")
+    <span class="function">def</span> scan_document(<span class="function">self</span>, document):
+        <span class="function">raise NotImplementedError</span>(<span class="text">"BasicPrinter does not support scanning."</span>)
 
-    def fax_document(self, document):
-        raise NotImplementedError("BasicPrinter does not support faxing.")
+    <span class="function">def</span> fax_document(<span class="function">self</span>, document):
+        <span class="function">raise NotImplementedError</span>(<span class="text">"BasicPrinter does not support faxing."</span>)
 
-# Usage
-basic_printer = BasicPrinter()
-basic_printer.print_document("Report.pdf")  # Works
-basic_printer.scan_document("Report.pdf")  # Raises NotImplementedError
+basic_printer <span class="sign">=</span> BasicPrinter</span>()
+basic_printer.print_document(<span class="text">"report.pdf"</span>)
+basic_printer.scan_document(<span class="text">"report.pdf"</span>)
                                     </code></pre>
 
-                                    <p>Why would we even enable using the scan and fax methods for the basic printer if it can't perform these actions.</p>
+                                    <p>Why would we even suggest using scan and fax for the basic printer if it can't perform these actions?</p>
 
                                     <h4>Solution</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-from abc import ABC, abstractmethod
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
 
-# Splitting the interface into smaller, more specific ones
-class Printable(ABC):
-    @abstractmethod
-    def print_document(self, document):
-        pass
+<span class="function">class</span> Printable(<span class="function">ABC</span>):
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> print_document(<span class="function">self</span>, document):
+        <span class="function">pass</span>
 
-class Scannable(ABC):
-    @abstractmethod
-    def scan_document(self, document):
-        pass
+<span class="function">class</span> Scannable(<span class="function">ABC</span>):
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> scan_document(<span class="function">self</span>, document):
+        <span class="function">pass</span>
 
-class Faxable(ABC):
-    @abstractmethod
-    def fax_document(self, document):
-        pass
+<span class="function">class</span> Faxable(<span class="function">ABC</span>):
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> fax_document(<span class="function">self</span>, document):
+        <span class="function">pass</span>
 
-# Basic printer that only supports printing
-class BasicPrinter(Printable):
-    def print_document(self, document):
-        print(f"Printing document: {document}")
+<span class="function">class</span> BasicPrinter(<span class="function">Printable</span>):
+    <span class="function">def</span> print_document(<span class="function">self</span>, document):
+        <span class="command">print</span>(f"Printing document: {document}"</span>)
 
-# Advanced printer that supports printing, scanning, and faxing
-class AdvancedPrinter(Printable, Scannable, Faxable):
-    def print_document(self, document):
-        print(f"Printing document: {document}")
+<span class="function">class</span> AdvancedPrinter(<span class="function">Printable</span>, <span class="function">Scannable</span>, <span class="function">Faxable</span>):
+    <span class="function">def</span> print_document(<span class="function">self</span>, document):
+        <span class="command">print</span>(<span class="text">f"Printing document: {document}"</span>)
 
-    def scan_document(self, document):
-        print(f"Scanning document: {document}")
+    <span class="function">def</span> scan_document(<span class="function">self</span>, document):
+        <span class="command">print</span>(<span class="text">f"Scanning document: {document}"</span>)
 
-    def fax_document(self, document):
-        print(f"Faxing document: {document}")
+    <span class="function">def</span> fax_document(<span class="function">self</span>, document):
+        <span class="command">print</span>(<span class="text">f"Faxing document: {document}"</span>)
 
-# Usage
-basic_printer = BasicPrinter()
-basic_printer.print_document("Report.pdf")  # Works
+basic_printer <span class="sign">=</span> <span class="function">BasicPrinter</span>()
+basic_printer.print_document(<span class="text">"report.pdf"</span>)
 
-advanced_printer = AdvancedPrinter()
-advanced_printer.print_document("Report.pdf")  # Works
-advanced_printer.scan_document("Report.pdf")  # Works
-advanced_printer.fax_document("Report.pdf")   # Works
+advanced_printer <span class="sign">=</span> <span class="function">AdvancedPrinter</span>()
+advanced_printer.print_document(<span class="text">"report.pdf"</span>)
+advanced_printer.scan_document(<span class="text">"report.pdf"</span>)
+advanced_printer.fax_document(<span class="text">"report.pdf"</span>)
                                     </code></pre>
 
-                                    <h2><a id="dependency-inversion-principle">Dependency Inversion Principle</a></h2>
+                                    <h2><a id="dependency-inversion-principle">Dependency Inversion Principle (DIP)</a></h2>
 
-                                    <p>High-level modules should not depend on low-level modules, but on abstractions (abstract classes). Additionally, abstractions should not depend on details, but details should depend on abstractions. We want to depend on interfaces rather than concrete implementations because that way we can swap one for the other.</p>
+                                    <p>High-level modules should not depend on low-level modules (e.g., dealing with storage is a low-level concern), but on abstractions (abstract classes). Additionally, abstractions should not depend on details, but details should depend on abstractions. We want to depend on interfaces rather than concrete implementations because that way we can swap one for the other.</p>
 
                                     <h4>Issue</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-class MySQLDatabase:
-    def connect(self):
-        print("Connecting to MySQL database...")
+<span class="function">class</span> MySQLDatabase:
+    <span class="function">def</span> connect(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Connecting to MySQL database..."</span>)
 
-    def save_data(self, data):
-        print(f"Saving {data} to MySQL database.")
+    <span class="function">def</span> save_data(<span class="function">self</span>, data):
+        <span class="command">print</span>(<span class="text">f"Saving {data} to MySQL database."</span>)
 
-class DataHandler:
-    def __init__(self):
-        self.database = MySQLDatabase()  # Direct dependency on a low-level module
+<span class="function">class</span> DataHandler:
+    <span class="function">def</span> <span class="function">__init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.database <span class="sign">=</span> <span class="function">MySQLDatabase</span>() <span class="comment"># direct dependency on a low-level module</span>
 
-    def save(self, data):
-        self.database.connect()
-        self.database.save_data(data)
+    <span class="function">def</span> save(<span class="function">self</span>, data):
+        <span class="function">self</span>.database.connect()
+        <span class="function">self</span>.database.save_data(data)
 
-# Usage
-data_handler = DataHandler()
-data_handler.save("user data")  # Works but tightly coupled to MySQLDatabase
+data_handler <span class="sign">=</span> <span class="function">DataHandler</span>()
+data_handler.save(<span class="text">"user data"</span>)
                                     </code></pre>
 
-                                    <p>DataHandler depends directly on MySQLDatabase, a low-level module. If the database changes (e.g., to PostgreSQL), DataHandler must be modified, violating DIP and reducing flexibility.</p>
+                                    <p><code>DataHandler</code> depends directly on <code>MySQLDatabase</code>, a low-level module. If the database changes (e.g., to PostgreSQL), <code>DataHandler</code> must be modified, violating the DIP and reducing flexibility.</p>
 
                                     <h4>Solution</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-from abc import ABC, abstractmethod
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
 
-# Abstraction for a database
-class Database(ABC):
-    @abstractmethod
-    def connect(self):
-        pass
+<span class="function">class</span> Database(<span class="function">ABC</span>): <span class="comment"># an abstraction for a database</span>
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> connect(<span class="function">self</span>):
+        <span class="function">pass</span>
 
-    @abstractmethod
-    def save_data(self, data):
-        pass
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> save_data(<span class="function">self</span>, data):
+        <span class="function">pass</span>
 
-# Low-level module: MySQL implementation
-class MySQLDatabase(Database):
-    def connect(self):
-        print("Connecting to MySQL database...")
+<span class="function">class</span> MySQLDatabase(<span class="function">Database</span>): <span class="comment"># low-level module: MySQL implementation</span>
+    <span class="function">def</span> connect(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Connecting to MySQL database..."</span>)
 
-    def save_data(self, data):
-        print(f"Saving {data} to MySQL database.")
+    <span class="function">def</span> save_data(<span class="function">self</span>, data):
+        <span class="command">print</span>(<span class="text">f"Saving {data} to MySQL database."</span>)
 
-# Low-level module: PostgreSQL implementation
-class PostgreSQLDatabase(Database):
-    def connect(self):
-        print("Connecting to PostgreSQL database...")
+<span class="function">class</span> PostgreSQLDatabase(<span class="function">Database</span>): <span class="comment"># low-level module: PostgreSQL implementation</span>
+    <span class="function">def</span> connect(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Connecting to PostgreSQL database..."</span>)
 
-    def save_data(self, data):
-        print(f"Saving {data} to PostgreSQL database.")
+    <span class="function">def</span> save_data(<span class="function">self</span>, data):
+        <span class="command">print</span>(<span class="text">f"Saving {data} to PostgreSQL database."</span>)
 
-# High-level module depends on abstraction
-class DataHandler:
-    def __init__(self, database: Database):
-        self.database = database
+<span class="function">class</span> DataHandler: <span class="comment"># high-level module depending on the abstraction</span>
+    <span class="function">def</span> <span class="function">__init__</span>(<span class="function">self</span>, database: <span class="function">Database</span>):
+        <span class="function">self</span>.database <span class="sign">=</span> database
 
-    def save(self, data):
-        self.database.connect()
-        self.database.save_data(data)
+    <span class="function">def</span> save(<span class="function">self</span>, data):
+        <span class="function">self</span>.database.connect()
+        <span class="function">self</span>.database.save_data(data)
 
-# Usage
-mysql_db = MySQLDatabase()
-postgres_db = PostgreSQLDatabase()
+mysql_db <span class="sign">=</span> <span class="function">MySQLDatabase</span>()
+postgres_db <span class="sign">=</span> <span class="function">PostgreSQLDatabase</span>()
 
-# Injecting dependencies
-data_handler_mysql = DataHandler(mysql_db)
-data_handler_postgres = DataHandler(postgres_db)
+data_handler_mysql <span class="sign">=</span> <span class="function">DataHandler</span>(mysql_db)
+data_handler_postgres <span class="sign">=</span> <span class="function">DataHandler</span>(postgres_db)
 
-data_handler_mysql.save("user data")       # Works with MySQL
-data_handler_postgres.save("user data")    # Works with PostgreSQL
+data_handler_mysql.save(<span class="text">"user data"</span>)
+data_handler_postgres.save(<span class="text">"user data"</span>)
                                     </code></pre>
                                 </div>
                             </div>
