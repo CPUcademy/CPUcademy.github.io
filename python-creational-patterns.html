@@ -92,12 +92,234 @@
                                     <h5 class="m-0 font-weight-bold">Creational patterns</h5>
                                 </div>
                                 <div class="card-body">
-                                    - builder
-                                    - factories
-                                        - abstract factory
-                                        - factory method
-                                    - prototype
-                                    - singleton
+                                    <p>Creational patterns deal with construction of objects (explicit - via a constructor, or implicit - via, e.g., dependency injection). An object can be created wholesale (in a single statement) or piecewise (step-by-step).</p>
+
+                                    <ul>
+                                        <li><a href="#builder" class="link" style="text-decoration: none;">Builder</a></li>
+                                        <li><a href="#factories" class="link" style="text-decoration: none;">Factories</a></li>
+                                        <li><a href="#prototype" class="link" style="text-decoration: none;">Prototype</a></li>
+                                        <li><a href="#singleton" class="link" style="text-decoration: none;">Singleton</a></li>
+                                    </ul>
+
+                                    <h2><a id="builder">Builder</a></h2>
+
+                                    <p>When an object takes long to initialize, provide an API for constructing it succintly. Separate the construction of a complex object from its representation, allowing the same construction process to create various representations. A builder is a separate component for building an object.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Pizza:
+    def __init__(self):
+        self.size = None
+        self.cheese = None
+        self.pepperoni = False
+        self.mushrooms = False
+        self.extra_toppings = []
+
+    def __str__(self):
+        return f"Pizza(Size: {self.size}, Cheese: {self.cheese}, Pepperoni: {self.pepperoni}, Mushrooms: {self.mushrooms}, Extra Toppings: {self.extra_toppings})"
+
+class PizzaBuilder:
+    def __init__(self):
+        self.pizza = Pizza()
+
+    def set_size(self, size):
+        self.pizza.size = size
+        return self # chaining (methods can be executed one after another as the same statement)
+
+    def add_cheese(self, cheese_type):
+        self.pizza.cheese = cheese_type
+        return self
+
+    def add_pepperoni(self):
+        self.pizza.pepperoni = True
+        return self
+
+    def add_mushrooms(self):
+        self.pizza.mushrooms = True
+        return self
+
+    def add_topping(self, topping):
+        self.pizza.extra_toppings.append(topping)
+        return self
+
+    def build(self):
+        return self.pizza
+
+builder = PizzaBuilder()
+custom_pizza = builder.set_size("Large").add_cheese("Cheddar").add_pepperoni().add_topping("Olives").build()
+print(custom_pizza)
+
+veggie_pizza = builder.set_size("Medium").add_cheese("Mozzarella").add_mushrooms().add_topping("Bell Peppers").add_topping("Onions").build()
+print(veggie_pizza)
+                                    </code></pre>
+
+                                    <h4>Builder facets</h4>
+
+                                    <p>A builder facet is a specialized component of a builder pattern that focuses on constructing a specific aspect or "facet" of an object, using multiple builders (e.g., for personal details, job details, or address details), while maintaining a fluent interface for chaining methods. A fluent interface allows method calls to be chained together in a readable and expressive way, often by returning the current object after each method call (<code>return self</code>).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Person:
+    def __init__(self):
+        self.name = None
+        self.age = None
+        
+        # Job details
+        self.job_title = None
+        self.company = None
+        self.salary = None
+        
+        # Address details
+        self.street = None
+        self.city = None
+        self.postal_code = None
+
+    def __str__(self):
+        return (
+            f"Person(Name: {self.name}, Age: {self.age}, "
+            f"Job: {self.job_title} at {self.company} (${self.salary}))"
+        )
+
+# The main builder class to manage all facets
+class PersonBuilder:
+    def __init__(self, person=None):
+        if person is None:
+            self.person = Person()
+        else:
+            self.person = person
+
+    @property
+    def personal(self):
+        return PersonPersonalBuilder(self.person)
+
+    @property
+    def job(self):
+        return PersonJobBuilder(self.person)
+
+    def build(self):
+        return self.person
+
+# Builder facet for personal details
+class PersonPersonalBuilder(PersonBuilder):
+    def __init__(self, parent_builder):
+        super().__init__(parent_builder)
+
+    def set_name(self, name):
+        self.person.name = name
+        return self
+
+    def set_age(self, age):
+        self.person.age = age
+        return self
+
+# Builder facet for job details
+class PersonJobBuilder(PersonBuilder):
+    def __init__(self, parent_builder):
+        super().__init__(parent_builder)
+
+    def set_job_title(self, job_title):
+        self.person.job_title = job_title
+        return self
+
+    def set_company(self, company):
+        self.person.company = company
+        return self
+
+    def set_salary(self, salary):
+        self.person.salary = salary
+        return self
+
+builder = PersonBuilder()
+person = builder.personal.set_name("John Doe").set_age(30)\
+    .job.set_job_title("Software Engineer").set_company("Tech Corp").set_salary(120000)\
+    .build()
+
+print(person)
+                                    </code></pre>
+
+                                    <h4>Builder inheritance</h4>
+
+                                    <p>Builder facets violate the Open/Closed Principle, because every time we create a new sub-builder, we have to add it to the main builder. Thanks to inheritance, every builder in the example below is open for extansion, but closed for modification. </p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Person:
+    def __init__(self):
+        self.name = None
+        self.job_title = None
+        self.salary = None
+
+    def __str__(self):
+        return f"{self.name} works as {self.job_title}, earns {self.salary}"
+
+    @staticmethod
+    def new():
+        return PersonBuilder()
+
+class PersonBuilder:
+    def __init__(self):
+        self.person = Person()
+
+    def build(self):
+        return self.person
+
+class PersonPersonalBuilder(PersonBuilder):
+    def called(self, name):
+        self.person.name = name
+        return self
+
+class PersonJobBuilder(PersonPersonalBuilder):
+    def job(self, job_title):
+        self.person.job_title = job_title
+        return self
+
+class PersonSalaryBuilder(PersonJobBuilder):
+    def earns(self, salary):
+        self.person.salary = salary
+        return self
+
+builder = PersonSalaryBuilder()
+person = builder.called("Josh").job("Engineer").earns("100000").build()
+print(person)
+                                    </code></pre>
+
+                                    <h4>Exercise</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class CodeBuilder:
+    def __init__(self, class_name):
+        self.class_name = class_name
+        self.fields = []
+
+    def add_field(self, field_name, default_value):
+        self.fields.append((field_name, default_value))
+        return self 
+
+    def __str__(self):
+        lines = [f"class {self.class_name}:"]
+        if self.fields:
+            lines.append("  def __init__(self):")
+            for field_name, default_value in self.fields:
+                lines.append(f"    self.{field_name} = {default_value}")
+        else:
+            lines.append("  pass") # if no fields are added, add "pass" instead of __init__
+        
+        return "\n".join(lines)
+
+cb = CodeBuilder("Person").add_field("name", '""').add_field("age", "0")
+print(cb)
+print()
+
+cb2 = CodeBuilder("Person")
+print(cb2)
+                                    </code></pre>
+
+                                    <h2><a id="factories">Factories</a></h2>
+
+                                    <h3>Factory method</h3>
+
+                                    <p>Object creation logic becomes too convoluted. Constructor is not descriptive (name is always __init__, cannot overload with same sets of arguments with different names, can turn into 'optional parameter hell'). Factory method creates objects without exposing the instantiation logic to the client and refers to the newly created object through a common interface. Wholesale object creation (non-piecewise, unlike Builder) can be outsourced to: a separate method (factory methid), that may exist in a separate class (factory), can create a hierarchy of factories with abstract factory. A factory is a component responsible solely for the wholesale (not piecewise) creation of objects.</p>
+
+                                    <h3>Abstract factory</h3>
+
+
                                 </div>
                             </div>
                         </div>
