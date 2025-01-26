@@ -92,14 +92,16 @@
                                     <h5 class="m-0 font-weight-bold">Creational patterns</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Creational patterns deal with construction of objects (explicit - via a constructor, or implicit - via, e.g., dependency injection). An object can be created wholesale (in a single statement) or piecewise (step-by-step).</p>
-
+                                    <h3>Table of contents</h3>
+                                    
                                     <ul>
                                         <li><a href="#builder" class="link" style="text-decoration: none;">Builder</a></li>
                                         <li><a href="#factories" class="link" style="text-decoration: none;">Factories</a></li>
                                         <li><a href="#prototype" class="link" style="text-decoration: none;">Prototype</a></li>
                                         <li><a href="#singleton" class="link" style="text-decoration: none;">Singleton</a></li>
                                     </ul>
+
+                                    <p>Creational patterns deal with construction of objects (explicit - via a constructor, or implicit - via, e.g., dependency injection). An object can be created wholesale (in a single statement) or piecewise (step-by-step).</p>
 
                                     <h2><a id="builder">Builder</a></h2>
 
@@ -280,46 +282,107 @@ person = builder.called("Josh").job("Engineer").earns("100000").build()
 print(person)
                                     </code></pre>
 
-                                    <h4>Exercise</h4>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-class CodeBuilder:
-    def __init__(self, class_name):
-        self.class_name = class_name
-        self.fields = []
-
-    def add_field(self, field_name, default_value):
-        self.fields.append((field_name, default_value))
-        return self 
-
-    def __str__(self):
-        lines = [f"class {self.class_name}:"]
-        if self.fields:
-            lines.append("  def __init__(self):")
-            for field_name, default_value in self.fields:
-                lines.append(f"    self.{field_name} = {default_value}")
-        else:
-            lines.append("  pass") # if no fields are added, add "pass" instead of __init__
-        
-        return "\n".join(lines)
-
-cb = CodeBuilder("Person").add_field("name", '""').add_field("age", "0")
-print(cb)
-print()
-
-cb2 = CodeBuilder("Person")
-print(cb2)
-                                    </code></pre>
-
                                     <h2><a id="factories">Factories</a></h2>
 
                                     <h3>Factory method</h3>
 
-                                    <p>Object creation logic becomes too convoluted. Constructor is not descriptive (name is always __init__, cannot overload with same sets of arguments with different names, can turn into 'optional parameter hell'). Factory method creates objects without exposing the instantiation logic to the client and refers to the newly created object through a common interface. Wholesale object creation (non-piecewise, unlike Builder) can be outsourced to: a separate method (factory methid), that may exist in a separate class (factory), can create a hierarchy of factories with abstract factory. A factory is a component responsible solely for the wholesale (not piecewise) creation of objects.</p>
+                                    <p>A factory method is an alternate constructor. It provides an additional way to create class instances, often with a more descriptive name or specialized logic, while keeping the main <code>__init__()</code> constructor simple. For example, instead of the user's age, we can take his date of birth and then calculate the age. They can be created using the <code>@classmethod</code> (like shown <a href="python-decorators.html#class-methods" class="link">here</a>) or <code>@staticmethod</code> decorator. A class can have multiple alternate constructors.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Person:
+    def __init__(self, name, age):
+        self.__name = name
+        self.__age = age
+
+    def __str__(self):
+        return f"{self.__name}, {self.__age}"
+
+    @staticmethod
+    def from_age(name, age):
+        return Person(name, age)
+
+    @staticmethod
+    def from_birth_year(name, birth_year):
+        return Person(name, 2024 - birth_year)
+
+e = Person.from_age("Josh", 25)
+e2 = Person.from_birth_year("John", 1980)
+
+print(e)
+print(e2)
+                                    </code></pre>
+
+                                    <p>The example above doesn't adhere to the SRP. We should separate the factory methods into a different class called Factory and use them from there.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class PersonFactory:
+    @staticmethod
+    def from_age(name, age):
+        return Person(name, age)
+
+    @staticmethod
+    def from_birth_year(name, birth_year):
+        return Person(name, 2024 - birth_year)
+
+class Person:
+    factory = PersonFactory() # this is optional (for convenience)
+    
+    def __init__(self, name, age):
+        self.__name = name
+        self.__age = age
+
+    def __str__(self):
+        return f"{self.__name}, {self.__age}"
+
+e = Person.factory.from_age("Josh", 25)
+e2 = Person.factory.from_birth_year("John", 1980)
+
+print(e)
+print(e2)
+                                    </code></pre>
 
                                     <h3>Abstract factory</h3>
 
+                                    <p>An abstract factory defines an interface for creating a set of related or dependent objects, with multiple concrete factories implementing this interface to produce different variations of products. In simpler words, an abstract factory defines how factories should be implemented (like an abstract class). Hierarchies of factories can be used to create related objects.</p>
 
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+from abc import ABC, abstractmethod
+
+class Vehicle(ABC):
+    @abstractmethod
+    def drive(self):
+        pass
+
+class Car(Vehicle):
+    def drive(self):
+        return "Driving a car"
+
+class Bike(Vehicle):
+    def drive(self):
+        return "Riding a bike"
+
+class VehicleFactory(ABC): # abstract factory
+    @abstractmethod
+    def create_vehicle(self):
+        pass
+
+class CarFactory(VehicleFactory): # concrete factory
+    def create_vehicle(self):
+        return Car()
+
+class BikeFactory(VehicleFactory):
+    def create_vehicle(self):
+        return Bike()
+
+def vehicle_client(factory: VehicleFactory):
+    vehicle = factory.create_vehicle()
+    print(vehicle.drive())
+
+vehicle_client(CarFactory())
+vehicle_client(BikeFactory())
+                                    </code></pre>
+
+                                    <h2><a id="prototype">Prototype</a></h2>
                                 </div>
                             </div>
                         </div>

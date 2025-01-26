@@ -134,12 +134,24 @@ x <span class="sign">=</span> <span class="command">abs</span>(<span class="sign
 
                                     <h4><code>eval()</code></h4>
 
-                                    <p>The <code>eval()</code> function takes a string with a mathematical expression and calculates it. Its version from the <code>ast</code> module, <code>literal_eval()</code>, takes a string with a literal (a list, a dict, etc.) and turns it into a data structure we can operate on.</p>
+                                    <p>The <code>eval()</code> function takes a string with a mathematical expression or Python code and calculates/runs it. Its version from the <code>ast</code> module, <code>literal_eval()</code>, takes a string with a literal (a list, a dict, etc.) and turns it into a data structure we can operate on. It is safer to use for this purpose because it prevents executing other code.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 expression <span class="sign">=</span> <span class="text">"3 * (4 + 5)"</span>
 result <span class="sign">=</span> <span class="command">eval</span>(expression)
 <span class="command">print</span>(result)
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> func1():
+    <span class="command">print</span>(<span class="text">"func1 call"</span>)
+
+<span class="function">def</span> func2():
+    <span class="command">print</span>(<span class="text">"func2 call"</span>)
+
+functions <span class="sign">=</span> [<span class="text">"func1"</span>, <span class="text">"func2"</span>]
+<span class="function">for</span> x <span class="function">in</span> functions:
+    <span class="command">eval</span>(x)() <span class="comment"># calling the functions from the list</span>
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
