@@ -159,6 +159,8 @@
                                     
                                     <p>In the example above, you can see that the constructor and destructor from the parent class were executed. Well, they were executed but not inherited. The child class has to have its constructor and destructor. Pay attention to the order in which these methods were executed.</p>
                                     
+                                    <p>The superclass's constructor is automatically called before the subclass's constructor.</p>
+
                                     <h2>Multiple inheritance</h2>
                                     
                                     <p>A class can inherit features from more than one parent class.</p>
@@ -232,7 +234,7 @@
                                     
                                     <p>A method can become virtual, which means that before calling it, it will check whether there is a class that inherits and overloads it. It will then call the appropriate method lower in the hierarchy. We create virtual methods by writing <code>virtual</code> before their type.</p>
                                     
-                                    <p>A class is considered abstract if it has at least one pure virtual method (i.e., a virtual method with <code>= 0</code>). An abstract class is a class that is designed to be used as a base class. It can't call out its objects, so we can use them only in its child classes. It also can't have instances. An abstract method is a method that is in an abstract class and is a pure virtual method. Abstract classes provide a base for subclasses to extend and implement abstract methods and are used as a blueprint for other classes. An abstract class forces its child classes to overwrite all its abstract methods.</p>
+                                    <p>A class is considered abstract if it has at least one pure virtual method (i.e., a virtual method with <code>= 0</code>). An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects, so we can only use them in its child classes. It also can't have instances. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). An abstract method is a method that is in an abstract class and is a pure virtual method. An abstract class forces its child classes to overwrite all its abstract methods.</p>
                                     
                                     <p>When creating an abstract class, we also have to make a virtual destructor (write <code>virtual</code> before the destructor definition). A constructor is not mandatory in an abstract class because it works implicitly.</p>
                                     
