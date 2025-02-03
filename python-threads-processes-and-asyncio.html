@@ -201,6 +201,23 @@ threads <span class="sign">=</span> []
 <span class="command">print</span>(<span class="text">"Final value of shared_resource:"</span>, shared_resource)
                                     </code></pre>
 
+                                    <h4>Thread pools</h4>
+
+                                    <p>A thread pool is a collection of worker threads that efficiently execute multiple tasks in parallel, reusing threads to avoid the overhead of thread creation.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> concurrent.futures <span class="command">import</span> <span class="function">ThreadPoolExecutor</span>
+<span class="command">import</span> threading
+
+<span class="function">def</span> task(n): <span class="comment"># function to execute inside the thread pool</span>
+    <span class="command">print</span>(<span class="text">f"Task {n} running in {threading.current_thread().name}"</span>)
+
+<span class="function">with ThreadPoolExecutor</span>(<span class="command">max_workers</span><span class="sign">=</span>3) <span class="function">as</span> executor: <span class="comment"># creating a thread pool with 3 worker threads</span>
+    <span class="comment"># Submitting 5 tasks to the thread pool</span>
+    <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(1, 6):
+        executor.<span class="command">submit</span>(task, i) <span class="comment"># executing the task() function with argument "i"</span>
+                                    </code></pre>
+
                                     <h2><a id="processes">Processes, GIL (Global Interpreter Lock)</a></h2>
 
                                     <p>The Global Interpreter Lock (GIL) is a mechanism used in CPython (the most widely used Python interpreter) to ensure that only one thread executes Python bytecode simultaneously in a single process. When using threads, it limits the parallelism of CPU-bound tasks but <b>does not affect I/O-bound tasks</b> like network or file operations. If our program is CPU-bound and we want to take full advantage of multiple CPU cores, we can bypass the GIL by using the <code>multiprocessing</code> module, which spawns separate processes, each with its own Python interpreter and GIL. Use this module specifically for CPU-bound tasks to utilize multiple cores. Creating too many processes can lead to inefficiency.</p>
@@ -361,7 +378,7 @@ asyncio.<span class="command">run</span>(main())
 
                                     <h5>Semaphore</h5>
 
-                                    <p>Unlike a lock, a semaphore allows a specified number of coroutines or tasks to access a resource at the same time. It ensures mutual exclusion based on the defined limit. The example below demonstrates controlled access to the resource. By setting the semaphore limit to 2, only two coroutines or tasks can access the resource at the same time.</p>
+                                    <p>Unlike a lock, a semaphore allows a specified number of coroutines or tasks to access a resource at the same time. It ensures mutual exclusion based on the defined limit. The example below demonstrates controlled access to the resource. When setting the semaphore limit to 2, exactly two threads can access the resource simultaneously. Threads can also use semaphores.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> asyncio
