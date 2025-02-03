@@ -143,7 +143,7 @@
 
                                     <p><code>ArrayList&lt;Integer&gt;</code> is just a declaration of a list. If we try to add objects to it, we will get a <code>NullPointerException</code> error. It is necessary to also initialize it (<code>new ArrayList&lt;&gt;()</code>).</p>
 
-                                    <p>In the example below, we can see that something like <code>new ArrayList&lt;&gt;(x)</code> means the <code>x</code> list will be copied to the <code>y</code> list, and <code>y</code> won't be just another name for the data but its actual copy that can have different values than the original.</p>
+                                    <p>The <code>new ArrayList&lt;&gt;(x)</code> phrase means the <code>x</code> list will be copied to the <code>y</code> list (<code>y</code> won't be just another name for the list but its actual copy that can have different values than the original). We can achieve something similar using the <code>clone()</code> method (<code>ArrayList<Integer> cloned = (ArrayList<Integer>) original.clone();</code>). These two do not work as expected if the <code>ArrayList</code> contains mutable objects (objects whose internal state can be changed after creation, such as instances of custom classes with modifiable fields), as both new <code>ArrayList&lt;&gt;(x)</code> and <code>clone()</code> only create a shallow copy, meaning changes to the objects in one list will reflect in the other.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.util.<span class="sign">*;</span>
