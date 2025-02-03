@@ -140,7 +140,7 @@
         <span class="sign">{</span>
             <span class="comment">// Waiting for both threads to finish</span>
             task1.<span class="command">join</span>()<span class="sign">;</span>
-            task2.j<span class="command">oin</span>()<span class="sign">;</span>
+            task2.<span class="command">join</span>()<span class="sign">;</span>
         <span class="sign">}</span>
         <span class="function">catch</span>(<span class="function">InterruptedException</span> e) <span class="comment">// if another thread interrupts the current thread</span>
         <span class="sign">{</span>
@@ -204,6 +204,45 @@ th.<span class="command">start</span>()<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
+
+                                    <h4>Thread pools</h4>
+
+                                    <p>A thread pool is a collection of worker threads that efficiently execute multiple tasks in parallel, reusing threads to avoid the overhead of thread creation.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.concurrent.ExecutorService<span class="sign">;</span>
+<span class="command">import</span> java.util.concurrent.Executors<span class="sign">;</span>
+
+<span class="function">public class</span> Main
+<span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
+    <span class="sign">{</span>
+        <span class="function">ExecutorService</span> executor <span class="sign">=</span> <span class="function">Executors</span>.<span class="command">newFixedThreadPool</span>(3)<span class="sign">;</span> <span class="comment">// creating a thread pool with 3 worker threads</span>
+        
+        <span class="comment">// Submitting 5 tasks to the thread pool</span>
+        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 5<span class="sign">;</span> i<span class="sign">++</span>) 
+            executor.<span class="command">submit</span>(<span class="function">new Task</span>(i))<span class="sign">;</span> <span class="comment">// executing the task with argument "i"</span>
+
+        executor.<span class="command">shutdown</span>()<span class="sign">;</span> <span class="comment">// shutting down the executor to stop accepting new tasks</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> Task <span class="function">implements Runnable</span> <span class="comment">// class to execute inside the thread pool (it can extend Thread instead of implementing Runnable)</span>
+<span class="sign">{</span>
+    <span class="function">private final int</span> taskNum<span class="sign">;</span>
+    <span class="function">public Task</span>(<span class="function">int</span> taskNum)<span class="sign">{</span><span class="function">this</span>.taskNum <span class="sign">=</span> taskNum<span class="sign">;}</span>
+
+    <span class="command">@Override</span>
+    <span class="function">public void</span> run() 
+    <span class="sign">{</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Task "</span> <span class="sign">+</span> taskNum <span class="sign">+</span> <span class="text">" running in "</span> <span class="sign">+</span> <span class="function">Thread</span>.<span class="command">currentThread</span>().<span class="command">getName</span>())<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h4>Semaphore</h4>
+
+                                    <p>Unlike a lock, a semaphore allows a specified number of threads to access a resource at the same time. It ensures mutual exclusion based on the defined limit. When setting the semaphore limit to 2, exactly two threads can access the resource simultaneously.</p>
                                 </div>
                             </div>
                         </div>
