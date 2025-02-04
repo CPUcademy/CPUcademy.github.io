@@ -99,6 +99,8 @@
                                         <li><a href="#factories" class="link" style="text-decoration: none;">Factories</a></li>
                                         <li><a href="#prototype" class="link" style="text-decoration: none;">Prototype</a></li>
                                         <li><a href="#singleton" class="link" style="text-decoration: none;">Singleton</a></li>
+                                        <li><a href="#multiton" class="link" style="text-decoration: none;">Multiton</a></li>
+                                        <li><a href="#dependency-injection" class="link" style="text-decoration: none;">Dependency injection</a></li>
                                     </ul>
 
                                     <p>Creational patterns deal with construction of objects (explicit - via a constructor, or implicit - via, e.g., dependency injection). An object can be created wholesale (in a single statement) or piecewise (step-by-step).</p>
@@ -383,6 +385,82 @@ vehicle_client(BikeFactory())
                                     </code></pre>
 
                                     <h2><a id="prototype">Prototype</a></h2>
+
+                                    <p>A prototype allows object cloning instead of creating new instances from scratch, improving efficiency and flexibility. Sometimes it is more efficient to clone an object and modify it, instead of initializing a new one. A prototype is a partially or fully initialized object that we can copy (clone) and modify.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+import copy
+
+class Car:
+    def __init__(self, model, color, engine):
+        self.model = model
+        self.color = color
+        self.engine = engine
+
+    def clone(self):
+        return copy.deepcopy(self) # creating a deep copy of the object
+
+    def __str__(self):
+        return f"{self.color} {self.model} with {self.engine} engine"
+
+car1 = Car("Tesla Model S", "Red", "Electric") # creating an original object
+
+car2 = car1.clone() # cloning the object
+car2.color = "Blue" # modifying the cloned object
+
+print(car1)
+print(car2)
+                                    </code></pre>
+
+                                    <h4>Prototype factory</h4>
+
+                                    <p>A factory provides a convenient API for using prototypes.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+import copy
+
+class Car:
+    def __init__(self, model, color, engine):
+        self.model = model
+        self.color = color
+        self.engine = engine
+
+    def clone(self):
+        return copy.deepcopy(self) # creating a deep copy of the object
+
+    def __str__(self):
+        return f"{self.color} {self.model} with {self.engine} engine"
+
+class CarFactory:
+    prototypes = {}
+
+    @classmethod
+    def register_prototype(cls, key, engine):
+        cls.prototypes[key] = Car("", "", engine)
+
+    @staticmethod
+    def __new_car(prototype, model, color): # cloning a prototype and setting model and color
+        result = copy.deepcopy(prototype)
+        result.model = model
+        result.color = color
+        return result
+
+    @classmethod
+    def new_car(cls, key, model, color): # creating a new car instance from a registered prototype
+        if key in cls.prototypes:
+            return cls.__new_car(cls.prototypes[key], model, color)
+        else:
+            raise ValueError("Prototype not found!")
+
+CarFactory.register_prototype("electric", "Electric")
+CarFactory.register_prototype("combustion", "V8")
+
+car1 = CarFactory.new_car("electric", "Tesla Model S", "Blue")
+car2 = CarFactory.new_car("combustion", "Ford Mustang", "White")
+
+print(car1)
+print(car2)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

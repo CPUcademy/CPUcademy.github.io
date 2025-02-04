@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Copy and deepcopy</title>
+    <title>Copy</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -89,40 +89,37 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Copy and deepcopy</h5>
+                                    <h5 class="m-0 font-weight-bold">Copy</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h2>Wstęp</h2>
-            
-                                    <p>The <code>is</code> keyword compares objects by their id address, not by their values, i.e. works the same as checking with <code>==</code> combined with the <code>id()</code> method (<code>id(x) == id(y)</code> = <code>x is y</code>). The <code>==</code> sign itself compares by values, not by id addresses.</p>
-                                    
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    #Listy można pod siebie podstawiać.
-                                    lista6 = [1, 2, 3]
-                                    lista7 = lista6
-                                    lista7.append(4)
-                                    print(lista6)
+<span class="comment"># This is a shallow copy (both lists reference the same object).</span>
+list1 <span class="sign">=</span> [1, 2, 3]
+list2 <span class="sign">=</span> list1
+list2.<span class="command">append</span>(4)
+<span class="command">print</span>(list1)
 
-                                    #Aby przy podstawianiu pod siebie list wystąpiły 2 listy, a nie 
-                                    #jedna o dwóch nazwach, to należy przy kopiowaniu dopisać <span style="color: red;">[:]</span>.
-                                    lista8 = [1, 2, 3]
-                                    lista9 = lista8[:]
-                                    lista9.append(4)
-                                    print(lista)
+<span class="comment"># This is a shallow copy using slicing (creates a new list but does not copy nested objects).</span>
+list3 <span class="sign">=</span> [1, 2, 3]
+list4 <span class="sign">=</span> list3[<span class="sign">:</span>]
+list4.<span class="command">append</span>(4)
+<span class="command">print</span>(list3)
 
-                                    #Po użyciu <span style="color: red;">[:]</span> adresy <span style="color: red;">id</span> nie są już takie same.
-                                    lista10 = [1, 2, 3]
-                                    lista11 = lista10[:]
-                                    lista11.append(4)
-                                    print(lista1 is lista2)
+<span class="comment"># The same as the example above using the copy module.</span>
+<span class="command">import</span> copy
+list5 <span class="sign">=</span> [1, 2, 3]
+list6 <span class="sign">=</span> copy.<span class="command">copy</span>(list5)
+list6.<span class="command">append</span>(4)
+<span class="command">print</span>(list5)
 
-                                    #Do kopiowania można też użyć biblioteki <span style="color: red;">copy</span>. Sposób z użyciem <span style="color: red;">[:]</span> działa tak samo jak ta biblioteka.
-                                    import copy
-                                    lista12 = [1, 2, 3]
-                                    lista13 = copy.copy(lista12)
-                                    lista13.append(4)
-                                    print(lista12)
+<span class="comment"># This is a deep copy (creates a completely independent copy, including nested objects).</span>
+list7 <span class="sign">=</span> [[1, 2], [3, 4]]
+list8 <span class="sign">=</span> copy.<span class="command">deepcopy</span>(list7)
+list8[0].<span class="command">append</span>(5)
+<span class="command">print</span>(list7)
                                     </code></pre>
+
+                                    <p>In terms of classes, a shallow copy (<code>copy.copy()</code>) creates a new instance that shares references to nested objects (attributes), whereas a deep copy (<code>copy.deepcopy()</code>) creates a fully independent clone, including all nested objects.</p>
                                 </div>
                             </div>
                         </div>

@@ -109,6 +109,21 @@ cat.breed()
                                     </code></pre>
 
                                     <p>The superclass's constructor won't be called while using the child class (the constructor isn't inherited).</p>
+
+                                    <p>In the example below, <code>self.x</code> is assigned in the <code>Example</code>'s constructor, making it an instance variable, which <code>printX()</code> (inherited from <code>Functions</code>) can access through <code>self</code> because instance attributes are shared across methods in an object-oriented hierarchy.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Functions:
+    <span class="function">def</span> printX(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="function">self</span>.x)
+
+<span class="function">class</span> Example(<span class="function">Functions</span>):
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.x <span class="sign">=</span> 2
+
+e <span class="sign">=</span> <span class="function">Example</span>()
+e.printX()
+                                    </code></pre>
                                     
                                     <p>Using the two methods below, we can check if a class is a subclass of another class and if an object is an instance of a given class.</p>
                                     
@@ -148,7 +163,7 @@ cat.breed()
                                     
                                     <h2><code>super()</code></h2>
                                     
-                                    <p>The <code>super()</code> function allows us to call the original method from the parent class when overriding it in a subclass.</p>
+                                    <p>The <code>super()</code> method allows us to call the original method from the parent class when overriding it in a subclass.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Animal:
