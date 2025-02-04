@@ -96,10 +96,10 @@
                                         <li>OOP (Object-Oriented Programming) is a programming paradigm that organizes code into reusable objects, making it modular, easier to maintain, and more scalable.</li>
                                         <li>In OOP, we define classes, which serve as blueprints for creating objects. Objects represent real-world entities or concepts.</li>
                                         <li>A class defines the structure and behavior of these objects, serving as a template.</li>
-                                        <li>Inside classes, we define methods, which are functions that determine the behavior of objects. Methods are invoked using an object of the class they belong to.</li>
                                         <li>An instance of a class is simply an object created from that class (a variable the class object, <code>ClassName()</code>, is assigned to). A class can have many instances. Their names do not matter.</li>
-                                        <li>Attributes (also called fields or properties) are variables or methods associated with an object, representing the state or characteristics of the object. Their values ​​differ between instances (e.g., the age varies by user, but it is still the same type of numerical value).</li>
-                                        <li>Once an instance is created, we can access and modify the class attributes and call its methods through it. By convention, class names begin with a capital letter, while method names start with a lowercase letter.</li>
+                                        <li>Attributes (also called fields or properties) are variables associated with an object, representing the state or characteristics of the object. Their values ​​differ between instances (e.g., the age varies by user, but it is still the same type of numerical value).</li>
+                                        <li>Inside classes, we define methods, which are functions that determine the behavior of objects. Methods are invoked using an object of the class they belong to (an instance).</li>
+                                        <li>Once an instance is created, we can access and modify the class's attributes and call its methods through it. By convention, class names begin with a capital letter, while method names start with a lowercase letter.</li>
                                         <li>In Python, classes are also objects (everything is an object).</li>
                                     </ul>
                 
@@ -109,9 +109,11 @@
                                     
                                     <p>A constructor (<code>__init__</code>) is a method called by the compiler when an object of the class is created. A destructor (<code>__del__</code>) is called by the compiler when the object is destroyed. In Python, they are not mandatory (the default constructor is executed anyway). Besides, the destructor isn't called automatically and is rarely used. The constructor is commonly used for setting the initial values of variables. These two methods never feature the <code>return</code> instruction. Methods can take arguments. If a constructor takes them, we give them while assigning the class to a variable, and in other words - creating its instance (e.g., <code>x = Human(5)</code>).</p>
                                     
-                                    <p>Every method has a mandatory argument - <code>self</code>, which isn't passed during its call. The <code>self</code> keyword represents the class it is used in and allows to address all objects of the class at any point in the class. A field is a variable of any type that is declared in one of the methods of the class and is its object (has the <code>self</code> keyword before it - <code>self.x</code>). <code>self.x</code> and <code>x</code> are different variables. The former is an object of a class (a field), and the latter is just a variable.</p>
+                                    <p>Every method has a mandatory argument - <code>self</code>, which isn't passed during its call. The <code>self</code> keyword represents the class it is used in and allows to address all objects of the class at any point in the class. A field is a variable of any type that is declared in one of the methods of the class and is its object (has the <code>self</code> keyword before it - <code>self.x</code>). <code>self.x</code> and <code>x</code> are different variables. The former is an object belonging to a class (a field), and the latter is just a variable.</p>
                                     
-                                    <p>A getter is a method that returns values outside of a class, and a setter is a method that edits an object of the class. We should use them because, inside them, we can add, e.g., validation rules.</p>
+                                    <p>In a class, the order of methods and other objects is irrelevant because all objects have access to the whole class the whole time.</p>
+
+                                    <p>A getter is a method that returns values outside of a class, and a setter is a method that edits an object belonging to a class. We should use them because, inside them, we can add, e.g., validation rules.</p>
                                     
                                     <p>We can use the fields created in the <code>__init__()</code> method anywhere inside the given class. The same goes for the other methods, but they must be called first (we cannot use a variable created in a method that hasn't been called yet). All the <code>self</code> variables (fields) should (but don't have to) be created first in the <code>__init__()</code> method, even if their value would initially be <code>None</code> so that they are always accessible everywhere inside the class (they should be "declared" in <code>__init__()</code>).</p>
                                     
@@ -195,7 +197,7 @@ x2.method()
                                     
                                     <h2>Method errors</h2>
                                     
-                                    <p>There are two ways of safely checking whether a class has a particular method.</p>
+                                    <p>There are two ways of safely checking whether a class contains a particular method.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Example:
