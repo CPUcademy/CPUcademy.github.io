@@ -95,294 +95,501 @@
                                     <h3>Table of contents</h3>
                                     
                                     <ul>
-                                        <li><a href="#builder" class="link" style="text-decoration: none;">Builder</a></li>
-                                        <li><a href="#factories" class="link" style="text-decoration: none;">Factories</a></li>
-                                        <li><a href="#prototype" class="link" style="text-decoration: none;">Prototype</a></li>
-                                        <li><a href="#singleton" class="link" style="text-decoration: none;">Singleton</a></li>
+                                        <li><a href="#builder" class="link" style="text-decoration: None;">Builder</a></li>
+                                        <li><a href="#factories" class="link" style="text-decoration: None;">Factories</a></li>
+                                        <li><a href="#prototype" class="link" style="text-decoration: None;">Prototype</a></li>
+                                        <li><a href="#singleton" class="link" style="text-decoration: None;">Singleton</a></li>
+                                        <li><a href="#monostate" class="link" style="text-decoration: None;">Monostate (Singleton variation)</a></li>
+                                        <li><a href="#dependency-injection" class="link" style="text-decoration: None;">Dependency injection</a></li>
                                     </ul>
 
-                                    <p>Creational patterns deal with construction of objects (explicit - via a constructor, or implicit - via, e.g., dependency injection). An object can be created wholesale (in a single statement) or piecewise (step-by-step).</p>
+                                    <p>Creational patterns deal with the construction of objects (explicit - via a constructor or implicit - via, e.g., dependency injection). An object can be created wholesale (in a single statement) or piecewise (step-by-step).</p>
 
                                     <h2><a id="builder">Builder</a></h2>
 
-                                    <p>When an object takes long to initialize, provide an API for constructing it succintly. Separate the construction of a complex object from its representation, allowing the same construction process to create various representations. A builder is a separate component for building an object.</p>
+                                    <p>When an object takes long to initialize, provide an API for constructing it succinctly. Separate the construction of a complex object from its representation, allowing the same construction process to create various representations. A builder is a separate component for building an object.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-class Pizza:
-    def __init__(self):
-        self.size = None
-        self.cheese = None
-        self.pepperoni = False
-        self.mushrooms = False
-        self.extra_toppings = []
+<span class="function">class</span> Pizza:
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.size <span class="sign">=</span> <span class="function">None</span>
+        <span class="function">self</span>.cheese <span class="sign">=</span> <span class="function">None</span>
+        <span class="function">self</span>.pepperoni <span class="sign">=</span> <span class="function">False</span>
+        <span class="function">self</span>.mushrooms <span class="sign">=</span> <span class="function">False</span>
+        <span class="function">self</span>.extra_toppings <span class="sign">=</span> []
 
-    def __str__(self):
-        return f"Pizza(Size: {self.size}, Cheese: {self.cheese}, Pepperoni: {self.pepperoni}, Mushrooms: {self.mushrooms}, Extra Toppings: {self.extra_toppings})"
+    <span class="function">def __str__</span>(<span class="function">self</span>):
+        <span class="function">return</span> <span class="text">f"Pizza(Size: {self.size}, Cheese: {self.cheese}, Pepperoni: {self.pepperoni}, Mushrooms: {self.mushrooms}, Extra Toppings: {self.extra_toppings})"</span>
 
-class PizzaBuilder:
-    def __init__(self):
-        self.pizza = Pizza()
+<span class="function">class</span> PizzaBuilder:
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.pizza <span class="sign">=</span> <span class="function">Pizza</span>()
 
-    def set_size(self, size):
-        self.pizza.size = size
-        return self # chaining (methods can be executed one after another as the same statement)
+    <span class="function">def</span> set_size(<span class="function">self</span>, size):
+        <span class="function">self</span>.pizza.size <span class="sign">=</span> size
+        <span class="function">return</span> <span class="function">self</span> <span class="comment"># chaining (methods can be executed one after another as the same statement because the class object is returned and can be then used to call the next method)</span>
 
-    def add_cheese(self, cheese_type):
-        self.pizza.cheese = cheese_type
-        return self
+    <span class="function">def</span> add_cheese(<span class="function">self</span>, cheese_type):
+        <span class="function">self</span>.pizza.cheese <span class="sign">=</span> cheese_type
+        <span class="function">return</span> <span class="function">self</span>
 
-    def add_pepperoni(self):
-        self.pizza.pepperoni = True
-        return self
+    <span class="function">def</span> add_pepperoni(<span class="function">self</span>):
+        <span class="function">self</span>.pizza.pepperoni <span class="sign">=</span> <span class="function">True</span>
+        <span class="function">return</span> <span class="function">self</span>
 
-    def add_mushrooms(self):
-        self.pizza.mushrooms = True
-        return self
+    <span class="function">def</span> add_mushrooms(<span class="function">self</span>):
+        <span class="function">self</span>.pizza.mushrooms <span class="sign">=</span> <span class="function">True</span>
+        <span class="function">return</span> <span class="function">self</span>
 
-    def add_topping(self, topping):
-        self.pizza.extra_toppings.append(topping)
-        return self
+    <span class="function">def</span> add_topping(<span class="function">self</span>, topping):
+        <span class="function">self</span>.pizza.extra_toppings.<span class="command">append</span>(topping)
+        <span class="function">return</span> <span class="function">self</span>
 
-    def build(self):
-        return self.pizza
+    <span class="function">def</span> build(<span class="function">self</span>):
+        <span class="function">return</span> <span class="function">self</span>.pizza
 
-builder = PizzaBuilder()
-custom_pizza = builder.set_size("Large").add_cheese("Cheddar").add_pepperoni().add_topping("Olives").build()
-print(custom_pizza)
+builder <span class="sign">=</span> <span class="function">PizzaBuilder</span>()
+custom_pizza <span class="sign">=</span> builder.set_size(<span class="text">"Large"</span>).add_cheese(<span class="text">"Cheddar"</span>).add_pepperoni().add_topping(<span class="text">"Olives"</span>).build()
+<span class="command">print</span>(custom_pizza)
 
-veggie_pizza = builder.set_size("Medium").add_cheese("Mozzarella").add_mushrooms().add_topping("Bell Peppers").add_topping("Onions").build()
-print(veggie_pizza)
+veggie_pizza <span class="sign">=</span> builder.set_size(<span class="text">"Medium"</span>).add_cheese(<span class="text">"Mozzarella"</span>).add_mushrooms().add_topping(<span class="text">"Bell Peppers"</span>).add_topping(<span class="text">"Onions"</span>).build()
+<span class="command">print</span>(veggie_pizza)
                                     </code></pre>
 
                                     <h4>Builder facets</h4>
 
-                                    <p>A builder facet is a specialized component of a builder pattern that focuses on constructing a specific aspect or "facet" of an object, using multiple builders (e.g., for personal details, job details, or address details), while maintaining a fluent interface for chaining methods. A fluent interface allows method calls to be chained together in a readable and expressive way, often by returning the current object after each method call (<code>return self</code>).</p>
+                                    <p>A builder facet is a specialized component of a builder pattern that focuses on constructing a specific aspect or "facet" of an object, using multiple builders (e.g., for personal details, job details, or address details) while maintaining a fluent interface for chaining methods. A fluent interface allows method calls to be chained together in a readable and expressive way, often by returning the current object after each method call (<code>return self</code>).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-class Person:
-    def __init__(self):
-        self.name = None
-        self.age = None
+<span class="function">class</span> Person:
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.name <span class="sign">=</span> <span class="function">None</span>
+        <span class="function">self</span>.age <span class="sign">=</span> <span class="function">None</span>
         
-        # Job details
-        self.job_title = None
-        self.company = None
-        self.salary = None
+        <span class="comment"># Job details</span>
+        <span class="function">self</span>.job_title <span class="sign">=</span> <span class="function">None</span>
+        <span class="function">self</span>.company <span class="sign">=</span> <span class="function">None</span>
+        <span class="function">self</span>.salary <span class="sign">=</span> <span class="function">None</span>
         
-        # Address details
-        self.street = None
-        self.city = None
-        self.postal_code = None
+        <span class="comment"># Address details</span>
+        <span class="function">self</span>.street <span class="sign">=</span> <span class="function">None</span>
+        <span class="function">self</span>.city <span class="sign">=</span> <span class="function">None</span>
+        <span class="function">self</span>.postal_code <span class="sign">=</span> <span class="function">None</span>
 
-    def __str__(self):
-        return (
-            f"Person(Name: {self.name}, Age: {self.age}, "
-            f"Job: {self.job_title} at {self.company} (${self.salary}))"
-        )
+    <span class="function">def __str__</span>(<span class="function">self</span>):
+        <span class="function">return</span> <span class="text">f"Person(Name: {self.name}, Age: {self.age}, Job: {self.job_title} at {self.company} (${self.salary}))"</span>
 
-# The main builder class to manage all facets
-class PersonBuilder:
-    def __init__(self, person=None):
-        if person is None:
-            self.person = Person()
-        else:
-            self.person = person
+<span class="comment"># The main builder class to manage all facets</span>
+<span class="function">class</span> PersonBuilder:
+    <span class="function">def __init__</span>(<span class="function">self</span>, person<span class="sign">=</span><span class="function">None</span>):
+        <span class="function">if</span> person <span class="function">is None</span>:
+            <span class="function">self</span>.person <span class="sign">=</span> <span class="function">Person</span>()
+        <span class="function">else</span>:
+            <span class="function">self</span>.person <span class="sign">=</span> person
 
-    @property
-    def personal(self):
-        return PersonPersonalBuilder(self.person)
+    <span class="command">@property</span>
+    <span class="function">def</span> personal(<span class="function">self</span>):
+        <span class="function">return</span> <span class="function">PersonPersonalBuilder</span>(<span class="function">self</span>.person)
 
-    @property
-    def job(self):
-        return PersonJobBuilder(self.person)
+    <span class="command">@property</span>
+    <span class="function">def</span> job(<span class="function">self</span>):
+        <span class="function">return</span> <span class="function">PersonJobBuilder</span>(<span class="function">self</span>.person)
 
-    def build(self):
-        return self.person
+    <span class="function">def</span> build(<span class="function">self</span>):
+        <span class="function">return</span> <span class="function">self</span>.person
 
-# Builder facet for personal details
-class PersonPersonalBuilder(PersonBuilder):
-    def __init__(self, parent_builder):
-        super().__init__(parent_builder)
+<span class="comment"># Builder facet for personal details</span>
+<span class="function">class</span> PersonPersonalBuilder(<span class="function">PersonBuilder</span>):
+    <span class="function">def __init__</span>(<span class="function">self</span>, parent_builder):
+        <span class="function">super</span>().<span class="function">__init__</span>(parent_builder)
 
-    def set_name(self, name):
-        self.person.name = name
-        return self
+    <span class="function">def</span> set_name(<span class="function">self</span>, name):
+        <span class="function">self</span>.person.name <span class="sign">=</span> name
+        <span class="function">return</span> <span class="function">self</span>
 
-    def set_age(self, age):
-        self.person.age = age
-        return self
+    <span class="function">def</span> set_age(<span class="function">self</span>, age):
+        <span class="function">self</span>.person.age <span class="sign">=</span> age
+        <span class="function">return</span> <span class="function">self</span>
 
-# Builder facet for job details
-class PersonJobBuilder(PersonBuilder):
-    def __init__(self, parent_builder):
-        super().__init__(parent_builder)
+<span class="comment"># Builder facet for job details</span>
+<span class="function">class</span> PersonJobBuilder(<span class="function">PersonBuilder</span>):
+    <span class="function">def __init__</span>(<span class="function">self</span>, parent_builder):
+        <span class="function">super</span>().<span class="function">__init__</span>(parent_builder)
 
-    def set_job_title(self, job_title):
-        self.person.job_title = job_title
-        return self
+    <span class="function">def</span> set_job_title(<span class="function">self</span>, job_title):
+        <span class="function">self</span>.person.job_title <span class="sign">=</span> job_title
+        <span class="function">return</span> <span class="function">self</span>
 
-    def set_company(self, company):
-        self.person.company = company
-        return self
+    <span class="function">def</span> set_company(<span class="function">self</span>, company):
+        <span class="function">self</span>.person.company <span class="sign">=</span> company
+        <span class="function">return</span> <span class="function">self</span>
 
-    def set_salary(self, salary):
-        self.person.salary = salary
-        return self
+    <span class="function">def</span> set_salary(<span class="function">self</span>, salary):
+        <span class="function">self</span>.person.salary <span class="sign">=</span> salary
+        <span class="function">return</span> <span class="function">self</span>
 
-builder = PersonBuilder()
-person = builder.personal.set_name("John Doe").set_age(30)\
-    .job.set_job_title("Software Engineer").set_company("Tech Corp").set_salary(120000)\
-    .build()
+builder <span class="sign">=</span> <span class="function">PersonBuilder</span>()
+person <span class="sign">=</span> builder.personal.set_name(<span class="text">"John Doe"</span>).set_age(30).job.set_job_title(<span class="text">"Software Engineer"</span>).set_company(<span class="text">"Tech Corp"</span>).set_salary(120000).build()
 
-print(person)
+<span class="command">print</span>(person)
                                     </code></pre>
 
                                     <h4>Builder inheritance</h4>
 
-                                    <p>Builder facets violate the Open/Closed Principle, because every time we create a new sub-builder, we have to add it to the main builder. Thanks to inheritance, every builder in the example below is open for extansion, but closed for modification. </p>
+                                    <p>Builder facets violate the Open/Closed Principle, because every time we create a new sub-builder, we have to add it to the main builder. Thanks to inheritance, every builder in the example below is open for extension but closed for modification.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-class Person:
-    def __init__(self):
-        self.name = None
-        self.job_title = None
-        self.salary = None
+<span class="function">class</span> Person:
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.name <span class="sign">=</span> <span class="function">None</span>
+        <span class="function">self</span>.job_title <span class="sign">=</span> <span class="function">None</span>
+        <span class="function">self</span>.salary <span class="sign">=</span> <span class="function">None</span>
 
-    def __str__(self):
-        return f"{self.name} works as {self.job_title}, earns {self.salary}"
+    <span class="function">def __str__</span>(<span class="function">self</span>):
+        <span class="function">return</span> <span class="text">f"{self.name} works as {self.job_title}, earns {self.salary}"</span>
 
-    @staticmethod
-    def new():
-        return PersonBuilder()
+    <span class="command">@staticmethod</span>
+    <span class="function">def</span> new():
+        <span class="function">return PersonBuilder</span>()
 
-class PersonBuilder:
-    def __init__(self):
-        self.person = Person()
+<span class="function">class</span> PersonBuilder:
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.person <span class="sign">=</span> <span class="function">Person</span>()
 
-    def build(self):
-        return self.person
+    <span class="function">def</span> build(<span class="function">self</span>):
+        <span class="function">return</span> <span class="function">self</span>.person
 
-class PersonPersonalBuilder(PersonBuilder):
-    def called(self, name):
-        self.person.name = name
-        return self
+<span class="function">class</span> PersonPersonalBuilder(<span class="function">PersonBuilder</span>):
+    <span class="function">def</span> called(<span class="function">self</span>, name):
+        <span class="function">self</span>.person.name <span class="sign">=</span> name
+        <span class="function">return</span> <span class="function">self</span>
 
-class PersonJobBuilder(PersonPersonalBuilder):
-    def job(self, job_title):
-        self.person.job_title = job_title
-        return self
+<span class="function">class</span> PersonJobBuilder(<span class="function">PersonPersonalBuilder</span>):
+    <span class="function">def</span> job(<span class="function">self</span>, job_title):
+        <span class="function">self</span>.person.job_title <span class="sign">=</span> job_title
+        <span class="function">return</span> <span class="function">self</span>
 
-class PersonSalaryBuilder(PersonJobBuilder):
-    def earns(self, salary):
-        self.person.salary = salary
-        return self
+<span class="function">class</span> PersonSalaryBuilder(<span class="function">PersonJobBuilder</span>):
+    <span class="function">def</span> earns(<span class="function">self</span>, salary):
+        <span class="function">self</span>.person.salary <span class="sign">=</span> salary
+        <span class="function">return</span> <span class="function">self</span>
 
-builder = PersonSalaryBuilder()
-person = builder.called("Josh").job("Engineer").earns("100000").build()
-print(person)
+builder <span class="sign">=</span> <span class="function">PersonSalaryBuilder</span>()
+person <span class="sign">=</span> builder.called(<span class="text">"Josh"</span>).job(<span class="text">"Engineer"</span>).earns(<span class="text">"100000"</span>).build()
+<span class="command">print</span>(person)
                                     </code></pre>
 
                                     <h2><a id="factories">Factories</a></h2>
 
                                     <h3>Factory method</h3>
 
-                                    <p>A factory method is an alternate constructor. It provides an additional way to create class instances, often with a more descriptive name or specialized logic, while keeping the main <code>__init__()</code> constructor simple. For example, instead of the user's age, we can take his date of birth and then calculate the age. They can be created using the <code>@classmethod</code> (like shown <a href="python-decorators.html#class-methods" class="link">here</a>) or <code>@staticmethod</code> decorator. A class can have multiple alternate constructors.</p>
+                                    <p>A factory method is an alternate constructor. It provides an additional way to create class instances, often with a more descriptive name or specialized logic, while keeping the main <code>__init__()</code> constructor simple. For example, instead of the user's age, we can take his date of birth and then calculate the age. They can be created using the <code>@classmethod</code> (like shown <a href="python-decorators.html#class-methods" class="link">here</a>) or <code><span class="command">@staticmethod</span></code> decorator. A class can have multiple alternate constructors.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-class Person:
-    def __init__(self, name, age):
-        self.__name = name
-        self.__age = age
+<span class="function">class</span> Person:
+    <span class="function">def __init__</span>(<span class="function">self</span>, name, age):
+        <span class="function">self</span>.__name <span class="sign">=</span> name
+        <span class="function">self</span>.__age <span class="sign">=</span> age
 
-    def __str__(self):
-        return f"{self.__name}, {self.__age}"
+    <span class="function">def __str__</span>(<span class="function">self</span>):
+        <span class="function">return</span> <span class="text">f"{self.__name}, {self.__age}"</span>
 
-    @staticmethod
-    def from_age(name, age):
-        return Person(name, age)
+    <span class="command">@staticmethod</span>
+    <span class="function">def</span> from_age(name, age):
+        <span class="function">return Person</span>(name, age)
 
-    @staticmethod
-    def from_birth_year(name, birth_year):
-        return Person(name, 2024 - birth_year)
+    <span class="command">@staticmethod</span>
+    <span class="function">def</span> from_birth_year(name, birth_year):
+        <span class="function">return</span> <span class="function">Person</span>(name, 2024 <span class="sign">-</span> birth_year)
 
-e = Person.from_age("Josh", 25)
-e2 = Person.from_birth_year("John", 1980)
+e <span class="sign">=</span> <span class="function">Person</span>.from_age(<span class="text">"Josh"</span>, 25)
+e2 <span class="sign">=</span> <span class="function">Person</span>.from_birth_year(<span class="text">"John"</span>, 1980)
 
-print(e)
-print(e2)
+<span class="command">print</span>(e)
+<span class="command">print</span>(e2)
                                     </code></pre>
 
                                     <p>The example above doesn't adhere to the SRP. We should separate the factory methods into a different class called Factory and use them from there.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-class PersonFactory:
-    @staticmethod
-    def from_age(name, age):
-        return Person(name, age)
+<span class="function">class</span> PersonFactory:
+    <span class="command">@staticmethod</span>
+    <span class="function">def</span> from_age(name, age):
+        <span class="function">return Person</span>(name, age)
 
-    @staticmethod
-    def from_birth_year(name, birth_year):
-        return Person(name, 2024 - birth_year)
+    <span class="command">@staticmethod</span>
+    <span class="function">def</span> from_birth_year(name, birth_year):
+        <span class="function">return Person</span>(name, 2024 <span class="sign">-</span> birth_year)
 
-class Person:
-    factory = PersonFactory() # this is optional (for convenience)
+<span class="function">class</span> Person:
+    factory <span class="sign">=</span> <span class="function">PersonFactory</span>() <span class="comment"># this is optional (for convenience)</span>
     
-    def __init__(self, name, age):
-        self.__name = name
-        self.__age = age
+    <span class="function">def __init__</span>(<span class="function">self</span>, name, age):
+        <span class="function">self</span>.__name <span class="sign">=</span> name
+        <span class="function">self</span>.__age <span class="sign">=</span> age
 
-    def __str__(self):
-        return f"{self.__name}, {self.__age}"
+    <span class="function">def __str__</span>(<span class="function">self</span>):
+        <span class="function">return</span> <span class="text">f"{self.__name}, {self.__age}"</span>
 
-e = Person.factory.from_age("Josh", 25)
-e2 = Person.factory.from_birth_year("John", 1980)
+e <span class="sign">=</span> <span class="function">Person</span>.factory.from_age(<span class="text">"Josh"</span>, 25)
+e2 <span class="sign">=</span> <span class="function">Person</span>.factory.from_birth_year(<span class="text">"John"</span>, 1980)
 
-print(e)
-print(e2)
+<span class="command">print</span>(e)
+<span class="command">print</span>(e2)
                                     </code></pre>
 
                                     <h3>Abstract factory</h3>
 
-                                    <p>An abstract factory defines an interface for creating a set of related or dependent objects, with multiple concrete factories implementing this interface to produce different variations of products. In simpler words, an abstract factory defines how factories should be implemented (like an abstract class). Hierarchies of factories can be used to create related objects.</p>
+                                    <p>An abstract factory defines an interface for creating a set of related or dependent objects, with multiple concrete factories implementing this interface to produce different variations of products. In simpler words, an abstract factory defines how factories should be implemented (like an abstract class defines how classes should be implemented). Hierarchies of factories can be used to create related objects.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-from abc import ABC, abstractmethod
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
 
-class Vehicle(ABC):
-    @abstractmethod
-    def drive(self):
-        pass
+<span class="function">class</span> Vehicle(<span class="function">ABC</span>):
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> drive(<span class="function">self</span>):
+        <span class="function">pass</span>
 
-class Car(Vehicle):
-    def drive(self):
-        return "Driving a car"
+<span class="function">class</span> Car(<span class="function">Vehicle</span>):
+    <span class="function">def</span> drive(<span class="function">self</span>):
+        <span class="function">return</span> <span class="text">"Driving a car"</span>
 
-class Bike(Vehicle):
-    def drive(self):
-        return "Riding a bike"
+<span class="function">class</span> Bike(<span class="function">Vehicle</span>):
+    <span class="function">def</span> drive(<span class="function">self</span>):
+        <span class="function">return</span> <span class="text">"Riding a bike"</span>
 
-class VehicleFactory(ABC): # abstract factory
-    @abstractmethod
-    def create_vehicle(self):
-        pass
+<span class="function">class</span> VehicleFactory(<span class="function">ABC</span>): <span class="comment"># abstract factory</span>
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> create_vehicle(<span class="function">self</span>):
+        <span class="function">pass</span>
 
-class CarFactory(VehicleFactory): # concrete factory
-    def create_vehicle(self):
-        return Car()
+<span class="function">class</span> CarFactory(<span class="function">VehicleFactory</span>): <span class="comment"># concrete factory</span>
+    <span class="function">def</span> create_vehicle(<span class="function">self</span>):
+        <span class="function">return Car</span>()
 
-class BikeFactory(VehicleFactory):
-    def create_vehicle(self):
-        return Bike()
+<span class="function">class</span> BikeFactory(<span class="function">VehicleFactory</span>):
+    <span class="function">def</span> create_vehicle(<span class="function">self</span>):
+        <span class="function">return Bike</span>()
 
-def vehicle_client(factory: VehicleFactory):
-    vehicle = factory.create_vehicle()
-    print(vehicle.drive())
+<span class="function">def</span> vehicle_client(factory: <span class="function">VehicleFactory</span>):
+    vehicle <span class="sign">=</span> factory.create_vehicle()
+    <span class="command">print</span>(vehicle.drive())
 
-vehicle_client(CarFactory())
-vehicle_client(BikeFactory())
+vehicle_client(<span class="function">CarFactory</span>())
+vehicle_client(<span class="function">BikeFactory</span>())
                                     </code></pre>
 
                                     <h2><a id="prototype">Prototype</a></h2>
+
+                                    <p>A prototype allows object cloning instead of creating new instances from scratch, improving efficiency and flexibility. Sometimes it is more efficient to clone an object and modify it, instead of initializing a new one. A prototype is a partially or fully initialized object that we can copy (clone) and modify.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> copy
+
+<span class="function">class</span> Car:
+    <span class="function">def __init__</span>(<span class="function">self</span>, model, color, engine):
+        <span class="function">self</span>.model <span class="sign">=</span> model
+        <span class="function">self</span>.color <span class="sign">=</span> color
+        <span class="function">self</span>.engine <span class="sign">=</span> engine
+
+    <span class="function">def</span> clone(<span class="function">self</span>):
+        <span class="function">return</span> copy.<span class="command">deepcopy</span>(<span class="function">self</span>) <span class="comment"># creating a deep copy of the object</span>
+
+    <span class="function">def __str__</span>(<span class="function">self</span>):
+        <span class="function">return</span> <span class="text">f"{self.color} {self.model} with {self.engine} engine"</span>
+
+car1 <span class="sign">=</span> <span class="function">Car</span>(<span class="text">"Tesla Model S"</span>, <span class="text">"Red"</span>, <span class="text">"Electric"</span>) <span class="comment"># creating an original object</span>
+
+car2 <span class="sign">=</span> car1.clone() <span class="comment"># cloning the object</span>
+car2.color <span class="sign">=</span> <span class="text">"Blue"</span> <span class="comment"># modifying the cloned object</span>
+
+<span class="command">print</span>(car1)
+<span class="command">print</span>(car2)
+                                    </code></pre>
+
+                                    <h4>Prototype factory</h4>
+
+                                    <p>A factory provides a convenient API for using prototypes.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> copy
+
+<span class="function">class</span> Car:
+    <span class="function">def __init__</span>(<span class="function">self</span>, model, color, engine):
+        <span class="function">self</span>.model <span class="sign">=</span> model
+        <span class="function">self</span>.color <span class="sign">=</span> color
+        <span class="function">self</span>.engine <span class="sign">=</span> engine
+
+    <span class="function">def</span> clone(<span class="function">self</span>):
+        <span class="function">return</span> copy.<span class="command">deepcopy</span>(<span class="function">self</span>) <span class="comment"># creating a deep copy of the object</span>
+
+    <span class="function">def __str__</span>(<span class="function">self</span>):
+        <span class="function">return</span> <span class="text">f"{self.color} {self.model} with {self.engine} engine"</span>
+
+<span class="function">class</span> CarFactory:
+    prototypes <span class="sign">=</span> {}
+
+    <span class="command">@classmethod</span>
+    <span class="function">def</span> register_prototype(<span class="function">cls</span>, key, engine):
+        <span class="function">cls</span>.prototypes[key] <span class="sign">=</span> <span class="function">Car</span>(<span class="text">""</span>, <span class="text">""</span>, engine)
+
+    <span class="command">@staticmethod</span>
+    <span class="function">def</span> __new_car(prototype, model, color): <span class="comment"># cloning a prototype and setting model and color</span>
+        result <span class="sign">=</span> copy.<span class="command">deepcopy</span>(prototype)
+        result.model <span class="sign">=</span> model
+        result.color <span class="sign">=</span> color
+        <span class="function">return</span> result
+
+    <span class="command">@classmethod</span>
+    <span class="function">def</span> new_car(<span class="function">cls</span>, key, model, color): <span class="comment"># creating a new car instance from a registered prototype</span>
+        <span class="function">if</span> key <span class="function">in cls</span>.prototypes:
+            <span class="function">return</span> <span class="function">cls</span>.__new_car(<span class="function">cls</span>.prototypes[key], model, color)
+        <span class="function">else</span>:
+            <span class="function">raise ValueError</span>(<span class="text">"Prototype not found!"</span>)
+
+<span class="function">CarFactory</span>.register_prototype(<span class="text">"electric"</span>, <span class="text">"Electric"</span>)
+<span class="function">CarFactory</span>.register_prototype(<span class="text">"combustion"</span>, <span class="text">"V8"</span>)
+
+car1 <span class="sign">=</span> <span class="function">CarFactory</span>.new_car(<span class="text">"electric"</span>, <span class="text">"Tesla Model S"</span>, <span class="text">"Blue"</span>)
+car2 <span class="sign">=</span> <span class="function">CarFactory</span>.new_car(<span class="text">"combustion"</span>, <span class="text">"Ford Mustang"</span>, <span class="text">"White"</span>)
+
+<span class="command">print</span>(car1)
+<span class="command">print</span>(car2)
+                                    </code></pre>
+
+                                    <h2><a id="singleton">Singleton</a></h2>
+
+                                    <p>Ensure a class has only one instance and provide a global point of access to it. Sometimes, it doesn't make sense to have more than one object in the system, e.g., a database or an object factory, because the initializer is expensive or is just unnecessary. A singleton is a component that is instantiated only once (we want to prevent anyone from creating additional copies).</p>
+
+                                    <p>Lazy initialization delays the creation of an object or a resource until it is actually needed, rather than when the object is first created. This is useful for optimizing resource usage, especially when the initialization of an object is resource-intensive or unnecessary if the object is never used. The example below adheres to the Lazy Initialization design pattern because it ensures that the database connection and any associated resources are only initialized when the <code>getData()</code> method is called, i.e., when the object is accessed for the first time. This helps optimize performance by not initializing the database connection unless it's actually needed.</p>
+
+<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Database:
+    _instance <span class="sign">=</span> <span class="function">None</span> <span class="comment"># class-level attribute to store the single instance</span>
+
+    <span class="function">def</span> <span class="function">__new__</span>(<span class="function">cls</span>, <span class="sign">*</span>args, <span class="sign">**</span>kwargs):
+        <span class="function">if cls</span>._instance <span class="function">is None</span>: <span class="comment"># checking if an instance already exists</span>
+            <span class="function">cls</span>._instance <span class="sign">=</span> <span class="function">super</span>().<span class="function">__new__</span>(<span class="function">cls</span>) <span class="comment"># creating and storing the single instance</span>
+            <span class="function">cls</span>._instance._initialized <span class="sign">=</span> <span class="function">False</span> <span class="comment"># flag to check if the database is initialized</span>
+        <span class="function">return cls</span>._instance
+
+    <span class="function">def</span> initialize(<span class="function">self</span>):
+        <span class="function">if not self</span>._initialized:
+            <span class="command">print</span>(<span class="text">"Initializing database connection"</span>)
+            <span class="function">self</span>._initialized <span class="sign">=</span> <span class="function">True</span> <span class="comment"># mark as initialized to avoid re-initialization</span>
+
+    <span class="function">def</span> getData(<span class="function">self</span>):
+        <span class="function">if</span> <span class="function">not</span> <span class="function">self</span>._initialized:
+            <span class="function">self</span>.initialize() <span class="comment"># lazy initialization of the database</span>
+        <span class="command">print</span>(<span class="text">"Loading data"</span>)
+
+s1 <span class="sign">=</span> <span class="function">Database</span>()
+s2 <span class="sign">=</span> <span class="function">Database</span>()
+s1.getData() <span class="comment"># lazy initialization and loading data</span>
+s2.getData() <span class="comment"># reusing the initialized instance</span>
+
+<span class="command">print</span>(s1 <span class="function">is</span> s2)
+                                    </code></pre>
+
+                                    <p>The class in the example above can only have one instance, but if we add an <code>__init__()</code> method, it will execute two times. This can be fixed with a decorator or a metaclass (they can be used to enforce a true singleton).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> singleton(<span class="function">cls</span>):
+    instances <span class="sign">=</span> {}
+
+    <span class="function">def</span> get_instance(<span class="sign">*</span>args, <span class="sign">**</span>kwargs):
+        <span class="function">if cls not in</span> instances:
+            instances[<span class="function">cls</span>] <span class="sign">=</span> <span class="function">cls</span>(<span class="sign">*</span>args, <span class="sign">**</span>kwargs) <span class="comment"># creating and storing the instance</span>
+        <span class="function">return</span> instances[<span class="function">cls</span>] <span class="comment"># returning the existing instance</span>
+
+    <span class="function">return</span> get_instance <span class="comment"># returning the wrapper function</span>
+
+<span class="command">@singleton</span>
+<span class="function">class</span> Database:
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Loading database"</span>)
+
+    <span class="comment"># def initialize(self):</span>
+        <span class="comment"># ...</span>
+    <span class="comment"># def getData(self):</span>
+        <span class="comment"># ...</span>
+
+s1 <span class="sign">=</span> <span class="function">Database</span>()
+s2 <span class="sign">=</span> <span class="function">Database</span>()
+<span class="command">print</span>(s1 <span class="function">is</span> s2)
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> SingletonMeta(<span class="function">type</span>): <span class="comment"># a metaclass that ensures a class has only one instance</span>
+    _instances <span class="sign">=</span> {}
+    
+    <span class="function">def __call__</span>(<span class="function">cls</span>, <span class="sign">*</span>args, <span class="sign">**</span>kwargs):
+        <span class="function">if cls not in cls</span>._instances:
+            <span class="function">cls</span>._instances[<span class="function">cls</span>] <span class="sign">=</span> <span class="function">super</span>().<span class="function">__call__</span>(<span class="sign">*</span>args, <span class="sign">**</span>kwargs) <span class="comment"># creating and storing the instance</span>
+        <span class="function">return</span> <span class="function">cls</span>._instances[<span class="function">cls</span>] <span class="comment"># returning the existing instance</span>
+
+<span class="function">class</span> Database(<span class="command">metaclass</span> <span class="sign">=</span> <span class="function">SingletonMeta</span>):
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Loading database"</span>)
+
+    <span class="comment"># def initialize(self):</span>
+        <span class="comment"># ...</span>
+    <span class="comment"># def getData(self):</span>
+        <span class="comment"># ...</span>
+
+s1 <span class="sign">=</span> <span class="function">Database</span>()
+s2 <span class="sign">=</span> <span class="function">Database</span>()
+<span class="command">print</span>(s1 <span class="function">is</span> s2)
+                                    </code></pre>
+
+                                    <p>Of course, the user can try to create multiple instances (<code>s2 = Database()</code>), but the decorator or metaclass ensures that they end up relating to one instance.</p>
+
+                                    <p>Singletons ensure a single instance of a class, which is useful for managing shared resources like database connections or logging systems, preventing redundant object creation. However, they can introduce hidden dependencies and make unit testing difficult due to the global state, leading to unexpected side effects (such as unintended data modifications, stale state across tests, and difficulties in resetting the state for different parts of an application). Additionally, they violate the Single Responsibility Principle (SRP) by controlling both their lifecycle and primary functionality, making the code harder to maintain and extend.</p>
+
+                                    <h2><a id="monostate">Monostate (Singleton variation)</a></h2>
+
+                                    <p>Monostate allows multiple instances of a class to share the same state by making all instances point to a common dictionary (<code>__dict__</code>). Unlike the Singleton pattern (which ensures only one instance exists), Monostate allows multiple instances but ensures they behave as if they are the same object in terms of state.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Monostate:
+    _state <span class="sign">=</span> {}
+
+    <span class="function">def __new__</span>(<span class="function">cls</span>, <span class="sign">*</span>args, <span class="sign">**</span>kwargs):
+        instance <span class="sign">=</span> <span class="function">super</span>().<span class="function">__new__</span>(<span class="function">cls</span>)
+        instance.<span class="function">__dict__</span> <span class="sign">=</span> <span class="function">cls</span>._state <span class="comment"># all instances share the same state</span>
+        <span class="function">return</span> instance
+
+    <span class="function">def __init__</span>(<span class="function">self</span>, value):
+        <span class="function">self</span>.value <span class="sign">=</span> value <span class="comment"># all instances share the same "value" attribute</span>
+
+a <span class="sign">=</span> <span class="function">Monostate</span>(<span class="text">"Value A"</span>)
+b <span class="sign">=</span> <span class="function">Monostate</span>(<span class="text">"Value B"</span>)
+
+<span class="command">print</span>(a.value)
+<span class="command">print</span>(b.value)
+                                    </code></pre>
+
+                                    <h2><a id="dependency-injection">Dependency injection</a></h2>
+
+                                    <p>Dependency Injection allows us to inject dependencies (such as services, objects, or configurations) into a class rather than having the class create them it<span class="function">self</span>. This promotes loose coupling, making the code more modular, flexible, and easier to test. With DI, the class doesn't need to worry about how its dependencies are created or managed. Instead, they are provided externally (often by a framework or a container), which simplifies testing and maintenance.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Database:
+    <span class="function">def</span> connect(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Connecting to the database..."</span>)
+
+<span class="function">class</span> Service:
+    <span class="function">def __init__</span>(<span class="function">self</span>, database: <span class="function">Database</span>):
+        <span class="function">self</span>.database <span class="sign">=</span> database <span class="comment"># injecting the dependency through the constructor</span>
+
+    <span class="function">def</span> execute(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Service is running..."</span>)
+        <span class="function">self</span>.database.connect() <span class="comment"># using the injected dependency</span>
+
+db <span class="sign">=</span> <span class="function">Database</span>()
+service <span class="sign">=</span> <span class="function">Service</span>(db) <span class="comment"># injecting the Database instance into the Service</span>
+service.execute()
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

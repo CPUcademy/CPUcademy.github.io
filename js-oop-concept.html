@@ -96,10 +96,10 @@
                                         <li>OOP (Object-Oriented Programming) is a programming paradigm that organizes code into reusable objects, making it modular, easier to maintain, and more scalable.</li>
                                         <li>In OOP, we define classes, which serve as blueprints for creating objects. Objects represent real-world entities or concepts.</li>
                                         <li>A class defines the structure and behavior of these objects, serving as a template.</li>
+                                        <li>An instance of a class is simply an object created from that class that represents it (a variable the class object, <code>new ClassName()</code>, is assigned to). A class can have many instances (e.g., a <code>User</code> class can have many real user instances filled with personal data). Their names do not matter.</li>
+                                        <li>Attributes (also called fields or properties) are variables associated with an object, representing the state or characteristics of the object. Their values ​​differ between instances (e.g., the age varies by user but is still the same type of numerical value).</li>
                                         <li>Inside classes, we define methods, which are functions that determine the behavior of objects. Methods are invoked using an object of the class they belong to.</li>
-                                        <li>Attributes (also called fields or properties) are variables or methods associated with an object, representing the state or characteristics of the object.</li>
-                                        <li>An instance of a class is simply an object created from that class (a variable the class is assigned to). A class can have many instances.</li>
-                                        <li>Once an instance is created, we can access and modify the class attributes and call its methods through it. By convention, class names begin with a capital letter, while method names start with a lowercase letter.</li>
+                                        <li>Once an instance is created, we can access and modify the class's attributes and call its methods through it. Every word a class name consists of should start with an uppercase letter (Pascal case - <code>ClassName</code>).</li>
                                     </ul>
                                     
                                     <h2>Abstraction</h2>
@@ -110,16 +110,16 @@
 
                                     <p>A field is a variable of any type that is declared inside the class. In a class, the order of methods and other objects is irrelevant because all objects have access to the whole class the whole time.</p>
                                     
-                                    <p>A getter is a method that returns values outside of a class, and a setter is a method that edits an object of the class. We should use them because, inside them, we can add, e.g., validation rules.</p>
+                                    <p>A getter is a method that returns values outside of a class, and a setter is a method that edits an object belonging to a class. We should use them because, inside them, we can add, e.g., validation rules.</p>
                                     
-                                    <p>The <code>this</code> keyword represents the class it is used in and allows to address all objects of the class at any point in the class. <code>this.x</code> and <code>x</code> are different variables. The former is an object of a class (a field), and the latter is just a variable.</p>
+                                    <p>The <code>this</code> keyword represents the class it is used in and allows to address all objects of the class at any point in the class. <code>this.x</code> and <code>x</code> are different variables. The former is an object belonging to a class (a field), and the latter is just a variable.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Human 
 <span class="sign">{</span>
     <span class="function">constructor</span>() 
     <span class="sign">{</span>
-        <span class="function">this</span>.age <span class="sign">=</span> 0 <span class="comment">// a field of a method</span>
+        <span class="function">this</span>.age <span class="sign">=</span> 0 <span class="comment">// a field (an instance variable - its value differs by instance)</span>
         <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Constructor"</span>)
     <span class="sign">}</span>
 
@@ -127,7 +127,7 @@
     setAge(age)<span class="sign">{</span><span class="function">this</span>.age <span class="sign">=</span> age<span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">const</span> h <span class="sign">=</span> <span class="function">new Human</span>() <span class="comment">// an instance of a class (the class acts like a data type)</span>
+<span class="function">const</span> h <span class="sign">=</span> <span class="function">new Human</span>() <span class="comment">// an instance of a class</span>
 h.age <span class="sign">=</span> 20
 h.setAge(10)
 <span class="command">console</span>.<span class="command">log</span>(h.getAge())
@@ -169,7 +169,7 @@ b.withdraw(400)
                                     
                                     <h2>Static objects</h2>
                                     
-                                    <p>A static variable is a variable that retains its value between method calls. Its memory address is allocated once, and it exists for the duration of the program. A variable of this type will still exist even if an instance of the class does not. It is shared by all objects and not tied to any class instance. We create static variables outside methods.</p>
+                                    <p>A static variable is a variable that retains its value between method calls. Its memory address is allocated once, and it exists for the duration of the program. A variable of this type will still exist even if an instance of the class does not. It is shared by all objects and not tied to any class instance (shared across all instances of the class). We create static variables outside methods.</p>
                                     
                                     <p>The same rule applies to methods - we can call them using the class directly without creating its instance. They have no access to the class's objects. Static methods differ from outside functions because we can override them later in a child class.</p>
 
