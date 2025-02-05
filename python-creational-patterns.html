@@ -100,16 +100,14 @@
                                         <li><a href="#prototype" class="link" style="text-decoration: None;">Prototype</a></li>
                                         <li><a href="#singleton" class="link" style="text-decoration: None;">Singleton</a></li>
                                         <li><a href="#monostate" class="link" style="text-decoration: None;">Monostate (Singleton variation)</a></li>
-                                        <li><a href="#multiton" class="link" style="text-decoration: None;">Multiton (Singleton variation)</a></li>
                                         <li><a href="#dependency-injection" class="link" style="text-decoration: None;">Dependency injection</a></li>
-                                        <li><a href="#lazy-initialization" class="link" style="text-decoration: None;">Lazy initialization</a></li>
                                     </ul>
 
-                                    <p>Creational patterns deal with construction of objects (explicit - via a constructor, or implicit - via, e.g., dependency injection). An object can be created wholesale (in a single statement) or piecewise (step-by-step).</p>
+                                    <p>Creational patterns deal with the construction of objects (explicit - via a constructor or implicit - via, e.g., dependency injection). An object can be created wholesale (in a single statement) or piecewise (step-by-step).</p>
 
                                     <h2><a id="builder">Builder</a></h2>
 
-                                    <p>When an object takes long to initialize, provide an API for constructing it succintly. Separate the construction of a complex object from its representation, allowing the same construction process to create various representations. A builder is a separate component for building an object.</p>
+                                    <p>When an object takes long to initialize, provide an API for constructing it succinctly. Separate the construction of a complex object from its representation, allowing the same construction process to create various representations. A builder is a separate component for building an object.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Pizza:
@@ -129,7 +127,7 @@
 
     <span class="function">def</span> set_size(<span class="function">self</span>, size):
         <span class="function">self</span>.pizza.size <span class="sign">=</span> size
-        <span class="function">return</span> <span class="function">self</span> <span class="comment"># chaining (methods can be executed one after another as the same statement)</span>
+        <span class="function">return</span> <span class="function">self</span> <span class="comment"># chaining (methods can be executed one after another as the same statement because the class object is returned and can be then used to call the next method)</span>
 
     <span class="function">def</span> add_cheese(<span class="function">self</span>, cheese_type):
         <span class="function">self</span>.pizza.cheese <span class="sign">=</span> cheese_type
@@ -160,7 +158,7 @@ veggie_pizza <span class="sign">=</span> builder.set_size(<span class="text">"Me
 
                                     <h4>Builder facets</h4>
 
-                                    <p>A builder facet is a specialized component of a builder pattern that focuses on constructing a specific aspect or "facet" of an object, using multiple builders (e.g., for personal details, job details, or address details), while maintaining a fluent interface for chaining methods. A fluent interface allows method calls to be chained together in a readable and expressive way, often by returning the current object after each method call (<code>return self</code>).</p>
+                                    <p>A builder facet is a specialized component of a builder pattern that focuses on constructing a specific aspect or "facet" of an object, using multiple builders (e.g., for personal details, job details, or address details) while maintaining a fluent interface for chaining methods. A fluent interface allows method calls to be chained together in a readable and expressive way, often by returning the current object after each method call (<code>return self</code>).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Person:
@@ -238,7 +236,7 @@ person <span class="sign">=</span> builder.personal.set_name(<span class="text">
 
                                     <h4>Builder inheritance</h4>
 
-                                    <p>Builder facets violate the Open/Closed Principle, because every time we create a new sub-builder, we have to add it to the main builder. Thanks to inheritance, every builder in the example below is open for extansion, but closed for modification.</p>
+                                    <p>Builder facets violate the Open/Closed Principle, because every time we create a new sub-builder, we have to add it to the main builder. Thanks to inheritance, every builder in the example below is open for extension but closed for modification.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Person:
@@ -461,28 +459,39 @@ car2 <span class="sign">=</span> <span class="function">CarFactory</span>.new_ca
 
                                     <h2><a id="singleton">Singleton</a></h2>
 
-                                    <p>Ensure a class has only one instance, and provide a global point of access to it. Sometimes it doesn't make sense to have more than one object in the system, e.g., a database or an object factory, because the initializer is expensive or it is just unnecessary. A singleton is a component which is instantiated only once (we want to prevent anyone from creating additional copies).</p>
+                                    <p>Ensure a class has only one instance and provide a global point of access to it. Sometimes, it doesn't make sense to have more than one object in the system, e.g., a database or an object factory, because the initializer is expensive or is just unnecessary. A singleton is a component that is instantiated only once (we want to prevent anyone from creating additional copies).</p>
 
-                                    <p></p>
+                                    <p>Lazy initialization delays the creation of an object or a resource until it is actually needed, rather than when the object is first created. This is useful for optimizing resource usage, especially when the initialization of an object is resource-intensive or unnecessary if the object is never used. The example below adheres to the Lazy Initialization design pattern because it ensures that the database connection and any associated resources are only initialized when the <code>getData()</code> method is called, i.e., when the object is accessed for the first time. This helps optimize performance by not initializing the database connection unless it's actually needed.</p>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Database:
     _instance <span class="sign">=</span> <span class="function">None</span> <span class="comment"># class-level attribute to store the single instance</span>
 
-    <span class="function">def</span> __new__(<span class="function">cls</span>, <span class="sign">*</span>args, <span class="sign">**</span>kwargs):
+    <span class="function">def</span> <span class="function">__new__</span>(<span class="function">cls</span>, <span class="sign">*</span>args, <span class="sign">**</span>kwargs):
         <span class="function">if cls</span>._instance <span class="function">is None</span>: <span class="comment"># checking if an instance already exists</span>
             <span class="function">cls</span>._instance <span class="sign">=</span> <span class="function">super</span>().<span class="function">__new__</span>(<span class="function">cls</span>) <span class="comment"># creating and storing the single instance</span>
-        <span class="function">return</span> <span class="function">cls</span>._instance
+            <span class="function">cls</span>._instance._initialized <span class="sign">=</span> <span class="function">False</span> <span class="comment"># flag to check if the database is initialized</span>
+        <span class="function">return cls</span>._instance
 
-    <span class="function">def</span> getData():
+    <span class="function">def</span> initialize(<span class="function">self</span>):
+        <span class="function">if not self</span>._initialized:
+            <span class="command">print</span>(<span class="text">"Initializing database connection"</span>)
+            <span class="function">self</span>._initialized <span class="sign">=</span> <span class="function">True</span> <span class="comment"># mark as initialized to avoid re-initialization</span>
+
+    <span class="function">def</span> getData(<span class="function">self</span>):
+        <span class="function">if</span> <span class="function">not</span> <span class="function">self</span>._initialized:
+            <span class="function">self</span>.initialize() <span class="comment"># lazy initialization of the database</span>
         <span class="command">print</span>(<span class="text">"Loading data"</span>)
 
 s1 <span class="sign">=</span> <span class="function">Database</span>()
 s2 <span class="sign">=</span> <span class="function">Database</span>()
+s1.getData() <span class="comment"># lazy initialization and loading data</span>
+s2.getData() <span class="comment"># reusing the initialized instance</span>
+
 <span class="command">print</span>(s1 <span class="function">is</span> s2)
                                     </code></pre>
 
-                                    <p>The class in the example above can have only one instance, but if we add an <code>__init__()</code> method, it will execute two times. This can be fixed with a decorator or a metaclass (they can be used to enforce singleton).</p>
+                                    <p>The class in the example above can only have one instance, but if we add an <code>__init__()</code> method, it will execute two times. This can be fixed with a decorator or a metaclass (they can be used to enforce a true singleton).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> singleton(<span class="function">cls</span>):
@@ -499,6 +508,11 @@ s2 <span class="sign">=</span> <span class="function">Database</span>()
 <span class="function">class</span> Database:
     <span class="function">def __init__</span>(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"Loading database"</span>)
+
+    <span class="comment"># def initialize(self):</span>
+        <span class="comment"># ...</span>
+    <span class="comment"># def getData(self):</span>
+        <span class="comment"># ...</span>
 
 s1 <span class="sign">=</span> <span class="function">Database</span>()
 s2 <span class="sign">=</span> <span class="function">Database</span>()
@@ -518,6 +532,11 @@ s2 <span class="sign">=</span> <span class="function">Database</span>()
     <span class="function">def __init__</span>(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"Loading database"</span>)
 
+    <span class="comment"># def initialize(self):</span>
+        <span class="comment"># ...</span>
+    <span class="comment"># def getData(self):</span>
+        <span class="comment"># ...</span>
+
 s1 <span class="sign">=</span> <span class="function">Database</span>()
 s2 <span class="sign">=</span> <span class="function">Database</span>()
 <span class="command">print</span>(s1 <span class="function">is</span> s2)
@@ -525,7 +544,7 @@ s2 <span class="sign">=</span> <span class="function">Database</span>()
 
                                     <p>Of course, the user can try to create multiple instances (<code>s2 = Database()</code>), but the decorator or metaclass ensures that they end up relating to one instance.</p>
 
-                                    <p>Singletons ensure a single instance of a class, which is useful for managing shared resources like database connections or logging systems, preventing redundant object creation. However, they can introduce hidden dependencies and make unit testing difficult due to global state, leading to unexpected side effects (such as unintended data modifications, stale state across tests, and difficulties in resetting state for different parts of an application). Additionally, they violate the Single Responsibility Principle (SRP) by controlling both their lifecycle and primary functionality, making the code harder to maintain and extend.</p>
+                                    <p>Singletons ensure a single instance of a class, which is useful for managing shared resources like database connections or logging systems, preventing redundant object creation. However, they can introduce hidden dependencies and make unit testing difficult due to the global state, leading to unexpected side effects (such as unintended data modifications, stale state across tests, and difficulties in resetting the state for different parts of an application). Additionally, they violate the Single Responsibility Principle (SRP) by controlling both their lifecycle and primary functionality, making the code harder to maintain and extend.</p>
 
                                     <h2><a id="monostate">Monostate (Singleton variation)</a></h2>
 
@@ -550,36 +569,6 @@ b <span class="sign">=</span> <span class="function">Monostate</span>(<span clas
 <span class="command">print</span>(b.value)
                                     </code></pre>
 
-                                    <h2><a id="multiton">Multiton (Singleton variation)</a></h2>
-
-                                    <p>While Singleton ensures only one instance of a class exists, Multiton allows multiple instances but only one per key/category. It acts like a controlled instance pool, reusing instances instead of creating new ones. We can implement it using a dictionary to store instances, ensuring that each key has only one corresponding instance.
-                                        
-                                    <p>In contrast, the Monostate pattern ensures all instances of a class share the same state. Even though multiple instances are created, the state is not unique to each instance. Instead, it is stored at the class level and shared by all instances. Essentially, it makes every instance behave like a single object, despite being distinct in terms of object creation. Multiton allows us to reuse the instance for each key while ensuring that a key only maps to one instance.</p>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> Multiton:
-    _instances <span class="sign">=</span> {}
-
-    <span class="function">def __new__</span>(<span class="function">cls</span>, key, <span class="sign">*</span>args, <span class="sign">**</span>kwargs):
-        <span class="function">if</span> key <span class="function">not in cls</span>._instances:
-            <span class="function">cls</span>._instances[key] <span class="sign">=</span> <span class="function">super</span>().<span class="function">__new__</span>(<span class="function">cls</span>)
-        <span class="function">return</span> <span class="function">cls</span>._instances[key]
-
-    <span class="function">def __init__</span>(<span class="function">self</span>, key, value):
-        <span class="function">if not</span> <span class="command">hasattr</span>(<span class="function">self</span>, <span class="text">"initialized"</span>):  
-            <span class="function">self</span>.key <span class="sign">=</span> key
-            <span class="function">self</span>.value <span class="sign">=</span> value
-            <span class="function">self</span>.initialized <span class="sign">=</span> <span class="function">True</span>
-
-<span class="comment"># Instances with different keys</span>
-a <span class="sign">=</span> <span class="function">Multiton</span>(<span class="text">"config"</span>, <span class="text">"Database Settings"</span>)
-b <span class="sign">=</span> <span class="function">Multiton</span>(<span class="text">"config"</span>, <span class="text">"New Settings"</span>) <span class="comment"># reusing the same instance for "config"</span>
-c <span class="sign">=</span> <span class="function">Multiton</span>(<span class="text">"cache"</span>, <span class="text">"Cached Data"</span>)
-
-<span class="command">print</span>(a <span class="function">is</span> b)
-<span class="command">print</span>(a <span class="function">is</span> c)
-                                    </code></pre>
-
                                     <h2><a id="dependency-injection">Dependency injection</a></h2>
 
                                     <p>Dependency Injection allows us to inject dependencies (such as services, objects, or configurations) into a class rather than having the class create them it<span class="function">self</span>. This promotes loose coupling, making the code more modular, flexible, and easier to test. With DI, the class doesn't need to worry about how its dependencies are created or managed. Instead, they are provided externally (often by a framework or a container), which simplifies testing and maintenance.</p>
@@ -600,29 +589,6 @@ c <span class="sign">=</span> <span class="function">Multiton</span>(<span class
 db <span class="sign">=</span> <span class="function">Database</span>()
 service <span class="sign">=</span> <span class="function">Service</span>(db) <span class="comment"># injecting the Database instance into the Service</span>
 service.execute()
-                                    </code></pre>
-
-                                    <h2><a id="lazy-initialization">Lazy initialization</a></h2>
-
-                                    <p>Lazy Initialization delays the creation of an object or a resource until it is actually needed, rather than when the object is first created. This is useful for optimizing resource usage, especially when the initialization of an object is resource-intensive or unnecessary if the object is never used.</p>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> Database:
-    _instance <span class="sign">=</span> <span class="function">None</span> <span class="comment"># class-level variable to store the single instance</span>
-
-    <span class="function">def __init__</span>(<span class="function">self</span>):
-        <span class="command">print</span>(<span class="text">"Initializing Database Connection"</span>)
-
-    <span class="command">@classmethod</span>
-    <span class="function">def</span> get_instance(<span class="function">cls</span>):
-        <span class="function">if cls</span>._instance <span class="function">is None</span>: <span class="comment"># only create the instance if it does not already exist</span>
-            <span class="function">cls</span>._instance <span class="sign">=</span> <span class="function">cls</span>()
-        <span class="function">return</span> <span class="function">cls</span>._instance
-
-db1 <span class="sign">=</span> <span class="function">Database</span>.get_instance() <span class="comment"># instance is created here</span>
-db2 <span class="sign">=</span> <span class="function">Database</span>.get_instance() <span class="comment"># instance is not created, reuse db1</span>
-
-<span class="command">print</span>(db1 is db2)
                                     </code></pre>
                                 </div>
                             </div>
