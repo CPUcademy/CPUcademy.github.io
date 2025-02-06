@@ -92,27 +92,29 @@
                                     <h5 class="m-0 font-weight-bold">Copy</h5>
                                 </div>
                                 <div class="card-body">
+                                    <p>The <code>copy</code> module provides tools for creating shallow and deep copies of objects, allowing for efficient object duplication and manipulation without affecting the original object.</p>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># This is a shallow copy (both lists reference the same object).</span>
+<span class="comment"># A shallow copy (both lists reference the same object)</span>
 list1 <span class="sign">=</span> [1, 2, 3]
 list2 <span class="sign">=</span> list1
 list2.<span class="command">append</span>(4)
 <span class="command">print</span>(list1)
 
-<span class="comment"># This is a shallow copy using slicing (creates a new list but does not copy nested objects).</span>
+<span class="comment"># A shallow copy created using slicing (creates a new list but does not copy nested objects)</span>
 list3 <span class="sign">=</span> [1, 2, 3]
 list4 <span class="sign">=</span> list3[<span class="sign">:</span>]
 list4.<span class="command">append</span>(4)
 <span class="command">print</span>(list3)
 
-<span class="comment"># The same as the example above using the copy module.</span>
+<span class="comment"># The same as the example above but using the copy module</span>
 <span class="command">import</span> copy
 list5 <span class="sign">=</span> [1, 2, 3]
 list6 <span class="sign">=</span> copy.<span class="command">copy</span>(list5)
 list6.<span class="command">append</span>(4)
 <span class="command">print</span>(list5)
 
-<span class="comment"># This is a deep copy (creates a completely independent copy, including nested objects).</span>
+<span class="comment"># A deep copy (creates a completely independent copy, including nested objects)</span>
 list7 <span class="sign">=</span> [[1, 2], [3, 4]]
 list8 <span class="sign">=</span> copy.<span class="command">deepcopy</span>(list7)
 list8[0].<span class="command">append</span>(5)
