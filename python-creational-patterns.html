@@ -108,7 +108,7 @@
 
                                     <h2><a id="builder">Builder</a></h2>
 
-                                    <p>When an object takes long to initialize, provide an API for constructing it succinctly. Separate the construction of a complex object from its representation, allowing the same construction process to create various representations. A builder is a separate component for building an object.</p>
+                                    <p>When an object takes long to initialize, provide an API for constructing it succinctly. Separate the construction of a complex object from its representation, allowing the same construction process to create various representations. A Builder is a separate component for building an object.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Pizza:
@@ -159,7 +159,7 @@ veggie_pizza <span class="sign">=</span> builder.set_size(<span class="text">"Me
 
                                     <h4>Builder facets</h4>
 
-                                    <p>A builder facet is a specialized component of a builder (a separate class) that focuses on constructing a specific aspect or "facet" of an object, e.g., personal details, job details, or address details. These facets work together to build the complete object, e.g., a user, while maintaining a fluent interface, which enables method chaining (check the code comments in the example above).</p>
+                                    <p>A Builder facet is a specialized component of a Builder (a separate class) that focuses on constructing a specific aspect or "facet" of an object, e.g., personal details, job details, or address details. These facets work together to build the complete object, e.g., a user, while maintaining a fluent interface, which enables method chaining (check the code comments in the example above).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Person:
@@ -180,7 +180,7 @@ veggie_pizza <span class="sign">=</span> builder.set_size(<span class="text">"Me
     <span class="function">def __str__</span>(<span class="function">self</span>):
         <span class="function">return</span> <span class="text">f"Person(Name: {self.name}, Age: {self.age}, Job: {self.job_title} at {self.company} (${self.salary}))"</span>
 
-<span class="comment"># The main builder class to manage all facets</span>
+<span class="comment"># The main Builder class to manage all facets</span>
 <span class="function">class</span> PersonBuilder:
     <span class="function">def __init__</span>(<span class="function">self</span>, person<span class="sign">=</span><span class="function">None</span>):
         <span class="function">if</span> person <span class="function">is None</span>:
@@ -237,7 +237,7 @@ person <span class="sign">=</span> builder.personal.set_name(<span class="text">
 
                                     <h4>Builder inheritance</h4>
 
-                                    <p>Builder facets violate the Open/Closed Principle, because every time we create a new sub-builder, we have to add it to the main builder. Thanks to inheritance, every builder in the example below is open for extension but closed for modification.</p>
+                                    <p>Builder facets violate the Open/Closed Principle, because every time we create a new sub-builder, we have to add it to the main Builder. Thanks to inheritance, every Builder in the example below is open for extension but closed for modification.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Person:
@@ -284,7 +284,7 @@ person <span class="sign">=</span> builder.called(<span class="text">"Josh"</spa
 
                                     <h3>Factory method</h3>
 
-                                    <p>A factory method is an alternate constructor. It provides an additional way to create class instances, often with a more descriptive name or specialized logic, while keeping the main <code>__init__()</code> constructor simple. For example, instead of the user's age, we can take his date of birth and then calculate the age. They can be created using the <code>@classmethod</code> (like shown <a href="python-decorators.html#class-methods" class="link">here</a>) or <code>@staticmethod</code> decorator. A class can have multiple alternate constructors.</p>
+                                    <p>A Factory method is an alternate constructor. It provides an additional way to create class instances, often with a more descriptive name or specialized logic, while keeping the main <code>__init__()</code> constructor simple. For example, instead of the user's age, we can take his date of birth and then calculate the age. They can be created using the <code>@classmethod</code> (like shown <a href="python-decorators.html#class-methods" class="link">here</a>) or <code>@staticmethod</code> decorator. A class can have multiple alternate constructors.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Person:
@@ -310,7 +310,7 @@ e2 <span class="sign">=</span> <span class="function">Person</span>.from_birth_y
 <span class="command">print</span>(e2)
                                     </code></pre>
 
-                                    <p>The example above doesn't adhere to the SRP. We should separate the factory methods into a different class called Factory and use them from there.</p>
+                                    <p>The example above doesn't adhere to the SRP. We should separate the Factory methods into a different class called Factory and use them from there.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> PersonFactory:
@@ -339,9 +339,9 @@ e2 <span class="sign">=</span> <span class="function">Person</span>.factory.from
 <span class="command">print</span>(e2)
                                     </code></pre>
 
-                                    <h3>Abstract factory</h3>
+                                    <h3>Abstract Factory</h3>
 
-                                    <p>An abstract factory defines an interface for creating a set of related or dependent objects, with multiple concrete factories implementing this interface to produce different variations of products. In simpler words, an abstract factory defines how factories should be implemented (like an abstract class defines how classes should be implemented). Hierarchies of factories can be used to create related objects.</p>
+                                    <p>An Abstract Factory defines an interface for creating a set of related or dependent objects, with multiple concrete Factories implementing this interface to produce different variations of products. In simpler words, an Abstract Factory defines how Factories should be implemented (like an abstract class defines how classes should be implemented). Hierarchies of Factories can be used to create related objects.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
@@ -359,12 +359,12 @@ e2 <span class="sign">=</span> <span class="function">Person</span>.factory.from
     <span class="function">def</span> drive(<span class="function">self</span>):
         <span class="function">return</span> <span class="text">"Riding a bike"</span>
 
-<span class="function">class</span> VehicleFactory(<span class="function">ABC</span>): <span class="comment"># abstract factory</span>
+<span class="function">class</span> VehicleFactory(<span class="function">ABC</span>): <span class="comment"># Abstract Factory</span>
     <span class="command">@abstractmethod</span>
     <span class="function">def</span> create_vehicle(<span class="function">self</span>):
         <span class="function">pass</span>
 
-<span class="function">class</span> CarFactory(<span class="function">VehicleFactory</span>): <span class="comment"># concrete factory</span>
+<span class="function">class</span> CarFactory(<span class="function">VehicleFactory</span>): <span class="comment"># Concrete Factory</span>
     <span class="function">def</span> create_vehicle(<span class="function">self</span>):
         <span class="function">return Car</span>()
 
@@ -382,7 +382,7 @@ vehicle_client(<span class="function">BikeFactory</span>())
 
                                     <h2><a id="prototype">Prototype</a></h2>
 
-                                    <p>A prototype allows object cloning instead of creating new instances from scratch, improving efficiency and flexibility. Sometimes it is more efficient to clone an object and modify it, instead of initializing a new one. A prototype is a partially or fully initialized object that we can copy (clone) and modify.</p>
+                                    <p>Prototype allows object cloning instead of creating new instances from scratch, improving efficiency and flexibility. Sometimes it is more efficient to clone an object and modify it, instead of initializing a new one. A Prototype is a partially or fully initialized object that we can copy (clone) and modify.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> copy
@@ -408,9 +408,9 @@ car2.color <span class="sign">=</span> <span class="text">"Blue"</span> <span cl
 <span class="command">print</span>(car2)
                                     </code></pre>
 
-                                    <h4>Prototype factory</h4>
+                                    <h4>Prototype Factory</h4>
 
-                                    <p>A factory provides a convenient API for using prototypes.</p>
+                                    <p>Factories can provide a convenient API for using Prototypes.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> copy
@@ -460,7 +460,7 @@ car2 <span class="sign">=</span> <span class="function">CarFactory</span>.new_ca
 
                                     <h2><a id="singleton">Singleton</a></h2>
 
-                                    <p>Ensure a class has only one instance and provide a global point of access to it. Sometimes, it doesn't make sense to have more than one object in the system, e.g., a database or an object factory, because the initializer is expensive or is just unnecessary. A singleton is a component that is instantiated only once (we want to prevent anyone from creating additional copies).</p>
+                                    <p>Ensure a class has only one instance and provide a global point of access to it. Sometimes, it doesn't make sense to have more than one object in the system, e.g., a database or an object Factory, because the initializer is expensive or is just unnecessary. A Singleton is a component that is instantiated only once (we want to prevent anyone from creating additional copies).</p>
 
 <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Database:
@@ -482,7 +482,7 @@ s2.get_data()
 <span class="command">print</span>(s1 <span class="function">is</span> s2) <span class="comment"># they are the same</span>
                                     </code></pre>
 
-                                    <p>The class in the example above can only have one instance, but if we add an <code>__init__()</code> method, it will execute two times. This can be fixed with a decorator or a metaclass (they can be used to enforce a true singleton).</p>
+                                    <p>The class in the example above can only have one instance, but if we add an <code>__init__()</code> method, it will execute two times. This can be fixed with a decorator or a metaclass (they can be used to enforce a true Singleton).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> singleton(<span class="function">cls</span>):

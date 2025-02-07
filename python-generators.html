@@ -135,7 +135,7 @@ iter_l <span class="sign">=</span> <span class="command">iter</span>(l)
     <span class="command">print</span>(value)
                                     </code></pre>
                                     
-                                    <p>We can create custom iterators by defining a class that implements the <code>__next__()</code> and <code>__iter__()</code> dunder methods.</p>
+                                    <p>We can create custom iterables by defining a class that implements the <code>__next__()</code> and <code>__iter__()</code> dunder methods (they make the class iterable).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> MyList:
@@ -145,7 +145,7 @@ iter_l <span class="sign">=</span> <span class="command">iter</span>(l)
     <span class="function">def __iter__</span>(<span class="function">self</span>):
         <span class="comment"># Initializing the iterator (starting position)</span>
         <span class="function">self</span>.index <span class="sign">=</span> 0
-        <span class="function">return self</span> <span class="comment"># returning the class object itself</span>
+        <span class="function"><span class="function">return</span> self</span> <span class="comment"># returning the class object itself</span>
 
     <span class="function">def __next__</span>(<span class="function">self</span>):
         <span class="comment"># Checking if there are still elements left</span>
@@ -176,7 +176,7 @@ my_list <span class="sign">=</span> <span class="function">MyList</span>([<span 
     <span class="command">print</span>(x)
                                     </code></pre>
                                     
-                                    <p>The two examples below have the same output in terms of the values yielded, but they differ in behavior after the last value is yielded. In the second program, the last value printed is <code>4</code>, and not <code>y</code> because when we manually call <code>next()</code>, the generator function halts after yielding all its values (when the generator object is exhausted) and does not proceed to the last <code>print("y")</code> statement. In contrast, the loop in the first example automatically handles the entire iteration, which allows it to reach the final <code>print("y")</code> statement.</p>
+                                    <p>The two examples below have the same output in terms of the values yielded, but they differ in behavior after the last value is yielded. In the second program, the last value printed is <code>4</code>, and not <code>y</code> because when we manually call <code>next()</code>, the generator function halts after yielding all its values (when the generator object is exhausted) and does not proceed to the last <code><span class="command">print</span>("y")</code> statement. In contrast, the loop in the first example automatically handles the entire iteration, which allows it to reach the final <code><span class="command">print</span>("y")</code> statement.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> generator(n):
@@ -228,6 +228,40 @@ x <span class="sign">=</span> generator(5)
     
 <span class="function">for</span> x <span class="function">in</span> powers_of_2(8):
     <span class="command">print</span>(x)
+                                    </code></pre>
+
+                                    <h2>Addition to the lesson - custom lists</h2>
+
+                                    <p>Earlier, I mentioned creating custom iterators by implementing the <code>__next__()</code> and <code>__iter__()</code> dunder method, but this should only be done if we need fully custom iterable. If we just need a custom list with additional functionalities that has all the default methods of a list, we can just inherit from <code>list</code>.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> MyList(<span class="function">list</span>):
+    <span class="function">def __init__</span>(<span class="function">self</span>, values <span class="sign">=</span> <span class="function">None</span>):
+        <span class="function">super</span>().<span class="function">__init__</span>(values <span class="function">or</span> []) <span class="comment"># initializing with values or an empty list</span>
+        <span class="function">self</span>.history <span class="sign">=</span> [] <span class="comment"># keeping track of modifications</span>
+
+    <span class="function">def</span> append(<span class="function">self</span>, item):
+        <span class="function">self</span>.history.<span class="command">append</span>(<span class="text">f"Appended {item}"</span>) <span class="comment"># log the change</span>
+        <span class="function">super</span>().<span class="command">append</span>(item) <span class="comment"># call the original inherited append method</span>
+
+    <span class="function">def</span> remove(<span class="function">self</span>, item):
+        <span class="function">if</span> item <span class="function">in self</span>:
+            <span class="function">self</span>.history.<span class="command">append</span>(<span class="text">f"Removed {item}"</span>) <span class="comment"># log removal</span>
+            <span class="function">super</span>().<span class="command">remove</span>(item)
+        <span class="function">else</span>:
+            <span class="command">print</span>(<span class="text">f"Item {item} not in list"</span>)
+
+    <span class="function">def</span> show_history(<span class="function">self</span>):
+        <span class="function">return</span> <span class="function">self</span>.history
+
+my_list <span class="sign">=</span> <span class="function">MyList</span>([1, 2, 3])
+<span class="command">print</span>(<span class="text">"Initial list:"</span>, my_list)
+my_list.<span class="command">append</span>(4)
+<span class="command">print</span>(<span class="text">"Updated list:"</span>, my_list)
+my_list.<span class="command">remove</span>(2)
+<span class="command">print</span>(<span class="text">"After removing 2:"</span>, my_list)
+<span class="command">print</span>(<span class="text">"Accessing first item:"</span>, my_list[0])
+<span class="command">print</span>(<span class="text">"Modification history:"</span>, my_list.show_history())
                                     </code></pre>
                                 </div>
                             </div>
