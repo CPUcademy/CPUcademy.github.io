@@ -115,7 +115,7 @@ result <span class="sign">=</span> add(10)
                                     
                                     <h4><code>__str__()</code> (string)</h4>
                                     
-                                    <p>It defines what will be displayed if the instance of a class is placed inside the <code>print()</code> method.</p>
+                                    <p>It defines what will be displayed if a class instance is placed inside the <code>print()</code> method.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Point:
@@ -147,7 +147,7 @@ point <span class="sign">=</span> <span class="function">Point</span>(1, 2)
 <span class="command">print</span>(<span class="command">repr</span>(point))
                                     </code></pre>
 
-                                    <h4><code>__import__</code></h4>
+                                    <h4><code>__import__()</code></h4>
 
                                     <p>It imports a module based on a string, allowing for dynamic module loading at runtime, which is useful for situations like plugin systems or when the module to be imported depends on user input or configuration files.</p>
 
@@ -159,9 +159,9 @@ x <span class="sign">=</span> random.<span class="command">randint</span>(3, 30)
 <span class="command">print</span>(x)
                                     </code></pre>
 
-                                    <h4><code>__dict__</code></h4>
+                                    <h4><code>__dict__()</code></h4>
 
-                                    <p>It converts a class object into a dictionary.</p>
+                                    <p>It is a dictionary that stores an object's instance attributes, allowing dynamic modification.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Point:
@@ -177,25 +177,25 @@ p <span class="sign">=</span> <span class="function">Point</span>(1, 2)
                                     
                                     <p>Overloading an operator means overwriting its functionalities so it can work with, e.g., our class's objects. In Python, we cannot overload operators directly as we do in languages like C++ (e.g., <code>==</code>, <code>&lt;&lt;</code>). Here, we overwrite methods corresponding to the operators (e.g., <code>__eq__()</code> equals <code>==</code>). We can overload operators thanks to the dunder methods listed below:</p>
 
-                                    <p class="podpis"><code>__add__</code> - addition</p>
-                                    <p class="podpis"><code>__sub__</code> - subtraction</p>
-                                    <p class="podpis"><code>__mul__</code> - multiplication</p>
-                                    <p class="podpis"><code>__truediv__</code> - division</p>
-                                    <p class="podpis"><code>__floordiv__</code> - floor division (integer division)</p>
-                                    <p class="podpis"><code>__mod__</code> - modulo division</p>
-                                    <p class="podpis"><code>__pow__</code> - exponentiation</p>
-                                    <p class="podpis"><code>__eq__</code> - equal to (<code>==</code>)</p>
-                                    <p class="podpis"><code>__ne__</code> - not equal to (<code>!=</code>)</p>
-                                    <p class="podpis"><code>__gt__</code> - greater than (<code>&gt;</code>)</p>
-                                    <p class="podpis"><code>__lt__</code> - lesser than (<code>&lt;</code>)</p>
-                                    <p class="podpis"><code>__ge__</code> - greater than or equal to (<code>&gt;=</code>)</p>
-                                    <p class="podpis"><code>__le__</code> - lesser than or equal to (<code>&lt;=</code>)</p>
-                                    <p class="podpis"><code>__and__</code> - bitwise <code>and</code> (<code>&amp;</code>)</p>
-                                    <p><code>__or__</code> - bitwise <code>or</code> (<code>|</code>)</p>
+                                    <p class="podpis"><code>__add__()</code> - addition</p>
+                                    <p class="podpis"><code>__sub__()</code> - subtraction</p>
+                                    <p class="podpis"><code>__mul__()</code> - multiplication</p>
+                                    <p class="podpis"><code>__truediv__()</code> - division</p>
+                                    <p class="podpis"><code>__floordiv__()</code> - floor division (integer division)</p>
+                                    <p class="podpis"><code>__mod__()</code> - modulo division</p>
+                                    <p class="podpis"><code>__pow__()</code> - exponentiation</p>
+                                    <p class="podpis"><code>__eq__()</code> - equal to (<code>==</code>)</p>
+                                    <p class="podpis"><code>__ne__()</code> - not equal to (<code>!=</code>)</p>
+                                    <p class="podpis"><code>__gt__()</code> - greater than (<code>&gt;</code>)</p>
+                                    <p class="podpis"><code>__lt__()</code> - lesser than (<code>&lt;</code>)</p>
+                                    <p class="podpis"><code>__ge__()</code> - greater than or equal to (<code>&gt;=</code>)</p>
+                                    <p class="podpis"><code>__le__()</code> - lesser than or equal to (<code>&lt;=</code>)</p>
+                                    <p class="podpis"><code>__and__()</code> - bitwise <code>and</code> (<code>&amp;</code>)</p>
+                                    <p><code>__or__()</code> - bitwise <code>or</code> (<code>|</code>)</p>
                                     
                                     <h4><code>__eq__()</code> (equal to)</h4>
                                     
-                                    <p>It defines what happens when we use the equality operator on classes (thanks to this dunder method, we can compare classes by chosen values and not ID addresses).</p>
+                                    <p>It defines what happens when we use the equality operator on class instances (thanks to this dunder method, we can compare them by chosen values and not ID addresses).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Point:

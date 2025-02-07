@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Overloading operators</title>
+    <title>Sequence processing (Streams/Rx)</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -89,45 +89,10 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Overloading operators</h5>
+                                    <h5 class="m-0 font-weight-bold">Sequence processing (Streams/Rx)</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Overloading an operator means overwriting its functionalities so it can work with, e.g., our class's objects. Remember that we cannot simply display class instances with <code>cout</code> because the <code>&lt;&lt;</code> operator is not defined for them. To display them, we would have to overload this operator. The example below shows how to overload the <code>==</code> operator so it can compare class instances.</p>
-            
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command-c">#include &lt;iostream&gt;</span>
-<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
-
-<span class="function">class</span> Comparison
-<span class="sign">{</span>
-    <span class="function">int</span> x, y<span class="sign">;</span>
-    <span class="function">public</span><span class="sign">:</span>
-        <span class="function">Comparison</span>(<span class="function">int</span> x, <span class="function">int</span> y)
-        <span class="sign">{</span>
-            <span class="function">this</span> <span class="sign">-&gt;</span> x <span class="sign">=</span> x<span class="sign">;</span>
-            <span class="function">this</span> <span class="sign">-&gt;</span> y <span class="sign">=</span> y<span class="sign">;</span>
-        <span class="sign">}</span>
-        <span class="sign">~</span><span class="function">Comparison</span>()<span class="sign">{}</span>
-        
-        <span class="function">int</span> <span class="function">operator</span><span class="sign">==</span>(<span class="function">Comparison</span> obj)
-        <span class="sign">{</span>
-            <span class="function">if</span>(<span class="function">this</span> <span class="sign">-&gt;</span> x <span class="sign">==</span> x <span class="sign">&amp;&amp;</span> <span class="function">this</span> <span class="sign">-&gt;</span> y <span class="sign">==</span> y)
-                <span class="function">return</span> 1<span class="sign">;</span>
-            <span class="function">return</span> 0<span class="sign">;</span>
-        <span class="sign">}</span>
-<span class="sign">};</span>
-
-<span class="function"><span class="function">int</span></span> main()
-<span class="sign">{</span>
-    <span class="function">Comparison</span> x(10, 20)<span class="sign">;</span>
-    <span class="function">Comparison</span> y(10, 20)<span class="sign">;</span>
-    
-    <span class="function">if</span>(x <span class="sign">==</span> y)
-        <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"a and b are the same"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-    
-    <span class="function">return</span> 0<span class="sign">;</span>
-<span class="sign">}</span>
-                                    </code></pre>
+                                    Also enhance streams in Java
                                 </div>
                             </div>
                         </div>

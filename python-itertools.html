@@ -92,19 +92,31 @@
                                     <h5 class="m-0 font-weight-bold">Itertools</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h2>Permutacje</h2>
+                                    <p>The <code>itertools</code> module provides a collection of tools for working with iterators that operate on sequence items. These tools help create iterators for efficient looping.</p>
 
-                                    <p>Permutacje służą do sprawdzania wszystkich dostępnych kombinacji. Do ich tworzenia służy biblioteka <code>itertools</code>.</p>
-                                    
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                    import itertools
-                                    lista = [1, 2, 3]
-                                    permutacje = itertools.permutations(lista)
-                                    for x in list(permutacje):
-                                            print(x)
-                                    </code></pre>
+<span class="command">import</span> itertools
 
-                                    itertools.chain()
+<span class="comment"># Returning an iterator that repeats a given value a specific number of times</span>
+repeated <span class="sign">=</span> itertools.<span class="command">repeat</span>(10, 3) <span class="comment"># value, number of times</span>
+<span class="function">for</span> x <span class="function">in</span> repeated:
+    <span class="command">print</span>(x)
+
+<span class="comment"># Combining multiple iterables into one continuous sequence</span>
+chained <span class="sign">=</span> itertools.<span class="command">chain</span>([1, 2], [<span class="text">"a"</span>, <span class="text">"b"</span>], [<span class="function">True</span>, <span class="function">False</span>])
+<span class="function">for</span> item <span class="function">in</span> chained:
+    <span class="command">print</span>(item) 
+
+<span class="comment"># Returning n-length tuples with combinations of elements from the iterable (sorted in lexicographical order)</span>
+combs <span class="sign">=</span> itertools.<span class="command">combinations</span>(<span class="text">"ABCD"</span>, 2) <span class="comment"># iterable, n</span>
+<span class="function">for</span> comb <span class="function">in</span> combs:
+    <span class="command">print</span>(comb)
+
+<span class="comment"># The same as combinations(), but each arrangement of elements is treated as a unique permutation (order matters), e.g., ('A', 'B') and ('B', 'A') are treated as different</span>
+perms <span class="sign">=</span> itertools.<span class="command">permutations</span>(<span class="text">"ABCD"</span>, 2)
+<span class="function">for</span> perm <span class="function">in</span> perms:
+    <span class="command">print</span>(perm)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
