@@ -92,17 +92,61 @@
                                     <h5 class="m-0 font-weight-bold">Structural patterns</h5>
                                 </div>
                                 <div class="card-body">
-                                    Concerned with the structure (e.g., class members)
-                                    Many patterns are wrappers that mimic the underlying class's interface
-                                    Stress the importance of good API design
+                                    <h3>Table of contents</h3>
+                                    
+                                    <ul>
+                                        <li><a href="#adapter" class="link" style="text-decoration: None;">Adapter</a></li>
+                                        <li><a href="#bridge" class="link" style="text-decoration: None;">Bridge</a></li>
+                                        <li><a href="#composite" class="link" style="text-decoration: None;">Composite</a></li>
+                                        <li><a href="#decorator" class="link" style="text-decoration: None;">Decorator</a></li>
+                                        <li><a href="#facade" class="link" style="text-decoration: None;">Facade</a></li>
+                                        <li><a href="#flyweight" class="link" style="text-decoration: None;">Flyweight</a></li>
+                                        <li><a href="#proxy" class="link" style="text-decoration: None;">Proxy</a></li>
+                                    </ul>
 
-                                    - adapter
-                                    - bridge
-                                    - composite
-                                    - decorator
-                                    - facade
-                                    - flyweight
-                                    - proxy
+                                    <p>Structural design patterns deal with object composition and the organization of classes and objects. They help ensure that components in a system are arranged efficiently, promoting flexibility and reusability. They emphasize APIs to keep complex structures easy to manage and extend.</p>
+
+                                    <h2><a id="adapter">Adapter</a></h2>
+
+                                    <p>Adapter allows incompatible interfaces to work together by acting as a bridge between them. It translates one interface into another (adapts it), enabling classes with different APIs to communicate seamlessly without modifying their existing code. It is the in-between component.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class OldPrinter: # existing class (incompatible interface)
+    def print_text(self, text):
+        print(f"Old Printer: {text}")
+
+class NewPrinter: # new expected interface
+    def print(self, text):
+        raise NotImplementedError
+
+class PrinterAdapter(NewPrinter):
+    def __init__(self, old_printer):
+        self.old_printer = old_printer
+
+    def print(self, text):
+        self.old_printer.print_text(text) # adapting the old method
+
+old_printer = OldPrinter()
+adapter = PrinterAdapter(old_printer)
+adapter.print("Printed text.")
+
+                                    </code></pre>
+
+                                    <h2><a id="bridge">Bridge</a></h2>
+
+                                    <p></p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                        
+                                    </code></pre>
+
+                                    <h2><a id="facade">Facade</a></h2>
+
+                                    <p></p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                        
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
