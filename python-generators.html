@@ -135,7 +135,7 @@ iter_l <span class="sign">=</span> <span class="command">iter</span>(l)
     <span class="command">print</span>(value)
                                     </code></pre>
                                     
-                                    <p>We can create custom iterables by defining a class that implements the <code>__next__()</code> and <code>__iter__()</code> dunder methods (they make the class iterable).</p>
+                                    <p>We can create custom iterables by defining a class that implements the <code>__next__()</code> and <code>__iter__()</code> dunder methods, making the class an iterator.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> MyList:
@@ -232,7 +232,7 @@ x <span class="sign">=</span> generator(5)
 
                                     <h2>Addition to the lesson - custom lists</h2>
 
-                                    <p>Earlier, I mentioned creating custom iterators by implementing the <code>__next__()</code> and <code>__iter__()</code> dunder method, but this should only be done if we need fully custom iterable. If we just need a custom list with additional functionalities that has all the default methods of a list, we can just inherit from <code>list</code>.</p>
+                                    <p>Earlier, I mentioned creating custom iterables by implementing the <code>__next__()</code> and <code>__iter__()</code> dunder methods, but this should only be done if we need a fully custom iterable. If we only need a custom list with all the built-in methods of a normal list along with some additional functionalities, we can inherit from <code>list</code>.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> MyList(<span class="function">list</span>):
