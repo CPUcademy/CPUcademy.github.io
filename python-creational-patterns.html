@@ -159,7 +159,7 @@ veggie_pizza <span class="sign">=</span> builder.set_size(<span class="text">"Me
 
                                     <h4>Builder facets</h4>
 
-                                    <p>A builder facet is a specialized component of a builder (a separate class) that focuses on constructing a specific aspect or "facet" of an object (e.g., for personal details, job details, or address details) while maintaining a fluent interface for chaining methods. Those specialized components work in unison to create the whole object. A fluent interface allows method calls to be chained together in a readable and expressive way, often by returning the current object after each method call (<code>return self</code>).</p>
+                                    <p>A builder facet is a specialized component of a builder (a separate class) that focuses on constructing a specific aspect or "facet" of an object, e.g., personal details, job details, or address details. These facets work together to build the complete object, e.g., a user, while maintaining a fluent interface, which enables method chaining (check the code comments in the example above).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Person:
@@ -529,7 +529,7 @@ s2 <span class="sign">=</span> <span class="function">Database</span>()
 
                                     <h2><a id="monostate">Monostate (Singleton variation)</a></h2>
 
-                                    <p>Monostate allows multiple instances of a class to share the same state by making all instances point to a common dictionary (<code>__dict__</code> - a special dictionary that stores an object's mutable attributes). Unlike the Singleton pattern (which ensures only one instance exists), Monostate allows multiple instances but ensures they behave as if they are the same object in terms of state.</p>
+                                    <p>Monostate allows multiple instances of a class to share the same state by making all instances point to a common dictionary (<code>__dict__</code>). Unlike the Singleton pattern (which ensures only one instance exists), Monostate allows multiple instances but ensures they behave as if they are the same object in terms of state.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Monostate:
@@ -552,7 +552,7 @@ b <span class="sign">=</span> <span class="function">Monostate</span>(<span clas
                                     
                                     <h2><a id="lazy-initialization">Lazy initialization</a></h2>
 
-                                    <p>Lazy initialization delays the creation of an object or a resource until it is actually needed, rather than when the object is first created. This is useful for optimizing resource usage, especially when the initialization of an object is resource-intensive or unnecessary if the object is never used. The example below adheres to this design pattern because it ensures that the database connection and any associated resources are only initialized when the <code>get_data()</code> method is called, i.e., when the object is accessed for the first time. This helps optimize performance by not initializing the database connection unless it's actually needed.</p>
+                                    <p>Lazy initialization delays the creation of an object or a resource until it is actually needed, rather than when the object is first created. This is useful for optimizing resource usage, especially when the initialization of an object is resource-intensive or unnecessary if the object is never used. The example below adheres to this design pattern because it ensures that the database connection and any associated resources are only initialized when the <code>get_data()</code> method is first called, i.e., when the data is needed for the first time.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> LazyDatabase:
