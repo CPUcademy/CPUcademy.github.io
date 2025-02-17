@@ -206,7 +206,7 @@ e.method()
                                     
                                     <h2>Abstract classes</h2>
                                     
-                                    <p>An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects, so we can only use them in its child classes. It also can't have instances. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). An abstract method is a method that is in an abstract class and has the <code>@abstractmethod</code> decorator in front of it. We create abstract classes by inheriting the <code>ABC</code> object from an imported module. An abstract class forces all its child classes to override all its abstract methods.</p>
+                                    <p>An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects or have instances, so we can only use them in its child classes. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). An abstract method is a method that is in an abstract class and has the <code>@abstractmethod</code> decorator in front of it. We create abstract classes by inheriting the <code>ABC</code> object from an imported module. An abstract class forces all its child classes to override all its abstract methods. It isn't mandatory to overwrite a non-abstract method from an abstract class. Non-abstract methods can contain implementations to be inherited in the child classes (abstract methods have to be overridden, so it wouldn't make sense for them to contain implementations).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">        
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
@@ -216,8 +216,8 @@ e.method()
     <span class="function">def</span> voice(<span class="function">self</span>):
         <span class="command">pass</span>
 
-    <span class="function">def</span> voice2(<span class="function">self</span>): <span class="comment"># it isn't mandatory to overwrite a non-abstract method from an abstract class</span>
-        <span class="command">pass</span>    
+    <span class="function">def</span> voice2(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Voice!"</span>)  
                     
 <span class="function">class</span> Cat(Animal):
     <span class="function">def</span> voice(<span class="function">self</span>):
@@ -225,6 +225,7 @@ e.method()
         
 cat <span class="sign">=</span> <span class="function">Cat</span>()
 cat.voice()
+cat.voice2()
                                     </code></pre>        
 
                                     <p>The term "interface" in Python refers to an abstract class in which all methods are abstract and do not contain any implementation, providing only method signatures that must be implemented by subclasses.</p>

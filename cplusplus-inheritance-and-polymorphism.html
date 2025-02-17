@@ -234,7 +234,7 @@
                                     
                                     <p>A method can become virtual, which means that before calling it, it will check whether there is a class that inherits and overloads it. It will then call the appropriate method lower in the hierarchy. We create virtual methods by writing <code>virtual</code> before their type.</p>
                                     
-                                    <p>A class is considered abstract if it has at least one pure virtual method (i.e., a virtual method with <code>= 0</code>). An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects, so we can only use them in its child classes. It also can't have instances. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). An abstract method is a method that is in an abstract class and is a pure virtual method. An abstract class forces its child classes to overwrite all its abstract methods.</p>
+                                    <p>A class is considered abstract if it has at least one pure virtual method (i.e., a virtual method with <code>= 0</code>). An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects or have instances, so we can only use them in its child classes. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). An abstract method is a method that is in an abstract class and is a pure virtual method. An abstract class forces all its child classes to override all its abstract methods. It isn't mandatory to overwrite a non-abstract method from an abstract class. Non-abstract methods can contain implementations to be inherited in the child classes (abstract methods have to be overridden, so it wouldn't make sense for them to contain implementations).</p>
                                     
                                     <p>When creating an abstract class, we also have to make a virtual destructor (write <code>virtual</code> before the destructor definition). A constructor is not mandatory in an abstract class because it works implicitly.</p>
                                     
@@ -246,7 +246,7 @@
 <span class="sign">{</span>
     <span class="function">public</span><span class="sign">:</span>
         <span class="function">virtual void</span> voice() <span class="sign">=</span> 0<span class="sign">;</span>
-        <span class="function">void</span> voice2()<span class="sign">{};</span> <span class="comment">// it isn't mandatory to overwrite a non-abstract method from an abstract class</span> 
+        <span class="function">void</span> voice2()<span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Voice!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">};</span>
         <span class="function">virtual</span> <span class="sign">~</span><span class="function">Animal</span>()<span class="sign">{}</span>
 <span class="sign">};</span>
 
@@ -262,6 +262,7 @@
 <span class="sign">{</span>
     <span class="function">Animal</span> <span class="sign">*</span>cat <span class="sign">=</span> <span class="function">new Cat</span><span class="sign">;</span> <span class="comment">// we can create many different objects (e.g., Cat or Dog) using only one type (Animal) - polymorphism</span>
     cat <span class="sign">-&gt;</span> voice()<span class="sign">;</span>
+    cat <span class="sign">-&gt;</span> voice2()<span class="sign">;</span>
     <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
