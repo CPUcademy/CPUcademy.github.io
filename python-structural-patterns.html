@@ -129,23 +129,116 @@ class PrinterAdapter(NewPrinter):
 old_printer = OldPrinter()
 adapter = PrinterAdapter(old_printer)
 adapter.print("Printed text.")
-
                                     </code></pre>
 
                                     <h2><a id="bridge">Bridge</a></h2>
 
-                                    <p></p>
+                                    <p>Bridge decouples an abstraction from its implementation, allowing the two to vary independently and preventing a Cartesian complexity explosion (where the number of subclasses grows exponentially as new features are added). It achieves this through an interface that acts as a bridge between high-level abstractions and concrete implementations. It connects these two hierarchies of different classes with a parameter. It does not comply with the Open/Closed Principle (a price to pay).</p>
+
+                                    <p>The first hierarchy (<code>Message</code> and its subclasses like <code>EmailMessage</code> and <code>SMSMessage</code>) represents the abstraction. The second hierarchy (<code>Sender</code> and its subclasses like <code>FastSender</code> and <code>SecureSender</code>) represents the implementation. The parameter <code>sender</code> in <code>Message.__init__()</code> acts as the bridge that connects these two hierarchies dynamically.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                        
+from abc import ABC, abstractmethod
+
+class Sender(ABC): # a bridge
+    @abstractmethod
+    def send(self, message):
+        pass
+
+class FastSender(Sender):
+    def send(self, message):
+        print(f"Sending message quickly: {message}")
+
+class SecureSender(Sender):
+    def send(self, message):
+        print(f"Sending message securely: {message}")
+
+class Message:
+    def __init__(self, sender): # this parameter connects the two hierarchies
+        self.sender = sender
+
+    def send(self, content):
+        pass
+
+class EmailMessage(Message):
+    def send(self, content):
+        print("Sending Email:")
+        self.sender.send(content)
+
+class SMSMessage(Message):
+    def send(self, content):
+        print("Sending SMS:")
+        self.sender.send(content)
+
+# Cartesian combinations
+# FastSender EmailMessage
+# FastSender SMSMessage
+# SecureSender EmailMessage
+# SecureSender SMSMessage
+
+fast_sender = FastSender()
+secure_sender = SecureSender()
+
+email = EmailMessage(fast_sender)
+email.send("Hello via Email!")
+
+sms = SMSMessage(secure_sender)
+sms.send("Hello via SMS!")
                                     </code></pre>
 
                                     <h2><a id="facade">Facade</a></h2>
 
-                                    <p></p>
+                                    <p>Facade provides a simplified, unified interface to a set of interfaces in a subsystem. It hides the complexity of the subsystem and provides a simple higher-level API for clients to use. We optionally may wish to expose internals through the facade, e.g., for more detailed control or specific operations that bypass the simplified interface, allowing advanced users to interact directly with subsystem components when necessary.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-                                        
+class TV:
+    def turn_on(self):
+        print("TV is now ON")
+
+    def turn_off(self):
+        print("TV is now OFF")
+
+class SoundSystem:
+    def turn_on(self):
+        print("Sound system is now ON")
+
+    def turn_off(self):
+        print("Sound system is now OFF")
+
+class StreamingService:
+    def start(self):
+        print("Streaming service is starting...")
+
+    def stop(self):
+        print("Streaming service is stopping...")
+
+class HomeTheaterFacade: # a facade
+    def __init__(self, tv, sound_system, streaming_service):
+        self.tv = tv
+        self.sound_system = sound_system
+        self.streaming_service = streaming_service
+
+    def watch_movie(self):
+        print("Starting movie mode...")
+        self.tv.turn_on()
+        self.sound_system.turn_on()
+        self.streaming_service.start()
+        print("Movie is ready to watch!")
+
+    def end_movie(self):
+        print("Shutting down movie mode...")
+        self.streaming_service.stop()
+        self.sound_system.turn_off()
+        self.tv.turn_off()
+        print("Movie mode ended.")
+
+tv = TV()
+sound_system = SoundSystem()
+streaming_service = StreamingService()
+
+home_theater = HomeTheaterFacade(tv, sound_system, streaming_service)
+home_theater.watch_movie() # one call replaces multiple subsystem interactions
+home_theater.end_movie() # one call shuts everything down  
                                     </code></pre>
                                 </div>
                             </div>

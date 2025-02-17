@@ -203,7 +203,7 @@
                                     
                                     <p>Polymorphism means operating the same way on objects of different types (it states that an object can have many forms). For example, the <code>+</code> operator behaves polymorphically because it can add numbers and concatenate strings (it works with various data types). It is the fourth concept of object-oriented programming. Example: A man can be a father, a husband, a student, etc. One person can have different roles.</p>
                                     
-                                    <p>An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects, so we can only use them in its child classes. It also can't have instances. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). We create abstract objects by adding the <code>abstract</code> keyword before their type. An abstract method is a method that is in an abstract class and has the <code>abstract</code> keyword before its type. An abstract class forces all its child classes to override all its abstract methods.</p>
+                                    <p>An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects or have instances, so we can only use them in its child classes. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). We create abstract objects by adding the <code>abstract</code> keyword before their type. An abstract method is a method that is in an abstract class and has the <code>abstract</code> keyword before its type. An abstract class forces all its child classes to override all its abstract methods. It isn't mandatory to overwrite a non-abstract method from an abstract class. Non-abstract methods can contain implementations to be inherited in the child classes (abstract methods have to be overridden, so it wouldn't make sense for them to contain implementations).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main
@@ -212,6 +212,7 @@
     <span class="sign">{</span>
         <span class="function">Animal</span> cat <span class="sign">=</span> <span class="function">new Cat</span>()<span class="sign">;</span> <span class="comment">// we can create many different objects (e.g., Cat or Dog) using only one type (Animal) - polymorphism</span>
         cat.voice()<span class="sign">;</span>
+        cat.voice2()<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
@@ -219,7 +220,7 @@
 <span class="sign">{</span>
     <span class="function">protected int</span> lifespan <span class="sign">=</span> 10<span class="sign">;</span> <span class="comment">// public in child classes but private outside</span>
     <span class="function">abstract void</span> voice()<span class="sign">;</span>
-    <span class="function">void</span> voice2()<span class="sign">{};</span> <span class="comment">// it isn't mandatory to overwrite a non-abstract method from an abstract class</span>
+    <span class="function">void</span> voice2()<span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Voice!"</span>)<span class="sign">;};</span>
 <span class="sign">}</span>
 
 <span class="function">class</span> Cat <span class="function">extends Animal</span>
