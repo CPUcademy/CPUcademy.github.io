@@ -389,11 +389,11 @@
 
                                     <h2>Method arguments</h2>
 
-                                    <p>Objects (like <code>ArrayList</code>) are passed by reference value. This means the list parameter inside the method refers to the same <code>ArrayList</code> object that was passed as an argument, not a copy. When we modify the contents of the list (e.g., via <code>clear()</code> or <code>addAll()</code>), we are modifying the same object that exists outside the method.</p>
+                                    <p>Objects (like <code>ArrayList</code>) are passed as a method argument by reference value. This means the parameter inside the method refers to the same <code>ArrayList</code> object outside the method, not a copy. When we modify the contents of the list inside the method (e.g., via <code>clear()</code> or <code>addAll()</code>), we are modifying the same object.</p>
 
-                                    <p>Primitive types (<code>int</code>): Passed by value. A copy of the value is passed, so changes inside the method do not affect the original variable.</p>
-
-                                    <p>Wrapper types (<code>Integer</code>): Passed by reference value. The reference (memory address) to the <code>Integer</code> object is passed, but since <code>Integer</code> is immutable, we cannot change the actual object’s value. Reassigning the reference inside the method doesn’t affect the original variable.</p>
+                                    <p>In summary, primitive types (<code>int</code>) are passed by value (a copy of the value is passed, so changes inside the method do not affect the original variable), while wrapper types (<code>Integer</code>) are passed by reference value.</p>
+                                    
+                                    <p>Classic arrays are objects, so they are passed by reference value (a copy of the reference). Modifying the array elements inside the method affects the original array. Reassigning the array inside the method does not affect the original reference outside.</p>
                                 </div>
                             </div>
                         </div>

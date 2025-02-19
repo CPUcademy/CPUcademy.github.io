@@ -161,10 +161,12 @@
 <span class="sign">}</span>)<span class="sign">;</span>
 th.<span class="command">start</span>()<span class="sign">;</span>
                                     </code></pre>
+
+                                    <p>A race condition occurs when multiple threads access shared resources without proper synchronization, leading to unpredictable behavior. A deadlock happens when two or more threads are waiting indefinitely for resources held by each other, preventing further execution. In contrast, a livelock occurs when threads keep changing state in response to each other but make no real progress, as they continuously attempt to resolve the conflict without success. While race conditions lead to incorrect results, deadlocks halt execution, and livelocks keep the system active but unproductive.</p>
                                     
                                     <p>Threads can be synchronized to prevent concurrent access to shared resources, ensuring data consistency. Synchronization is applied using the <code>synchronized</code> keyword. It ensures that only one thread accesses shared resources at a time. Synchronization ensures data consistency but can reduce performance if overused.</p>
 
-                                    <p>In the example below, the <code>synchronized</code> keyword (in the name of the method executed by the threads) prevents multiple threads from modifying the <code>shared_resource</code> variable simultaneously, which could lead to inconsistencies due to race conditions. Without this "lock," threads can interfere with each other while accessing the shared resource, causing the final result to be unpredictable. For example, two threads might read the same value of <code>shared_resource</code>, increment it, and write it back, effectively skipping one increment. This may result in a final value being lower than expected. When a thread enters the method, it first tries to acquire the lock. If another thread already holds the lock, the current thread will wait until the lock is released. Inside the locked block (inside the synchronized method), the shared resource is modified. Once the other thread finishes modifying <code>shared_resource</code>, the lock is automatically released.</p>
+                                    <p>In the example below, <code>synchronized</code> prevents multiple threads from modifying the <code>shared_resource</code> variable simultaneously, which could lead to inconsistencies due to race conditions. Without the "lock," threads can interfere with each other while accessing the shared resource, causing the final result to be unpredictable. For example, two threads might read the same value of <code>shared_resource</code>, increment it, and write it back, effectively skipping one increment. This may result in a final value being lower than expected. When a thread enters the <code>synchronized(Main.class)</code> block, it first tries to acquire the lock. If another thread already holds the lock, the current thread will wait until the lock is released. Inside the locked block, the shared resource is modified. Once the other thread finishes modifying <code>shared_resource</code>, the lock is automatically released.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main
@@ -186,7 +188,7 @@ th.<span class="command">start</span>()<span class="sign">;</span>
         <span class="sign">{</span>
             <span class="function">try</span> 
             <span class="sign">{</span>
-                threads[i].<span class="command">join</span>();
+                threads[i].<span class="command">join</span>()<span class="sign">;</span>
             <span class="sign">}</span> 
             <span class="function">catch</span>(<span class="function">InterruptedException</span> e)
             <span class="sign">{</span>
@@ -197,10 +199,16 @@ th.<span class="command">start</span>()<span class="sign">;</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Final value of shared_resource: "</span> <span class="sign">+</span> shared_resource)<span class="sign">;</span>
     <span class="sign">}</span>
 
-    <span class="function">public synchronized static void</span> increment() 
+    <span class="function">public static void</span> increment() 
     <span class="sign">{</span>
         <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 1000<span class="sign">;</span> i<span class="sign">++</span>)
-            shared_resource<span class="sign">++;</span>
+        <span class="sign">{</span>
+            <span class="comment">// Ensuring only one thread modifies shared_resource at a time (synchronization)</span>
+            <span class="function">synchronized</span>(<span class="function">Main</span>.<span class="function">class</span>) 
+            <span class="sign">{</span>
+                shared_resource<span class="sign">++;</span>
+            <span class="sign">}</span>
+        <span class="sign">}</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
