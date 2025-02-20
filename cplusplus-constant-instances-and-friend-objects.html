@@ -100,21 +100,18 @@
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="function">class</span> Example
-<span class="sign">{</span>
+<span class="function">class</span> Example <span class="sign">{</span>
     <span class="function">int</span> x <span class="sign">=</span> 0<span class="sign">;</span>
     <span class="function">public</span><span class="sign">:</span>
         <span class="function">Example</span>()<span class="sign">{}</span>
         <span class="sign">~</span><span class="function">Example</span>()<span class="sign">{}</span>
-        <span class="function">int</span> getX() <span class="function">const</span>
-        <span class="sign">{</span>
+        <span class="function">int</span> getX() <span class="function">const</span> <span class="sign">{</span>
             <span class="function">return</span> x<span class="sign">;</span>
         <span class="sign">}</span>
 <span class="sign">};</span>
 
 
-<span class="function">int</span> main()
-<span class="sign">{</span>
+<span class="function">int</span> main() <span class="sign">{</span>
     <span class="function">const Example</span> x<span class="sign">;</span> <span class="comment">// remember that "Example" acts as a data type here</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x.getX() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     <span class="function">return</span> 0<span class="sign">;</span>
@@ -129,26 +126,22 @@
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="function">class</span> Example
-<span class="sign">{</span>
+<span class="function">class</span> Example <span class="sign">{</span>
     <span class="function">int</span> x <span class="sign">=</span> 0<span class="sign">;</span>
     <span class="function">public</span><span class="sign">:</span>
         <span class="function">Example</span>()<span class="sign">{}</span>
         <span class="sign">~</span><span class="function">Example</span>()<span class="sign">{}</span>
-        <span class="function">int</span> getX()
-        <span class="sign">{</span>
+        <span class="function">int</span> getX() <span class="sign">{</span>
             <span class="function">return</span> x<span class="sign">;</span>
         <span class="sign">}</span>
         <span class="function">friend void</span> setX(<span class="function">Example</span> <span class="sign">&amp;</span>, <span class="function">int</span>);</span>
 <span class="sign">};</span>
 
-<span class="function">void</span> setX(<span class="function">Example</span> <span class="sign">&amp;</span>object, <span class="function">int</span> x) <span class="comment">// the reference is there so that the function edits the object, not its local version</span>
-<span class="sign">{</span>
+<span class="function">void</span> setX(<span class="function">Example</span> <span class="sign">&amp;</span>object, <span class="function">int</span> x) <span class="sign">{</span> <span class="comment">// the reference is there so that the function edits the object, not its local version</span>
     object.x <span class="sign">=</span> x<span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">int</span> main()
-<span class="sign">{</span>
+<span class="function">int</span> main() <span class="sign">{</span>
     <span class="function">Example</span> x<span class="sign">;</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x.getX() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     setX(x, 10)<span class="sign">;</span>
@@ -165,32 +158,27 @@
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="function">class</span> A
-<span class="sign">{</span>
+<span class="function">class</span> A <span class="sign">{</span>
     <span class="function">friend class B</span><span class="sign">;</span>
     <span class="function">int</span> x <span class="sign">=</span> 0<span class="sign">;</span>
     <span class="function">public</span><span class="sign">:</span>
         <span class="function">A</span>()<span class="sign">{}</span>
         <span class="sign">~</span><span class="function">A</span>()<span class="sign">{}</span>
-        <span class="function">int</span> getX()
-        <span class="sign">{</span>
+        <span class="function">int</span> getX() <span class="sign">{</span>
             <span class="function">return</span> x<span class="sign">;</span>
         <span class="sign">}</span>
 <span class="sign">};</span>
 
-<span class="function">class</span> B
-<span class="sign">{</span>
+<span class="function">class</span> B <span class="sign">{</span>
     <span class="function">public</span><span class="sign">:</span>
         <span class="function">B</span>()<span class="sign">{}</span>
         <span class="sign">~</span><span class="function">B</span>()<span class="sign">{}</span>
-        <span class="function">void</span> setX(<span class="function">A</span> <span class="sign">&amp;</span>object, <span class="function">int</span> x)
-        <span class="sign">{</span>
+        <span class="function">void</span> setX(<span class="function">A</span> <span class="sign">&amp;</span>object, <span class="function">int</span> x) <span class="sign">{</span>
             object.x <span class="sign">=</span> x<span class="sign">;</span>
         <span class="sign">}</span>
 <span class="sign">};</span>
 
-<span class="function">int</span> main()
-<span class="sign">{</span>
+<span class="function">int</span> main() <span class="sign">{</span>
     <span class="function">A</span> objA<span class="sign">;</span>
     <span class="function">B</span> objB<span class="sign">;</span>
     objB.setX(objA, 10)<span class="sign">;</span>

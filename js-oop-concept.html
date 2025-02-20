@@ -115,10 +115,8 @@
                                     <p>The <code>this</code> keyword represents the class it is used in and allows to address all objects of the class at any point in the class. <code>this.x</code> and <code>x</code> are different variables. The former is an object belonging to a class (a field), and the latter is just a variable.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> Human 
-<span class="sign">{</span>
-    <span class="function">constructor</span>() 
-    <span class="sign">{</span>
+<span class="function">class</span> Human <span class="sign">{</span>
+    <span class="function">constructor</span>() <span class="sign">{</span>
         <span class="function">this</span>.age <span class="sign">=</span> 0 <span class="comment">// a field (an instance variable - its value differs by instance)</span>
         <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Constructor"</span>)
     <span class="sign">}</span>
@@ -140,19 +138,16 @@ h.setAge(10)
                                     <p>If there is a <code>#</code> before a field or a method name, it is a private attribute that cannot be called outside its class. Encapsulation blocks the possibility of bypassing certain instructions by, for example, editing the output variable outside the class. Most objects should be private, and outside of the class, they should be edited only through methods of this class (setters). If we try to access or change the value of a private object outside the class, we will get an error (when working with newer JS environments).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> Bank 
-<span class="sign">{</span>
+<span class="function">class</span> Bank <span class="sign">{</span>
     <span class="sign">#</span>balance <span class="comment">// a private field</span>
     <span class="function">constructor</span>()<span class="sign">{</span><span class="function">this</span>.<span class="sign">#</span>balance <span class="sign">=</span> 1000<span class="sign">}</span>
     getBalance(){</span><span class="function">return this</span>.<span class="sign">#</span>balance<span class="sign">}</span>
 
-    <span class="sign">#</span>setBalance(balance) <span class="comment">// a private method</span>
-    <span class="sign">{</span>
+    <span class="sign">#</span>setBalance(balance) <span class="sign">{</span> <span class="comment">// a private method</span>
         <span class="function">this</span>.<span class="sign">#</span>balance <span class="sign">=</span> balance
     <span class="sign">}</span>
 
-    withdraw(howMuch) 
-    <span class="sign">{</span>
+    withdraw(howMuch) <span class="sign">{</span>
         <span class="function">if</span>(<span class="function">this</span>.<span class="sign">#</span>balance <span class="sign">&lt;</span> howMuch)
             <span class="function">return false</span>
         <span class="function">else</span>
@@ -176,8 +171,7 @@ b.withdraw(400)
                                     <p>We create all static objects by adding the <code>static</code> keyword before their definition.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> Example 
-<span class="sign">{</span>
+<span class="function">class</span> Example <span class="sign">{</span>
     <span class="function">static</span> static_variable <span class="sign">=</span> 0
     <span class="function">static</span> method()<span class="sign">{</span><span class="function">this</span>.static_variable<span class="sign">++}</span>
 <span class="sign">}</span>
@@ -194,13 +188,11 @@ x.<span class="function">constructor</span>.method() <span class="comment">// ac
                                     <p>Classes can inherit objects (methods) from each other. The class that is being inherited from is called a parent class (also a base class or a superclass). The class that inherits from another class is called a child class (also a derived class or a subclass). It is the third concept of object-oriented programming.</p>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> Animal 
-<span class="sign">{</span>
+<span class="function">class</span> Animal <span class="sign">{</span>
     voice()<span class="sign">{</span><span class="command">console</span>.<span class="command">log</span>(<span class="text">"Voice!"</span>)<span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Cat <span class="function">extends Animal </span>
-<span class="sign">{</span>
+<span class="function">class</span> Cat <span class="function">extends Animal </span> <span class="sign">{</span>
     breed()<span class="sign">{</span><span class="command">console</span>.<span class="command">log</span>(<span class="text">"I am a Bengal cat!"</span>)<span class="sign">}</span>
 <span class="sign">}</span>
 
@@ -214,15 +206,12 @@ cat.breed()
                                     <p>The <code>super()</code> function allows us to call the original method from the parent class when overriding it in a subclass.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> Animal 
-<span class="sign">{</span>
+<span class="function">class</span> Animal <span class="sign">{</span>
     voice()<span class="sign">{</span><span class="command">console</span>.<span class="command">log</span>(<span class="text">"Voice!"</span>)<span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Cat <span class="function">extends Animal</span>
-<span class="sign">{</span>
-    voice() 
-    <span class="sign">{</span>
+<span class="function">class</span> Cat <span class="function">extends Animal</span> <span class="sign">{</span>
+    voice() <span class="sign">{</span>
         <span class="function">super</span>.voice()
         <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Meow!"</span>)
     <span class="sign">}</span>

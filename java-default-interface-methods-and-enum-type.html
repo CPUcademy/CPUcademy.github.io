@@ -97,12 +97,9 @@
                                     <p>If we don't want to be forced to implement certain methods of an interface, we can set them as <code>default</code>. An interface that a lambda expression uses, commonly can't have more than one method, but if the other ones are <code>default</code>, there is no problem.</p>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="function">Maths</span> m <span class="sign">=</span> (<span class="function">int</span> x) <span class="sign">-&gt;</span>
-        <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
+        <span class="function">Maths</span> m <span class="sign">=</span> (<span class="function">int</span> x) <span class="sign">-&gt;</span> <span class="sign">{</span>
             <span class="function">return</span> 5<span class="sign">;</span>
         <span class="sign">};</span>
 
@@ -111,20 +108,16 @@
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">interface</span> Maths
-<span class="sign">{</span>
+<span class="function">interface</span> Maths <span class="sign">{</span>
     <span class="function">double</span> calculate(<span class="function">int</span> x)<span class="sign">;</span>
-    <span class="function">default double</span> sqrt(<span class="function">int</span> x)
-    <span class="sign">{</span>
+    <span class="function">default double</span> sqrt(<span class="function">int</span> x) <span class="sign">{</span>
         <span class="function">return Math</span>.<span class="command">sqrt</span>(x)<span class="sign">;</span></span> <span class="comment">// we don't have to import the Math class</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Examplee <span class="function">implements Maths</span>
-<span class="sign">{</span>
+<span class="function">class</span> Examplee <span class="function">implements Maths</span> <span class="sign">{</span>
     <span class="command">@Override</span>
-    <span class="function">public double</span> calculate(<span class="function">int</span> x)
-    <span class="sign">{</span>
+    <span class="function">public double</span> calculate(<span class="function">int</span> x) <span class="sign">{</span>
         <span class="function">return</span> 0<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
@@ -135,27 +128,22 @@
                                     <p><code>Enum</code> (enumeration) is a custom data type (a data type that can define its type). We can determine what it contains. When defining it, we give a set of values of this type (similarly, e.g., an <code>int</code> has a set of allowed values - a range).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public enum</span> Day 
-<span class="sign">{</span>
+<span class="function">public enum</span> Day <span class="sign">{</span>
     Mo, Tu, We, Th, Fr, Sa, Su
 <span class="sign">}</span>                                                                         
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="function">Day</span>.Tu)<span class="sign">;</span> <span class="comment">// just like typing int(5)</span>
 
         <span class="function">Day</span> number_of_a_day_of_the_week <span class="sign">=</span> <span class="function">Day</span>.Mo<span class="sign">;</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(getDay(number_of_a_day_of_the_week))<span class="sign">;</span>
     <span class="sign">}</span>
 
-    <span class="function">private static String</span> getDay(<span class="function">Day</span> x)
-    <span class="sign">{</span>
-        <span class="function">return switch</span>(x) 
-        <span class="sign">{</span>
+    <span class="function">private static String</span> getDay(<span class="function">Day</span> x) <span class="sign">{</span>
+        <span class="function">return switch</span>(x) <span class="sign">{</span>
             <span class="function">case</span> Mo <span class="sign">-></span> <span class="text">"Monday"</span><span class="sign">;</span>
             <span class="function">case</span> Tu <span class="sign">-></span> <span class="text">"Tuesday"</span><span class="sign">;</span>
             <span class="function">case</span> We <span class="sign">-></span> <span class="text">"Wednesday"</span><span class="sign">;</span>

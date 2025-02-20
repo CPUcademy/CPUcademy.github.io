@@ -102,50 +102,41 @@
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="function">class</span> DivisionException
-<span class="sign">{</span>
+<span class="function">class</span> DivisionException <span class="sign">{</span>
     <span class="function">public</span><span class="sign">:</span>
         <span class="function">void</span> getErrorMessage()<span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Don't divide by zero"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;};</span>    
 <span class="sign">};</span>
 
-<span class="function">double</span> division(<span class="function">double</span> x, <span class="function">double</span> y) <span class="function">throw</span>(<span class="function">DivisionException</span>) <span class="comment">// "throw" says what object this function may (but doesn't have to) return</span>
-<span class="sign">{</span>
+<span class="function">double</span> division(<span class="function">double</span> x, <span class="function">double</span> y) <span class="function">throw</span>(<span class="function">DivisionException</span>) <span class="sign">{</span> <span class="comment">// "throw" says what object this function may (but doesn't have to) return</span>
     <span class="function">if</span>(y <span class="sign">==</span> 0) <span class="function">throw</span> <span class="function">DivisionException</span>()<span class="sign">;</span>
     <span class="function">return</span> x <span class="sign">/</span> y<span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">int</span> main()
-<span class="sign">{</span>
+<span class="function">int</span> main() <span class="sign">{</span>
     <span class="function">double</span> x <span class="sign">=</span> 10<span class="sign">;</span>
     
-    <span class="function">try</span>
-    <span class="sign">{</span>
+    <span class="function">try</span> <span class="sign">{</span>
         <span class="function">if</span>(x <span class="sign">==</span> 10)
             <span class="function">throw</span> x<span class="sign">;</span>
             
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"x"</span><span class="sign">;</span>
     <span class="sign">}</span>
-    <span class="function">catch</span>(<span class="function">int</span> exception) <span class="comment">// catching an int exception</span>
-    <span class="sign">{</span>
+    <span class="function">catch</span>(<span class="function">int</span> exception) <span class="sign">{</span> <span class="comment">// catching an int exception</span>
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Exception for int type"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     <span class="sign">}</span>
-    <span class="function">catch</span>(<span class="sign">...</span>)
-    <span class="sign">{</span>
+    <span class="function">catch</span>(<span class="sign">...</span>) <span class="sign">{</span>
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Exception for all types (not specialized)"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     <span class="sign">}</span>
     
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     
-    <span class="function">try</span>
-    <span class="sign">{</span>
+    <span class="function">try</span> <span class="sign">{</span>
         <span class="function">double</span> result <span class="sign">=</span> division(5, 0)<span class="sign">;</span>
     <span class="sign">}</span>
-    <span class="function">catch</span>(<span class="function">DivisionException</span> exception)
-    <span class="sign">{</span>
+    <span class="function">catch</span>(<span class="function">DivisionException</span> exception) <span class="sign">{</span>
         exception.getErrorMessage()<span class="sign">;</span>
     <span class="sign">}</span>
-    <span class="function">catch</span>(<span class="sign">...</span>)
-    <span class="sign">{</span>
+    <span class="function">catch</span>(<span class="sign">...</span>) <span class="sign">{</span>
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Exception for all types (not specialized)"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     <span class="sign">}</span>
     

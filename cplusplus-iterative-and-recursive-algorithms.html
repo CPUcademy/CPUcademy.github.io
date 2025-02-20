@@ -111,23 +111,20 @@
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="function">unsigned int</span> factorial1(<span class="function">int</span> x)
-<span class="sign">{</span>
+<span class="function">unsigned int</span> factorial1(<span class="function">int</span> x) <span class="sign">{</span>
     <span class="function">int</span> result <span class="sign">=</span> 1<span class="sign">;</span>
     <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> x<span class="sign">;</span> i<span class="sign">++</span>)
         result <span class="sign">*=</span> i<span class="sign">;</span>
     <span class="function">return</span> result<span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">unsigned int</span> factorial2(<span class="function">int</span> x)
-<span class="sign">{</span>
+<span class="function">unsigned int</span> factorial2(<span class="function">int</span> x) <span class="sign">{</span>
     <span class="function">if</span>(x <span class="sign">==</span> 1 <span class="sign">||</span> x <span class="sign">==</span> 0)
         <span class="function">return</span> 1<span class="sign">;</span>
     <span class="function">return</span> factorial2(x <span class="sign">-</span> 1) <span class="sign">*</span> x<span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">int</span> main()
-<span class="sign">{</span>
+<span class="function">int</span> main() <span class="sign">{</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> factorial1(5) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> factorial2(5) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     
@@ -143,18 +140,15 @@
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="function">unsigned int</span> fib1(<span class="function">int</span> n) <span class="comment">// this solution is more efficient</span>
-<span class="sign">{</span>
+<span class="function">unsigned int</span> fib1(<span class="function">int</span> n) <span class="sign">{</span> <span class="comment">// this solution is more efficient</span>
     <span class="function">int</span> leftNumber <span class="sign">=</span> 0, rightNumber <span class="sign">=</span> 1, result<span class="sign">;</span>
     
     <span class="function">if</span>(n <span class="sign">==</span> 0)
         <span class="function">return</span> 0<span class="sign">;</span>
     <span class="function">else if</span>(n <span class="sign">==</span> 1)
         <span class="function">return</span> 1<span class="sign">;</span>
-    <span class="function">else</span>
-    <span class="sign">{</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 2<span class="sign">;</span> i <span class="sign">&lt;=</span> n<span class="sign">;</span> i<span class="sign">++</span>)
-        <span class="sign">{</span>
+    <span class="function">else</span> <span class="sign">{</span>
+        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 2<span class="sign">;</span> i <span class="sign">&lt;=</span> n<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
             result <span class="sign">=</span> leftNumber <span class="sign">+</span> rightNumber<span class="sign">;</span>
             leftNumber <span class="sign">=</span> rightNumber<span class="sign">;</span>
             rightNumber <span class="sign">=</span> result<span class="sign">;</span>
@@ -164,8 +158,7 @@
     <span class="function">return</span> result<span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">unsigned int</span> fib2(<span class="function">int</span> n)
-<span class="sign">{</span>
+<span class="function">unsigned int</span> fib2(<span class="function">int</span> n) <span class="sign">{</span>
     <span class="function">if</span>(n <span class="sign">==</span> 0)
         <span class="function">return</span> 0<span class="sign">;</span>
     <span class="function">else if</span>(n <span class="sign">==</span> 1)
@@ -174,8 +167,7 @@
         <span class="function">return</span> fib2(n <span class="sign">-</span> 1) <span class="sign">+</span> fib2(n <span class="sign">-</span> 2)<span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">int</span> main()
-<span class="sign">{</span>
+<span class="function">int</span> main() <span class="sign">{</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> fib1(7) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> fib2(7) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     
@@ -191,24 +183,21 @@
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="function">int</span> Horner1(<span class="function">int</span> factors[], <span class="function">int</span> polynomialDegree, <span class="function">int</span> x)
-<span class="sign">{</span>
+<span class="function">int</span> Horner1(<span class="function">int</span> factors[], <span class="function">int</span> polynomialDegree, <span class="function">int</span> x) <span class="sign">{</span>
     <span class="function">int</span> result <span class="sign">=</span> factors[0]<span class="sign">;</span>
     <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> polynomialDegree<span class="sign">;</span> i<span class="sign">++</span>)
             result <span class="sign">=</span> result <span class="sign">*</span> x <span class="sign">+</span> factors[i]<span class="sign">;</span>
     <span class="function">return</span> result<span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">int</span> Horner2(<span class="function">int</span> factors[], <span class="function">int</span> polynomialDegree, <span class="function">int</span> x)
-<span class="sign">{</span>
+<span class="function">int</span> Horner2(<span class="function">int</span> factors[], <span class="function">int</span> polynomialDegree, <span class="function">int</span> x) <span class="sign">{</span>
     <span class="function">if</span>(polynomialDegree <span class="sign">==</span> 0)
         <span class="function">return</span> factors[0]<span class="sign">;</span>
     <span class="function">else</span>
         <span class="function">return</span> x <span class="sign">*</span> Horner2(factors, polynomialDegree <span class="sign">-</span> 1, x) <span class="sign">+</span> factors[polynomialDegree]<span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">int</span> main()
-<span class="sign">{</span>
+<span class="function">int</span> main() <span class="sign">{</span>
     <span class="comment">/* Example: 
     Polynomial: x^5 + 7x^3 + x + 1
     The greatest power inside of it: 5
@@ -250,24 +239,21 @@
 
 <span class="function">int</span> b, e<span class="sign">;</span>
 
-<span class="function">int</span> Exponentiation1(<span class="function">int</span> b, <span class="function">int</span> e)
-<span class="sign">{</span>
+<span class="function">int</span> Exponentiation1(<span class="function">int</span> b, <span class="function">int</span> e) <span class="sign">{</span>
     <span class="function">int</span> result <span class="sign">=</span> 1<span class="sign">;</span>
     <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> e<span class="sign">;</span> i<span class="sign">++</span>)
         result <span class="sign">*=</span> b<span class="sign">;</span>
     <span class="function">return</span> result<span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">int</span> Exponentiation2(<span class="function">int</span> e)
-<span class="sign">{</span>
+<span class="function">int</span> Exponentiation2(<span class="function">int</span> e) <span class="sign">{</span>
     <span class="function">if</span>(e <span class="sign">==</span> 0)
         <span class="function">return</span> 1<span class="sign">;</span>
     <span class="function">else</span>
         <span class="function">return</span> b <span class="sign">*</span> Exponentiation2(e <span class="sign">-</span> 1)<span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">int</span> main()
-<span class="sign">{</span>
+<span class="function">int</span> main() <span class="sign">{</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span>  <span class="text">"Enter the base: "</span><span class="sign">;</span>
     <span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> b;
     

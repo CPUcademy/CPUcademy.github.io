@@ -274,8 +274,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat, lacus no
                                     <h2>Loops</h2>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">&lt;style&gt;</span>
-    table, td
-    <span class="sign">{</span>
+    table, td <span class="sign">{</span>
         <span class="function">border</span><span class="sign">:</span> 1px solid black<span class="sign">;</span>
         <span class="function">border-spacing</span><span class="sign">:</span> 0<span class="sign">;</span>
     <span class="sign">}</span>
@@ -284,8 +283,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat, lacus no
 <span class="comment">// Multiplication table from a random range</span>
 <span class="function">$</span>n <span class="sign">=</span> <span class="command">rand</span>(10, 30)<span class="sign">;</span> <span class="comment">// generating a random number from 10 to 30</span>
 <span class="command">echo</span> <span class="text">"&lt;table&gt;"</span><span class="sign">;</span>
-<span class="function">for</span>(<span class="function">$</span>i <span class="sign">=</span> 1<span class="sign">;</span> <span class="function">$</span>i <span class="sign">&lt;=</span> <span class="function">$</span>n<span class="sign">;</span> <span class="function">$</span>i<span class="sign">++</span>)
-<span class="sign">{</span>
+<span class="function">for</span>(<span class="function">$</span>i <span class="sign">=</span> 1<span class="sign">;</span> <span class="function">$</span>i <span class="sign">&lt;=</span> <span class="function">$</span>n<span class="sign">;</span> <span class="function">$</span>i<span class="sign">++</span>) <span class="sign">{</span>
     <span class="command">echo</span> <span class="text">"&lt;tr&gt;"</span><span class="sign">;</span>
     <span class="function">for</span>(<span class="function">$</span>j <span class="sign">=</span> 1<span class="sign">;</span> <span class="function">$</span>j <span class="sign">&lt;=</span> <span class="function">$</span>n<span class="sign">;</span> <span class="function">$</span>j<span class="sign">++</span>)
         <span class="command">echo</span> <span class="text">"&lt;td&gt;"</span> <span class="sign">.</span> (<span class="function">$</span>i <span class="sign">*</span> <span class="function">$</span>j) <span class="sign">.</span> <span class="text">"&lt;/td&gt;"</span><span class="sign">;</span>
@@ -297,8 +295,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat, lacus no
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">$</span>number <span class="sign">=</span> 132<span class="sign">;</span>
 <span class="command">echo</span> <span class="text">"The number $number written in reverse order is: "</span><span class="sign">;</span>
-<span class="function">while</span>(<span class="function">$</span>number <span class="sign">&gt;</span> 0)
-<span class="sign">{</span>
+<span class="function">while</span>(<span class="function">$</span>number <span class="sign">&gt;</span> 0) <span class="sign">{</span>
     <span class="command">echo</span> <span class="function">$</span>number <span class="sign">%</span> 10<span class="sign">;</span>
     <span class="function">$</span>number <span class="sign">=</span> <span class="command">floor</span>(<span class="function">$</span>number <span class="sign">/</span> 10)<span class="sign">;</span>
 <span class="sign">}</span>
@@ -306,8 +303,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat, lacus no
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">$</span>i <span class="sign">=</span> 1<span class="sign">;</span>
-<span class="function">do</span>
-<span class="sign">{</span>
+<span class="function">do</span> <span class="sign">{</span>
     <span class="command">echo</span> <span class="text">"&lt;br&gt;X&lt;br&gt;"</span><span class="sign">;</span>
 <span class="sign">}</span> <span class="function">while</span>(<span class="function">$</span>i <span class="sign">&lt;</span> 1)<span class="sign">;</span>
                                     </code></pre>
@@ -315,8 +311,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat, lacus no
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">$</span>sum <span class="sign">=</span> 0<span class="sign">;</span>
 <span class="function">$</span>array <span class="sign">=</span> [7, 45, 23, 79, 90, 12, 34, 7, <span class="sign">-</span>4, 3]<span class="sign">;</span>
-<span class="function">foreach</span>(<span class="function">$</span>array <span class="function">as</span> <span class="function">$</span>value)
-<span class="sign">{</span>
+<span class="function">foreach</span>(<span class="function">$</span>array <span class="function">as</span> <span class="function">$</span>value) <span class="sign">{</span>
     <span class="command">echo</span> <span class="function">$</span>value <span class="sign">.</span> <span class="text">"&lt;br&gt;"</span><span class="sign">;</span>
     <span class="function">$</span>sum <span class="sign">+=</span> <span class="function">$</span>value<span class="sign">;</span>
 <span class="sign">}</span>
@@ -325,8 +320,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat, lacus no
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">$</span>names <span class="sign">=</span> <span class="command">array</span>(<span class="text">'Peter'</span> <span class="sign">=></span> <span class="text">'Smith'</span>, <span class="text">'Ada'</span> <span class="sign">=></span> <span class="text">'Jones'</span>, <span class="text">'John'</span> <span class="sign">=></span> <span class="text">'Williams'</span>, <span class="text">'Anne'</span> <span class="sign">=></span> <span class="text">'Brown'</span>)<span class="sign">;</span>
-<span class="function">foreach</span>(<span class="function">$</span>names <span class="function">as</span> <span class="function">$</span>key <span class="sign">=></span> <span class="function">$</span>value)
-<span class="sign">{</span>
+<span class="function">foreach</span>(<span class="function">$</span>names <span class="function">as</span> <span class="function">$</span>key <span class="sign">=></span> <span class="function">$</span>value) <span class="sign">{</span>
     <span class="command">echo</span> <span class="function">$</span>key <span class="sign">.</span> <span class="text">" "</span> <span class="sign">.</span> <span class="function">$</span>value <span class="sign">.</span> <span class="text">"&lt;br&gt;"</span><span class="sign">;</span>
 <span class="sign">}   </span> 
                                     </code></pre>
@@ -335,16 +329,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat, lacus no
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">$</span>x <span class="sign">=</span> 126<span class="sign">;</span>
-<span class="function">if</span>(<span class="function">$</span>x <span class="sign">%</span> 2 <span class="sign">==</span> 0)
-<span class="sign">{</span>
+<span class="function">if</span>(<span class="function">$</span>x <span class="sign">%</span> 2 <span class="sign">==</span> 0) <span class="sign">{</span>
     <span class="command">echo</span> <span class="text">"Number $x is even&lt;br&gt;"</span><span class="sign">;</span>
 <span class="sign">}</span>
-<span class="function">elseif</span>(<span class="function">$</span>x <span class="sign">==</span> 0) <span class="comment">// could be also: "else if" (with a space)</span>
-<span class="sign">{</span>
+<span class="function">elseif</span>(<span class="function">$</span>x <span class="sign">==</span> 0) <span class="sign">{</span> <span class="comment">// could be also: "else if" (with a space)</span>
     <span class="command">echo</span> <span class="text">"Number $x is 0&lt;br&gt;"</span><span class="sign">;</span>
 <span class="sign">}</span>
-<span class="function">else</span>
-<span class="sign">{</span>
+<span class="function">else</span> <span class="sign">{</span>
     <span class="command">echo</span> <span class="text">"Number $x is odd&lt;br&gt;"</span><span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
@@ -354,8 +345,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat, lacus no
 <span class="function">$</span>a <span class="sign">=</span> <span class="command">rand</span>(0, 100)<span class="sign">;</span>
 <span class="function">$</span>b <span class="sign">=</span> <span class="command">rand</span>(0, 100)<span class="sign">;</span>
 <span class="command">echo</span> <span class="text">"The generated numbers are $a and $b &lt;br&gt;"</span><span class="sign">;</span>
-<span class="function">switch</span>(<span class="function">$</span>sign)
-<span class="sign">{</span>
+<span class="function">switch</span>(<span class="function">$</span>sign) <span class="sign">{</span>
     <span class="function">case</span> <span class="text">"+"</span>:
         <span class="command">echo</span> <span class="function">$</span>a <span class="sign">+</span> <span class="function">$</span>b<span class="sign">;</span>
         <span class="function">break</span><span class="sign">;</span>
@@ -385,16 +375,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat, lacus no
                                     </ul>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">function</span> func()
-<span class="sign">{</span>
+<span class="function">function</span> func() <span class="sign">{</span>
     <span class="command">echo</span> <span class="text">"Function&lt;br&gt;"</span><span class="sign">;</span>
 <span class="sign">}</span>
 func()<span class="sign">;</span>
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">function</span> addition(<span class="function">$</span>x, <span class="function">$</span>y)
-<span class="sign">{</span>
+<span class="function">function</span> addition(<span class="function">$</span>x, <span class="function">$</span>y) <span class="sign">{</span>
     <span class="function">return</span> <span class="function">$</span>x <span class="sign">+</span> <span class="function">$</span>y<span class="sign">;</span>
 <span class="sign">}</span>
 <span class="command">echo</span> addition(5, 3) <span class="sign">.</span> <span class="text">"&lt;br&gt;"</span><span class="sign">;</span>
@@ -402,8 +390,7 @@ func()<span class="sign">;</span>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">$</span>x <span class="sign">=</span> 7<span class="sign">;</span>
-<span class="function">function</span> area()
-<span class="sign">{</span>
+<span class="function">function</span> area() <span class="sign">{</span>
     <span class="function">global</span> <span class="function">$</span>x<span class="sign">;</span> <span class="comment">// accessing a global variable inside a function (could be also: $x = $GLOBALS['x'];)</span>
     <span class="function">$</span>area <span class="sign">=</span> <span class="function">$</span>x <span class="sign">*</span> <span class="function">$</span>x<span class="sign">;</span>
     <span class="command">echo</span> <span class="text">"The area of a square with side $x is $area.&lt;br&gt;"</span>;</span>
@@ -412,8 +399,7 @@ area()<span class="sign">;</span>
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">function</span> count1()
-<span class="sign">{</span>
+<span class="function">function</span> count1() <span class="sign">{</span>
     <span class="function">static</span> <span class="function">$</span>a <span class="sign">=</span> 0<span class="sign">;</span> <span class="comment">// a static variable</span>
     <span class="command">echo</span> <span class="function">$</span>a <span class="sign">.</span> <span class="text">"&lt;br&gt;"</span><span class="sign">;</span>
     <span class="function">$</span>a<span class="sign">++;</span>
@@ -424,8 +410,7 @@ count1()<span class="sign">;</span>
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">function</span> increment(<span class="sign">&</span><span class="function">$</span>a) <span class="comment">// a reference</span>
-<span class="sign">{</span>
+<span class="function">function</span> increment(<span class="sign">&</span><span class="function">$</span>a) <span class="sign">{</span> <span class="comment">// a reference</span>
     <span class="function">$</span>a<span class="sign">++;</span>
 <span class="sign">}</span>
 <span class="function">$</span>a <span class="sign">=</span> 5<span class="sign">;</span>
@@ -434,8 +419,7 @@ increment(<span class="function">$</span>a)<span class="sign">;</span>
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">function</span> default_parameters(<span class="function">$</span>x <span class="sign">=</span> 1)
-<span class="sign">{</span>
+<span class="function">function</span> default_parameters(<span class="function">$</span>x <span class="sign">=</span> 1) <span class="sign">{</span>
     <span class="command">echo</span> <span class="function">$</span>x<span class="sign">;</span>
 <span class="sign">}</span>
 default_parameters()<span class="sign">;</span>    

@@ -110,19 +110,16 @@
 <span class="command-c">#include &lt;cmath&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="function">bool</span> isPrime(<span class="function">int</span> x)
-<span class="sign">{</span>
+<span class="function">bool</span> isPrime(<span class="function">int</span> x) <span class="sign">{</span>
     <span class="function">if</span>(x <span class="sign">&lt;=</span> 1) <span class="function">return false</span><span class="sign">;</span>
-    <span class="function">for</span>(<span class="function">unsigned int</span> i <span class="sign">=</span> 2<span class="sign">;</span> i <span class="sign">&lt;=</span> <span class="command-c">sqrt</span>(x)<span class="sign">;</span> i<span class="sign">++</span>) <span class="comment">// 0 and 1 are not prime numbers</span>
-    <span class="sign">{</span>
+    <span class="function">for</span>(<span class="function">unsigned int</span> i <span class="sign">=</span> 2<span class="sign">;</span> i <span class="sign">&lt;=</span> <span class="command-c">sqrt</span>(x)<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span> <span class="comment">// 0 and 1 are not prime numbers</span>
         <span class="function">if</span>(<span class="sign">!</span>(x <span class="sign">%</span> i))
             <span class="function">return false</span><span class="sign">;</span>
     <span class="sign">}</span>
     <span class="function">return true</span><span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">int</span> main()
-<span class="sign">{</span>
+<span class="function">int</span> main() <span class="sign">{</span>
     <span class="function">int</span> x<span class="sign">;</span>
     <span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> x<span class="sign">;</span>
     <span class="function">if</span>(isPrime(x))
@@ -140,26 +137,22 @@
 <span class="command-c">#include &lt;cmath&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="function">bool</span> isPrime(<span class="function">int</span> x)
-<span class="sign">{</span>
+<span class="function">bool</span> isPrime(<span class="function">int</span> x) <span class="sign">{</span>
     <span class="function">if</span>(x <span class="sign">&lt;=</span> 1) <span class="function">return false</span><span class="sign">;</span>
-    <span class="function">for</span>(<span class="function">unsigned int</span> i <span class="sign">=</span> 2<span class="sign">;</span> i <span class="sign">&lt;=</span> <span class="command-c">sqrt</span>(x)<span class="sign">;</span> i<span class="sign">++</span>)
-    <span class="sign">{</span>
+    <span class="function">for</span>(<span class="function">unsigned int</span> i <span class="sign">=</span> 2<span class="sign">;</span> i <span class="sign">&lt;=</span> <span class="command-c">sqrt</span>(x)<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
         <span class="function">if</span>(<span class="sign">!</span>(x <span class="sign">%</span> i))
             <span class="function">return false</span><span class="sign">;</span>
     <span class="sign">}</span>
     <span class="function">return true</span><span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">int</span> main()
-<span class="sign">{</span>
+<span class="function">int</span> main() <span class="sign">{</span>
     <span class="function">int</span> x, y<span class="sign">;</span>
     
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"How many prime numbers should I generate: "</span><span class="sign">;</span>
     <span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> y<span class="sign">;</span>
     
-    <span class="function">for</span>(<span class="function">unsigned int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> y<span class="sign">;</span> i<span class="sign">++</span>)
-    <span class="sign">{</span>
+    <span class="function">for</span>(<span class="function">unsigned int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> y<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
         <span class="function">if</span>(isPrime(x))
             <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
         <span class="function">else</span>
@@ -187,13 +180,10 @@
     a[i] <span class="sign">=</span> <span class="function">true</span><span class="sign">;</span>
 
 i <span class="sign">=</span> 2<span class="sign">;</span>
-<span class="function">while</span>(i <span class="sign">*</span> i <span class="sign">&lt;=</span> y)
-<span class="sign">{</span>
-    <span class="function">if</span>(a[i])
-    <span class="sign">{</span>
+<span class="function">while</span>(i <span class="sign">*</span> i <span class="sign">&lt;=</span> y) <span class="sign">{</span>
+    <span class="function">if</span>(a[i]) <span class="sign">{</span>
         x <span class="sign">=</span> i <span class="sign">*</span> i<span class="sign">;</span>
-        <span class="function">while</span>(x <span class="sign">&lt;</span> y)
-        <span class="sign">{</span>
+        <span class="function">while</span>(x <span class="sign">&lt;</span> y) <span class="sign">{</span>
             a[x] <span class="sign">=</span> <span class="function">false</span><span class="sign">;</span>
             x <span class="sign">=</span> x <span class="sign">+</span> i<span class="sign">;</span>
         <span class="sign">}</span>
@@ -201,8 +191,7 @@ i <span class="sign">=</span> 2<span class="sign">;</span>
     i<span class="sign">++;</span>
 <span class="sign">}</span>
 
-<span class="function">for</span>(i <span class="sign">=</span> 2<span class="sign">;</span> i <span class="sign">&lt;=</span> y<span class="sign">;</span> i<span class="sign">++</span>) <span class="comment">// displaying the results</span>
-<span class="sign">{</span>
+<span class="function">for</span>(i <span class="sign">=</span> 2<span class="sign">;</span> i <span class="sign">&lt;=</span> y<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span> <span class="comment">// displaying the results</span>
     <span class="function">if</span>(a[i])
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> i <span class="sign">&lt;&lt;</span> <span class="text">", "</span><span class="sign">;</span>
 <span class="sign">}</span>
@@ -216,10 +205,8 @@ i <span class="sign">=</span> 2<span class="sign">;</span>
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="function">int</span> GCD(<span class="function">int</span> x, <span class="function">int</span> y)
-<span class="sign">{</span>
-    <span class="function">while</span>(x <span class="sign">!=</span> y)
-    <span class="sign">{</span>
+<span class="function">int</span> GCD(<span class="function">int</span> x, <span class="function">int</span> y) <span class="sign">{</span>
+    <span class="function">while</span>(x <span class="sign">!=</span> y) <span class="sign">{</span>
         <span class="function">if</span>(x <span class="sign">&gt;</span> y)
             x <span class="sign">=</span> x <span class="sign">-</span> y<span class="sign">;</span>
         <span class="function">else</span>
@@ -228,19 +215,16 @@ i <span class="sign">=</span> 2<span class="sign">;</span>
     <span class="function">return</span> x;</span>
 <span class="sign">}</span>
 
-<span class="function">int</span> GCD2(<span class="function">int</span> x, <span class="function">int</span> y)
-<span class="sign">{</span>
+<span class="function">int</span> GCD2(<span class="function">int</span> x, <span class="function">int</span> y) <span class="sign">{</span>
     <span class="function">int</span> r<span class="sign">;</span>
-    <span class="function">while</span>(r <span class="sign">=</span> x <span class="sign">%</span> y)
-    <span class="sign">{</span>
+    <span class="function">while</span>(r <span class="sign">=</span> x <span class="sign">%</span> y) <span class="sign">{</span>
         x <span class="sign">=</span> y<span class="sign">;</span>
         y <span class="sign">=</span> r<span class="sign">;</span>
     <span class="sign">}</span>
     <span class="function">return</span> y<span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">int</span> main()
-<span class="sign">{</span>
+<span class="function">int</span> main() <span class="sign">{</span>
     <span class="function">int</span> x, y<span class="sign">;</span>
 
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter two numbers for which I should find the GCD: "</span><span class="sign">;</span>

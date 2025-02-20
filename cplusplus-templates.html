@@ -102,12 +102,10 @@
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="function">class</span> Obj
-<span class="sign">{</span>
+<span class="function">class</span> Obj <span class="sign">{</span>
     <span class="function">int</span> x, y<span class="sign">;</span>
     <span class="function">public</span>:</span>
-        <span class="function">Obj</span>(<span class="function">int</span> x <span class="sign">=</span> 0, <span class="function">int</span> y <span class="sign">=</span> 0)
-        <span class="sign">{</span>
+        <span class="function">Obj</span>(<span class="function">int</span> x <span class="sign">=</span> 0, <span class="function">int</span> y <span class="sign">=</span> 0) <span class="sign">{</span>
             <span class="function">this</span> <span class="sign">-&gt;</span> x <span class="sign">=</span> x<span class="sign">;</span>
             <span class="function">this</span> <span class="sign">-&gt;</span> y <span class="sign">=</span> y<span class="sign">;</span>
         <span class="sign">}</span>
@@ -119,22 +117,19 @@
 <span class="sign">};</span>
 
 <span class="function">template</span><span class="sign">&lt;</span><span class="function">typename T</span>, <span class="function">typename T2</span><span class="sign">&gt;</span>
-<span class="function">T</span> add(<span class="function">T</span> x, <span class="function">T2</span> y)
-<span class="sign">{</span>
+<span class="function">T</span> add(<span class="function">T</span> x, <span class="function">T2</span> y) <span class="sign">{</span>
     <span class="function">return</span> x <span class="sign">+</span> y<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">template</span><span class="sign">&lt;&gt;</span> <span class="comment">// a specialized version of the function above that allows us to add our own objects</span>
-<span class="function">Obj</span> add(<span class="function">Obj</span> a, <span class="function">Obj</span> b)
-<span class="sign">{</span>
+<span class="function">Obj</span> add(<span class="function">Obj</span> a, <span class="function">Obj</span> b) <span class="sign">{</span>
     <span class="function">Obj</span> z<span class="sign">;</span>
     z.setX(a.getX() <span class="sign">+</span> b.getX())<span class="sign">;</span>
     z.setY(a.getY() <span class="sign">+</span> b.getY())<span class="sign">;</span>
     <span class="function">return</span> z;<span class="sign"></span>
 <span class="sign">}</span>
 
-<span class="function">int</span> main()
-<span class="sign">{</span>
+<span class="function">int</span> main() <span class="sign">{</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> add(5, 10) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// 15</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> add(5.5, 10.5) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// 16</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> add(5.5, 10) <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// 15.5</span>
@@ -159,15 +154,13 @@
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
 <span class="function">template</span><span class="sign">&lt;</span><span class="function">typename T</span><span class="sign">&gt;</span>
-<span class="function">class</span> Coordinates
-<span class="sign">{</span>
+<span class="function">class</span> Coordinates <span class="sign">{</span>
     <span class="function">T</span> x, y<span class="sign">;</span>
     <span class="function">public</span><span class="sign">:</span>
         <span class="function">Coordinates</span>()<span class="sign">{}</span>
         <span class="sign">~</span><span class="function">Coordinates</span>()<span class="sign">{}</span>
         
-        <span class="function">void</span> set(<span class="function">T</span> x, <span class="function">T</span> y)
-        <span class="sign">{</span>
+        <span class="function">void</span> set(<span class="function">T</span> x, <span class="function">T</span> y) <span class="sign">{</span>
             <span class="function">this</span> <span class="sign">-&gt;</span> x <span class="sign">=</span> x<span class="sign">;</span>
             <span class="function">this</span> <span class="sign">-&gt;</span> y <span class="sign">=</span> y<span class="sign">;</span>
         <span class="sign">}</span>
@@ -176,19 +169,16 @@
 <span class="sign">};</span>
 
 <span class="function">template</span><span class="sign">&lt;</span><span class="function">typename T</span><span class="sign">&gt;</span> <span class="comment">// definition of the get() method</span>
-<span class="function">T Coordinates</span><span class="sign">&lt;</span><span class="function">T</span><span class="sign">&gt;::</span>get()
-<span class="sign">{</span>
+<span class="function">T Coordinates</span><span class="sign">&lt;</span><span class="function">T</span><span class="sign">&gt;::</span>get() <span class="sign">{</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="text">" "</span> <span class="sign">&lt;&lt;</span> y <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">template</span><span class="sign">&lt;&gt;</span>
-<span class="function">double Coordinates</span><span class="sign">&lt;</span><span class="function">double</span><span class="sign">&gt;::</span>get() <span class="comment">// specialized get() method for the "double" type</span>
-<span class="sign">{</span>
+<span class="function">double Coordinates</span><span class="sign">&lt;</span><span class="function">double</span><span class="sign">&gt;::</span>get() <span class="sign">{</span> <span class="comment">// specialized get() method for the "double" type</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Special: "</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="text">" "</span> <span class="sign">&lt;&lt;</span> y <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">int</span> main()
-<span class="sign">{</span>
+<span class="function">int</span> main() <span class="sign">{</span>
     <span class="function">typedef Coordinates</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> IntC</span><span class="sign">;</span> <span class="comment">// our own data type (now, we can make more objects of this type using "IntC")</span>
     
     <span class="function">IntC</span> c<span class="sign">;</span>

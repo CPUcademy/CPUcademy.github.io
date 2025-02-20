@@ -99,24 +99,19 @@
                                     <p>Java also provides higher-level concurrency utilities in the <code>java.util.concurrent</code> package, which includes features like thread pools, futures, and concurrent collections, making it easier to manage complex multithreaded applications.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> Task1 <span class="function">extends Thread</span> 
-<span class="sign">{</span>
+<span class="function">class</span> Task1 <span class="function">extends Thread</span> <span class="sign">{</span>
     <span class="command">@Override</span>
-    <span class="function">public void</span> run() 
-    <span class="sign">{</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 10000<span class="sign">;</span> i<span class="sign">++</span>) 
-        <span class="sign">{</span>
+    <span class="function">public void</span> run() <span class="sign">{</span>
+        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 10000<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
             <span class="function">if</span>(i <span class="sign">==</span> 10000)
                 <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Task1: Counted to "</span> <span class="sign">+</span> i)<span class="sign">;</span>
         <span class="sign">}</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Task2 <span class="function">extends Thread</span> 
-<span class="sign">{</span>
+<span class="function">class</span> Task2 <span class="function">extends Thread</span> <span class="sign">{</span>
     <span class="command">@Override</span>
-    <span class="function">public void</span> run() 
-    <span class="sign">{</span>
+    <span class="function">public void</span> run() <span class="sign">{</span>
         <span class="function">int</span> sum <span class="sign">=</span> 0<span class="sign">;</span>
         <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 10000<span class="sign">;</span> i<span class="sign">++</span>)
             sum <span class="sign">+=</span> i<span class="sign">;</span>
@@ -124,10 +119,8 @@
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         <span class="comment">// Creating threads</span>
         <span class="function">Task1</span> task1 <span class="sign">=</span> <span class="function">new Task1</span>()<span class="sign">;</span>
         <span class="function">Task2</span> task2 <span class="sign">=</span> <span class="function">new Task2</span>()<span class="sign">;</span>
@@ -136,14 +129,12 @@
         task1.<span class="command">start</span>()<span class="sign">;</span>
         task2.<span class="command">start</span>()<span class="sign">;</span>
 
-        <span class="function">try</span>
-        <span class="sign">{</span>
+        <span class="function">try</span> <span class="sign">{</span>
             <span class="comment">// Waiting for both threads to finish</span>
             task1.<span class="command">join</span>()<span class="sign">;</span>
             task2.<span class="command">join</span>()<span class="sign">;</span>
         <span class="sign">}</span>
-        <span class="function">catch</span>(<span class="function">InterruptedException</span> e) <span class="comment">// if another thread interrupts the current thread</span>
-        <span class="sign">{</span>
+        <span class="function">catch</span>(<span class="function">InterruptedException</span> e) <span class="sign">{</span> <span class="comment">// if another thread interrupts the current thread</span>
             <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Main thread interrupted."</span>)<span class="sign">;</span>
         <span class="sign">}</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Both tasks completed."</span>)<span class="sign">;</span>
@@ -169,29 +160,23 @@ th.<span class="command">start</span>()<span class="sign">;</span>
                                     <p>In the example below, <code>synchronized</code> prevents multiple threads from modifying the <code>shared_resource</code> variable simultaneously, which could lead to inconsistencies due to race conditions. Without the "lock," threads can interfere with each other while accessing the shared resource, causing the final result to be unpredictable. For example, two threads might read the same value of <code>shared_resource</code>, increment it, and write it back, effectively skipping one increment. This may result in a final value being lower than expected. When a thread enters the <code>synchronized(Main.class)</code> block, it first tries to acquire the lock. If another thread already holds the lock, the current thread will wait until the lock is released. Inside the locked block, the shared resource is modified. Once the other thread finishes modifying <code>shared_resource</code>, the lock is automatically released.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
     <span class="function">private static int</span> shared_resource <span class="sign">=</span> 0<span class="sign">;</span>
     
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         <span class="comment">// Creating multiple threads</span>
         <span class="function">Thread</span>[] threads <span class="sign">=</span> <span class="function">new Thread</span>[10]<span class="sign">;</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 10<span class="sign">;</span> i<span class="sign">++</span>) 
-        <span class="sign">{</span>
+        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 10<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
             threads[i] <span class="sign">=</span> <span class="function">new Thread</span>(<span class="function">Main</span><span class="sign">::</span>increment)<span class="sign">;</span> <span class="comment">// the :: operator symbolizes affiliation to the class</span>
             threads[i].<span class="command">start</span>()<span class="sign">;</span>
         <span class="sign">}</span>
 
         <span class="comment">// Waiting for all threads to finish</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 10<span class="sign">;</span> i<span class="sign">++</span>) 
-        <span class="sign">{</span>
-            <span class="function">try</span> 
-            <span class="sign">{</span>
+        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 10<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+            <span class="function">try</span> <span class="sign">{</span>
                 threads[i].<span class="command">join</span>()<span class="sign">;</span>
             <span class="sign">}</span> 
-            <span class="function">catch</span>(<span class="function">InterruptedException</span> e)
-            <span class="sign">{</span>
+            <span class="function">catch</span>(<span class="function">InterruptedException</span> e) <span class="sign">{</span>
                 <span class="function">Thread</span>.<span class="command">currentThread</span>().<span class="command">interrupt</span>()<span class="sign">;</span> <span class="comment">// setting the interrupted status of the current thread</span>
             <span class="sign">}</span>
         <span class="sign">}</span>
@@ -199,13 +184,10 @@ th.<span class="command">start</span>()<span class="sign">;</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Final value of shared_resource: "</span> <span class="sign">+</span> shared_resource)<span class="sign">;</span>
     <span class="sign">}</span>
 
-    <span class="function">public static void</span> increment() 
-    <span class="sign">{</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 1000<span class="sign">;</span> i<span class="sign">++</span>)
-        <span class="sign">{</span>
+    <span class="function">public static void</span> increment() <span class="sign">{</span>
+        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 1000<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
             <span class="comment">// Ensuring only one thread modifies shared_resource at a time (synchronization)</span>
-            <span class="function">synchronized</span>(<span class="function">Main</span>.<span class="function">class</span>) 
-            <span class="sign">{</span>
+            <span class="function">synchronized</span>(<span class="function">Main</span>.<span class="function">class</span>) <span class="sign">{</span>
                 shared_resource<span class="sign">++;</span>
             <span class="sign">}</span>
         <span class="sign">}</span>
@@ -221,10 +203,8 @@ th.<span class="command">start</span>()<span class="sign">;</span>
 <span class="command">import</span> java.util.concurrent.ExecutorService<span class="sign">;</span>
 <span class="command">import</span> java.util.concurrent.Executors<span class="sign">;</span>
 
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         <span class="function">ExecutorService</span> executor <span class="sign">=</span> <span class="function">Executors</span>.<span class="command">newFixedThreadPool</span>(3)<span class="sign">;</span> <span class="comment">// creating a thread pool with 3 worker threads</span>
         
         <span class="comment">// Submitting 5 tasks to the thread pool</span>
@@ -235,14 +215,12 @@ th.<span class="command">start</span>()<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Task <span class="function">implements Runnable</span> <span class="comment">// class to execute inside the thread pool (it can extend Thread instead of implementing Runnable)</span>
-<span class="sign">{</span>
+<span class="function">class</span> Task <span class="function">implements Runnable</span> <span class="sign">{</span> <span class="comment">// class to execute inside the thread pool (it can extend Thread instead of implementing Runnable)</span>
     <span class="function">private final int</span> taskNum<span class="sign">;</span>
     <span class="function">public Task</span>(<span class="function">int</span> taskNum)<span class="sign">{</span><span class="function">this</span>.taskNum <span class="sign">=</span> taskNum<span class="sign">;}</span>
 
     <span class="command">@Override</span>
-    <span class="function">public void</span> run() 
-    <span class="sign">{</span>
+    <span class="function">public void</span> run() <span class="sign">{</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Task "</span> <span class="sign">+</span> taskNum <span class="sign">+</span> <span class="text">" running in "</span> <span class="sign">+</span> <span class="function">Thread</span>.<span class="command">currentThread</span>().<span class="command">getName</span>())<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>

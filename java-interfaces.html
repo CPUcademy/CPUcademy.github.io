@@ -98,10 +98,8 @@
 <span class="command">import</span> java.util.Arrays<span class="sign">;</span>
 <span class="command">import</span> java.util.Collections<span class="sign">;</span>
 
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="function">Interface</span>.PI)<span class="sign">;</span>
 
         <span class="function">Interface</span> x <span class="sign">=</span> <span class="function">new Worker</span>(2000)<span class="sign">;</span>
@@ -117,14 +115,12 @@
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">interface</span> Interface
-<span class="sign">{</span>
+<span class="function">interface</span> Interface <span class="sign">{</span>
     <span class="function">double</span> PI <span class="sign">=</span> 3.14<span class="sign">;</span>
     <span class="function">void</span> method()<span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Worker <span class="function">implements Interface</span>, <span class="function">Comparable</span>
-<span class="sign">{</span>
+<span class="function">class</span> Worker <span class="function">implements Interface</span>, <span class="function">Comparable</span> <span class="sign">{</span>
     <span class="command">@Override</span>
     <span class="function">public void</span> method()<span class="sign">{}</span>
 
@@ -133,8 +129,7 @@
     <span class="function">public double</span> getSalary()<span class="sign">{</span><span class="function">return</span> <span class="function">this</span>.salary<span class="sign">;}</span>
 
     <span class="command">@Override</span>
-    <span class="function">public int</span> compareTo(<span class="function">Object</span> o)
-    <span class="sign">{</span>
+    <span class="function">public int</span> compareTo(<span class="function">Object</span> o) <span class="sign">{</span>
         <span class="function">Worker</span> sent <span class="sign">=</span> (<span class="function">Worker</span>)o<span class="sign">;</span>
         <span class="function">if</span>(<span class="function">this</span>.salary <span class="sign">&lt;</span> sent.salary)
             <span class="function">return</span> -1<span class="sign">;</span>

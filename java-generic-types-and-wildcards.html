@@ -98,10 +98,8 @@
                                     <p>We create generic methods when we do not want to define many different methods for every possible type of argument. The class in which those methods occur must also be specified as a generic type. Inside the <code>&lt;&gt;</code> signs after the class name and before the method name, we create a custom name(s) for the data type(s). Inside the class, we replace all data type(s) with the one(s) specified earlier (they will substitute themselves with the arguments, which are, of course, data types).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         generalTypeClass<span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> x <span class="sign">=</span> <span class="function">new</span> generalTypeClass<span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
         x.variable <span class="sign">=</span> <span class="text">"x"</span><span class="sign">;</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(x.returnValue())<span class="sign">;</span>
@@ -118,17 +116,14 @@
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> generalTypeClass <span class="sign">&lt;</span><span class="function">TYPE</span><span class="sign">&gt;</span>
-<span class="sign">{</span>
+<span class="function">class</span> generalTypeClass <span class="sign">&lt;</span><span class="function">TYPE</span><span class="sign">&gt;</span> <span class="sign">{</span>
     <span class="function">TYPE</span> variable<span class="sign">;</span>
-    <span class="function">public TYPE</span> returnValue()
-    <span class="sign">{</span>
+    <span class="function">public TYPE</span> returnValue() <span class="sign">{</span>
         <span class="function">return this</span>.variable<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> generalTypeClass2  <span class="sign">&lt;</span><span class="function">TYPE</span>, <span class="function">TYPE2</span><span class="sign">&gt;</span>
-<span class="sign">{</span>
+<span class="function">class</span> generalTypeClass2  <span class="sign">&lt;</span><span class="function">TYPE</span>, <span class="function">TYPE2</span><span class="sign">&gt;</span> <span class="sign">{</span>
     <span class="function">TYPE</span> variable<span class="sign">;</span>
     <span class="function">TYPE2</span> variable2<span class="sign">;</span>
     <span class="function">public TYPE</span> returnValue()<span class="sign">{</span><span class="function">return this</span>.variable<span class="sign">;</span><span class="sign">}</span>
@@ -143,10 +138,8 @@
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.util.<span class="sign">*;</span>
 
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         <span class="function">ArrayList</span><span class="sign">&lt;</span><span class="function">SuperClass</span><span class="sign">&gt;</span> list <span class="sign">=</span> <span class="function">new ArrayList</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
         list.<span class="command">add</span>(<span class="function">new SuperClass</span>())<span class="sign">;</span>
         list.<span class="command">add</span>(<span class="function">new SubClass</span>())<span class="sign">;</span>
@@ -157,8 +150,7 @@
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> SuperClass
-<span class="sign">{</span>
+<span class="function">class</span> SuperClass <span class="sign">{</span>
     <span class="function">public static void</span> method(<span class="function">List</span><span class="sign">&lt;?</span> <span class="function">extends SuperClass</span><span class="sign">&gt;</span> x)<span class="sign">{}</span>
 <span class="sign">}</span>
 
