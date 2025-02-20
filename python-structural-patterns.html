@@ -188,34 +188,24 @@ sms.send("Hello via SMS!")
 
                                     <h2><a id="composite">Composite</a></h2>
 
-                                    <p>Composite is used to treat individual objects and compositions of objects uniformly. It is commonly used to represent tree structures, such as file systems or UI components. Instead of writing separate logic for single elements and collections, we handle them with the same interface, simplifying operations like rendering graphics, managing menus, or processing nested structures.</p>
-
-                                    <p>The composite in the example below is implemented through the <code>Folder</code> class, which stores a list of <code>FileSystemItem</code> objects (both <code>TextFile</code> and <code>ImageFile</code> as leaves and other <code>Folder</code> instances as composites), allowing uniform traversal and management of hierarchical file structures. Because all types of files and folders are treated the same, the tree of files can be easily traversed without using additional methods.</p>
+                                    <p>Composite is used to treat individual objects and compositions of objects uniformly. It is commonly used in file systems to represent hierarchical structures where folders can contain both files and other folders. Instead of writing separate logic for handling individual files and directories, we use the same interface, making it easier to traverse and manage the entire structure.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 from abc import ABC, abstractmethod
 
-class FileSystemItem(ABC): # a component interface - ensuring that both leaf and composite classes share a common structure, allowing them to be treated uniformly
+class FileSystemItem(ABC): # a component interface (common for both files and folders)
     @abstractmethod
     def display(self, indent=0):
         pass
 
-# Leaf classes (two types of files)
-class TextFile(FileSystemItem):
+class File(FileSystemItem): # a leaf class (single file)
     def __init__(self, name):
         self.name = name
 
     def display(self, indent=0):
-        print(" " * indent + f"- [Text] {self.name}")
+        print(" " * indent + f"- {self.name}")
 
-class ImageFile(FileSystemItem):
-    def __init__(self, name):
-        self.name = name
-
-    def display(self, indent=0):
-        print(" " * indent + f"- [Image] {self.name}")
-
-class Folder(FileSystemItem): # a composite class (folder that contains files and subfolders)
+class Folder(FileSystemItem): # a Composite class (folder that can contain files and other folders)
     def __init__(self, name):
         self.name = name
         self.items = []
@@ -223,33 +213,57 @@ class Folder(FileSystemItem): # a composite class (folder that contains files an
     def add(self, item):
         self.items.append(item)
 
-    def remove(self, item):
-        self.items.remove(item)
-
     def display(self, indent=0):
         print(" " * indent + f"[Folder] {self.name}")
-        for item in self.items: # treating both files (leaves) and folders (composites) the same
+        for item in self.items: # treating files and folders the same
             item.display(indent + 2)
 
 root = Folder("Root")
-documents = Folder("Documents")
-pictures = Folder("Pictures")
+file1 = File("file1.txt")
+file2 = File("file2.txt")
+subfolder = Folder("Subfolder")
+subfolder.add(File("subfile.txt"))
 
-text1 = TextFile("notes.txt")
-text2 = TextFile("todo.txt")
-image1 = ImageFile("photo.jpg")
-image2 = ImageFile("logo.png")
-
-documents.add(text1)
-documents.add(text2)
-pictures.add(image1)
-pictures.add(image2)
-
-root.add(documents)
-root.add(pictures)
+root.add(file1)
+root.add(subfolder)
+root.add(file2)
 
 root.display()
                                     </code></pre>
+
+                                    <h2><a id="decorator">Decorator</a></h2>
+
+                                    <p>Decorator allows dynamic addition of behavior to objects without altering their original code, enabling flexible and reusable functionality extension. It adheres to OCP (new functionalities can be added via decorators) and SRP (the new functionalities are kept separate).</p>
+
+                                    <p>The Decorator class is responsible for adding new behavior or functionality to an existing object dynamically, without modifying the object's original code, by wrapping the object and delegating method calls to it while potentially altering or enhancing the behavior.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Coffee: # a component interface
+    def cost(self):
+        pass
+
+class SimpleCoffee(Coffee): # a concrete component
+    def cost(self):
+        return 5 # the base cost of coffee
+
+class MilkDecorator(Coffee): # a Decorator class
+    def __init__(self, coffee):
+        self._coffee = coffee # holding a reference to the coffee object
+
+    # The decorator calls the cost() method on the wrapped object (SimpleCoffee) and adds the cost of milk
+    def cost(self):
+        return self._coffee.cost() + 2 # adding the cost of milk to the coffee
+
+# Creating a simple coffee
+simple_coffee = SimpleCoffee()
+print(f"Cost of simple coffee: {simple_coffee.cost()}")
+
+# Adding milk to the coffee using the MilkDecorator
+milk_coffee = MilkDecorator(simple_coffee) # MilkDecorator "wraps" SimpleCoffee
+print(f"Cost of coffee with milk: {milk_coffee.cost()}")
+                                    </code></pre>
+
+                                    <p>The Decorator pattern allows behavior to be added to objects dynamically by wrapping them with additional functionality, typically using classes, while a Pythonic decorator achieves a similar outcome using function-based syntax (<code>@decorator</code>) to modify or extend the behavior of functions or methods without altering their original code structure.</p>
 
                                     <h2><a id="facade">Facade</a></h2>
 
@@ -277,7 +291,7 @@ class StreamingService:
     def stop(self):
         print("Streaming service is stopping...")
 
-class HomeTheaterFacade: # a facade
+class HomeTheaterFacade: # a Facade
     def __init__(self, tv, sound_system, streaming_service):
         self.tv = tv
         self.sound_system = sound_system
@@ -304,6 +318,54 @@ streaming_service = StreamingService()
 home_theater = HomeTheaterFacade(tv, sound_system, streaming_service)
 home_theater.watch_movie() # one call replaces multiple subsystem interactions
 home_theater.end_movie() # one call shuts everything down  
+                                    </code></pre>
+
+                                    <h2><a id="flyweight">Flyweight</a></h2>
+
+                                    <p>Flyweight optimizes memory usage by sharing common object data, particularly for large numbers of similar objects (e.g., a database of users which can have the same names). It reduces the memory footprint by storing shared data externally and reusing common objects rather than creating new instances for each.</p>
+
+                                    <p>The Flyweight pattern typically has two parts: the Flyweight class, holding the shared data (intrinsic state), and the Flyweight Factory (or similar), responsible for creating and managing shared instances, ensuring that identical objects are reused instead of duplicated.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Name: # a Flyweight class
+    def __init__(self, name):
+        self.name = name
+
+    def display(self, type):
+        print(f"Displaying {self.name} as {type}")
+
+class NameDatabase: # a Flyweight Factory 
+    _names = {}
+
+    @staticmethod
+    def get_name(name):
+        if name not in NameDatabase._names:
+            NameDatabase._names[name] = Name(name)
+        return NameDatabase._names[name]
+
+# Reusing "John" and "Alice" from the database instead of creating new objects
+john1 = NameDatabase.get_name("John")
+john2 = NameDatabase.get_name("John")
+
+alice1 = NameDatabase.get_name("Alice")
+alice2 = NameDatabase.get_name("Alice")
+
+john1.display("formal")
+john2.display("informal")
+alice1.display("formal")
+alice2.display("informal")
+
+# Checking if the same instances are reused
+print(john1 is john2)
+print(alice1 is alice2)1
+                                    </code></pre>
+
+                                    <h2><a id="proxy">Proxy</a></h2>
+
+                                    <p></p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                        
                                     </code></pre>
                                 </div>
                             </div>

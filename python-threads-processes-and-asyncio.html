@@ -185,7 +185,7 @@ lock <span class="sign">=</span> threading.<span class="function">Lock</span>()
 <span class="function">def</span> increment():
     <span class="function">global</span> shared_resource
     <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(1000):
-        <span class="comment"># Acquiring the lock before accessing the shared resource</span>
+        <span class="comment"># Ensuring only one thread modifies the shared resource at a time (acquiring the lock before accessing the data)</span>
         <span class="function">with</span> lock:
             shared_resource <span class="sign">+=</span> 1
 

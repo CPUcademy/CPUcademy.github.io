@@ -186,7 +186,7 @@ th.<span class="command">start</span>()<span class="sign">;</span>
 
     <span class="function">public static void</span> increment() <span class="sign">{</span>
         <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 1000<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
-            <span class="comment">// Ensuring only one thread modifies shared_resource at a time (synchronization)</span>
+            <span class="comment">// Ensuring only one thread modifies the shared resource at a time (acquiring the lock before accessing the data) - synchronization</span>
             <span class="function">synchronized</span>(<span class="function">Main</span>.<span class="function">class</span>) <span class="sign">{</span>
                 shared_resource<span class="sign">++;</span>
             <span class="sign">}</span>

@@ -293,11 +293,23 @@ m =</span> os.<span class="command">system</span>(<span class="text">"mkdir dir"
 
                                     <h2><code>__name__</code></h2>
                                     
-                                    <p>The conditional statement below checks if the Python file is being run directly (not imported as a module). If it is, the code inside the block is executed. This is a common practice to ensure certain code only runs when the script is executed directly.</p>
+                                    <p>The conditional statement below checks if the Python script is being run directly (not imported as a module). If it is, the code inside the block is executed. This is a common practice to ensure certain code only runs when the script is executed directly.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">if __name__</span> <span class="sign">==</span> <span class="text">"__main__"</span>:
     <span class="function">pass</span>
+                                    </code></pre>
+
+                                    <p><code>__name__</code> can also be used to get the name of any object.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> func():
+    <span class="function">pass</span>
+
+<span class="function">def</span> function(f):
+    <span class="command">print</span>(f.<span class="function">__name__</span>)
+
+function(func)
                                     </code></pre>
                                     
                                     <h2><code>pip</code></h2>
