@@ -135,12 +135,12 @@ adapter.<span class="command">print</span>(<span class="text">"Printed text."</s
 
                                     <p>Bridge decouples an abstraction from its implementation, allowing the two to vary independently and preventing a Cartesian complexity explosion (where the number of subclasses grows exponentially as new features are added). It achieves this through an interface that acts as a bridge between high-level abstractions and concrete implementations. It connects these two hierarchies of different classes with a parameter. It does not comply with the Open/Closed Principle (a price to pay).</p>
 
-                                    <p>The first hierarchy (<code>Message</code> and its subclasses like <code>EmailMessage</code> and <code>SMSMessage</code>) represents the abstraction. The second hierarchy (<code>Sender</code> and its subclasses like <code>FastSender</code> and <code>SecureSender</code>) represents the implementation. The parameter <code>sender</code> in <code>Message.__init__()</code> acts as the bridge that connects these two hierarchies dynamically.</p>
+                                    <p>The first hierarchy (<code>Sender</code> and its subclasses like <code>FastSender</code> and <code>SecureSender</code>) represents the implementation. The second hierarchy (<code>Message</code> and its subclasses like <code>EmailMessage</code> and <code>SMSMessage</code>) represents the abstraction. The <code>sender</code> parameter in <code>Message.__init__()</code> acts as the bridge that connects these two hierarchies dynamically.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
 
-<span class="function">class</span> Sender(<span class="function">ABC</span>): <span class="comment"># a Bridge</span>
+<span class="function">class</span> Sender(<span class="function">ABC</span>):
     <span class="command">@abstractmethod</span>
     <span class="function">def</span> send(<span class="function">self</span>, message):
         <span class="function">pass</span>
@@ -153,7 +153,7 @@ adapter.<span class="command">print</span>(<span class="text">"Printed text."</s
     <span class="function">def</span> send(<span class="function">self</span>, message):
         <span class="command">print</span>(<span class="text">f"Sending message securely: {message}"</span>)
 
-<span class="function">class</span> Message:
+<span class="function">class</span> Message: <span class="comment"># a Bridge</span>
     <span class="function">def __init__</span>(<span class="function">self</span>, sender): <span class="comment"># this parameter connects the two hierarchies</span>
         <span class="function">self</span>.sender <span class="sign">=</span> sender
 
@@ -193,7 +193,7 @@ sms.send(<span class="text">"Hello via SMS!"</span>)
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
 
-<span class="function">class</span> FileSystemItem(<span class="function">ABC</span>): <span class="comment"># a component interface (common for both files and folders)</span>
+<span class="function">class</span> FileSystemItem(<span class="function">ABC</span>): <span class="comment"># an interface (common for both files and folders)</span>
     <span class="command">@abstractmethod</span>
     <span class="function">def</span> display(<span class="function">self</span>, indent<span class="sign">=</span>0):
         <span class="function">pass</span>
@@ -237,7 +237,10 @@ root.display()
                                     <p>The Decorator class is responsible for adding new behavior or functionality to an existing object dynamically, without modifying the object's original code, by wrapping the object and delegating method calls to it while potentially altering or enhancing the behavior.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> Coffee: <span class="comment"># a component interface</span>
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
+                                
+<span class="function">class</span> Coffee(<span class="function">ABC</span>): <span class="comment"># an interface</span>
+    <span class="command">@abstractmethod</span>
     <span class="function">def</span> cost(<span class="function">self</span>):
         <span class="function">pass</span>
 
@@ -249,7 +252,7 @@ root.display()
     <span class="function">def __init__</span>(<span class="function">self</span>, coffee):
         <span class="function">self</span>._coffee <span class="sign">=</span> coffee <span class="comment"># holding a reference to the coffee object</span>
 
-    <span class="comment"># The decorator calls the cost() method on the wrapped object (SimpleCoffee) and adds the cost of milk</span>
+    <span class="comment"># This decorator calls the cost() method from the wrapped object (SimpleCoffee) and adds the cost of milk</span>
     <span class="function">def</span> cost(<span class="function">self</span>):
         <span class="function">return self</span>._coffee.cost() <span class="sign">+</span> 2 <span class="comment"># adding the cost of milk to the coffee</span>
 
@@ -262,11 +265,11 @@ milk_coffee <span class="sign">=</span> <span class="function">MilkDecorator</sp
 <span class="command">print</span>(<span class="text">f"Cost of coffee with milk: {milk_coffee.cost()}"</span>)
                                     </code></pre>
 
-                                    <p>The Decorator pattern allows behavior to be added to objects dynamically by wrapping them with additional functionality, typically using classes, while a Pythonic decorator achieves a similar outcome using function-based syntax (<code>@decorator</code>) to modify or extend the behavior of functions or methods without altering their original code structure.</p>
+                                    <p>The Decorator pattern allows behavior to be added to objects dynamically by wrapping them with additional functionality, typically using classes, while a Pythonic decorator achieves a similar outcome using function-based syntax (<code>@decorator</code>) to modify or extend the behavior of functions or methods without altering their original code structure (<a href="python-decorators.html" class="link">see this article</a>).</p>
 
                                     <h2><a id="facade">Facade</a></h2>
 
-                                    <p>Facade provides a simplified, unified interface to a set of interfaces in a subsystem. It hides the complexity of the subsystem and provides a simple higher-level API for clients to use. We optionally may wish to expose internals through the facade, e.g., for more detailed control or specific operations that bypass the simplified interface, allowing advanced users to interact directly with subsystem components when necessary.</p>
+                                    <p>Facade provides a simplified, unified interface to a set of interfaces in a subsystem. It hides the complexity of the subsystem and provides a simple higher-level API for clients to use. Optionally, we may wish to expose internals through the facade, e.g., for more detailed control or specific operations that bypass the simplified interface, allowing advanced users to interact directly with subsystem components when necessary.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> TV:
@@ -321,7 +324,7 @@ home_theater.end_movie() <span class="comment"># one call shuts everything down<
 
                                     <h2><a id="flyweight">Flyweight</a></h2>
 
-                                    <p>Flyweight optimizes memory usage by sharing common object data, particularly for large numbers of similar objects (e.g., a database of users which can have the same names). It reduces the memory footprint by storing shared data externally and reusing common objects rather than creating new instances for each.</p>
+                                    <p>Flyweight optimizes memory usage by sharing common object data, particularly for large numbers of similar objects (e.g., a database of users that can have the same names). It reduces the memory footprint by storing shared data externally and reusing common objects rather than creating new instances for each.</p>
 
                                     <p>The Flyweight pattern typically has two parts: the Flyweight class, holding the shared data (intrinsic state), and the Flyweight Factory (or similar), responsible for creating and managing shared instances, ensuring that identical objects are reused instead of duplicated.</p>
 
@@ -361,7 +364,7 @@ alice2.display(<span class="text">"informal"</span>)
 
                                     <h2><a id="proxy">Proxy</a></h2>
 
-                                    <p>Proxy acts as an intermediary or placeholder for another object, controlling access to it. Proxies are used to add additional functionality or restrictions when interacting with objects, allowing for behaviors like access control, lazy initialization, and resource optimization. There are different types of proxies, including Protection Proxy, which regulates access based on permissions or roles, and Virtual Proxy, which delays the creation of resource-intensive objects until they are needed, optimizing performance. A Virtual Proxy is one way to implement lazy initialization, but Lazy initialization can be applied independently of proxies.</p>
+                                    <p>Proxy acts as an intermediary or placeholder for another object, controlling access to it. Proxies are used to add additional functionality or restrictions when interacting with objects, allowing for behaviors like access control, lazy initialization, and resource optimization. There are different types of proxies, including Protection Proxy, which regulates access based on permissions or roles, and Virtual Proxy, which delays the creation of resource-intensive objects until they are needed, optimizing performance. A Virtual Proxy is one way to implement Lazy initialization, but Lazy initialization can be applied independently of Proxies.</p>
 
                                     <h4>Protection Proxy</h4>
 
@@ -424,6 +427,8 @@ proxy <span class="sign">=</span> <span class="function">VirtualProxy</span>()
 <span class="command">print</span>(proxy.display()) <span class="comment"># heavy resource is loaded now, so it takes time</span>
 <span class="command">print</span>(proxy.display()) <span class="comment"># resource is already loaded, no delay</span>
                                     </code></pre>
+
+                                    <h5>Proxy VS Decorator</h5>
 
                                     <p>A Proxy provides an identical interface to the original object, focusing on controlling access or managing resources, while a Decorator enhances the object's interface by adding new functionality. The Decorator typically holds a reference to the object it decorates, whereas a Proxy may not even interact with a materialized object, especially in cases like lazy initialization or access control. Essentially, Proxies manage access and resources, while decorators extend behavior.</p>
                                 </div>
