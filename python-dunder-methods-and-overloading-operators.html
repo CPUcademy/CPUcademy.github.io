@@ -172,6 +172,76 @@ x <span class="sign">=</span> random.<span class="command">randint</span>(3, 30)
 p <span class="sign">=</span> <span class="function">Point</span>(1, 2)
 <span class="command">print</span>(p.<span class="function">__dict__</span>)
                                     </code></pre>
+
+                                    <h4><code>__getitem__()</code></h4>
+
+                                    <p>It allows class instances to support indexing like lists or dictionaries by defining how items are accessed using square brackets.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> DataStore:
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.data <span class="sign">=</span> {<span class="text">"name"</span>: <span class="text">"Alice"</span>, <span class="text">"age"</span>: 30}
+
+    <span class="function">def __getitem__</span>(<span class="function">self</span>, key):
+        <span class="function">return</span> <span class="function">self</span>.data.<span class="command">get</span>(key, <span class="text">"Key not found"</span>)
+
+store <span class="sign">=</span> <span class="function">DataStore</span>()
+<span class="command">print</span>(store[<span class="text">"name"</span>])
+<span class="command">print</span>(store[<span class="text">"age"</span>])
+<span class="command">print</span>(store[<span class="text">"address"</span>])
+                                    </code></pre>
+                                    
+                                    <h4><code>getattr()</code>, <code>setattr()</code>, and <code>delattr()</code></h4>
+
+                                    <p><code>getattr()</code> takes an object, the name of an attribute, and a default value (optional). It returns the value of the specified attribute if it is present and accessible in the object. If the attribute does not exist, it returns the default value, if provided, or raises an <code>AttributeError</code>. <code>setattr()</code> takes an object, the name of an attribute, and the value to be assigned. It sets the attribute to the given value, creating it if it does not exist. <code>delattr()</code> takes an object and the name of an attribute, removing it from the object. If the attribute does not exist, it raises an <code>AttributeError</code>.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Person:
+    <span class="function">def __init__</span>(<span class="function">self</span>, name, age):
+        <span class="function">self</span>.name <span class="sign">=</span> name
+        <span class="function">self</span>.age <span class="sign">=</span> age
+
+person <span class="sign">=</span> <span class="function">Person</span>(<span class="text">"Alice"</span>, 30)
+
+name <span class="sign">=</span> <span class="command">getattr</span>(person, <span class="text">"name"</span>, <span class="text">"unknown"</span>)
+address <span class="sign">=</span> <span class="command">getattr</span>(person, <span class="text">"address"</span>, <span class="text">"unknown"</span>)
+<span class="command">print</span>(name, address)
+
+<span class="command">setattr</span>(person, <span class="text">"address"</span>, <span class="text">"123 Main St"</span>)
+<span class="command">print</span>(person.address)
+
+<span class="command">delattr</span>(person, <span class="text">"age"</span>)
+
+<span class="comment"># Trying to access the deleted attribute (raises AttributeError)</span>
+<span class="function">try</span>:
+    <span class="command">print</span>(person.age)
+<span class="function">except AttributeError</span>:
+    <span class="command">print</span>(<span class="text">"Attribute 'age' has been deleted."</span>) 
+                                    </code></pre>
+
+                                    <p>These commands have their corresponding dunder methods. In the example below, <code>__getattr__()</code> forwards method calls (<code>append(4)</code>) to the wrapped list, <code>__setattr__()</code> assigns the wrapped object (<code>obj</code>) properly, and <code>__delattr__()</code> would delete attributes from the wrapped object if used.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Wrapper:
+    <span class="function">def __init__</span>(<span class="function">self</span>, obj):
+        <span class="function">self</span>.obj <span class="sign">=</span> obj <span class="comment"># calling __setattr__()</span>
+
+    <span class="function">def __getattr__</span>(<span class="function">self</span>, name):
+        <span class="function">return</span> <span class="command">getattr</span>(self</span>.obj, name) <span class="comment"># redirecting attribute access</span>
+
+    <span class="function">def __setattr__</span>(<span class="function">self</span>, name, value):
+        <span class="function">if</span> name <span class="sign">==</span> <span class="text">"obj"</span>:
+            <span class="function">super</span>().<span class="function">__setattr__</span>(name, value) <span class="comment"># avoiding recursion</span>
+        <span class="function">else</span>:
+            <span class="command">setattr</span>(<span class="function">self</span>.obj, name, value) <span class="comment"># setting attribute on wrapped object</span>
+
+    <span class="function">def __delattr__</span>(<span class="function">self</span>, name):
+        <span class="command">delattr</span>(<span class="function">self</span>.obj, name) <span class="comment"># deleting attribute from wrapped object</span>
+
+wrapped_list <span class="sign">=</span> <span class="function">Wrapper</span>([1, 2, 3])
+wrapped_list.<span class="command">append</span>(4) <span class="comment"># calling __getattr__() to get append()</span>
+<span class="command">print</span>(wrapped_list.obj)
+                                    </code></pre>
                                     
                                     <h2>Overloading operators</h2>
                                     
