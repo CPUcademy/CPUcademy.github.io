@@ -99,57 +99,44 @@
                                     <p>In the example below, the <code>division()</code> function throws an exception of a <code>DivisionException</code> type (our class's type) when someone tries to divide by zero. This exception will be caught, and the <code>getErrorMessage()</code> method from our class will be called (it will display an error message).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">static double</span> division(<span class="function">double</span> x, <span class="function">double</span> y) <span class="function">throws DivisionException</span> <span class="comment">// "throws" says what exception this function may (but doesn't have to) return</span>
-    <span class="sign">{</span>
-        <span class="function">if</span>(y <span class="sign">==</span> 0)
-        <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">static double</span> division(<span class="function">double</span> x, <span class="function">double</span> y) <span class="function">throws DivisionException</span> <span class="sign">{</span> <span class="comment">// "throws" says what exception this function may (but doesn't have to) return</span>
+        <span class="function">if</span>(y <span class="sign">==</span> 0) <span class="sign">{</span>
             <span class="function">throw new DivisionException</span>(<span class="text">"Don't divide by 0!"</span>)<span class="sign">;</span>
         <span class="sign">}</span>
         <span class="function">return</span> x <span class="sign">/</span> y<span class="sign">;</span>
     <span class="sign">}</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         <span class="function">int</span> x <span class="sign">=</span> 10<span class="sign">;</span>
-        <span class="function">try</span>
-        <span class="sign">{</span>
-            <span class="function">if</span>(x <span class="sign">==</span> 10)
-            <span class="sign">{</span>
+        <span class="function">try</span> <span class="sign">{</span>
+            <span class="function">if</span>(x <span class="sign">==</span> 10) <span class="sign">{</span>
                 <span class="function">throw new Exception</span>(<span class="text">"x equals 10"</span>)<span class="sign">;</span>
             <span class="sign">}</span>
             <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"x"</span>)<span class="sign">;</span>
         <span class="sign">}</span>
-        <span class="function">catch</span>(<span class="function">Exception</span> e)
-        <span class="sign">{</span>
+        <span class="function">catch</span>(<span class="function">Exception</span> e) <span class="sign">{</span>
             <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"General exception: "</span> <span class="sign">+</span> e.<span class="command">getMessage</span>())<span class="sign">;</span> <span class="comment">// e.getMessage() provides the error description</span>
         <span class="sign">}</span>
-        <span class="function">finally</span>
-        <span class="sign">{</span>
+        <span class="function">finally</span> <span class="sign">{</span>
             <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am executed regardless of anything."</span>)<span class="sign">;</span>
         <span class="sign">}</span>
 
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>()<span class="sign">;</span>
 
-        <span class="function">try</span>
-        <span class="sign">{</span>
+        <span class="function">try</span> <span class="sign">{</span>
             <span class="function">double</span> result <span class="sign">=</span> division(5, 0)<span class="sign">;</span>
         <span class="sign">}</span>
-        <span class="function">catch</span>(<span class="function">DivisionException</span> e)
-        <span class="sign">{</span>
+        <span class="function">catch</span>(<span class="function">DivisionException</span> e) <span class="sign">{</span>
             e.getErrorMessage()<span class="sign">;</span>
         <span class="sign">}</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> DivisionException <span class="function">extends Exception</span>
-<span class="sign">{</span>
-    <span class="function">public</span> DivisionException(<span class="function">String</span> string)
-    <span class="sign">{</span>
+<span class="function">class</span> DivisionException <span class="function">extends Exception</span> <span class="sign">{</span>
+    <span class="function">public</span> DivisionException(<span class="function">String</span> string) <span class="sign">{</span>
         <span class="function">super</span>(string)<span class="sign">;</span>
     <span class="sign">}</span>
-    <span class="function">public void</span> getErrorMessage()
-    <span class="sign">{</span>
+    <span class="function">public void</span> getErrorMessage() <span class="sign">{</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Don't divide by 0!"</span>)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>

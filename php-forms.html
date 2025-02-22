@@ -133,8 +133,7 @@
     <span class="function">&lt;meta <span class="command">name</span><span class="sign">=</span><span class="text">"description"</span> <span class="command">content</span><span class="sign">=</span><span class="text">"PHP basics"</span>&gt;</span>
     <span class="function">&lt;title&gt;</span>Multiplication table<span class="function">&lt;/title&gt;</span>
     <span class="function">&lt;style&gt;</span>
-        table, td
-        <span class="sign">{</span>
+        table, td <span class="sign">{</span>
             <span class="function">border</span><span class="sign">:</span> 1px solid black<span class="sign">;</span>
             <span class="function">border-spacing</span><span class="sign">:</span> 0<span class="sign">;</span>
         <span class="sign">}</span>
@@ -146,8 +145,7 @@
         <span class="function">$</span>m <span class="sign">=</span> <span class="function">$</span><span class="command">_POST</span>[<span class="text">'m'</span>]<span class="sign">;</span>
         
         <span class="command">echo</span> <span class="text">"&lt;table&gt;"</span><span class="sign">;</span>
-        <span class="function">for</span>(<span class="function">$</span>i <span class="sign">=</span> 1<span class="sign">;</span> <span class="function">$</span>i <span class="sign">&lt;=</span> <span class="function">$</span>n<span class="sign">;</span> <span class="function">$</span>i<span class="sign">++</span>)
-        <span class="sign">{</span>
+        <span class="function">for</span>(<span class="function">$</span>i <span class="sign">=</span> 1<span class="sign">;</span> <span class="function">$</span>i <span class="sign">&lt;=</span> <span class="function">$</span>n<span class="sign">;</span> <span class="function">$</span>i<span class="sign">++</span>) <span class="sign">{</span>
             <span class="command">echo</span> <span class="text">"&lt;tr&gt;"</span><span class="sign">;</span>
             <span class="function">for</span>(<span class="function">$</span>j <span class="sign">=</span> 1<span class="sign">;</span> <span class="function">$</span>j <span class="sign">&lt;=</span> <span class="function">$</span>m<span class="sign">;</span> <span class="function">$</span>j<span class="sign">++</span>)
                 <span class="command">echo</span> <span class="text">"&lt;td&gt;"</span> <span class="sign">.</span> (<span class="function">$</span>i <span class="sign">*</span> <span class="function">$</span>j) <span class="sign">.</span> <span class="text">"&lt;/td&gt;"</span><span class="sign">;</span>
@@ -211,8 +209,7 @@
     <span class="function">&lt;?php</span> <span class="sign">}</span> <span class="function">?&gt;</span>
     
     <span class="function">&lt;?php</span>
-        <span class="function">if</span>(<span class="command">isset</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"submit"</span>])) 
-        <span class="sign">{</span>
+        <span class="function">if</span>(<span class="command">isset</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"submit"</span>])) <span class="sign">{</span>
             <span class="function">$</span>mailing <span class="sign">=</span> <span class="command">isset</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"mailing"</span>]);
             <span class="function">$</span>gender <span class="sign">=</span> <span class="command">isset</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"gender"</span>]) ? <span class="function">$</span><span class="command">_POST</span>[<span class="text">"gender"</span>] <span class="sign">:</span> <span class="text">""</span><span class="sign">;</span>
             <span class="function">$</span>education <span class="sign">=</span> <span class="command">isset</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"education"</span>]) ? <span class="function">$</span><span class="command">_POST</span>[<span class="text">"education"</span>] <span class="sign">:</span> <span class="text">""</span><span class="sign">;</span>
@@ -223,8 +220,7 @@
             <span class="command">empty</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"profession"</span>]) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"email"</span>]) <span class="sign">||</span> 
             <span class="command">empty</span>(<span class="function">$</span>gender) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span>education)) {
                 <span class="command">echo</span> <span class="text">"&lt;p style='color: red;'&gt;You must fill in all fields!&lt;/p&gt;"</span><span class="sign">;</span>
-            <span class="sign">}</span> <span class="function">else</span> 
-            <span class="sign">{</span>
+            <span class="sign">}</span> <span class="function">else</span> <span class="sign">{</span>
                 <span class="command">echo</span> <span class="text">"&lt;p&gt;Thank you for filling out the form!&lt;/p&gt;"</span><span class="sign">;</span>
                 <span class="function">?&gt;</span>
                 <span class="function">&lt;ul&gt;</span>

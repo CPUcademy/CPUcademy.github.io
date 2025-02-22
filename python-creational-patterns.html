@@ -128,7 +128,7 @@
 
     <span class="function">def</span> set_size(<span class="function">self</span>, size):
         <span class="function">self</span>.pizza.size <span class="sign">=</span> size
-        <span class="function">return</span> <span class="function">self</span> <span class="comment"># chaining (methods can be executed one after another as the same statement because the class object is returned and can be then used to call the next method)</span>
+        <span class="function">return</span> <span class="function">self</span> <span class="comment"># returning the class object itself to perform chaining (see the explanation below)</span>
 
     <span class="function">def</span> add_cheese(<span class="function">self</span>, cheese_type):
         <span class="function">self</span>.pizza.cheese <span class="sign">=</span> cheese_type
@@ -157,9 +157,29 @@ veggie_pizza <span class="sign">=</span> builder.set_size(<span class="text">"Me
 <span class="command">print</span>(veggie_pizza)
                                     </code></pre>
 
+                                    <h5>Chaining</h5>
+
+                                    <p>Because of chaining, methods can be executed one after another in the same statement, as the class object is returned, and then be used to call the next method or modify attributes directly.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Box:
+    <span class="function">def __init__</span>(<span class="function">self</span>, length, width):
+        <span class="function">self</span>.length <span class="sign">=</span> length
+        <span class="function">self</span>.width <span class="sign">=</span> width
+
+    <span class="function">def</span> set_dimensions(<span class="function">self</span>, length, width):
+        <span class="function">self</span>.length <span class="sign">=</span> length
+        <span class="function">self</span>.width <span class="sign">=</span> width
+        <span class="function">return self</span> <span class="comment"># returning the class object itself</span>
+
+box <span class="sign">=</span> <span class="function">Box</span>(5, 10)
+box.set_dimensions(7, 14).length <span class="sign">=</span> 8
+<span class="command">print</span>(box.length, box.width)
+                                    </code></pre>
+
                                     <h4>Builder facets</h4>
 
-                                    <p>A Builder facet is a specialized component of a Builder (a separate class) that focuses on constructing a specific aspect or "facet" of an object, e.g., personal details, job details, or address details. These facets work together to build the complete object, e.g., a user, while maintaining a fluent interface, which enables method chaining (check the code comments in the example above).</p>
+                                    <p>A Builder facet is a specialized component of a Builder (a separate class) that focuses on constructing a specific aspect or "facet" of an object, e.g., personal details, job details, or address details. These facets work together to build the complete object, e.g., a user, while maintaining a fluent interface (an interface supporting method chaining).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Person:

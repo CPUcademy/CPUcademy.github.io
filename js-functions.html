@@ -97,13 +97,11 @@
                                     <p>A function can return objects to the outside (variables, numbers, arithmetic operations, etc.) When it does, the function's return value is the result of its "calling." To see this value, we have to display this "calling" in the console using <code>console.log()</code> directly or assign it to a variable and then display it. The <code>return</code> instruction ends the function's execution. To call a function (run it), we write its name and a parenthesis. If it takes any arguments, we write them inside the parenthesis. The names of the arguments don't have to be the same as the passed variables.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">function</span> func() 
-<span class="sign">{</span>
+<span class="function">function</span> func() <span class="sign">{</span>
     <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Function"</span>)
 <span class="sign">}</span>
 
-<span class="function">function</span> addition(x, y) 
-<span class="sign">{</span>
+<span class="function">function</span> addition(x, y) <span class="sign">{</span>
     <span class="function">return</span> x <span class="sign">+</span> y
 <span class="sign">}</span>
 
@@ -115,8 +113,7 @@ func()
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment">// Setting default arguments (we can, but don't have to give them)</span>
-<span class="function">function</span> func1(x, y<span class="sign">=</span>1) 
-<span class="sign">{</span>
+<span class="function">function</span> func1(x, y<span class="sign">=</span>1) <span class="sign">{</span>
     <span class="function">return</span> x <span class="sign">+</span> y
 <span class="sign">}</span>
 <span class="command">console</span>.<span class="command">log</span>(func1(1))
@@ -132,20 +129,17 @@ func()
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">let</span> global_variable <span class="sign">=</span> 5
 
-<span class="function">function</span> func() 
-<span class="sign">{</span>
+<span class="function">function</span> func() <span class="sign">{</span>
     global_variable <span class="sign">+=</span> 1
     <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Global:"</span>, global_variable)
 <span class="sign">}</span>
 
-<span class="function">function</span> func2(local_variable) 
-<span class="sign">{</span>
+<span class="function">function</span> func2(local_variable) <span class="sign">{</span>
     local_variable <span class="sign">+=</span> 1
     <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Local:"</span>, local_variable)
 <span class="sign">}</span>
 
-<span class="function">function</span> func3(local_variable) 
-<span class="sign">{</span>
+<span class="function">function</span> func3(local_variable) <span class="sign">{</span>
     local_variable <span class="sign">+=</span> 1
     <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Local:"</span>, local_variable)
     <span class="function">return</span> local_variable <span class="comment">// to see the changes of a local variable in the outer block, we have to return its value</span>
@@ -168,8 +162,7 @@ local_variable <span class="sign">=</span> func3(local_variable)
                                     <p>A recursive function is a function that calls itself. Recursion is often used in various algorithms.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">function</span> func() 
-<span class="sign">{</span>
+<span class="function">function</span> func() <span class="sign">{</span>
     <span class="command">console</span>.<span class="command">log</span>(<span class="text"></span>"x"</span>)
     func()
 <span class="sign">}</span>
@@ -200,8 +193,7 @@ func(<span class="sign">...</span>arr)
                                     <p>The <code>arguments</code> object is an array-like object available inside all non-arrow functions (I will talk about arrow functions in the upcoming lessons). It holds all the arguments passed to the function.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">function</span> sum() 
-<span class="sign">{</span>
+<span class="function">function</span> sum() <span class="sign">{</span>
     <span class="function">let</span> total <span class="sign">=</span> 0
     <span class="function">for</span>(<span class="function">let</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> <span class="function">arguments</span>.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
         total <span class="sign">+=</span> <span class="function">arguments</span>[i]

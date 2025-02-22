@@ -101,41 +101,35 @@
 <span class="command-c">#include &lt;vector&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="function">class</span> Room
-<span class="sign">{</span>
+<span class="function">class</span> Room <span class="sign">{</span>
     <span class="function">string</span> name<span class="sign">;</span>
     <span class="function">int</span> area<span class="sign">;</span>
     <span class="function">public</span><span class="sign">:</span>
-        <span class="function">Room</span>(<span class="function">string</span> name, <span class="function">int</span> area)
-        <span class="sign">{</span>
+        <span class="function">Room</span>(<span class="function">string</span> name, <span class="function">int</span> area) <span class="sign">{</span>
             <span class="function">this</span> <span class="sign">-&gt;</span> name <span class="sign">=</span> name<span class="sign">;</span>
             <span class="function">this</span> <span class="sign">-&gt;</span> area <span class="sign">=</span> area<span class="sign">;</span>
         <span class="sign">}</span>
         <span class="sign">~</span><span class="function">Room</span>()<span class="sign">{}</span>
         
-        <span class="function">friend ostream</span><span class="sign">&amp;</span> <span class="function">operator</span><span class="sign">&lt;&lt;</span>(<span class="function">ostream</span><span class="sign">&amp;</span> os, <span class="function">const Room</span><span class="sign">&amp;</span> room) <span class="comment">// overwriting the &lt;&lt; operator to be able to display this object</span>
-        <span class="sign">{</span>
+        <span class="function">friend ostream</span><span class="sign">&amp;</span> <span class="function">operator</span><span class="sign">&lt;&lt;</span>(<span class="function">ostream</span><span class="sign">&amp;</span> os, <span class="function">const Room</span><span class="sign">&amp;</span> room) <span class="sign">{</span> <span class="comment">// overwriting the &lt;&lt; operator to be able to display this object</span>
             os <span class="sign">&lt;&lt;</span> room.name <span class="sign">&lt;&lt;</span> <span class="text">" - area: "</span> <span class="sign">&lt;&lt;</span> room.area<span class="sign">;</span>
             <span class="function">return</span> os<span class="sign">;</span>
         <span class="sign">}</span>
 <span class="sign">};</span>
 
-<span class="function">class</span> House
-<span class="sign">{</span>
+<span class="function">class</span> House <span class="sign">{</span>
     <span class="function">public</span><span class="sign">:</span>
         <span class="function">House</span>()<span class="sign">{}</span>
         <span class="sign">~</span><span class="function">House</span>()<span class="sign">{}</span>
         <span class="function">vector</span><span class="sign">&lt;</span><span class="function">Room</span><span class="sign">&gt;</span> rooms<span class="sign">;</span>
         
-        <span class="function">void</span> add_room(<span class="function">string</span> name, <span class="function">int</span> area)
-        <span class="sign">{</span>
+        <span class="function">void</span> add_room(<span class="function">string</span> name, <span class="function">int</span> area) <span class="sign">{</span>
             <span class="function">Room</span> room(name, area)<span class="sign">;</span> <span class="comment">// the same as "Room room = Room(name, area);"</span>
             rooms.<span class="command-c">push_back</span>(room)<span class="sign">;</span>
         <span class="sign">}</span>
 <span class="sign">};</span>
 
-<span class="function">int</span> main()
-<span class="sign">{</span>
+<span class="function">int</span> main() <span class="sign">{</span>
     <span class="function">House</span> house<span class="sign">;</span>
     house.add_room(<span class="text">"Bedroom"</span>, 30)<span class="sign">;</span>
     house.add_room(<span class="text">"Kitchen"</span>, 20)<span class="sign">;</span>
@@ -159,40 +153,34 @@
 <span class="command-c">#include &lt;vector&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="function">class</span> Student
-<span class="sign">{</span>
+<span class="function">class</span> Student <span class="sign">{</span>
     <span class="function">string</span> name, surname<span class="sign">;</span>
     <span class="function">public</span><span class="sign">:</span>
-        <span class="function">Student</span>(<span class="function">string</span> name, <span class="function">string</span> surname)
-        <span class="sign">{</span>
+        <span class="function">Student</span>(<span class="function">string</span> name, <span class="function">string</span> surname) <span class="sign">{</span>
             <span class="function">this</span> <span class="sign">-&gt;</span> name <span class="sign">=</span> name<span class="sign">;</span>
             <span class="function">this</span> <span class="sign">-&gt;</span> surname <span class="sign">=</span> surname<span class="sign">;</span>
         <span class="sign">}</span>
         <span class="sign">~</span><span class="function">Student</span>()<span class="sign">{}</span>
         
-        <span class="function">friend ostream</span><span class="sign">&amp;</span> <span class="function">operator</span><span class="sign">&lt;&lt;</span>(<span class="function">ostream</span><span class="sign">&amp;</span> os, <span class="function">const Student</span><span class="sign">&amp;</span> student)
-        <span class="sign">{</span>
+        <span class="function">friend ostream</span><span class="sign">&amp;</span> <span class="function">operator</span><span class="sign">&lt;&lt;</span>(<span class="function">ostream</span><span class="sign">&amp;</span> os, <span class="function">const Student</span><span class="sign">&amp;</span> student) <span class="sign">{</span>
             os <span class="sign">&lt;&lt;</span> student.name <span class="sign">&lt;&lt;</span> <span class="text">" "</span> <span class="sign">&lt;&lt;</span> student.surname<span class="sign">;</span>
             <span class="function">return</span> os<span class="sign">;</span>
         <span class="sign">}</span>
 <span class="sign">};</span>
 
-<span class="function">class</span> School
-<span class="sign">{</span>
+<span class="function">class</span> School <span class="sign">{</span>
     <span class="function">string</span> name<span class="sign">;</span>
     <span class="function">public</span><span class="sign">:</span>
         <span class="function">School</span>(<span class="function">string</span> name)<span class="sign">{</span><span class="function">this</span> <span class="sign">-&gt;</span> name <span class="sign">=</span> name<span class="sign">;}</span>
         <span class="sign">~</span><span class="function">School</span>()<span class="sign">{}</span>
         <span class="function">vector</span><span class="sign">&lt;</span><span class="function">Student</span><span class="sign">&gt;</span> students<span class="sign">;</span>
         
-        <span class="function">void</span> add_student(<span class="function">Student</span> student)
-        <span class="sign">{</span>
+        <span class="function">void</span> add_student(<span class="function">Student</span> student) <span class="sign">{</span>
             students.<span class="command-c">push_back</span>(student)<span class="sign">;</span>
         <span class="sign">}</span>
 <span class="sign">};</span>
 
-<span class="function">int</span> main()
-<span class="sign">{</span>
+<span class="function">int</span> main() <span class="sign">{</span>
     <span class="function">School</span> school(<span class="text">"XYZ High School"</span>)<span class="sign">;</span>
     <span class="function">Student</span> student1(<span class="text">"John"</span>, <span class="text">"Smith"</span>)<span class="sign">;</span>
     <span class="function">Student</span> student2(<span class="text">"Kate"</span>, <span class="text">"Johnson"</span>)<span class="sign">;</span>
@@ -220,36 +208,31 @@
 <span class="command-c">#include &lt;vector&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="function">class</span> Teacher
-<span class="sign">{</span>
+<span class="function">class</span> Teacher <span class="sign">{</span>
     <span class="function">string</span> name<span class="sign">;</span>
     <span class="function">public</span><span class="sign">:</span>
         <span class="function">Teacher</span>(<span class="function">string</span> name)<span class="sign">{</span><span class="function">this</span> <span class="sign">-&gt;</span> name <span class="sign">=</span> name<span class="sign">;}</span>
         <span class="sign">~</span><span class="function">Teacher</span>()<span class="sign">{}</span>
 
-        <span class="function">friend ostream</span><span class="sign">&amp;</span> <span class="function">operator</span>&lt;&lt;</span>(<span class="function">ostream</span><span class="sign">&amp;</span> os, <span class="function">const Teacher</span><span class="sign">&amp;</span> teacher)
-        <span class="sign">{</span>
+        <span class="function">friend ostream</span><span class="sign">&amp;</span> <span class="function">operator</span>&lt;&lt;</span>(<span class="function">ostream</span><span class="sign">&amp;</span> os, <span class="function">const Teacher</span><span class="sign">&amp;</span> teacher) <span class="sign">{</span>
             os <span class="sign">&lt;&lt;</span> teacher.name<span class="sign">;</span>
             <span class="function">return</span> os<span class="sign">;</span>
         <span class="sign">}</span>
 <span class="sign">};</span>
 
-<span class="function">class</span> Subject
-<span class="sign">{</span>
+<span class="function">class</span> Subject <span class="sign">{</span>
     <span class="function">string</span> name<span class="sign">;</span>
     <span class="function">public</span><span class="sign">:</span>
         <span class="function">Subject</span>(<span class="function">string</span> name)<span class="sign">{</span><span class="function">this</span> <span class="sign">-&gt;</span> name <span class="sign">=</span> name<span class="sign">;}</span>
         <span class="sign">~</span><span class="function">Subject</span>()<span class="sign">{}</span>
 
-        <span class="function">friend ostream</span><span class="sign">&amp;</span> <span class="function">operator</span><span class="sign">&lt;&lt;</span>(<span class="function">ostream</span><span class="sign">&amp;</span> os, <span class="function">const Subject</span><span class="sign">&amp;</span> subject)
-        <span class="sign">{</span>
+        <span class="function">friend ostream</span><span class="sign">&amp;</span> <span class="function">operator</span><span class="sign">&lt;&lt;</span>(<span class="function">ostream</span><span class="sign">&amp;</span> os, <span class="function">const Subject</span><span class="sign">&amp;</span> subject) <span class="sign">{</span>
             os <span class="sign">&lt;&lt;</span> subject.name<span class="sign">;</span>
             <span class="function">return</span> os<span class="sign">;</span>
         <span class="sign">}</span>
 <span class="sign">};</span>
 
-<span class="function">class</span> School
-<span class="sign">{</span>
+<span class="function">class</span> School <span class="sign">{</span>
     <span class="function">string</span> name<span class="sign">;</span>
     <span class="function">public</span><span class="sign">:</span>
         <span class="function">School</span>(<span class="function">string</span> name)<span class="sign">{</span><span class="function">this</span> <span class="sign">-&gt;</span> name <span class="sign">=</span> name<span class="sign">;}</span>
@@ -257,19 +240,16 @@
         <span class="function">vector</span><span class="sign">&lt;</span><span class="function">Teacher</span><span class="sign">&gt;</span> teachers<span class="sign">;</span>
         <span class="function">vector</span><span class="sign">&lt;</span><span class="function">Subject</span><span class="sign">&gt;</span> subjects<span class="sign">;</span>
 
-        <span class="function">void</span> add_teacher(<span class="function">Teacher</span> teacher)
-        <span class="sign">{</span>
+        <span class="function">void</span> add_teacher(<span class="function">Teacher</span> teacher) <span class="sign">{</span>
             teachers.<span class="command-c">push_back</span>(teacher)<span class="sign">;</span>
         <span class="sign">}</span>
 
-        <span class="function">void</span> add_subject(<span class="function">Subject</span> subject)
-        <span class="sign">{</span>
+        <span class="function">void</span> add_subject(<span class="function">Subject</span> subject) <span class="sign">{</span>
             subjects.<span class="command-c">push_back</span>(subject)<span class="sign">;</span>
         <span class="sign">}</span>
 <span class="sign">};</span>
 
-<span class="function">int</span> main()
-<span class="sign">{</span>
+<span class="function">int</span> main() <span class="sign">{</span>
     <span class="function">School</span> school(<span class="text">"XYZ High School"</span>)<span class="sign">;</span>
     <span class="function">Teacher</span> teacher1(<span class="text">"Mr. Smith"</span>)<span class="sign">;</span>
     <span class="function">Teacher</span> teacher2(<span class="text">"Ms. Johnson"</span>)<span class="sign">;</span>

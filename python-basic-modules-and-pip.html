@@ -122,7 +122,7 @@ random.<span class="command">shuffle</span>(x)
                                     </code></pre>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># Drawing from a list</span>
+<span class="comment"># Drawing elements from a list or a string</span>
 x <span class="sign">=</span> [<span class="text">"abc"</span>, <span class="text">"def"</span>, <span class="text">"ghi"</span>, 1, 2, 3, 1.1, 2.2, 3.3]
 <span class="command">print</span>(random.<span class="command">choice</span>(x))
                                     </code></pre>
@@ -159,11 +159,11 @@ y <span class="sign">=</span> [1, 2, 3, 4]
 <span class="command">print</span>(math.<span class="command">e</span>) <span class="comment"># displaying the E number</span>
                                     </code></pre>
 
-                                    <p>We can check the complete list of methods a module contains by typing <code>print(dir([moduleName]))</code>.</p>
+                                    <p>We can check the complete list of methods a module contains by typing <code><span class="command">print</span>(dir([moduleName]))</code>.</p>
                                     
-                                    <h2>The <code>time</code> and <code>datetime</code> libraries</h2>
+                                    <h2>The <code>time</code> and <code>datetime</code> modules</h2>
                                     
-                                    <p>These libraries are used to handle time.</p>
+                                    <p>These modules are used to handle time.</p>
 
                                     <p>Write the <code>import datetime, time</code> statement at the beginning of every example.</p>
 
@@ -254,9 +254,9 @@ datetime_object <span class="sign">=</span> datetime.<span class="command">datet
 
                                     <p><code>datetime.now()</code> works the same as <code>datetime.today()</code>, except it can take a timezone as an argument.</p>
 
-                                    <h2>The <code>sys</code> and <code>os</code> libraries</h2>
+                                    <h2>The <code>sys</code> and <code>os</code> modules</h2>
                                     
-                                    <p>The <code>sys</code> and <code>os</code> libraries are used to handle system operations.</p>
+                                    <p>The <code>sys</code> and <code>os</code> modules are used to handle system operations.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> sys
@@ -286,23 +286,57 @@ os.<span class="command">removedirs</span>(<span class="text">"dir/dir2"</span>)
 m =</span> os.<span class="command">system</span>(<span class="text">"mkdir dir"</span>) <span class="comment"># executing a command passed as a string</span>
 <span class="command">print</span>(m)
                                     </code></pre>
+
+                                    <h2>The <code>string</code> module</h2>
+
+                                    <p>The <code>string</code> module provides constants (letters, digits, punctuation), helper functions for text processing, and templates for advanced string formatting.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> string
+
+<span class="command">print</span>(string.<span class="command">ascii_lowercase</span>) <span class="comment"># all lowercase letters</span>
+<span class="command">print</span>(string.<span class="command">ascii_uppercase</span>) <span class="comment"># all uppercase letters</span>
+<span class="command">print</span>(string.<span class="command">digits</span>) <span class="comment"># all digits</span>
+
+<span class="comment"># Removing punctuation from a string</span>
+text <span class="sign">=</span> <span class="text">"Hello, World!"</span>
+clean_text <span class="sign">=</span> text.<span class="command">translate</span>(str.<span class="command">maketrans</span>(<span class="text">""</span>, <span class="text">""</span>, string.<span class="command">punctuation</span>))
+<span class="command">print</span>(clean_text)
+
+<span class="comment"># Generating a random string using string constants</span>
+<span class="command">import</span> random
+random_string <span class="sign">=</span> <span class="text">""</span>.<span class="command">join</span>(random.<span class="command">choices</span>(string.<span class="command">ascii_letters</span> <span class="sign">+</span> string.<span class="command">digits</span>, k<span class="sign">=</span>8)) <span class="comment"># choices() draws multiple elements from a list or a string (in this case - eight)</span>
+<span class="command">print</span>(random_string)
+                                    </code></pre>
                                     
                                     <div class="alert alert-warning">
-                                        <b>Warning:</b> When importing some libraries (e.g., <code>pygame</code>), the following error appears: <code>ModuleNotFoundError: No module named 'pygame'</code>. What to do in that case? Find out from <a href="python-popular-problems-no-module-named-pygame.html" class="link alert-warning alert-link">here</a>.
+                                        <b>Warning:</b> When importing some modules (e.g., <code>pygame</code>), the following error appears: <code>ModuleNotFoundError: No module named 'pygame'</code>. What to do in that case? Find out from <a href="python-popular-problems-no-module-named-pygame.html" class="link alert-warning alert-link">here</a>.
                                     </div>
 
                                     <h2><code>__name__</code></h2>
                                     
-                                    <p>The conditional statement below checks if the Python file is being run directly (not imported as a module). If it is, the code inside the block is executed. This is a common practice to ensure certain code only runs when the script is executed directly.</p>
+                                    <p>The conditional statement below checks if the Python script is being run directly (not imported as a module). If it is, the code inside the block is executed. This is a common practice to ensure certain code only runs when the script is executed directly.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">if __name__</span> <span class="sign">==</span> <span class="text">"__main__"</span>:
     <span class="function">pass</span>
                                     </code></pre>
+
+                                    <p><code>__name__</code> can also be used to get the name of any object.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> func():
+    <span class="function">pass</span>
+
+<span class="function">def</span> function(f):
+    <span class="command">print</span>(f.<span class="function">__name__</span>)
+
+function(func)
+                                    </code></pre>
                                     
                                     <h2><code>pip</code></h2>
                                     
-                                    <p><code>pip</code> is the official and default package management system for the Python language environment, using a dedicated repository called Python Package Index or other remote and local repositories. We can install external Python libraries using the <code>pip</code> command (the list of those libraries is available at the <a href="https://pypi.org/" target="_blank" class="link">pypi.org</a> website). To use it, we have to add it to the <code>PATH</code>, as shown <a href="python-popular-problems-no-module-named-pygame.html" class="link">here</a>. After that, we can install the required module using <code>pip install moduleName</code> in CMD. To update a module, we have to add the <code>--upgrade</code> flag: <code>pip install --upgrade moduleName</code>. To update <code>pip</code> itself, write: <code>python -m pip install --upgrade pip</code> (or <code>python.exe</code> if needed).</p>
+                                    <p><code>pip</code> is the official and default package management system for the Python language environment, using a dedicated repository called Python Package Index or other remote and local repositories. We can install external Python modules using the <code>pip</code> command (the list of those modules is available at the <a href="https://pypi.org/" target="_blank" class="link">pypi.org</a> website). To use it, we have to add it to the <code>PATH</code>, as shown <a href="python-popular-problems-no-module-named-pygame.html" class="link">here</a>. After that, we can install the required module using <code>pip install moduleName</code> in CMD. To update a module, we have to add the <code>--upgrade</code> flag: <code>pip install --upgrade moduleName</code>. To update <code>pip</code> itself, write: <code>python -m pip install --upgrade pip</code> (or <code>python.exe</code> if needed).</p>
 
                                     <p><code>pip install</code> directly calls the <code>pip</code> executable, while <code>python -m pip install</code> runs <code>pip</code> as a module within a specific Python interpreter, ensuring the package is installed in the correct Python environment (the specific Python version). We can specify the version like this: <code>python3.9 -m pip install</code>. When using <code>python -m pip install</code>, the <code>pip</code> module is invoked directly through the Python interpreter, so <code>pip</code> itself does not need to be added to the <code>PATH</code>. Instead, it relies on the Python installation, which is already configured in the <code>PATH</code> (if selected during installation). On Windows systems, we can use <code>py</code> instead of <code>python</code> (<code>py</code> is a Python launcher).</p>
 

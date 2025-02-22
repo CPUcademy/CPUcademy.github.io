@@ -95,28 +95,22 @@
                                     <p>Classes can inherit objects (methods) from each other. The class that is being inherited from is called a parent class (also a base class or a superclass). The class that inherits from another class is called a child class (also a derived class or a subclass). It is the third concept of object-oriented programming.</p>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         <span class="function">Cat</span> cat <span class="sign">=</span> <span class="function">new Cat</span>()<span class="sign">;</span>
         cat.voice()<span class="sign">;</span>
         cat.breed()<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Animal
-<span class="sign">{</span>
-    <span class="function">void</span> voice()
-    <span class="sign">{</span>
+<span class="function">class</span> Animal <span class="sign">{</span>
+    <span class="function">void</span> voice() <span class="sign">{</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Voice!"</span>)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Cat <span class="function">extends Animal</span>
-<span class="sign">{</span>
-    <span class="function">void</span> breed()
-    <span class="sign">{</span>
+<span class="function">class</span> Cat <span class="function">extends Animal</span> <span class="sign">{</span>
+    <span class="function">void</span> breed() <span class="sign">{</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a Bengal cat!"</span>)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
@@ -131,10 +125,8 @@
                                     <p>A class can inherit features from more than one parent class but only indirectly, e.g., class <code>A</code> inherits from class <code>B</code>, class <code>B</code> inherits from class <code>C</code>, and not: class <code>A</code> inherits from classes <code>B</code> and <code>C</code>.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         <span class="function">Cat</span> cat <span class="sign">=</span> <span class="function">new Cat</span>()<span class="sign">;</span>
         cat.voice()<span class="sign">;</span>
         cat.sound()<span class="sign">;</span>
@@ -142,26 +134,20 @@
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Animal
-<span class="sign">{</span>
-    <span class="function">void</span> voice()
-    <span class="sign">{</span>
+<span class="function">class</span> Animal <span class="sign">{</span>
+    <span class="function">void</span> voice() <span class="sign">{</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Voice!"</span>)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Tiger <span class="function">extends Animal</span>
-<span class="sign">{</span>
-    <span class="function">void</span> sound()
-    <span class="sign">{</span>
+<span class="function">class</span> Tiger <span class="function">extends Animal</span> <span class="sign">{</span>
+    <span class="function">void</span> sound() <span class="sign">{</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Raah!"</span>)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Cat <span class="function">extends Tiger</span>
-<span class="sign">{</span>
-    <span class="function">void</span> breed()
-    <span class="sign">{</span>
+<span class="function">class</span> Cat <span class="function">extends Tiger</span> <span class="sign">{</span>
+    <span class="function">void</span> breed() <span class="sign">{</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a Bengal cat!"</span>)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
@@ -172,27 +158,21 @@
                                     <p>The <code>super</code> keyword allows us to call the original method from the parent class when overriding it in a subclass.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         <span class="function">Cat</span> cat <span class="sign">=</span> <span class="function">new Cat</span>()<span class="sign">;</span>
         cat.voice()<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Animal
-<span class="sign">{</span>
-    <span class="function">void</span> voice()
-    <span class="sign">{</span>
+<span class="function">class</span> Animal <span class="sign">{</span>
+    <span class="function">void</span> voice() <span class="sign">{</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Voice!"</span>)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Cat <span class="function">extends Animal</span>
-<span class="sign">{</span>
-    <span class="function">void</span> voice()
-    <span class="sign">{</span>
+<span class="function">class</span> Cat <span class="function">extends Animal</span> <span class="sign">{</span>
+    <span class="function">void</span> voice() <span class="sign">{</span>
         <span class="function">super</span>.voice()<span class="sign">;</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Meow!"</span>)<span class="sign">;</span>
     <span class="sign">}</span>
@@ -206,66 +186,54 @@
                                     <p>An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects or have instances, so we can only use them in its child classes. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). We create abstract objects by adding the <code>abstract</code> keyword before their type. An abstract method is a method that is in an abstract class and has the <code>abstract</code> keyword before its type. An abstract class forces all its child classes to override all its abstract methods. It isn't mandatory to overwrite a non-abstract method from an abstract class. Non-abstract methods can contain implementations to be inherited in the child classes (abstract methods have to be overridden, so it wouldn't make sense for them to contain implementations).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         <span class="function">Animal</span> cat <span class="sign">=</span> <span class="function">new Cat</span>()<span class="sign">;</span> <span class="comment">// we can create many different objects (e.g., Cat or Dog) using only one type (Animal) - polymorphism</span>
         cat.voice()<span class="sign">;</span>
         cat.voice2()<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">abstract class</span> Animal
-<span class="sign">{</span>
+<span class="function">abstract class</span> Animal <span class="sign">{</span>
     <span class="function">protected int</span> lifespan <span class="sign">=</span> 10<span class="sign">;</span> <span class="comment">// public in child classes but private outside</span>
     <span class="function">abstract void</span> voice()<span class="sign">;</span>
     <span class="function">void</span> voice2()<span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Voice!"</span>)<span class="sign">;};</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Cat <span class="function">extends Animal</span>
-<span class="sign">{</span>
-    <span class="function">Cat</span>() <span class="comment">// the default constructor is public by default</span>
-    <span class="sign">{</span>
+<span class="function">class</span> Cat <span class="function">extends Animal</span> <span class="sign">{</span>
+    <span class="function">Cat</span>() <span class="sign">{</span> <span class="comment">// the default constructor is public by default</span>
         lifespan <span class="sign">=</span> 14<span class="sign">;</span>
     <span class="sign">}</span>
 
     <span class="command">@Override</span> <span class="comment">// indicating we want to override a method from the superclass. If the method signature (name and parameters) doesn't match, the compiler will generate an error.</span>
-    <span class="function">void</span> voice()
-    <span class="sign">{</span>
+    <span class="function">void</span> voice() <span class="sign">{</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Meow!"</span>)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">abstract class</span> Person 
-<span class="sign">{</span>
+<span class="function">abstract class</span> Person <span class="sign">{</span>
     <span class="function">abstract void</span> role()<span class="sign">;</span> <span class="comment">// an abstract method to be implemented by subclasses</span>
 <span class="sign">}</span>
 
-<span class="function">class</span> Father <span class="function">extends Person</span> 
-<span class="sign">{</span>
+<span class="function">class</span> Father <span class="function">extends Person</span> <span class="sign">{</span>
     <span class="command">@Override</span>
     <span class="function">void</span> role()<span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a father!"</span>)<span class="sign">;}
 }</span>
 
-<span class="function">class</span> Husband <span class="function">extends Person</span> 
-<span class="sign">{</span>
+<span class="function">class</span> Husband <span class="function">extends Person</span> <span class="sign">{</span>
     <span class="command">@Override</span>
     <span class="function">void</span> role()<span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a husband!"</span>)<span class="sign">;}
 }</span>
 
-<span class="function">class</span> Student <span class="function">extends Person</span> 
-<span class="sign">{</span>
+<span class="function">class</span> Student <span class="function">extends Person</span> <span class="sign">{</span>
     <span class="command">@Override</span>
     <span class="function">void</span> role()<span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a student!"</span>)<span class="sign">;}
 }</span>
 
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         <span class="function">Person</span> father <span class="sign">=</span> <span class="function">new Father</span>()<span class="sign">;</span>
         <span class="function">Person</span> husband <span class="sign">=</span> <span class="function">new Husband</span>()<span class="sign">;</span>
         <span class="function">Person</span> student <span class="sign">=</span> <span class="function">new Student</span>()<span class="sign">;</span>
@@ -282,20 +250,16 @@
                                     <p>Two methods can have the same name as long as they have a different number of arguments and/or they have various types. This behavior is called method overloading. For example, if we provide two <code>double</code> arguments to the <code>addition()</code> method, the compiler will know that we want to use the specific version of the method that takes those arguments and not, e.g., the one that takes two integers.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">static int</span> addition(<span class="function">int</span> x, <span class="function">int</span> y) <span class="comment">// this method has to be static because we are referring to it from the main method (a static context)</span>
-    <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">static int</span> addition(<span class="function">int</span> x, <span class="function">int</span> y) <span class="sign">{</span> <span class="comment">// this method has to be static because we are referring to it from the main method (a static context)</span>
         <span class="function">return</span> x <span class="sign">+</span> y<span class="sign">;</span>
     <span class="sign">}</span>
 
-    <span class="function">static double</span> addition(<span class="function">double</span> x, <span class="function">double</span> y)
-    <span class="sign">{</span>
+    <span class="function">static double</span> addition(<span class="function">double</span> x, <span class="function">double</span> y) <span class="sign">{</span>
         <span class="function">return</span> x <span class="sign">+</span> y<span class="sign">;</span>
     <span class="sign">}</span>
 
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(addition(5, 6))<span class="sign">;</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(addition(5.5, 6.6))<span class="sign">;</span>
     <span class="sign">}</span>

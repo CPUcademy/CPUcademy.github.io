@@ -111,135 +111,326 @@
                                     <p>Adapter allows incompatible interfaces to work together by acting as a bridge between them. It translates one interface into another (adapts it), enabling classes with different APIs to communicate seamlessly without modifying their existing code. It is the in-between component.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-class OldPrinter: # existing class (incompatible interface)
-    def print_text(self, text):
-        print(f"Old Printer: {text}")
+<span class="function">class</span> OldPrinter: <span class="comment"># existing class (incompatible interface)</span>
+    <span class="function">def</span> print_text(<span class="function">self</span>, text):
+        <span class="command">print</span>(<span class="text">f"Old Printer: {text}"</span>)
 
-class NewPrinter: # new expected interface
-    def print(self, text):
-        raise NotImplementedError
+<span class="function">class</span> NewPrinter: <span class="comment"># new expected interface</span>
+    <span class="function">def</span> <span class="command">print</span>(<span class="function">self</span>, text):
+        <span class="function">raise NotImplementedError</span>
 
-class PrinterAdapter(NewPrinter):
-    def __init__(self, old_printer):
-        self.old_printer = old_printer
+<span class="function">class</span> PrinterAdapter(NewPrinter):
+    <span class="function">def __init__</span>(<span class="function">self</span>, old_printer):
+        <span class="function">self</span>.old_printer <span class="sign">=</span> old_printer
 
-    def print(self, text):
-        self.old_printer.print_text(text) # adapting the old method
+    <span class="function">def</span> <span class="command">print</span>(<span class="function">self</span>, text):
+        <span class="function">self</span>.old_printer.print_text(text) <span class="comment"># adapting the old method</span>
 
-old_printer = OldPrinter()
-adapter = PrinterAdapter(old_printer)
-adapter.print("Printed text.")
+old_printer <span class="sign">=</span> <span class="function">OldPrinter</span>()
+adapter <span class="sign">=</span> <span class="function">PrinterAdapter</span>(old_printer)
+adapter.<span class="command">print</span>(<span class="text">"Printed text."</span>)
                                     </code></pre>
 
                                     <h2><a id="bridge">Bridge</a></h2>
 
                                     <p>Bridge decouples an abstraction from its implementation, allowing the two to vary independently and preventing a Cartesian complexity explosion (where the number of subclasses grows exponentially as new features are added). It achieves this through an interface that acts as a bridge between high-level abstractions and concrete implementations. It connects these two hierarchies of different classes with a parameter. It does not comply with the Open/Closed Principle (a price to pay).</p>
 
-                                    <p>The first hierarchy (<code>Message</code> and its subclasses like <code>EmailMessage</code> and <code>SMSMessage</code>) represents the abstraction. The second hierarchy (<code>Sender</code> and its subclasses like <code>FastSender</code> and <code>SecureSender</code>) represents the implementation. The parameter <code>sender</code> in <code>Message.__init__()</code> acts as the bridge that connects these two hierarchies dynamically.</p>
+                                    <p>The first hierarchy (<code>Sender</code> and its subclasses like <code>FastSender</code> and <code>SecureSender</code>) represents the implementation. The second hierarchy (<code>Message</code> and its subclasses like <code>EmailMessage</code> and <code>SMSMessage</code>) represents the abstraction. The <code>sender</code> parameter in <code>Message.__init__()</code> acts as the bridge that connects these two hierarchies dynamically.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-from abc import ABC, abstractmethod
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
 
-class Sender(ABC): # a bridge
-    @abstractmethod
-    def send(self, message):
-        pass
+<span class="function">class</span> Sender(<span class="function">ABC</span>):
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> send(<span class="function">self</span>, message):
+        <span class="function">pass</span>
 
-class FastSender(Sender):
-    def send(self, message):
-        print(f"Sending message quickly: {message}")
+<span class="function">class</span> FastSender(<span class="function">Sender</span>):
+    <span class="function">def</span> send(<span class="function">self</span>, message):
+        <span class="command">print</span>(<span class="text">f"Sending message quickly: {message}"</span>)
 
-class SecureSender(Sender):
-    def send(self, message):
-        print(f"Sending message securely: {message}")
+<span class="function">class</span> SecureSender(<span class="function">Sender</span>):
+    <span class="function">def</span> send(<span class="function">self</span>, message):
+        <span class="command">print</span>(<span class="text">f"Sending message securely: {message}"</span>)
 
-class Message:
-    def __init__(self, sender): # this parameter connects the two hierarchies
-        self.sender = sender
+<span class="function">class</span> Message: <span class="comment"># a Bridge</span>
+    <span class="function">def __init__</span>(<span class="function">self</span>, sender): <span class="comment"># this parameter connects the two hierarchies</span>
+        <span class="function">self</span>.sender <span class="sign">=</span> sender
 
-    def send(self, content):
-        pass
+    <span class="function">def</span> send(<span class="function">self</span>, content):
+        <span class="function">pass</span>
 
-class EmailMessage(Message):
-    def send(self, content):
-        print("Sending Email:")
-        self.sender.send(content)
+<span class="function">class</span> EmailMessage(<span class="function">Message</span>):
+    <span class="function">def</span> send(<span class="function">self</span>, content):
+        <span class="command">print</span>(<span class="text">"Sending Email:"</span>)
+        <span class="function">self</span>.sender.send(content)
 
-class SMSMessage(Message):
-    def send(self, content):
-        print("Sending SMS:")
-        self.sender.send(content)
+<span class="function">class</span> SMSMessage(<span class="function">Message</span>):
+    <span class="function">def</span> send(<span class="function">self</span>, content):
+        <span class="command">print</span>(<span class="text">"Sending SMS:"</span>)
+        <span class="function">self</span>.sender.send(content)
 
-# Cartesian combinations
+<span class="comment"># Cartesian combinations
 # FastSender EmailMessage
 # FastSender SMSMessage
 # SecureSender EmailMessage
-# SecureSender SMSMessage
+# SecureSender SMSMessage</span>
 
-fast_sender = FastSender()
-secure_sender = SecureSender()
+fast_sender <span class="sign">=</span> <span class="function">FastSender</span>()
+secure_sender <span class="sign">=</span> <span class="function">SecureSender</span>()
 
-email = EmailMessage(fast_sender)
-email.send("Hello via Email!")
+email <span class="sign">=</span> <span class="function">EmailMessage</span>(fast_sender)
+email.send(<span class="text">"Hello via Email!"</span>)
 
-sms = SMSMessage(secure_sender)
-sms.send("Hello via SMS!")
+sms <span class="sign">=</span> <span class="function">SMSMessage</span>(secure_sender)
+sms.send(<span class="text">"Hello via SMS!"</span>)
                                     </code></pre>
+
+                                    <h2><a id="composite">Composite</a></h2>
+
+                                    <p>Composite is used to treat individual objects and compositions of objects uniformly. It is commonly used in file systems to represent hierarchical structures where folders can contain both files and other folders. Instead of writing separate logic for handling individual files and directories, we use the same interface, making it easier to traverse and manage the entire structure.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
+
+<span class="function">class</span> FileSystemItem(<span class="function">ABC</span>): <span class="comment"># an interface (common for both files and folders)</span>
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> display(<span class="function">self</span>, indent<span class="sign">=</span>0):
+        <span class="function">pass</span>
+
+<span class="function">class</span> File(<span class="function">FileSystemItem</span>): <span class="comment"># a leaf class (single file)</span>
+    <span class="function">def __init__</span>(<span class="function">self</span>, name):
+        <span class="function">self</span>.name <span class="sign">=</span> name
+
+    <span class="function">def</span> display(<span class="function">self</span>, indent<span class="sign">=</span>0):
+        <span class="command">print</span>(<span class="text">" "</span> <span class="sign">*</span> indent <span class="sign">+</span> <span class="text">f"- {self.name}"</span>)
+
+<span class="function">class</span> Folder(<span class="function">FileSystemItem</span>): <span class="comment"># a Composite class (folder that can contain files and other folders)</span>
+    <span class="function">def __init__</span>(<span class="function">self</span>, name):
+        <span class="function">self</span>.name <span class="sign">=</span> name
+        <span class="function">self</span>.items <span class="sign">=</span> []
+
+    <span class="function">def</span> add(<span class="function">self</span>, item):
+        <span class="function">self</span>.items.<span class="command">append</span>(item)
+
+    <span class="function">def</span> display(<span class="function">self</span>, indent<span class="sign">=</span>0):
+        <span class="command">print</span>(<span class="text">" "</span> <span class="sign">*</span> indent <span class="sign">+</span> <span class="text">f"[Folder] {self.name}"</span>)
+        <span class="function">for</span> item <span class="function">in self</span>.items: <span class="comment"># treating files and folders the same</span>
+            item.display(indent <span class="sign">+</span> 2)
+
+root <span class="sign">=</span> <span class="function">Folder</span>(<span class="text">"Root"</span>)
+file1 <span class="sign">=</span> <span class="function">File</span>(<span class="text">"file1.txt"</span>)
+file2 <span class="sign">=</span> <span class="function">File</span>("<span class="text">file2.txt"</span>)
+subfolder <span class="sign">=</span> <span class="function">Folder</span>(<span class="text">"Subfolder"</span>)
+subfolder.add(<span class="function">File</span>(<span class="text">"subfile.txt"</span>))
+
+root.add(file1)
+root.add(subfolder)
+root.add(file2)
+root.display()
+                                    </code></pre>
+
+                                    <h2><a id="decorator">Decorator</a></h2>
+
+                                    <p>Decorator allows dynamic addition of behavior to objects without altering their original code, enabling flexible and reusable functionality extension. It adheres to OCP (new functionalities can be added via decorators) and SRP (the new functionalities are kept separate).</p>
+
+                                    <p>The Decorator class is responsible for adding new behavior or functionality to an existing object dynamically, without modifying the object's original code, by wrapping the object and delegating method calls to it while potentially altering or enhancing the behavior.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
+                                
+<span class="function">class</span> Coffee(<span class="function">ABC</span>): <span class="comment"># an interface</span>
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> cost(<span class="function">self</span>):
+        <span class="function">pass</span>
+
+<span class="function">class</span> SimpleCoffee(<span class="function">Coffee</span>): <span class="comment"># a concrete component</span>
+    <span class="function">def</span> cost(<span class="function">self</span>):
+        <span class="function">return</span> 5 <span class="comment"># the base cost of coffee</span>
+
+<span class="function">class</span> MilkDecorator(<span class="function">Coffee</span>): <span class="comment"># a Decorator class</span>
+    <span class="function">def __init__</span>(<span class="function">self</span>, coffee):
+        <span class="function">self</span>._coffee <span class="sign">=</span> coffee <span class="comment"># holding a reference to the coffee object</span>
+
+    <span class="comment"># This decorator calls the cost() method from the wrapped object (SimpleCoffee) and adds the cost of milk</span>
+    <span class="function">def</span> cost(<span class="function">self</span>):
+        <span class="function">return self</span>._coffee.cost() <span class="sign">+</span> 2 <span class="comment"># adding the cost of milk to the coffee</span>
+
+<span class="comment"># Creating a simple coffee</span>
+simple_coffee <span class="sign">=</span> <span class="function">SimpleCoffee</span>()
+<span class="command">print</span>(<span class="text">f"Cost of simple coffee: {simple_coffee.cost()}"</span>)
+
+<span class="comment"># Adding milk to the coffee using the MilkDecorator</span>
+milk_coffee <span class="sign">=</span> <span class="function">MilkDecorator</span>(simple_coffee) <span class="comment"># MilkDecorator "wraps" SimpleCoffee</span>
+<span class="command">print</span>(<span class="text">f"Cost of coffee with milk: {milk_coffee.cost()}"</span>)
+                                    </code></pre>
+
+                                    <p>The Decorator pattern allows behavior to be added to objects dynamically by wrapping them with additional functionality, typically using classes, while a Pythonic decorator achieves a similar outcome using function-based syntax (<code>@decorator</code>) to modify or extend the behavior of functions or methods without altering their original code structure (<a href="python-decorators.html" class="link">see this article</a>).</p>
 
                                     <h2><a id="facade">Facade</a></h2>
 
-                                    <p>Facade provides a simplified, unified interface to a set of interfaces in a subsystem. It hides the complexity of the subsystem and provides a simple higher-level API for clients to use. We optionally may wish to expose internals through the facade, e.g., for more detailed control or specific operations that bypass the simplified interface, allowing advanced users to interact directly with subsystem components when necessary.</p>
+                                    <p>Facade provides a simplified, unified interface to a set of interfaces in a subsystem. It hides the complexity of the subsystem and provides a simple higher-level API for clients to use. Optionally, we may wish to expose internals through the facade, e.g., for more detailed control or specific operations that bypass the simplified interface, allowing advanced users to interact directly with subsystem components when necessary.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-class TV:
-    def turn_on(self):
-        print("TV is now ON")
+<span class="function">class</span> TV:
+    <span class="function">def</span> turn_on(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"TV is now ON"</span>)
 
-    def turn_off(self):
-        print("TV is now OFF")
+    <span class="function">def</span> turn_off(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"TV is now OFF"</span>)
 
-class SoundSystem:
-    def turn_on(self):
-        print("Sound system is now ON")
+<span class="function">class</span> SoundSystem:
+    <span class="function">def</span> turn_on(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Sound system is now ON"</span>)
 
-    def turn_off(self):
-        print("Sound system is now OFF")
+    <span class="function">def</span> turn_off(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Sound system is now OFF"</span>)
 
-class StreamingService:
-    def start(self):
-        print("Streaming service is starting...")
+<span class="function">class</span> StreamingService:
+    <span class="function">def</span> start(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Streaming service is starting..."</span>)
 
-    def stop(self):
-        print("Streaming service is stopping...")
+    <span class="function">def</span> stop(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Streaming service is stopping..."</span>)
 
-class HomeTheaterFacade: # a facade
-    def __init__(self, tv, sound_system, streaming_service):
-        self.tv = tv
-        self.sound_system = sound_system
-        self.streaming_service = streaming_service
+<span class="function">class</span> HomeTheaterFacade: <span class="comment"># a Facade</span>
+    <span class="function">def __init__</span>(<span class="function">self</span>, tv, sound_system, streaming_service):
+        <span class="function">self</span>.tv <span class="sign">=</span> tv
+        <span class="function">self</span>.sound_system <span class="sign">=</span> sound_system
+        <span class="function">self</span>.streaming_service <span class="sign">=</span> streaming_service
 
-    def watch_movie(self):
-        print("Starting movie mode...")
-        self.tv.turn_on()
-        self.sound_system.turn_on()
-        self.streaming_service.start()
-        print("Movie is ready to watch!")
+    <span class="function">def</span> watch_movie(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Starting movie mode..."</span>)
+        <span class="function">self</span>.tv.turn_on()
+        <span class="function">self</span>.sound_system.turn_on()
+        <span class="function">self</span>.streaming_service.start()
+        <span class="command">print</span>(<span class="text">"Movie is ready to watch!"</span>)
 
-    def end_movie(self):
-        print("Shutting down movie mode...")
-        self.streaming_service.stop()
-        self.sound_system.turn_off()
-        self.tv.turn_off()
-        print("Movie mode ended.")
+    <span class="function">def</span> end_movie(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Shutting down movie mode..."</span>)
+        <span class="function">self</span>.streaming_service.stop()
+        <span class="function">self</span>.sound_system.turn_off()
+        <span class="function">self</span>.tv.turn_off()
+        <span class="command">print</span>(<span class="text">"Movie mode ended."</span>)
 
-tv = TV()
-sound_system = SoundSystem()
-streaming_service = StreamingService()
+tv <span class="sign">=</span> <span class="function">TV</span>()
+sound_system <span class="sign">=</span> <span class="function">SoundSystem</span>()
+streaming_service <span class="sign">=</span> <span class="function">StreamingService</span>()
 
-home_theater = HomeTheaterFacade(tv, sound_system, streaming_service)
-home_theater.watch_movie() # one call replaces multiple subsystem interactions
-home_theater.end_movie() # one call shuts everything down  
+home_theater <span class="sign">=</span> <span class="function">HomeTheaterFacade</span>(tv, sound_system, streaming_service)
+home_theater.watch_movie() <span class="comment"># one call replaces multiple subsystem interactions</span>
+home_theater.end_movie() <span class="comment"># one call shuts everything down</span>
                                     </code></pre>
+
+                                    <h2><a id="flyweight">Flyweight</a></h2>
+
+                                    <p>Flyweight optimizes memory usage by sharing common object data, particularly for large numbers of similar objects (e.g., a database of users that can have the same names). It reduces the memory footprint by storing shared data externally and reusing common objects rather than creating new instances for each.</p>
+
+                                    <p>The Flyweight pattern typically has two parts: the Flyweight class, holding the shared data (intrinsic state), and the Flyweight Factory (or similar), responsible for creating and managing shared instances, ensuring that identical objects are reused instead of duplicated.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Name: <span class="comment"># a Flyweight class</span>
+    <span class="function">def __init__</span>(<span class="function">self</span>, name):
+        <span class="function">self</span>.name <span class="sign">=</span> name
+
+    <span class="function">def</span> display(<span class="function">self</span>, type):
+        <span class="command">print</span>(<span class="text">f"Displaying {self.name} as {type}"</span>)
+
+<span class="function">class</span> NameDatabase: <span class="comment"># a Flyweight Factory</span>
+    _names <span class="sign">=</span> {}
+
+    <span class="command">@staticmethod</span>
+    <span class="function">def</span> get_name(name):
+        <span class="function">if</span> name <span class="function">not in NameDatabase</span>._names:
+            <span class="function">NameDatabase</span>._names[name] <span class="sign">=</span> <span class="function">Name</span>(name)
+        <span class="function">return NameDatabase</span>._names[name]
+
+<span class="comment"># Reusing "John" and "Alice" from the database instead of creating new objects</span>
+john1 <span class="sign">=</span> <span class="function">NameDatabase</span>.get_name(<span class="text">"John"</span>)
+john2 <span class="sign">=</span> <span class="function">NameDatabase</span>.get_name(<span class="text">"John"</span>)
+
+alice1 <span class="sign">=</span> <span class="function">NameDatabase</span>.get_name(<span class="text">"Alice"</span>)
+alice2 <span class="sign">=</span> <span class="function">NameDatabase</span>.get_name(<span class="text">"Alice"</span>)
+
+john1.display(<span class="text">"formal"</span>)
+john2.display(<span class="text">"informal"</span>)
+alice1.display(<span class="text">"formal"</span>)
+alice2.display(<span class="text">"informal"</span>)
+
+<span class="comment"># Checking if the same instances are reused</span>
+<span class="command">print</span>(john1 <span class="function">is</span> john2)
+<span class="command">print</span>(alice1 <span class="function">is</span> alice2)
+                                    </code></pre>
+
+                                    <h2><a id="proxy">Proxy</a></h2>
+
+                                    <p>Proxy acts as an intermediary or placeholder for another object, controlling access to it. Proxies are used to add additional functionality or restrictions when interacting with objects, allowing for behaviors like access control, lazy initialization, and resource optimization. There are different types of proxies, including Protection Proxy, which regulates access based on permissions or roles, and Virtual Proxy, which delays the creation of resource-intensive objects until they are needed, optimizing performance. A Virtual Proxy is one way to implement Lazy initialization, but Lazy initialization can be applied independently of Proxies.</p>
+
+                                    <h4>Protection Proxy</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Movie:
+    <span class="function">def __init__</span>(<span class="function">self</span>, title, rating):
+        <span class="function">self</span>.title <span class="sign">=</span> title
+        <span class="function">self</span>.rating <span class="sign">=</span> rating
+
+    <span class="function">def</span> watch(<span class="function">self</span>):
+        <span class="function">return</span> <span class="text">f"Watching {self.title}"</span>
+
+<span class="function">class</span> AgeRestrictedMovie: <span class="comment"># a Proxy</span>
+    <span class="function">def __init__</span>(<span class="function">self</span>, movie):
+        <span class="function">self</span>.movie <span class="sign">=</span> movie
+
+    <span class="function">def</span> watch(<span class="function">self</span>, age):
+        <span class="function">if</span> age <span class="sign">&gt;=</span> <span class="function">self</span>.movie.rating:
+            <span class="function">return self</span>.movie.watch()
+        <span class="function">else</span>:
+            <span class="function">return</span> <span class="text">"Age restriction: too young"</span>
+
+movie1 <span class="sign">=</span> <span class="function">AgeRestrictedMovie</span>(<span class="function">Movie</span>(<span class="text">"Action movie"</span>, 18))
+<span class="command">print</span>(movie1.watch(20))
+<span class="command">print</span>(movie1.watch(16))
+
+movie2 <span class="sign">=</span> <span class="function">AgeRestrictedMovie</span>(<span class="function">Movie</span>(<span class="text">"Family movie"</span>, 0))
+<span class="command">print</span>(movie2.watch(10))
+                                    </code></pre>
+
+                                    <h4>Virtual Proxy</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> time
+
+<span class="function">class</span> HeavyResource:
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Loading heavy resource..."</span>)
+        time.<span class="command">sleep</span>(2)
+        <span class="function">self</span>.data <span class="sign">=</span> <span class="text">"Heavy resource loaded"</span>
+
+    <span class="function">def</span> display(<span class="function">self</span>):
+        <span class="function">return self</span>.data
+
+<span class="function">class</span> VirtualProxy:
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>._real_resource <span class="sign">=</span> <span class="function">None</span>
+
+    <span class="function">def</span> _load_resource(<span class="function">self</span>):
+        <span class="function">if not self</span>._real_resource:
+            <span class="function">self</span>._real_resource <span class="sign">=</span> <span class="function">HeavyResource</span>() <span class="comment"># Lazy initialization</span>
+        <span class="function">return self</span>._real_resource
+
+    <span class="function">def</span> display(<span class="function">self</span>):
+        <span class="function">return self</span>._load_resource().display()
+
+proxy <span class="sign">=</span> <span class="function">VirtualProxy</span>()
+
+<span class="command">print</span>(<span class="text">"Before accessing the resource..."</span>)
+<span class="command">print</span>(proxy.display()) <span class="comment"># heavy resource is loaded now, so it takes time</span>
+<span class="command">print</span>(proxy.display()) <span class="comment"># resource is already loaded, no delay</span>
+                                    </code></pre>
+
+                                    <h5>Proxy VS Decorator</h5>
+
+                                    <p>A Proxy provides an identical interface to the original object, focusing on controlling access or managing resources, while a Decorator enhances the object's interface by adding new functionality. The Decorator typically holds a reference to the object it decorates, whereas a Proxy may not even interact with a materialized object, especially in cases like lazy initialization or access control. Essentially, Proxies manage access and resources, while decorators extend behavior.</p>
                                 </div>
                             </div>
                         </div>

@@ -101,12 +101,9 @@
                                     <p>Not every variable is accessible in every part of the program. Variables created inside a class but outside any method (without the <code>static</code> keyword) are called instance variables. They are accessible within an instance across all methods of the class. Variables marked with <code>static</code> are called static variables and are shared across all class instances. <code>local</code> variables are variables created inside a block (a loop, conditional statement, function, etc.) and are accessible only inside this block.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="function">Example</span> x <span class="sign">=</span> <span class="function">new Example</span>()
-        <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
+        <span class="function">Example</span> x <span class="sign">=</span> <span class="function">new Example</span>() <span class="sign">{</span>
             <span class="command">@Override</span>
             <span class="function">public void</span> action()<span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Anonymous class"</span>)<span class="sign">;}</span>
         <span class="sign">};</span>
@@ -114,8 +111,7 @@
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">interface</span> Example
-<span class="sign">{</span>
+<span class="function">interface</span> Example <span class="sign">{</span>
     <span class="function">void</span> action()<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
@@ -129,10 +125,8 @@
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.util.<span class="sign">*;</span>
 
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         <span class="function">List</span><span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> names <span class="sign">=</span> <span class="function">Arrays</span>.<span class="command">asList</span>(<span class="text">"bc"</span>, <span class="text">"def"</span>, <span class="text">"a"</span>)<span class="sign">;</span></span>
         names.<span class="function">sort</span>((s1, s2) <span class="sign">-></span> <span class="function">Integer</span>.<span class="function">compare</span>(s1.<span class="command">length</span>(), s2.<span class="command">length</span>()))<span class="sign">;</span>
 
@@ -143,12 +137,9 @@
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
-        <span class="function">Example</span> x <span class="sign">=</span> () <span class="sign">-&gt;</span>
-        <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
+        <span class="function">Example</span> x <span class="sign">=</span> () <span class="sign">-&gt;</span> <span class="sign">{</span>
             <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Lambda expression"</span>)<span class="sign">;</span>
         <span class="sign">};</span>
         x.action()<span class="sign">;</span>
@@ -158,18 +149,15 @@
 
         callAction(x)<span class="sign">;</span>
     <span class="sign">}</span>
-    <span class="function">static void</span> callAction(<span class="function">Example</span> x)
-    <span class="sign">{</span>
+    <span class="function">static void</span> callAction(<span class="function">Example</span> x) <span class="sign">{</span>
         x.action()<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 
-<span class="function">interface</span> Example
-<span class="sign">{</span>
+<span class="function">interface</span> Example <span class="sign">{</span>
     <span class="function">void</span> action()<span class="sign">;</span>
 <span class="sign">}</span>
-<span class="function">interface</span> Example2
-<span class="sign">{</span>
+<span class="function">interface</span> Example2 <span class="sign">{</span>
     <span class="function">int</span> action2(<span class="function">int</span> a)<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
@@ -179,10 +167,8 @@
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.util.function.Function<span class="sign">;</span>
 
-<span class="function">public class</span> Main
-<span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args)
-    <span class="sign">{</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         <span class="function">Function</span><span class="sign">&lt;</span><span class="function">Integer</span>, <span class="function">Integer</span><span class="sign">&gt;</span> square <span class="sign">=</span> (number) <span class="sign">-&gt; {</span>
             <span class="function">int</span> result <span class="sign">=</span> number <span class="sign">*</span> number<span class="sign">;</span>
             <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Calculating square of "</span> <span class="sign">+</span> number)<span class="sign">;</span>

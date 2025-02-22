@@ -143,9 +143,8 @@ iter_l <span class="sign">=</span> <span class="command">iter</span>(l)
         <span class="function">self</span>.values <span class="sign">=</span> values
 
     <span class="function">def __iter__</span>(<span class="function">self</span>):
-        <span class="comment"># Initializing the iterator (starting position)</span>
-        <span class="function">self</span>.index <span class="sign">=</span> 0
-        <span class="function"><span class="function">return</span> self</span> <span class="comment"># returning the class object itself</span>
+        <span class="function">self</span>.index <span class="sign">=</span> 0 <span class="comment"># initializing the iterator (starting position)</span>
+        <span class="function"><span class="function">return</span> self</span> <span class="comment"># returning the class object itself (an object can make itself iterable by returning self from __iter__())</span>
 
     <span class="function">def __next__</span>(<span class="function">self</span>):
         <span class="comment"># Checking if there are still elements left</span>
@@ -232,7 +231,7 @@ x <span class="sign">=</span> generator(5)
 
                                     <h2>Addition to the lesson - custom lists</h2>
 
-                                    <p>Earlier, I mentioned creating custom iterables by implementing the <code>__next__()</code> and <code>__iter__()</code> dunder methods, but this should only be done if we need a fully custom iterable. If we only need a custom list with all the built-in methods of a normal list along with some additional functionalities, we can inherit from <code>list</code>.</p>
+                                    <p>Earlier, I mentioned creating custom iterables by implementing the <code>__next__()</code> and <code>__iter__()</code> dunder methods, but this should only be done if we need a fully custom iterable. If we only need a customized list with all the built-in methods of a normal list along with some additional functionalities, we can inherit from <code>list</code>.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> MyList(<span class="function">list</span>):
