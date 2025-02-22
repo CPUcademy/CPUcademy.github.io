@@ -92,19 +92,246 @@
                                     <h5 class="m-0 font-weight-bold">Behavioral patterns</h5>
                                 </div>
                                 <div class="card-body">
-                                    They are all different, no central theme
+                                    <h3>Table of contents</h3>
+                                    
+                                    <ul>
+                                        <li><a href="#observer" class="link" style="text-decoration: None;">Observer</a></li>
+                                        <li><a href="#chain-of-responsibility" class="link" style="text-decoration: None;">Chain of responsibility</a></li>
+                                        <li><a href="#command" class="link" style="text-decoration: None;">Command</a></li>
+                                        <li><a href="#interpreter" class="link" style="text-decoration: None;">Interpreter</a></li>
+                                        <li><a href="#iterator" class="link" style="text-decoration: None;">Iterator</a></li>
+                                        <li><a href="#mediator" class="link" style="text-decoration: None;">Mediator</a></li>
+                                        <li><a href="#memento" class="link" style="text-decoration: None;">Memento</a></li>
+                                        <li><a href="#state" class="link" style="text-decoration: None;">State</a></li>
+                                        <li><a href="#strategy" class="link" style="text-decoration: None;">Strategy</a></li>
+                                        <li><a href="#template-method" class="link" style="text-decoration: None;">Template method</a></li>
+                                        <li><a href="#visitor" class="link" style="text-decoration: None;">Visitor</a></li>
+                                    </ul>
 
-                                    - chain of responsibility
-                                    - command
-                                    - interpreter
-                                    - iterator
-                                    - mediator
-                                    - memento
-                                    - observer
-                                    - state
-                                    - strategy
-                                    - template method
-                                    - visitor
+                                    <p>Behavioral design patterns focus on the interaction and communication between objects. They aim to define how objects collaborate, ensuring efficient and flexible communication without tightly coupling components.</p>
+
+                                    <h2><a id="observer">Observer</a></h2>
+
+                                    <p>Observer allows a subject (or publisher) to maintain a list of its dependents (observers), and automatically notifies them of any state changes, usually by calling one of their methods. This pattern is typically used when a change to one object requires changing others, and you want to avoid tight coupling between the objects.</p>
+                                    
+                                    <h4>Events</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Event(list):
+    def __call__(self, *args, **kwargs):
+        for item in self:
+            item(*args, **kwargs)
+
+class Subscriber:
+    def __init__(self, name):
+        self.name = name
+
+    def receive_email(self, newsletter):
+        print(f"{self.name} received: {newsletter}")
+
+class Newsletter:
+    def __init__(self):
+        self.new_issue_released = Event()
+
+    def release_new_issue(self, issue_title):
+        print(f"Releasing new issue: {issue_title}")
+        self.new_issue_released(issue_title)
+
+john = Subscriber("John")
+newsletter = Newsletter()
+newsletter.new_issue_released.append(john.receive_email) # adding John to the subscription list
+
+newsletter.release_new_issue("Design Patterns Vol. 1") # releasing a new issue
+newsletter.new_issue_released.remove(john.receive_email) # removing John from the subscription list
+newsletter.release_new_issue("Design Patterns Vol. 2") # releasing a new issue
+                                    </code></pre>
+
+                                    <h2><a id="chain-of-responsibility">Chain of responsibility</a></h2>
+
+                                    <p>Chain of responsibility allows multiple handlers to process a request without the sender needing to know which handler will handle it. The request is passed along a chain of handlers until one of them processes it (or it reaches the end of the chain). This pattern promotes loose coupling and makes it easy to add or modify handlers dynamically. All componenets of a chain get a chance to process a command or a query, and have the ability to terminate the processing chain.</p>
+                                    
+                                    <h4>Method chain (classic approach)</h4>
+
+                                    <p>In this approach, each handler explicitly calls the next one. It is good for request approval flows.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Request:
+    def __init__(self, amount):
+        self.amount = amount
+
+class Handler:
+    def __init__(self, successor=None):
+        self.successor = successor
+
+    def handle(self, request):
+        if self.successor:
+            self.successor.handle(request)
+
+class Manager(Handler):
+    def handle(self, request):
+        if request.amount &lt;= 1000:
+            print(f"Manager approves ${request.amount}")
+        else:
+            super().handle(request)
+
+class Director(Handler):
+    def handle(self, request):
+        if request.amount &lt;= 5000:
+            print(f"Director approves ${request.amount}")
+        else:
+            super().handle(request)
+
+class CEO(Handler):
+    def handle(self, request):
+        if request.amount > 5000:
+            print(f"CEO approves ${request.amount}")
+
+# Creating the chain: Manager → Director → CEO
+manager = Manager(Director(CEO()))
+
+# Requests go through the chain until handled
+manager.handle(Request(500)) # handled by Manager
+manager.handle(Request(3000)) # handled by Director
+manager.handle(Request(10000)) # handled by CEO
+                                    </code></pre>
+
+                                    <h4>Broker chain (event-based approach)</h4>
+
+                                    <p>Broker chain uses an event-driven system where multiple handlers process a request independently without forming a strict chain. It is useful in scenarios where multiple components modify a value dynamically, such as game stat modifiers or discount systems in e-commerce. Even though handlers are not explicitly linked, they act on the request in sequence when the event is triggered. It is a more flexible decentralized version of the Chain of responsibility pattern.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Event(list):
+    def __call__(self, *args, **kwargs):
+        for item in self:
+            item(*args, **kwargs)
+
+class Query:
+    def __init__(self, product_name, query_type, value):
+        self.product_name = product_name
+        self.query_type = query_type
+        self.value = value
+
+class ECommercePlatform:
+    def __init__(self):
+        self.discount_handlers = Event()
+
+    def apply_discounts(self, query):
+        self.discount_handlers(query) # calling all registered discount handlers
+
+class Product:
+    def __init__(self, platform, name, base_price):
+        self.platform = platform
+        self.name = name
+        self.base_price = base_price
+
+    @property
+    def price(self):
+        query = Query(self.name, "price", self.base_price)
+        self.platform.apply_discounts(query) # applying registered discounts
+        return query.value
+
+class DiscountModifier:
+    def __init__(self, platform, product):
+        self.platform = platform
+        self.product = product
+        self.platform.discount_handlers.append(self.handle) # registering handler
+
+    def handle(self, query):
+        pass # to be implemented by subclasses
+
+class BlackFridayDiscount(DiscountModifier):
+    def handle(self, query):
+        if query.product_name == self.product.name and query.query_type == "price":
+            query.value *= 0.8 # 20% discount
+
+class LoyaltyDiscount(DiscountModifier):
+    def handle(self, query):
+        if query.product_name == self.product.name and query.query_type == "price":
+            query.value *= 0.9 # additional 10% discount for loyal customers
+
+platform = ECommercePlatform()
+laptop = Product(platform, "Laptop", 1000)
+
+print("Original Price:", laptop.price)
+
+black_friday = BlackFridayDiscount(platform, laptop)
+print("After Black Friday Discount:", laptop.price)
+
+loyalty = LoyaltyDiscount(platform, laptop)
+print("After Loyalty Discount:", laptop.price)
+                                    </code></pre>
+
+                                    <h2><a id="command">Command</a></h2>
+
+                                    <p></p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+
+                                    </code></pre>
+
+                                    <h2><a id="interpreter">Interpreter</a></h2>
+
+                                    <p></p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+
+                                    </code></pre>
+
+                                    <h2><a id="iterator">Iterator</a></h2>
+
+                                    <p></p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+
+                                    </code></pre>
+
+                                    <h2><a id="mediator">Mediator</a></h2>
+
+                                    <p></p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+
+                                    </code></pre>
+
+                                    <h2><a id="memento">Memento</a></h2>
+
+                                    <p></p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+
+                                    </code></pre>
+                                    
+                                    <h2><a id="state">State</a></h2>
+
+                                    <p></p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+
+                                    </code></pre>
+
+                                    <h2><a id="strategy">Strategy</a></h2>
+
+                                    <p></p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+
+                                    </code></pre>
+
+                                    <h2><a id="template-method">Template method</a></h2>
+
+                                    <p></p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+
+                                    </code></pre>
+
+                                    <h2><a id="visitor">Visitor</a></h2>
+
+                                    <p></p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

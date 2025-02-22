@@ -131,7 +131,36 @@
     f.<span class="command">write</span>(<span class="text">"File"</span>)
                                     </code></pre>
 
-                                    <p>Context managers can also be used to make sure a thread unlocks a thread lock.</p>
+                                    <p>Context managers are also used to make sure a thread unlocks a thread lock.</p>
+                                        
+                                    <p>The example below shows how context managers can be leveraged while working with our classes.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Counter:
+    <span class="function">def __init__</span>(<span class="function">self</span>, count<span class="sign">=</span>0):
+        <span class="function">self</span>.count <span class="sign">=</span> count
+
+<span class="function">class</span> IncrementModifier:
+    <span class="function">def __init__</span>(<span class="function">self</span>, counter, amount):
+        <span class="function">self</span>.counter <span class="sign">=</span> counter
+        <span class="function">self</span>.amount <span class="sign">=</span> amount
+
+    <span class="function">def __enter__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.counter.count <span class="sign">+=</span> <span class="function">self</span>.amount <span class="comment"># incrementing the count</span>
+
+    <span class="function">def __exit__</span>(<span class="function">self</span>, exc_type, exc_val, exc_tb):
+        <span class="function">pass</span> <span class="comment"># no action needed on exit</span>
+
+counter <span class="sign">=</span> <span class="function">Counter</span>()
+
+<span class="command">print</span>(<span class="text">"Initial count:"</span>, counter.count)
+
+<span class="function">with IncrementModifier</span>(counter, 5): <span class="comment"># using IncrementModifier to increase the count</span>
+    <span class="command">print</span>(<span class="text">"Count after increment:"</span>, counter.count)
+    
+<span class="function">with IncrementModifier</span>(counter, 3):
+    <span class="command">print</span>(<span class="text">"Count after second increment:"</span>, counter.count)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
