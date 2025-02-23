@@ -156,6 +156,8 @@
                                     
                                     <p>The superclass's constructor is automatically called before the subclass's constructor.</p>
 
+                                    <p>Overriding means providing a new method implementation in the subclass that replaces the method defined in the parent class (e.g., defining a <code>speak()</code> method in a <code>Cat</code> subclass to replace a general <code>speak()</code> method from an <code>Animal</code> parent class).</p>
+                                    
                                     <h2>Multiple inheritance</h2>
                                     
                                     <p>A class can inherit features from more than one parent class.</p>
@@ -220,7 +222,7 @@
                                     
                                     <p>A method can become virtual, which means that before calling it, it will check whether there is a class that inherits and overloads it. It will then call the appropriate method lower in the hierarchy. We create virtual methods by writing <code>virtual</code> before their type.</p>
                                     
-                                    <p>A class is considered abstract if it has at least one pure virtual method (i.e., a virtual method with <code>= 0</code>). An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects or have instances, so we can only use them in its child classes. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). An abstract method is a method that is in an abstract class and is a pure virtual method. An abstract class forces all its child classes to override all its abstract methods. It isn't mandatory to overwrite a non-abstract method from an abstract class. Non-abstract methods can contain implementations to be inherited in the child classes (abstract methods have to be overridden, so it wouldn't make sense for them to contain implementations). If an abstract class contains a constructor, it will be executed when its subclass is instantiated.</p>
+                                    <p>A class is considered abstract if it has at least one pure virtual method (i.e., a virtual method with <code>= 0</code>). An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects or have instances, so we can only use them in its child classes. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). An abstract method is a method that is in an abstract class and is a pure virtual method. An abstract class forces all its child classes to override all its abstract methods. It isn't mandatory to override a non-abstract method from an abstract class. Non-abstract methods can contain implementations to be inherited in the child classes (abstract methods have to be overridden, so it wouldn't make sense for them to contain implementations). If an abstract class contains a constructor, it will be executed when its subclass is instantiated.</p>
                                     
                                     <p>When creating an abstract class, we also have to make a virtual destructor (write <code>virtual</code> before the destructor definition). A constructor is not mandatory in an abstract class because it works implicitly.</p>
                                     

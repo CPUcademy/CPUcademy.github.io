@@ -112,9 +112,11 @@
 
                                     <h2><a id="observer">Observer</a></h2>
 
-                                    <p>Observer allows a subject (or publisher) to maintain a list of its dependents (observers), and automatically notifies them of any state changes, usually by calling one of their methods. This pattern is typically used when a change to one object requires changing others, and you want to avoid tight coupling between the objects.</p>
+                                    <p>Observer allows a subject (or publisher) to maintain a list of its dependents (observers), and automatically notifies them of any state changes, usually by calling one of their methods. This pattern is typically used when a change to one object requires changing others, and we want to avoid tight coupling between the objects.</p>
                                     
                                     <h4>Events</h4>
+
+                                    <p>An event-based observer notifies subscribers when a specific event occurs, allowing dynamic reactions without directly monitoring a property change.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 class Event(list):
@@ -144,6 +146,69 @@ newsletter.new_issue_released.append(john.receive_email) # adding John to the su
 newsletter.release_new_issue("Design Patterns Vol. 1") # releasing a new issue
 newsletter.new_issue_released.remove(john.receive_email) # removing John from the subscription list
 newsletter.release_new_issue("Design Patterns Vol. 2") # releasing a new issue
+                                    </code></pre>
+
+                                    <h4>Property observer</h4>
+
+                                    <p>A property observer reacts when a property changes, notifying subscribers <b>automatically</b>.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Event(list):
+    def __call__(self, *args, **kwargs):
+        for item in self:
+            item(*args, **kwargs)
+
+class Subscriber:
+    def __init__(self, name):
+        self.name = name
+
+    def receive_email(self, newsletter):
+        print(f"{self.name} received: {newsletter}")
+
+class Newsletter:
+    def __init__(self):
+        self._new_issue = None
+        self.new_issue_released = Event() # the event fires when issue updates
+
+    @property
+    def new_issue(self):
+        return self._new_issue
+
+    @new_issue.setter
+    def new_issue(self, issue_title):
+        if self._new_issue != issue_title: # ensuring it's actually changing
+            self._new_issue = issue_title
+            print(f"New issue set: {issue_title}")
+            self.new_issue_released(issue_title) # notifying subscribers
+
+john = Subscriber("John")
+newsletter = Newsletter()
+newsletter.new_issue_released.append(john.receive_email)
+
+newsletter.new_issue = "Design Patterns Vol. 1" # automatically notifying John
+newsletter.new_issue_released.remove(john.receive_email)
+newsletter.new_issue = "Design Patterns Vol. 2" # no notification sent
+                                    </code></pre>
+
+                                    <h4>Property dependencies</h4>
+
+                                    <p>Property dependencies ensure that one property automatically updates when another changes.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Person:
+    def __init__(self, name, birth_year, current_year):
+        self.name = name
+        self.birth_year = birth_year
+        self.current_year = current_year
+
+    @property
+    def age(self):
+        return self.current_year - self.birth_year # age depends on birth_year and current_year
+
+p = Person("Bob", 2000, 2025)
+print(p.age)
+p.current_year = 2030
+print(p.age) # the age has been automatically updated
                                     </code></pre>
 
                                     <h2><a id="chain-of-responsibility">Chain of responsibility</a></h2>
@@ -263,42 +328,396 @@ print("After Loyalty Discount:", laptop.price)
 
                                     <h2><a id="command">Command</a></h2>
 
-                                    <p></p>
+                                    <p>Command is used to turn a request into a stand-alone object. This object encapsulates all details of the request, allowing users to parameterize objects with operations, delay or queue a request's execution, and support undoable operations.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+from abc import ABC, abstractmethod
 
+class Command(ABC): # an interface
+    @abstractmethod
+    def execute(self):
+        pass
+
+class Light: # a receiver class
+    def on(self):
+        print("The light is ON")
+    def off(self):
+        print("The light is OFF")
+
+# Concrete classes
+class LightOnCommand(Command):
+    def __init__(self, light):
+        self.light = light
+
+    def execute(self):
+        self.light.on()
+
+class LightOffCommand(Command):
+    def __init__(self, light):
+        self.light = light
+
+    def execute(self):
+        self.light.off()
+
+class RemoteControl: # an invoker class
+    def __init__(self):
+        self.command = None
+
+    def set_command(self, command):
+        self.command = command
+
+    def press_button(self):
+        if self.command:
+            self.command.execute()
+
+light = Light()
+light_on = LightOnCommand(light)
+light_off = LightOffCommand(light)
+remote = RemoteControl()
+
+remote.set_command(light_on)
+remote.press_button()
+remote.set_command(light_off)
+remote.press_button()
+                                    </code></pre>
+
+                                    <h4>An example with undoable operations</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+from abc import ABC, abstractmethod
+
+class Command(ABC):
+    @abstractmethod
+    def execute(self):
+        pass
+
+    @abstractmethod
+    def undo(self):
+        pass
+
+class BankAccount:
+    def __init__(self, balance=0):
+        self.balance = balance
+
+    def deposit(self, amount):
+        self.balance += amount
+
+    def withdraw(self, amount):
+        if self.balance >= amount:
+            self.balance -= amount
+            return True
+        return False
+
+    def __str__(self):
+        return f"Balance = {self.balance}"
+
+class TransferMoneyCommand(Command):
+    def __init__(self, source_account, target_account, amount):
+        self.source_account = source_account
+        self.target_account = target_account
+        self.amount = amount
+        self.executed = False
+
+    def execute(self):
+        if not self.executed:
+            if self.source_account.withdraw(self.amount):
+                self.target_account.deposit(self.amount)
+                self.executed = True
+                print(f"Transferred {self.amount} from source to target.")
+            else:
+                print("Insufficient funds for transfer.")
+        else:
+            print("Transfer already executed.")
+
+    def undo(self):
+        if self.executed:
+            self.target_account.withdraw(self.amount)
+            self.source_account.deposit(self.amount)
+            print(f"Undo transfer of {self.amount} from target back to source.")
+            self.executed = False
+        else:
+            print("No transfer to undo.")
+
+class TransactionHistory:
+    def __init__(self):
+        self.history = []
+
+    def execute_command(self, command):
+        command.execute()
+        self.history.append(command)
+
+    def undo(self):
+        if self.history:
+            last_command = self.history.pop()
+            last_command.undo()
+
+source = BankAccount(500)
+target = BankAccount(200)
+history = TransactionHistory()
+
+print(f"Source account before transfer: {source}")
+print(f"Target account before transfer: {target}")
+
+transfer1 = TransferMoneyCommand(source, target, 100)
+history.execute_command(transfer1)
+
+print(f"Source account after first transfer: {source}")
+print(f"Target account after first transfer: {target}")
+
+transfer2 = TransferMoneyCommand(source, target, 1000) # trying to transfer more than available funds
+history.execute_command(transfer2)
+
+print(f"Source account after second transfer attempt: {source}")
+print(f"Target account after second transfer attempt: {target}")
+history.undo()
+
+print(f"Source account after undo: {source}")
+print(f"Target account after undo: {target}")
                                     </code></pre>
 
                                     <h2><a id="interpreter">Interpreter</a></h2>
 
-                                    <p></p>
+                                    <p>Interpreter is used for designing a system that needs to process and evaluate language expressions. It provides a way to define the grammar of a language and interpret statements in that language. It is commonly used in mathematical expression evaluators, rule-based engines, and parsers. It turns text data into separate lexical tokens (lexing) and interprets sequences of these tokens (parsing).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+from abc import ABC, abstractmethod
 
+# Lexing
+class Token:
+    NUMBER, PLUS, MINUS = "NUMBER", "PLUS", "MINUS"
+
+    def __init__(self, type_, value=None):
+        self.type = type_
+        self.value = value
+
+    def __repr__(self):
+        return f"Token({self.type}, {self.value})"
+
+class Lexer:
+    def __init__(self, text):
+        self.text = text.replace(" ", "") # removing spaces for easier processing
+        self.index = 0
+
+    def get_next_token(self):
+        if self.index >= len(self.text):
+            return None
+
+        char = self.text[self.index]
+        if char.isdigit():
+            num = 0
+            # Extracting multi-digit numbers
+            while self.index < len(self.text) and self.text[self.index].isdigit():
+                num = num * 10 + int(self.text[self.index])
+                self.index += 1
+            return Token(Token.NUMBER, num)
+        elif char == "+":
+            self.index += 1
+            return Token(Token.PLUS)
+        elif char == "-":
+            self.index += 1
+            return Token(Token.MINUS)
+
+    def tokenize(self):
+        tokens = []
+        while self.index < len(self.text):
+            tokens.append(self.get_next_token()) # generating a token list
+        return tokens
+
+# Parsing
+class Expression(ABC): # an abstract base for all expressions
+    @abstractmethod
+    def interpret(self):
+        pass
+
+class NumberExpression(Expression):
+    def __init__(self, number):
+        self.number = number
+
+    def interpret(self):
+        return self.number # returning the numeric value
+
+class AddExpression(Expression):
+    def __init__(self, left, right):
+        self.left = left
+        self.right = right
+
+    def interpret(self):
+        return self.left.interpret() + self.right.interpret()
+
+class SubtractExpression(Expression):
+    def __init__(self, left, right):
+        self.left = left
+        self.right = right
+
+    def interpret(self):
+        return self.left.interpret() - self.right.interpret()
+
+class Parser:
+    def __init__(self, tokens):
+        self.tokens = tokens
+        self.current_token = self.tokens.pop(0) if self.tokens else None # fetching the first token
+
+    def eat(self, token_type):
+        if self.current_token and self.current_token.type == token_type:
+            self.current_token = self.tokens.pop(0) if self.tokens else None # moving to the next token
+
+    def parse(self):
+        # Parsing the first number
+        left = NumberExpression(self.current_token.value)
+        self.eat(Token.NUMBER)
+
+        while self.current_token:
+            if self.current_token.type == Token.PLUS:
+                self.eat(Token.PLUS)
+                right = NumberExpression(self.current_token.value)
+                self.eat(Token.NUMBER)
+                left = AddExpression(left, right) # creating an addition node
+            elif self.current_token.type == Token.MINUS:
+                self.eat(Token.MINUS)
+                right = NumberExpression(self.current_token.value)
+                self.eat(Token.NUMBER)
+                left = SubtractExpression(left, right) # creating a subtraction node
+
+        return left # returning the complete expression tree
+
+expression = "10 + 5 - 3"
+lexer = Lexer(expression)
+tokens = lexer.tokenize()
+parser = Parser(tokens)
+ast = parser.parse()
+print(ast.interpret())
                                     </code></pre>
 
                                     <h2><a id="iterator">Iterator</a></h2>
 
-                                    <p></p>
+                                    <p>Iterator provides a way to access elements of a collection sequentially without exposing its underlying structure. Instead of manually managing iteration, the pattern encapsulates it within an iterator object that keeps track of the current position and provides a standard way to retrieve the next element. You can find a basic example of this pattern featuring a custom iterable in the <a href="python-generators.html#iterator" class="link">lesson about generators</a>. The example below shows how to use list-backed properties while implementing the Iterator pattern to allow iteration over stored data.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Inventory:
+    def __init__(self, items=None):
+        self._items = items if items else []
 
+    @property
+    def items(self):
+        return self._items
+
+    @items.setter
+    def items(self, new_items):
+        if isinstance(new_items, list):
+            self._items = new_items
+        else:
+            raise ValueError("Items must be a list.")
+
+    def __iter__(self):
+        return iter(self._items) # returning an iterator for the list
+
+inventory = Inventory(["Sword", "Shield", "Potion"])
+for item in inventory:
+    print(item)
+
+inventory.items = ["Bow", "Arrow", "Helmet"]
+for item in inventory:
+    print(item)
                                     </code></pre>
 
                                     <h2><a id="mediator">Mediator</a></h2>
 
-                                    <p></p>
+                                    <p>Mediator defines an object that encapsulates how a set of objects interact. Instead of having multiple objects communicate directly, they communicate through a mediator, which handles the communication and coordination between them. This reduces the dependencies between objects, making the system easier to maintain and scale (the objects do not have to be aware of the other objects).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Mediator:
+    def send(self, message, user):
+        pass
 
-                                    </code></pre>
+class User:
+    def __init__(self, name):
+        self.name = name
+        self.mediator = None
+
+    def send_message(self, message):
+        print(f"{self.name} sends: {message}")
+        self.mediator.send(message, self)
+
+    def receive_message(self, message):
+        print(f"{self.name} receives: {message}")
+
+class ChatRoom(Mediator):
+    def __init__(self):
+        self.users = []
+
+    def add_user(self, user):
+        self.users.append(user)
+        user.mediator = self # setting the chat room as the mediator for each user when they join it
+
+    def send(self, message, user):
+        for u in self.users:
+            if u != user:
+                u.receive_message(message)
+
+chat_room = ChatRoom()
+
+alice = User("Alice")
+bob = User("Bob")
+charlie = User("Charlie")
+
+chat_room.add_user(alice)
+chat_room.add_user(bob)
+chat_room.add_user(charlie)
+
+alice.send_message("Hi everyone!")
+bob.send_message("Hello Alice!")
+charlie.send_message("Hey all!")                                    </code></pre>
 
                                     <h2><a id="memento">Memento</a></h2>
 
-                                    <p></p>
+                                    <p>Memento allows capturing and restoring an object's state without exposing its internal details. It is useful for implementing undo/redo functionality or saving checkpoints in an application.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class Memento: # storing the state of the text document
+    def __init__(self, content):
+        self.content = content
 
+class TextEditor:
+    def __init__(self):
+        self.content = ""
+        self.history = [Memento(self.content)]
+        self.current_state = 0
+
+    def write(self, text):
+        self.content += text
+        m = Memento(self.content)
+        self.history.append(m)
+        self.current_state += 1
+
+    def undo(self):
+        if self.current_state > 0:
+            self.current_state -= 1
+            m = self.history[self.current_state]
+            self.content = m.content
+            return m
+        return None
+
+    def redo(self):
+        if self.current_state + 1 &lt; len(self.history):
+            self.current_state += 1
+            m = self.history[self.current_state]
+            self.content = m.content
+            return m
+        return None
+
+    def show_content(self):
+        print(f"Document content: {self.content}")
+
+editor = TextEditor()
+editor.write("Hello, ")
+editor.show_content()
+editor.write("world!")
+editor.show_content()
+
+editor.undo()
+editor.show_content()
+editor.redo()
+editor.show_content()
                                     </code></pre>
                                     
                                     <h2><a id="state">State</a></h2>

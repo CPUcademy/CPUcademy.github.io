@@ -111,7 +111,7 @@
         <span class="sign">}</span>
         <span class="sign">~</span><span class="function">Room</span>()<span class="sign">{}</span>
         
-        <span class="function">friend ostream</span><span class="sign">&amp;</span> <span class="function">operator</span><span class="sign">&lt;&lt;</span>(<span class="function">ostream</span><span class="sign">&amp;</span> os, <span class="function">const Room</span><span class="sign">&amp;</span> room) <span class="sign">{</span> <span class="comment">// overwriting the &lt;&lt; operator to be able to display this object</span>
+        <span class="function">friend ostream</span><span class="sign">&amp;</span> <span class="function">operator</span><span class="sign">&lt;&lt;</span>(<span class="function">ostream</span><span class="sign">&amp;</span> os, <span class="function">const Room</span><span class="sign">&amp;</span> room) <span class="sign">{</span> <span class="comment">// overriding the &lt;&lt; operator to be able to display this object</span>
             os <span class="sign">&lt;&lt;</span> room.name <span class="sign">&lt;&lt;</span> <span class="text">" - area: "</span> <span class="sign">&lt;&lt;</span> room.area<span class="sign">;</span>
             <span class="function">return</span> os<span class="sign">;</span>
         <span class="sign">}</span>
@@ -142,7 +142,7 @@
 <span class="sign">}</span>
                                     </code></pre>
                                     
-                                    <p>In summary, we use inheritance when we want a class to inherit methods from a parent class and then modify or extend its functionalities. Inheritance allows us to overwrite methods, but in the case of composition, we can only use them. When we need to use a class without any modifications, composition is recommended, and when we need to change the behavior of a method in another class, we use inheritance.</p>
+                                    <p>In summary, we use inheritance when we want a class to inherit methods from a parent class and then modify or extend its functionalities. Inheritance allows us to override methods, but in the case of composition, we can only use them. When we need to use a class without any modifications, composition is recommended, and when we need to change the behavior of a method in another class, we use inheritance.</p>
                                     
                                     <h2>Aggregation</h2>
                                     
