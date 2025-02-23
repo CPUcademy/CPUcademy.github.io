@@ -100,11 +100,11 @@
                                         <li><a href="#prototype" class="link" style="text-decoration: None;">Prototype</a></li>
                                         <li><a href="#singleton" class="link" style="text-decoration: None;">Singleton</a></li>
                                         <li><a href="#monostate" class="link" style="text-decoration: None;">Monostate (Singleton variation)</a></li>
-                                        <li><a href="#lazy-initialization" class="link" style="text-decoration: None;">Lazy initialization</a></li>
-                                        <li><a href="#dependency-injection" class="link" style="text-decoration: None;">Dependency injection</a></li>
+                                        <li><a href="#lazy-initialization" class="link" style="text-decoration: None;">Lazy Initialization</a></li>
+                                        <li><a href="#dependency-injection" class="link" style="text-decoration: None;">Dependency Injection</a></li>
                                     </ul>
 
-                                    <p>Creational patterns deal with the construction of objects (explicit - via a constructor or implicit - via, e.g., dependency injection). An object can be created wholesale (in a single statement) or piecewise (step-by-step).</p>
+                                    <p>Creational patterns deal with the construction of objects (explicit - via a constructor or implicit - via, e.g., Dependency Injection). An object can be created wholesale (in a single statement) or piecewise (step-by-step).</p>
 
                                     <h2><a id="builder">Builder</a></h2>
 
@@ -570,9 +570,9 @@ b <span class="sign">=</span> <span class="function">Monostate</span>(<span clas
 <span class="command">print</span>(b.value)
                                     </code></pre>
                                     
-                                    <h2><a id="lazy-initialization">Lazy initialization</a></h2>
+                                    <h2><a id="lazy-initialization">Lazy Initialization</a></h2>
 
-                                    <p>Lazy initialization delays the creation of an object or a resource until it is actually needed, rather than when the object is first created. This is useful for optimizing resource usage, especially when the initialization of an object is resource-intensive or unnecessary if the object is never used. The example below adheres to this design pattern because it ensures that the database connection and any associated resources are only initialized when the <code>get_data()</code> method is first called, i.e., when the data is needed for the first time.</p>
+                                    <p>Lazy Initialization delays the creation of an object or a resource until it is actually needed, rather than when the object is first created. This is useful for optimizing resource usage, especially when the initialization of an object is resource-intensive or unnecessary if the object is never used. The example below adheres to this design pattern because it ensures that the database connection and any associated resources are only initialized when the <code>get_data()</code> method is first called, i.e., when the data is needed for the first time.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> LazyDatabase:
@@ -593,7 +593,7 @@ db.get_data() <span class="comment"># the database is initialized only when we c
 db.get_data() <span class="comment"># accessing the data again, no re-initialization occurs</span>
                                     </code></pre>
 
-                                    <h2><a id="dependency-injection">Dependency injection</a></h2>
+                                    <h2><a id="dependency-injection">Dependency Injection</a></h2>
 
                                     <p>Dependency Injection allows us to inject dependencies (such as services, objects, or configurations) into a class rather than having the class create them itself. This promotes loose coupling (meaning the class has less direct knowledge or control over the specific implementation details of its dependencies), making the code more modular, flexible, and easier to test. With DI, the class doesn't need to worry about how its dependencies are created or managed. Instead, they are provided externally (often by a framework or a container), which simplifies testing and maintenance.</p>
 
