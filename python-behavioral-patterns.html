@@ -112,7 +112,7 @@
 
                                     <h2><a id="observer">Observer</a></h2>
 
-                                    <p>Observer allows a subject (or publisher) to maintain a list of its dependents (observers), and automatically notifies them of any state changes, usually by calling one of their methods. This pattern is typically used when a change to one object requires changing others, and we want to avoid tight coupling between the objects.</p>
+                                    <p>Observer allows a subject (publisher) to maintain a list of its dependents (observers), and automatically notifies them of any state changes, usually by calling one of their methods. This pattern is typically used when a change to one object requires changing others, and we want to avoid tight coupling between the objects.</p>
                                     
                                     <h4>Events</h4>
 
@@ -150,7 +150,7 @@ newsletter.release_new_issue(<span class="text">"Design Patterns Vol. 2"</span>)
 
                                     <h4>Property observer</h4>
 
-                                    <p>A property observer ties event handling to a property change. The previous example gave more explicit control over when events are triggered and this one handles everything automatically when a certain property changes.</p>
+                                    <p>A property observer ties event handling to a property change (using <code>@property</code> and <code>@setter</code>). It is just a different approach to the Observer pattern. Both are good, and we just have to choose the one that suits our needs.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Event(<span class="function">list</span>):
@@ -208,7 +208,7 @@ newsletter.new_issue <span class="sign">=</span> <span class="text">"Design Patt
 p <span class="sign">=</span> Person(<span class="text">"Bob"</span>, 2000, 2025)
 <span class="command">print</span>(p.age)
 p.current_year <span class="sign">=</span> 2030
-<span class="command">print</span>(p.age) <span class="comment"># the age has been automatically updated</span>
+<span class="command">print</span>(p.age) <span class="comment"># age has been automatically updated</span>
                                     </code></pre>
 
                                     <h2><a id="chain-of-responsibility">Chain of Responsibility</a></h2>
@@ -328,7 +328,9 @@ loyalty <span class="sign">=</span> <span class="function">LoyaltyDiscount</span
 
                                     <h2><a id="command">Command</a></h2>
 
-                                    <p>Command is used to turn a request into a stand-alone object. This object encapsulates all details of the request, allowing users to parameterize objects with operations, and delay or queue a request's execution. It also supports undo functionality.</p>
+                                    <p>Command is used to turn a request (an action) into a stand-alone object. This object encapsulates all details of the request, allowing parameterization of objects. It is also useful for implementing the undo functionality.</p>
+
+                                    <p>In the example below, the <code>LightOnCommand</code> and <code>LightOffCommand</code> classes encapsulate the action and its associated details (they take the <code>Light</code> object as a parameter) and can be executed by <code>RemoteControl</code> (the invoker) when triggered.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
@@ -338,28 +340,28 @@ loyalty <span class="sign">=</span> <span class="function">LoyaltyDiscount</span
     <span class="function">def</span> execute(<span class="function">self</span>):
         <span class="function">pass</span>
 
-<span class="function">class</span> Light: <span class="comment"># a receiver class</span>
+<span class="function">class</span> Light: <span class="comment"># a receiver class (the object that performs the action when requested)</span>
     <span class="function">def</span> on(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"The light is ON"</span>)
     <span class="function">def</span> off(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"The light is OFF"</span>)
 
-<span class="comment"># Concrete classes</span>
+<span class="comment"># Concrete Command classes</span>
 <span class="function">class</span> LightOnCommand(<span class="function">Command</span>):
     <span class="function">def __init__</span>(<span class="function">self</span>, light):
         <span class="function">self</span>.light <span class="sign">=</span> light
 
     <span class="function">def</span> execute(<span class="function">self</span>):
-        <span class="function">self</span>.light.on()
+        <span class="function">self</span>.light.on() <span class="comment"># the receiver (Light) performs the action</span>
 
 <span class="function">class</span> LightOffCommand(<span class="function">Command</span>):
     <span class="function">def __init__</span>(<span class="function">self</span>, light):
         <span class="function">self</span>.light <span class="sign">=</span> light
 
     <span class="function">def</span> execute(<span class="function">self</span>):
-        <span class="function">self</span>.light.off()
+        <span class="function">self</span>.light.off() <span class="comment"># the receiver (Light) performs the action</span>
 
-<span class="function">class</span> RemoteControl: <span class="comment"># an invoker class</span>
+<span class="function">class</span> RemoteControl: <span class="comment"># an invoker class (the object that calls the command)</span>
     <span class="function">def __init__</span>(<span class="function">self</span>):
         <span class="function">self</span>.command <span class="sign">=</span> <span class="function">None</span>
 
@@ -477,7 +479,7 @@ history.undo()
 
                                     <h2><a id="interpreter">Interpreter</a></h2>
 
-                                    <p>Interpreter is used <span class="function">for</span> designing a system that needs to process and evaluate language expressions. It provides a way to define the grammar of a language and interpret statements in that language. It is commonly used in mathematical expression evaluators, rule-based engines, and parsers. It turns text data into separate lexical tokens (lexing) and interprets sequences of these tokens (parsing).</p>
+                                    <p>Interpreter is used for designing a system that needs to process and evaluate language expressions. It provides a way to define the grammar of a language and interpret statements in that language. It is commonly used in mathematical expression evaluators, rule-based engines, and parsers. It turns text data into separate lexical tokens (lexing) and interprets sequences of these tokens (parsing).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
@@ -736,7 +738,7 @@ editor.show_content()
     <span class="function">def</span> switch(<span class="function">self</span>, light):
         <span class="function">pass</span>
 
-<span class="comment"># Concrete States</span>
+<span class="comment"># Concrete State classes</span>
 <span class="function">class</span> RedState(<span class="function">TrafficLightState</span>):
     <span class="function">def</span> switch(<span class="function">self</span>, light):
         <span class="command">print</span>(<span class="text">"Red -> Switching to Green"</span>)
@@ -752,12 +754,12 @@ editor.show_content()
         <span class="command">print</span>(<span class="text">"Green -> Switching to Yellow"</span>)
         light.state <span class="sign">=</span> <span class="function">YellowState</span>()
 
-<span class="function">class</span> TrafficLight: <span class="comment"># a context class</span>
+<span class="function">class</span> TrafficLight: <span class="comment"># a context class (the object that maintains the current state and triggers state transitions)</span>
     <span class="function">def __init__</span>(<span class="function">self</span>):
         <span class="function">self</span>.state <span class="sign">=</span> <span class="function">RedState</span>() <span class="comment"># an initial State</span>
 
     <span class="function">def</span> change(<span class="function">self</span>):
-        <span class="function">self</span>.state.switch(<span class="function">self</span>)
+        <span class="function">self</span>.state.switch(<span class="function">self</span>) <span class="comment"># the context triggers the state switch</span>
 
 traffic_light <span class="sign">=</span> <span class="function">TrafficLight</span>()
 traffic_light.change()
@@ -777,7 +779,7 @@ traffic_light.change()
     <span class="function">def</span> sort(<span class="function">self</span>, data):
         <span class="function">pass</span>
 
-<span class="comment"># Concrete Strategies</span>
+<span class="comment"># Concrete Strategy classes</span>
 <span class="function">class</span> QuickSort(<span class="function">SortStrategy</span>):
     <span class="function">def</span> sort(<span class="function">self</span>, data):
         <span class="command">print</span>(<span class="text">"Sorting using QuickSort"</span>)
