@@ -125,7 +125,7 @@ book.print_details()
 book.save_to_file(<span class="text">"book.txt"</span>)
                                     </code></pre>
 
-                                    <p>The <code>Book</code> class has multiple responsibilities: managing book data, printing details, and saving data to a file. For example, the method that handles saving to a file should be placed in another class so it can be modified once for all objects using it when, e.g., switching to a database. Each concern should be separated into a different class.</p>
+                                    <p>The <code>Book</code> class has multiple responsibilities: managing book data, printing details, and saving data to a file. For example, the method that handles saving to a file should be placed in another class so it can be modified once for all objects using it when switching to a database. Each concern should be separated into a different class.</p>
 
                                     <h4>Solution</h4>
 
@@ -153,7 +153,7 @@ book <span class="sign">=</span> <span class="function">Book</span>(<span class=
                                     
                                     <h2><a id="open-closed-principle">Open/Closed Principle (OCP)</a></h2>
 
-                                    <p>Software entities (classes, modules, functions) should be open for extension but closed for modification so we could add a new functionality without changing the existing code. Functionalities should be added through extension, not modification.</p>
+                                    <p>Software entities (classes, modules, functions) should be open for extension but closed for modification meaning we should be able to add a new functionality without changing the existing code. Functionalities should be added through extension, not modification.</p>
                                     
                                     <h4>Issue</h4>
 
@@ -276,7 +276,7 @@ calculate(square)
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Rectangle:
-    <span class="function">def __init__</span>(<span class="function">self</span>, width, height, is_square<span class="sign">=</span><span class="function">False</span>):
+    <span class="function">def __init__</span>(<span class="function">self</span>, width, height, is_square <span class="sign">=</span> <span class="function">False</span>):
         <span class="function">self</span>._height <span class="sign">=</span> height
         <span class="function">self</span>._width <span class="sign">=</span> width
         <span class="function">self</span>._is_square <span class="sign">=</span> is_square
@@ -400,7 +400,7 @@ advanced_printer.fax_document(<span class="text">"report.pdf"</span>)
 
                                     <h2><a id="dependency-inversion-principle">Dependency Inversion Principle (DIP)</a></h2>
 
-                                    <p>High-level modules should not depend on low-level modules (e.g., dealing with storage is a low-level concern), but on abstractions (abstract classes). Additionally, abstractions should not depend on details, but details should depend on abstractions. We want to depend on interfaces rather than concrete implementations because that way we can swap one for the other.</p>
+                                    <p>High-level modules should not depend on low-level modules (e.g., dealing with storage is a low-level concern), but on abstractions (abstract classes). We want to depend on interfaces rather than concrete implementations because that way we can swap one for the other.</p>
 
                                     <h4>Issue</h4>
 
@@ -414,7 +414,7 @@ advanced_printer.fax_document(<span class="text">"report.pdf"</span>)
 
 <span class="function">class</span> DataHandler:
     <span class="function">def</span> <span class="function">__init__</span>(<span class="function">self</span>):
-        <span class="function">self</span>.database <span class="sign">=</span> <span class="function">MySQLDatabase</span>() <span class="comment"># direct dependency on a low-level module</span>
+        <span class="function">self</span>.database <span class="sign">=</span> <span class="function">MySQLDatabase</span>() <span class="comment"># a direct dependency on a low-level module</span>
 
     <span class="function">def</span> save(<span class="function">self</span>, data):
         <span class="function">self</span>.database.connect()
@@ -440,21 +440,21 @@ data_handler.save(<span class="text">"user data"</span>)
     <span class="function">def</span> save_data(<span class="function">self</span>, data):
         <span class="function">pass</span>
 
-<span class="function">class</span> MySQLDatabase(<span class="function">Database</span>): <span class="comment"># low-level module: MySQL implementation</span>
+<span class="function">class</span> MySQLDatabase(<span class="function">Database</span>): <span class="comment"># a low-level module: MySQL implementation</span>
     <span class="function">def</span> connect(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"Connecting to MySQL database..."</span>)
 
     <span class="function">def</span> save_data(<span class="function">self</span>, data):
         <span class="command">print</span>(<span class="text">f"Saving {data} to MySQL database."</span>)
 
-<span class="function">class</span> PostgreSQLDatabase(<span class="function">Database</span>): <span class="comment"># low-level module: PostgreSQL implementation</span>
+<span class="function">class</span> PostgreSQLDatabase(<span class="function">Database</span>): <span class="comment"># a low-level module: PostgreSQL implementation</span>
     <span class="function">def</span> connect(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"Connecting to PostgreSQL database..."</span>)
 
     <span class="function">def</span> save_data(<span class="function">self</span>, data):
         <span class="command">print</span>(<span class="text">f"Saving {data} to PostgreSQL database."</span>)
 
-<span class="function">class</span> DataHandler: <span class="comment"># high-level module depending on the abstraction</span>
+<span class="function">class</span> DataHandler: <span class="comment"># a high-level module depending on the abstraction</span>
     <span class="function">def</span> <span class="function">__init__</span>(<span class="function">self</span>, database: <span class="function">Database</span>):
         <span class="function">self</span>.database <span class="sign">=</span> database
 

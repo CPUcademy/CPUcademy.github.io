@@ -150,7 +150,7 @@ newsletter.release_new_issue(<span class="text">"Design Patterns Vol. 2"</span>)
 
                                     <h4>Property observer</h4>
 
-                                    <p>A property observer reacts when a property changes, notifying subscribers <b>automatically</b>.</p>
+                                    <p>A property observer ties event handling to a property change. The previous example gave more explicit control over when events are triggered and this one handles everything automatically when a certain property changes.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Event(<span class="function">list</span>):
@@ -213,11 +213,11 @@ p.current_year <span class="sign">=</span> 2030
 
                                     <h2><a id="chain-of-responsibility">Chain of Responsibility</a></h2>
 
-                                    <p>Chain of Responsibility allows multiple handlers to process a request without the sender needing to know which handler will handle it. The request is <span class="function">pass</span>ed along a chain of handlers until one of them processes it (or it reaches the end of the chain). This pattern promotes loose coupling and makes it easy to add or modify handlers dynamically. All componenets of a chain get a chance to process a command or a query, and have the ability to terminate the processing chain.</p>
+                                    <p>Chain of Responsibility allows multiple handlers to process a request without the sender needing to know which handler will handle it. The request is passed along a chain of handlers until one of them processes it (or it reaches the end of the chain). This pattern promotes loose coupling and makes it easy to add or modify handlers dynamically. All componenets of a chain get a chance to process a command or a query, and have the ability to terminate the processing chain.</p>
                                     
                                     <h4>Method chain (classic approach)</h4>
 
-                                    <p>In this approach, each handler explicitly calls the next one. It is good <span class="function">for</span> request approval flows.</p>
+                                    <p>In this approach, each handler explicitly calls the next one. It is good for request approval flows.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Request:
@@ -262,7 +262,7 @@ manager.handle(<span class="function">Request</span>(10000)) <span class="commen
 
                                     <h4>Broker chain (event-based approach)</h4>
 
-                                    <p>Broker chain uses an event-driven system where multiple handlers process a request independently without forming a strict chain. It is useful in scenarios where multiple components modify a value dynamically, such as game stat modifiers or discount systems in e-commerce. Even though handlers are not explicitly linked, they act on the request in sequence when the event is triggered. It is a more flexible decentralized version of the Chain of Responsibility pattern.</p>
+                                    <p>Broker chain uses an event-driven system where multiple handlers process a request independently without forming a strict chain. It is useful in scenarios where multiple components modify a value dynamically, such as game stat modifiers or discount systems in e-commerce. Even though handlers are not explicitly linked, they act on the request in sequence when the event is triggered. It is a more flexible and decentralized version of the Chain of Responsibility pattern.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Event(<span class="function">list</span>):
@@ -328,12 +328,12 @@ loyalty <span class="sign">=</span> <span class="function">LoyaltyDiscount</span
 
                                     <h2><a id="command">Command</a></h2>
 
-                                    <p>Command is used to turn a request into a stand-alone object. This object encapsulates all details of the request, allowing users to parameterize objects with operations, delay or queue a request's execution, and support undoable operations.</p>
+                                    <p>Command is used to turn a request into a stand-alone object. This object encapsulates all details of the request, allowing users to parameterize objects with operations, and delay or queue a request's execution. It also supports undo functionality.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
 
-<span class="function">class</span> Command(<span class="function">ABC</span>): <span class="comment"># an interface</span>
+<span class="function">class</span> Command(<span class="function">ABC</span>): <span class="comment"># a Command interface</span>
     <span class="command">@abstractmethod</span>
     <span class="function">def</span> execute(<span class="function">self</span>):
         <span class="function">pass</span>
@@ -381,7 +381,7 @@ remote.set_command(light_off)
 remote.press_button()
                                     </code></pre>
 
-                                    <h4>An example with undoable operations</h4>
+                                    <h4>An example with undo functionality - money transactions</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
@@ -583,6 +583,7 @@ history.undo()
 expression <span class="sign">=</span> <span class="text">"10 + 5 - 3"</span>
 lexer <span class="sign">=</span> <span class="function">Lexer</span>(expression)
 tokens <span class="sign">=</span> lexer.tokenize()
+<span class="command">print</span>(tokens)
 parser <span class="sign">=</span> <span class="function">Parser</span>(tokens)
 ast <span class="sign">=</span> parser.parse()
 <span class="command">print</span>(ast.interpret())
@@ -609,7 +610,7 @@ ast <span class="sign">=</span> parser.parse()
             <span class="function">raise ValueError</span>(<span class="text">"Items must be a list."</span>)
 
     <span class="function">def</span> __iter__(<span class="function">self</span>):
-        <span class="function">return</span> <span class="command">iter</span>(<span class="function">self</span>._items) <span class="comment"># returning an iterator <span class="function">for</span> the list</span>
+        <span class="function">return</span> <span class="command">iter</span>(<span class="function">self</span>._items) <span class="comment"># returning an iterator for the list</span>
 
 inventory <span class="sign">=</span> <span class="function">Inventory</span>([<span class="text">"Sword"</span>, <span class="text">"Shield"</span>, <span class="text">"Potion"</span>])
 <span class="function">for</span> item <span class="function">in</span> inventory:
@@ -647,7 +648,7 @@ inventory.items <span class="sign">=</span> [<span class="text">"Bow"</span>, <s
 
     <span class="function">def</span> add_user(<span class="function">self</span>, user):
         <span class="function">self</span>.users.<span class="command">append</span>(user)
-        user.mediator <span class="sign">=</span> <span class="function">self</span> <span class="comment"># setting the chat room as the mediator <span class="function">for</span> each user when they join it</span>
+        user.mediator <span class="sign">=</span> <span class="function">self</span> <span class="comment"># setting the chat room as the mediator for each user when they join it</span>
 
     <span class="function">def</span> send(<span class="function">self</span>, message, user):
         <span class="function">for</span> u in <span class="function">self</span>.users:
@@ -671,7 +672,7 @@ charlie.send_message(<span class="text">"Hey all!"</span>)
 
                                     <h2><a id="memento">Memento</a></h2>
 
-                                    <p>Memento allows capturing and restoring an object's state without exposing its internal details. It is useful <span class="function">for</span> implementing undo/redo functionality or saving checkpoints in an application.</p>
+                                    <p>Memento allows capturing and restoring an object's state without exposing its internal details. It is useful for implementing undo/redo functionality or saving checkpoints in an application.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Memento: <span class="comment"># storing the state of the text document</span>
@@ -725,7 +726,7 @@ editor.show_content()
 
                                     <p>State allows an object to change its behavior when its internal state changes. It encapsulates different behaviors within separate state classes, making the system more maintainable and flexible.</p>
 
-                                    <p>In the example below, the behavior that changes is how the <code>TrafficLight</code> object responds to the <code>change()</code> method, depending on its current state. Each state <span class="function">class</span> (<code>RedState</code>, <code>YellowState</code>, <code>GreenState</code>) defines a different state transition logic in the <code>switch()</code> method. </p>
+                                    <p>In the example below, the behavior that changes is how the <code>TrafficLight</code> object responds to the <code>change()</code> method, depending on its current state. Each state class (<code>RedState</code>, <code>YellowState</code>, <code>GreenState</code>) defines a different state transition logic in the <code>switch()</code> method. </p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
@@ -766,7 +767,7 @@ traffic_light.change()
 
                                     <h2><a id="strategy">Strategy</a></h2>
 
-                                    <p>Strategy defines a family of algorithms, encapsulates each one in a separate class, and allows them to be interchangeable without modifying the client code. This enables selecting an algorithm dynamically at runtime, promoting flexibility and maintainability. It enables the behavior of a script to be chosen at runtime.</p>
+                                    <p>Strategy defines a family of algorithms, encapsulates each one in a separate class, and allows them to be interchangeable without modifying the client code. This enables selecting an algorithm dynamically at runtime, promoting flexibility and maintainability.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
@@ -792,13 +793,12 @@ traffic_light.change()
         <span class="command">print</span>(<span class="text">"Sorting using BubbleSort"</span>)
         <span class="function">return</span> sorted(data) <span class="comment"># a placeholder for actual implementation</span>
 
-<span class="comment"># A context class that uses a sorting Strategy</span>
-<span class="function">class</span> Sorter:
+<span class="function">class</span> Sorter: <span class="comment"># a context class</span>
     <span class="function">def __init__</span>(<span class="function">self</span>, strategy: <span class="function">SortStrategy</span>):
         <span class="function">self</span>.strategy <span class="sign">=</span> strategy
 
     <span class="function">def</span> set_strategy(<span class="function">self</span>, strategy: <span class="function">SortStrategy</span>):
-        <span class="function">self</span>.strategy <span class="sign">=</span> strategy <span class="comment"># Changing Strategies dynamically</span>
+        <span class="function">self</span>.strategy <span class="sign">=</span> strategy <span class="comment"># changing Strategies dynamically</span>
 
     <span class="function">def</span> sort_list(<span class="function">self</span>, data):
         <span class="function">return</span> <span class="function">self</span>.strategy.sort(data)
@@ -817,7 +817,7 @@ sorter.set_strategy(<span class="function">BubbleSort</span>())
 
                                     <h2><a id="template-method">Template Method</a></h2>
 
-                                    <p>Template Method defines the skeleton of an algorithm in a base <span class="function">class</span> while allowing subclasses to fill in specific steps. This promotes code reuse and ensures that the core logic remains unchanged while allowing flexibility in certain steps.</p>
+                                    <p>Template Method defines the skeleton of an algorithm in a base class while allowing subclasses to fill in specific steps. This promotes code reuse and ensures that the core logic remains unchanged while allowing flexibility in certain steps.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
@@ -859,11 +859,49 @@ inventory.generate_report()
 
                                     <h2><a id="visitor">Visitor</a></h2>
 
-                                    <p></p>
+                                    <p>Visitor allows us to add new operations to existing object structures without modifying their classes. Instead of adding behavior inside the class itself, we create a Visitor that implements the behavior and visits objects. This keeps the document structure unchanged while allowing new operations.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
 
+<span class="function">class</span> DocumentElement(<span class="function">ABC</span>):
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> accept(<span class="function">self</span>, visitor):
+        <span class="function">pass</span>
+
+<span class="function">class</span> Text(<span class="function">DocumentElement</span>):
+    <span class="function">def</span> accept(<span class="function">self</span>, visitor):
+        visitor.visit_text(<span class="function">self</span>)
+
+<span class="function">class</span> Image(<span class="function">DocumentElement</span>):
+    <span class="function">def</span> accept(<span class="function">self</span>, visitor):
+        visitor.visit_image(<span class="function">self</span>)
+
+<span class="function">class</span> Visitor(<span class="function">ABC</span>): <span class="comment"># a Visitor interface</span>
+    <span class="function">@abstractmethod</span>
+    <span class="function">def</span> visit_text(<span class="function">self</span>, text):
+        <span class="function">pass</span>
+
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> visit_image(<span class="function">self</span>, image):
+        <span class="function">pass</span>
+
+<span class="function">class</span> Renderer(<span class="function">Visitor</span>): <span class="comment"># a concrete Visitor</span>
+    <span class="function">def</span> visit_text(<span class="function">self</span>, text):
+       <span class="command"> print</span>(<span class="text">"Rendering text"</span>)
+
+    <span class="function">def</span> visit_image(<span class="function">self</span>, image):
+        <span class="command">print</span>(<span class="text">"Rendering image"</span>)
+
+elements <span class="sign">=</span> [<span class="function">Text</span>(), <span class="function">Image</span>()]
+renderer <span class="sign">=</span> <span class="function">Renderer</span>()
+<span class="function">for</span> element <span class="function">in</span> elements:
+    element.accept(renderer)
                                     </code></pre>
+
+                                    <h5>Visitor VS Decorator</h5>
+
+                                    <p>A Visitor allows new operations to be added to existing object structures without modifying them by separating the algorithm from the objects it operates on. Decorator allows behavior to be dynamically added to an object at runtime by wrapping it with additional functionality, enhancing or altering its capabilities.</p>
                                 </div>
                             </div>
                         </div>

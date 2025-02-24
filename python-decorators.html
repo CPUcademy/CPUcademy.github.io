@@ -115,7 +115,7 @@ f(<span class="text">"Function"</span>)
                                     
                                     <p>Class methods are bound to the class, not to individual class objects (instances) like regular methods. We create them by writing a <code>@classmethod</code> decorator before them. They take the <code>cls</code> argument (not <code>self</code>). It works the same as <code>self</code>, except that <code>self</code> refers to an object of a class (its instance), and <code>cls</code> refers to the class itself. Class methods don't have access to fields, but they can refer to class attributes (via <code>cls</code> or the class name). Class attributes are, in other words, static variables.</p>
 
-                                    <p>Class methods are used to modify the value of static variables inside the class and create Factory methods. A Factory method is an alternate constructor. It provides an additional way to create class instances, often with a more descriptive name or specialized logic, while keeping the main <code>__init__()</code> constructor simple. For example, instead of the user's age, we can take his date of birth and then calculate the age. A class can have multiple alternate constructors. The Factory method is a design pattern, which you can learn more about <a href="python-creational-patterns.html#factories" class="link">here</a>. We call class methods using the class directly without creating its instance (<code>Example.classMethod()</code>).</p>
+                                    <p>Class methods are used to modify the value of static variables inside the class and create Factory Methods. A Factory Method is an alternate constructor. It provides an additional way to create class instances, often with a more descriptive name or specialized logic, while keeping the main <code>__init__()</code> constructor simple. It allows subclasses to define the type of object to be created, enabling customization of object creation without modifying the core logic. For example, instead of the user's age, we can take his date of birth and then calculate the age. A class can have multiple alternate constructors. The Factory Method is a design pattern, which you can learn more about <a href="python-creational-patterns.html#factories" class="link">here</a>. We call class methods using the class directly without creating its instance (<code>Example.classMethod()</code>).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Overall example</span>
@@ -143,7 +143,7 @@ e.method()
                                     </code></pre>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># Factory method</span>
+<span class="comment"># Factory Method</span>
 <span class="function">class</span> Person:
     <span class="function">def __init__</span>(<span class="function">self</span>, name, age):
         <span class="function">self</span>.__name <span class="sign">=</span> name
