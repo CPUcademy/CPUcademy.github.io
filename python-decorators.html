@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. This website is a personal portfolio and was created by one person.">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
     <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
@@ -92,7 +92,7 @@
                                     <h5 class="m-0 font-weight-bold">Decorators</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>A decorator is a higher-order function that takes another function as its argument, enhances or modifies its behavior, and returns the modified function. One function can have multiple decorators assigned. They are used to add reusable code and improve its readability and maintainability.</p>
+                                    <p>A decorator is a higher-order function that takes another function as its argument, enhances or modifies its behavior, and returns the modified function (it "wraps around" the other function). One function can have multiple decorators assigned. They are used to add reusable code and improve its readability and maintainability.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">def</span> decorator_function(func):
@@ -115,7 +115,7 @@ f(<span class="text">"Function"</span>)
                                     
                                     <p>Class methods are bound to the class, not to individual class objects (instances) like regular methods. We create them by writing a <code>@classmethod</code> decorator before them. They take the <code>cls</code> argument (not <code>self</code>). It works the same as <code>self</code>, except that <code>self</code> refers to an object of a class (its instance), and <code>cls</code> refers to the class itself. Class methods don't have access to fields, but they can refer to class attributes (via <code>cls</code> or the class name). Class attributes are, in other words, static variables.</p>
 
-                                    <p>Class methods are used to modify the value of static variables inside the class and create Factory methods. A Factory method is an alternate constructor. It provides an additional way to create class instances, often with a more descriptive name or specialized logic, while keeping the main <code>__init__()</code> constructor simple. For example, instead of the user's age, we can take his date of birth and then calculate the age. A class can have multiple alternate constructors. The Factory method is a design pattern, which you can learn more about <a href="python-creational-patterns.html#factories" class="link">here</a>. We call class methods using the class directly without creating its instance (<code>Example.classMethod()</code>).</p>
+                                    <p>Class methods are used to modify the value of static variables inside the class and create Factory Methods. A Factory Method is an alternate constructor. It provides an additional way to create class instances, often with a more descriptive name or specialized logic, while keeping the main <code>__init__()</code> constructor simple. It allows subclasses to define the type of object to be created, enabling customization of object creation without modifying the core logic. For example, instead of the user's age, we can take his date of birth and then calculate the age. A class can have multiple alternate constructors. The Factory Method is a design pattern, which you can learn more about <a href="python-creational-patterns.html#factories" class="link">here</a>. We call class methods using the class directly without creating its instance (<code>Example.classMethod()</code>).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Overall example</span>
@@ -143,7 +143,7 @@ e.method()
                                     </code></pre>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># Factory method</span>
+<span class="comment"># Factory Method</span>
 <span class="function">class</span> Person:
     <span class="function">def __init__</span>(<span class="function">self</span>, name, age):
         <span class="function">self</span>.__name <span class="sign">=</span> name
@@ -206,7 +206,7 @@ e.method()
                                     
                                     <h2>Abstract classes</h2>
                                     
-                                    <p>An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects or have instances, so we can only use them in its child classes. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). An abstract method is a method that is in an abstract class and has the <code>@abstractmethod</code> decorator in front of it. We create abstract classes by inheriting the <code>ABC</code> object from an imported module. An abstract class forces all its child classes to override all its abstract methods. It isn't mandatory to overwrite a non-abstract method from an abstract class. Non-abstract methods can contain implementations to be inherited in the child classes (abstract methods have to be overridden, so it wouldn't make sense for them to contain implementations).</p>
+                                    <p>An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects or have instances, so we can only use them in its child classes. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). An abstract method is a method that is in an abstract class and has the <code>@abstractmethod</code> decorator in front of it. We create abstract classes by inheriting the <code>ABC</code> object from an imported module. An abstract class forces all its child classes to override all its abstract methods. It isn't mandatory to overwrite a non-abstract method from an abstract class. Non-abstract methods can contain implementations to be inherited in the child classes (abstract methods have to be overridden, so it wouldn't make sense for them to contain implementations). If an abstract class contains a constructor, it will be executed when its subclass is instantiated.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">        
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
@@ -229,6 +229,8 @@ cat.voice2()
                                     </code></pre>        
 
                                     <p>The term "interface" in Python refers to an abstract class in which all methods are abstract and do not contain any implementation, providing only method signatures that must be implemented by subclasses.</p>
+                                    
+                                    <p>An abstraction defines the general structure or interface without specifying details, while a concrete implementation provides the actual functionality based on that abstraction.</p>
                                     
                                     <h2><code>@property</code>, <code>@setter</code>, <code>@deleter</code></h2>
                                     

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. This website is a personal portfolio and was created by one person.">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
     <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
@@ -41,7 +41,7 @@
     
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                    aria-expanded="True" aria-controls="collapseTwo">
                     <i class="icon-th-list"></i>
                     <span>Tutorials</span>
                 </a>
@@ -92,19 +92,818 @@
                                     <h5 class="m-0 font-weight-bold">Behavioral patterns</h5>
                                 </div>
                                 <div class="card-body">
-                                    They are all different, no central theme
+                                    <h3>Table of contents</h3>
+                                    
+                                    <ul>
+                                        <li><a href="#observer" class="link" style="text-decoration: None;">Observer</a></li>
+                                        <li><a href="#chain-of-responsibility" class="link" style="text-decoration: None;">Chain of Responsibility</a></li>
+                                        <li><a href="#command" class="link" style="text-decoration: None;">Command</a></li>
+                                        <li><a href="#interpreter" class="link" style="text-decoration: None;">Interpreter</a></li>
+                                        <li><a href="#iterator" class="link" style="text-decoration: None;">Iterator</a></li>
+                                        <li><a href="#mediator" class="link" style="text-decoration: None;">Mediator</a></li>
+                                        <li><a href="#memento" class="link" style="text-decoration: None;">Memento</a></li>
+                                        <li><a href="#state" class="link" style="text-decoration: None;">State</a></li>
+                                        <li><a href="#strategy" class="link" style="text-decoration: None;">Strategy</a></li>
+                                        <li><a href="#template-method" class="link" style="text-decoration: None;">Template Method</a></li>
+                                        <li><a href="#visitor" class="link" style="text-decoration: None;">Visitor</a></li>
+                                    </ul>
 
-                                    - chain of responsibility
-                                    - command
-                                    - interpreter
-                                    - iterator
-                                    - mediator
-                                    - memento
-                                    - observer
-                                    - state
-                                    - strategy
-                                    - template method
-                                    - visitor
+                                    <p>Behavioral design patterns focus on the interaction and communication between objects. They aim to define how objects collaborate, ensuring efficient and flexible communication without tightly coupling components.</p>
+
+                                    <h2><a id="observer">Observer</a></h2>
+
+                                    <p>Observer allows a subject (publisher) to maintain a list of its dependents (observers), and automatically notifies them of any state changes, usually by calling one of their methods. This pattern is typically used when a change to one object requires changing others, and we want to avoid tight coupling between the objects.</p>
+                                    
+                                    <h4>Events</h4>
+
+                                    <p>An event-based observer notifies subscribers when a specific event occurs, allowing dynamic reactions without directly monitoring a property change.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Event(<span class="function">list</span>):
+    <span class="function">def __call__</span>(<span class="function">self</span>, <span class="sign">*</span>args, <span class="sign">**</span>kwargs):
+        <span class="function">for</span> item <span class="function">in self</span>:
+            item(<span class="sign">*</span>args, <span class="sign">**</span>kwargs)
+
+<span class="function">class</span> Subscriber:
+    <span class="function">def __init__</span>(<span class="function">self</span>, name):
+        <span class="function">self</span>.name <span class="sign">=</span> name
+
+    <span class="function">def</span> receive_email(<span class="function">self</span>, newsletter):
+        <span class="command">print</span>(<span class="text">f"{self.name} received: {newsletter}"</span>)
+
+<span class="function">class</span> Newsletter:
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.new_issue_released <span class="sign">=</span> <span class="function">Event</span>()
+
+    <span class="function">def</span> release_new_issue(<span class="function">self</span>, issue_title):
+        <span class="command">print</span>(<span class="text">f"Releasing new issue: {issue_title}"</span>)
+        <span class="function">self</span>.new_issue_released(issue_title)
+
+john <span class="sign">=</span> <span class="function">Subscriber</span>(<span class="text">"John"</span>)
+newsletter <span class="sign">=</span> <span class="function">Newsletter</span>()
+newsletter.new_issue_released.<span class="command">append</span>(john.receive_email) <span class="comment"># adding John to the subscription list</span>
+
+newsletter.release_new_issue(<span class="text">"Design Patterns Vol. 1"</span>) <span class="comment"># releasing a new issue</span>
+newsletter.new_issue_released.<span class="command">remove</span>(john.receive_email) <span class="comment"># removing John from the subscription list</span>
+newsletter.release_new_issue(<span class="text">"Design Patterns Vol. 2"</span>) <span class="comment"># releasing a new issue</span>
+                                    </code></pre>
+
+                                    <h4>Property observer</h4>
+
+                                    <p>A property observer ties event handling to a property change (using <code>@property</code> and <code>@setter</code>). It is just a different approach to the Observer pattern. Both are good, and we just have to choose the one that suits our needs.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Event(<span class="function">list</span>):
+    <span class="function">def __call__</span>(<span class="function">self</span>, <span class="sign">*</span>args, <span class="sign">**</span>kwargs):
+        <span class="function">for</span> item <span class="function">in self</span>:
+            item(<span class="sign">*</span>args, <span class="sign">**</span>kwargs)
+
+<span class="function">class</span> Subscriber:
+    <span class="function">def __init__</span>(<span class="function">self</span>, name):
+        <span class="function">self</span>.name <span class="sign">=</span> name
+
+    <span class="function">def</span> receive_email(<span class="function">self</span>, newsletter):
+        <span class="command">print</span>(<span class="text">f"{self.name} received: {newsletter}"</span>)
+
+<span class="function">class</span> Newsletter:
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>._new_issue <span class="sign">=</span> <span class="function">None</span>
+        <span class="function">self</span>.new_issue_released <span class="sign">=</span> <span class="function">Event</span>() <span class="comment"># the event fires when issue updates</span>
+
+    <span class="command">@property</span>
+    <span class="function">def</span> new_issue(<span class="function">self</span>):
+        <span class="function">return self</span>._new_issue
+
+    <span class="command">@new_issue.setter</span>
+    <span class="function">def</span> new_issue(<span class="function">self</span>, issue_title):
+        <span class="function">if self</span>._new_issue <span class="sign">!=</span> issue_title: <span class="comment"># ensuring it's actually changing</span>
+            <span class="function">self</span>._new_issue <span class="sign">=</span> issue_title
+            <span class="command">print</span>(<span class="text">f"New issue set: {issue_title}"</span>)
+            <span class="function">self</span>.new_issue_released(issue_title) <span class="comment"># notifying subscribers</span>
+
+john <span class="sign">=</span> <span class="function">Subscriber</span>(<span class="text">"John"</span>)
+newsletter <span class="sign">=</span> <span class="function">Newsletter</span>()
+newsletter.new_issue_released.<span class="command">append</span>(john.receive_email)
+
+newsletter.new_issue <span class="sign">=</span> <span class="text">"Design Patterns Vol. 1"</span> <span class="comment"># automatically notifying John</span>
+newsletter.new_issue_released.<span class="command">remove</span>(john.receive_email)
+newsletter.new_issue <span class="sign">=</span> <span class="text">"Design Patterns Vol. 2"</span> <span class="comment"># no notification sent</span>
+                                    </code></pre>
+
+                                    <h4>Property dependencies</h4>
+
+                                    <p>Property dependencies ensure that one property automatically updates when another changes.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Person:
+    <span class="function">def __init__</span>(<span class="function">self</span>, name, birth_year, current_year):
+        <span class="function">self</span>.name <span class="sign">=</span> name
+        <span class="function">self</span>.birth_year <span class="sign">=</span> birth_year
+        <span class="function">self</span>.current_year <span class="sign">=</span> current_year
+
+    <span class="command">@property</span>
+    <span class="function">def</span> age(<span class="function">self</span>):
+        <span class="function">return</span> <span class="function">self</span>.current_year <span class="sign">-</span> <span class="function">self</span>.birth_year <span class="comment"># age depends on birth_year and current_year</span>
+
+p <span class="sign">=</span> Person(<span class="text">"Bob"</span>, 2000, 2025)
+<span class="command">print</span>(p.age)
+p.current_year <span class="sign">=</span> 2030
+<span class="command">print</span>(p.age) <span class="comment"># age has been automatically updated</span>
+                                    </code></pre>
+
+                                    <h2><a id="chain-of-responsibility">Chain of Responsibility</a></h2>
+
+                                    <p>Chain of Responsibility allows multiple handlers to process a request without the sender needing to know which handler will handle it. The request is passed along a chain of handlers until one of them processes it (or it reaches the end of the chain). This pattern promotes loose coupling and makes it easy to add or modify handlers dynamically. All componenets of a chain get a chance to process a command or a query, and have the ability to terminate the processing chain.</p>
+                                    
+                                    <h4>Method chain (classic approach)</h4>
+
+                                    <p>In this approach, each handler explicitly calls the next one. It is good for request approval flows.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Request:
+    <span class="function">def __init__</span>(<span class="function">self</span>, amount):
+        <span class="function">self</span>.amount <span class="sign">=</span> amount
+
+<span class="function">class</span> Handler:
+    <span class="function">def __init__</span>(<span class="function">self</span>, successor <span class="sign">=</span> <span class="function">None</span>):
+        <span class="function">self</span>.successor <span class="sign">=</span> successor
+
+    <span class="function">def</span> handle(<span class="function">self</span>, request):
+        <span class="function">if self</span>.successor:
+            <span class="function">self</span>.successor.handle(request)
+
+<span class="function">class</span> Manager(Handler):
+    <span class="function">def</span> handle(<span class="function">self</span>, request):
+        <span class="function">if</span> request.amount <span class="sign">&lt;=</span> 1000:
+            <span class="command">print</span>(<span class="text">f"Manager approves ${request.amount}"</span>)
+        <span class="function">else</span>:
+            <span class="function">super</span>().handle(request)
+
+<span class="function">class</span> Director(Handler):
+    <span class="function">def</span> handle(<span class="function">self</span>, request):
+        <span class="function">if</span> request.amount <span class="sign">&lt;=</span> 5000:
+            <span class="command">print</span>(<span class="text">f"Director approves ${request.amount}"</span>)
+        <span class="function">else</span>:
+            <span class="function">super</span>().handle(request)
+
+<span class="function">class</span> CEO(Handler):
+    <span class="function">def</span> handle(<span class="function">self</span>, request):
+        <span class="function">if</span> request.amount <span class="sign">&gt;</span> 5000:
+            <span class="command">print</span>(<span class="text">f"CEO approves ${request.amount}"</span>)
+
+<span class="comment"># Creating the chain: Manager → Director → CEO</span>
+manager <span class="sign">=</span> <span class="function">Manager</span>(<span class="function">Director</span>(<span class="function">CEO</span>()))
+
+<span class="comment"># Requests go through the chain until handled</span>
+manager.handle(<span class="function">Request</span>(500)) <span class="comment"># handled by Manager</span>
+manager.handle(<span class="function">Request</span>(3000)) <span class="comment"># handled by Director</span>
+manager.handle(<span class="function">Request</span>(10000)) <span class="comment"># handled by CEO</span>
+                                    </code></pre>
+
+                                    <h4>Broker chain (event-based approach)</h4>
+
+                                    <p>Broker chain uses an event-driven system where multiple handlers process a request independently without forming a strict chain. It is useful in scenarios where multiple components modify a value dynamically, such as game stat modifiers or discount systems in e-commerce. Even though handlers are not explicitly linked, they act on the request in sequence when the event is triggered. It is a more flexible and decentralized version of the Chain of Responsibility pattern.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Event(<span class="function">list</span>):
+    <span class="function">def __call__</span>(<span class="function">self</span>, <span class="sign">*</span>args, <span class="sign">**</span>kwargs):
+        <span class="function">for</span> item <span class="function">in self</span>:
+            item(<span class="sign">*</span>args, <span class="sign">**</span>kwargs)
+
+<span class="function">class</span> Query:
+    <span class="function">def __init__</span>(<span class="function">self</span>, product_name, query_type, value):
+        <span class="function">self</span>.product_name <span class="sign">=</span> product_name
+        <span class="function">self</span>.query_type <span class="sign">=</span> query_type
+        <span class="function">self</span>.value <span class="sign">=</span> value
+
+<span class="function">class</span> ECommercePlatform:
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.discount_handlers <span class="sign">=</span> <span class="function">Event</span>()
+
+    <span class="function">def</span> apply_discounts(<span class="function">self</span>, query):
+        <span class="function">self</span>.discount_handlers(query) <span class="comment"># calling all registered discount handlers</span>
+
+<span class="function">class</span> Product:
+    <span class="function">def __init__</span>(<span class="function">self</span>, platform, name, base_price):
+        <span class="function">self</span>.platform <span class="sign">=</span> platform
+        <span class="function">self</span>.name <span class="sign">=</span> name
+        <span class="function">self</span>.base_price <span class="sign">=</span> base_price
+
+    <span class="command">@property</span>
+    <span class="function">def</span> price(<span class="function">self</span>):
+        query <span class="sign">=</span> Query(<span class="function">self</span>.name, <span class="text">"price"</span>, <span class="function">self</span>.base_price)
+        <span class="function">self</span>.platform.apply_discounts(query) <span class="comment"># applying registered discounts</span>
+        <span class="function">return</span> query.value
+
+<span class="function">class</span> DiscountModifier:
+    <span class="function">def __init__</span>(<span class="function">self</span>, platform, product):
+        <span class="function">self</span>.platform <span class="sign">=</span> platform
+        <span class="function">self</span>.product <span class="sign">=</span> product
+        <span class="function">self</span>.platform.discount_handlers.<span class="command">append</span>(<span class="function">self</span>.handle) <span class="comment"># registering handler</span>
+
+    <span class="function">def</span> handle(<span class="function">self</span>, query):
+        <span class="function">pass</span> <span class="comment"># to be implemented by subclasses</span>
+
+<span class="function">class</span> BlackFridayDiscount(<span class="function">DiscountModifier</span>):
+    <span class="function">def</span> handle(<span class="function">self</span>, query):
+        <span class="function">if</span> query.product_name <span class="sign">==</span> <span class="function">self</span>.product.name <span class="function">and</span> query.query_type <span class="sign">==</span> <span class="text">"price"</span>:
+            query.value <span class="sign">*=</span> 0.8 <span class="comment"># 20% discount</span>
+
+<span class="function">class</span> LoyaltyDiscount(<span class="function">DiscountModifier</span>):
+    <span class="function">def</span> handle(<span class="function">self</span>, query):
+        <span class="function">if</span> query.product_name <span class="sign">==</span> <span class="function">self</span>.product.name <span class="function">and</span> query.query_type <span class="sign">==</span> <span class="text">"price"</span>:
+            query.value <span class="sign">*=</span> 0.9 <span class="comment"># additional 10% discount for loyal customers</span>
+
+platform <span class="sign">=</span> <span class="function">ECommercePlatform</span>()
+laptop <span class="sign">=</span> <span class="function">Product</span>(platform, <span class="text">"Laptop"</span>, 1000)
+
+<span class="command">print</span>(<span class="text">"Original price:"</span>, laptop.price)
+
+black_friday <span class="sign">=</span> <span class="function">BlackFridayDiscount</span>(platform, laptop)
+<span class="command">print</span>(<span class="text">"After Black Friday discount:"</span>, laptop.price)
+
+loyalty <span class="sign">=</span> <span class="function">LoyaltyDiscount</span>(platform, laptop)
+<span class="command">print</span>(<span class="text">"After loyalty discount:"</span>, laptop.price)
+                                    </code></pre>
+
+                                    <h2><a id="command">Command</a></h2>
+
+                                    <p>Command is used to turn a request (an action) into a stand-alone object. This object encapsulates all details of the request, allowing parameterization of objects. It is also useful for implementing the undo functionality.</p>
+
+                                    <p>In the example below, the <code>LightOnCommand</code> and <code>LightOffCommand</code> classes encapsulate the action and its associated details (they take the <code>Light</code> object as a parameter) and can be executed by <code>RemoteControl</code> (the invoker) when triggered.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
+
+<span class="function">class</span> Command(<span class="function">ABC</span>): <span class="comment"># a Command interface</span>
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> execute(<span class="function">self</span>):
+        <span class="function">pass</span>
+
+<span class="function">class</span> Light: <span class="comment"># a receiver class (the object that performs the action when requested)</span>
+    <span class="function">def</span> on(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"The light is ON"</span>)
+    <span class="function">def</span> off(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"The light is OFF"</span>)
+
+<span class="comment"># Concrete Command classes</span>
+<span class="function">class</span> LightOnCommand(<span class="function">Command</span>):
+    <span class="function">def __init__</span>(<span class="function">self</span>, light):
+        <span class="function">self</span>.light <span class="sign">=</span> light
+
+    <span class="function">def</span> execute(<span class="function">self</span>):
+        <span class="function">self</span>.light.on() <span class="comment"># the receiver (Light) performs the action</span>
+
+<span class="function">class</span> LightOffCommand(<span class="function">Command</span>):
+    <span class="function">def __init__</span>(<span class="function">self</span>, light):
+        <span class="function">self</span>.light <span class="sign">=</span> light
+
+    <span class="function">def</span> execute(<span class="function">self</span>):
+        <span class="function">self</span>.light.off() <span class="comment"># the receiver (Light) performs the action</span>
+
+<span class="function">class</span> RemoteControl: <span class="comment"># an invoker class (the object that calls the command)</span>
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.command <span class="sign">=</span> <span class="function">None</span>
+
+    <span class="function">def</span> set_command(<span class="function">self</span>, command):
+        <span class="function">self</span>.command <span class="sign">=</span> command
+
+    <span class="function">def</span> press_button(<span class="function">self</span>):
+        <span class="function">if self</span>.command:
+            <span class="function">self</span>.command.execute()
+
+light <span class="sign">=</span> <span class="function">Light</span>()
+light_on <span class="sign">=</span> <span class="function">LightOnCommand</span>(light)
+light_off <span class="sign">=</span> <span class="function">LightOffCommand</span>(light)
+remote <span class="sign">=</span> <span class="function">RemoteControl</span>()
+
+remote.set_command(light_on)
+remote.press_button()
+remote.set_command(light_off)
+remote.press_button()
+                                    </code></pre>
+
+                                    <h4>An example with undo functionality - money transactions</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
+
+<span class="function">class</span> Command(<span class="function">ABC</span>):
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> execute(<span class="function">self</span>):
+        <span class="function">pass</span>
+
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> undo(<span class="function">self</span>):
+        <span class="function">pass</span>
+
+<span class="function">class</span> BankAccount:
+    <span class="function">def __init__</span>(<span class="function">self</span>, balance <span class="sign">=</span> 0):
+        <span class="function">self</span>.balance <span class="sign">=</span> balance
+
+    <span class="function">def</span> deposit(<span class="function">self</span>, amount):
+        <span class="function">self</span>.balance <span class="sign">+=</span> amount
+
+    <span class="function">def</span> withdraw(<span class="function">self</span>, amount):
+        <span class="function">if self</span>.balance <span class="sign">&gt;=</span> amount:
+            <span class="function">self</span>.balance <span class="sign">-=</span> amount
+            <span class="function">return</span> <span class="function">True</span>
+        <span class="function">return</span> <span class="function">False</span>
+
+    <span class="function">def __str__</span>(<span class="function">self</span>):
+        <span class="function">return</span> <span class="text">f"Balance = {self.balance}"</span>
+
+<span class="function">class</span> TransferMoneyCommand(<span class="function">Command</span>):
+    <span class="function">def __init__</span>(<span class="function">self</span>, source_account, target_account, amount):
+        <span class="function">self</span>.source_account <span class="sign">=</span> source_account
+        <span class="function">self</span>.target_account <span class="sign">=</span> target_account
+        <span class="function">self</span>.amount <span class="sign">=</span> amount
+        <span class="function">self</span>.executed <span class="sign">=</span> <span class="function">False</span>
+
+    <span class="function">def</span> execute(<span class="function">self</span>):
+        <span class="function">if not self</span>.executed:
+            <span class="function">if self</span>.source_account.withdraw(<span class="function">self</span>.amount):
+                <span class="function">self</span>.target_account.deposit(<span class="function">self</span>.amount)
+                <span class="function">self</span>.executed <span class="sign">=</span> <span class="function">True</span>
+                <span class="command">print</span>(<span class="text">f"Transferred {self.amount} from source to target."</span>)
+            <span class="function">else</span>:
+                <span class="command">print</span>(<span class="text">"Insufficient funds for transfer."</span>)
+        <span class="function">else</span>:
+            <span class="command">print</span>(<span class="text">"Transfer already executed."</span>)
+
+    <span class="function">def</span> undo(<span class="function">self</span>):
+        <span class="function">if self</span>.executed:
+            <span class="function">self</span>.target_account.withdraw(<span class="function">self</span>.amount)
+            <span class="function">self</span>.source_account.deposit(<span class="function">self</span>.amount)
+            <span class="command">print</span>(<span class="text">f"Undo transfer of {self.amount} from target back to source."</span>)
+            <span class="function">self</span>.executed <span class="sign">=</span> <span class="function">False</span>
+        <span class="function">else</span>:
+            <span class="command">print</span>(<span class="text">"No transfer to undo."</span>)
+
+<span class="function">class</span> TransactionHistory:
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.history <span class="sign">=</span> []
+
+    <span class="function">def</span> execute_command(<span class="function">self</span>, command):
+        command.execute()
+        <span class="function">self</span>.history.<span class="command">append</span>(command)
+
+    <span class="function">def</span> undo(<span class="function">self</span>):
+        <span class="function">if self</span>.history:
+            last_command <span class="sign">=</span> <span class="function">self</span>.history.<span class="command">pop</span>()
+            last_command.undo()
+
+source <span class="sign">=</span> <span class="function">BankAccount</span>(500)
+target <span class="sign">=</span> <span class="function">BankAccount</span>(200)
+history <span class="sign">=</span> <span class="function">TransactionHistory</span>()
+
+<span class="command">print</span>(<span class="text">f"Source account before transfer: {source}"</span>)
+<span class="command">print</span>(<span class="text">f"Target account before transfer: {target}"</span>)
+
+transfer1 <span class="sign">=</span> <span class="function">TransferMoneyCommand</span>(source, target, 100)
+history.execute_command(transfer1)
+
+<span class="command">print</span>(<span class="text">f"Source account after first transfer: {source}"</span>)
+<span class="command">print</span>(<span class="text">f"Target account after first transfer: {target}"</span>)
+
+transfer2 <span class="sign">=</span> <span class="function">TransferMoneyCommand</span>(source, target, 1000) <span class="comment"># trying to transfer more than available funds</span>
+history.execute_command(transfer2)
+
+<span class="command">print</span>(<span class="text">f"Source account after second transfer attempt: {source}"</span>)
+<span class="command">print</span>(<span class="text">f"Target account after second transfer attempt: {target}"</span>)
+history.undo()
+
+<span class="command">print</span>(<span class="text">f"Source account after undo: {source}"</span>)
+<span class="command">print</span>(<span class="text">f"Target account after undo: {target}"</span>)
+                                    </code></pre>
+
+                                    <h2><a id="interpreter">Interpreter</a></h2>
+
+                                    <p>Interpreter is used for designing a system that needs to process and evaluate language expressions. It provides a way to define the grammar of a language and interpret statements in that language. It is commonly used in mathematical expression evaluators, rule-based engines, and parsers. It turns text data into separate lexical tokens (lexing) and interprets sequences of these tokens (parsing).</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
+
+<span class="comment"># Lexing</span>
+<span class="function">class</span> Token:
+    NUMBER, PLUS, MINUS <span class="sign">=</span> <span class="text">"NUMBER"</span>, <span class="text">"PLUS"</span>, <span class="text">"MINUS"</span>
+
+    <span class="function">def __init__</span>(<span class="function">self</span>, type_, value <span class="sign">=</span> <span class="function">None</span>):
+        <span class="function">self</span>.type <span class="sign">=</span> type_
+        <span class="function">self</span>.value <span class="sign">=</span> value
+
+    <span class="function">def __repr__</span>(<span class="function">self</span>):
+        <span class="function">return</span> <span class="text">f"Token({self.type}, {self.value})"</span>
+
+<span class="function">class</span> Lexer:
+    <span class="function">def __init__</span>(<span class="function">self</span>, text):
+        <span class="function">self</span>.text <span class="sign">=</span> text.<span class="command">replace</span>(<span class="text">" "</span>, <span class="text">""</span>) <span class="comment"># removing spaces for easier processing</span>
+        <span class="function">self</span>.index <span class="sign">=</span> 0
+
+    <span class="function">def</span> get_next_token(<span class="function">self</span>):
+        <span class="function">if self</span>.index <span class="sign">&gt;=</span> <span class="command">len</span>(<span class="function">self</span>.text):
+            <span class="function">return None</span>
+
+        char <span class="sign">=</span> <span class="function">self</span>.text[<span class="function">self</span>.index]
+        <span class="function">if</span> char.<span class="command">isdigit</span>():
+            num <span class="sign">=</span> 0
+            <span class="comment"># Extracting multi-digit numbers</span>
+            <span class="function">while</span> <span class="function">self</span>.index <span class="sign">&lt;</span> <span class="command">len</span>(<span class="function">self</span>.text) <span class="function">and</span> <span class="function">self</span>.text[<span class="function">self</span>.index].<span class="command">isdigit</span>():
+                num <span class="sign">=</span> num <span class="sign">*</span> 10 <span class="sign">+</span> <span class="function">int</span>(<span class="function">self</span>.text[<span class="function">self</span>.index])
+                <span class="function">self</span>.index <span class="sign">+=</span> 1
+            <span class="function">return</span> <span class="function">Token</span>(<span class="function">Token</span>.NUMBER, num)
+        <span class="function">elif</span> char <span class="sign">==</span> <span class="text">"+"</span>:
+            <span class="function">self</span>.index <span class="sign">+=</span> 1
+            <span class="function">return</span> <span class="function">Token</span>(<span class="function">Token</span>.PLUS)
+        <span class="function">elif</span> char <span class="sign">==</span> <span class="text">"-"</span>:
+            <span class="function">self</span>.index <span class="sign">+=</span> 1
+            <span class="function">return</span> <span class="function">Token</span>(<span class="function">Token</span>.MINUS)
+
+    <span class="function">def</span> tokenize(<span class="function">self</span>):
+        tokens <span class="sign">=</span> []
+        <span class="function">while</span> <span class="function">self</span>.index <span class="sign">&lt;</span> <span class="command">len</span>(<span class="function">self</span>.text):
+            tokens.<span class="command">append</span>(<span class="function">self</span>.get_next_token()) <span class="comment"># generating a token list</span>
+        <span class="function">return</span> tokens
+
+<span class="comment"># Parsing</span>
+<span class="function">class</span> Expression(<span class="function">ABC</span>): <span class="comment"># an abstract base for all expressions</span>
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> interpret(<span class="function">self</span>):
+        <span class="function">pass</span>
+
+<span class="function">class</span> NumberExpression(<span class="function">Expression</span>):
+    <span class="function">def __init__</span>(<span class="function">self</span>, number):
+        <span class="function">self</span>.number <span class="sign">=</span> number
+
+    <span class="function">def</span> interpret(<span class="function">self</span>):
+        <span class="function">return</span> <span class="function">self</span>.number <span class="comment"># returning the numeric value</span>
+
+<span class="function">class</span> AddExpression(<span class="function">Expression</span>):
+    <span class="function">def __init__</span>(<span class="function">self</span>, left, right):
+        <span class="function">self</span>.left <span class="sign">=</span> left
+        <span class="function">self</span>.right <span class="sign">=</span> right
+
+    <span class="function">def</span> interpret(<span class="function">self</span>):
+        <span class="function">return</span> <span class="function">self</span>.left.interpret() <span class="sign">+</span> <span class="function">self</span>.right.interpret()
+
+<span class="function">class</span> SubtractExpression(<span class="function">Expression</span>):
+    <span class="function">def __init__</span>(<span class="function">self</span>, left, right):
+        <span class="function">self</span>.left <span class="sign">=</span> left
+        <span class="function">self</span>.right <span class="sign">=</span> right
+
+    <span class="function">def</span> interpret(<span class="function">self</span>):
+        <span class="function">return</span> <span class="function">self</span>.left.interpret() <span class="sign">-</span> <span class="function">self</span>.right.interpret()
+
+<span class="function">class</span> Parser:
+    <span class="function">def __init__</span>(<span class="function">self</span>, tokens):
+        <span class="function">self</span>.tokens <span class="sign">=</span> tokens
+        <span class="function">self</span>.current_token <span class="sign">=</span> <span class="function">self</span>.tokens.<span class="command">pop</span>(0) <span class="function">if self</span>.tokens <span class="function">else None</span> <span class="comment"># fetching the first token</span>
+
+    <span class="function">def</span> eat(<span class="function">self</span>, token_type):
+        <span class="function">if self</span>.current_token <span class="function">and self</span>.current_token.type <span class="sign">==</span> token_type:
+            <span class="function">self</span>.current_token <span class="sign">=</span> <span class="function">self</span>.tokens.<span class="command">pop</span>(0) <span class="function">if self</span>.tokens <span class="function">else None</span> <span class="comment"># moving to the next token</span>
+
+    <span class="function">def</span> parse(<span class="function">self</span>):
+        <span class="comment"># Parsing the first number</span>
+        left <span class="sign">=</span> <span class="function">NumberExpression</span>(<span class="function">self</span>.current_token.value)
+        <span class="function">self</span>.eat(<span class="function">Token</span>.NUMBER)
+
+        <span class="function">while</span> <span class="function">self</span>.current_token:
+            <span class="function">if self</span>.current_token.type <span class="sign">==</span> <span class="function">Token</span>.PLUS:
+                <span class="function">self</span>.eat(<span class="function">Token</span>.PLUS)
+                right <span class="sign">=</span> <span class="function">NumberExpression</span>(<span class="function">self</span>.current_token.value)
+                <span class="function">self</span>.eat(<span class="function">Token</span>.NUMBER)
+                left <span class="sign">=</span> <span class="function">AddExpression</span>(left, right) <span class="comment"># creating an addition node</span>
+            <span class="function">elif self</span>.current_token.type <span class="sign">==</span> <span class="function">Token</span>.MINUS:
+                <span class="function">self</span>.eat(<span class="function">Token</span>.MINUS)
+                right <span class="sign">=</span> <span class="function">NumberExpression</span>(<span class="function">self</span>.current_token.value)
+                <span class="function">self</span>.eat(<span class="function">Token</span>.NUMBER)
+                left <span class="sign">=</span> <span class="function">SubtractExpression</span>(left, right) <span class="comment"># creating a subtraction node</span>
+
+        <span class="function">return</span> left <span class="comment"># returning the complete expression tree</span>
+
+expression <span class="sign">=</span> <span class="text">"10 + 5 - 3"</span>
+lexer <span class="sign">=</span> <span class="function">Lexer</span>(expression)
+tokens <span class="sign">=</span> lexer.tokenize()
+<span class="command">print</span>(tokens)
+parser <span class="sign">=</span> <span class="function">Parser</span>(tokens)
+ast <span class="sign">=</span> parser.parse()
+<span class="command">print</span>(ast.interpret())
+                                    </code></pre>
+
+                                    <h2><a id="iterator">Iterator</a></h2>
+
+                                    <p>Iterator provides a way to access elements of a collection sequentially without exposing its underlying structure. Instead of manually managing iteration, the pattern encapsulates it within an iterator object that keeps track of the current position and provides a standard way to retrieve the next element. You can find a basic example of this pattern featuring a custom iterable in the <a href="python-generators.html#iterator" class="link">lesson about generators</a>. The example below shows how to use list-backed properties while implementing the Iterator pattern to allow iteration over stored data.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Inventory:
+    <span class="function">def __init__</span>(<span class="function">self</span>, items <span class="sign">=</span> <span class="function">None</span>):
+        <span class="function">self</span>._items <span class="sign">=</span> items <span class="function">if</span> items <span class="function">else</span> []
+
+    <span class="command">@property</span>
+    <span class="function">def</span> items(<span class="function">self</span>):
+        <span class="function">return</span> <span class="function">self</span>._items
+
+    <span class="command">@items.setter</span>
+    <span class="function">def</span> items(<span class="function">self</span>, new_items):
+        <span class="function">if isinstance</span>(new_items, list):
+            <span class="function">self</span>._items <span class="sign">=</span> new_items
+        <span class="function">else</span>:
+            <span class="function">raise ValueError</span>(<span class="text">"Items must be a list."</span>)
+
+    <span class="function">def</span> __iter__(<span class="function">self</span>):
+        <span class="function">return</span> <span class="command">iter</span>(<span class="function">self</span>._items) <span class="comment"># returning an iterator for the list</span>
+
+inventory <span class="sign">=</span> <span class="function">Inventory</span>([<span class="text">"Sword"</span>, <span class="text">"Shield"</span>, <span class="text">"Potion"</span>])
+<span class="function">for</span> item <span class="function">in</span> inventory:
+    <span class="command">print</span>(item)
+
+inventory.items <span class="sign">=</span> [<span class="text">"Bow"</span>, <span class="text">"Arrow"</span>, <span class="text">"Helmet"</span>]
+<span class="function">for</span> item <span class="function">in</span> inventory:
+    <span class="command">print</span>(item)
+                                    </code></pre>
+
+                                    <h2><a id="mediator">Mediator</a></h2>
+
+                                    <p>Mediator defines an object that encapsulates how a set of objects interact. Instead of having multiple objects communicate directly, they communicate through a mediator, which handles the communication and coordination between them. This reduces the dependencies between objects, making the system easier to maintain and scale (the objects do not have to be aware of the other objects).</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Mediator:
+    <span class="function">def</span> send(<span class="function">self</span>, message, user):
+        <span class="function">pass</span>
+
+<span class="function">class</span> User:
+    <span class="function">def __init__</span>(<span class="function">self</span>, name):
+        <span class="function">self</span>.name <span class="sign">=</span> name
+        <span class="function">self</span>.mediator <span class="sign">=</span> None
+
+    <span class="function">def</span> send_message(<span class="function">self</span>, message):
+        <span class="command">print</span>(<span class="text">f"{self.name} sends: {message}"</span>)
+        <span class="function">self</span>.mediator.send(message, self)
+
+    <span class="function">def</span> receive_message(<span class="function">self</span>, message):
+        <span class="command">print</span>(<span class="text">f"{self.name} receives: {message}"</span>)
+
+<span class="function">class</span> ChatRoom(Mediator):
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.users <span class="sign">=</span> []
+
+    <span class="function">def</span> add_user(<span class="function">self</span>, user):
+        <span class="function">self</span>.users.<span class="command">append</span>(user)
+        user.mediator <span class="sign">=</span> <span class="function">self</span> <span class="comment"># setting the chat room as the mediator for each user when they join it</span>
+
+    <span class="function">def</span> send(<span class="function">self</span>, message, user):
+        <span class="function">for</span> u in <span class="function">self</span>.users:
+            <span class="function">if</span> u <span class="sign">!=</span> user:
+                u.receive_message(message)
+
+chat_room <span class="sign">=</span> <span class="function">ChatRoom</span>()
+
+alice <span class="sign">=</span> <span class="function">User</span>(<span class="text">"Alice"</span>)
+bob <span class="sign">=</span> <span class="function">User</span>(<span class="text">"Bob"</span>)
+charlie <span class="sign">=</span> <span class="function">User</span>(<span class="text">"Charlie"</span>)
+
+chat_room.add_user(alice)
+chat_room.add_user(bob)
+chat_room.add_user(charlie)
+
+alice.send_message(<span class="text">"Hi everyone!"</span>)
+bob.send_message(<span class="text">"Hello Alice!"</span>)
+charlie.send_message(<span class="text">"Hey all!"</span>)                                    
+                                    </code></pre>
+
+                                    <h2><a id="memento">Memento</a></h2>
+
+                                    <p>Memento allows capturing and restoring an object's state without exposing its internal details. It is useful for implementing undo/redo functionality or saving checkpoints in an application.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Memento: <span class="comment"># storing the state of the text document</span>
+    <span class="function">def __init__</span>(<span class="function">self</span>, content):
+        <span class="function">self</span>.content <span class="sign">=</span> content
+
+<span class="function">class</span> TextEditor:
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.content <span class="sign">=</span> <span class="text">""</span>
+        <span class="function">self</span>.history <span class="sign">=</span> [<span class="function">Memento</span>(<span class="function">self</span>.content)]
+        <span class="function">self</span>.current_state <span class="sign">=</span> 0
+
+    <span class="function">def</span> write(<span class="function">self</span>, text):
+        <span class="function">self</span>.content <span class="sign">+=</span> text
+        m <span class="sign">=</span> <span class="function">Memento</span>(<span class="function">self</span>.content)
+        <span class="function">self</span>.history.<span class="command">append</span>(m)
+        <span class="function">self</span>.current_state <span class="sign">+=</span> 1
+
+    <span class="function">def</span> undo(<span class="function">self</span>):
+        <span class="function">if self</span>.current_state <span class="sign">&gt;</span> 0:
+            <span class="function">self</span>.current_state <span class="sign">-=</span> 1
+            m <span class="sign">=</span> <span class="function">self</span>.history[<span class="function">self</span>.current_state]
+            <span class="function">self</span>.content <span class="sign">=</span> m.content
+            <span class="function">return</span> m
+        <span class="function">return None</span>
+
+    <span class="function">def</span> redo(<span class="function">self</span>):
+        <span class="function">if self</span>.current_state <span class="sign">+</span> 1 <span class="sign">&lt;</span> <span class="command">len</span>(<span class="function">self</span>.history):
+            <span class="function">self</span>.current_state <span class="sign">+=</span> 1
+            m <span class="sign">=</span> <span class="function">self</span>.history[<span class="function">self</span>.current_state]
+            <span class="function">self</span>.content <span class="sign">=</span> m.content
+            <span class="function">return</span> m
+        <span class="function">return None</span>
+
+    <span class="function">def</span> show_content(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">f"Document content: {self.content}"</span>)
+
+editor <span class="sign">=</span> TextEditor()
+editor.write(<span class="text">"Hello, "</span>)
+editor.show_content()
+editor.write(<span class="text">"world!"</span>)
+editor.show_content()
+
+editor.undo()
+editor.show_content()
+editor.redo()
+editor.show_content()
+                                    </code></pre>
+                                    
+                                    <h2><a id="state">State</a></h2>
+
+                                    <p>State allows an object to change its behavior when its internal state changes. It encapsulates different behaviors within separate state classes, making the system more maintainable and flexible.</p>
+
+                                    <p>In the example below, the behavior that changes is how the <code>TrafficLight</code> object responds to the <code>change()</code> method, depending on its current state. Each state class (<code>RedState</code>, <code>YellowState</code>, <code>GreenState</code>) defines a different state transition logic in the <code>switch()</code> method. </p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
+
+<span class="function">class</span> TrafficLightState(<span class="function">ABC</span>): <span class="comment"># a State interface</span>
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> switch(<span class="function">self</span>, light):
+        <span class="function">pass</span>
+
+<span class="comment"># Concrete State classes</span>
+<span class="function">class</span> RedState(<span class="function">TrafficLightState</span>):
+    <span class="function">def</span> switch(<span class="function">self</span>, light):
+        <span class="command">print</span>(<span class="text">"Red -> Switching to Green"</span>)
+        light.state <span class="sign">=</span> <span class="function">GreenState</span>()
+
+<span class="function">class</span> YellowState(<span class="function">TrafficLightState</span>):
+    <span class="function">def</span> switch(<span class="function">self</span>, light):
+        <span class="command">print</span>(<span class="text">"Yellow -> Switching to Red"</span>)
+        light.state <span class="sign">=</span> <span class="function">RedState</span>()
+
+<span class="function">class</span> GreenState(<span class="function">TrafficLightState</span>):
+    <span class="function">def</span> switch(<span class="function">self</span>, light):
+        <span class="command">print</span>(<span class="text">"Green -> Switching to Yellow"</span>)
+        light.state <span class="sign">=</span> <span class="function">YellowState</span>()
+
+<span class="function">class</span> TrafficLight: <span class="comment"># a context class (the object that maintains the current state and triggers state transitions)</span>
+    <span class="function">def __init__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.state <span class="sign">=</span> <span class="function">RedState</span>() <span class="comment"># an initial State</span>
+
+    <span class="function">def</span> change(<span class="function">self</span>):
+        <span class="function">self</span>.state.switch(<span class="function">self</span>) <span class="comment"># the context triggers the state switch</span>
+
+traffic_light <span class="sign">=</span> <span class="function">TrafficLight</span>()
+traffic_light.change()
+traffic_light.change()
+traffic_light.change()
+                                    </code></pre>
+
+                                    <h2><a id="strategy">Strategy</a></h2>
+
+                                    <p>Strategy defines a family of algorithms, encapsulates each one in a separate class, and allows them to be interchangeable without modifying the client code. This enables selecting an algorithm dynamically at runtime, promoting flexibility and maintainability.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
+
+<span class="function">class</span> SortStrategy(<span class="function">ABC</span>): <span class="comment"># a Strategy interface</span>
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> sort(<span class="function">self</span>, data):
+        <span class="function">pass</span>
+
+<span class="comment"># Concrete Strategy classes</span>
+<span class="function">class</span> QuickSort(<span class="function">SortStrategy</span>):
+    <span class="function">def</span> sort(<span class="function">self</span>, data):
+        <span class="command">print</span>(<span class="text">"Sorting using QuickSort"</span>)
+        <span class="function">return</span> sorted(data) <span class="comment"># a placeholder for actual implementation</span>
+
+<span class="function">class</span> MergeSort(<span class="function">SortStrategy</span>):
+    <span class="function">def</span> sort(<span class="function">self</span>, data):
+        <span class="command">print</span>(<span class="text">"Sorting using MergeSort"</span>)
+        <span class="function">return</span> sorted(data) <span class="comment"># a placeholder for actual implementation</span>
+    
+<span class="function">class</span> BubbleSort(<span class="function">SortStrategy</span>):
+    <span class="function">def</span> sort(<span class="function">self</span>, data):
+        <span class="command">print</span>(<span class="text">"Sorting using BubbleSort"</span>)
+        <span class="function">return</span> sorted(data) <span class="comment"># a placeholder for actual implementation</span>
+
+<span class="function">class</span> Sorter: <span class="comment"># a context class</span>
+    <span class="function">def __init__</span>(<span class="function">self</span>, strategy: <span class="function">SortStrategy</span>):
+        <span class="function">self</span>.strategy <span class="sign">=</span> strategy
+
+    <span class="function">def</span> set_strategy(<span class="function">self</span>, strategy: <span class="function">SortStrategy</span>):
+        <span class="function">self</span>.strategy <span class="sign">=</span> strategy <span class="comment"># changing Strategies dynamically</span>
+
+    <span class="function">def</span> sort_list(<span class="function">self</span>, data):
+        <span class="function">return</span> <span class="function">self</span>.strategy.sort(data)
+
+numbers <span class="sign">=</span> [5, 2, 9, 1, 5, 6]
+
+sorter <span class="sign">=</span> <span class="function">Sorter</span>(<span class="function">QuickSort</span>())
+<span class="command">print</span>(sorter.sort_list(numbers))
+
+sorter.set_strategy(<span class="function">MergeSort</span>())
+<span class="command">print</span>(sorter.sort_list(numbers))
+
+sorter.set_strategy(<span class="function">BubbleSort</span>())
+<span class="command">print</span>(sorter.sort_list(numbers))
+                                    </code></pre>
+
+                                    <h2><a id="template-method">Template Method</a></h2>
+
+                                    <p>Template Method defines the skeleton of an algorithm in a base class while allowing subclasses to fill in specific steps. This promotes code reuse and ensures that the core logic remains unchanged while allowing flexibility in certain steps.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
+
+<span class="function">class</span> ReportTemplate(<span class="function">ABC</span>):
+    <span class="function">def</span> generate_report(<span class="function">self</span>): <span class="comment"># a Template Method defining the steps for generating a report</span>
+        <span class="function">self</span>.collect_data()
+        <span class="function">self</span>.analyze_data()
+        <span class="command">print</span>(<span class="text">"Done."</span>)
+        
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> collect_data(<span class="function">self</span>):
+        <span class="function">pass</span>
+
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> analyze_data(<span class="function">self</span>):
+        <span class="function">pass</span>
+
+<span class="function">class</span> SalesReport(<span class="function">ReportTemplate</span>):
+    <span class="function">def</span> collect_data(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Collecting sales data..."</span>)
+
+    <span class="function">def</span> analyze_data(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Analyzing sales trends..."</span>)
+
+<span class="function">class</span> InventoryReport(<span class="function">ReportTemplate</span>):
+    <span class="function">def</span> collect_data(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Collecting inventory data..."</span>)
+
+    <span class="function">def</span> analyze_data(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Checking stock levels..."</span>)
+
+sales <span class="sign">=</span> <span class="function">SalesReport</span>()
+sales.generate_report()
+
+inventory <span class="sign">=</span> <span class="function">InventoryReport</span>()
+inventory.generate_report()
+                                    </code></pre>
+
+                                    <h2><a id="visitor">Visitor</a></h2>
+
+                                    <p>Visitor allows us to add new operations to existing object structures without modifying their classes. Instead of adding behavior inside the class itself, we create a Visitor that implements the behavior and visits objects. This keeps the document structure unchanged while allowing new operations.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
+
+<span class="function">class</span> DocumentElement(<span class="function">ABC</span>):
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> accept(<span class="function">self</span>, visitor):
+        <span class="function">pass</span>
+
+<span class="function">class</span> Text(<span class="function">DocumentElement</span>):
+    <span class="function">def</span> accept(<span class="function">self</span>, visitor):
+        visitor.visit_text(<span class="function">self</span>)
+
+<span class="function">class</span> Image(<span class="function">DocumentElement</span>):
+    <span class="function">def</span> accept(<span class="function">self</span>, visitor):
+        visitor.visit_image(<span class="function">self</span>)
+
+<span class="function">class</span> Visitor(<span class="function">ABC</span>): <span class="comment"># a Visitor interface</span>
+    <span class="function">@abstractmethod</span>
+    <span class="function">def</span> visit_text(<span class="function">self</span>, text):
+        <span class="function">pass</span>
+
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> visit_image(<span class="function">self</span>, image):
+        <span class="function">pass</span>
+
+<span class="function">class</span> Renderer(<span class="function">Visitor</span>): <span class="comment"># a concrete Visitor</span>
+    <span class="function">def</span> visit_text(<span class="function">self</span>, text):
+       <span class="command"> print</span>(<span class="text">"Rendering text"</span>)
+
+    <span class="function">def</span> visit_image(<span class="function">self</span>, image):
+        <span class="command">print</span>(<span class="text">"Rendering image"</span>)
+
+elements <span class="sign">=</span> [<span class="function">Text</span>(), <span class="function">Image</span>()]
+renderer <span class="sign">=</span> <span class="function">Renderer</span>()
+<span class="function">for</span> element <span class="function">in</span> elements:
+    element.accept(renderer)
+                                    </code></pre>
+
+                                    <h5>Visitor VS Decorator</h5>
+
+                                    <p>A Visitor allows new operations to be added to existing object structures without modifying them by separating the algorithm from the objects it operates on. Decorator allows behavior to be dynamically added to an object at runtime by wrapping it with additional functionality, enhancing or altering its capabilities.</p>
                                 </div>
                             </div>
                         </div>

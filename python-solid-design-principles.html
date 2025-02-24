@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. This website is a personal portfolio and was created by one person.">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
     <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Solid Design Principles</title>
+    <title>SOLID design principles</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -89,7 +89,7 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Solid Design Principles</h5>
+                                    <h5 class="m-0 font-weight-bold">SOLID design principles</h5>
                                 </div>
                                 <div class="card-body">
                                     <p class="podpis">Design patterns are common architectural approaches. They are universally relevant. They can be split into three categories (Gamma categorization): creational, structural, and behavioral. The SOLID design principles are five principles aimed at improving software design and making it more understandable, flexible, and maintainable. They are frequently mentioned along design patterns but are not a part of that group. The acronym SOLID stands for:</p>
@@ -125,7 +125,7 @@ book.print_details()
 book.save_to_file(<span class="text">"book.txt"</span>)
                                     </code></pre>
 
-                                    <p>The <code>Book</code> class has multiple responsibilities: managing book data, printing details, and saving data to a file. For example, the method that handles saving to a file should be placed in another class so it can be modified once for all objects using it when, e.g., switching to a database. Each concern should be separated into a different class.</p>
+                                    <p>The <code>Book</code> class has multiple responsibilities: managing book data, printing details, and saving data to a file. For example, the method that handles saving to a file should be placed in another class so it can be modified once for all objects using it when switching to a database. Each concern should be separated into a different class.</p>
 
                                     <h4>Solution</h4>
 
@@ -153,7 +153,7 @@ book <span class="sign">=</span> <span class="function">Book</span>(<span class=
                                     
                                     <h2><a id="open-closed-principle">Open/Closed Principle (OCP)</a></h2>
 
-                                    <p>Software entities (classes, modules, functions) should be open for extension but closed for modification so we could add a new functionality without changing the existing code. Functionalities should be added through extension, not modification.</p>
+                                    <p>Software entities (classes, modules, functions) should be open for extension but closed for modification meaning we should be able to add a new functionality without changing the existing code. Functionalities should be added through extension, not modification.</p>
                                     
                                     <h4>Issue</h4>
 
@@ -270,13 +270,13 @@ square <span class="sign">=</span> <span class="function">Square</span>(5)
 calculate(square)
                                     </code></pre>
 
-                                    <p>The setters overwritten in the <code>Square</code> class break the LSP because they modify the behavior of the <code>Rectangle</code> class in unexpected ways. Specifically, while the <code>Rectangle</code> class allows independent manipulation of width and height, the <code>Square</code> class forces both the width and height to be the same when either is set. This means that substituting a <code>Square</code> for a <code>Rectangle</code> in the code leads to inconsistent and unpredictable behavior. The <code>calculate()</code> function works only for <code>Rectangle</code> (a superclass) and not for <code>Square</code> (a subclass) when substituted.</p>
+                                    <p>The setters overriden in the <code>Square</code> class break the LSP because they modify the behavior of the <code>Rectangle</code> class in unexpected ways. Specifically, while the <code>Rectangle</code> class allows independent manipulation of width and height, the <code>Square</code> class forces both the width and height to be the same when either is set. This means that substituting a <code>Square</code> for a <code>Rectangle</code> in the code leads to inconsistent and unpredictable behavior. The <code>calculate()</code> function works only for <code>Rectangle</code> (a superclass) and not for <code>Square</code> (a subclass) when substituted.</p>
 
                                     <h4>Solution</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Rectangle:
-    <span class="function">def __init__</span>(<span class="function">self</span>, width, height, is_square<span class="sign">=</span><span class="function">False</span>):
+    <span class="function">def __init__</span>(<span class="function">self</span>, width, height, is_square <span class="sign">=</span> <span class="function">False</span>):
         <span class="function">self</span>._height <span class="sign">=</span> height
         <span class="function">self</span>._width <span class="sign">=</span> width
         <span class="function">self</span>._is_square <span class="sign">=</span> is_square
@@ -400,7 +400,7 @@ advanced_printer.fax_document(<span class="text">"report.pdf"</span>)
 
                                     <h2><a id="dependency-inversion-principle">Dependency Inversion Principle (DIP)</a></h2>
 
-                                    <p>High-level modules should not depend on low-level modules (e.g., dealing with storage is a low-level concern), but on abstractions (abstract classes). Additionally, abstractions should not depend on details, but details should depend on abstractions. We want to depend on interfaces rather than concrete implementations because that way we can swap one for the other.</p>
+                                    <p>High-level modules should not depend on low-level modules (e.g., dealing with storage is a low-level concern), but on abstractions (abstract classes). We want to depend on interfaces rather than concrete implementations because that way we can swap one for the other.</p>
 
                                     <h4>Issue</h4>
 
@@ -414,7 +414,7 @@ advanced_printer.fax_document(<span class="text">"report.pdf"</span>)
 
 <span class="function">class</span> DataHandler:
     <span class="function">def</span> <span class="function">__init__</span>(<span class="function">self</span>):
-        <span class="function">self</span>.database <span class="sign">=</span> <span class="function">MySQLDatabase</span>() <span class="comment"># direct dependency on a low-level module</span>
+        <span class="function">self</span>.database <span class="sign">=</span> <span class="function">MySQLDatabase</span>() <span class="comment"># a direct dependency on a low-level module</span>
 
     <span class="function">def</span> save(<span class="function">self</span>, data):
         <span class="function">self</span>.database.connect()
@@ -440,21 +440,21 @@ data_handler.save(<span class="text">"user data"</span>)
     <span class="function">def</span> save_data(<span class="function">self</span>, data):
         <span class="function">pass</span>
 
-<span class="function">class</span> MySQLDatabase(<span class="function">Database</span>): <span class="comment"># low-level module: MySQL implementation</span>
+<span class="function">class</span> MySQLDatabase(<span class="function">Database</span>): <span class="comment"># a low-level module: MySQL implementation</span>
     <span class="function">def</span> connect(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"Connecting to MySQL database..."</span>)
 
     <span class="function">def</span> save_data(<span class="function">self</span>, data):
         <span class="command">print</span>(<span class="text">f"Saving {data} to MySQL database."</span>)
 
-<span class="function">class</span> PostgreSQLDatabase(<span class="function">Database</span>): <span class="comment"># low-level module: PostgreSQL implementation</span>
+<span class="function">class</span> PostgreSQLDatabase(<span class="function">Database</span>): <span class="comment"># a low-level module: PostgreSQL implementation</span>
     <span class="function">def</span> connect(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"Connecting to PostgreSQL database..."</span>)
 
     <span class="function">def</span> save_data(<span class="function">self</span>, data):
         <span class="command">print</span>(<span class="text">f"Saving {data} to PostgreSQL database."</span>)
 
-<span class="function">class</span> DataHandler: <span class="comment"># high-level module depending on the abstraction</span>
+<span class="function">class</span> DataHandler: <span class="comment"># a high-level module depending on the abstraction</span>
     <span class="function">def</span> <span class="function">__init__</span>(<span class="function">self</span>, database: <span class="function">Database</span>):
         <span class="function">self</span>.database <span class="sign">=</span> database
 

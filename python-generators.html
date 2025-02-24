@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. This website is a personal portfolio and was created by one person.">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
     <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
@@ -92,13 +92,13 @@
                                     <h5 class="m-0 font-weight-bold">Generators</h5>
                                 </div>
                                 <div class="card-body">                                 
-                                    <p>An iterator is an object that facilitates sequential access to elements in a container (e.g., a list, tuple, or dictionary) without requiring all elements to be processed or loaded into memory simultaneously. Instead, it accesses the existing container directly, returning one element at a time (lazy evaluation). The <code>next()</code> function is a built-in function that advances the iterator to the next item in the container and returns its value. If there are no more items to return, it raises a <code>StopIteration</code> exception.</p>
+                                    <p>An iterator is an object that facilitates sequential access to elements in a container (e.g., a list, tuple, or dictionary) without requiring all elements to be processed or loaded into memory simultaneously. Instead, it accesses the existing container directly, returning one element at a time (lazy evaluation). The <code>next()</code> method is a built-in method that advances the iterator to the next item in the container and returns its value. If there are no more items to return, it raises a <code>StopIteration</code> exception.</p>
 
                                     <p>Do not confuse it with an iterable, which is a data structure we can iterate through with a loop.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 l <span class="sign">=</span> [<span class="text">"1"</span>, <span class="text">"2"</span>, <span class="text">"3"</span>]
-iter_l <span class="sign">=</span> <span class="command">iter</span>(l) <span class="comment"># iter() is a built-in function that creates an iterator from an iterable object</span>
+iter_l <span class="sign">=</span> <span class="command">iter</span>(l) <span class="comment"># iter() is a built-in method that creates an iterator from an iterable object</span>
 
 <span class="comment"># Iterating through the list</span>
 <span class="function">try</span>:
@@ -135,7 +135,7 @@ iter_l <span class="sign">=</span> <span class="command">iter</span>(l)
     <span class="command">print</span>(value)
                                     </code></pre>
                                     
-                                    <p>We can create custom iterables by defining a class that implements the <code>__next__()</code> and <code>__iter__()</code> dunder methods, making the class an iterator.</p>
+                                    <p><a id="iterator">We can create custom iterables by defining a class that implements the <code style="color: #f5d67b;">__next__()</code> and <code style="color: #f5d67b;">__iter__()</code> dunder methods, making the class an Iterator. Below, you can see an example of the Iterator design pattern, which you can learn more about <a href="python-behavioral-patterns.html#iterator" class="link">here</a>.</a></p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> MyList:
@@ -157,7 +157,7 @@ iter_l <span class="sign">=</span> <span class="command">iter</span>(l)
 
 my_list <span class="sign">=</span> <span class="function">MyList</span>([<span class="text">"1"</span>, <span class="text">"2"</span>, <span class="text">"3"</span>])
 
-<span class="comment"># Using the iterator in a loop</span>
+<span class="comment"># Using our Iterator in a loop</span>
 <span class="function">for</span> item <span class="function">in</span> my_list:
     <span class="command">print</span>(item)
                                     </code></pre>
@@ -240,12 +240,12 @@ x <span class="sign">=</span> generator(5)
         <span class="function">self</span>.history <span class="sign">=</span> [] <span class="comment"># keeping track of modifications</span>
 
     <span class="function">def</span> append(<span class="function">self</span>, item):
-        <span class="function">self</span>.history.<span class="command">append</span>(<span class="text">f"Appended {item}"</span>) <span class="comment"># log the change</span>
-        <span class="function">super</span>().<span class="command">append</span>(item) <span class="comment"># call the original inherited append method</span>
+        <span class="function">self</span>.history.<span class="command">append</span>(<span class="text">f"Appended {item}"</span>) <span class="comment"># logging the change</span>
+        <span class="function">super</span>().<span class="command">append</span>(item) <span class="comment"># calling the original inherited append method</span>
 
     <span class="function">def</span> remove(<span class="function">self</span>, item):
         <span class="function">if</span> item <span class="function">in self</span>:
-            <span class="function">self</span>.history.<span class="command">append</span>(<span class="text">f"Removed {item}"</span>) <span class="comment"># log removal</span>
+            <span class="function">self</span>.history.<span class="command">append</span>(<span class="text">f"Removed {item}"</span>) <span class="comment"># logging removal</span>
             <span class="function">super</span>().<span class="command">remove</span>(item)
         <span class="function">else</span>:
             <span class="command">print</span>(<span class="text">f"Item {item} not in list"</span>)

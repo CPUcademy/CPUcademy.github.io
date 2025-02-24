@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. This website is a personal portfolio and was created by one person.">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
     <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
@@ -94,7 +94,7 @@
                                 <div class="card-body">
                                     <p>Context managers are a powerful feature for managing resources such as files, database connections, and network sockets.</p>
 
-                                    <p>A problem that can be solved with a context manager arises if, while reading a file, the program crashes and doesn't reach the <code>close()</code> method. This could lead to file corruption. Of course, we could solve it with <code>try</code>, <code>except</code>, and <code>finally</code>, but a better way would be to use the <code>with</code> keyword. It uses a context manager under the hood, which means it already has the "<code>try</code>, <code>except</code>, <code>finally</code>" structure implemented (files will be properly closed even if when reading from them, the program crashes). We can create custom context managers to define what exactly happens while entering the file and during the closeup (error handling). We can do so using the <code>__enter__()</code> and <code>__exit__()</code> dunder methods and the <code>with</code> instruction.</p>
+                                    <p>A problem that can be solved with a context manager arises if, while reading a file, the program crashes and doesn't reach the <code>close()</code> method. This could lead to file corruption. Of course, we could solve it with <code>try</code>, <code>except</code>, and <code>finally</code>, but a better way would be to use the <code>with</code> keyword. It uses a context manager under the hood, which means it already has the "<code>try</code>, <code>except</code>, <code>finally</code>" structure implemented (a file will be properly closed even if when reading from it, the program crashes). We can customize this context manager with the <code>__enter__()</code> and <code>__exit__()</code> dunder methods if we want to fully control what happens while entering the file and during its closeup.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> File:
@@ -130,8 +130,37 @@
 <span class="function">with</span> file(<span class="text">"file.txt"</span>, <span class="text">"w"</span>) <span class="function">as</span> f:
     f.<span class="command">write</span>(<span class="text">"File"</span>)
                                     </code></pre>
+                                        
+                                    <p>The example below shows how context managers can be leveraged while working with our classes (the <code>with</code> keyword also works with objects other than files).</p>
 
-                                    <p>Context managers can also be used to make sure a thread unlocks a thread lock.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Counter:
+    <span class="function">def __init__</span>(<span class="function">self</span>, count<span class="sign">=</span>0):
+        <span class="function">self</span>.count <span class="sign">=</span> count
+
+<span class="function">class</span> IncrementModifier:
+    <span class="function">def __init__</span>(<span class="function">self</span>, counter, amount):
+        <span class="function">self</span>.counter <span class="sign">=</span> counter
+        <span class="function">self</span>.amount <span class="sign">=</span> amount
+
+    <span class="function">def __enter__</span>(<span class="function">self</span>):
+        <span class="function">self</span>.counter.count <span class="sign">+=</span> <span class="function">self</span>.amount <span class="comment"># incrementing the count</span>
+
+    <span class="function">def __exit__</span>(<span class="function">self</span>, exc_type, exc_val, exc_tb):
+        <span class="function">pass</span> <span class="comment"># no action needed on exit</span>
+
+counter <span class="sign">=</span> <span class="function">Counter</span>()
+
+<span class="command">print</span>(<span class="text">"Initial count:"</span>, counter.count)
+
+<span class="function">with IncrementModifier</span>(counter, 5): <span class="comment"># using IncrementModifier to increase the count</span>
+    <span class="command">print</span>(<span class="text">"Count after increment:"</span>, counter.count)
+    
+<span class="function">with IncrementModifier</span>(counter, 3):
+    <span class="command">print</span>(<span class="text">"Count after second increment:"</span>, counter.count)
+                                    </code></pre>
+
+                                    <p>Context managers are also used to make sure a thread unlocks a thread lock.</p>
                                 </div>
                             </div>
                         </div>

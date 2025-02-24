@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="If you're looking for concise and on-topic programming tutorials or cheat sheets and notes with examples, then you are in the right place! You will find courses about Python, web development, databases, and many others. This website is a personal portfolio and was created by one person.">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
     <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
@@ -111,11 +111,11 @@
                                     <p>Adapter allows incompatible interfaces to work together by acting as a bridge between them. It translates one interface into another (adapts it), enabling classes with different APIs to communicate seamlessly without modifying their existing code. It is the in-between component.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> OldPrinter: <span class="comment"># existing class (incompatible interface)</span>
+<span class="function">class</span> OldPrinter: <span class="comment"># an existing class (incompatible interface)</span>
     <span class="function">def</span> print_text(<span class="function">self</span>, text):
         <span class="command">print</span>(<span class="text">f"Old Printer: {text}"</span>)
 
-<span class="function">class</span> NewPrinter: <span class="comment"># new expected interface</span>
+<span class="function">class</span> NewPrinter: <span class="comment"># a new expected interface</span>
     <span class="function">def</span> <span class="command">print</span>(<span class="function">self</span>, text):
         <span class="function">raise NotImplementedError</span>
 
@@ -133,7 +133,7 @@ adapter.<span class="command">print</span>(<span class="text">"Printed text."</s
 
                                     <h2><a id="bridge">Bridge</a></h2>
 
-                                    <p>Bridge decouples an abstraction from its implementation, allowing the two to vary independently and preventing a Cartesian complexity explosion (where the number of subclasses grows exponentially as new features are added). It achieves this through an interface that acts as a bridge between high-level abstractions and concrete implementations. It connects these two hierarchies of different classes with a parameter. It does not comply with the Open/Closed Principle (a price to pay).</p>
+                                    <p>Bridge decouples (separates) abstraction from implementation, allowing them to vary independently and preventing a Cartesian complexity explosion (where the number of subclasses grows exponentially as new features are added). It achieves this through an interface that acts as a bridge between high-level abstractions and concrete implementations. It connects these two hierarchies of different classes with a parameter. It does not comply with the OCP (a price to pay).</p>
 
                                     <p>The first hierarchy (<code>Sender</code> and its subclasses like <code>FastSender</code> and <code>SecureSender</code>) represents the implementation. The second hierarchy (<code>Message</code> and its subclasses like <code>EmailMessage</code> and <code>SMSMessage</code>) represents the abstraction. The <code>sender</code> parameter in <code>Message.__init__()</code> acts as the bridge that connects these two hierarchies dynamically.</p>
 
@@ -205,7 +205,7 @@ sms.send(<span class="text">"Hello via SMS!"</span>)
     <span class="function">def</span> display(<span class="function">self</span>, indent<span class="sign">=</span>0):
         <span class="command">print</span>(<span class="text">" "</span> <span class="sign">*</span> indent <span class="sign">+</span> <span class="text">f"- {self.name}"</span>)
 
-<span class="function">class</span> Folder(<span class="function">FileSystemItem</span>): <span class="comment"># a Composite class (folder that can contain files and other folders)</span>
+<span class="function">class</span> Folder(<span class="function">FileSystemItem</span>): <span class="comment"># a Composite class (a folder that can contain files and other folders)</span>
     <span class="function">def __init__</span>(<span class="function">self</span>, name):
         <span class="function">self</span>.name <span class="sign">=</span> name
         <span class="function">self</span>.items <span class="sign">=</span> []
@@ -215,7 +215,7 @@ sms.send(<span class="text">"Hello via SMS!"</span>)
 
     <span class="function">def</span> display(<span class="function">self</span>, indent<span class="sign">=</span>0):
         <span class="command">print</span>(<span class="text">" "</span> <span class="sign">*</span> indent <span class="sign">+</span> <span class="text">f"[Folder] {self.name}"</span>)
-        <span class="function">for</span> item <span class="function">in self</span>.items: <span class="comment"># treating files and folders the same</span>
+        <span class="function">for</span> item <span class="function">in self</span>.items: <span class="comment"># treating files and folders in the same way</span>
             item.display(indent <span class="sign">+</span> 2)
 
 root <span class="sign">=</span> <span class="function">Folder</span>(<span class="text">"Root"</span>)
@@ -261,15 +261,15 @@ simple_coffee <span class="sign">=</span> <span class="function">SimpleCoffee</s
 <span class="command">print</span>(<span class="text">f"Cost of simple coffee: {simple_coffee.cost()}"</span>)
 
 <span class="comment"># Adding milk to the coffee using the MilkDecorator</span>
-milk_coffee <span class="sign">=</span> <span class="function">MilkDecorator</span>(simple_coffee) <span class="comment"># MilkDecorator "wraps" SimpleCoffee</span>
+milk_coffee <span class="sign">=</span> <span class="function">MilkDecorator</span>(simple_coffee) <span class="comment"># MilkDecorator "wraps around" SimpleCoffee</span>
 <span class="command">print</span>(<span class="text">f"Cost of coffee with milk: {milk_coffee.cost()}"</span>)
                                     </code></pre>
 
-                                    <p>The Decorator pattern allows behavior to be added to objects dynamically by wrapping them with additional functionality, typically using classes, while a Pythonic decorator achieves a similar outcome using function-based syntax (<code>@decorator</code>) to modify or extend the behavior of functions or methods without altering their original code structure (<a href="python-decorators.html" class="link">see this article</a>).</p>
+                                    <p>The Decorator pattern allows behavior to be added to objects dynamically by wrapping them with additional functionality, typically using classes, while a Pythonic functional decorator achieves a similar outcome using function-based syntax (<code>@decorator</code>) to modify or extend the behavior of functions or methods without altering their original code structure (<a href="python-decorators.html" class="link">check out an article</a> about Pythonic functional decorators).</p>
 
                                     <h2><a id="facade">Facade</a></h2>
 
-                                    <p>Facade provides a simplified, unified interface to a set of interfaces in a subsystem. It hides the complexity of the subsystem and provides a simple higher-level API for clients to use. Optionally, we may wish to expose internals through the facade, e.g., for more detailed control or specific operations that bypass the simplified interface, allowing advanced users to interact directly with subsystem components when necessary.</p>
+                                    <p>Facade provides a simplified interface to a larger and more complex system. It hides the complexity and provides a simple higher-level API for clients to use. Optionally, we may wish to expose internals through the facade, e.g., for more detailed control or specific operations that bypass the simplified interface, allowing advanced users to interact directly with system components when necessary.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> TV:
@@ -318,7 +318,7 @@ sound_system <span class="sign">=</span> <span class="function">SoundSystem</spa
 streaming_service <span class="sign">=</span> <span class="function">StreamingService</span>()
 
 home_theater <span class="sign">=</span> <span class="function">HomeTheaterFacade</span>(tv, sound_system, streaming_service)
-home_theater.watch_movie() <span class="comment"># one call replaces multiple subsystem interactions</span>
+home_theater.watch_movie() <span class="comment"># one call replaces multiple system interactions</span>
 home_theater.end_movie() <span class="comment"># one call shuts everything down</span>
                                     </code></pre>
 
@@ -345,11 +345,11 @@ home_theater.end_movie() <span class="comment"># one call shuts everything down<
             <span class="function">NameDatabase</span>._names[name] <span class="sign">=</span> <span class="function">Name</span>(name)
         <span class="function">return NameDatabase</span>._names[name]
 
-<span class="comment"># Reusing "John" and "Alice" from the database instead of creating new objects</span>
 john1 <span class="sign">=</span> <span class="function">NameDatabase</span>.get_name(<span class="text">"John"</span>)
-john2 <span class="sign">=</span> <span class="function">NameDatabase</span>.get_name(<span class="text">"John"</span>)
-
 alice1 <span class="sign">=</span> <span class="function">NameDatabase</span>.get_name(<span class="text">"Alice"</span>)
+
+<span class="comment"># Reusing "John" and "Alice" from the database instead of creating new objects</span>
+john2 <span class="sign">=</span> <span class="function">NameDatabase</span>.get_name(<span class="text">"John"</span>)
 alice2 <span class="sign">=</span> <span class="function">NameDatabase</span>.get_name(<span class="text">"Alice"</span>)
 
 john1.display(<span class="text">"formal"</span>)
@@ -357,7 +357,7 @@ john2.display(<span class="text">"informal"</span>)
 alice1.display(<span class="text">"formal"</span>)
 alice2.display(<span class="text">"informal"</span>)
 
-<span class="comment"># Checking if the same instances are reused</span>
+<span class="comment"># Checking whether the same instances were reused</span>
 <span class="command">print</span>(john1 <span class="function">is</span> john2)
 <span class="command">print</span>(alice1 <span class="function">is</span> alice2)
                                     </code></pre>
@@ -430,7 +430,7 @@ proxy <span class="sign">=</span> <span class="function">VirtualProxy</span>()
 
                                     <h5>Proxy VS Decorator</h5>
 
-                                    <p>A Proxy provides an identical interface to the original object, focusing on controlling access or managing resources, while a Decorator enhances the object's interface by adding new functionality. The Decorator typically holds a reference to the object it decorates, whereas a Proxy may not even interact with a materialized object, especially in cases like lazy initialization or access control. Essentially, Proxies manage access and resources, while decorators extend behavior.</p>
+                                    <p>Proxy provides an identical interface to the original object, focusing on controlling access or managing resources, while Decorator enhances the object's interface by adding new functionality. Decorator typically holds a reference to the object it decorates, whereas Proxy may not even interact with a materialized object, especially in cases like Lazy Initialization or access control. Essentially, Proxies manage access and resources, while Decorators extend behavior.</p>
                                 </div>
                             </div>
                         </div>
