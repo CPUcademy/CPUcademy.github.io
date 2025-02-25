@@ -195,14 +195,14 @@ sms.send(<span class="text">"Hello via SMS!"</span>)
 
 <span class="function">class</span> FileSystemItem(<span class="function">ABC</span>): <span class="comment"># an interface (common for both files and folders)</span>
     <span class="command">@abstractmethod</span>
-    <span class="function">def</span> display(<span class="function">self</span>, indent<span class="sign">=</span>0):
+    <span class="function">def</span> display(<span class="function">self</span>, indent <span class="sign">=</span> 0):
         <span class="function">pass</span>
 
 <span class="function">class</span> File(<span class="function">FileSystemItem</span>): <span class="comment"># a leaf class (single file)</span>
     <span class="function">def __init__</span>(<span class="function">self</span>, name):
         <span class="function">self</span>.name <span class="sign">=</span> name
 
-    <span class="function">def</span> display(<span class="function">self</span>, indent<span class="sign">=</span>0):
+    <span class="function">def</span> display(<span class="function">self</span>, indent <span class="sign">=</span> 0):
         <span class="command">print</span>(<span class="text">" "</span> <span class="sign">*</span> indent <span class="sign">+</span> <span class="text">f"- {self.name}"</span>)
 
 <span class="function">class</span> Folder(<span class="function">FileSystemItem</span>): <span class="comment"># a Composite class (a folder that can contain files and other folders)</span>
@@ -213,7 +213,7 @@ sms.send(<span class="text">"Hello via SMS!"</span>)
     <span class="function">def</span> add(<span class="function">self</span>, item):
         <span class="function">self</span>.items.<span class="command">append</span>(item)
 
-    <span class="function">def</span> display(<span class="function">self</span>, indent<span class="sign">=</span>0):
+    <span class="function">def</span> display(<span class="function">self</span>, indent <span class="sign">=</span> 0):
         <span class="command">print</span>(<span class="text">" "</span> <span class="sign">*</span> indent <span class="sign">+</span> <span class="text">f"[Folder] {self.name}"</span>)
         <span class="function">for</span> item <span class="function">in self</span>.items: <span class="comment"># treating files and folders in the same way</span>
             item.display(indent <span class="sign">+</span> 2)

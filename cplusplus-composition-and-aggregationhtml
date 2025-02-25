@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Composition, aggregation, and association</title>
+    <title>Composition and aggregation</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -89,7 +89,7 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Composition, aggregation, and association</h5>
+                                    <h5 class="m-0 font-weight-bold">Composition and aggregation</h5>
                                 </div>
                                 <div class="card-body">
                                     <h2>Composition</h2>
@@ -195,78 +195,6 @@
     
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> student1 <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="comment">// the students exist independently</span>
     
-    <span class="function">return</span> 0<span class="sign">;</span>
-<span class="sign">}</span>
-                                    </code></pre>
-                                    
-                                    <h2>Association</h2>
-                                    
-                                    <p>Association is a relationship between two or more classes, where each class acknowledges the involvement of the other classes. Unlike composition and aggregation, association does not imply ownership or containment but rather a more general relationship. The distinction between aggregation and association is strictly conventional.</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command-c">#include &lt;iostream&gt;</span>
-<span class="command-c">#include &lt;vector&gt;</span>
-<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
-
-<span class="function">class</span> Teacher <span class="sign">{</span>
-    <span class="function">string</span> name<span class="sign">;</span>
-    <span class="function">public</span><span class="sign">:</span>
-        <span class="function">Teacher</span>(<span class="function">string</span> name)<span class="sign">{</span><span class="function">this</span> <span class="sign">-&gt;</span> name <span class="sign">=</span> name<span class="sign">;}</span>
-        <span class="sign">~</span><span class="function">Teacher</span>()<span class="sign">{}</span>
-
-        <span class="function">friend ostream</span><span class="sign">&amp;</span> <span class="function">operator</span>&lt;&lt;</span>(<span class="function">ostream</span><span class="sign">&amp;</span> os, <span class="function">const Teacher</span><span class="sign">&amp;</span> teacher) <span class="sign">{</span>
-            os <span class="sign">&lt;&lt;</span> teacher.name<span class="sign">;</span>
-            <span class="function">return</span> os<span class="sign">;</span>
-        <span class="sign">}</span>
-<span class="sign">};</span>
-
-<span class="function">class</span> Subject <span class="sign">{</span>
-    <span class="function">string</span> name<span class="sign">;</span>
-    <span class="function">public</span><span class="sign">:</span>
-        <span class="function">Subject</span>(<span class="function">string</span> name)<span class="sign">{</span><span class="function">this</span> <span class="sign">-&gt;</span> name <span class="sign">=</span> name<span class="sign">;}</span>
-        <span class="sign">~</span><span class="function">Subject</span>()<span class="sign">{}</span>
-
-        <span class="function">friend ostream</span><span class="sign">&amp;</span> <span class="function">operator</span><span class="sign">&lt;&lt;</span>(<span class="function">ostream</span><span class="sign">&amp;</span> os, <span class="function">const Subject</span><span class="sign">&amp;</span> subject) <span class="sign">{</span>
-            os <span class="sign">&lt;&lt;</span> subject.name<span class="sign">;</span>
-            <span class="function">return</span> os<span class="sign">;</span>
-        <span class="sign">}</span>
-<span class="sign">};</span>
-
-<span class="function">class</span> School <span class="sign">{</span>
-    <span class="function">string</span> name<span class="sign">;</span>
-    <span class="function">public</span><span class="sign">:</span>
-        <span class="function">School</span>(<span class="function">string</span> name)<span class="sign">{</span><span class="function">this</span> <span class="sign">-&gt;</span> name <span class="sign">=</span> name<span class="sign">;}</span>
-        <span class="sign">~</span><span class="function">School</span>()<span class="sign">{}</span>
-        <span class="function">vector</span><span class="sign">&lt;</span><span class="function">Teacher</span><span class="sign">&gt;</span> teachers<span class="sign">;</span>
-        <span class="function">vector</span><span class="sign">&lt;</span><span class="function">Subject</span><span class="sign">&gt;</span> subjects<span class="sign">;</span>
-
-        <span class="function">void</span> add_teacher(<span class="function">Teacher</span> teacher) <span class="sign">{</span>
-            teachers.<span class="command-c">push_back</span>(teacher)<span class="sign">;</span>
-        <span class="sign">}</span>
-
-        <span class="function">void</span> add_subject(<span class="function">Subject</span> subject) <span class="sign">{</span>
-            subjects.<span class="command-c">push_back</span>(subject)<span class="sign">;</span>
-        <span class="sign">}</span>
-<span class="sign">};</span>
-
-<span class="function">int</span> main() <span class="sign">{</span>
-    <span class="function">School</span> school(<span class="text">"XYZ High School"</span>)<span class="sign">;</span>
-    <span class="function">Teacher</span> teacher1(<span class="text">"Mr. Smith"</span>)<span class="sign">;</span>
-    <span class="function">Teacher</span> teacher2(<span class="text">"Ms. Johnson"</span>)<span class="sign">;</span>
-    <span class="function">Subject</span> subject1(<span class="text">"Mathematics"</span>)<span class="sign">;</span>
-    <span class="function">Subject</span> subject2(<span class="text">"Science"</span>)<span class="sign">;</span>
-
-    school.add_teacher(teacher1)<span class="sign">;</span>
-    school.add_teacher(teacher2)<span class="sign">;</span>
-    school.add_subject(subject1)<span class="sign">;</span>
-    school.add_subject(subject2)<span class="sign">;</span>
-
-    <span class="function">for</span>(<span class="function">Teacher</span> teacher<span class="sign">:</span> school.teachers)
-        <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> teacher <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-
-    <span class="function">for</span>(<span class="function">Subject</span> subject<span class="sign">:</span> school.subjects)
-        <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> subject <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-
     <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>

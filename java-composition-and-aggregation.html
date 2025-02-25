@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
 	<link rel="stylesheet" href="css/fontello.css" type="text/css">
 	<link rel="stylesheet" href="css/styles.css" type="text/css">
-	<title>Composition, aggregation, and association</title>
+	<title>Composition and aggregation</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -89,7 +89,7 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Composition, aggregation, and association</h5>
+                                    <h5 class="m-0 font-weight-bold">Composition and aggregation</h5>
                                 </div>
                                 <div class="card-body">
                                     <h2>Composition</h2>	
@@ -181,66 +181,6 @@
 
     <span class="function">void</span> add_student(<span class="function">Student</span> student) <span class="sign">{</span>
         students.<span class="command">add</span>(student)<span class="sign">;</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-									</code></pre>
-									
-									<h2>Association</h2>
-									
-									<p>Association is a relationship between two or more classes, where each class acknowledges the involvement of the other classes. Unlike composition and aggregation, association does not imply ownership or containment but rather a more general relationship. The distinction between aggregation and association is strictly conventional.</p>
-									
-									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">import</span> java.util.ArrayList<span class="sign">;</span>
-
-<span class="function">public class</span> Main <span class="sign">{</span>
-    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
-        <span class="function">School</span> school <span class="sign">=</span> <span class="function">new School</span>(<span class="text">"XYZ High School"</span>)<span class="sign">;</span>
-        <span class="function">Teacher</span> teacher1 <span class="sign">=</span> <span class="function">new Teacher</span>(<span class="text">"Mr. Smith"</span>)<span class="sign">;</span>
-        <span class="function">Teacher</span> teacher2 <span class="sign">=</span> <span class="function">new Teacher</span>(<span class="text">"Ms. Johnson"</span>)<span class="sign">;</span>
-        <span class="function">Subject</span> subject1 <span class="sign">=</span> <span class="function">new Subject</span>(<span class="text">"Mathematics"</span>)<span class="sign">;</span>
-        <span class="function">Subject</span> subject2 <span class="sign">=</span> <span class="function">new Subject</span>(<span class="text">"Science"</span>)<span class="sign">;</span>
-
-        school.add_teacher(teacher1)<span class="sign">;</span>
-        school.add_teacher(teacher2)<span class="sign">;</span>
-        school.add_subject(subject1)<span class="sign">;</span>
-        school.add_subject(subject2)<span class="sign">;</span>
-
-        <span class="function">for</span>(<span class="function">Teacher</span> teacher<span class="sign">:</span> school.teachers) <span class="sign">{</span>
-            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(teacher)<span class="sign">;</span>
-        <span class="sign">}</span>
-
-        <span class="function">for</span>(<span class="function">Subject</span> subject<span class="sign">:</span> school.subjects) <span class="sign">{</span>
-            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(subject)<span class="sign">;</span>
-        <span class="sign">}</span>
-    <span class="sign">}</span>
-<span class="sign">}</span>
-
-<span class="function">class</span> Teacher <span class="sign">{</span>
-    <span class="function">String</span> name<span class="sign">;</span>
-    <span class="function">Teacher</span>(<span class="function">String</span> name)<span class="sign">{</span><span class="function">this</span>.name <span class="sign">=</span> name<span class="sign">;}</span>
-    <span class="command">@Override</span>
-    <span class="function">public String</span> toString()<span class="sign">{</span><span class="function">return</span> name<span class="sign">;</span>
-<span class="sign">}</span>
-
-<span class="function">class</span> Subject <span class="sign">{</span>
-    <span class="function">String</span> name<span class="sign">;</span>
-    <span class="function">Subject</span>(<span class="function">String</span> name)<span class="sign">{</span><span class="function">this</span>.name <span class="sign">=</span> name<span class="sign">;}</span>
-    <span class="command">@Override</span>
-    <span class="function">public String</span> toString()<span class="sign">{</span><span class="function">return</span> name<span class="sign">;</span>
-<span class="sign">}</span>
-
-<span class="function">class</span> School <span class="sign">{</span>
-    <span class="function">String</span> name<span class="sign">;</span>
-    <span class="function">School</span>(<span class="function">String</span> name)<span class="sign">{</span><span class="function">this</span>.name <span class="sign">=</span> name<span class="sign">;}</span>
-    <span class="function">ArrayList</span><span class="sign">&lt;</span><span class="function">Teacher</span><span class="sign">&gt;</span> teachers <span class="sign">=</span> <span class="function">new ArrayList</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
-    <span class="function">ArrayList</span><span class="sign">&lt;</span><span class="function">Subject</span><span class="sign">&gt;</span> subjects <span class="sign">=</span> <span class="function">new ArrayList</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
-
-    <span class="function">void</span> add_teacher(<span class="function">Teacher</span> teacher) <span class="sign">{</span>
-        teachers.<span class="command">add</span>(teacher)<span class="sign">;</span>
-    <span class="sign">}</span>
-
-    <span class="function">void</span> add_subject(<span class="function">Subject</span> subject) <span class="sign">{</span>
-        subjects.<span class="command">add</span>(subject)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
 									</code></pre>
