@@ -113,9 +113,9 @@ result <span class="sign">=</span> add(10)
 <span class="command">print</span>(result)
                                     </code></pre>
                                     
-                                    <h4><code>__str__()</code> (string)</h4>
+                                    <h4><code>__str__()</code> (string) and <code>__repr__()</code> (representation)</h4>
                                     
-                                    <p>It defines what will be displayed if a class instance is placed inside the <code>print()</code> method.</p>
+                                    <p>The <code>__str__()</code> method defines how a class object will be displayed when printed or converted to a string (using <code>str()</code>). If the <code>__str__()</code> method is not defined, Python will use the default <code>__repr__()</code> method, which returns the object's memory address. Of course, it can be overridden and used to display the object’s technical details. If both <code>__repr__()</code> and <code>__str__()</code> are defined, <code>__str__()</code> will be called by default, and <code>__repr__()</code> through the <code>repr()</code> method.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Point:
@@ -126,24 +126,11 @@ result <span class="sign">=</span> add(10)
     <span class="function">def __str__</span>(<span class="function">self</span>):
         <span class="function">return</span> <span class="text">f"{self.x} {self.y}"</span>
 
-point <span class="sign">=</span> <span class="function">Point</span>(1, 2)
-<span class="command">print</span>(point)
-                                    </code></pre>
-                                    
-                                    <h4><code>__repr__()</code> (representation)</h4>
-                                    
-                                    <p>It is a version of the <code>__str__()</code> method designated for displaying more technical data.</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> Point:
-    <span class="function">def __init__</span>(<span class="function">self</span>, x, y):
-        <span class="function">self</span>.x <span class="sign">=</span> x
-        <span class="function">self</span>.y <span class="sign">=</span> y
-
     <span class="function">def __repr__</span>(<span class="function">self</span>):
         <span class="function">return</span> <span class="text">f"Point({self.x}, {self.y})"</span>
 
 point <span class="sign">=</span> <span class="function">Point</span>(1, 2)
+<span class="command">print</span>(point)
 <span class="command">print</span>(<span class="command">repr</span>(point))
                                     </code></pre>
 
