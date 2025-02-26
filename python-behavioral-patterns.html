@@ -129,7 +129,7 @@
         <span class="function">self</span>.name <span class="sign">=</span> name
 
     <span class="function">def</span> receive_email(<span class="function">self</span>, newsletter):
-        <span class="command">print</span>(<span class="text">f"{self.name} received: {newsletter}"</span>)
+        <span class="command">print</span>(<span class="text">f"{<span class="function">self</span>.name} received: {newsletter}"</span>)
 
 <span class="function">class</span> Newsletter:
     <span class="function">def __init__</span>(<span class="function">self</span>):
@@ -163,7 +163,7 @@ newsletter.release_new_issue(<span class="text">"Design Patterns Vol. 2"</span>)
         <span class="function">self</span>.name <span class="sign">=</span> name
 
     <span class="function">def</span> receive_email(<span class="function">self</span>, newsletter):
-        <span class="command">print</span>(<span class="text">f"{self.name} received: {newsletter}"</span>)
+        <span class="command">print</span>(<span class="text">f"{<span class="function">self</span>.name} received: {newsletter}"</span>)
 
 <span class="function">class</span> Newsletter:
     <span class="function">def __init__</span>(<span class="function">self</span>):
@@ -330,60 +330,8 @@ loyalty <span class="sign">=</span> <span class="function">LoyaltyDiscount</span
 
                                     <p>Command is used to turn a request (an action) into a stand-alone object. This object encapsulates all details of the request, allowing parameterization of objects. It is also useful for implementing the undo functionality.</p>
 
-                                    <p>In the example below, the <code>LightOnCommand</code> and <code>LightOffCommand</code> classes encapsulate the action and its associated details (they take the <code>Light</code> object as a parameter) and can be executed by <code>RemoteControl</code> (the invoker) when triggered.</p>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
+                                    <p>In the example below, the <code>TransferMoneyCommand</code> class encapsulates the action and its associated details (it takes the <code>BankAccount</code> objects as parameters) and can be executed by <code>TransactionHistory</code> (the invoker) when triggered.</p>
 
-<span class="function">class</span> Command(<span class="function">ABC</span>): <span class="comment"># a Command interface</span>
-    <span class="command">@abstractmethod</span>
-    <span class="function">def</span> execute(<span class="function">self</span>):
-        <span class="function">pass</span>
-
-<span class="function">class</span> Light: <span class="comment"># a receiver class (the object that performs the action when requested)</span>
-    <span class="function">def</span> on(<span class="function">self</span>):
-        <span class="command">print</span>(<span class="text">"The light is ON"</span>)
-    <span class="function">def</span> off(<span class="function">self</span>):
-        <span class="command">print</span>(<span class="text">"The light is OFF"</span>)
-
-<span class="comment"># Concrete Command classes</span>
-<span class="function">class</span> LightOnCommand(<span class="function">Command</span>):
-    <span class="function">def __init__</span>(<span class="function">self</span>, light):
-        <span class="function">self</span>.light <span class="sign">=</span> light
-
-    <span class="function">def</span> execute(<span class="function">self</span>):
-        <span class="function">self</span>.light.on() <span class="comment"># the receiver (Light) performs the action</span>
-
-<span class="function">class</span> LightOffCommand(<span class="function">Command</span>):
-    <span class="function">def __init__</span>(<span class="function">self</span>, light):
-        <span class="function">self</span>.light <span class="sign">=</span> light
-
-    <span class="function">def</span> execute(<span class="function">self</span>):
-        <span class="function">self</span>.light.off() <span class="comment"># the receiver (Light) performs the action</span>
-
-<span class="function">class</span> RemoteControl: <span class="comment"># an invoker class (the object that calls the command)</span>
-    <span class="function">def __init__</span>(<span class="function">self</span>):
-        <span class="function">self</span>.command <span class="sign">=</span> <span class="function">None</span>
-
-    <span class="function">def</span> set_command(<span class="function">self</span>, command):
-        <span class="function">self</span>.command <span class="sign">=</span> command
-
-    <span class="function">def</span> press_button(<span class="function">self</span>):
-        <span class="function">if self</span>.command:
-            <span class="function">self</span>.command.execute()
-
-light <span class="sign">=</span> <span class="function">Light</span>()
-light_on <span class="sign">=</span> <span class="function">LightOnCommand</span>(light)
-light_off <span class="sign">=</span> <span class="function">LightOffCommand</span>(light)
-remote <span class="sign">=</span> <span class="function">RemoteControl</span>()
-
-remote.set_command(light_on)
-remote.press_button()
-remote.set_command(light_off)
-remote.press_button()
-                                    </code></pre>
-
-                                    <h4>An example with undo functionality - money transactions</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
@@ -397,7 +345,7 @@ remote.press_button()
     <span class="function">def</span> undo(<span class="function">self</span>):
         <span class="function">pass</span>
 
-<span class="function">class</span> BankAccount:
+<span class="function">class</span> BankAccount: <span class="comment"># a receiver class (the object that performs the action when requested)</span>
     <span class="function">def __init__</span>(<span class="function">self</span>, balance <span class="sign">=</span> 0):
         <span class="function">self</span>.balance <span class="sign">=</span> balance
 
@@ -411,9 +359,9 @@ remote.press_button()
         <span class="function">return</span> <span class="function">False</span>
 
     <span class="function">def __str__</span>(<span class="function">self</span>):
-        <span class="function">return</span> <span class="text">f"Balance = {self.balance}"</span>
+        <span class="function">return</span> <span class="text">f"Balance = {<span class="function">self</span>.balance}"</span>
 
-<span class="function">class</span> TransferMoneyCommand(<span class="function">Command</span>):
+<span class="function">class</span> TransferMoneyCommand(<span class="function">Command</span>): <span class="comment"># a concrete Command classes</span>
     <span class="function">def __init__</span>(<span class="function">self</span>, source_account, target_account, amount):
         <span class="function">self</span>.source_account <span class="sign">=</span> source_account
         <span class="function">self</span>.target_account <span class="sign">=</span> target_account
@@ -425,7 +373,7 @@ remote.press_button()
             <span class="function">if self</span>.source_account.withdraw(<span class="function">self</span>.amount):
                 <span class="function">self</span>.target_account.deposit(<span class="function">self</span>.amount)
                 <span class="function">self</span>.executed <span class="sign">=</span> <span class="function">True</span>
-                <span class="command">print</span>(<span class="text">f"Transferred {self.amount} from source to target."</span>)
+                <span class="command">print</span>(<span class="text">f"Transferred {<span class="function">self</span>.amount} from source to target."</span>)
             <span class="function">else</span>:
                 <span class="command">print</span>(<span class="text">"Insufficient funds for transfer."</span>)
         <span class="function">else</span>:
@@ -435,17 +383,17 @@ remote.press_button()
         <span class="function">if self</span>.executed:
             <span class="function">self</span>.target_account.withdraw(<span class="function">self</span>.amount)
             <span class="function">self</span>.source_account.deposit(<span class="function">self</span>.amount)
-            <span class="command">print</span>(<span class="text">f"Undo transfer of {self.amount} from target back to source."</span>)
+            <span class="command">print</span>(<span class="text">f"Undo transfer of {<span class="function">self</span>.amount} from target back to source."</span>)
             <span class="function">self</span>.executed <span class="sign">=</span> <span class="function">False</span>
         <span class="function">else</span>:
             <span class="command">print</span>(<span class="text">"No transfer to undo."</span>)
 
-<span class="function">class</span> TransactionHistory:
+<span class="function">class</span> TransactionHistory: <span class="comment"># an invoker class (the object that calls the command)</span>
     <span class="function">def __init__</span>(<span class="function">self</span>):
         <span class="function">self</span>.history <span class="sign">=</span> []
 
     <span class="function">def</span> execute_command(<span class="function">self</span>, command):
-        command.execute()
+        command.execute() <span class="comment"># invoking the Command's execute method</span>
         <span class="function">self</span>.history.<span class="command">append</span>(command)
 
     <span class="function">def</span> undo(<span class="function">self</span>):
@@ -480,6 +428,8 @@ history.undo()
                                     <h2><a id="interpreter">Interpreter</a></h2>
 
                                     <p>Interpreter is used for designing a system that needs to process and evaluate language expressions. It provides a way to define the grammar of a language and interpret statements in that language. It is commonly used in mathematical expression evaluators, rule-based engines, and parsers. It turns text data into separate lexical tokens (lexing) and interprets sequences of these tokens (parsing).</p>
+
+                                    <p>The example below implements a simple interpreter for arithmetic expressions that includes addition and subtraction. It tokenizes an expression like "10 + 5 - 3", parses it into an abstract syntax tree (AST), and evaluates the result.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
@@ -493,7 +443,7 @@ history.undo()
         <span class="function">self</span>.value <span class="sign">=</span> value
 
     <span class="function">def __repr__</span>(<span class="function">self</span>):
-        <span class="function">return</span> <span class="text">f"Token({self.type}, {self.value})"</span>
+        <span class="function">return</span> <span class="text">f"Token({<span class="function">self</span>.type}, {<span class="function">self</span>.value})"</span>
 
 <span class="function">class</span> Lexer:
     <span class="function">def __init__</span>(<span class="function">self</span>, text):
@@ -526,69 +476,38 @@ history.undo()
         <span class="function">return</span> tokens
 
 <span class="comment"># Parsing</span>
-<span class="function">class</span> Expression(<span class="function">ABC</span>): <span class="comment"># an abstract base for all expressions</span>
-    <span class="command">@abstractmethod</span>
-    <span class="function">def</span> interpret(<span class="function">self</span>):
-        <span class="function">pass</span>
-
-<span class="function">class</span> NumberExpression(<span class="function">Expression</span>):
-    <span class="function">def __init__</span>(<span class="function">self</span>, number):
-        <span class="function">self</span>.number <span class="sign">=</span> number
-
-    <span class="function">def</span> interpret(<span class="function">self</span>):
-        <span class="function">return</span> <span class="function">self</span>.number <span class="comment"># returning the numeric value</span>
-
-<span class="function">class</span> AddExpression(<span class="function">Expression</span>):
-    <span class="function">def __init__</span>(<span class="function">self</span>, left, right):
-        <span class="function">self</span>.left <span class="sign">=</span> left
-        <span class="function">self</span>.right <span class="sign">=</span> right
-
-    <span class="function">def</span> interpret(<span class="function">self</span>):
-        <span class="function">return</span> <span class="function">self</span>.left.interpret() <span class="sign">+</span> <span class="function">self</span>.right.interpret()
-
-<span class="function">class</span> SubtractExpression(<span class="function">Expression</span>):
-    <span class="function">def __init__</span>(<span class="function">self</span>, left, right):
-        <span class="function">self</span>.left <span class="sign">=</span> left
-        <span class="function">self</span>.right <span class="sign">=</span> right
-
-    <span class="function">def</span> interpret(<span class="function">self</span>):
-        <span class="function">return</span> <span class="function">self</span>.left.interpret() <span class="sign">-</span> <span class="function">self</span>.right.interpret()
-
 <span class="function">class</span> Parser:
     <span class="function">def __init__</span>(<span class="function">self</span>, tokens):
         <span class="function">self</span>.tokens <span class="sign">=</span> tokens
-        <span class="function">self</span>.current_token <span class="sign">=</span> <span class="function">self</span>.tokens.<span class="command">pop</span>(0) <span class="function">if self</span>.tokens <span class="function">else None</span> <span class="comment"># fetching the first token</span>
+        <span class="function">self</span>.current_token <span class="sign">=</span> <span class="function">self</span>.tokens.<span class="command">pop</span>(0) <span class="function">if</span> <span class="function">self</span>.tokens <span class="function">else None</span> <span class="comment"># fetching the first token</span>
 
     <span class="function">def</span> eat(<span class="function">self</span>, token_type):
-        <span class="function">if self</span>.current_token <span class="function">and self</span>.current_token.type <span class="sign">==</span> token_type:
-            <span class="function">self</span>.current_token <span class="sign">=</span> <span class="function">self</span>.tokens.<span class="command">pop</span>(0) <span class="function">if self</span>.tokens <span class="function">else None</span> <span class="comment"># moving to the next token</span>
+        <span class="function">if</span> <span class="function">self</span>.current_token <span class="function">and self</span>.current_token.type <span class="sign">==</span> token_type:
+            <span class="function">self</span>.current_token =</span> <span class="function">self</span>.tokens.<span class="command">pop</span>(0) <span class="function">if</span> <span class="function">self</span>.tokens <span class="function">else None</span> <span class="comment"># moving to the next token</span>
 
-    <span class="function">def</span> parse(<span class="function">self</span>):
-        <span class="comment"># Parsing the first number</span>
-        left <span class="sign">=</span> <span class="function">NumberExpression</span>(<span class="function">self</span>.current_token.value)
+    <span class="function">def</span> parse(self</span>):
+        result <span class="sign">=</span> <span class="function">self</span>.current_token.value <span class="comment"># starting with the first number</span>
         <span class="function">self</span>.eat(<span class="function">Token</span>.NUMBER)
 
         <span class="function">while</span> <span class="function">self</span>.current_token:
-            <span class="function">if self</span>.current_token.type <span class="sign">==</span> <span class="function">Token</span>.PLUS:
+            <span class="function">if</span> <span class="function">self</span>.current_token.type <span class="sign">==</span> <span class="function">Token</span>.PLUS:
                 <span class="function">self</span>.eat(<span class="function">Token</span>.PLUS)
-                right <span class="sign">=</span> <span class="function">NumberExpression</span>(<span class="function">self</span>.current_token.value)
+                result <span class="sign">+=</span> <span class="function">self</span>.current_token.value <span class="comment"># adding the next number to result</span>
                 <span class="function">self</span>.eat(<span class="function">Token</span>.NUMBER)
-                left <span class="sign">=</span> <span class="function">AddExpression</span>(left, right) <span class="comment"># creating an addition node</span>
-            <span class="function">elif self</span>.current_token.type <span class="sign">==</span> <span class="function">Token</span>.MINUS:
+            <span class="function">elif</span> <span class="function">self</span>.current_token.type <span class="sign">==</span> <span class="function">Token</span>.MINUS:
                 <span class="function">self</span>.eat(<span class="function">Token</span>.MINUS)
-                right <span class="sign">=</span> <span class="function">NumberExpression</span>(<span class="function">self</span>.current_token.value)
+                result <span class="sign">-=</span> <span class="function">self</span>.current_token.value <span class="comment"># subtracting the next number from result</span>
                 <span class="function">self</span>.eat(<span class="function">Token</span>.NUMBER)
-                left <span class="sign">=</span> <span class="function">SubtractExpression</span>(left, right) <span class="comment"># creating a subtraction node</span>
 
-        <span class="function">return</span> left <span class="comment"># returning the complete expression tree</span>
+        <span class="function">return</span> result <span class="comment"># directly returning the result</span>
 
 expression <span class="sign">=</span> <span class="text">"10 + 5 - 3"</span>
 lexer <span class="sign">=</span> <span class="function">Lexer</span>(expression)
 tokens <span class="sign">=</span> lexer.tokenize()
 <span class="command">print</span>(tokens)
 parser <span class="sign">=</span> <span class="function">Parser</span>(tokens)
-ast <span class="sign">=</span> parser.parse()
-<span class="command">print</span>(ast.interpret())
+number <span class="sign">=</span> parser.parse()
+<span class="command">print</span>(number)
                                     </code></pre>
 
                                     <h2><a id="iterator">Iterator</a></h2>
@@ -638,11 +557,11 @@ inventory.items <span class="sign">=</span> [<span class="text">"Bow"</span>, <s
         <span class="function">self</span>.mediator <span class="sign">=</span> None
 
     <span class="function">def</span> send_message(<span class="function">self</span>, message):
-        <span class="command">print</span>(<span class="text">f"{self.name} sends: {message}"</span>)
+        <span class="command">print</span>(<span class="text">f"{<span class="function">self</span>.name} sends: {message}"</span>)
         <span class="function">self</span>.mediator.send(message, self)
 
     <span class="function">def</span> receive_message(<span class="function">self</span>, message):
-        <span class="command">print</span>(<span class="text">f"{self.name} receives: {message}"</span>)
+        <span class="command">print</span>(<span class="text">f"{<span class="function">self</span>.name} receives: {message}"</span>)
 
 <span class="function">class</span> ChatRoom(Mediator):
     <span class="function">def __init__</span>(<span class="function">self</span>):
@@ -710,7 +629,7 @@ charlie.send_message(<span class="text">"Hey all!"</span>)
         <span class="function">return None</span>
 
     <span class="function">def</span> show_content(<span class="function">self</span>):
-        <span class="command">print</span>(<span class="text">f"Document content: {self.content}"</span>)
+        <span class="command">print</span>(<span class="text">f"Document content: {<span class="function">self</span>.content}"</span>)
 
 editor <span class="sign">=</span> TextEditor()
 editor.write(<span class="text">"Hello, "</span>)
@@ -728,7 +647,7 @@ editor.show_content()
 
                                     <p>State allows an object to change its behavior when its internal state changes. It encapsulates different behaviors within separate state classes, making the system more maintainable and flexible.</p>
 
-                                    <p>In the example below, the behavior that changes is how the <code>TrafficLight</code> object responds to the <code>change()</code> method, depending on its current state. Each state class (<code>RedState</code>, <code>YellowState</code>, <code>GreenState</code>) defines a different state transition logic in the <code>switch()</code> method. </p>
+                                    <p>In the example below, the behavior that changes is how the <code>TrafficLight</code> object responds to the <code>change()</code> method, depending on its current state. This method changes the state, and depending on whether the current state is <code>RedState</code>, <code>YellowState</code>, or <code>GreenState</code>, a different transition logic contained in the <code>switch()</code> method of each state class is applied.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
@@ -759,7 +678,7 @@ editor.show_content()
         <span class="function">self</span>.state <span class="sign">=</span> <span class="function">RedState</span>() <span class="comment"># an initial State</span>
 
     <span class="function">def</span> change(<span class="function">self</span>):
-        <span class="function">self</span>.state.switch(<span class="function">self</span>) <span class="comment"># the context triggers the state switch</span>
+        <span class="function">self</span>.state.switch(<span class="function">self</span>) <span class="comment"># switching the State by executing the switch() method from the current State class</span>
 
 traffic_light <span class="sign">=</span> <span class="function">TrafficLight</span>()
 traffic_light.change()
@@ -861,7 +780,7 @@ inventory.generate_report()
 
                                     <h2><a id="visitor">Visitor</a></h2>
 
-                                    <p>Visitor allows us to add new operations to existing object structures without modifying their classes. Instead of adding behavior inside the class itself, we create a Visitor that implements the behavior and visits objects. This keeps the document structure unchanged while allowing new operations.</p>
+                                    <p>Visitor allows us to add new operations to existing object structures without modifying their classes (in compliance with the OCP). Instead of adding behavior inside the class itself, we create a Visitor that implements the behavior and visits objects. This keeps the document structure unchanged while allowing new operations.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
@@ -903,7 +822,7 @@ renderer <span class="sign">=</span> <span class="function">Renderer</span>()
 
                                     <h5>Visitor VS Decorator</h5>
 
-                                    <p>A Visitor allows new operations to be added to existing object structures without modifying them by separating the algorithm from the objects it operates on. Decorator allows behavior to be dynamically added to an object at runtime by wrapping it with additional functionality, enhancing or altering its capabilities.</p>
+                                    <p>A Visitor allows <b>new operations</b> to be added to existing object structures without modifying them by separating the new behavior from the objects it operates on. Decorator allows behavior to be dynamically added to an object at runtime by wrapping it with <b>additional functionality and extending behavior</b>.</p>
                                 </div>
                             </div>
                         </div>

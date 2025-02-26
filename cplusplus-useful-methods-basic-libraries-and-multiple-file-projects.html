@@ -96,17 +96,17 @@
 
                                     <h2>Files</h2>
                                     
-                                    <p>Inside a project, we can create multiple files to write, e.g., separate functionalities. These files have the <code>.h</code> (header) extension.</p>
+                                    <p>In a project, we can create multiple files to separate functionalities, improving code organization. Header files (<code>.h</code>) are used to declare variables, functions, and classes that can be shared across multiple files./p>
                                     
                                     <h4><code>library.h</code></h4>
 
-                                    <p>The <code>#include "library.h"</code> line will import everything from <code>library.h</code> to this file. If we have included <code>&lt;iostream&gt;</code> in the other file, we don't have to do it again because it will also be transferred. Thanks to the additional statements after the <code>#</code> signs (e.g., <code>#indef_LIBRARY</code>), there won't be any errors when redefining variables. They protect against including the same element multiple times ("normal" libraries have this feature built-in).</p>
+                                    <p>The <code>#include "library.h"</code> line imports everything from <code>library.h</code> into the current file. If <code>&lt;iostream&gt;</code> is included in <code>library.h</code>, there is no need to include it again, as it will be carried over automatically. To prevent errors caused by multiple inclusions of the same file, we use preprocessor directives such as <code>#ifndef LIBRARY</code>. These safeguards ensure that the file is included only once, a feature that built-in libraries already handle internally.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="command-c">#ifndef</span> _LIBRARY <span class="comment">// this name has to be the same as the file name</span>
+<span class="command-c">#ifndef</span> _LIBRARY <span class="comment">// this name has to match the file name</span>
 <span class="command-c">#define</span> _LIBRARY 1
 
 <span class="function">int</span> x <span class="sign">=</span> 10<span class="sign">;</span>
