@@ -92,7 +92,7 @@
                                     <h5 class="m-0 font-weight-bold">Enum type</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p><code>Enum</code> (enumeration) is a custom data type (a data type that can define its type). We can determine what it contains. When defining it, we give a set of values of this type in braces (similarly, e.g., an <code>int</code> has a set of allowed values - a range).</p>
+                                    <p><code>Enum</code> (enumeration) is a custom data type (a data type that can define its type). We can determine what it contains. When defining it, we give a set of values of this type (similarly, e.g., an <code>int</code> has a set of allowed values - a range).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> enum <span class="command">import</span> Enum
@@ -115,11 +115,13 @@ today <span class="sign">=</span> <span class="function">Day</span>.Mo
 <span class="command">print</span>(get_day(today))
                                     </code></pre>
 
+                                    <p></p>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> enum <span class="command">import</span> Enum, auto
 
 <span class="function">class</span> Color(<span class="function">Enum</span>):
-    RED <span class="sign">=</span> <span class="command">auto</span>()
+    RED <span class="sign">=</span> <span class="command">auto</span>() <span class="comment"># automatically assigning increasing integer values (starting from 1) to the members of an Enum class</span>
     GREEN <span class="sign">=</span> <span class="command">auto</span>()
     BLUE <span class="sign">=</span> <span class="command">auto</span>()
 

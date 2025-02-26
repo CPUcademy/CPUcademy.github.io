@@ -102,13 +102,11 @@
                                         <li>Once an instance is created, we can access and modify the class's attributes and call its methods through it. Every word a class name consists of should start with an uppercase letter (Pascal case - <code>ClassName</code>).</li>
                                     </ul>
                                     
-                                    <p>To work with classes, we can create three files inside a project: the main one, another <code>.cpp</code> file, and a <code>.h</code> file. In the <code>.h</code> file, we write the class itself, in the other <code>.cpp</code> file, we write the definitions of the class's methods, and in the main one - everything else. We can also work in one file, but if you want to write in separate files, remember to include the <code>file.h</code> file in the other files (<code>#include "file.h"</code>).</p>
-                                    
-                                    <p>If we want to make our code clean, inside the class, we write only the object's declarations. Their definitions should be written after exiting the class like this: <code>Human::getAge()</code> (this is the <code>getAge()</code> method from the <code>Human</code> class). The <code>::</code> operator symbolizes affiliation to the class. I will not write like this to save space and mitigate redundancy in the examples.</p>
-                                    
                                     <p>Everything inside a class can, by default, be accessed only inside it (<code>private</code>). We can make it <code>public</code> or <code>protected</code> (or, again, <code>private</code>) by typing these words with colons. Everything after that label can be accessed in this particular way (until encountering a different one). <code>public</code> means that the objects are also available outside of the class. <code>protected</code> means that the objects are <code>private</code>, except for the class's subclasses (I will explain this in a lesson about inheritance). These "modes" are called access modifiers.</p>
 
                                     <p>We should use structures to store data that describes something and classes when we want to add the so-called functionalities or activities for such objects. A structure is an object (a class) inside which all objects are <code>public</code> by default.</p>
+
+                                    <p>To organize a project with classes, we can create three separate files: the main file, a <code>.cpp</code> file, and a <code>.h</code> file. The <code>.h</code> file contains the class declaration (header), the additional <code>.cpp</code> file defines the class methods (it is possible to do outside the class thanks to the <code>::</code> scope resolution operator), and the main file handles everything else. For example, the <code>getAge()</code> method from the <code>Human</code> class would be defined as <code>Human::getAge()</code> (the <code>::</code> operator indicates that the method belongs to the class). While it's possible to write everything in a single file, using separate files improves code structure. If working with multiple files, remember to include the header (<code>.h</code>) file in the other files using <code>#include "file.h"</code>. To save space and reduce redundancy, I will write everything in one place in the examples.</p>
                                     
                                     <h2>Abstraction</h2>
                                     
@@ -166,7 +164,7 @@
         h3[i].setAge(30 <span class="sign">+</span> i)<span class="sign">;</span>
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> h3[i].getAge() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     <span class="sign">}</span>
-    <span class="function">delete</span>[] h3<span class="sign">;</span>
+    <span class="function">delete</span>[] h3<span class="sign">;</span> <span class="comment">// properly releasing memory for the dynamically allocated array of Humans</span>
     <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>

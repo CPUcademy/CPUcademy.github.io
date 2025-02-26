@@ -220,8 +220,8 @@
 
                                     <p>Polymorphism  means operating the same way on objects of different types (it states that an object can have many forms). For example, the <code>+</code> operator behaves polymorphically because it can add numbers and concatenate strings (it works with various data types). It is the fourth concept of object-oriented programming. Example: A man can be a father, a husband, a student, etc. One person can have different roles. This mechanism can also be used in structural programming.</p>
                                     
-                                    <p>A method can become virtual, which means that before calling it, it will check whether there is a class that inherits and overloads it. It will then call the appropriate method lower in the hierarchy. We create virtual methods by writing <code>virtual</code> before their type.</p>
-                                    
+                                    <p>A virtual method is a method from a base class that we can redefine (override) in a child class to achieve runtime polymorphism. This means that the method invoked depends on the actual object type at runtime, not the pointer or reference type. Virtual methods are declared with the <code>virtual</code> keyword, allowing derived classes to provide their own implementation. This supports dynamic method binding, meaning the correct method is called based on the object's type, even if accessed through a base class pointer (e.g., if a <code>Cat</code> object is referred to by an <code>Animal*</code>, calling <code>voice()</code> will call the <code>Cat</code> version, not the <code>Animal</code> one). In contrast, normal methods are resolved at compile time and do not support polymorphism, always calling the method based on the reference or pointer type (e.g., even if a <code>Cat</code> object is referred to by an <code>Animal*</code>, calling a normal method like <code>voice2()</code> will call the <code>Animal</code> version).</p>
+                                   
                                     <p>A class is considered abstract if it has at least one pure virtual method (i.e., a virtual method with <code>= 0</code>). An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects or have instances, so we can only use them in its child classes. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). An abstract method is a method that is in an abstract class and is a pure virtual method. An abstract class forces all its child classes to override all its abstract methods. It isn't mandatory to override a non-abstract method from an abstract class. Non-abstract methods can contain implementations to be inherited in the child classes (abstract methods have to be overridden, so it wouldn't make sense for them to contain implementations). If an abstract class contains a constructor, it will be executed when its subclass is instantiated.</p>
                                     
                                     <p>When creating an abstract class, we also have to make a virtual destructor (write <code>virtual</code> before the destructor definition). A constructor is not mandatory in an abstract class because it works implicitly.</p>
@@ -234,8 +234,9 @@
 
 <span class="function">class</span> Animal <span class="sign">{</span>
     <span class="function">public</span><span class="sign">:</span>
-        <span class="function">virtual void</span> voice() <span class="sign">=</span> 0<span class="sign">;</span>
+        <span class="function">virtual void</span> voice() <span class="sign">=</span> 0<span class="sign">;</span> <span class="comment">// an abstract method to be implemented by subclasses</span>
         <span class="function">void</span> voice2()<span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Voice!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">};</span>
+        <span class="function">virtual void</span> sound()<span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Animal sound!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">};</span> <span class="comment">// a virtual method</span>
         <span class="function">virtual</span> <span class="sign">~</span><span class="function">Animal</span>()<span class="sign">{}</span>
 <span class="sign">};</span>
 
@@ -244,12 +245,15 @@
         <span class="function">Cat</span>()<span class="sign">{}</span>
         <span class="sign">~</span><span class="function">Cat</span>()<span class="sign">{}</span>
         <span class="function">void</span> voice() <span class="function">override</span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span> <span class="comment">// "override" indicates we want to override a method from the base class</span>
+        <span class="function">void</span> sound() <span class="function">override</span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow sound!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span> <span class="comment">// overriding the virtual method</span>
 <span class="sign">};</span>
 
 <span class="function">int</span> main() <span class="sign">{</span>
-    <span class="function">Animal</span> <span class="sign">*</span>cat <span class="sign">=</span> <span class="function">new Cat</span><span class="sign">;</span> <span class="comment">// we can create many different objects (e.g., Cat or Dog) using only one type (Animal) - polymorphism</span>
+    <span class="function">Animal</span> <span class="sign">*</span>cat <span class="sign">=</span> <span class="function">new Cat</span><span class="sign">;</span> <span class="comment">// creating a Cat object using a pointer of type Animal - polymorphism</span>
     cat <span class="sign">-&gt;</span> voice()<span class="sign">;</span>
     cat <span class="sign">-&gt;</span> voice2()<span class="sign">;</span>
+    cat <span class="sign">-&gt;</span> sound()<span class="sign">;</span>
+    <span class="function">delete</span> cat<span class="sign">;</span>
     <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
@@ -285,7 +289,7 @@
 
     <span class="function">Person</span><span class="sign">*</span> people[] <span class="sign">= {</span>father, husband, student<span class="sign">};</span>
     <span class="function">for</span>(<span class="function">Person</span><span class="sign">*</span> person<span class="sign">:</span> people)
-        person <span class="sign">-></span> role()<span class="sign">;</span> <span class="comment">// polymorphism: calling the same method "role()" on different objects</span>
+        person <span class="sign">-></span> role()<span class="sign">;</span> <span class="comment">// calling the same role() method on different objects - polymorphism</span>
 
     <span class="function">delete</span> father<span class="sign">;</span>
     <span class="function">delete</span> husband<span class="sign">;</span>

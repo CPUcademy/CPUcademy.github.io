@@ -133,7 +133,7 @@ adapter.<span class="command">print</span>(<span class="text">"Printed text."</s
 
                                     <h2><a id="bridge">Bridge</a></h2>
 
-                                    <p>Bridge decouples (separates) abstraction from implementation, allowing them to vary independently and preventing a Cartesian complexity explosion (where the number of subclasses grows exponentially as new features are added). It achieves this through an interface that acts as a bridge between high-level abstractions and concrete implementations. It connects these two hierarchies of different classes with a parameter. It does not comply with the OCP (a price to pay).</p>
+                                    <p>Bridge decouples (separates) abstraction from implementation, allowing them to vary independently and preventing a Cartesian complexity explosion (where the number of subclasses grows exponentially as new features are added). It acts as a bridge between high-level abstractions and concrete implementations by connecting these two hierarchies of different classes with a parameter. It does not comply with the OCP (a price to pay).</p>
 
                                     <p>The first hierarchy (<code>Sender</code> and its subclasses like <code>FastSender</code> and <code>SecureSender</code>) represents the implementation. The second hierarchy (<code>Message</code> and its subclasses like <code>EmailMessage</code> and <code>SMSMessage</code>) represents the abstraction. The <code>sender</code> parameter in <code>Message.__init__()</code> acts as the bridge that connects these two hierarchies dynamically.</p>
 
@@ -188,7 +188,7 @@ sms.send(<span class="text">"Hello via SMS!"</span>)
 
                                     <h2><a id="composite">Composite</a></h2>
 
-                                    <p>Composite is used to treat individual objects and compositions of objects uniformly. It is commonly used in file systems to represent hierarchical structures where folders can contain both files and other folders. Instead of writing separate logic for handling individual files and directories, we use the same interface, making it easier to traverse and manage the entire structure.</p>
+                                    <p>Composite treats individual objects and compositions of objects uniformly. It is commonly used in file systems to represent hierarchical structures where folders can contain both files and other folders. Instead of writing separate logic for handling individual files and directories, we use the same interface, making it easier to traverse and manage the entire structure.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
@@ -269,7 +269,7 @@ milk_coffee <span class="sign">=</span> <span class="function">MilkDecorator</sp
 
                                     <h2><a id="facade">Facade</a></h2>
 
-                                    <p>Facade provides a simplified interface to a larger and more complex system. It hides the complexity and provides a simple higher-level API for clients to use. Optionally, we may wish to expose internals through the facade, e.g., for more detailed control or specific operations that bypass the simplified interface, allowing advanced users to interact directly with system components when necessary.</p>
+                                    <p>Facade provides a simplified interface to a larger, more complicated system, hiding the complexity and offering a higher-level API for clients. Optionally, we may wish to expose internals through the facade, e.g., for more detailed control or specific operations that bypass the simplified interface, allowing advanced users to interact directly with system components when necessary.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> TV:
