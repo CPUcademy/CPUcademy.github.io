@@ -296,7 +296,7 @@ stream.<span class="function">forEach</span>(<span class="function">System</span
 <span class="sign">}</span>
                                     </code></pre>
                                     
-                                    <h2>Converting between strings and integers</h2>
+                                    <h2>Converting between strings and numbers</h2>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">String</span> str <span class="sign">=</span> <span class="text">"15"</span><span class="sign">;</span>
@@ -309,10 +309,15 @@ stream.<span class="function">forEach</span>(<span class="function">System</span
 <span class="function">float</span> f <span class="sign">=</span> <span class="function">Float</span>.<span class="command">parseFloat</span>(str)<span class="sign">;</span>
 <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(f)<span class="sign">;</span>
 
-<span class="comment">// Integer to string</span>
-<span class="function">int</span> i2 <span class="sign">=</span> 15<span class="sign">;</span>
-<span class="function">String</span> str1 <span class="sign">=</span> <span class="function">String</span>.<span class="command">valueOf</span>(i2)<span class="sign">;</span>
+<span class="comment">// Integer to string</span> 
+<span class="function">Integer</span> i2 <span class="sign">=</span> 15<span class="sign">;</span> <span class="comment">// the type has to be an object (even our class if it overrides the toString() method)</span>
+<span class="function">String</span> str1 <span class="sign">=</span> i2.<span class="command">toString</span>()<span class="sign">;</span> <span class="comment">// if null - Throws NullPointerException</span>
 <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(str1)<span class="sign">;</span>
+
+<span class="comment">// Integer to string</span>
+<span class="function">int</span> i3 <span class="sign">=</span> 15<span class="sign">;</span> <span class="comment">// the type has to be primitive</span>
+<span class="function">String</span> str2 <span class="sign">=</span> <span class="function">String</span>.<span class="command">valueOf</span>(i3)<span class="sign">;</span> <span class="comment">// a primitive type can't be null</span>
+<span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(str2)<span class="sign">;</span>
                                     </code></pre>                                    
                                 </div>
                             </div>
