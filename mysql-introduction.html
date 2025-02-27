@@ -98,35 +98,61 @@
                                 
                                     <p>To write in MySQL, we need a server. We can host a local one on our computer using the XAMPP Control Panel. You can download it from <a href="https://www.apachefriends.org/download.html" target="_blank" class="link">here</a>. After installation, start the MySQL server, enter the shell, and start writing. XAMPP uses an RDBMS called MariaDB (it can be accessed through the shell).</p>
 
+                                    <h3>Creating a database</h3>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Creating a database</span>
-mysql -u root -p
-<span class="function">CREATE DATABASE</span> database_name;
+chcp 65001 <span class="comment">-- enabling UTF-8 formatting in the console</span>
+mysql -u root -p <span class="comment">-- entering the RDBMS</span>
+<span class="function">CREATE DATABASE</span> database_name; <span class="comment">-- creating the database</span>
+<span class="function">USE</span> [database_name]; <span class="comment">-- entering the database</span>
                                     </code></pre>
 
-                                    <p>To execute the commands below, we have to be on the console level and not inside the database.</p>
+                                    <h3>Importing and exporting a database</h3>
 
-                                    <p class="podpis"><code>mysql -u root -p [database_name]</code> / <code>mysql -u root -p</code> and <code>use [database_name];</code> - entering the database from the shell.</p>
-                                    <p class="podpis"><code>mysql -u root -p &lt; [path]</code> - importing the database from a <code>.sql</code> file.</p>
-                                    <p class="podpis"><code>mysqldump -u root -p --routines --triggers --events --add-drop-database --create-options --databases [database_name] &gt; [path_to_the_output_file]</code> - exporting the database to a <code>.sql</code> file.</p>
-                                    <p><code>chcp 65001</code> - enabling UTF-8 formatting in the console.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+mysql -u root -p &lt; [path] <span class="comment">-- importing the database</span>
+mysql -u root -p [database_name] <span class="comment">-- entering the RDBMS and the database</span>
 
-                                    <p>To execute the commands below, we have to be inside the database.</p>
+<span class="function">EXIT</span>; <span class="comment">-- exiting the database</span>
+mysqldump -u root -p --routines --triggers --events --add-drop-database --create-options --databases [database_name] > [path_to_the_output_file] <span class="comment">-- exporting the database to a .sql file</span>
+                                    </code></pre>
 
-                                    <p class="podpis"><code>SHOW databases;</code> - displaying available databases on a server.</p>
-                                    <p class="podpis"><code>SHOW tables;</code> - displaying all tables.</p>
-                                    <p class="podpis"><code>DESCRIBE table_name;</code> - displaying the structure of a given table.</p>
-                                    <p class="podpis"><code>LOAD DATA INFILE [path] INTO TABLE table_name FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n' IGNORE 1 LINES (id, value1, value2);</code> - loading the data from a file into the database. The data has to be separated by TABs (<code>\t</code>), and the end-of-line sign must be an enter (<code>\n</code>). The first line will be ignored (the column titles).</p>
-                                    <p><code>EXIT;</code> - exiting the database.</p>   
-                                    
-                                    <p>If the database is to be imported and exported to a file, its file has to contain these lines at the top:</p>
+                                    <p>We should add these lines at the top of the exported file to make importing easier:</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">CREATE DATABASE IF NOT EXISTS</span> database_name;
 <span class="function">USE</span> database_name;
                                     </code></pre>
 
-                                    <p>These lines ensure that the database is created (if it doesn’t already exist) and that the database is selected for the operations that follow. However, if it is impossible to add them to the file for some reason when importing the database from a file, add the database name into the import command: <code>mysql -u root -p database_name &lt; [path]</code>. Also, remember to create the database before that. In conclusion, it is worth adding these two lines to the file because it saves the trouble of creating a database manually each time and shortens the command required to import it.</p>
+                                    <p>These lines ensure that the database is created (if it doesn’t already exist) and that it is selected for the operations that follow. However, if it is impossible to add them to the file for some reason, use this sequence of commands while importing the database instead of the one given earlier:</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">CREATE DATABASE</span> database_name; <span class="comment">-- creating the database</span>
+mysql -u root -p database_name &lt; [path] <span class="comment">-- importing the database</span>
+<span class="function">USE</span> database_name;
+                                    </code></pre>
+                                    
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td colspan="2" style="text-align: center;"><b>Important commands</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>SHOW databases;</code></td>
+                                            <td>Displaying available databases on a server.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>SHOW tables;</code></td>
+                                            <td>Displaying all tables.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>DESCRIBE table_name;</code></td>
+                                            <td>Displaying the structure of a given table.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>LOAD DATA INFILE [path] INTO TABLE table_name FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n' IGNORE 1 LINES (id, value1, value2);</code></td>
+                                            <td>Loading the data from a file into the database. The data has to be separated by TABs (<code>\t</code>), and the end-of-line sign must be an enter (<code>\n</code>). The first line will be ignored (the column titles).</td>
+                                        </tr>
+                                    </table></div>
                                 </div>
                             </div>
                         </div>
