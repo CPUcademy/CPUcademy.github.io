@@ -117,7 +117,7 @@
     <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="function">throws IOException</span> <span class="sign">{</span>
         <span class="function">File</span> file <span class="sign">=</span> <span class="function">new File</span>(<span class="text">"file.txt"</span>)<span class="sign">;</span>
 
-        <span class="function">if</span>(<span class="sign">!</span>file.<span class="command">exists</span>())
+        <span class="function">if</span> (<span class="sign">!</span>file.<span class="command">exists</span>())
             file.<span class="command">createNewFile</span>();</span>
 
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">canWrite</span>())<span class="sign">;</span>
@@ -146,7 +146,7 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
 <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(System.<span class="command">getProperty</span>(<span class="text">"user.dir"</span>))<span class="sign">;</span> <span class="comment">// the path to this file</span>
 
 <span class="function">File</span> file <span class="sign">=</span> <span class="function">new File</span>(<span class="text">"folder"</span> <span class="sign">+</span> <span class="function">File</span>.<span class="command">separator</span> <span class="sign">+</span> <span class="text">"file.txt"</span>);</span>
-<span class="function">if</span>(<span class="sign">!</span>file.<span class="command">exists</span>())
+<span class="function">if</span> (<span class="sign">!</span>file.<span class="command">exists</span>())
     file.<span class="command">createNewFile</span>()<span class="sign">;</span>
                                     </code></pre>
                                     
@@ -161,7 +161,7 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
 <span class="function">public class</span> Main <span class="sign">{</span>
     <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="function">throws IOException</span> <span class="sign">{</span>
         <span class="function">File</span> file <span class="sign">=</span> <span class="function">new File</span>(<span class="text">"folder"</span> <span class="sign">+</span> <span class="function">File</span>.<span class="command">separator</span> <span class="sign">+</span> <span class="text">"file.txt"</span>);</span>
-        <span class="function">if</span>(<span class="sign">!</span>file.<span class="command">exists</span>())
+        <span class="function">if</span> (<span class="sign">!</span>file.<span class="command">exists</span>())
             file.<span class="command">createNewFile</span>()<span class="sign">;</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(file.<span class="command">getPath</span>())<span class="sign">;</span> <span class="comment">// this path is not absolute</span>
         
@@ -174,11 +174,11 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
     <span class="function">static void</span> displayPaths(<span class="function">File</span> pathName) <span class="sign">{</span>
         <span class="function">String</span>[] fileAndFolderNames <span class="sign">=</span> pathName.<span class="command">list</span>()<span class="sign">;</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(pathName.<span class="command">getPath</span>())<span class="sign">;</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> fileAndFolderNames.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+        <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> fileAndFolderNames.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
             <span class="function">File</span> f <span class="sign">=</span> <span class="function">new File</span>(pathName.<span class="command">getPath</span>(), fileAndFolderNames[i])<span class="sign">;</span>
-            <span class="function">if</span>(f.<span class="command">isFile</span>())
+            <span class="function">if</span> (f.<span class="command">isFile</span>())
                 <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(f.<span class="command">getPath</span>())<span class="sign">;</span>
-            <span class="function">if</span>(f.<span class="command">isDirectory</span>())
+            <span class="function">if</span> (f.<span class="command">isDirectory</span>())
                 displayPaths(<span class="function">new File</span>(f.<span class="command">getPath</span>()))<span class="sign">;</span>
         <span class="sign">}</span>
     <span class="sign">}</span>
@@ -200,7 +200,7 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
         // System.out.println(reader.readLine()); - one line</span>
 
         <span class="function">String</span> content <span class="sign">=</span> <span class="text">""</span><span class="sign">;</span>
-        <span class="function">while</span>((content <span class="sign">=</span> x.<span class="command">readLine</span>()) <span class="sign">!=</span> <span class="function">null</span>)
+        <span class="function">while</span> ((content <span class="sign">=</span> x.<span class="command">readLine</span>()) <span class="sign">!=</span> <span class="function">null</span>)
             <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(content)<span class="sign">;</span>
         x.<span class="command">close</span>()<span class="sign">;</span>
     <span class="sign">}</span>
@@ -211,7 +211,7 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">static void</span> method(<span class="function">Object</span><span class="sign">...</span> a) <span class="sign">{</span>
-    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> a.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
+    <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> a.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(a[i])<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
@@ -221,7 +221,7 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> lineNumber <span class="sign">=</span> 2<span class="sign">;</span>
 <span class="function">BufferedReader</span> x <span class="sign">=</span> <span class="function">new BufferedReader</span>(<span class="function">new FileReader</span>(<span class="text">"file.txt"</span>))<span class="sign">;</span>
-<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> lineNumber <span class="sign">-</span> 1<span class="sign">;</span> i<span class="sign">++</span>)
+<span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> lineNumber <span class="sign">-</span> 1<span class="sign">;</span> i<span class="sign">++</span>)
     x.<span class="command">readLine</span>()<span class="sign">;</span>
 <span class="function">String</span> line <span class="sign">=</span> x.<span class="command">readLine</span>()<span class="sign">;</span>
 <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(line)<span class="sign">;</span>
@@ -270,7 +270,7 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
         <span class="function">BufferedReader</span> y <span class="sign">=</span> <span class="function">new BufferedReader</span>(<span class="function">new FileReader</span>(<span class="text">"file.txt"</span>))<span class="sign">;</span>
 
         <span class="function">Example</span>[] example2</span> <span class="sign">=</span> <span class="function">Example</span>.readFromFile(y)<span class="sign">;</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> example2.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
+        <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> example2.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
             <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(example2[i])<span class="sign">;</span>
 
         y.<span class="command">close</span>()<span class="sign">;</span>
@@ -293,14 +293,14 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
 
     <span class="function">static void</span> writeToFile(<span class="function">Example</span>[] example, <span class="function">PrintWriter</span> z) <span class="sign">{</span>
         z.<span class="command">println</span>(example.<span class="command">length</span>)<span class="sign">;</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> example.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
+        <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> example.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
             z.<span class="command">println</span>(example[i].x <span class="sign">+</span> <span class="text">"|"</span> <span class="sign">+</span> example[i].y)<span class="sign">;</span>
     <span class="sign">}</span>
 
     <span class="function">static Example</span>[] readFromFile(<span class="function">BufferedReader</span> z) <span class="function">throws IOException</span> <span class="sign">{</span>
         <span class="function">int</span> t <span class="sign">=</span> <span class="function">Integer</span>.<span class="command">parseInt</span>(z.<span class="command">readLine</span>())<span class="sign">;</span>
         <span class="function">Example</span>[] example <span class="sign">=</span> <span class="function">new Example</span>[t]<span class="sign">;</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> t<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+        <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> t<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
             <span class="function">String</span> line <span class="sign">=</span> z.<span class="command">readLine</span>()<span class="sign">;</span>
             <span class="function">StringTokenizer</span> tokens <span class="sign">=</span> <span class="function">new StringTokenizer</span>(line, <span class="text">"|"</span>)<span class="sign">;</span>
             <span class="function">int</span> x <span class="sign">=</span> <span class="function">Integer</span>.<span class="command">parseInt</span>(tokens.<span class="command">nextToken</span>())<span class="sign">;</span>
@@ -368,7 +368,7 @@ folders.<span class="command">mkdirs</span>()<span class="sign">;</span>
 
         <span class="function">ObjectInputStream</span> y <span class="sign">=</span> <span class="function">new ObjectInputStream</span>(<span class="function">new FileInputStream</span>(<span class="text">"file.txt"</span>))<span class="sign">;</span>
         <span class="function">Example</span>[] z <span class="sign">=</span> (<span class="function">Example</span>[])y.<span class="command">readObject</span>()<span class="sign">;</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> z.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
+        <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> z.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>)
             <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(z[i].toString())<span class="sign">;</span>    
         y.<span class="command">close</span>()<span class="sign">;</span>
     <span class="sign">}</span>

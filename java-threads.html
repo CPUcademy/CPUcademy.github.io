@@ -102,8 +102,8 @@
 <span class="function">class</span> Task1 <span class="function">extends Thread</span> <span class="sign">{</span>
     <span class="command">@Override</span>
     <span class="function">public void</span> run() <span class="sign">{</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 10000<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
-            <span class="function">if</span>(i <span class="sign">==</span> 10000)
+        <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 10000<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+            <span class="function">if</span> (i <span class="sign">==</span> 10000)
                 <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Task1: Counted to "</span> <span class="sign">+</span> i)<span class="sign">;</span>
         <span class="sign">}</span>
     <span class="sign">}</span>
@@ -113,7 +113,7 @@
     <span class="command">@Override</span>
     <span class="function">public void</span> run() <span class="sign">{</span>
         <span class="function">int</span> sum <span class="sign">=</span> 0<span class="sign">;</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 10000<span class="sign">;</span> i<span class="sign">++</span>)
+        <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 10000<span class="sign">;</span> i<span class="sign">++</span>)
             sum <span class="sign">+=</span> i<span class="sign">;</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Task2: Sum = "</span> <span class="sign">+</span> sum)<span class="sign">;</span>
     <span class="sign">}</span>
@@ -166,13 +166,13 @@ th.<span class="command">start</span>()<span class="sign">;</span>
     <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
         <span class="comment">// Creating multiple threads</span>
         <span class="function">Thread</span>[] threads <span class="sign">=</span> <span class="function">new Thread</span>[10]<span class="sign">;</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 10<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+        <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 10<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
             threads[i] <span class="sign">=</span> <span class="function">new Thread</span>(<span class="function">Main</span><span class="sign">::</span>increment)<span class="sign">;</span> <span class="comment">// the :: operator symbolizes affiliation to the class</span>
             threads[i].<span class="command">start</span>()<span class="sign">;</span>
         <span class="sign">}</span>
 
         <span class="comment">// Waiting for all threads to finish</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 10<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+        <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 10<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
             <span class="function">try</span> <span class="sign">{</span>
                 threads[i].<span class="command">join</span>()<span class="sign">;</span>
             <span class="sign">}</span> 
@@ -185,7 +185,7 @@ th.<span class="command">start</span>()<span class="sign">;</span>
     <span class="sign">}</span>
 
     <span class="function">public static void</span> increment() <span class="sign">{</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 1000<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+        <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 1000<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
             <span class="comment">// Ensuring only one thread modifies the shared resource at a time (acquiring the lock before accessing the data) - synchronization</span>
             <span class="function">synchronized</span>(<span class="function">Main</span>.<span class="function">class</span>) <span class="sign">{</span>
                 shared_resource<span class="sign">++;</span>
@@ -208,7 +208,7 @@ th.<span class="command">start</span>()<span class="sign">;</span>
         <span class="function">ExecutorService</span> executor <span class="sign">=</span> <span class="function">Executors</span>.<span class="command">newFixedThreadPool</span>(3)<span class="sign">;</span> <span class="comment">// creating a thread pool with 3 worker threads</span>
         
         <span class="comment">// Submitting 5 tasks to the thread pool</span>
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 5<span class="sign">;</span> i<span class="sign">++</span>) 
+        <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 5<span class="sign">;</span> i<span class="sign">++</span>) 
             executor.<span class="command">submit</span>(<span class="function">new Task</span>(i))<span class="sign">;</span> <span class="comment">// executing the task with argument "i"</span>
 
         executor.<span class="command">shutdown</span>()<span class="sign">;</span> <span class="comment">// shutting down the executor to stop accepting new tasks</span>

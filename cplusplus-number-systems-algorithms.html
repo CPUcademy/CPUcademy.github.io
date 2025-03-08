@@ -109,10 +109,10 @@
     a[i] <span class="sign">=</span> x <span class="sign">%</span> 2<span class="sign">;</span>
     x <span class="sign">=</span> x <span class="sign">/</span> 2<span class="sign">;</span>
     y <span class="sign">=</span> 2 <span class="sign">*</span> x <span class="sign">+</span> a[i]<span class="sign">;</span>
-<span class="sign">}</span><span class="function">while</span>(y <span class="sign">&gt;=</span> 2)<span class="sign">;</span>
+<span class="sign">}</span><span class="function">while</span> (y <span class="sign">&gt;=</span> 2)<span class="sign">;</span>
 
 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Your number in the binary system is: "</span><span class="sign">;</span>
-<span class="function">for</span>(<span class="sign">;</span> i <span class="sign">&gt;</span> 0<span class="sign">;</span> i<span class="sign">--</span>) <span class="sign">{</span>
+<span class="function">for</span> (<span class="sign">;</span> i <span class="sign">&gt;</span> 0<span class="sign">;</span> i<span class="sign">--</span>) <span class="sign">{</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> a[i]<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
@@ -126,8 +126,8 @@
 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter a binary number: "</span><span class="sign">;</span>
 <span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> x<span class="sign">;</span>
 
-<span class="function">for</span>(<span class="function">short int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x.<span class="command-c">length</span>()<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
-    <span class="function">if</span>(x[i] <span class="sign">==</span> <span class="text">'1'</span>)
+<span class="function">for</span> (<span class="function">short int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x.<span class="command-c">length</span>()<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+    <span class="function">if</span> (x[i] <span class="sign">==</span> <span class="text">'1'</span>)
         result <span class="sign">=</span> result <span class="sign">*</span> 2 <span class="sign">+</span> 1<span class="sign">;</span>
     <span class="function">else</span>
         result <span class="sign">=</span> result <span class="sign">*</span> 2<span class="sign">;</span>
@@ -148,7 +148,7 @@
 
 <span class="function">int</span> horner(<span class="function">int</span> factors[], <span class="function">int</span> polynomialDegree, <span class="function">int</span> x) <span class="sign">{</span>
     <span class="function">int</span> result <span class="sign">=</span> factors[0]<span class="sign">;</span>
-    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> polynomialDegree<span class="sign">;</span> i<span class="sign">++</span>)
+    <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> polynomialDegree<span class="sign">;</span> i<span class="sign">++</span>)
             result <span class="sign">=</span> result <span class="sign">*</span> x <span class="sign">+</span> factors[i]<span class="sign">;</span>
     <span class="function">return</span> result<span class="sign">;</span>
 <span class="sign">}</span>
@@ -159,11 +159,11 @@
 
     <span class="function">vector</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> results<span class="sign">;</span>
     <span class="function">int</span> <span class="sign">*</span>a <span class="sign">=</span> <span class="function">new int</span>[number.<span class="command-c">length</span>()]<span class="sign">;</span>
-    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> number.<span class="command-c">length</span>()<span class="sign">;</span> i<span class="sign">++</span>)
+    <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> number.<span class="command-c">length</span>()<span class="sign">;</span> i<span class="sign">++</span>)
         a[i] <span class="sign">=</span> (<span class="function">int</span>(number[i])) <span class="sign">-</span> 48<span class="sign">;</span>
     results.<span class="command-c">push_back</span>(horner(a, number.<span class="command-c">length</span>() <span class="sign">-</span> 1, number_system))<span class="sign">;</span>
 
-    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> results.<span class="command-c">size</span>()<span class="sign">;</span> i<span class="sign">++</span>)
+    <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> results.<span class="command-c">size</span>()<span class="sign">;</span> i<span class="sign">++</span>)
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> results[i] <span class="sign">&lt;&lt;</span> <span class="text">"\n"</span><span class="sign">;</span>
 
     <span class="function">return</span> 0<span class="sign">;</span>

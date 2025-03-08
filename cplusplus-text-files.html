@@ -135,7 +135,7 @@
     
     file.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <span class="command-c">ios</span><span class="sign">::</span><span class="command-c">out</span> <span class="sign">|</span> <span class="command-c">ios</span><span class="sign">::</span><span class="command-c">app</span>)<span class="sign">;</span>
     
-    <span class="function">if</span>(file.<span class="command-c">is_open</span>()) <span class="sign">{</span>
+    <span class="function">if</span> (file.<span class="command-c">is_open</span>()) <span class="sign">{</span>
         file <span class="sign">&lt;&lt;</span> <span class="text">"Text\n"</span><span class="sign">;</span>
         file <span class="sign">&lt;&lt;</span> <span class="text">"Text2"</span><span class="sign">;</span>
         file.<span class="command-c">close</span>()<span class="sign">;</span>
@@ -144,8 +144,8 @@
     file.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <span class="command-c">ios</span><span class="sign">::</span><span class="command-c">in</span>)<span class="sign">;</span>
     <span class="function">string</span> text<span class="sign">;</span>
     
-    <span class="function">if</span>(file.<span class="command-c">is_open</span>()) <span class="sign">{</span>
-        <span class="function">while</span>(<span class="command-c">getline</span>(file, text))
+    <span class="function">if</span> (file.<span class="command-c">is_open</span>()) <span class="sign">{</span>
+        <span class="function">while</span> (<span class="command-c">getline</span>(file, text))
             <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> text <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 
         file.<span class="command-c">close</span>()<span class="sign">;</span>
@@ -175,19 +175,19 @@
 
 file.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <span class="command-c">ios</span><span class="sign">::</span><span class="command-c">in</span>)<span class="sign">;</span>
 
-<span class="function">if</span>(file.<span class="command-c">is_open</span>()) <span class="sign">{</span>
+<span class="function">if</span> (file.<span class="command-c">is_open</span>()) <span class="sign">{</span>
     <span class="function">string</span> temp<span class="sign">;</span>
     file <span class="sign">&gt;&gt;</span> temp<span class="sign">;</span>
     <span class="function">do</span> <span class="sign">{</span>
         file <span class="sign">&gt;&gt;</span> temp<span class="sign">;</span>
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> temp <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-    <span class="sign">}</span><span class="function">while</span>(<span class="sign">!</span>file.<span class="command-c">eof</span>())<span class="sign">;</span> <span class="comment">// while we haven't read the whole file</span>
+    <span class="sign">}</span><span class="function">while</span> (<span class="sign">!</span>file.<span class="command-c">eof</span>())<span class="sign">;</span> <span class="comment">// while we haven't read the whole file</span>
     
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> file.<span class="command-c">rdstate</span>()<span class="sign">;</span>
-    <span class="function">if</span>((file.<span class="command-c">rdstate</span>() <span class="sign">^</span> <span class="command-c">ifstream</span><span class="sign">::</span><span class="command-c">eofbit</span>) <span class="sign">==</span> 0) <span class="comment">// if(file.rdstate() == 0) would also work, but not in all cases</span>
+    <span class="function">if</span> ((file.<span class="command-c">rdstate</span>() <span class="sign">^</span> <span class="command-c">ifstream</span><span class="sign">::</span><span class="command-c">eofbit</span>) <span class="sign">==</span> 0) <span class="comment">// if(file.rdstate() == 0) would also work, but not in all cases</span>
         file.<span class="command-c">clear</span>()<span class="sign">;</span>
     
-    <span class="function">if</span>(file.<span class="command-c">bad</span>()) <span class="sign">{</span>
+    <span class="function">if</span> (file.<span class="command-c">bad</span>()) <span class="sign">{</span>
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Error"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     <span class="sign">}</span>
     file.<span class="command-c">close</span>()<span class="sign">;</span>
@@ -203,7 +203,7 @@ file.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <
 
 file.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <span class="command-c">ios</span><span class="sign">::</span><span class="command-c">in</span> <span class="sign">|</span> <span class="command-c">ios</span><span class="sign">::</span><span class="command-c">binary</span>)<span class="sign">;</span>
 
-<span class="function">if</span>(file.<span class="command-c">is_open</span>()) <span class="sign">{</span>
+<span class="function">if</span> (file.<span class="command-c">is_open</span>()) <span class="sign">{</span>
     <span class="function">string</span> temp<span class="sign">;</span>
     
     <span class="command-c">streampos</span> sizeOfFile<span class="sign">;</span>
@@ -215,13 +215,13 @@ file.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <
     <span class="function">do</span> <span class="sign">{</span>
         file <span class="sign">&gt;&gt;</span> temp<span class="sign">;</span>
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> temp <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-    <span class="sign">}</span><span class="function">while</span>(<span class="sign">!</span>file.<span class="command-c">eof</span>())<span class="sign">;</span>
+    <span class="sign">}</span><span class="function">while</span> (<span class="sign">!</span>file.<span class="command-c">eof</span>())<span class="sign">;</span>
     
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> file.<span class="command-c">rdstate</span>()<span class="sign">;</span>
-    <span class="function">if</span>((file.<span class="command-c">rdstate</span>() <span class="sign">^</span> <span class="command-c">ifstream</span><span class="sign">::</span><span class="command-c">eofbit</span>) <span class="sign">==</span> 0)
+    <span class="function">if</span> ((file.<span class="command-c">rdstate</span>() <span class="sign">^</span> <span class="command-c">ifstream</span><span class="sign">::</span><span class="command-c">eofbit</span>) <span class="sign">==</span> 0)
         file.<span class="command-c">clear</span>()<span class="sign">;</span>
     
-    <span class="function">if</span>(file.<span class="command-c">good</span>()) <span class="sign">{</span>
+    <span class="function">if</span> (file.<span class="command-c">good</span>()) <span class="sign">{</span>
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Everything is good"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> file.<span class="command-c">tellg</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
         file.<span class="command-c">seekg</span>(0)<span class="sign">;</span>
@@ -235,7 +235,7 @@ file.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <
                                     <p>We can do the same thing but in the writing mode. For this, we use <code>seekp()</code> and <code>tellp()</code>. Everything is the same, except that we can use these methods while writing in a file. <code>seekp()</code> stands for "seek put", and <code>tellp()</code> for "tell put". <code>put</code> is a pointer used for writing inside of the file. <code>ios::beg</code> is a default second argument for <code>seekp()</code>. These two methods won't be available with <code>ifstream</code>.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">if</span>(file.<span class="command-c">is_open</span>()) <span class="sign">{</span>
+<span class="function">if</span> (file.<span class="command-c">is_open</span>()) <span class="sign">{</span>
     <span class="function">string</span> temp <span class="sign">=</span> <span class="text">"Text"</span><span class="sign">;</span>
     file <span class="sign">&lt;&lt;</span> temp<span class="sign">;</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> file.<span class="command-c">tellp</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
@@ -261,7 +261,7 @@ Harry Evans
 <span class="comment">// Reading every line of the file</span>
 <span class="function">char</span> temp[50] <span class="sign">= {</span>0<span class="sign">};</span>
 
-<span class="function">while</span>(file.<span class="command-c">getline</span>(temp, 50))
+<span class="function">while</span> (file.<span class="command-c">getline</span>(temp, 50))
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> temp <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
             </code></pre>
             
@@ -289,7 +289,7 @@ file.<span class="command-c">get</span>(temp, 50)<span class="sign">;</span>
     file.<span class="command-c">ignore</span>(100, <span class="text">'\n'</span>)<span class="sign">;</span>
     
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> tempName <span class="sign">&lt;&lt;</span> <span class="text">" "</span> <span class="sign">&lt;&lt;</span> last <span class="sign">&lt;&lt;</span> <span class="text">"."</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-<span class="sign">}</span><span class="function">while</span>(<span class="sign">!</span>file.<span class="command-c">eof</span>())<span class="sign">;</span>
+<span class="sign">}</span><span class="function">while</span> (<span class="sign">!</span>file.<span class="command-c">eof</span>())<span class="sign">;</span>
                                     </code></pre>
                                     
                                     <h2><a id="comparing-two-files">Comparing two files</a></h2>
@@ -316,12 +316,12 @@ file.<span class="command-c">get</span>(temp, 50)<span class="sign">;</span>
     <span class="function">int</span> fileSize1 <span class="sign">=</span> sizeOfFile(x)<span class="sign">;</span>
     <span class="function">int</span> fileSize2 <span class="sign">=</span> sizeOfFile(y)<span class="sign">;</span>
     
-    <span class="function">if</span>(fileSize1 <span class="sign">></span> 1024)
+    <span class="function">if</span> (fileSize1 <span class="sign">></span> 1024)
         size <span class="sign">=</span> 1024<span class="sign">;</span>
     <span class="function">else</span>
         size <span class="sign">=</span> fileSize1<span class="sign">;</span>
     
-    <span class="function">if</span>(fileSize1 <span class="sign">==</span> fileSize2) <span class="sign">{</span>
+    <span class="function">if</span> (fileSize1 <span class="sign">==</span> fileSize2) <span class="sign">{</span>
         <span class="function">char</span> <span class="sign">*</span>file1Temp <span class="sign">=</span> <span class="function">new char</span>[size]<span class="sign">;</span>
         <span class="function">char</span> <span class="sign">*</span>file2Temp <span class="sign">=</span> <span class="function">new char</span>[size]<span class="sign">;</span>
         
@@ -329,13 +329,13 @@ file.<span class="command-c">get</span>(temp, 50)<span class="sign">;</span>
             x <span class="sign">-&gt;</span> <span class="command-c">read</span>(file1Temp, size)<span class="sign">;</span>
             y <span class="sign">-&gt;</span> <span class="command-c">read</span>(file2Temp, size)<span class="sign">;</span>
             
-            <span class="function">if</span>(<span class="command-c">memcmp</span>(file1Temp, file2Temp, size) <span class="sign">!=</span> 0) <span class="sign">{</span>
+            <span class="function">if</span> (<span class="command-c">memcmp</span>(file1Temp, file2Temp, size) <span class="sign">!=</span> 0) <span class="sign">{</span>
                 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"The files are not the same"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
                 <span class="function">delete</span>[] file1Temp<span class="sign">;</span>
                 <span class="function">delete</span>[] file2Temp<span class="sign">;</span>
                 <span class="function">return false</span><span class="sign">;</span>
             <span class="sign">}</span>
-        <span class="sign">}</span><span class="function">while</span>(x <span class="sign">-&gt;</span> <span class="command-c">good</span>() <span class="sign">&amp;&amp;</span> y <span class="sign">-&gt;</span> <span class="command-c">good</span>())<span class="sign">;</span>
+        <span class="sign">}</span><span class="function">while</span> (x <span class="sign">-&gt;</span> <span class="command-c">good</span>() <span class="sign">&amp;&amp;</span> y <span class="sign">-&gt;</span> <span class="command-c">good</span>())<span class="sign">;</span>
         
         <span class="function">delete</span>[] file1Temp<span class="sign">;</span>
         <span class="function">delete</span>[] file2Temp<span class="sign">;</span>
@@ -353,9 +353,9 @@ file.<span class="command-c">get</span>(temp, 50)<span class="sign">;</span>
     file1.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <span class="command-c">ios</span><span class="sign">::</span><span class="command-c">in</span> <span class="sign">|</span> <span class="command-c">ios</span><span class="sign">::</span><span class="command-c">binary</span>)<span class="sign">;</span>
     file2.<span class="command-c">open</span>(<span class="text">"file2.txt"</span>, <span class="command-c">ios</span><span class="sign">::</span><span class="command-c">in</span> <span class="sign">|</span> <span class="command-c">ios</span><span class="sign">::</span><span class="command-c">binary</span>)<span class="sign">;</span>
     
-    <span class="function">if</span>(file1.<span class="command-c">is_open</span>() <span class="sign">&amp;&amp;</span> file2.<span class="command-c">is_open</span>())
+    <span class="function">if</span> (file1.<span class="command-c">is_open</span>() <span class="sign">&amp;&amp;</span> file2.<span class="command-c">is_open</span>())
     <span class="sign">{</span>    
-        <span class="function">if</span>(areFilesEqual(<span class="sign">&amp;</span>file1, <span class="sign">&amp;</span>file2))
+        <span class="function">if</span> (areFilesEqual(<span class="sign">&amp;</span>file1, <span class="sign">&amp;</span>file2))
             <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"The files are identical"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
         
         file1.<span class="command-c">close</span>()<span class="sign">;</span>
@@ -372,7 +372,7 @@ file.<span class="command-c">get</span>(temp, 50)<span class="sign">;</span>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">string</span> text <span class="sign">=</span> <span class="text">"text"</span><span class="sign">;</span>
-<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> text.<span class="command-c">length</span>()<span class="sign">;</span> i<span class="sign">++</span>)
+<span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> text.<span class="command-c">length</span>()<span class="sign">;</span> i<span class="sign">++</span>)
     <span class="command-c">cout</span><span class="sign">.</span><span class="command-c">put</span>(text[i]).<span class="command-c">put</span>(<span class="text">' '</span>)<span class="sign">;</span> <span class="comment">// writing a space after every character</span>
     
 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
@@ -380,13 +380,13 @@ file.<span class="command-c">get</span>(temp, 50)<span class="sign">;</span>
 <span class="command-c">fstream</span> file<span class="sign">;</span>
 file.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <span class="command-c">ios</span><span class="sign">::</span><span class="command-c">out</span> <span class="sign">|</span> <span class="command-c">ios</span><span class="sign">::</span><span class="command-c">binary</span>)<span class="sign">;</span>
 
-<span class="function">if</span>(file.<span class="command-c">is_open</span>()) <span class="sign">{</span>
+<span class="function">if</span> (file.<span class="command-c">is_open</span>()) <span class="sign">{</span>
     <span class="comment">// writing in the file until a dot is encountered</span>
     <span class="function">char</span> character<span class="sign">;</span>
     <span class="function">do</span> <span class="sign">{</span>
         character <span class="sign">=</span> <span class="command-c">cin</span>.<span class="command-c">get</span>()<span class="sign">;</span>
         file.<span class="command-c">put</span>(character)<span class="sign">;</span>
-    <span class="sign">}</span><span class="function">while</span>(character <span class="sign">!=</span> <span class="text">'.'</span>)<span class="sign">;</span>
+    <span class="sign">}</span><span class="function">while</span> (character <span class="sign">!=</span> <span class="text">'.'</span>)<span class="sign">;</span>
     
     file.<span class="command-c">close</span>()<span class="sign">;</span>
 <span class="sign">}</span>    
@@ -400,7 +400,7 @@ file.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <
 <span class="function">char</span> c<span class="sign">;</span>
 c <span class="sign">=</span> <span class="command-c">cin</span>.<span class="command-c">peek</span>()<span class="sign">;</span>
 
-<span class="function">if</span>(c <span class="sign">&gt;</span> <span class="text">'0'</span> <span class="sign">&amp;&amp;</span> c <span class="sign">&lt;</span> <span class="text">'9'</span>) <span class="sign">{</span>
+<span class="function">if</span> (c <span class="sign">&gt;</span> <span class="text">'0'</span> <span class="sign">&amp;&amp;</span> c <span class="sign">&lt;</span> <span class="text">'9'</span>) <span class="sign">{</span>
     <span class="function">int</span> number<span class="sign">;</span>
     <span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> number<span class="sign">;</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"You entered a number: "</span> <span class="sign">&lt;&lt;</span> number <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
@@ -421,7 +421,7 @@ c <span class="sign">=</span> <span class="command-c">cin</span>.<span class="co
 c <span class="sign">=</span> <span class="command-c">cin</span>.<span class="command-c">get</span>()<span class="sign">;</span>
 <span class="command-c">cin</span>.<span class="command-c">putback</span>(c)<span class="sign">;</span>
 
-<span class="function">if</span>(c <span class="sign">&gt;</span> <span class="text">'0'</span> <span class="sign">&amp;&amp;</span> c <span class="sign">&lt;</span> <span class="text">'9'</span>) <span class="sign">{</span>
+<span class="function">if</span> (c <span class="sign">&gt;</span> <span class="text">'0'</span> <span class="sign">&amp;&amp;</span> c <span class="sign">&lt;</span> <span class="text">'9'</span>) <span class="sign">{</span>
     <span class="function">int</span> number<span class="sign">;</span>
     <span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> number<span class="sign">;</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"You entered a number: "</span> <span class="sign">&lt;&lt;</span> number <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
@@ -442,7 +442,7 @@ c <span class="sign">=</span> <span class="command-c">cin</span>.<span class="co
 
 file.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <span class="command-c">ios</span><span class="sign">::</span><span class="command-c">out</span> <span class="sign">|</span> <span class="command-c">ios</span><span class="sign">::</span><span class="command-c">binary</span>)<span class="sign">;</span>
 
-<span class="function">if</span>(file.<span class="command-c">is_open</span>()) <span class="sign">{</span>
+<span class="function">if</span> (file.<span class="command-c">is_open</span>()) <span class="sign">{</span>
     <span class="function">char</span> text[] <span class="sign">=</span> <span class="text">"text"</span><span class="sign">;</span>
     file.<span class="command-c">write</span>(text, <span class="command-c">sizeof</span>(text)-1)<span class="sign">;</span>
     file.<span class="command-c">close</span>()<span class="sign">;</span>
@@ -458,12 +458,12 @@ file.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <
 
 file.<span class="command-c">open</span>(<span class="text">"file.txt"</span>, <span class="command-c">ios</span><span class="sign">::</span><span class="command-c">in</span> <span class="sign">|</span> <span class="command-c">ios</span><span class="sign">::</span><span class="command-c">binary</span>)<span class="sign">;</span>
 
-<span class="function">if</span>(file.<span class="command-c">is_open</span>()) <span class="sign">{</span>
+<span class="function">if</span> (file.<span class="command-c">is_open</span>()) <span class="sign">{</span>
     <span class="function">char</span> temp[250]<span class="sign">;</span>
     <span class="function">do</span> <span class="sign">{</span>
         file.<span class="command-c">getline</span>(temp, 250)<span class="sign">;</span>
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> temp <span class="sign">&lt;&lt;</span> <span class="text">", the length: "</span> <span class="sign">&lt;&lt;</span> file.<span class="command-c">gcount</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
-    <span class="sign">}</span><span class="function">while</span>(<span class="sign">!</span>file.<span class="command-c">eof</span>())<span class="sign">;</span>
+    <span class="sign">}</span><span class="function">while</span> (<span class="sign">!</span>file.<span class="command-c">eof</span>())<span class="sign">;</span>
     
     file.<span class="command-c">close</span>();</span>
 <span class="sign">}</span>    
