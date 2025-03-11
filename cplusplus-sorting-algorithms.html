@@ -115,16 +115,16 @@
 <span class="function">const int</span> x <span class="sign">=</span> 5<span class="sign">;</span>
 <span class="function">int</span> a[x]<span class="sign">;</span>    
 
-<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+<span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter "</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">" number: "</span><span class="sign">;</span>
     <span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> a[i]<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">int</span> t<span class="sign">;</span>
 
-<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x <span class="sign">-</span> 1<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span> <span class="comment">// "x - 1" because it doesn't have to check the last number</span>
-    <span class="function">for</span>(<span class="function">int</span> j <span class="sign">=</span> 0<span class="sign">;</span> j <span class="sign">&lt;</span> x <span class="sign">-</span> 1<span class="sign">;</span> j<span class="sign">++</span>) <span class="sign">{</span> <span class="comment">// "x - 1" so that the "j + 1" later won't exceed the array's last index</span>
-        <span class="function">if</span>(a[j] <span class="sign">&gt;</span> a[j <span class="sign">+</span> 1]) <span class="sign">{</span>
+<span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x <span class="sign">-</span> 1<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span> <span class="comment">// "x - 1" because it doesn't have to check the last number</span>
+    <span class="function">for</span> (<span class="function">int</span> j <span class="sign">=</span> 0<span class="sign">;</span> j <span class="sign">&lt;</span> x <span class="sign">-</span> 1<span class="sign">;</span> j<span class="sign">++</span>) <span class="sign">{</span> <span class="comment">// "x - 1" so that the "j + 1" later won't exceed the array's last index</span>
+        <span class="function">if</span> (a[j] <span class="sign">&gt;</span> a[j <span class="sign">+</span> 1]) <span class="sign">{</span>
             t <span class="sign">=</span> a[j]<span class="sign">;</span>
             a[j] <span class="sign">=</span> a[j <span class="sign">+</span> 1]<span class="sign">;</span>
             a[j <span class="sign">+</span> 1] <span class="sign">=</span> t<span class="sign">;</span>
@@ -132,7 +132,7 @@
     <span class="sign">}</span>
 <span class="sign">}</span>    
 
-<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+<span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">". = "</span> <span class="sign">&lt;&lt;</span> a[i] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
@@ -146,8 +146,8 @@
 <span class="function">int</span> array[x] <span class="sign">= {</span>20, 2, -4, 150, 40<span class="sign">};</span>
 
 <span class="function">int</span> maxV <span class="sign">=</span> array[0]<span class="sign">;</span>
-<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
-    <span class="function">if</span>(maxV <span class="sign">&lt;</span> array[i])
+<span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+    <span class="function">if</span> (maxV <span class="sign">&lt;</span> array[i])
         maxV <span class="sign">=</span> array[i]<span class="sign">;</span>
 <span class="sign">}</span>
 <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> maxV <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
@@ -161,8 +161,8 @@
 
 <span class="function">int</span> findMax(<span class="function">vector</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> numbers) <span class="sign">{</span>
     <span class="function">int</span> maxV <span class="sign">=</span> numbers[0]<span class="sign">;</span>
-    <span class="function">for</span>(<span class="function">auto</span> n <span class="sign">:</span> numbers) <span class="sign">{</span>
-        <span class="function">if</span>(maxV <span class="sign">&lt;</span> n)
+    <span class="function">for</span> (<span class="function">auto</span> n <span class="sign">:</span> numbers) <span class="sign">{</span>
+        <span class="function">if</span> (maxV <span class="sign">&lt;</span> n)
             maxV <span class="sign">=</span> n<span class="sign">;</span>
     <span class="sign">}</span>
     <span class="function">return</span> maxV<span class="sign">;</span>
@@ -193,17 +193,17 @@
 <span class="function">const int</span> x <span class="sign">=</span> 4<span class="sign">;</span>
 <span class="function">int</span> a[x]<span class="sign">;</span>
 
-<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+<span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter "</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">" number: "</span><span class="sign">;</span>
     <span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> a[i]<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">int</span> k, t<span class="sign">;</span>
 
-<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x <span class="sign">-</span> 1<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+<span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x <span class="sign">-</span> 1<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
     k <span class="sign">=</span> i<span class="sign">;</span>
-    <span class="function">for</span>(<span class="function">int</span> j <span class="sign">=</span> i <span class="sign">+</span> 1<span class="sign">;</span> j <span class="sign">&lt;</span> x<span class="sign">;</span> j<span class="sign">++</span>) <span class="sign">{</span>
-        <span class="function">if</span>(a[j] <span class="sign">&lt;</span> a[k])
+    <span class="function">for</span> (<span class="function">int</span> j <span class="sign">=</span> i <span class="sign">+</span> 1<span class="sign">;</span> j <span class="sign">&lt;</span> x<span class="sign">;</span> j<span class="sign">++</span>) <span class="sign">{</span>
+        <span class="function">if</span> (a[j] <span class="sign">&lt;</span> a[k])
             k <span class="sign">=</span> j<span class="sign">;</span>
     <span class="sign">}</span>
     t <span class="sign">=</span> a[i]<span class="sign">;</span>
@@ -211,7 +211,7 @@
     a[k] <span class="sign">=</span> t<span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+<span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">". = "</span> <span class="sign">&lt;&lt;</span> a[i] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
@@ -226,24 +226,24 @@
 <span class="function">const int</span> x <span class="sign">=</span> 4<span class="sign">;</span>
 <span class="function">int</span> a[x]<span class="sign">;</span>
 
-<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+<span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Enter "</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">" number: "</span><span class="sign">;</span>
     <span class="command-c">cin</span> <span class="sign">&gt;&gt;</span> a[i]<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">int</span> y, i, j<span class="sign">;</span>
 
-<span class="function">for</span>(j <span class="sign">=</span> x <span class="sign">-</span> 2<span class="sign">;</span> j <span class="sign">&gt;=</span> 0<span class="sign">;</span> j<span class="sign">--</span>) <span class="sign">{</span>
+<span class="function">for</span> (j <span class="sign">=</span> x <span class="sign">-</span> 2<span class="sign">;</span> j <span class="sign">&gt;=</span> 0<span class="sign">;</span> j<span class="sign">--</span>) <span class="sign">{</span>
     y <span class="sign">=</span> a[j]<span class="sign">;</span>
     i <span class="sign">=</span> j <span class="sign">+</span> 1<span class="sign">;</span>
-    <span class="function">while</span>((i <span class="sign">&lt;</span> x) <span class="sign">&amp;&amp;</span> (y <span class="sign">&gt;</span> a[i])) <span class="sign">{</span>
+    <span class="function">while</span> ((i <span class="sign">&lt;</span> x) <span class="sign">&amp;&amp;</span> (y <span class="sign">&gt;</span> a[i])) <span class="sign">{</span>
         a[i <span class="sign">-</span> 1] <span class="sign">=</span> a[i]<span class="sign">;</span>
         i<span class="sign">++;</span>
     <span class="sign">}</span>
     a[i <span class="sign">-</span> 1] <span class="sign">=</span> y<span class="sign">;</span>
 <span class="sign">}</span>
 
-<span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+<span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
     <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">". = "</span> <span class="sign">&lt;&lt;</span> a[i] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
@@ -270,8 +270,8 @@
     pivot <span class="sign">=</span> a[i]<span class="sign">;</span>
     a[i] <span class="sign">=</span> a[right]<span class="sign">;</span>
     
-    <span class="function">for</span>(j <span class="sign">=</span> i <span class="sign">=</span> left<span class="sign">;</span> i <span class="sign">&lt;</span> right<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span> <span class="comment">// "i" gets a value from "left" and "j" gets a value from "i"</span>
-        <span class="function">if</span>(a[i] <span class="sign">&lt;</span> pivot) <span class="sign">{</span>
+    <span class="function">for</span> (j <span class="sign">=</span> i <span class="sign">=</span> left<span class="sign">;</span> i <span class="sign">&lt;</span> right<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span> <span class="comment">// "i" gets a value from "left" and "j" gets a value from "i"</span>
+        <span class="function">if</span> (a[i] <span class="sign">&lt;</span> pivot) <span class="sign">{</span>
             t <span class="sign">=</span> a[i]<span class="sign">;</span>
             a[i] <span class="sign">=</span> a[j]<span class="sign">;</span>
             a[j] <span class="sign">=</span> t<span class="sign">;</span>
@@ -280,16 +280,16 @@
     <span class="sign">}</span>
     a[right] <span class="sign">=</span> a[j]<span class="sign">;</span>
     a[j] <span class="sign">=</span> pivot<span class="sign">;</span>
-    <span class="function">if</span>(left <span class="sign">&lt;</span> j <span class="sign">-</span> 1)
+    <span class="function">if</span> (left <span class="sign">&lt;</span> j <span class="sign">-</span> 1)
         sort(left, j <span class="sign">-</span> 1);</span>
-    <span class="function">if</span>(j <span class="sign">+</span> 1 <span class="sign">&lt;</span> right)
+    <span class="function">if</span> (j <span class="sign">+</span> 1 <span class="sign">&lt;</span> right)
         sort(j <span class="sign">+</span> 1, right)<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">int</span> main() <span class="sign">{</span>
     sort(0, x <span class="sign">-</span> 1)<span class="sign">;</span>
     
-    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+    <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> x<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> i <span class="sign">+</span> 1 <span class="sign">&lt;&lt;</span> <span class="text">". = "</span> <span class="sign">&lt;&lt;</span> a[i] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     <span class="sign">}</span>
     <span class="function">return</span> 0<span class="sign">;</span>
@@ -315,13 +315,13 @@
     <span class="comment">// Sorting arrays</span>
     <span class="function">int</span> a[] <span class="sign">=</span> <span class="sign">{</span>9, 8, 7, 0, 8, 6, 3, 1, 7, 2<span class="sign">};</span>
     <span class="command-c">sort</span>(a, a <span class="sign">+</span> 10, descending)<span class="sign">;</span>
-    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 10<span class="sign">;</span> i<span class="sign">++</span>)
+    <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> 10<span class="sign">;</span> i<span class="sign">++</span>)
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> a[i] <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 
     <span class="comment">// Sorting vectors</span>
     <span class="function">vector</span<span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span> b <span class="sign">{</span>9, 8, 7, 0, 8, 6, 3, 1, 7, 2<span class="sign">};</span>
     <span class="command-c">sort</span>(b.<span class="command-c">begin</span>(), b.<span class="command-c">end</span>(), descending)<span class="sign">;</span>
-    <span class="function">for</span>(<span class="function">int</span> x <span class="sign">:</span> b)
+    <span class="function">for</span> (<span class="function">int</span> x <span class="sign">:</span> b)
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> x <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
 
     <span class="function">return</span> 0<span class="sign">;</span>

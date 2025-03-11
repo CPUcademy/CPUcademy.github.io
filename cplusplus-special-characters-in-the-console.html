@@ -103,18 +103,18 @@
 <span class="function">const string</span> characters <span class="sign">=</span> <span class="text">"ąĄśŚźŹłŁóżŻńŃęĘćĆÓ"</span><span class="sign">;</span>
 <span class="function">int</span> <span class="sign">*</span> pl(<span class="function">string</span> characters) <span class="sign">{</span>
     <span class="function">int</span> <span class="sign">*</span>a <span class="sign">=</span> <span class="function">new int</span>[characters.<span class="command-c">length</span>()]<span class="sign">;</span> <span class="comment">// we don't release the memory after this because it will be used later in the code</span>
-    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> characters.<span class="command-c">length</span>()<span class="sign">;</span> i<span class="sign">++</span>)
+    <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> characters.<span class="command-c">length</span>()<span class="sign">;</span> i<span class="sign">++</span>)
         a[i] <span class="sign">=</span> <span class="function">static_cast</span><span class="sign">&lt;</span><span class="function">int</span><span class="sign">&gt;</span>(characters[i])<span class="sign">;</span>
     <span class="function">return</span> <span class="sign">&amp;</span>a[0]<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">int</span> <span class="sign">*</span>polish <span class="sign">=</span> pl(characters)<span class="sign">;</span>
-<span class="function">int</span> polish_characters[] <span class="sign">= {</span>-91, -92, -104, -105, -85, -115, -120, -99, -94, -66, -67, -28, -29, -87, -88, -122, -113, -32<span class="sign">};</span>  
+<span class="function">int</span> polish_characters[] <span class="sign">= {-</span>91, <span class="sign">-</span>92, <span class="sign">-</span>104, <span class="sign">-</span>105, <span class="sign">-</span>85, <span class="sign">-</span>115, <span class="sign">-</span>120, <span class="sign">-</span>99, <span class="sign">-</span>94, <span class="sign">-</span>66, <span class="sign">-</span>67, <span class="sign">-</span>28, <span class="sign">-</span>29, <span class="sign">-</span>87, <span class="sign">-</span>88, <span class="sign">-</span>122, <span class="sign">-</span>113, <span class="sign">-</span>32<span class="sign">};</span>  
 
 <span class="function">string</span> pl2(<span class="function">string</span> text) <span class="sign">{</span>
-    <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> text.<span class="command-c">length</span>()<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
-        <span class="function">for</span>(<span class="function">int</span> j <span class="sign">=</span> 0<span class="sign">;</span> j <span class="sign">&lt;</span> characters.<span class="command-c">length</span>()<span class="sign">;</span> j<span class="sign">++</span>) <span class="sign">{</span>
-            <span class="function">if</span>(text[i] <span class="sign">==</span> polish[j]) <span class="sign">{</span>
+    <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> text.<span class="command-c">length</span>()<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+        <span class="function">for</span> (<span class="function">int</span> j <span class="sign">=</span> 0<span class="sign">;</span> j <span class="sign">&lt;</span> characters.<span class="command-c">length</span>()<span class="sign">;</span> j<span class="sign">++</span>) <span class="sign">{</span>
+            <span class="function">if</span> (text[i] <span class="sign">==</span> polish[j]) <span class="sign">{</span>
                 text[i] <span class="sign">=</span> polish_characters[j]<span class="sign">;</span>
                 <span class="function">break</span><span class="sign">;</span>
             <span class="sign">}</span>

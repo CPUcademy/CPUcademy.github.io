@@ -106,12 +106,12 @@
         <span class="function">byte</span> tData[] <span class="sign">=</span> <span class="function">new byte</span>[BUFFER]<span class="sign">;</span>
         <span class="function">ZipOutputStream</span> x <span class="sign">=</span> <span class="function">new ZipOutputStream</span>(<span class="function">new BufferedOutputStream</span>(<span class="function">new FileOutputStream</span>(<span class="text">"myZip.zip"</span>), BUFFER))<span class="sign">;</span>
 
-        <span class="function">for</span>(<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> filesToZip.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+        <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> filesToZip.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
             <span class="function">BufferedInputStream</span> y <span class="sign">=</span> <span class="function">new BufferedInputStream</span>(<span class="function">new FileInputStream</span>(filesToZip[i]), BUFFER)<span class="sign">;</span>
             x.<span class="command">putNextEntry</span>(<span class="function">new ZipEntry</span>(filesToZip[i]))<span class="sign">;</span>
 
             <span class="function">int</span> counter<span class="sign">;</span>
-            <span class="function">while</span>((counter <span class="sign">=</span> y.<span class="command">read</span>(tData, 0, BUFFER)) <span class="sign">!= -</span>1)
+            <span class="function">while</span> ((counter <span class="sign">=</span> y.<span class="command">read</span>(tData, 0, BUFFER)) <span class="sign">!= -</span>1)
                 x.<span class="command">write</span>(tData, 0, counter)<span class="sign">;</span>
 
             x.<span class="command">closeEntry</span>()<span class="sign">;</span>
@@ -135,16 +135,16 @@
         <span class="function">byte</span> tData[] <span class="sign">=</span> <span class="function">new byte</span>[BUFFER]<span class="sign">;</span>
         <span class="function">File</span> catalogue <span class="sign">=</span> <span class="function">new File</span>(System.<span class="command">getProperty</span>(<span class="text">"user.dir"</span>) <span class="sign">+</span> <span class="function">File</span>.<span class="command">separator</span> <span class="sign">+</span> <span class="text">"myZip"</span>)<span class="sign">;</span> <span class="comment">// setting a path for the output directory</span>
 
-        <span class="function">if</span>(<span class="sign">!</span>catalogue.<span class="command">exists</span>()) <span class="comment">// ensuring the output directory exists</span>
+        <span class="function">if</span> (<span class="sign">!</span>catalogue.<span class="command">exists</span>()) <span class="comment">// ensuring the output directory exists</span>
             catalogue.<span class="command">mkdir</span>()<span class="sign">;</span>
 
         <span class="function">ZipInputStream</span> x <span class="sign">=</span> <span class="function">new ZipInputStream</span>(<span class="function">new BufferedInputStream</span>(<span class="function">new FileInputStream</span>(<span class="text">"myZip.zip"</span>), BUFFER))<span class="sign">;</span>
 
-        <span class="function">while</span>((z <span class="sign">=</span> x.<span class="command">getNextEntry</span>()) <span class="sign">!=</span> <span class="function">null</span>) <span class="sign">{</span>
+        <span class="function">while</span> ((z <span class="sign">=</span> x.<span class="command">getNextEntry</span>()) <span class="sign">!=</span> <span class="function">null</span>) <span class="sign">{</span>
             <span class="function">BufferedOutputStream</span> y <span class="sign">=</span> <span class="function">new BufferedOutputStream</span>(<span class="function">new FileOutputStream</span>(catalogue <span class="sign">+</span> <span class="function">File</span>.<span class="command">separator</span> <span class="sign">+</span> z.<span class="command">getName</span>()), BUFFER)<span class="sign">;</span>
 
             <span class="function">int</span> counter<span class="sign">;</span>
-            <span class="function">while</span>((counter <span class="sign">=</span> x.<span class="command">read</span>(tData, 0, BUFFER)) <span class="sign">!= -</span>1)
+            <span class="function">while</span> ((counter <span class="sign">=</span> x.<span class="command">read</span>(tData, 0, BUFFER)) <span class="sign">!= -</span>1)
                 y.<span class="command">write</span>(tData, 0, counter)<span class="sign">;</span>
 
             x.<span class="command">closeEntry</span>()<span class="sign">;</span>

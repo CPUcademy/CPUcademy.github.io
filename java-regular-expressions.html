@@ -104,7 +104,7 @@
 <span class="function">Matcher</span> matcher <span class="sign">=</span> compiledPattern.<span class="command">matcher</span>(input)<span class="sign">;</span> <span class="comment">// creating a matcher for the input text</span>
 
 <span class="comment">// Checking if the pattern matches</span>
-<span class="function">if</span>(matcher.<span class="command">find</span>())  
+<span class="function">if</span> (matcher.<span class="command">find</span>())  
     <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Match found!"</span>)<span class="sign">;</span>  
 <span class="function">else</span>
     <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"No match"</span>)<span class="sign">;</span>  
@@ -118,7 +118,7 @@
 <span class="function">Pattern</span> compiledPattern <span class="sign">=</span> <span class="function">Pattern</span>.<span class="command">compile</span>(pattern)<span class="sign">;</span>
 <span class="function">Matcher</span> matcher <span class="sign">=</span> compiledPattern.<span class="command">matcher</span>(input)<span class="sign">;</span>
 
-<span class="function">if</span>(matcher.<span class="command">matches</span>())
+<span class="function">if</span> (matcher.<span class="command">matches</span>())
     <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Exact match found!"</span>)<span class="sign">;</span>  
 <span class="function">else</span>
     <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"No exact match"</span>)<span class="sign">;</span>  
@@ -132,7 +132,7 @@
 <span class="function">Pattern</span> compiledPattern <span class="sign">=</span> <span class="function">Pattern</span>.<span class="command">compile</span>(pattern)<span class="sign">;</span>
 <span class="function">String</span>[] result <span class="sign">=</span> compiledPattern.<span class="command">split</span>(input)<span class="sign">;</span>
 
-<span class="function">for</span>(<span class="function">String</span> s<span class="sign">:</span> result)
+<span class="function">for</span> (<span class="function">String</span> s<span class="sign">:</span> result)
     <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(s)<span class="sign">;</span> 
                                     </code></pre>
 
@@ -144,7 +144,7 @@
 <span class="function">Pattern</span> compiledPattern <span class="sign">=</span> <span class="function">Pattern</span>.<span class="command">compile</span>(pattern)<span class="sign">;</span>
 <span class="function">Matcher</span> matcher <span class="sign">=</span> compiledPattern.<span class="command">matcher</span>(input)<span class="sign">;</span>
 
-<span class="function">if</span>(matcher.<span class="command">find</span>()) <span class="sign">{</span>
+<span class="function">if</span> (matcher.<span class="command">find</span>()) <span class="sign">{</span>
     <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Entire match: "</span> <span class="sign">+</span> matcher.<span class="command">group</span>())<span class="sign">;</span> <span class="comment">// 123-45-6789</span>
     <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Group 1: "</span> <span class="sign">+</span> matcher.<span class="command">group</span>(1))<span class="sign">;</span> <span class="comment">// 123</span>
     <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Group 2: "</span> <span class="sign">+</span> matcher.<span class="command">group</span>(2))<span class="sign">;</span> <span class="comment">// 45</span>
@@ -186,7 +186,7 @@
 <span class="function">Pattern</span> compiledPattern <span class="sign">=</span> <span class="function">Pattern</span>.<span class="command">compile</span>(pattern)<span class="sign">;</span>
 <span class="function">Matcher</span> matcher <span class="sign">=</span> compiledPattern.<span class="command">matcher</span>(input)<span class="sign">;</span>
 
-<span class="function">while</span>(matcher.<span class="command">find</span>()) 
+<span class="function">while</span> (matcher.<span class="command">find</span>()) 
     <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(matcher.<span class="command">group</span>())<span class="sign">;</span> <span class="comment">// 12 and 34</span>
                                     </code></pre>
 
@@ -211,13 +211,13 @@
 <span class="comment">// Using CASE_INSENSITIVE</span>
 <span class="function">Pattern</span> pattern <span class="sign">=</span> <span class="function">Pattern</span>.<span class="command">compile</span>(<span class="text">"java"</span>, <span class="function">Pattern</span>.<span class="command">CASE_INSENSITIVE</span>)<span class="sign">;</span>
 <span class="function">Matcher</span> matcher <span class="sign">=</span> pattern.<span class="command">matcher</span>(<span class="text">"I love JAVA programming."</span>)<span class="sign">;</span>
-<span class="function">if</span>(matcher.<span class="command">find</span>())
+<span class="function">if</span> (matcher.<span class="command">find</span>())
     <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Case-insensitive match found!"</span>)<span class="sign">;</span>  
 
 <span class="comment">// Using DOTALL</span>
 pattern <span class="sign">=</span> <span class="function">Pattern</span>.<span class="command">compile</span>(<span class="text">"Hello.*World"</span>, <span class="function">Pattern</span>.<span class="command">DOTALL</span>)<span class="sign">;</span>
 matcher <span class="sign">=</span> pattern.<span class="command">matcher</span>(<span class="text">"Hello\nWorld"</span>)<span class="sign">;</span>
-<span class="function">if</span>(matcher.<span class="command">find</span>())
+<span class="function">if</span> (matcher.<span class="command">find</span>())
     <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Match found with DOTALL!"</span>)<span class="sign">;</span>  
 
 <span class="comment">// Using COMMENTS</span>
@@ -226,7 +226,7 @@ pattern <span class="sign">=</span> <span class="function">Pattern</span>.<span 
     <span class="function">Pattern</span>.<span class="command">COMMENTS</span>
 )<span class="sign">;</span>
 matcher <span class="sign">=</span> pattern.<span class="command">matcher</span>(<span class="text">"123-45-6789"</span>)<span class="sign">;</span>
-<span class="function">if</span>(matcher.<span class="command">find</span>()) 
+<span class="function">if</span> (matcher.<span class="command">find</span>()) 
     <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Match found with comments enabled!"</span>)<span class="sign">;</span>  
                                     </code></pre>
 

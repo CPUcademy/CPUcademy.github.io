@@ -155,16 +155,16 @@
 
             <span class="comment">// Moving the player based on key inputs (Arrow keys)</span>
             move() <span class="sign">{</span>
-                <span class="function">if</span>(<span class="sign">!</span>gameActive) <span class="function">return</span> <span class="comment">// if the game is over, stop movement (empty return - it will work like the break instruction but for a function)</span>
+                <span class="function">if</span> (<span class="sign">!</span>gameActive) <span class="function">return</span> <span class="comment">// if the game is over, stop movement (empty return - it will work like the break instruction but for a function)</span>
 
                 <span class="comment">// Adjusting the player's position based on key inputs and prohibiting him from exiting the screen</span>
-                <span class="function">if</span>(pressed[<span class="text">"ArrowUp"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.y <span class="sign">&gt;</span> 0) <span class="comment">// moving the player up if a key is pressed, its name is "ArrowUp," and the y coordinate is greater than 0</span>
+                <span class="function">if</span> (pressed[<span class="text">"ArrowUp"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.y <span class="sign">&gt;</span> 0) <span class="comment">// moving the player up if a key is pressed, its name is "ArrowUp," and the y coordinate is greater than 0</span>
                     <span class="function">this</span>.position.y <span class="sign">-=</span> <span class="function">this</span>.speed
-                <span class="function">if</span>(pressed[<span class="text">"ArrowDown"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.y <span class="sign">&lt;</span> <span class="function">window</span>.innerHeight <span class="sign">-</span> 50) <span class="comment">// the second condition specifies that the player can't be at the bottom "border" of the screen</span>
+                <span class="function">if</span> (pressed[<span class="text">"ArrowDown"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.y <span class="sign">&lt;</span> <span class="function">window</span>.innerHeight <span class="sign">-</span> 50) <span class="comment">// the second condition specifies that the player can't be at the bottom "border" of the screen</span>
                     <span class="function">this</span>.position.y <span class="sign">+=</span> <span class="function">this</span>.speed
-                <span class="function">if</span>(pressed[<span class="text">"ArrowLeft"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.x <span class="sign">&gt;</span> 0) <span class="comment">// the (0,0) point is at the top-left corner of the screen, so when checking the top and left border, we address 0</span>
+                <span class="function">if</span> (pressed[<span class="text">"ArrowLeft"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.x <span class="sign">&gt;</span> 0) <span class="comment">// the (0,0) point is at the top-left corner of the screen, so when checking the top and left border, we address 0</span>
                     <span class="function">this</span>.position.x <span class="sign">-=</span> <span class="function">this</span>.speed
-                <span class="function">if</span>(pressed[<span class="text">"ArrowRight"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.x <span class="sign">&lt;</span> <span class="function">window</span>.innerWidth <span class="sign">-</span> 50) <span class="comment">// the second condition specifies that the player can't be at the right "border" of the screen</span>
+                <span class="function">if</span> (pressed[<span class="text">"ArrowRight"</span>] <span class="sign">&&</span> <span class="function">this</span>.position.x <span class="sign">&lt;</span> <span class="function">window</span>.innerWidth <span class="sign">-</span> 50) <span class="comment">// the second condition specifies that the player can't be at the right "border" of the screen</span>
                     <span class="function">this</span>.position.x <span class="sign">+=</span> <span class="function">this</span>.speed
                 <span class="function">this</span>.updatePosition() <span class="comment">// recalculating and updating the position on the screen</span>
             <span class="sign">}</span>
@@ -221,17 +221,17 @@
             <span class="comment">// Moving the opponent around the screen, bouncing when hitting boundaries</span>
             move() <span class="sign">{</span>
                 <span class="function">setInterval</span>(() <span class="sign">=> {</span>
-                    <span class="function">if</span>(<span class="sign">!</span>gameActive) <span class="function">return</span> <span class="comment">// if the game is over, stop movement</span>
+                    <span class="function">if</span> (<span class="sign">!</span>gameActive) <span class="function">return</span> <span class="comment">// if the game is over, stop movement</span>
 
                     <span class="comment">// Adjusting the opponent's position based on its speed and direction</span>
                     <span class="function">this</span>.position.x <span class="sign">+=</span> <span class="function">this</span>.speed <span class="sign">*</span> <span class="function">this</span>.direction.x
                     <span class="function">this</span>.position.y <span class="sign">+=</span> <span class="function">this</span>.speed <span class="sign">*</span> <span class="function">this</span>.direction.y
 
                     <span class="comment">// Reversing direction when the opponent hits a screen boundary</span>
-                    <span class="function">if</span>(<span class="function">this</span>.position.x <span class="sign">&lt;=</span> 0 <span class="sign">||</span> <span class="function">this</span>.position.x <span class="sign">&gt;=</span> <span class="function">window</span>.innerWidth <span class="sign">-</span> 50) <span class="sign">{</span>
+                    <span class="function">if</span> (<span class="function">this</span>.position.x <span class="sign">&lt;=</span> 0 <span class="sign">||</span> <span class="function">this</span>.position.x <span class="sign">&gt;=</span> <span class="function">window</span>.innerWidth <span class="sign">-</span> 50) <span class="sign">{</span>
                         <span class="function">this</span>.direction.x <span class="sign">*= -</span>1
                     <span class="sign">}</span>
-                    <span class="function">if</span>(<span class="function">this</span>.position.y <span class="sign">&lt;=</span> 0 <span class="sign">||</span> <span class="function">this</span>.position.y <span class="sign">&gt;=</span> <span class="function">window</span>.innerHeight <span class="sign">-</span> 50) <span class="sign">{</span>
+                    <span class="function">if</span> (<span class="function">this</span>.position.y <span class="sign">&lt;=</span> 0 <span class="sign">||</span> <span class="function">this</span>.position.y <span class="sign">&gt;=</span> <span class="function">window</span>.innerHeight <span class="sign">-</span> 50) <span class="sign">{</span>
                         <span class="function">this</span>.direction.y <span class="sign">*= -</span>1
                     <span class="sign">}</span>
 
@@ -247,7 +247,7 @@
 
         <span class="comment">// Function to create a new opponent</span>
         <span class="function">const</span> createOpponent <span class="sign">=</span> () <span class="sign">=> {</span>
-            <span class="function">if</span>(<span class="sign">!</span>gameActive) <span class="function">return</span> <span class="comment">// don't create enemies if the game is over</span>
+            <span class="function">if</span> (<span class="sign">!</span>gameActive) <span class="function">return</span> <span class="comment">// don't create enemies if the game is over</span>
 
             <span class="function">const</span> opponentElement <span class="sign">=</span> <span class="function">document</span>.<span class="command">createElement</span>(<span class="text">"div"</span>) <span class="comment">// Creating a new opponent element</span>
             opponentElement.<span class="function">className</span> <span class="sign">=</span> <span class="text">"obj"</span>
@@ -263,10 +263,10 @@
 
         <span class="comment">// Checking for collisions between the player and all opponents every 100ms</span>
         <span class="function">setInterval</span>(() <span class="sign">=> {</span>
-            <span class="function">if</span>(<span class="sign">!</span>gameActive) <span class="function">return</span> <span class="comment">// stop checking collisions if the game is over</span>
+            <span class="function">if</span> (<span class="sign">!</span>gameActive) <span class="function">return</span> <span class="comment">// stop checking collisions if the game is over</span>
 
             opponentList.<span class="function">forEach</span>(opponent <span class="sign">=> {</span> <span class="comment">// iterating over each opponent in the "opponentList" array</span>
-                <span class="function">if</span>(player.checkCollision(opponent)) <span class="sign">{</span> <span class="comment">// checking if the player collides with the currently considered opponent</span>
+                <span class="function">if</span> (player.checkCollision(opponent)) <span class="sign">{</span> <span class="comment">// checking if the player collides with the currently considered opponent</span>
                     gameActive <span class="sign">=</span> <span class="function">false</span> <span class="comment">// ending the game if a collision occurs</span>
                 <span class="sign">}</span>
             <span class="sign">}</span>)
