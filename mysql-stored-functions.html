@@ -118,19 +118,17 @@
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">DELIMITER</span> //
-<span class="function">CREATE FUNCTION</span> sum_of_values () <span class="function">RETURNS INT</span> <span class="comment">-- varchar (string) has to include the number of allowed characters - VARCHAR(255)</span>
+<span class="function">CREATE FUNCTION</span> sum_of_values () <span class="function">RETURNS INT</span> <span class="comment">-- VARCHAR and CHAR would have to include the number of allowed characters, e.g., VARCHAR(255)</span>
 <span class="function">BEGIN</span>
     <span class="function">DECLARE</span> sum1 <span class="function">INT</span>;
     <span class="function">SELECT SUM</span>(column_name) <span class="function">INTO</span> sum1 <span class="function">FROM</span> table_name;
     <span class="function">RETURN</span> sum1;
 <span class="function">END</span> //
 <span class="function">DELIMITER</span> ;
-
-<span class="function">CALL</span> add_a_client('Josh', 'Swift', 'josh@example.com');
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">CREATE FUNCTION</span> full_name(name <span class="function">CHAR</span>(20), surname <span class="function">CHAR</span>(20)) <span class="function">RETURNS CHAR</span>(55)
+<span class="function">CREATE FUNCTION</span> full_name(name <span class="function">CHAR</span>(20), surname <span class="function">CHAR</span>(20)) <span class="function">RETURNS CHAR</span>(55) <span class="comment">-- a function with parameters</span>
 <span class="function">RETURN CONCAT</span>(name, ' ', surname);
                                     </code></pre>
                                 </div>
