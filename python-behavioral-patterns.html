@@ -780,7 +780,7 @@ inventory.generate_report()
 
                                     <h2><a id="visitor">Visitor</a></h2>
 
-                                    <p>Visitor allows us to add new operations to existing object structures without modifying their classes (in compliance with the OCP). It achieves this by separating the algorithm (visitor) from the object structure (elements). Instead of adding behavior inside the class itself, we create a Visitor that implements the behavior and visits objects. This keeps the document structure unchanged while allowing new operations.</p>
+                                    <p>Visitor allows us to add new operations to existing object structures without modifying them (in compliance with the OCP). Instead of adding behavior inside the already existing objects, we create a Visitor that implements the behavior and visits those objects. This keeps the document structure unchanged while allowing new operations.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
@@ -831,7 +831,7 @@ word_counter <span class="sign">=</span> <span class="function">WordCounter</spa
     element.accept(word_counter)
                                     </code></pre>
 
-                                    <p class="podpis">Instead of adding new methods to <code>Text</code> and <code>Image</code> every time we need a new operation, we simply create a new visitor class that implements those operations without modifying the element classes. This. pattern relies on double dispatch, where both the element type (<code>Text</code> or <code>Image</code>) and the visitor type (<code>Renderer</code> or <code>WordCounter</code>) determine the behavior, meaning:</p>
+                                    <p class="podpis">Instead of adding new methods to <code>Text</code> and <code>Image</code> every time we need a new operation, we simply create a new Visitor class that implements those operations without modifying the element classes. This pattern relies on double dispatch, where both the element type (<code>Text</code> or <code>Image</code>) and the visitor type (<code>Renderer</code> or <code>WordCounter</code>) determine the behavior, meaning:</p>
 
                                     <ol>
                                         <li>The element calls its <code>accept(visitor)</code> method, passing the visitor as an argument.</li>
