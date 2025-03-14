@@ -113,7 +113,7 @@ mysql -u root -p <span class="comment">-- entering the RDBMS</span>
 mysql -u root -p &lt; [path] <span class="comment">-- importing the database</span>
 mysql -u root -p [database_name] <span class="comment">-- entering the RDBMS and the database</span>
 
-<span class="function">EXIT</span>; <span class="comment">-- exiting the database</span>
+<span class="function">EXIT</span>; <span class="comment">-- exiting the RDBMS</span>
 mysqldump -u root -p --routines --triggers --events --add-drop-database --create-options --databases [database_name] > [path_to_the_output_file] <span class="comment">-- exporting the database to a .sql file</span>
                                     </code></pre>
 
@@ -127,9 +127,11 @@ mysqldump -u root -p --routines --triggers --events --add-drop-database --create
                                     <p>These lines ensure that the database is created (if it doesn’t already exist) and that it is selected for the operations that follow. However, if it is impossible to add them to the file for some reason, use this sequence of commands while importing the database instead of the one given earlier:</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+mysql -u root -p <span class="comment">-- entering the RDBMS</span>
 <span class="function">CREATE DATABASE</span> database_name; <span class="comment">-- creating the database</span>
-mysql -u root -p database_name &lt; [path] <span class="comment">-- importing the database</span>
-<span class="function">USE</span> database_name;
+<span class="function">EXIT</span>; <span class="comment">-- exiting the RDBMS</span>
+mysql -u root -p database_name &lt; [path] <span class="comment">-- importing the database data to the created database</span>
+<span class="function">USE</span> [database_name]; <span class="comment">-- entering the database</span>
                                     </code></pre>
                                     
                                     <div class="table-container"><table>

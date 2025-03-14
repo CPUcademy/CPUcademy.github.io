@@ -780,16 +780,17 @@ inventory.generate_report()
 
                                     <h2><a id="visitor">Visitor</a></h2>
 
-                                    <p>Visitor allows us to add new operations to existing object structures without modifying their classes (in compliance with the OCP). Instead of adding behavior inside the class itself, we create a Visitor that implements the behavior and visits objects. This keeps the document structure unchanged while allowing new operations.</p>
+                                    <p>Visitor allows us to add new operations to existing object structures without modifying them (in compliance with the OCP). Instead of adding behavior inside the already existing objects, we create a Visitor that implements the behavior and visits those objects. This keeps the document structure unchanged while allowing new operations.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
 
-<span class="function">class</span> DocumentElement(<span class="function">ABC</span>):
+<span class="function">class</span> DocumentElement(<span class="function">ABC</span>): <span class="comment"># an element interface</span>
     <span class="command">@abstractmethod</span>
     <span class="function">def</span> accept(<span class="function">self</span>, visitor):
         <span class="function">pass</span>
 
+<span class="comment"># Concrete elements</span>
 <span class="function">class</span> Text(<span class="function">DocumentElement</span>):
     <span class="function">def</span> accept(<span class="function">self</span>, visitor):
         visitor.visit_text(<span class="function">self</span>)
@@ -799,7 +800,7 @@ inventory.generate_report()
         visitor.visit_image(<span class="function">self</span>)
 
 <span class="function">class</span> Visitor(<span class="function">ABC</span>): <span class="comment"># a Visitor interface</span>
-    <span class="function">@abstractmethod</span>
+    <span class="command">@abstractmethod</span>
     <span class="function">def</span> visit_text(<span class="function">self</span>, text):
         <span class="function">pass</span>
 
@@ -807,18 +808,36 @@ inventory.generate_report()
     <span class="function">def</span> visit_image(<span class="function">self</span>, image):
         <span class="function">pass</span>
 
-<span class="function">class</span> Renderer(<span class="function">Visitor</span>): <span class="comment"># a concrete Visitor</span>
+<span class="comment"># Concrete Visitors</span>
+<span class="function">class</span> Renderer(<span class="function">Visitor</span>):
     <span class="function">def</span> visit_text(<span class="function">self</span>, text):
        <span class="command"> print</span>(<span class="text">"Rendering text"</span>)
 
     <span class="function">def</span> visit_image(<span class="function">self</span>, image):
         <span class="command">print</span>(<span class="text">"Rendering image"</span>)
 
+<span class="function">class</span> WordCounter(<span class="function">Visitor</span>):
+    <span class="function">def</span> visit_text(<span class="function">self</span>, text):
+       <span class="command"> print</span>(<span class="text">"Counting words in text"</span>)
+
+    <span class="function">def</span> visit_image(<span class="function">self</span>, image):
+        <span class="command">print</span>(<span class="text">"Skipping word count for image"</span>)
+
 elements <span class="sign">=</span> [<span class="function">Text</span>(), <span class="function">Image</span>()]
 renderer <span class="sign">=</span> <span class="function">Renderer</span>()
+word_counter <span class="sign">=</span> <span class="function">WordCounter</span>()
 <span class="function">for</span> element <span class="function">in</span> elements:
     element.accept(renderer)
+    element.accept(word_counter)
                                     </code></pre>
+
+                                    <p class="podpis">Instead of adding new methods to <code>Text</code> and <code>Image</code> every time we need a new operation, we simply create a new Visitor class that implements those operations without modifying the element classes. This pattern relies on double dispatch, where both the element type (<code>Text</code> or <code>Image</code>) and the visitor type (<code>Renderer</code> or <code>WordCounter</code>) determine the behavior, meaning:</p>
+
+                                    <ol>
+                                        <li>The element calls its <code>accept(visitor)</code> method, passing the visitor as an argument.</li>
+                                        <li>Inside <code>accept(visitor)</code>, the element calls the visitor’s corresponding method (<code>visit_text()</code> or <code>visit_image()</code>), passing itself (<code>self</code>) as an argument.</li>
+                                        <li>The visitor determines what to do based on the element type.</li>
+                                    </ol>
 
                                     <h5>Visitor VS Decorator</h5>
 
