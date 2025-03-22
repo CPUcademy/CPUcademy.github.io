@@ -267,6 +267,25 @@
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">// Overloading constructors</span>                                
+<span class="function">class</span> Person <span class="sign">{</span>
+    <span class="function">String</span> name<span class="sign">;</span>
+    <span class="function">int</span> age<span class="sign">;</span>
+    <span class="function">boolean</span> gender<span class="sign">;</span>
+
+    <span class="function">Person</span>(<span class="function">String</span> name, <span class="function">int</span> age) <span class="sign">{</span>
+        <span class="function">this</span>.name <span class="sign">=</span> name<span class="sign">;</span>
+        <span class="function">this</span>.age <span class="sign">=</span> age<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="function">Person</span>(<span class="function">String</span> name, <span class="function">int</span> age, <span class="function">boolean</span> gender) <span class="sign">{</span>
+        <span class="function">this</span>(name, age)<span class="sign">;</span> <span class="comment">// avoiding code duplication by calling the two-parameter constructor</span>
+        <span class="function">this</span>.gender <span class="sign">=</span> gender<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
