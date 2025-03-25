@@ -105,17 +105,30 @@
 
 cat <span class="sign">=</span> <span class="function">Cat</span>()
 cat.voice()
-cat.breed()
+cat.breed() 
                                     </code></pre>
 
-                                    <p>The superclass's constructor is automatically called before the subclass's constructor.</p>
+                                    <p>The superclass's constructor is automatically called before the subclass's constructor if it isn't overridden. Overriding means providing a new method implementation in the subclass that replaces the method defined in the parent class (e.g., defining a <code>speak()</code> method in a <code>Cat</code> subclass to replace the general <code>speak()</code> method from an <code>Animal</code> parent class).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> Animal:
+    <span class="function">def</span> speak(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Voice!"</span>)
+
+<span class="function">class</span> Cat(<span class="function">Animal</span>):
+    <span class="function">def</span> speak(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Meow!"</span>)
+
+c <span class="sign">=</span> <span class="function">Cat</span>()
+c.speak()
+                                    </code></pre>
 
                                     <p>In the example below, <code>self.x</code> is assigned in the <code>Example</code>'s constructor, making it an instance variable, which <code>printX()</code> (inherited from <code>Functions</code>) can access through <code>self</code> because instance attributes are shared across methods in an object-oriented hierarchy.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Functions:
     <span class="function">def</span> printX(<span class="function">self</span>):
-        <span class="command">print</span>(<span class="function">self</span>.x)
+        <span class="command">print</span>(<span class="function">self</span>.x) 
 
 <span class="function">class</span> Example(<span class="function">Functions</span>):
     <span class="function">def __init__</span>(<span class="function">self</span>):
@@ -163,7 +176,7 @@ cat.breed()
                                     
                                     <h2><code>super()</code></h2>
                                     
-                                    <p>The <code>super()</code> method allows us to call the original method from the parent class when overriding it in a subclass. Overriding means providing a new method implementation in the subclass that replaces the method defined in the parent class (e.g., defining a <code>speak()</code> method in a <code>Cat</code> subclass to replace the general <code>speak()</code> method from an <code>Animal</code> parent class).</p>
+                                    <p>The <code>super()</code> method allows us to call the original method from the parent class when overriding it in a subclass.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Animal:
