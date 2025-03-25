@@ -157,6 +157,26 @@
                                     <p>The superclass's constructor is automatically called before the subclass's constructor.</p>
 
                                     <p>Overriding means providing a new method implementation in the subclass that replaces the method defined in the parent class (e.g., defining a <code>speak()</code> method in a <code>Cat</code> subclass to replace the general <code>speak()</code> method from an <code>Animal</code> parent class).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command-c">#include &lt;iostream&gt;</span>
+<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
+
+<span class="function">class</span> Animal <span class="sign">{</span>
+    <span class="function">public</span><span class="sign">:</span>
+        <span class="function">virtual void</span> speak() <span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Voice!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
+<span class="sign">};</span>
+
+<span class="function">class</span> Cat <span class="sign">:</span> <span class="function">public Animal</span> <span class="sign">{</span>
+    <span class="function">public</span><span class="sign">:</span>
+        <span class="function">void</span> speak() <span class="function">override</span> <span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span> <span class="comment">// "override" indicates we want to override a method from the superclass. If the method signature (name and parameters) doesn't match, the compiler will generate an error.</span>
+<span class="sign">};</span>
+
+<span class="function">int</span> main() <span class="sign">{</span>
+    <span class="function">Cat</span> c<span class="sign">;</span>
+    c.speak()<span class="sign">;</span>
+<span class="sign">}</span>
+                                    </code></pre>
                                     
                                     <h2>Multiple inheritance</h2>
                                     
@@ -235,8 +255,8 @@
 <span class="function">class</span> Animal <span class="sign">{</span>
     <span class="function">public</span><span class="sign">:</span>
         <span class="function">virtual void</span> voice() <span class="sign">=</span> 0<span class="sign">;</span> <span class="comment">// an abstract method to be implemented by subclasses</span>
-        <span class="function">void</span> voice2()<span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Voice!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">};</span>
-        <span class="function">virtual void</span> sound()<span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Animal sound!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">};</span> <span class="comment">// a virtual method</span>
+        <span class="function">void</span> voice2() <span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Voice!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">};</span>
+        <span class="function">virtual void</span> sound() <span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Animal sound!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">};</span> <span class="comment">// a virtual method</span>
         <span class="function">virtual</span> <span class="sign">~</span><span class="function">Animal</span>()<span class="sign">{}</span>
 <span class="sign">};</span>
 
@@ -244,8 +264,9 @@
     <span class="function">public</span><span class="sign">:</span>
         <span class="function">Cat</span>()<span class="sign">{}</span>
         <span class="sign">~</span><span class="function">Cat</span>()<span class="sign">{}</span>
-        <span class="function">void</span> voice() <span class="function">override</span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span> <span class="comment">// "override" indicates we want to override a virtual method from the base class</span>
-        <span class="function">void</span> sound() <span class="function">override</span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow sound!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span> <span class="comment">// overriding the virtual method</span>
+        <span class="function">void</span> voice() <span class="function">override </span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
+        <span class="function">void</span> sound() <span class="function">override </span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow sound!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span> <span class="comment">// overriding the virtual method</span>
+        <span class="function">void</span> purr() <span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Purring..."</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;}</span> <span class="comment">// a method specific to Cat</span>
 <span class="sign">};</span>
 
 <span class="function">int</span> main() <span class="sign">{</span>
@@ -253,7 +274,15 @@
     cat <span class="sign">-&gt;</span> voice()<span class="sign">;</span>
     cat <span class="sign">-&gt;</span> voice2()<span class="sign">;</span>
     cat <span class="sign">-&gt;</span> sound()<span class="sign">;</span>
-    <span class="function">delete</span> cat<span class="sign">;</span>
+
+    <span class="comment">// Using dynamic_cast to safely downcast the Animal pointer to a Cat pointer</span>
+    <span class="function">Cat</span> <span class="sign">*</span>catPtr <span class="sign">=</span> <span class="function">dynamic_cast</span><span class="sign">&lt;</span><span class="function">Cat</span><span class="sign">*&gt;</span>(cat)<span class="sign">;</span> <span class="comment">// checking if cat is actually a Cat object</span>
+    <span class="function">if</span> (catPtr)
+        catPtr <span class="sign">-&gt;</span> purr()<span class="sign">;</span> <span class="comment">// accessing the method specific to Cat</span>
+    <span class="function">else</span>
+        <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Failed to downcast."</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
+    
+    <span class="function">delete</span> cat<span class="sign">;</span> <span class="comment">// freeing the allocated memory</span>
     <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
@@ -269,17 +298,17 @@
 
 <span class="function">class</span> Father <span class="sign">:</span> <span class="function">public Person</span> <span class="sign">{</span>
     <span class="function">public</span><span class="sign">:</span></span>
-        <span class="function">void</span> role() <span class="function">override</span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I am a father!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
+        <span class="function">void</span> role() <span class="function">override </span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I am a father!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
 <span class="sign">};</span>
 
 <span class="function">class</span> Husband <span class="sign">:</span> <span class="function">public Person</span> <span class="sign">{</span>
     <span class="function">public</span><span class="sign">:</span>
-        <span class="function">void</span> role() <span class="function">override</span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I am a husband!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
+        <span class="function">void</span> role() <span class="function">override </span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I am a husband!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
 <span class="sign">};</span>
 
 <span class="function">class</span> Student <span class="sign">:</span> <span class="function">public Person</span> <span class="sign">{</span>
     <span class="function">public</span><span class="sign">:</span>
-        <span class="function">void</span> role() <span class="function">override</span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I am a student!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
+        <span class="function">void</span> role() <span class="function">override </span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I am a student!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
 <span class="sign">};</span>
 
 <span class="function">int</span> main() <span class="sign">{</span>
@@ -289,7 +318,7 @@
 
     <span class="function">Person</span><span class="sign">*</span> people[] <span class="sign">= {</span>father, husband, student<span class="sign">};</span>
     <span class="function">for</span> (<span class="function">Person</span><span class="sign">*</span> person<span class="sign">:</span> people)
-        person <span class="sign">-></span> role()<span class="sign">;</span> <span class="comment">// calling the same role() method on different objects - polymorphism</span>
+        person <span class="sign">-&gt;</span> role()<span class="sign">;</span> <span class="comment">// calling the same role() method on different objects - polymorphism</span>
 
     <span class="function">delete</span> father<span class="sign">;</span>
     <span class="function">delete</span> husband<span class="sign">;</span>

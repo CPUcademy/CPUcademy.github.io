@@ -660,17 +660,17 @@ editor.show_content()
 <span class="comment"># Concrete State classes</span>
 <span class="function">class</span> RedState(<span class="function">TrafficLightState</span>):
     <span class="function">def</span> switch(<span class="function">self</span>, light):
-        <span class="command">print</span>(<span class="text">"Red -> Switching to Green"</span>)
+        <span class="command">print</span>(<span class="text">"Red -&gt; Switching to Green"</span>)
         light.state <span class="sign">=</span> <span class="function">GreenState</span>()
 
 <span class="function">class</span> YellowState(<span class="function">TrafficLightState</span>):
     <span class="function">def</span> switch(<span class="function">self</span>, light):
-        <span class="command">print</span>(<span class="text">"Yellow -> Switching to Red"</span>)
+        <span class="command">print</span>(<span class="text">"Yellow -&gt; Switching to Red"</span>)
         light.state <span class="sign">=</span> <span class="function">RedState</span>()
 
 <span class="function">class</span> GreenState(<span class="function">TrafficLightState</span>):
     <span class="function">def</span> switch(<span class="function">self</span>, light):
-        <span class="command">print</span>(<span class="text">"Green -> Switching to Yellow"</span>)
+        <span class="command">print</span>(<span class="text">"Green -&gt; Switching to Yellow"</span>)
         light.state <span class="sign">=</span> <span class="function">YellowState</span>()
 
 <span class="function">class</span> TrafficLight: <span class="comment"># a context class (the object that maintains the current state and triggers state transitions)</span>

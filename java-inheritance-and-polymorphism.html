@@ -116,9 +116,27 @@
 <span class="sign">}</span>
                                     </code></pre>
 
-                                    <p>A class cannot be inherited if it is marked as <code>final</code>. Similarly, <code>final</code> methods cannot be overridden by subclasses (but still can be used). If an attribute of the class is <code>final</code> it has to be instantiated (it cannot be just declared).</p>
-                                    
                                     <p>The superclass's constructor is automatically called before the subclass's constructor.</p>
+
+                                    <p>A class cannot be inherited if it is marked as <code>final</code>. Similarly, <code>final</code> methods cannot be overridden by subclasses (but still can be used). If an attribute of the class is <code>final</code> it has to be instantiated (it cannot be just declared). Overriding means providing a new method implementation in the subclass that replaces the method defined in the parent class (e.g., defining a <code>speak()</code> method in a <code>Cat</code> subclass to replace the general <code>speak()</code> method from an <code>Animal</code> parent class).</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
+        <span class="function">Cat</span> cat <span class="sign">=</span> <span class="function">new Cat</span>()<span class="sign">;</span>
+        cat.speak()<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> Animal <span class="sign">{</span>
+    <span class="function">void</span> speak() <span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Voice!"</span>)<span class="sign">;</span><span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> Cat <span class="function">extends Animal</span> <span class="sign">{</span>
+    <span class="command">@Override</span> <span class="comment">// indicating we want to override a method from the superclass. If the method signature (name and parameters) doesn't match, the compiler will generate an error.</span>
+    <span class="function">void</span> speak() <span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Meow!"</span>)<span class="sign">;</span><span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
 
                                     <h2>Multiple inheritance</h2>
                                     
@@ -155,7 +173,7 @@
                                     
                                     <h2><code>super</code></h2>
                                     
-                                    <p>The <code>super</code> keyword allows us to call the original method from the parent class when overriding it in a subclass. Overriding means providing a new method implementation in the subclass that replaces the method defined in the parent class (e.g., defining a <code>speak()</code> method in a <code>Cat</code> subclass to replace the general <code>speak()</code> method from an <code>Animal</code> parent class).</p>
+                                    <p>The <code>super</code> keyword allows us to call the original method from the parent class when overriding it in a subclass.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main <span class="sign">{</span>
@@ -166,9 +184,7 @@
 <span class="sign">}</span>
 
 <span class="function">class</span> Animal <span class="sign">{</span>
-    <span class="function">void</span> voice() <span class="sign">{</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Voice!"</span>)<span class="sign">;</span>
-    <span class="sign">}</span>
+    <span class="function">void</span> voice() <span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Voice!"</span>)<span class="sign">;</span><span class="sign">}</span>
 <span class="sign">}</span>
 
 <span class="function">class</span> Cat <span class="function">extends Animal</span> <span class="sign">{</span>
@@ -199,7 +215,7 @@
 <span class="function">abstract class</span> Animal <span class="sign">{</span>
     <span class="function">protected int</span> lifespan <span class="sign">=</span> 10<span class="sign">;</span> <span class="comment">// public in child classes but private outside</span>
     <span class="function">abstract void</span> voice()<span class="sign">;</span>
-    <span class="function">void</span> voice2()<span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Voice!"</span>)<span class="sign">;};</span>
+    <span class="function">void</span> voice2() <span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Voice!"</span>)<span class="sign">;};</span>
 <span class="sign">}</span>
 
 <span class="function">class</span> Cat <span class="function">extends Animal</span> <span class="sign">{</span>
@@ -207,10 +223,8 @@
         lifespan <span class="sign">=</span> 14<span class="sign">;</span>
     <span class="sign">}</span>
 
-    <span class="command">@Override</span> <span class="comment">// indicating we want to override a method from the superclass. If the method signature (name and parameters) doesn't match, the compiler will generate an error.</span>
-    <span class="function">void</span> voice() <span class="sign">{</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Meow!"</span>)<span class="sign">;</span>
-    <span class="sign">}</span>
+    <span class="command">@Override</span>
+    <span class="function">void</span> voice() <span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Meow!"</span>)<span class="sign">;</span><span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
 
@@ -221,17 +235,17 @@
 
 <span class="function">class</span> Father <span class="function">extends Person</span> <span class="sign">{</span>
     <span class="command">@Override</span>
-    <span class="function">void</span> role()<span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a father!"</span>)<span class="sign">;}
+    <span class="function">void</span> role() <span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a father!"</span>)<span class="sign">;}
 }</span>
 
 <span class="function">class</span> Husband <span class="function">extends Person</span> <span class="sign">{</span>
     <span class="command">@Override</span>
-    <span class="function">void</span> role()<span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a husband!"</span>)<span class="sign">;}
+    <span class="function">void</span> role() <span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a husband!"</span>)<span class="sign">;}
 }</span>
 
 <span class="function">class</span> Student <span class="function">extends Person</span> <span class="sign">{</span>
     <span class="command">@Override</span>
-    <span class="function">void</span> role()<span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a student!"</span>)<span class="sign">;}
+    <span class="function">void</span> role() <span class="sign">{</span><span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"I am a student!"</span>)<span class="sign">;}
 }</span>
 
 <span class="function">public class</span> Main <span class="sign">{</span>
