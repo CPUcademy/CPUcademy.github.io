@@ -133,13 +133,13 @@
 <span class="sign">}</span>
                                     </code></pre>
                                     
-                                    <p>Both <code>ArrayList</code> and <code>LinkedList</code> inherit features from the <code>List</code> class, which is why, while declaring them, we can write: <code>List<String> x = new ArrayList&lt;&gt;();</code>.</p>
+                                    <p>Both <code>ArrayList</code> and <code>LinkedList</code> inherit features from the <code>List</code> interface, which is why we can write: <code>List&lt;String&gt; x = new ArrayList&lt;&gt;();</code> (polymorphism). <code>List</code> defines the general contract for all list-like data structures, but it doesn’t provide concrete implementations of methods.</p>
 
-                                    <p>We can assign the list values at the beginning: <code>ArrayList&lt;Integer&gt; integers = new ArrayList&lt;&gt;(Arrays.asList(1, 2, 3));</code> or <code>List&lt;Integer&gt; integers = Arrays.asList(1, 2, 3);</code>.</p>
+                                    <p>We can assign the list values at the beginning: <code>ArrayList&lt;Integer&gt; integers = new ArrayList&lt;&gt;(Arrays.asList(1, 2, 3));</code>.</p>
                                     
                                     <p>The <code>list1.addAll(list2);</code> method adds all elements from <code>list2</code> to <code>list1</code>.</p>
 
-                                    <p><code>ArrayList&lt;Integer&gt;</code> is just a declaration of a list. If we try to add objects to it, we will get a <code>NullPointerException</code> error. It is necessary to also initialize it (<code>new ArrayList&lt;&gt;()</code>).</p>
+                                    <p><code>ArrayList&lt;Integer&gt; list1;</code> is just a declaration of a list. If we try to add objects to it, we will get a <code>NullPointerException</code> error. It is necessary to also initialize it (<code>ArrayList<Integer> list1 = new ArrayList&lt;&gt;();</code>).</p>
 
                                     <p>The <code>new ArrayList&lt;&gt;(x)</code> phrase means the <code>x</code> list will be copied to the <code>y</code> list (<code>y</code> won't be just another name for the list but its actual copy that can have different values than the original). We can achieve something similar using the <code>clone()</code> method (<code>ArrayList<Integer> cloned = (ArrayList<Integer>) original.clone();</code>). These two do not work as expected if the <code>ArrayList</code> contains mutable objects (objects whose internal state can be changed after creation, such as instances of classes with modifiable fields), as both new <code>ArrayList&lt;&gt;(x)</code> and <code>clone()</code> only create a shallow copy, meaning changes to those mutable objects in one list will reflect in the other. To create a deep copy of an <code>ArrayList</code> containing mutable objects, we need to manually copy each object inside the list.</p>
 
@@ -163,7 +163,7 @@
 
                                     <h2>Iterators</h2>
 
-                                    <p>An iterator is an object pointing at a particular position inside a container (a list). We use it to get to certain elements inside the list. Not all elements inside a container are in a row inside the memory (this was the case with arrays). An iterator is basically an object that contains a countable number of values. The <code>next()</code> method is a built-in method used to advance the iterator to the next item and retrieve the value at the current position.</p>
+                                    <p>An iterator is an object pointing at a particular position inside a container (e.g., a list). We use it to get to certain elements inside the container. Not all elements inside a container are in a row inside the memory (this was the case with arrays). An iterator is basically an object that contains a countable number of values. The <code>next()</code> method is a built-in method used to advance the iterator to the next item and retrieve the value at the current position.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.util.<span class="sign">*;</span>
