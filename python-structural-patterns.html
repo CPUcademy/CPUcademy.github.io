@@ -116,26 +116,26 @@
         <span class="command">print</span>(<span class="text">f"Old Printer: {text}"</span>)
 
 <span class="function">class</span> NewPrinter: <span class="comment"># a new expected interface</span>
-    <span class="function">def</span> <span class="command">print</span>(<span class="function">self</span>, text):
+    <span class="function">def</span> print(<span class="function">self</span>, text):
         <span class="function">raise NotImplementedError</span>
 
-<span class="function">class</span> PrinterAdapter(NewPrinter):
+<span class="function">class</span> PrinterAdapter(<span class="function">NewPrinter</span>):
     <span class="function">def __init__</span>(<span class="function">self</span>, old_printer):
         <span class="function">self</span>.old_printer <span class="sign">=</span> old_printer
 
-    <span class="function">def</span> <span class="command">print</span>(<span class="function">self</span>, text):
+    <span class="function">def</span> print(<span class="function">self</span>, text):
         <span class="function">self</span>.old_printer.print_text(text) <span class="comment"># adapting the old method</span>
 
 old_printer <span class="sign">=</span> <span class="function">OldPrinter</span>()
 adapter <span class="sign">=</span> <span class="function">PrinterAdapter</span>(old_printer)
-adapter.<span class="command">print</span>(<span class="text">"Printed text."</span>)
+adapter.print(<span class="text">"Printed text."</span>)
                                     </code></pre>
 
                                     <h2><a id="bridge">Bridge</a></h2>
 
                                     <p>Bridge decouples (separates) abstraction from implementation, allowing them to vary independently and preventing a Cartesian complexity explosion (where the number of subclasses grows exponentially as new features are added). It acts as a bridge between high-level abstractions and concrete implementations by connecting these two hierarchies of different classes with a parameter.</p>
 
-                                    <p>The first hierarchy (<code>Sender</code> and its subclasses like <code>FastSender</code> and <code>SecureSender</code>) represents the implementation. The second hierarchy (<code>Message</code> and its subclasses like <code>EmailMessage</code> and <code>SMSMessage</code>) represents the abstraction. The <code>sender</code> parameter in <code>Message.__init__()</code> acts as the bridge that connects these two hierarchies dynamically.</p>
+                                    <p>The first hierarchy (<code>Sender</code> and its subclasses like <code>FastSender</code> and <code>SecureSender</code>) represents the implementation. The second hierarchy (<code>Message</code> and its subclasses like <code>EmailMessage</code> and <code>SMSMessage</code>) represents the abstraction. The <code>sender</code> parameter in <code>Message.__init__()</code> acts as a bridge that connects these two hierarchies dynamically.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod

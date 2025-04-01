@@ -232,21 +232,21 @@ p.current_year <span class="sign">=</span> 2030
         <span class="function">if self</span>.successor:
             <span class="function">self</span>.successor.handle(request)
 
-<span class="function">class</span> Manager(Handler):
+<span class="function">class</span> Manager(<span class="function">Handler</span>):
     <span class="function">def</span> handle(<span class="function">self</span>, request):
         <span class="function">if</span> request.amount <span class="sign">&lt;=</span> 1000:
             <span class="command">print</span>(<span class="text">f"Manager approves ${request.amount}"</span>)
         <span class="function">else</span>:
             <span class="function">super</span>().handle(request)
 
-<span class="function">class</span> Director(Handler):
+<span class="function">class</span> Director(<span class="function">Handler</span>):
     <span class="function">def</span> handle(<span class="function">self</span>, request):
         <span class="function">if</span> request.amount <span class="sign">&lt;=</span> 5000:
             <span class="command">print</span>(<span class="text">f"Director approves ${request.amount}"</span>)
         <span class="function">else</span>:
             <span class="function">super</span>().handle(request)
 
-<span class="function">class</span> CEO(Handler):
+<span class="function">class</span> CEO(<span class="function">Handler</span>):
     <span class="function">def</span> handle(<span class="function">self</span>, request):
         <span class="function">if</span> request.amount <span class="sign">&gt;</span> 5000:
             <span class="command">print</span>(<span class="text">f"CEO approves ${request.amount}"</span>)
