@@ -112,19 +112,26 @@
 
                                     <h2><a id="observer">Observer</a></h2>
 
-                                    <p>Observer allows a subject (publisher) to maintain a list of its dependents (observers), and automatically notifies them of any state changes, usually by calling one of their methods. This pattern is typically used when a change to one object requires changing others, and we want to avoid tight coupling between the objects.</p>
+                                    <p>Observer allows a subject (publisher) to maintain a list of its dependents (observers) and automatically notify them of any state changes, usually by calling one of their methods. This pattern is typically used when changing one object requires changing others, and we want to avoid tight coupling between the objects.</p>
                                     
-                                    <h4>Events</h4>
+                                    <h4>Event-based observer</h4>
 
                                     <p>An event-based observer notifies subscribers when a specific event occurs, allowing dynamic reactions without directly monitoring a property change.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
+
+<span class="function">class</span> SubscriberInterface(<span class="function">ABC</span>):
+    <span class="command">@abstractmethod</span>
+    <span class="function">def</span> receive_email(<span class="function">self</span>, newsletter):
+        <span class="function">pass</span>
+
 <span class="function">class</span> Event(<span class="function">list</span>):
     <span class="function">def __call__</span>(<span class="function">self</span>, <span class="sign">*</span>args, <span class="sign">**</span>kwargs):
         <span class="function">for</span> item <span class="function">in self</span>:
             item(<span class="sign">*</span>args, <span class="sign">**</span>kwargs)
 
-<span class="function">class</span> Subscriber:
+<span class="function">class</span> Subscriber(<span class="function">SubscriberInterface</span>):
     <span class="function">def __init__</span>(<span class="function">self</span>, name):
         <span class="function">self</span>.name <span class="sign">=</span> name
 
