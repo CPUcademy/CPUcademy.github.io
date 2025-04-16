@@ -126,10 +126,10 @@
     <span class="function">def</span> receive_email(<span class="function">self</span>, newsletter):
         <span class="function">pass</span>
 
-<span class="function">class</span> Event(<span class="function">list</span>):
-    <span class="function">def __call__</span>(<span class="function">self</span>, <span class="sign">*</span>args, <span class="sign">**</span>kwargs):
-        <span class="function">for</span> item <span class="function">in self</span>:
-            item(<span class="sign">*</span>args, <span class="sign">**</span>kwargs)
+<span class="function">class</span> Event(<span class="function">list</span>): <span class="comment"># inheriting from list to store subscribed observers</span>
+    <span class="function">def __call__</span>(<span class="function">self</span>, <span class="sign">*</span>args, <span class="sign">**</span>kwargs): <span class="comment"># making the Event instance callable to trigger notifications</span>
+        <span class="function">for</span> item <span class="function">in self</span>: <span class="comment"># looping through all subscribed observer functions</span>
+            item(<span class="sign">*</span>args, <span class="sign">**</span>kwargs) <span class="comment"># calling each observer with the given arguments</span>
 
 <span class="function">class</span> Subscriber(<span class="function">SubscriberInterface</span>):
     <span class="function">def __init__</span>(<span class="function">self</span>, name):
@@ -537,7 +537,7 @@ number <span class="sign">=</span> parser.parse()
         <span class="function">else</span>:
             <span class="function">raise ValueError</span>(<span class="text">"Items must be a list."</span>)
 
-    <span class="function">def</span> __iter__(<span class="function">self</span>):
+    <span class="function">def</span> <span class="function">__iter__</span>(<span class="function">self</span>):
         <span class="function">return</span> <span class="command">iter</span>(<span class="function">self</span>._items) <span class="comment"># returning an iterator for the list</span>
 
 inventory <span class="sign">=</span> <span class="function">Inventory</span>([<span class="text">"Sword"</span>, <span class="text">"Shield"</span>, <span class="text">"Potion"</span>])

@@ -177,7 +177,7 @@ calculator <span class="sign">=</span> <span class="function">DiscountCalculator
 <span class="command">print</span>(calculator.calculate(<span class="text">"new"</span>, 100))
                                     </code></pre>
 
-                                    <p>Adding a new discount would require modifying the existing class, and modifications can introduce bugs and require retesting the entire method.</p>
+                                    <p>Adding a new discount would require modifying the existing class, and modifications can introduce bugs and require retesting.</p>
 
                                     <h4>Solution</h4>
 
@@ -322,7 +322,7 @@ calculate(square)
 
                                     <h2><a id="interface-segregation-principle">Interface Segregation Principle (ISP)</a></h2>
 
-                                    <p>Clients should not be forced to implement interface methods they do not need, meaning we should use smaller, more specific interfaces over larger, more general ones. In compliance with the YAGNI rule (You Ain't Going To Need It), why would we force people to implement something they aren't going to need?</p>
+                                    <p>Clients should not be forced to implement interface methods they do not need, meaning we should use smaller, more specific interfaces over larger, more general ones. In compliance with the YAGNI rule (You Ain't Going To Need It), why would we force users to implement something they aren't going to need?</p>
 
                                     <h4>Issue</h4>
 
@@ -428,7 +428,7 @@ data_handler <span class="sign">=</span> <span class="function">DataHandler</spa
 data_handler.save(<span class="text">"user data"</span>)
                                     </code></pre>
 
-                                    <p><code>DataHandler</code> depends directly on <code>MySQLDatabase</code>, a low-level module. If the database changes (e.g., to PostgreSQL), <code>DataHandler</code> must be modified, violating the DIP and reducing flexibility.</p>
+                                    <p><code>DataHandler</code> should not depend directly on <code>MySQLDatabase</code>, a low-level module. This tight coupling means that if the database changes (e.g., to <code>PostgreSQLDatabase</code>), <code>DataHandler</code> must also be modified. This violates both the DIP and the OCP.</p>
 
                                     <h4>Solution</h4>
 
