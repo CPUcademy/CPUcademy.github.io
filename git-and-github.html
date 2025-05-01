@@ -120,6 +120,8 @@
 
                                     <p>When we're ready to commit certain changes, we add ("<b>stage</b>") them to Git's <b>staging area</b> using <code>git add</code>. The staging area holds a snapshot of these changes, preparing them for the next commit. This allows us to control which changes go into each commit. The <b>working directory</b> is the local folder where we edit and save files. Any changes made here are untracked by Git until they are staged (into the staging area).</p>
 
+                                    <img src="files/courses/git-architecture.png" alt="Git architecture" class="img-fluid">
+
                                     <h3><a id="configuration">Configuration</a></h3>
                                     <div class="table-container"><table>
                                         <tr>
@@ -168,12 +170,24 @@
                                         </tr>
                                         <tr>
                                             <td><code>git diff</code></td>
-                                            <td>Showing unstaged changes.</td>
+                                            <td>Showing unstaged changes in your working directory.</td>
                                         </tr>
                                         <tr>
                                             <td><code>git diff --staged</code></td>
-                                            <td>Showing staged changes.</td>
+                                            <td>Showing changes that have been staged (added with <code>git add</code>).</td>
                                         </tr>
+                                        <tr>
+                                            <td><code>git diff HEAD</code></td>
+                                            <td>Comparing the working directory and staging area with the latest commit.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>git diff --name-only</code></td>
+                                            <td>Listing only the names of files that have changed.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>git diff commit1Id commit2Id</code></td>
+                                            <td>Showing changes between two specific commits.</td>
+                                        </tr>                                        
                                     </table></div>
                                     
                                     <h3><a id="staging-and-committing-changes">Staging and committing changes</a></h3>

@@ -106,7 +106,6 @@
                                     intelligent programming
                                     test-driven development
                                     feature-driven development
-                                    software development life cycle
                                     "Znajdź to co się zmienia i hermetyzuj to."
 
                                     opisać downcasting we wszystkich językach
@@ -254,28 +253,64 @@ end_time <span class="sign">=</span> time.<span class="command">time</span>()
 <span class="command">print</span>(<span class="text">f"Execution time of the second call (with decorator): {end_time - start_time:.10f} seconds."</span>)
                                     </code></pre>
                                     
-                                    <h2>Testy jednostkowe</h2>
+                                    <h2>Unit testing</h2>
 
-                                    https://www.youtube.com/watch?v=6tNS--WetLI
+                                    <p>Unit testing is a software testing technique where individual units or components of a program are tested in isolation. Python provides a module called <code>unittest</code> that supports test automation, sharing of setup code, aggregation of tests into collections, and independence from the reporting framework.</p>
+                                
+                                    <p>A unit test in Python is a class that inherits from <code>unittest.TestCase</code> and contains methods starting with <code>test_</code>. These <code>test_</code> methods get automatically executed when the test suite is run, allowing for the verification of expected behaviors of the code being tested.</p>
                                     
-                                    <p>Testy jednostkowe służą do sprawdzania czy kod działa poprawnie. Do ich uruchomienia potrzebny jest PyCharm.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> unittest
+                                
+<span class="function">def</span> add(x, y):
+    <span class="function">return</span> x <span class="sign">+</span> y
 
-                                     <figure>
-                                        <figcaption>Aby napisać testy jednostkowe tworzymy nowy plik ".py" w PyCharm, ale zaznaczamy <code>Python unit test</code>.</figcaption>
-                                        <img class="img-fluid" src="zdjecia/pp/unitest.png" alt="Unitest">
-                                    </figure>
+<span class="function">class</span> TestMath(unittest.<span class="function">TestCase</span>):
+    <span class="function">def</span> test_add_positive(<span class="function">self</span>):
+        <span class="function">self</span>.<span class="function">assertEqual</span>(add(2, 3), 5)
 
-                                     <figure>
-                                        <figcaption>Do stworzenia testu jednostkowego trzeba z biblioteki <code>unittest</code> zaimportować moduł <code>TestCase</code>.</figcaption>
-                                        <img class="img-fluid" src="zdjecia/pp/testy jednostkowe.png" alt="Testy jednostkowe" style="width: 80%;">
-                                    </figure>
+    <span class="function">def</span> test_add_zero(<span class="function">self</span>):
+        <span class="function">self</span>.<span class="function">assertEqual</span>(add(0, 0), 0)
 
-                                    <p>Napisałem klasę "Obliczenia", która oblicza silnię. Niżej napisałem testy sprawdzające czy działa poprawnie. Komenda <code>assertEqual</code> sprawdza czy metoda wywołana dla jakichś wartości zwróci wartość podaną po przecinku, a komenda <code>assertGreater</code> sprawdza czy metoda wywołana dla jakichś wartości zwróci wartość większą niż tę podaną po przecinku (oczywiście jest więcej takich komend). Testy odpalamy klikając na zielone strzałki na marginesie.</p>
+    <span class="function">def</span> test_add_negative(<span class="function">self</span>):
+        <span class="function">self</span>.<span class="function">assertEqual</span>(add(<span class="sign">-</span>1, <span class="sign">-</span>1), <span class="sign">-</span>2)
 
-                                    <figure>
-                                        <figcaption>Okno pokazujące wynik testu (screen tego okna był robiony w innym czasie niż testy więc wynik jest inny).</figcaption>
-                                        <img class="img-fluid" src="zdjecia/pp/test okno.png" alt="Test okno" style="width: 90%;">
-                                    </figure>
+<span class="function">if __name__</span> <span class="sign">==</span> <span class="text">"__main__"</span>:
+    unittest.<span class="function">main</span>()
+                                    </code></pre>
+                                    
+                                    <h4>Common assertions</h4>
+
+                                    <ul>
+                                        <li><code>assertEqual(a, b)</code> – checks if <code>a == b</code></li>
+                                        <li><code>assertNotEqual(a, b)</code> – checks if <code>a != b</code></li>
+                                        <li><code>assertTrue(x)</code> – checks if <code>x is True</code></li>
+                                        <li><code>assertFalse(x)</code> – checks if <code>x is False</code></li>
+                                        <li><code>assertGreater(a, b)</code> – checks if <code>a &gt; b</code></li>
+                                        <li><code>assertLess(a, b)</code> – checks if <code>a &lt; b</code></li>
+                                        <li><code>assertRaises(Exception, func)</code> – checks if an exception is raised</li>
+                                    </ul>
+                                      
+                                    <h4>Using setup and teardown</h4>
+                                    <p>These methods run before and after each test to prepare or clean up the environment.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> unittest
+
+<span class="function">class</span> TestExample(unittest.<span class="function">TestCase</span>):
+    <span class="function">def</span> setUp(<span class="function">self</span>):
+        <span class="function">self</span>.data <span class="sign">=</span> [1, 2, 3]
+
+    <span class="function">def</span> tearDown(<span class="function">self</span>):
+        <span class="function">self</span>.data <span class="sign">=</span> <span class="function">None</span>
+
+    <span class="function">def</span> test_length(<span class="function">self</span>):
+        <span class="function">self</span>.<span class="function">assertEqual</span>(<span class="command">len</span>(<span class="function">self</span>.data), 3)
+        
+<span class="function">if __name__</span> <span class="sign">==</span> <span class="text">"__main__"</span>:
+    unittest.<span class="function">main</span>()
+                                    </code></pre>
+                                
 
                                     <h2>Dokumentowanie aplikacji</h2>
                                     
@@ -284,7 +319,7 @@ end_time <span class="sign">=</span> time.<span class="command">time</span>()
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
                                     #Zamknięcie tekstu w potrójnych cudzysłowiach sygnalizuje programiście, że jest to dokumentacja kodu.
                                     #Dokumentację danej funkcji można wyświetlić za pomocą <span style="color: red;">__doc__</span>.
-                                    def funkcja(a, b, c):
+                                    <span class="function">def</span> funkcja(a, b, c):
                                             """Ta funkcja przyjmuje trzy liczby, a potem zwraca ich sumę."""
                                             return a + b + c
                                       
@@ -301,7 +336,7 @@ end_time <span class="sign">=</span> time.<span class="command">time</span>()
                                     <p>Funkcja <code>trim</code> pozwala na pisanie dalszej części dokumentacji w tym samym bloku co jej pierwsza linijka (inaczej będzie tam "tab"). Ta funkcja jest dostępna w <a href="https://www.python.org/dev/peps/pep-0257/" target="_blank" class="link">dokumentacji internetowej Pythona</a>, ale jest w niej kilka błędów, więc udostępniam ją poprawioną <a href="https://drive.google.com/file/d/17pwt2cR0p7HZFUmCY_96MjvhDngbSZzt/view?usp=sharing" target="_blank" class="link">tutaj</a>.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-def trim(docstring):
+<span class="function">def</span> trim(docstring):
     if not docstring:
         return ''
     # Convert tabs to spaces (following the normal Python rules)
