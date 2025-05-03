@@ -106,6 +106,7 @@
                                         <li><a href="#reset" class="link" style="text-decoration: none;">Reset</a>, <a href="#revert" class="link" style="text-decoration: none;">Revert</a>, <a href="#stash" class="link" style="text-decoration: none;">Stash</a>, <a href="#tags" class="link" style="text-decoration: none;">Tags</a>, <a href="#flags" class="link" style="text-decoration: none;">Flags</a></li>
                                         <li><code><a href="#gitignore" class="link" style="color: #f5d67b; text-decoration: none;">.gitignore</a></code></li>
                                         <li><a href="#forks" class="link" style="text-decoration: none;">Forks</a></li>
+                                        <li><a href="#normal-rebasing" class="link" style="text-decoration: none;">Normal rebasing</a></li>
                                         <li><a href="#interactive-rebasing" class="link" style="text-decoration: none;">Interactive rebasing</a></li>
                                         <li><a href="#advanced-git-commands" class="link" style="text-decoration: none;">Advanced Git commands</a></li>
                                         <li><a href="#branch-naming" class="link" style="text-decoration: none;">Branch naming</a>, <a href="#aliases" class="link" style="text-decoration: none;">Aliases, <a href="#hooks" class="link" style="text-decoration: none;">Hooks</a></li>
@@ -169,8 +170,12 @@
                                             <td>Showing condensed commit history.</td>
                                         </tr>
                                         <tr>
+                                            <td><code>git log -2</code></td>
+                                            <td>Showing the last two commits from history.</td>
+                                        </tr>
+                                        <tr>
                                             <td><code>git diff</code></td>
-                                            <td>Showing unstaged changes in your working directory.</td>
+                                            <td>Showing unstaged changes in the working directory.</td>
                                         </tr>
                                         <tr>
                                             <td><code>git diff --staged</code></td>
@@ -323,8 +328,8 @@
 <span class="comment"># Fetch updates from the main branch</span>
 git fetch origin main
 
-<span class="comment"># Checkout main branch and merge with the feature branch</span>
-git checkout main
+<span class="comment"># Switch to the main branch and merge with the feature branch</span>
+git switch main
 git merge feature_branch
 
 <span class="comment"># Resolve conflicts manually in the files, then stage and commit the resolved files</span>
@@ -337,7 +342,7 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                     
                                     <h5>Creating a pull request</h5>
                                     <ol>
-                                        <li>Create and switch to the feature branch: <code>git checkout -b feature-branch</code>.</li>
+                                        <li>Create and switch to the feature branch: <code>git switch -b feature-branch</code>.</li>
                                         <li>Make changes and commit them.</li>
                                         <li>Push branch: <code>git push -u origin feature-branch</code>.</li>
                                         <li>On GitHub:
@@ -457,9 +462,40 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                     <h3><a id="forks">Forks</a></h3>
                                     <p>A fork is a copy of a repository that allows us to freely experiment with changes without affecting the original project. This workflow is particularly useful in open-source development, where contributors don't have direct write access to the main repository. When we want to contribute to an open-source project, we have to fork the repository, which means creating a copy of the original repository under our GitHub account. This allows us to make changes, add features, or fix bugs independently without impacting the original codebase. After making our desired changes in our forked repository, we can submit a pull request to the original repository, proposing that our changes be reviewed and potentially merged into the main project. This process encourages collaboration and helps maintain the integrity of the original project while allowing contributors to experiment and innovate freely. To fork a repository on GitHub, log in to GitHub and navigate to the repository you want to fork, click the Fork button in the upper right corner, select your account if prompted, wait for the forking process to complete, access your forked repository under your GitHub account, and optionally clone your fork locally using <code>git clone https://github.com/your-username/repository-name.git</code>.</p>
                                     
+                                    <h3><a id="normal-rebasing">Normal rebasing</a> (<code>git rebase</code>)</h3>
+                                    <p>Normal rebasing is used to move or replay a sequence of commits from one base to another. This is commonly done to update a feature branch with the latest changes from the main branch while keeping a linear history.</p>
+                                    
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><code>git switch feature</code></td>
+                                            <td>Switching to the feature branch.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>git fetch origin</code></td>
+                                            <td>Fetching the latest changes from the remote repository.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>git rebase origin/main</code></td>
+                                            <td>Reapplying the feature branch commits on top of the latest main branch.</td>
+                                        </tr>
+                                    </table></div>
+                                    
+                                    <p>This ensures that the changes are applied on top of the most recent work from the main branch, helping to avoid unnecessary merge commits.</p>
+                                    
+                                    <h5>Example</h5>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+# On the feature branch
+git fetch origin
+git rebase origin/main
+                                    </code></pre>
+                                    
+                                    <p class="podpis">Use rebasing for local branches to keep commit history clean before merging.</p>
+                                    <p class="podpis">Avoid rebasing public/shared branches to prevent rewriting published history.</p>
+                                    <p>Resolve any conflicts that arise during the rebase process and continue using <code>git rebase --continue</code>.</p>
+                                    
                                     <h3><a id="interactive-rebasing">Interactive rebasing</a> (<code>git rebase -i</code>)</h3>
                                     <p>Interactive rebasing is a powerful tool for cleaning up our commit history before sharing our code. It allows us to modify commits in various ways, including combining, editing, or removing them.</p>
-        
+                                    
                                     <div class="table-container"><table>
                                         <tr>
                                             <td><code>git rebase -i HEAD~n</code></td>
@@ -475,9 +511,8 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                         </tr>
                                     </table></div>
                                     
-
                                     <p><code>HEAD~n</code> refers to a specific commit in Git's history, where <code>HEAD</code> represents the current commit we are on, and n is a number indicating how many commits to go back from that point. For example, <code>HEAD~1</code> refers to the commit just before the current one, <code>HEAD~2</code> refers to two commits back, and so on.</p>
-                                
+                                    
                                     <h5>Examples</h5>
                                     <h6>Interactive rebase session</h6>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -491,13 +526,13 @@ fixup 2b504be Update login form padding
 reword f7f3f6d Add form validation
 edit cdd94dc Implement password reset
                                     </code></pre>
-
+                                    
                                     <p class="podpis">The <code>pick</code> command indicates that the commit with the specified hash should be included in the final history as is.</p>
                                     <p class="podpis">The <code>squash</code> command combines the specified commit with the previous one, allowing us to merge their changes and edit the commit message.</p>
                                     <p class="podpis">The <code>fixup</code> command also combines the specified commit with the previous one, but it does so without prompting to edit the commit message.</p>
                                     <p class="podpis">The <code>reword</code> command allows us to modify the commit message of the specified commit while keeping its changes intact.</p>
                                     <p>The <code>edit</code> command pauses the rebase process at the specified commit, allowing us to make changes before continuing the rebase.</p>
- 
+                                    
                                     <h6>Splitting a commit</h6>
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 # During rebase, when stopped at 'edit'
@@ -508,13 +543,13 @@ git add file2
 git commit -m "Second part of the split"
 git rebase --continue
                                     </code></pre>
-                            
+                                    
                                     <p class="podpis">Never rebase commits that have been pushed to public branches.</p>
                                     <p class="podpis">Create a backup branch before complex rebases using <code>git branch backup-branch</code>.</p>
                                     <p class="podpis">Keep commits logically grouped.</p>
                                     <p class="podpis">Write clear commit messages that explain the "why" not just the "what".</p>
                                     <p>Test your code after completing the rebase.</p>
-                                
+                                    
                                     <h5>Troubleshooting</h5>
                                     <div class="table-container"><table>
                                         <tr>
@@ -533,7 +568,7 @@ git rebase --continue
                                     
                                     <div class="alert alert-warning">
                                         <b>Warning:</b> Force pushing (<code>git push --force</code>) after rebasing can cause issues for other developers. Use <code>git push --force-with-lease</code> instead as a safer alternative.
-                                    </div>
+                                    </div>                                    
                                     
                                     <h3><a id="advanced-git-commands">Advanced Git commands</a></h3>
                                     <div class="table-container"><table>
