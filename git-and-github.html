@@ -106,7 +106,7 @@
                                         <li><a href="#reset" class="link" style="text-decoration: none;">Reset</a>, <a href="#revert" class="link" style="text-decoration: none;">Revert</a>, <a href="#stash" class="link" style="text-decoration: none;">Stash</a>, <a href="#tags" class="link" style="text-decoration: none;">Tags</a>, <a href="#flags" class="link" style="text-decoration: none;">Flags</a></li>
                                         <li><code><a href="#gitignore" class="link" style="color: #f5d67b; text-decoration: none;">.gitignore</a></code></li>
                                         <li><a href="#forks" class="link" style="text-decoration: none;">Forks</a></li>
-                                        <li><a href="#normal-rebasing" class="link" style="text-decoration: none;">Normal rebasing</a></li>
+                                        <li><a href="#rebasing" class="link" style="text-decoration: none;">Rebasing</a></li>
                                         <li><a href="#interactive-rebasing" class="link" style="text-decoration: none;">Interactive rebasing</a></li>
                                         <li><a href="#advanced-git-commands" class="link" style="text-decoration: none;">Advanced Git commands</a></li>
                                         <li><a href="#branch-naming" class="link" style="text-decoration: none;">Branch naming</a>, <a href="#aliases" class="link" style="text-decoration: none;">Aliases, <a href="#hooks" class="link" style="text-decoration: none;">Hooks</a></li>
@@ -462,8 +462,8 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                     <h3><a id="forks">Forks</a></h3>
                                     <p>A fork is a copy of a repository that allows us to freely experiment with changes without affecting the original project. This workflow is particularly useful in open-source development, where contributors don't have direct write access to the main repository. When we want to contribute to an open-source project, we have to fork the repository, which means creating a copy of the original repository under our GitHub account. This allows us to make changes, add features, or fix bugs independently without impacting the original codebase. After making our desired changes in our forked repository, we can submit a pull request to the original repository, proposing that our changes be reviewed and potentially merged into the main project. This process encourages collaboration and helps maintain the integrity of the original project while allowing contributors to experiment and innovate freely. To fork a repository on GitHub, log in to GitHub and navigate to the repository you want to fork, click the Fork button in the upper right corner, select your account if prompted, wait for the forking process to complete, access your forked repository under your GitHub account, and optionally clone your fork locally using <code>git clone https://github.com/your-username/repository-name.git</code>.</p>
                                     
-                                    <h3><a id="normal-rebasing">Normal rebasing</a> (<code>git rebase</code>)</h3>
-                                    <p>Normal rebasing is used to move or replay a sequence of commits from one base to another. This is commonly done to update a feature branch with the latest changes from the main branch while keeping a linear history.</p>
+                                    <h3><a id="rebasing">Rebasing</a> (<code>git rebase</code>)</h3>
+                                    <p>Rebasing is used to move or replay a sequence of commits from one base to another. This is commonly done to update a feature branch with the latest changes from the main branch while keeping a linear history.</p>
                                     
                                     <div class="table-container"><table>
                                         <tr>
@@ -483,6 +483,9 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                     <p>This ensures that the changes are applied on top of the most recent work from the main branch, helping to avoid unnecessary merge commits.</p>
                                     
                                     <h5>Example</h5>
+
+                                    <p>This example fetches the latest changes from the remote repository (<code>origin/main</code>) and then reapplies the commits from the current local feature branch (<code>feature</code>) on top of it. This results in a cleaner, linear history without introducing a merge commit.</p>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 # On the feature branch
 git fetch origin
