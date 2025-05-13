@@ -288,8 +288,31 @@ end_time <span class="sign">=</span> time.<span class="command">time</span>()
                                         <li><code>assertFalse(x)</code> – checks if <code>x is False</code></li>
                                         <li><code>assertGreater(a, b)</code> – checks if <code>a &gt; b</code></li>
                                         <li><code>assertLess(a, b)</code> – checks if <code>a &lt; b</code></li>
+                                        <li><code>assertIsNone(x)</code> – checks if <code>x is None</code></li>
                                         <li><code>assertRaises(Exception, func)</code> – checks if an exception is raised</li>
                                     </ul>
+
+                                    <h4>Using the <code>with</code> keyword</h4>
+
+                                    <p>The <code>with</code> keyword simplifies exception testing by clearly defining a block of code that is expected to raise an error.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> unittest
+
+<span class="function">def</span> divide(a, b):
+    <span class="function">return</span> a <span class="sign">/</span> b
+
+<span class="function">class</span> TestDivide(unittest.<span class="function">TestCase</span>):
+    <span class="function">def</span> test_zero_division(<span class="function">self</span>):
+        <span class="function">with self</span>.<span class="function">assertRaises</span>(<span class="function">ZeroDivisionError</span>):
+            divide(10, 0)
+
+    <span class="function">def</span> test_valid_division(<span class="function">self</span>):
+        <span class="function">self</span>.<span class="function">assertEqual</span>(divide(10, 2), 5)
+
+<span class="function">if __name__</span> <span class="sign">==</span> <span class="text">"__main__"</span>:
+    unittest.<span class="function">main</span>()
+                                    </code></pre>
                                       
                                     <h4>Using setup and teardown</h4>
                                     <p>These methods run before and after each test to prepare or clean up the environment.</p>
