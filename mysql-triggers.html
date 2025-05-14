@@ -105,7 +105,8 @@
 <span class="function">FOR EACH ROW</span>
 <span class="function">BEGIN</span>
     <span class="function">INSERT INTO</span> logs (description, date)
-    <span class="function">VALUES</span> (<span class="function">CONCAT</span>('A client has been added: ', <span class="function">NEW</span>.name, ' ', <span class="function">NEW</span>.surname), <span class="function">NOW</span>()); <span class="comment">-- concatenating string values with a function returning the current date and time (NOW() is a built-in method)</span>
+    <span class="function">VALUES</span> (<span class="function">CONCAT</span>('A client has been added: ', <span class="function">NEW</span>.name, ' ', <span class="function">NEW</span>.surname), <span class="function">NOW</span>()); <span class="comment">-- concatenating string values with a built-in function returning the current date and time (NOW())</span>
+     <span class="comment">-- The NEW keyword references the newly inserted or updated row in a table. The OLD keyword references the existing row in a table before it is updated or deleted.</span>
 <span class="function">END</span>$$
 <span class="function">DELIMITER</span> ;
                                     </code></pre>
@@ -118,7 +119,8 @@
 <span class="function">BEFORE INSERT</span> <span class="function">ON</span> clients
 <span class="function">FOR EACH ROW</span>
 <span class="function">BEGIN</span>
-    <span class="function">IF</span> <span class="function">NOT</span> <span class="function">NEW</span>.phone_number <span class="function">REGEXP</span> '^\\+48[0-9]{9}$' <span class="function">THEN</span> <span class="comment">-- checking whether the new phone number is written according to the regex (for more information, check my tutorials about Python or Java)</span>
+    
+    <span class="function">IF</span> <span class="function">NOT</span> <span class="function">NEW</span>.phone_number <span class="function">REGEXP</span> '^\\+48[0-9]{9}$' <span class="function">THEN</span> <span class="comment">-- checking whether the new phone number is written correctly and according to the regex (for more information, check my tutorials about Python or Java)</span>
         <span class="function">SIGNAL SQLSTATE</span> '45000' <span class="function">SET</span> MESSAGE_TEXT = 'Incorrect phone number'; <span class="comment">-- returning an error</span>
     <span class="function">END IF</span>;
 <span class="function">END</span>$$
