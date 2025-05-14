@@ -96,22 +96,6 @@
 
                                     <p>A parameter is a variable declared in a function definition to act as a placeholder for input values passed during a function call. Parameters are specified in parentheses, separated by commas, and are used within the function. For example, in <code>UPPER(str)</code>, <code>str</code> is a parameter. An argument is the actual input value provided to the function when it is called. For instance, in <code>UPPER('hello world')</code>, the string <code>'hello world'</code> is an argument.</p>
 
-                                    <h4>Basic commands</h4>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment">-- Calling a function</span>
-<span class="function">SELECT UPPER</span>('hello world');
-
-<span class="comment">-- Displaying a list of functions</span>
-<span class="function">SHOW FUNCTION STATUS</span>;
-
-<span class="comment">-- Displaying the code of a function</span>
-<span class="function">SHOW CREATE FUNCTION</span> function_name;
-
-<span class="comment">-- Deleting a function</span>
-<span class="function">DROP FUNCTION</span> function_name;
-                                    </code></pre>
-
                                     <h4>Creating a function</h4>
 
                                     <p>The <code>INTO</code> keyword captures a query's result value and assigns it to a variable, which can then be used in the function's <code>RETURN</code> statement.</p>
@@ -125,11 +109,30 @@
     <span class="function">RETURN</span> sum1;
 <span class="function">END</span> //
 <span class="function">DELIMITER</span> ;
+
+<span class="comment">-- Calling a function</span>
+<span class="function">SELECT</span> sum_of_values</span>();
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">CREATE FUNCTION</span> full_name(name <span class="function">CHAR</span>(20), surname <span class="function">CHAR</span>(20)) <span class="function">RETURNS CHAR</span>(55) <span class="comment">-- a function with parameters</span>
-<span class="function">RETURN CONCAT</span>(name, ' ', surname);
+<span class="function">CREATE FUNCTION</span> full_name(name <span class="function">CHAR</span>(20), surname <span class="function">CHAR</span>(20)) <span class="function">RETURNS CHAR</span>(55) <span class="comment">-- a function that takes arguments</span>
+<span class="function">RETURN CONCAT</span>(name, ' ', surname); <span class="comment">-- concatenating (joining) strings</span>
+                                    </code></pre>
+
+                                    <h4>Basic commands</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Calling a function</span>
+<span class="function">SELECT UPPER</span>('hello world'); <span class="comment">-- UPPER is a built-in function</span>
+
+<span class="comment">-- Displaying a list of functions</span>
+<span class="function">SHOW FUNCTION STATUS</span>;
+
+<span class="comment">-- Displaying the code of a function</span>
+<span class="function">SHOW CREATE FUNCTION</span> function_name;
+
+<span class="comment">-- Deleting a function</span>
+<span class="function">DROP FUNCTION</span> function_name;
                                     </code></pre>
                                 </div>
                             </div>

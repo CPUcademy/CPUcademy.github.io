@@ -94,6 +94,20 @@
                                 <div class="card-body">
                                     <p>Stored procedures are blocks of SQL statements executed on demand. They allow us to define operations that can be simply performed multiple times. Procedures can but don't have to take arguments.</p>
 
+                                    <h4>Creating a procedure</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">DELIMITER</span> // <span class="comment">-- we can use any custom delimiter</span>
+<span class="function">CREATE</span> PROCEDURE add_a_client(<span class="function">IN</span> name_pr <span class="function">VARCHAR</span>(50), <span class="function">IN</span> surname_pr <span class="function">VARCHAR</span>(50), <span class="function">IN</span> email_pr <span class="function">VARCHAR</span>(50))
+<span class="function">BEGIN</span>
+   <span class="function">INSERT</span> <span class="function">INTO</span> clients(name, surname, email) <span class="function">VALUES</span> (name_pr, surname_pr, email_pr);
+<span class="function">END</span> //
+<span class="function">DELIMITER</span> ;
+
+<span class="comment">-- Calling a procedure</span>
+<span class="function">CALL</span> add_a_client('Josh', 'Swift', 'josh@example.com');
+                                    </code></pre>
+                                    
                                     <h4>Basic commands</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -109,19 +123,6 @@
 
 <span class="comment">-- Deleting a procedure</span>
 <span class="function">DROP PROCEDURE</span> procedure_name;
-                                    </code></pre>
-
-                                    <h4>Creating a procedure</h4>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">DELIMITER</span> // <span class="comment">-- we can use any custom delimiter</span>
-<span class="function">CREATE</span> PROCEDURE add_a_client(<span class="function">IN</span> name_pr <span class="function">VARCHAR</span>(50), <span class="function">IN</span> surname_pr <span class="function">VARCHAR</span>(50), <span class="function">IN</span> email_pr <span class="function">VARCHAR</span>(50))
-<span class="function">BEGIN</span>
-   <span class="function">INSERT</span> <span class="function">INTO</span> clients(name, surname, email) <span class="function">VALUES</span> (name_pr, surname_pr, email_pr);
-<span class="function">END</span> //
-<span class="function">DELIMITER</span> ;
-
-<span class="function">CALL</span> add_a_client('Josh', 'Swift', 'josh@example.com');
                                     </code></pre>
                                 </div>
                             </div>

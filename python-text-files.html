@@ -99,9 +99,11 @@ x.<span class="command">close</span>()
                                     
                                     <p>We can open a file like this: <code>open("file.txt", "r", encoding="utf8")</code>. The second argument determines what operations can be performed. <code>r</code> means reading, <code>w</code> - overriding the content, <code>a</code> - modifying the content, and <code>r+</code> - reading and modifying the content. <code>x</code> is the name of the variable to which we assign the file object (basically its content). <code>utf8</code> is the most common encoding for a file because it can handle text that includes special or non-ASCII characters. When we finish the operations on a file, we have to close it (using the <code>close()</code> method). The <code>open()</code> method returns an iterable object (we can go with a loop through it). Of course, we can handle files with extensions other than <code>.txt</code> using <code>open()</code>, but this won't be covered in this lesson.</p>
 
-                                    <p>A file can be opened in a mode just for reading, just for writing, or for reading and writing. There is also an append mode, which adds new content to the end of the file, in contrast to the write mode, which overrides the existing content with new data.</p>
+                                    <p>A file can be opened in a mode just for reading, just for writing, or for reading and writing. There is also an append mode, which adds new content at the end of the file, in contrast to the write mode, which overrides the existing content with new data.</p>
                                     
                                     <h2><code>r</code> (read)</h2>
+
+                                    <p>If the file doesn't exist, the program will throw an error. I will explain how to prevent such failures in the section on the <code>os</code> module in the lesson about basic modules and <code>pip</code>.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Reading everything from a file</span>
@@ -150,7 +152,7 @@ x.<span class="command">close</span>()
                                     
                                     <h2><code>a</code> (append)</h2>
                                     
-                                    <p>In this mode, we also use the <code>write()</code> method, but here, it adds content to a file (without overriding).</p>
+                                    <p>In this mode, we also use the <code>write()</code> method, but here, it adds (appends) content to a file (without overriding).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Adding a string in the last line (no spaces)</span>
@@ -164,7 +166,7 @@ x.<span class="command">close</span>()
                                     
                                     <h2><code>r+</code> (read+)</h2>
                                     
-                                    <p>In this mode, we can use all the methods from the read mode and the <code>write()</code> method from the append mode. If the file doesn't exist, it will throw an error.</p>
+                                    <p>In this mode, we can use all the methods from the read mode and the <code>write()</code> method from the append mode. If the file doesn't exist, the program will throw an error.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 x <span class="sign">=</span> <span class="command">open</span>(<span class="text">"file.txt"</span>, <span class="text">"r+"</span>, <span class="command">encoding</span> <span class="sign">=</span> <span class="text">"utf8"</span>)
