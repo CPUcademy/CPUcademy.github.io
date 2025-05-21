@@ -17,8 +17,7 @@
     <style>
         #example
         {
-            p
-            {
+            p {
                 margin-top: 20px;
                 margin-bottom: 5px;
             }
@@ -104,17 +103,17 @@
                                 <div class="card-body">
                                     <h2>Dynamically adding paragraphs from input</h2>
 
-                                    <p>An HTML <code>onclick</code> attribute is an event. It determines what function executes when a button is clicked. Of course, there are many event types, but the most used (besides <code>onclick</code>) is <code>onchange</code>, which defines what happens when, e.g., the "input text" control's value gets changed (no need for a confirm button). When using form controls with JavaScript, they do not need to be enclosed in the <code>&lt;form&gt;</code> tag.</p>
+                                    <p>An HTML <code>onclick</code> attribute is an event. It determines what function executes when a button is clicked. Of course, there are many event types, but the most used (besides <code>onclick</code>) is <code>onchange</code>, which defines what happens when, e.g., the <code>&lt;input type="text"&gt;</code> control's value gets changed (no need for a confirm button). When using form controls with JavaScript, they do not need to be enclosed within the <code>&lt;form&gt;</code> tag.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"text"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"textInput"</span> <span class="command">style</span>=</span><span class="text">"float: left; margin-right: 10px;"</span>&gt;</span>
-<span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"button"</span> <span class="command">value</span><span class="sign">=</span><span class="text">"Add"</span> <span class="command">onclick</span>=</span><span class="text">"add()"</span>&gt;</span>
+<span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"text"</span> <span class="command">id</span><span class="sign">=</span><span class="text">"textInput"</span> <span class="command">style</span><span class="sign">=</span><span class="text">"float: left; margin-right: 10px;"</span>&gt;</span>
+<span class="function">&lt;input <span class="command">type</span><span class="sign">=</span><span class="text">"button"</span> <span class="command">value</span><span class="sign">=</span><span class="text">"Add"</span> <span class="command">onclick</span><span class="sign">=</span><span class="text">"add()"</span>&gt;</span>
 <span class="function">&lt;h4 <span class="command">style</span><span class="sign">=</span><span class="text">"margin-top: 10px; clear: both;"</span>&gt;</span>Values<span class="function">&lt;/h4&gt;</span>
 <span class="function">&lt;div <span class="command">id</span><span class="sign">=</span><span class="text">"container"</span>&gt;</span><span class="function">&lt;/div&gt;</span>
 
 <span class="function">&lt;script&gt;</span>
     <span class="function">function</span> add() <span class="sign">{</span>
-        <span class="function">let</span> t =</span> <span class="function">document</span>.<span class="command">getElementById</span>(<span class="text">"textInput"</span>).<span class="command">value</span> <span class="comment">// accessing the value of an "input text" form control</span>
+        <span class="function">let</span> t =</span> <span class="function">document</span>.<span class="command">getElementById</span>(<span class="text">"textInput"</span>).<span class="command">value</span> <span class="comment">// accessing the value of an "&lt;input type="text"&gt;" form control</span>
         <span class="function">let</span> container <span class="sign">=</span> <span class="function">document</span>.<span class="command">getElementById</span>(<span class="text">"container"</span>)
         <span class="function">let</span> newValue <span class="sign">=</span> <span class="function">document</span>.<span class="command">createElement</span>(<span class="text">"p"</span>)
         newValue.<span class="command">className</span> <span class="sign">=</span> <span class="text">"newValue"</span>
