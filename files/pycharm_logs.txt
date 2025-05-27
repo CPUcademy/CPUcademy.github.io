@@ -1,0 +1,85 @@
+"""! @brief Example Python program with Doxygen style comments.
+@mainpage Doxygen example program
+
+@section description_main Description
+An example Python program.
+
+"""
+
+class Main:
+    """
+    This is the main class.
+    """
+
+    def __init__(self, name):
+        """!
+        The class initializer.
+
+        @param name The name of the value.
+        @return An instance of the Main class initialized with the specified name.
+        """
+
+        ## The name of the value.
+        self.name = name
+        ## The value
+        self.value = random.randint(0, 50)
+
+    def __str__(self):
+        """! Retrieves the class's description.
+
+        @return  A description of the class.
+        """
+
+        return f"The {self.name} object has a value of {self.value}."
+
+		
+# C:\Program Files\doxygen\bin
+# doxygen -g
+# doxygen
+
+
+--------------------------------------------------------------------
+
+import unittest
+                                
+def add(x, y):
+    return x + y
+
+class TestMath(unittest.TestCase):
+    def test_add_positive(self):
+        self.assertEqual(add(2, 3), 5)
+
+    def test_add_zero(self):
+        self.assertEqual(add(0, 0), 0)
+
+    def test_add_negative(self):
+        self.assertEqual(add(-1, -1), -2)
+
+if __name__ == "__main__":
+    unittest.main()
+
+assertEqual(a, b) – checks if a == b
+assertNotEqual(a, b) – checks if a != b
+assertTrue(x) – checks if x is True
+assertFalse(x) – checks if x is False
+assertGreater(a, b) – checks if a > b
+assertLess(a, b) – checks if a < b
+assertIsNone(x) – checks if x is None
+assertRaises(Exception, func) – checks if an exception is raised
+
+---------------------------------------------------------------------
+
+class Person:
+    def __init__(self, name, age):
+        self.__name = name
+        self.__age = age
+
+    def __str__(self):
+        return f"{self.__name}, {self.__age}"
+
+    @classmethod
+    def from_birth_year(cls, name, birth_year): # the alternate constructor
+        return cls(name, 2024 - birth_year) # invoking (calling) the class constructor
+
+e = Person("Josh", 25)
+e2 = Person.from_birth_year("John", 1980) # using the alternate constructor
