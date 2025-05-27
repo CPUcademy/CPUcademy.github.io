@@ -155,28 +155,6 @@
                                     <p>In the example above, you can see that the constructor and destructor from the parent class were executed. Well, they were executed but not inherited. The child class has to have its constructor and destructor. Pay attention to the order in which these methods were executed.</p>
                                     
                                     <p>The superclass's constructor is automatically called before the subclass's constructor.</p>
-
-                                    <p>Overriding means providing a new method implementation in the subclass that replaces the method defined in the parent class (e.g., defining a <code>speak()</code> method in a <code>Cat</code> subclass to replace the general <code>speak()</code> method from an <code>Animal</code> parent class).</p>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command-c">#include &lt;iostream&gt;</span>
-<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
-
-<span class="function">class</span> Animal <span class="sign">{</span>
-    <span class="function">public</span><span class="sign">:</span>
-        <span class="function">virtual void</span> speak() <span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Voice!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
-<span class="sign">};</span>
-
-<span class="function">class</span> Cat <span class="sign">:</span> <span class="function">public Animal</span> <span class="sign">{</span>
-    <span class="function">public</span><span class="sign">:</span>
-        <span class="function">void</span> speak() <span class="function">override</span> <span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span> <span class="comment">// "override" indicates we want to override a method from the superclass. If the method signature (name and parameters) doesn't match, the compiler will generate an error.</span>
-<span class="sign">};</span>
-
-<span class="function">int</span> main() <span class="sign">{</span>
-    <span class="function">Cat</span> c<span class="sign">;</span>
-    c.speak()<span class="sign">;</span>
-<span class="sign">}</span>
-                                    </code></pre>
                                     
                                     <h2>Multiple inheritance</h2>
                                     
@@ -240,7 +218,29 @@
 
                                     <p>Polymorphism  means operating the same way on objects of different types (it states that an object can have many forms). For example, the <code>+</code> operator behaves polymorphically because it can add numbers and concatenate strings (it works with various data types in a very similar way). It is the fourth concept of object-oriented programming. Example: A man can be a father, a husband, a student, etc. One person can have different roles. This mechanism can also be used in structural programming.</p>
                                     
-                                    <p>A normal (non-virtual) method is resolved at compile time using static binding (early binding). This means the function that gets called is determined based on the type of the pointer/reference, not the actual object it points to. A virtual method is resolved at runtime using dynamic dispatch (late binding). This allows polymorphism, meaning the function that gets called depends on the actual object type, not just the pointer type. Virtual methods are declared using the <code>virtual</code> keyword, enabling dynamic method binding so that the correct method is executed based on the object's actual type. In the example below, a <code>Cat</code> object is referenced by an <code>Animal*</code> pointer, so calling the virtual <code>sound()</code> method will invoke the overridden <code>Cat</code> version instead of the base <code>Animal</code> version. If this method were non-virtual, it would invoke the <code>Animal</code> version.</p>
+<p>Overriding means providing a new method implementation in the subclass that replaces the method defined in the parent class (e.g., defining a <code>speak()</code> method in a <code>Cat</code> subclass to replace the general <code>speak()</code> method from an <code>Animal</code> parent class).</p>
+
+                                    <p>A normal (non-virtual) method is resolved at compile time using static binding (early binding). This means the function that gets called is determined based on the type of the pointer/reference, not the actual object it points to. A virtual method is resolved at runtime using dynamic dispatch (late binding). This allows polymorphism, meaning the function that gets called depends on the actual object type, not just the pointer type (<code>Animal *cat = new Cat;</code>). Virtual methods are declared using the <code>virtual</code> keyword, enabling dynamic method binding so that the correct method is executed based on the object's actual type. In the example below, a <code>Cat</code> object is referenced by an <code>Animal*</code> pointer, so calling the virtual <code>sound()</code> method will invoke the overridden <code>Cat</code> version instead of the base <code>Animal</code> version. If this method were non-virtual, it would invoke the <code>Animal</code> version.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command-c">#include &lt;iostream&gt;</span>
+<span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
+
+<span class="function">class</span> Animal <span class="sign">{</span>
+    <span class="function">public</span><span class="sign">:</span>
+        <span class="function">virtual void</span> speak() <span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Voice!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
+<span class="sign">};</span>
+
+<span class="function">class</span> Cat <span class="sign">:</span> <span class="function">public Animal</span> <span class="sign">{</span>
+    <span class="function">public</span><span class="sign">:</span>
+        <span class="function">void</span> speak() <span class="function">override</span> <span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span> <span class="comment">// "override" indicates we want to override a method from the superclass. If the method signature (name and parameters) doesn't match, the compiler will generate an error.</span>
+<span class="sign">};</span>
+
+<span class="function">int</span> main() <span class="sign">{</span>
+    <span class="function">Cat</span> c<span class="sign">;</span>
+    c.speak()<span class="sign">;</span>
+<span class="sign">}</span>
+                                    </code></pre>
                                    
                                     <p>A class is considered abstract if it has at least one pure virtual method (i.e., a virtual method with <code>= 0</code>). An abstract class is a class that is designed specifically to be used as a base class. It can't call out its own objects or have instances, so we can only use them in its child classes. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). An abstract method is a method that is in an abstract class and is a pure virtual method. An abstract class forces all its child classes to override all its abstract methods. It isn't mandatory to override a non-abstract method from an abstract class. Non-abstract methods can contain implementations to be inherited in the child classes (abstract methods have to be overridden, so it wouldn't make sense for them to contain implementations). If an abstract class contains a constructor, it will be executed when its subclass is instantiated.</p>
                                     
@@ -292,8 +292,8 @@
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
 <span class="function">class</span> Person <span class="sign">{</span>
-<span class="function">public</span><span class="sign">:</span>
-    <span class="function">virtual void</span> role() <span class="sign">=</span> 0<span class="sign">;</span> <span class="comment">// an abstract method to be implemented by subclasses</span>
+    <span class="function">public</span><span class="sign">:</span>
+        <span class="function">virtual void</span> role() <span class="sign">=</span> 0<span class="sign">;</span> <span class="comment">// an abstract method to be implemented by subclasses</span>
 <span class="sign">};</span>
 
 <span class="function">class</span> Father <span class="sign">:</span> <span class="function">public Person</span> <span class="sign">{</span>
