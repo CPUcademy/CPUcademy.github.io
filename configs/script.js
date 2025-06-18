@@ -19,7 +19,7 @@ let textElement, text1, text2, m1, m2, m3, m4, imgElement;
 function setVars() {
   const path = window.location.pathname;
 
-  if (path.endsWith("index.html") || path.endsWith("cv.html")) {
+  if (path === "/" || path.endsWith("index.html") || path.endsWith("cv.html")) {
     textElement = document.getElementById("cv");
     textElement.innerHTML = path.endsWith("cv.html") ? englishTextE : englishText;
   }
