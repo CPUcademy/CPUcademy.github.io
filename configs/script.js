@@ -14,91 +14,58 @@ const m2_e = "I started working on the project in February 2023, I got to know t
 const m3_e = "My app can be useful for people who are easily distracted, e.g., with ADHD, but still want to be fit. Of course, it also serves as a normal training app and can be used classically. During this project, I managed to build a mobile app from scratch and combine its functionalities with an AI model. Its implementation taught me a lot, and the result exceeded my expectations because it is my first project of this scale. Transferring the AI ​​model from a separate device to a phone allows more users to use the product and eliminates the need to pay for equipment. All functionalities are now available everywhere and for everyone. During the creation of the project, I learned most of the things on the fly. This skill will be useful in my future work, so I am glad I developed it."
 const m4_e = "Explory competition project poster (2024/2025):"
 
-if(window.location.pathname.endsWith("index.html") || (window.location.pathname.endsWith("cv.html")))
-{
-  textElement = document.getElementById("cv");
-  if(window.location.pathname.endsWith("cv.html"))
-  {
-    textElement.innerHTML = englishTextE;
-  }
-  else
-  {
-    textElement.innerHTML = englishText;
+let textElement, text1, text2, m1, m2, m3, m4, imgElement;
+
+function setVars() {
+  const path = window.location.pathname;
+
+  if (path.endsWith("index.html") || path.endsWith("cv.html")) {
+    textElement = document.getElementById("cv");
+    textElement.innerHTML = path.endsWith("cv.html") ? englishTextE : englishText;
   }
 
-  function language(additional) 
-  {
-      if(additional)
-      {
-        text1 = document.getElementById("importantlinks");
-        text2 = document.getElementById("services");
-      }
-      imgElement = document.querySelector("#flag");
-
-      if (textElement.innerHTML === englishText || textElement.innerHTML === englishTextE) {
-        if(additional)
-        {
-          textElement.innerHTML = polishText
-          text1.innerHTML = "Ważne odnośniki"
-          text2.innerHTML = "Moje usługi"
-        }
-        else
-        {
-          textElement.innerHTML = polishTextE
-        }
-      } else {
-        if(additional)
-        {
-          textElement.innerHTML = englishText
-          text1.innerHTML = "Important links"
-          text2.innerHTML = "My services"
-        }
-        else
-        {
-          textElement.innerHTML = englishTextE
-        }
-      }
-      if (imgElement.src.includes(polishFlag)) {
-        imgElement.src = englishFlag;
-      } else {
-        imgElement.src = polishFlag;
-      }
+  if (path.endsWith("muscleup.html")) {
+    m1 = document.getElementById("m1");
+    m2 = document.getElementById("m2");
+    m3 = document.getElementById("m3");
+    m4 = document.getElementById("m4");
+    m1.innerHTML = m1_e;
+    m2.innerHTML = m2_e;
+    m3.innerHTML = m3_e;
+    m4.innerHTML = m4_e;
   }
+
+  imgElement = document.querySelector(".flag");
 }
 
-if(window.location.pathname.endsWith("muscleup.html"))
-{
-  m1 = document.getElementById("m1");
-  m2 = document.getElementById("m2");
-  m3 = document.getElementById("m3");
-  m4 = document.getElementById("m4");
-  m1.innerHTML = m1_e
-  m2.innerHTML = m2_e
-  m3.innerHTML = m3_e
-  m4.innerHTML = m4_e
+function language(additional) {
+  const isEnglish = textElement.innerHTML === englishText || textElement.innerHTML === englishTextE;
 
-  function languageM() 
-  {
-      imgElement = document.querySelector("#flag");
-
-      if (m1.innerHTML == m1_e) {
-          m1.innerHTML = m1_p
-          m2.innerHTML = m2_p
-          m3.innerHTML = m3_p
-          m4.innerHTML = m4_p
-      } else {
-        m1.innerHTML = m1_e
-        m2.innerHTML = m2_e
-        m3.innerHTML = m3_e
-        m4.innerHTML = m4_e
-      }
-      if (imgElement.src.includes(polishFlag)) {
-        imgElement.src = englishFlag;
-      } else {
-        imgElement.src = polishFlag;
-      }
+  if (additional) {
+    text1 = document.getElementById("importantlinks");
+    text2 = document.getElementById("services");
+    textElement.innerHTML = isEnglish ? polishText : englishText;
+    text1.innerHTML = isEnglish ? "Ważne odnośniki" : "Important links";
+    text2.innerHTML = isEnglish ? "Moje usługi" : "My services";
+  } else {
+    textElement.innerHTML = isEnglish ? polishTextE : englishTextE;
   }
+
+  imgElement.src = imgElement.src.includes(polishFlag) ? englishFlag : polishFlag;
 }
+
+function languageM() {
+  const isEnglish = m1.innerHTML === m1_e;
+
+  m1.innerHTML = isEnglish ? m1_p : m1_e;
+  m2.innerHTML = isEnglish ? m2_p : m2_e;
+  m3.innerHTML = isEnglish ? m3_p : m3_e;
+  m4.innerHTML = isEnglish ? m4_p : m4_e;
+
+  imgElement.src = imgElement.src.includes(polishFlag) ? englishFlag : polishFlag;
+}
+
+document.addEventListener("DOMContentLoaded", setVars);
 
 /*!
  * This license applies to the code below.
