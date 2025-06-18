@@ -18,8 +18,12 @@ let textElement, text1, text2, m1, m2, m3, m4, imgElement;
 
 function setVars() {
   const path = window.location.pathname;
-
-  if (path === "https://cpucademy.github.io/" || path.endsWith("index.html") || path.endsWith("cv.html")) {
+  try {
+    textElement = document.getElementById("cv");
+  } catch (error) {
+    console.error('Error accessing the "cv" element:', error);
+  }
+  if (path.endsWith("index.html") || path.endsWith("cv.html")) {
     textElement = document.getElementById("cv");
     textElement.innerHTML = path.endsWith("cv.html") ? englishTextE : englishText;
   }
