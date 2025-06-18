@@ -3426,7 +3426,7 @@ var rnothtmlwhite = ( /[^\x20\t\r\n\f]+/g );
 // Convert String-formatted options into Object-formatted ones
 function createOptions( options ) {
 	var object = {};
-	jQuery.each( options.match( rnothtmlwhite ) || [], function( _, flag ) {
+	jQuery.each( options.match( rnothtmlwhite ) || [], function( _ flag ) {
 		object[ flag ] = true;
 	} );
 	return object;
