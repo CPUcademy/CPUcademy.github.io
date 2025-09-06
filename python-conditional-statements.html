@@ -237,6 +237,21 @@ x, y <span class="sign">=</span> 1, 2 <span class="comment"># defining variables
 z <span class="sign">=</span> x <span class="function">if</span> x <span class="sign">&lt;</span> y <span class="function">else</span> y
 <span class="command">print</span>(<span class="text">"The smaller numer is:"</span></y>, z)
                                     </code></pre>
+
+                                    <h2>The walrus operator</h2>
+
+                                    <p>The walrus operator <code>:=</code> allows us to assign a value to a variable as part of an expression. It can make code more concise by combining assignment and condition checks in a single line.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+numbers <span class="sign">=</span> [1, 2, 3, 4, 5]
+total <span class="sign">=</span> 0
+
+<span class="function">while</span> (n <span class="sign">:=</span> <span class="command">len</span>(numbers)) <span class="sign">&gt;</span> 0:
+    total <span class="sign">+=</span> numbers.<span class="command">pop</span>()
+    <span class="command">print</span>(<span class="text">"Popped number, remaining count:"</span>, n)
+
+<span class="command">print</span>(<span class="text">"Total sum:"</span>, total)
+                                </code></pre>
                                 </div>
                             </div>
                         </div>

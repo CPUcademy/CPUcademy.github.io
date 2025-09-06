@@ -249,6 +249,41 @@
 
                                     <p><code>local</code> variables are variables created inside a block (a loop, conditional statement, method, etc.) and are accessible only inside this block. In contrast, static variables, if declared <code>public</code>, can be accessed from anywhere in the program using the class name, effectively behaving like <code>global</code> variables.</p>
                                     
+                                    <p>A <code>static {}</code> block is a static initializer that runs once when the class is first loaded, before any objects are created or static methods are called. It is often used to initialize static variables, perform setup tasks, or run code that should only execute once for the class. A class can have multiple static blocks. They execute in the order they appear.</p>
+
+                                  <p>A <code>static {}</code> block in Java is a static initializer that runs once when the class is first loaded, before any objects are created or static methods are called. It is often used to initialize static variables, perform setup tasks, or run code that should only execute once for the class. You can have multiple static blocks in a class; they execute in the order they appear.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
+        <span class="function">Demo</span> obj <span class="sign">=</span> <span class="function">new Demo</span>()<span class="sign">;</span>
+        <span class="function">Demo</span>.showValue()<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> Demo <span class="sign">{</span>
+    <span class="function">static int</span> value<span class="sign">;</span>
+
+    <span class="function">static</span> <span class="sign">{</span>
+        value <span class="sign">=</span> 10<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"First static block, value = "</span> <span class="sign">+</span> value)<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="function">static</span> <span class="sign">{</span>
+        value <span class="sign">+=</span> 5<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Second static block, value = "</span> <span class="sign">+</span> value)<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="function">Demo</span>() <span class="sign">{</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Constructor executed"</span>)<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="function">static void</span> showValue() <span class="sign">{</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Current value = "</span> <span class="sign">+</span> value)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
                                     <h2>Recursive methods</h2>
                                     
                                     <p>A recursive method is a method that calls itself. Recursion is often used in various algorithms. In the example below, after a while, the Java compiler will throw an error because of too many iterations.</p>

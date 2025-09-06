@@ -94,37 +94,32 @@
                                 <div class="card-body">
                                     <p>An exception is an error-caused event that disrupts the normal flow of a program. It can be handled to maintain program stability.</p>
 
-                                    <p>If we want to prevent errors, we can use the <code>try</code> and <code>catch</code> blocks. If inside the <code>try</code> block, an exception is thrown (a variable is returned through the <code>throw</code> statement), the rest of the instructions inside this block are skipped, and the <code>catch</code> block for a given variable type executes (it will catch this exception). If inside the parentheses of <code>catch</code>, instead of the specific exception type the <code>catch</code> block is supposed to look for (e.g., <code>ArithmeticException</code>), we type <code>...</code>, it will execute for the exception types that don't have their own specified <code>catch</code> block. We decide in which cases we want to throw an exception through <code>if</code> statements (e.g., when the user divides by 0).</p>
-            
-                                    <p>In the example below, the <code>division()</code> function throws an exception of a <code>DivisionException</code> type (our class's type) when someone tries to divide by zero. This exception will be caught, and the <code>getErrorMessage()</code> method from our class will be called (it will display an error message).</p>
-                                    
+                                    <p>If we want to prevent errors, we can use the <code>try</code> and <code>catch</code> blocks. If inside the <code>try</code> block, an exception is thrown (a variable or an object is returned through the <code>throw</code> statement) or it occurs unforeseen (e.g., a file fails to open), the rest of the instructions inside this block are skipped, and the <code>catch</code> block for a given variable type executes (it will catch this exception). If inside of <code>catch</code>, instead of the specific exception type the <code>catch</code> block is supposed to look for (e.g., <code>runtime_error</code>), we type <code>...</code>, it will execute for the exception types that don't have their own specified <code>catch</code> block. We can trigger a specific type of error by "throwing" an exception (e.g., when the user divides by 0).</p>
+
+                                    <p>In the example below, the <code>division()</code> function throws a <code>runtime_error</code> exception when someone tries to divide by zero. This exception will be caught, and its error message will be displayed.</p>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command-c">#include &lt;iostream&gt;</span>
+<span class="command-c">#include &lt;stdexcept&gt;</span>
 <span class="function">using namespace</span> <span class="command-c">std</span><span class="sign">;</span>
 
-<span class="function">class</span> DivisionException <span class="sign">{</span>
-    <span class="function">public</span><span class="sign">:</span>
-        <span class="function">void</span> getErrorMessage() <span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Don't divide by zero"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;};</span>    
-<span class="sign">};</span>
-
-<span class="function">double</span> division(<span class="function">double</span> x, <span class="function">double</span> y) <span class="function">throw</span>(<span class="function">DivisionException</span>) <span class="sign">{</span> <span class="comment">// "throw" says what object this function may (but doesn't have to) return</span>
-    <span class="function">if</span> (y <span class="sign">==</span> 0) <span class="function">throw</span> <span class="function">DivisionException</span>()<span class="sign">;</span>
+<span class="function">double</span> division(<span class="function">double</span> x, <span class="function">double</span> y) <span class="sign">{</span>
+    <span class="function">if</span> (y <span class="sign">==</span> 0) <span class="function">throw</span> <span class="command-c">runtime_error</span>(<span class="text">"Don't divide by zero"</span>)<span class="sign">;</span>
     <span class="function">return</span> x <span class="sign">/</span> y<span class="sign">;</span>
 <span class="sign">}</span>
 
 <span class="function">int</span> main() <span class="sign">{</span>
-    <span class="function">double</span> x <span class="sign">=</span> 10<span class="sign">;</span>
+    <span class="function">int</span> x <span class="sign">=</span> 10<span class="sign">;</span>
     
     <span class="function">try</span> <span class="sign">{</span>
         <span class="function">if</span> (x <span class="sign">==</span> 10)
             <span class="function">throw</span> x<span class="sign">;</span>
-            
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"x"</span><span class="sign">;</span>
     <span class="sign">}</span>
-    <span class="function">catch</span>(<span class="function">int</span> exception) <span class="sign">{</span> <span class="comment">// catching an int exception</span>
+    <span class="function">catch</span> (<span class="function">int</span> exception) <span class="sign">{</span> <span class="comment">// catching an int exception (we can catch exceptions of primitive types)</span>
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Exception for int type"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     <span class="sign">}</span>
-    <span class="function">catch</span>(<span class="sign">...</span>) <span class="sign">{</span>
+    <span class="function">catch</span> (<span class="sign">...</span>) <span class="sign">{</span>
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Exception for all types (not specialized)"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     <span class="sign">}</span>
     
@@ -133,16 +128,27 @@
     <span class="function">try</span> <span class="sign">{</span>
         <span class="function">double</span> result <span class="sign">=</span> division(5, 0)<span class="sign">;</span>
     <span class="sign">}</span>
-    <span class="function">catch</span>(<span class="function">DivisionException</span> exception) <span class="sign">{</span>
-        exception.getErrorMessage()<span class="sign">;</span>
+    <span class="function">catch</span> (<span class="command-c">runtime_error</span> <span class="sign">&amp;</span>exception) <span class="sign">{</span> <span class="comment">// catching a runtime_error exception</span>
+        <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> exception.<span class="command-c">what</span>() <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     <span class="sign">}</span>
-    <span class="function">catch</span>(<span class="sign">...</span>) <span class="sign">{</span>
+    <span class="function">catch</span> (<span class="sign">...</span>) <span class="sign">{</span>
         <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Exception for all types (not specialized)"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span>
     <span class="sign">}</span>
     
     <span class="function">return</span> 0<span class="sign">;</span>
 <span class="sign">}</span>
                                     </code></pre>
+
+                                    <h4>Error examples</h4>
+
+                                    <ul>
+                                        <li>An <code>out_of_range</code> exception occurs when we try to access an element outside the bounds of a container.</li>
+                                        <li>An <code>invalid_argument</code> exception occurs when a function receives an argument that is invalid.</li>
+                                        <li>A <code>length_error</code> exception occurs when an attempt is made to create a container larger than its maximum size.</li>
+                                        <li>An <code>overflow_error</code> occurs when a mathematical operation exceeds the range of representable values.</li>
+                                        <li>An <code>underflow_error</code> occurs when a floating-point operation results in a value too small to be represented.</li>
+                                        <li>A <code>bad_alloc</code> occurs when the <code>new</code> operator fails to allocate the requested memory.</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>

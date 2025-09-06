@@ -94,9 +94,11 @@
                                 <div class="card-body">
                                     <p>An exception is an error-caused event that disrupts the normal flow of a program. It can be handled to maintain program stability.</p>
 
-                                    <p>If we want to prevent errors, we can use the <code>try</code> and <code>catch</code> blocks. If inside the <code>try</code> block, an exception is thrown (an exception is returned through the <code>throw</code> statement) or it occurs unforeseen (e.g., the user divides by 0), the rest of the instructions inside this block are skipped, and the <code>catch</code> block for a given exception type executes (it will catch this exception). If inside the parentheses of <code>catch</code>, instead of the specific exception type the <code>catch</code> block is supposed to look for (e.g., <code>ArithmeticException</code>), we type <code>Exception</code>, it will execute for the exception types that don't have their own specified <code>catch</code> block. We can add a third block - <code>finally</code>. It executes at the end regardless of what happens in <code>try</code> or <code>catch</code>. It is usually used to perform close-up actions, like closing files or connections. We can decide in which cases we want to throw an exception (<code>throw new...</code>) through <code>if</code> statements, but mostly they occur unforeseen.</p>
+                                    <p>If we want to prevent errors, we can use the <code>try</code> and <code>catch</code> blocks. If inside the <code>try</code> block, an exception is thrown (an exception is returned through the <code>throw</code> statement) or it occurs unforeseen (e.g., the user divides by 0), the rest of the instructions inside this block are skipped, and the <code>catch</code> block for a given exception type executes (it will catch this exception). If inside of <code>catch</code>, instead of the specific exception type the <code>catch</code> block is supposed to look for (e.g., <code>ArithmeticException</code>), we type <code>Exception</code>, it will execute for the exception types that don't have their own specified <code>catch</code> block. We can add a third block - <code>finally</code>. It executes at the end regardless of what happens in <code>try</code> or <code>catch</code>. It is usually used to perform close-up actions, like closing files or connections.</p>
+                                        
+                                    <p>We can trigger a specific type of error by "throwing" an exception (<code>throw new...</code>). This can be used, e.g., inside the <code>try</code> block, to invoke a specific exception, but also outside of try-catch to deliberately stop program execution when a critical error occurs. A common use case is validating user input when the provided data does not meet the required format.</p>
             
-                                    <p>In the example below, the <code>division()</code> function throws an exception of a <code>DivisionException</code> type (our class's type) when someone tries to divide by zero. This exception will be caught, and the <code>getErrorMessage()</code> method from our class will be called (it will display an error message).</p>
+                                    <p>In the example below, the <code>division()</code> function throws an exception of a <code>DivisionException</code> type (our class's type) when someone tries to divide by zero. This exception will be caught, and the <code>getErrorMessage()</code> method from our class will be called (it will display an error message). Creating our own exceptions can be useful when we want to handle specific error conditions in a more meaningful and organized way, allowing us to attach custom messages and methods.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main <span class="sign">{</span>
@@ -114,7 +116,7 @@
             <span class="sign">}</span>
             <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"x"</span>)<span class="sign">;</span>
         <span class="sign">}</span>
-        <span class="function">catch</span>(<span class="function">Exception</span> e) <span class="sign">{</span>
+        <span class="function">catch</span> (<span class="function">Exception</span> e) <span class="sign">{</span>
             <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"General exception: "</span> <span class="sign">+</span> e.<span class="command">getMessage</span>())<span class="sign">;</span> <span class="comment">// e.getMessage() provides the error description</span>
         <span class="sign">}</span>
         <span class="function">finally</span> <span class="sign">{</span>
@@ -126,7 +128,7 @@
         <span class="function">try</span> <span class="sign">{</span>
             <span class="function">double</span> result <span class="sign">=</span> division(5, 0)<span class="sign">;</span>
         <span class="sign">}</span>
-        <span class="function">catch</span>(<span class="function">DivisionException</span> e) <span class="sign">{</span>
+        <span class="function">catch</span> (<span class="function">DivisionException</span> e) <span class="sign">{</span>
             e.getErrorMessage()<span class="sign">;</span>
         <span class="sign">}</span>
     <span class="sign">}</span>
@@ -142,9 +144,20 @@
 <span class="sign">}</span>
                                     </code></pre>
 
+                                    <h4>Error examples</h4>
+
+                                    <ul>
+                                        <li>An <code>ArrayIndexOutOfBoundsException</code> occurs when we try to access an index outside the bounds of an array.</li>
+                                        <li>A <code>NullPointerException</code> occurs when we try to access a method or field on a null reference.</li>
+                                        <li>A <code>ClassCastException</code> occurs when we try to cast an object to a subclass it is not an instance of.</li>
+                                        <li>An <code>IllegalArgumentException</code> occurs when a method receives an argument that is inappropriate or invalid.</li>
+                                        <li>An <code>ArithmeticException</code> occurs when we attempt an illegal arithmetic operation, such as division by zero.</li>
+                                        <li>A <code>NumberFormatException</code> occurs when we try to convert a string to a number but the string does not have the correct format.</li>
+                                    </ul>
+
                                     <h2>The <code>assert</code> keyword</h2>
 
-                                    <p>The <code>assert</code> keyword checks whether a given condition is true, and if not, throws an <code>AssertionError</code>. To enable assertions, the <code>-ea</code> (or <code>-enableassertions</code>) JVM option must be used when running the program.</p>
+                                    <p>The <code>assert</code> keyword checks whether a given condition is true, and if not, throws an <code>AssertionError</code> with a user-written comment. To enable assertions, the <code>-ea</code> (or <code>-enableassertions</code>) JVM option must be used when running the program. A common use case is debugging complex functions by asserting that input values or intermediate results meet expected conditions before continuing execution.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">int</span> number <span class="sign">= -</span>5<span class="sign">;</span>
