@@ -112,7 +112,6 @@
                                     <p>We already know a few structures (<code>str</code>, <code>int</code>, <code>float</code>, <code>bool</code>, and <code>None</code>), and I will introduce the rest in this lesson. Data structures have different qualities based on how they are declared and used. We can go with a loop through sequence, mapping, and set structures, just like with strings (e.g., <code>for x in "abcde":</code>). They are called <b>iterable</b> data structures.</p>
                                     
                                     <p>A list is mutable, which means that if we assign it to an <code>x</code> variable, we will have two names referring to the same object (they will have the same ID). However, if we assign a string to an <code>x</code> variable, a second variable will be created (because it is immutable). This variable will contain the same data, but while editing the original version, we will not edit the copy (which was the case with the list). All the structures we already know are immutable.</p>
-            
                 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 list1 <span class="sign">=</span> [1, 2, 3] <span class="comment"># list is mutable</span>
@@ -203,6 +202,25 @@ x <span class="sign">=</span> [3, 3.5, <span class="text">"Python"</span>]
 <span class="function">for</span> y <span class="function">in</span> x:
     <span class="command">print</span>(y)
                                     </code></pre>
+
+                                    <h4>Unpacking a list</h4>
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Unpacking list values to individual variables (also works with, e.g., tuples)</span>
+a, b, c <span class="sign">=</span> [1, 2, 3]
+                                    </code></pre>
+
+                                    <h4>Modifying a list with indexing</h4>
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+x <span class="sign">=</span> [1, 2, 3, 4, 5, 6]
+x[2:4] <span class="sign">=</span> [7, 8]
+<span class="command">print</span>(x) <span class="comment"># [1, 2, 7, 8, 5, 6]</span>
+
+y <span class="sign">=</span> [1, 2, 3, 4, 5, 6]
+y[2:3] <span class="sign">=</span> [7, 8]
+<span class="command">print</span>(y) <span class="comment"># [1, 2, 7, 8, 4, 5, 6]</span>
+                                    </code></pre>
             
                                     <h4><code>enumerate()</code></h4>
             
@@ -285,27 +303,11 @@ x.<span class="command">extend</span>(y)
 <span class="command">print</span>(x)
                                     </code></pre>
             
-                                    <h4><code>copy()</code></h4>
-                                    
-                                    <p>This method also works with sets and dictionaries.</p>
-            
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># Copying a list (this is useful because lists are mutable)</span>
-x <span class="sign">=</span> [<span class="text">"a"</span>, <span class="text">"b"</span>, <span class="text">"c"</span>, <span class="text">"d"</span>]
-y <span class="sign">=</span> x.<span class="command">copy</span>()
-y.<span class="command">append</span>(<span class="text">"e"</span>)
-<span class="command">print</span>(x)
-<span class="command">print</span>(y)
-                                    </code></pre>
+                                    <h4>"Truly" copying a list</h4>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># This works the same</span>
-x <span class="sign">=</span> [<span class="text">"a"</span>, <span class="text">"b"</span>, <span class="text">"c"</span>, <span class="text">"d"</span>]
-y <span class="sign">=</span> x[:]
-y.<span class="command">append</span>(<span class="text">"e"</span>)
-<span class="command">print</span>(x)
-<span class="command">print</span>(y)
-                                    </code></pre>
+                                    <div class="alert alert-warning">Come back here after learning what a module is.</div>  
+                                    
+                                    <p>Check out the <code><a href="python-copy.html" target="_blank" class="link" style="color: #f5d67b;">copy</a></code> module. These methods also work with sets and dictionaries.</p>
             
                                     <h4><code>clear()</code></h4>
                                     
@@ -336,6 +338,17 @@ y <span class="sign">=</span> <span class="command">int</span>(<span class="comm
 z <span class="sign">=</span> [x <span class="sign">==</span> 2, y <span class="sign">==</span> 4]
 <span class="function">if</span> <span class="command">all</span>(z):
     <span class="command">print</span>(<span class="text">"The x variable eqauls 2, and the y variable equals 4."</span>)
+                                    </code></pre>
+
+                                    <h4>Unpacking a list</h4>
+                                    
+                                    <p>This method also works with sets and dictionaries.</p>
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Purging a list</span>
+x <span class="sign">=</span> [<span class="text">"a"</span>, <span class="text">"b"</span>, <span class="text">"c"</span>, <span class="text">"d"</span>]
+x.<span class="command">clear</span>()
+<span class="command">print</span>(x)
                                     </code></pre>
 
                                     <h2><a id="set">Sets</a></h2>
@@ -473,10 +486,15 @@ x.<span class="command">update</span>(z)
                                     <h4><code>setdefault()</code></h4>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># Extracting a dictionary value to a variable (through its key)</span>
-x <span class="sign">=</span> {<span class="text">"Python"</span>: <span class="text">"programming language"</span>, <span class="text">"list"</span>: <span class="text">"data structure"</span>}
-y <span class="sign">=</span> x.<span class="command">setdefault</span>(<span class="text">"list"</span>)
-<span class="command">print</span>(y)    
+<span class="comment"># Providing a default value for a dictionary key (it returns the value if the key exists, otherwise sets it to the default)</span>
+inventory <span class="sign">=</span> {<span class="text">"apples"</span>: 5, <span class="text">"oranges"</span>: 3}
+<span class="command">print</span>(inventory)
+
+apples <span class="sign">=</span> inventory.<span class="command">setdefault</span>(<span class="text">"apples"</span>, 0) <span class="comment"># key exists, returns 5</span>
+bananas <span class="sign">=</span> inventory.<span class="command">setdefault</span>(<span class="text">"bananas"</span>, 10) <span class="comment"># key doesn't exist, sets to 10</span>
+<span class="command">print</span>(inventory)
+<span class="command">print</span>(apples)
+<span class="command">print</span>(bananas)
                                     </code></pre>
             
                                     <h4><code>popitem()</code></h4>

@@ -92,16 +92,12 @@
                                     <h5 class="m-0 font-weight-bold">Writing clean code</h5>
                                 </div>
                                 <div class="card-body">
-                                    Efektywny Python
-                                    Książka "Programowanie w Pythonie dla średnio zaawansowanych" Część II
-                                    
                                     Sphinks docs and docxypypy Kantor + JavaDoc review
                                     iterators in all languages + java var (like c++ auto)
                                     refaktoryzacja
                                     vectorization
                                     duck typing
                                     testing
-                                    Książka "Python na poważnie" rozdział 6 - testy jednostkowe
                                     extreme programming
                                     intelligent programming
                                     test-driven development
@@ -110,13 +106,63 @@
                                     C++ basic algorithms - more comments
                                     Java &lt;T&gt;
                                     Java CountDownLatch and Executors
+                                    java coroutines, new handler itp.
                                     allSources.forEach(allListsInOne::addAll); java
+
+                                    collections module - m.in. defaultdict:
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+from collections import defaultdict
+
+visits = defaultdict(set)
+
+visits["USA"].add("New York")
+visits["USA"].add("Los Angeles")
+visits["France"].add("Paris")
+print(visits)
+
+# You didn't need to check if a key exists before adding a value.
+# Without defaultdict
+if country not in visits:
+    visits[country] = set()
+visits[country].add(city)
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+# Multiple variable assignments can help clean up the code
+tasks_completed = emails_sent = messages_read = 0
+emails_sent += 5
+messages_read += 12
+tasks_completed += emails_sent + messages_read
+
+print("Tasks completed:", tasks_completed)
+print("Emails sent:", emails_sent)
+print("Messages read:", messages_read)
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                        GDZIEŚ WCISNĄĆ
+class DefaultDict(dict):
+    def __missing__(self, key):
+        return 0 # default value for missing keys
+
+d = DefaultDict()
+d["a"] = 5
+
+print(d["a"])
+print(d["b"])
+                                    </code></pre>
 
                                     opisać downcasting we wszystkich językach
 
                                     Odpowiedzialność za działania funkcji powinna być nadana tej funkcji, a nie kontrolowana przez "główny" obiekt, który nie powinien zostać obarczony odpowiedzialnością za wszystkie funkcje. Funkcja powinna być sama odpowiedzialna za zdobycie informacji czy np. Jakaś zmiana jej dotyczy i zastosowanie się do niej. Zmiana jest taka sama ale implementują je same funkcje a nie zewnętrzny obiekt. Funkcje są odpowiedzialne za siebie a program kontrolny komunikuje się z różnymi ich kategoriami ale ich nie rozróżnia. Nie orientuje się jakie mają one implementacje.
 
                                     Można utworzyć zestaw metod wykorzystywanych przez kilka rodzajów obiektów.
+
+                                    <p>Use if checks for expected conditions and reserve exceptions for rare or truly unexpected errors, since raising exceptions is more time- and memory-intensive.</p>
+
+                                    <p>By convention, a variable named "_" is used to indicate a value that will be ignored and should not be used, e.g., in a loop or tuple unpacking.</p>
+
+                                    <p>The <code>None</code> type is falsy in conditional statements. When a function cannot produce a meaningful value, returning <code>None</code> is common, but if the absence of a value represents an error, raising an exception is more appropriate.</p>
 
                                     <p class="podpis">Some <b>PEP8</b> standard guidelines:</p>
                                     <ul>

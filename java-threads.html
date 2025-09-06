@@ -134,7 +134,7 @@
             task1.<span class="command">join</span>()<span class="sign">;</span>
             task2.<span class="command">join</span>()<span class="sign">;</span>
         <span class="sign">}</span>
-        <span class="function">catch</span>(<span class="function">InterruptedException</span> e) <span class="sign">{</span> <span class="comment">// if another thread interrupts the current thread</span>
+        <span class="function">catch</span> (<span class="function">InterruptedException</span> e) <span class="sign">{</span> <span class="comment">// if another thread interrupts the current thread</span>
             <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Main thread interrupted."</span>)<span class="sign">;</span>
         <span class="sign">}</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Both tasks completed."</span>)<span class="sign">;</span>
@@ -176,7 +176,7 @@ th.<span class="command">start</span>()<span class="sign">;</span>
             <span class="function">try</span> <span class="sign">{</span>
                 threads[i].<span class="command">join</span>()<span class="sign">;</span>
             <span class="sign">}</span> 
-            <span class="function">catch</span>(<span class="function">InterruptedException</span> e) <span class="sign">{</span>
+            <span class="function">catch</span> (<span class="function">InterruptedException</span> e) <span class="sign">{</span>
                 <span class="function">Thread</span>.<span class="command">currentThread</span>().<span class="command">interrupt</span>()<span class="sign">;</span> <span class="comment">// setting the interrupted status of the current thread</span>
             <span class="sign">}</span>
         <span class="sign">}</span>
@@ -194,6 +194,10 @@ th.<span class="command">start</span>()<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
+
+                                    <h4><code>this::function</code> VS <code>v -> function(v)</code></h4>
+
+                                    <p><code>this::function</code> is a method reference that directly refers to an existing instance method, making the code more concise and readable. <code>v -> function(v)</code> is a lambda expression that creates an inline function calling the method, offering more flexibility to add extra logic if needed. Although slightly different, these essentially work the same.</p>
 
                                     <h4>Thread pools</h4>
 

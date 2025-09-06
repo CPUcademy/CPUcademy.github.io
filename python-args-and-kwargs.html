@@ -92,7 +92,7 @@
                                     <h5 class="m-0 font-weight-bold"><code>*args</code> and <code>**kwargs</code></h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>When we don't know the number of arguments we will give to a method or a function, we can use <code>*args</code> and <code>**kwargs</code>. We do this by placing <code>*</code> or <code>**</code> before the argument name, which can be anything we choose.</p>
+                                    <p>When we don't know the number of arguments we will give to a method or a function, we can use <code>*args</code> and <code>**kwargs</code>. We do this by placing <code>*</code> or <code>**</code> before the argument name.</p>
 
                                     <h2><code>*args</code></h2>
                                     
@@ -141,7 +141,7 @@ function(1, 2, 3, 4, a <span class="sign">=</span> 5, b <span class="sign">=</sp
                                     
                                     <h2><code>*</code> and <code>**</code> symbols</h2>
                                     
-                                    <p>A single asterisk can also be used to unpack a list into individual elements inside the <code>print()</code> method.</p>
+                                    <p>A single asterisk can also be used to unpack a list into individual elements.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 list1 <span class="sign">=</span> [<span class="text">"one"</span>, 2]
@@ -156,6 +156,39 @@ dict1 <span class="sign">=</span> {<span class="text">"one"</span>: 1}
 dict2 <span class="sign">=</span> {<span class="text">"two"</span>: 2}
 linked <span class="sign">=</span> {<span class="sign">**</span>dict1, <span class="sign">**</span>dict2}
 <span class="command">print</span>(linked)
+                                    </code></pre>
+
+                                    <p>Below are some examples of unpacking lists using a single asterisk. Remember that an expression can have only one variable with * for it to make sense.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+ages_descending <span class="sign">=</span> [90, 65, 40, 25, 10]
+
+oldest, <span class="sign">*</span>others, youngest <span class="sign">=</span> ages_descending
+<span class="command">print</span>(oldest)
+<span class="command">print</span>(others)
+<span class="command">print</span>(youngest)
+
+<span class="sign">*</span>others, second_youngest, youngest <span class="sign">=</span> ages_descending
+<span class="command">print</span>(others)
+<span class="command">print</span>(second_youngest)
+<span class="command">print</span>(youngest)
+
+<span class="function">def</span> get_values():
+    <span class="function">return</span> 1, 2, 3, 4, 5
+a, b, <span class="sign">*</span>others <span class="sign">=</span> get_values()
+<span class="command">print</span>(a, b, others)
+                                    </code></pre>
+
+                                    <p>Adding a new positional argument to a function with <code>*args</code> can cause subtle errors.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> func(<span class="sign">*</span>args):
+    <span class="command">print</span>(args)
+func(1, 2, 3) <span class="comment"># (1, 2, 3)</span>
+
+<span class="function">def</span> func(a, <span class="sign">*</span>args):
+    <span class="command">print</span>(a, args)
+func(1, 2, 3) <span class="comment"># 1 (2, 3) – the first value now goes to "a" instead of *args</span>
                                     </code></pre>
                                 </div>
                             </div>

@@ -125,7 +125,7 @@
     x <span class="sign">=</span> <span class="command">open</span>(<span class="text">"file.txt"</span>, <span class="text">"r"</span>, <span class="command">encoding</span> <span class="sign">=</span> <span class="text">"utf8"</span>)
     file.<span class="command">write</span>(<span class="text">"text"</span>)
     x.<span class="command">close</span>()
-<span class="function">except IOError</span>:
+<span class="function">except IOError</span>: <span class="comment"># input-output error</span>
     <span class="command">print</span>(<span class="text">"Could not create the file."</span>)
 <span class="function">except</span>:
     <span class="command">print</span>(<span class="text">"Other exception."</span>)
@@ -133,7 +133,7 @@
 
                                     <h2>The <code>raise</code> keyword</h2>
                                     
-                                    <p>The <code>raise</code> keyword is used to trigger a specific type of error. It can be used, e.g., inside the <code>try</code> block, to trigger a specific <code>except</code> case.</p>
+                                    <p>The <code>raise</code> keyword is used to trigger a specific type of error. It can be used, e.g., inside the <code>try</code> block, to trigger a specific <code>except</code> case, but also outside of try-except to deliberately stop program execution when a critical error occurs. A common use case is validating user input when the provided data does not meet the required format.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 x <span class="sign">=</span> 0
@@ -141,12 +141,20 @@ x <span class="sign">=</span> 0
     <span class="function">raise ZeroDivisionError</span>(<span class="text">"You can't divide by 0."</span>) <span class="comment"># it could be also: Exception, SyntaxError, OSError, etc.</span>
                                     </code></pre>
 
-                                    <p>An <code>IndexError</code> occurs when we try to access an index outside the bounds of, e.g., a list.</p>
+                                    <h4>Error examples</h4>
 
+                                    <ul>
+                                        <li>An <code>IndexError</code> occurs when we try to access an index outside the bounds of, e.g., a list.</li>
+                                        <li>A <code>KeyError</code> occurs when we try to access a dictionary with a key that does not exist.</li>
+                                        <li>A <code>TypeError</code> occurs when we perform an invalid operation between incompatible data types.</li>
+                                        <li>A <code>ValueError</code> occurs when a function receives an argument of the correct type but with an invalid value.</li>
+                                        <li>A <code>ZeroDivisionError</code> occurs when we attempt to divide a number by zero.</li>
+                                        <li>A <code>SyntaxError</code> occurs when the Python interpreter encounters code that violates the syntax rules.</li>
+                                    </ul>
                                                                     
                                     <h2>The <code>assert</code> keyword</h2>
                                     
-                                    <p>The <code>assert</code> keyword checks whether a given condition is <code>True</code>, and if not, throws an <code>AssertionError</code> with the optional user-written comment (like below).</p>
+                                    <p>The <code>assert</code> keyword checks whether a given condition is <code>True</code>, and if not, throws an <code>AssertionError</code> with an optional user-written comment. A common use case is debugging complex functions by asserting that input values or intermediate results meet expected conditions before continuing execution.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 number <span class="sign">=</span> 5
