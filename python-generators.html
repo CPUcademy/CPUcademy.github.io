@@ -229,6 +229,20 @@ x <span class="sign">=</span> generator(5)
     <span class="command">print</span>(x)
                                     </code></pre>
 
+                                    <p>Using <code>*args</code> with a generator can be risky and memory-intensive. In the example below, when we call <code>func(*g)</code>, Python expands the generator <code>g</code> into individual arguments all at once before passing them to the function. Suppose the generator produces a large or infinite sequence. In that case, Python will attempt to materialize all elements in memory simultaneously, which can lead to excessive memory usage or even crash the program with a <code>MemoryError</code>, defeating the generator’s usual one-at-a-time, lazy behavior.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> generator():
+    <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10):
+        <span class="function">yield</span> x
+
+<span class="function">def</span> func(<span class="sign">*</span>args):
+    <span class="command">print</span>(args)
+
+g <span class="sign">=</span> generator()
+func(<span class="sign">*</span>g)
+                                    </code></pre>
+
                                     <h2>Addition to the lesson - custom lists</h2>
 
                                     <p>Earlier, I mentioned creating custom iterables by implementing the <code>__next__()</code> and <code>__iter__()</code> dunder methods, but this should only be done if we need a fully custom iterable. If we only need a simple customized list with all the built-in methods of a normal list along with some additional functionalities, we can inherit from <code>list</code>. A custom list like this is necessary to implement the Observer design pattern, which you can learn more about <a href="python-behavioral-patterns.html#observer" class="link">here</a>.</p>
