@@ -92,73 +92,91 @@
                                     <h5 class="m-0 font-weight-bold">List comprehensions</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>List comprehensions provide a simple way to create lists based on a sequence we can iterate (e.g., a string). The object the comprehension returns can be a different list comprehension, a mathematical expression, or a string.</p>
-                                    
-                                    <p>In the example <code>a = [x.lower() for x in iterable]</code>, the list comprehension iterates over each element in the iterable, applies the <code>lower()</code> method to convert it to lowercase, and collects the results into a new list. This demonstrates how list comprehensions can transform elements of an iterable on the fly while building a new list concisely.</p>
-                            
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                <p>List comprehensions provide a concise and readable way to create new lists, sets, or dictionaries by iterating over sequences (like lists, strings, or ranges) and optionally applying transformations or conditions.</p>
+
+                                <h2>List comprehensions</h2>
+
+                                <p>List comprehensions allow building new lists from existing iterables with optional transformations and filtering.</p>
+
+                                <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 list1 <span class="sign">=</span> [letter <span class="function">for</span> letter <span class="function">in</span> <span class="text">"abcd"</span>] <span class="comment"># dividing a string into a list of characters</span>
 <span class="command">print</span>(list1)
 
-list2 <span class="sign">=</span> [<span class="function">int</span>(character) <span class="function">for</span> character <span class="function">in</span> <span class="text">"0123456"</span>] <span class="comment"># converting each character in the string to an integer and saving them in a list</span>
+list2 <span class="sign">=</span> [<span class="function">int</span>(character) <span class="function">for</span> character <span class="function">in</span> <span class="text">"0123456"</span>] <span class="comment"># converting each character in a string to an integer</span>
 <span class="command">print</span>(list2)
 
-x, y, z <span class="sign">=</span> [<span class="function">int</span>(x) <span class="function">for</span> x <span class="function">in</span> <span class="command">input</span>(<span class="text">"Enter three numbers separated by spaces: "</span>).<span class="command">split</span>()] <span class="comment"># using the split() method with a list comprehension</span>
+x, y, z <span class="sign">=</span> [<span class="function">int</span>(x) <span class="function">for</span> x <span class="function">in</span> <span class="command">input</span>(<span class="text">"Enter three numbers separated by spaces: "</span>).<span class="command">split</span>()] <span class="comment"># using split() with a list comprehension to get three input values in one line</span>
 <span class="command">print</span>(x <span class="sign">+</span> y <span class="sign">+</span> z)
 
 list3 <span class="sign">=</span> [[<span class="text">"a"</span>, <span class="text">"b"</span>] <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10)] <span class="comment"># creating a two-dimensional list</span>
 <span class="command">print</span>(list3)
 
-list4 <span class="sign">=</span> [x.<span class="command">lower</span>() <span class="function">for</span> x <span class="function">in</span> <span class="text">"ABCDE"</span>] <span class="comment"># turning all letters to lowecase</span>
+list4 <span class="sign">=</span> [x.<span class="command">lower</span>() <span class="function">for</span> x <span class="function">in</span> <span class="text">"ABCDE"</span>] <span class="comment"># converting every character in a string to lowercase</span>
 <span class="command">print</span>(list4)
 
 l <span class="sign">=</span> [{<span class="text">"name"</span>: <span class="text">"x"</span>, <span class="text">"value"</span>: 1}, {<span class="text">"name"</span>: <span class="text">"y"</span>, <span class="text">"value"</span>: 2}]
-list5 <span class="sign">=</span> [x[<span class="text">"name"</span>] <span class="function">for</span> x <span class="function">in</span> l] <span class="comment"># extracting the "name" value from each dictionary in the list</span>
+list5 <span class="sign">=</span> [x[<span class="text">"name"</span>] <span class="function">for</span> x <span class="function">in</span> l] <span class="comment"># extracting the "name" value from each dictionary</span>
 <span class="command">print</span>(list5)
-                                    </code></pre>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-squares <span class="sign">=</span> [x <span class="sign">*</span> x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(5)] <span class="comment"># squares of numbers from 0 to 4</span>
-<span class="command">print</span>(squares)                                        
-
-list1 <span class="sign">=</span> [x <span class="sign">*</span> y <span class="function">for</span> x, y <span class="function">in</span> ([1, 2], [3, 4])] <span class="comment"># multiplying elements of two lists element-wise (x from first list, y from second list) - 1*3, 2*4</span>
-<span class="command">print</span>(list1)
-
-list2 <span class="sign">=</span> [[x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(3)] <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10)] <span class="comment"># creating a list of lists (each inner list contains numbers from 0 to 2)</span>
-<span class="command">print</span>(list2)
-
-list3 <span class="sign">=</span> [x <span class="sign">*</span> y <span class="function">for</span> x, y <span class="function">in</span> ([a, a <span class="sign">+</span> 1] <span class="function">for</span> a <span class="function">in</span> <span class="command">range</span>(10))] <span class="comment"># generating a list of products of consecutive numbers a*(a+1) for a in range(10)</span>
-<span class="command">print</span>(list3)
-                                    </code></pre>
-
-                                    <p>Not only lists can be filled with data using list comprehensions.</p>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-set1 <span class="sign">=</span> {x <span class="sign">*</span> x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10)}
-<span class="command">print</span>(set1)
-
-dict1 <span class="sign">=</span> {x: x <span class="sign">*</span> x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10)}
-<span class="command">print</span>(dict1)
-                                    </code></pre>
-
-                                    <p>List comprehensions can contain conditions.</p>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-list1 <span class="sign">=</span> [x <span class="sign">*</span> x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(11) <span class="function">if</span> x <span class="sign">%</span> 2 <span class="sign">==</span> 0]
-<span class="command">print</span>(list1)
+list6 <span class="sign">=</span> [x <span class="sign">*</span> y <span class="function">for</span> x, y <span class="function">in</span> ([1, 2], [3, 4])] <span class="comment"># multiplying elements of two lists element-wise (x from first list, y from second list) - 1*3, 2*4</span>
+<span class="command">print</span>(list6)
 
 text <span class="sign">=</span> <span class="text">"one: 1, two: 2, three: 3, four: 4"</span>
-list2 <span class="sign">=</span> [<span class="function">int</span>(character) <span class="function">for</span> character <span class="function">in</span> text <span class="function">if</span> character.<span class="command">isdigit</span>()]
-<span class="command">print</span>(list2)
-                                    </code></pre>
-                                    
-                                    <p>There are three ways of filling an array with 10 zeros.</p>
+list7 <span class="sign">=</span> [<span class="function">int</span>(character) <span class="function">for</span> character <span class="function">in</span> text <span class="function">if</span> character.<span class="command">isdigit</span>()] <span class="comment"># extracting numbers from a string</span>
+<span class="command">print</span>(list7)
+                                </code></pre>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+squares <span class="sign">=</span> [x <span class="sign">*</span> x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(5)] <span class="comment"># creating a list of squares of numbers from 0 to 4</span>
+<span class="command">print</span>(squares)
+
+div_by_7 <span class="sign">=</span> [x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(1, 1001) <span class="function">if</span> x <span class="sign">%</span> 7 <span class="sign">==</span> 0] <span class="comment"># creating a list of numbers divisible by 7 from 1 to 1000</span>
+<span class="command">print</span>(div_by_7)
+
+contain_3 <span class="sign">=</span> [x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(1, 1001) <span class="function">if</span> <span class="text">"3"</span> <span class="function">in</span> <span class="command">str</span>(x)] <span class="comment"># creating a list of numbers from 1 to 1000 containing the digit 3</span>
+<span class="command">print</span>(contain_3)
+
+text <span class="sign">=</span> <span class="text">"This is an example string"</span>
+
+spaces_count <span class="sign">=</span> [1 <span class="function">for</span> char <span class="function">in</span> text <span class="function">if</span> char <span class="sign">==</span> <span class="text">" "</span>] <span class="comment"># counting spaces in a string</span>
+<span class="command">print</span>(<span class="command">sum</span>(spaces_count))
+
+no_vowels <span class="sign">=</span> [char <span class="function">for</span> char <span class="function">in</span> text <span class="function">if</span> char.<span class="command">lower</span>() <span class="function">not in</span> <span class="text">"aeiou"</span>] <span class="comment"># removing vowels from a string</span>
+<span class="command">print</span>(<span class="text">""</span>.<span class="command">join</span>(no_vowels))
+
+words <span class="sign">=</span> text.<span class="command">split</span>()
+short_words <span class="sign">=</span> [word <span class="function">for</span> word <span class="function">in</span> words <span class="function">if</span> <span class="command">len</span>(word) <span class="sign">&lt;</span> 4] <span class="comment"># finding words with less than 4 letters</span>
+<span class="command">print</span>(short_words)
+                                </code></pre>
+
+                                <h2>Filling a list with zeros</h2>
+
+                                <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 list1 <span class="sign">=</span> [0] <span class="sign">*</span> 10
 list2 <span class="sign">=</span> [0 <span class="function">for</span> _ <span class="function">in</span> <span class="command">range</span>(10)]
-list3 <span class="sign">=</span> <span class="command">list</span>(0 <span class="function"></span>for</span> _ <span class="function">in</span> <span class="command">range</span>(10))
-                                    </code></pre>
+list3 <span class="sign">=</span> <span class="command">list</span>(0 <span class="function">for</span> _ <span class="function">in</span> <span class="command">range</span>(10))
+                                </code></pre>
+
+                                <h2>Set comprehensions</h2>
+
+                                <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+set1 <span class="sign">=</span> {x <span class="sign">*</span> x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10)} <span class="comment"># creating a set of squares of numbers from 0 to 9</span>
+<span class="command">print</span>(set1)
+                                </code></pre>
+
+                                <h2>Dictionary comprehensions</h2>
+
+                                <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+dict1 <span class="sign">=</span> {x: x <span class="sign">*</span> x <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10)} <span class="comment"># creating a dictionary with numbers as keys and their squares as values</span>
+<span class="command">print</span>(dict1)
+
+dict2 <span class="sign">=</span> {x: x<span class="sign">**</span>3 <span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(10) <span class="function">if</span> x <span class="sign">%</span> 2 <span class="sign">==</span> 0} <span class="comment"># creating a dictionary with even numbers as keys and their cubes as values</span>
+<span class="command">print</span>(dict2)
+
+letters <span class="sign">=</span> <span class="text">"abcd"</span>
+dict3 <span class="sign">=</span> {char: char.<span class="command">upper</span>() <span class="function">for</span> char <span class="function">in</span> letters} <span class="comment"># creating a dictionary mapping lowercase letters to uppercase letters</span>
+<span class="command">print</span>(dict3)
+                                </code></pre>
                                 </div>
                             </div>
                         </div>

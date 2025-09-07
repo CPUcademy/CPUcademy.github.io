@@ -160,9 +160,9 @@ p <span class="sign">=</span> <span class="function">Point</span>(1, 2)
 <span class="command">print</span>(p.<span class="function">__dict__</span>)
                                     </code></pre>
 
-                                    <h4><code>__getitem__()</code></h4>
+                                    <h4><code>__getitem__()</code> and <code>__setitem__()</code></h4>
 
-                                    <p>It allows class instances to support indexing like lists or dictionaries by defining how items are accessed using square brackets.</p>
+                                    <p><code>__getitem__()</code> allows class instances to support accessing items using square brackets, like <code>obj[key]</code>. <code>__setitem__()</code> allows class instances to support assigning values to items using square brackets, like <code>obj[key] = value</code>.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> DataStore:
@@ -172,10 +172,19 @@ p <span class="sign">=</span> <span class="function">Point</span>(1, 2)
     <span class="function">def __getitem__</span>(<span class="function">self</span>, key):
         <span class="function">return</span> <span class="function">self</span>.data.<span class="command">get</span>(key, <span class="text">"Key not found"</span>)
 
+    <span class="function">def __setitem__</span>(<span class="function">self</span>, key, value):
+        <span class="function">self</span>.data[key] =</span> value
+
 store <span class="sign">=</span> <span class="function">DataStore</span>()
 <span class="command">print</span>(store[<span class="text">"name"</span>])
 <span class="command">print</span>(store[<span class="text">"age"</span>])
 <span class="command">print</span>(store[<span class="text">"address"</span>])
+
+store[<span class="text">"address"</span>] <span class="sign">=</span> <span class="text">"123 Main St"</span>
+store[<span class="text">"age"</span>] <span class="sign">=</span> 31
+
+<span class="command">print</span>(store[<span class="text">"address"</span>])
+<span class="command">print</span>(store[<span class="text">"age"</span>])  
                                     </code></pre>
                                     
                                     <h4><code>getattr()</code>, <code>setattr()</code>, and <code>delattr()</code></h4>

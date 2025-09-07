@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Sequence processing (Streams/Rx)</title>
+    <title>Progress fragments</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -89,10 +89,47 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Sequence processing (Streams/Rx)</h5>
+                                    <h5 class="m-0 font-weight-bold">Progress fragments</h5>
                                 </div>
                                 <div class="card-body">
-                                    Also correct streams in Java
+                                    C++ basic algorithms - more comments
+                                    Java &lt;T&gt;
+                                    Java CountDownLatch and Executors
+                                    java coroutines, new handler itp.
+                                    allSources.forEach(allListsInOne::addAll); java
+                                    opisać downcasting we wszystkich językach
+                                    iterators in all languages + java var (like c++ auto)
+
+                                    collections module - m.in. defaultdict:
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+from collections import defaultdict
+
+visits = defaultdict(set)
+
+visits["USA"].add("New York")
+visits["USA"].add("Los Angeles")
+visits["France"].add("Paris")
+print(visits)
+
+# You didn't need to check if a key exists before adding a value.
+# Without defaultdict
+if country not in visits:
+    visits[country] = set()
+visits[country].add(city)
+                                    </code></pre>
+
+                                    faster than defaultdict?
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+class DefaultDict(dict):
+    def __missing__(self, key):
+        return 0 # default value for missing keys
+
+d = DefaultDict()
+d["a"] = 5
+
+print(d["a"])
+print(d["b"])
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

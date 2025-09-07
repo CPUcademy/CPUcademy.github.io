@@ -133,6 +133,24 @@ x <span class="sign">+=</span> <span class="text">"s"</span>
 <span class="command">print</span>(string)
                                     </code></pre>
 
+                                    <p>All mutable types, like lists, when passed as arguments to a function and modified inside it, will change their value in the outer scope (the parameter holds a reference to the original object). Meanwhile, all immutable types, like strings, must be returned from a function for the changes made inside to take effect.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> modify_list(numbers):
+    numbers.<span class="command">append</span>(4)
+
+<span class="function">def</span> modify_string(text):
+    text <span class="sign">=</span> text <span class="sign">+</span> <span class="text">" world"</span>
+
+numbers <span class="sign">=</span> [1, 2, 3]
+modify_list(numbers)
+<span class="command">print</span>(numbers) <span class="comment"># [1, 2, 3, 4]</span>
+
+text <span class="sign">=</span> <span class="text">"hello"</span>
+modify_string(text)
+<span class="command">print</span>(text) <span class="comment"># "hello"</span>
+                                    </code></pre>
+
                                     <h4><code>is</code></h4>
 
                                     <p>The <code>is</code> keywords check whether two objects are the same (in terms of memory addresses), while the <code>==</code> operator checks whether two objects have the same values.</p>

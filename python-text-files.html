@@ -175,8 +175,34 @@ y <span class="sign">=</span> <span class="command">input</span>()
 x.<span class="command">write</span>(<span class="text">"\n"</span> <span class="sign">+</span> y)
 x.<span class="command">close</span>()
                                     </code></pre>
+                                    
+                                    <h2>The <code>seek()</code> method</h2>
 
-                                    <p>There are also binary modes like <code>rb</code> (read binary) and <code>wb</code> (write binary), which are used for handling non-text files such as images, audio, or other binary data.</p>
+                                    <p>The <code>seek()</code> method is used to change the current position of the file pointer within a file. The file pointer is an internal marker that keeps track of the current location in the file where the next read or write operation will occur.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+f <span class="sign">=</span> <span class="command">open</span>(<span class="text">"file.txt"</span>, <span class="text">"w+"</span>)
+f.<span class="command">write</span>(<span class="text">"Hello"</span>)
+f.<span class="command">seek</span>(0) <span class="comment"># move pointer to start (character nr. 0)</span>
+f.<span class="command">write</span>(<span class="text">"abc"</span>) <span class="comment"># overwriting the first three letters</span>
+f.<span class="command">seek</span>(0) <span class="comment"># move pointer back to start to read everything</span>
+<span class="command">print</span>(f.<span class="command">read</span>()) <span class="comment"># "abclo"</span>
+f.<span class="command">close</span>()
+                                    </code></pre>
+
+                                    <h2>Other modes</h2>
+
+                                    <ul>
+                                        <li><code>w+</code> – write and read. Overwrites the file if it exists or creates a new one and allows reading and writing.</li>
+                                        <li><code>a+</code> – append and read. Opens the file for reading and appending at the end and creates the file if it doesn’t exist.</li>
+                                        <li><code>x</code> – exclusive creation. Creates a new file and fails if the file already exists.</li>
+                                        <li><code>rb</code> – read binary. Opens a file for reading in binary mode.</li>
+                                        <li><code>wb</code> – write binary. Opens a file for writing in binary mode and overwrites existing content.</li>
+                                        <li><code>ab</code> – append binary. Opens a file for appending in binary mode.</li>
+                                        <li><code>r+b</code> – read and write binary. Opens a binary file for both reading and writing.</li>
+                                        <li><code>w+b</code> – write and read binary. Overwrites a binary file or creates a new one and allows reading and writing.</li>
+                                        <li><code>a+b</code> – append and read binary. Opens a binary file for reading and appending and creates the file if it doesn’t exist.</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
