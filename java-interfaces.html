@@ -92,7 +92,7 @@
                                     <h5 class="m-0 font-weight-bold">Interfaces</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>Interfaces are "classes" in which, by default, all fields are <code>public</code>, <code>static</code>, and <code>final</code>, and methods are <code>public</code> and <code>abstract</code>. A class can't inherit from multiple classes but can implement multiple interfaces. It is mandatory to implement (override) all of the interface's methods. Interface methods can't contain any implementation, providing only method signatures that must be implemented by subclasses. We create interfaces using the <code>interface</code> keyword.</p>
+                                    <p>Interfaces are "classes" in which, by default, all fields are <code>public</code>, <code>static</code>, and <code>final</code>, and methods are <code>public</code> and <code>abstract</code>. A class can't inherit from multiple classes but can implement multiple interfaces. It is mandatory to implement (override) all of the interface's methods. Interface methods can't contain any implementation, providing only method signatures that must be implemented by subclasses. We create interfaces using the <code>interface</code> keyword. Interfaces are used as templates for classes, ensuring a consistent structure. For example, when implementing an interface in a graphical window application, the method responsible for creating the window must be provided, or the application will not function properly.</p>
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.util.Arrays<span class="sign">;</span>
@@ -103,7 +103,7 @@
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="function">Interface</span>.PI)<span class="sign">;</span>
 
         <span class="function">Interface</span> x <span class="sign">=</span> <span class="function">new Worker</span>(2000)<span class="sign">;</span>
-        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(((<span class="function">Worker</span>)x).getSalary())<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(((<span class="function">Worker</span>) x).getSalary())<span class="sign">;</span>
 
         <span class="function">Worker</span>[] worker =</span> <span class="function">new Worker</span>[3]<span class="sign">;</span>
         worker[0] <span class="sign">=</span> <span class="function">new Worker</span>(4000)<span class="sign">;</span>
@@ -122,17 +122,17 @@
 
 <span class="function">class</span> Worker <span class="function">implements Interface</span>, <span class="function">Comparable</span> <span class="sign">{</span>
     <span class="command">@Override</span>
-    <span class="function">public void</span> method()<span class="sign">{}</span>
+    <span class="function">public void</span> method() <span class="sign">{}</span>
 
     <span class="function">private double</span> salary<span class="sign">;</span>
-    <span class="function">Worker</span>(<span class="function">double</span> salary)<span class="sign">{</span><span class="function">this</span>.salary <span class="sign">=</span> salary<span class="sign">;}</span> <span class="comment">// inline method (intended for short operations)</span>
+    <span class="function">Worker</span>(<span class="function">double</span> salary) <span class="sign">{</span><span class="function">this</span>.salary <span class="sign">=</span> salary<span class="sign">;}</span> <span class="comment">// inline method (intended for short operations)</span>
     <span class="function">public double</span> getSalary() <span class="sign">{</span><span class="function">return</span> <span class="function">this</span>.salary<span class="sign">;}</span>
 
     <span class="command">@Override</span>
     <span class="function">public int</span> compareTo(<span class="function">Object</span> o) <span class="sign">{</span>
-        <span class="function">Worker</span> sent <span class="sign">=</span> (<span class="function">Worker</span>)o<span class="sign">;</span>
+        <span class="function">Worker</span> sent <span class="sign">=</span> (<span class="function">Worker</span>) o<span class="sign">;</span>
         <span class="function">if</span> (<span class="function">this</span>.salary <span class="sign">&lt;</span> sent.salary)
-            <span class="function">return</span> -1<span class="sign">;</span>
+            <span class="function">return</span> <span class="sign">-</span>1<span class="sign">;</span>
         <span class="function">else if</span> (<span class="function">this</span>.salary <span class="sign">&gt;</span> sent.salary)
             <span class="function">return</span> 1<span class="sign">;</span>
         <span class="function">return</span> 0<span class="sign">;</span>
