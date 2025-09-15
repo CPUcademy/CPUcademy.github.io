@@ -116,8 +116,6 @@
 <span class="sign">}</span>
                                     </code></pre>
 
-                                    <p>The superclass's constructor is automatically called before the subclass's constructor.</p>
-
                                     <p>A class cannot be inherited if it is marked as <code>final</code>. Similarly, <code>final</code> methods cannot be overridden by subclasses (but still can be used). If an attribute of the class is <code>final</code> it has to be instantiated (it cannot be just declared). Overriding means providing a new method implementation in the subclass that replaces the method defined in the parent class (e.g., defining a <code>speak()</code> method in a <code>Cat</code> subclass to replace the general <code>speak()</code> method from an <code>Animal</code> parent class).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -194,7 +192,9 @@
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
-                                    
+
+                                    <p>To properly invoke the superclass’s constructor, <code>super</code> must appear as the very first line in a subclass constructor. If the subclass constructor does not explicitly call <code>super</code>, the compiler automatically inserts a call to the superclass’s no-argument constructor — provided one exists. Otherwise, an explicit call to a superclass constructor with arguments is required.</p>
+
                                     <h2>Abstract objects, polymorphism</h2>
                                     
                                     <p>Polymorphism means operating in the same way on objects of different types. It refers to an object's ability to take on many forms. For example, the <code>+</code> operator behaves polymorphically because it can add numbers and concatenate strings (it works with various data types in a very similar way). It is the fourth concept of object-oriented programming. Example: A man can be a father, a husband, a student, etc. One person can have different roles.</p>
