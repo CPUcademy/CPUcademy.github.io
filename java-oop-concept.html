@@ -130,7 +130,7 @@
                                     
                                     <p>Abstraction is a process that deals with complexity by hiding unnecessary information from the user. It simplifies reality by creating a version of an object that consists only of essential information. Data is visible only to semantically related functions to prevent misuse. In this approach, we use the <code>public</code> mode often. Example: We can do many things on a computer, but it doesn't show us how it's doing them because we don't need that information. The implementation parts are hidden. It is the first concept of object-oriented programming.</p>
                                     
-                                    <p>A constructor (<code>NameOfTheClass()</code>) is a method called by the compiler when an object of the class is created. A destructor is called by the compiler when the object is destroyed. In Java, constructors are not mandatory (the default constructor is executed anyway), and destructors DON'T EXIST. It is because Java has an advanced Garbage Collector. The constructor is commonly used for setting the initial values of variables. It never features the <code>return</code> instruction. Methods can take arguments. If a constructor takes them, we give them while assigning the class to a variable, and in other words - creating its instance (e.g., <code>Human h = new Human(20);</code>). A class can have multiple constructors that execute according to the number of given arguments, e.g., if we give three arguments when creating a new instance, the constructor that takes three arguments of these specific types is called. Of course, the constructor must be <code>public</code>.</p>
+                                    <p>A constructor (<code>NameOfTheClass()</code>) is a method called by the compiler when an object of the class is created. A destructor is called by the compiler when the object is destroyed. In Java, constructors are not mandatory (the default constructor is executed anyway), and destructors DON'T EXIST. It is because Java has an advanced Garbage Collector. The constructor is commonly used for setting the initial values of variables. It never features the <code>return</code> instruction. Methods can take arguments. If a constructor takes them, we give them while assigning the class to a variable, and in other words - creating its instance (e.g., <code>Human h = new Human(20);</code>). A class can have multiple constructors that execute according to the number of given arguments, e.g., if we give three arguments when creating a new instance, the constructor that takes three arguments of these specific types is called. To allow a class to be instantiated from outside itself, its constructor must be <code>public</code>, <code>protected</code>, or <code>package-private</code> (a <code>private</code> constructor prevents external instantiation).</p>
                                     
                                     <p>A field is a variable of any type that is declared inside the class. In a class, the order of methods and other objects is irrelevant because all objects have access to the whole class the whole time. Each class should be placed in a separate file.</p>
                                     
@@ -144,6 +144,10 @@
         <span class="function">Human</span> h <span class="sign">=</span> <span class="function">new Human</span>()<span class="sign">;</span> <span class="comment">// an instance of a class (the class acts like a data type)</span>
         h.age <span class="sign">=</span> 20<span class="sign">;</span>
         h.setAge(10)<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(h.getAge())<span class="sign">;</span>
+
+        <span class="function">Human</span> hCopy <span class="sign">=</span> h<span class="sign">;</span> <span class="comment">// hCopy references the same Human object as h (no new object created)</span>
+        hCopy.setAge(15)<span class="sign">;</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(h.getAge())<span class="sign">;</span>
 
         <span class="function">Human</span> h2 <span class="sign">=</span> <span class="function">new Human</span>(20)<span class="sign">;</span>
@@ -221,7 +225,7 @@
                                     
                                     <h2>Static objects</h2>
                                     
-                                    <p>A static variable is a variable that retains its value between method calls. Its memory address is allocated once, and it exists for the duration of the program. A variable of this type will still exist even if an instance of the class does not. It is shared by all objects and not tied to any class instance (shared across all instances of the class). We create static variables outside methods.</p>
+                                    <p>A static variable is a variable that retains its value between method calls. Its memory address is allocated once, and it exists for the duration of the program. A variable of this type will still exist even if an instance of the class does not. It is shared by all objects and not tied to any class instance (shared across all instances of the class). It can be accessed through the class name (<code>ClassName.field</code>). We create static variables outside methods.</p>
                                     
                                     <p>The same rule applies to methods - we can call them using the class directly without creating its instance. They have no access to the class's objects. Static methods differ from outside functions because we can override them later in a child class.</p>
 
@@ -251,7 +255,7 @@
                                     
                                     <p>A <code>static {}</code> block is a static initializer that runs once when the class is first loaded, before any objects are created or static methods are called. It is often used to initialize static variables, perform setup tasks, or run code that should only execute once for the class. A class can have multiple static blocks. They execute in the order they appear.</p>
 
-                                  <p>A <code>static {}</code> block in Java is a static initializer that runs once when the class is first loaded, before any objects are created or static methods are called. It is often used to initialize static variables, perform setup tasks, or run code that should only execute once for the class. You can have multiple static blocks in a class; they execute in the order they appear.</p>
+                                    <p>A <code>static {}</code> block in Java is a static initializer that runs once when the class is first loaded, before any objects are created or static methods are called. It is often used to initialize static variables, perform setup tasks, or run code that should only execute once for the class. You can have multiple static blocks in a class; they execute in the order they appear.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main <span class="sign">{</span>
@@ -283,6 +287,8 @@
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
+
+                                    <p>A static variable can be accessed through an instance of the class (<code>obj.field</code>), but it should be accessed through the class name (<code>ClassName.field</code>).</p>
 
                                     <h2>Recursive methods</h2>
                                     
