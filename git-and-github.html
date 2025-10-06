@@ -604,7 +604,10 @@ git rebase --continue
                                     
                                     <div class="alert alert-info">
                                         <b>Warning:</b> Force pushing (<code>git push --force</code>) after rebasing can cause issues for other developers. Use <code>git push --force-with-lease</code> instead as a safer alternative.
-                                    </div>                                    
+                                    </div>   
+                                    
+                                    <h5>A real-world problem</h5>
+                                    <p>Suppose you are working on a branch and have made three commits: 1, 2, and 3. After testing, you realize that commits 2 and 3 introduced bugs and should not be included in the final branch. Instead of keeping the buggy changes, you want to go back to commit 1, make the correct changes, and create a new commit 4 that represents the fixed work. Using interactive rebase, you can drop commits 2 and 3, effectively removing them from the branch history. Then, apply your corrected changes and commit them as commit 4. This results in a clean history: 1 → 4, with the buggy commits completely skipped.</p>
                                     
                                     <h3><a id="advanced-git-commands">Advanced Git commands</a></h3>
                                     <div class="table-container"><table>

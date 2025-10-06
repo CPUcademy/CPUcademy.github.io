@@ -228,12 +228,12 @@
 
 <span class="function">class</span> Animal <span class="sign">{</span>
     <span class="function">public</span><span class="sign">:</span>
-        <span class="function">virtual void</span> speak() <span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Voice!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
+        <span class="function">virtual void</span> speak() <span class="sign">{</span> <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Voice!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="sign">}</span>
 <span class="sign">};</span>
 
 <span class="function">class</span> Cat <span class="sign">:</span> <span class="function">public Animal</span> <span class="sign">{</span>
     <span class="function">public</span><span class="sign">:</span>
-        <span class="function">void</span> speak() <span class="function">override</span> <span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span> <span class="comment">// "override" indicates we want to override a method from the superclass. If the method signature (name and parameters) doesn't match, the compiler will generate an error.</span>
+        <span class="function">void</span> speak() <span class="function">override</span> <span class="sign">{</span> <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="sign">}</span> <span class="comment">// "override" indicates we want to override a method from the superclass. If the method signature (name and parameters) doesn't match, the compiler will generate an error.</span>
 <span class="sign">};</span>
 
 <span class="function">int</span> main() <span class="sign">{</span>
@@ -255,8 +255,8 @@
 <span class="function">class</span> Animal <span class="sign">{</span>
     <span class="function">public</span><span class="sign">:</span>
         <span class="function">virtual void</span> voice() <span class="sign">=</span> 0<span class="sign">;</span> <span class="comment">// an abstract method to be implemented by subclasses</span>
-        <span class="function">void</span> voice2() <span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Voice!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">};</span>
-        <span class="function">virtual void</span> sound() <span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Animal sound!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">};</span> <span class="comment">// a virtual method</span>
+        <span class="function">void</span> voice2() <span class="sign">{</span> <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Voice!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="sign">};</span>
+        <span class="function">virtual void</span> sound() <span class="sign">{</span> <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Animal sound!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="sign">};</span> <span class="comment">// a virtual method</span>
         <span class="function">virtual</span> <span class="sign">~</span><span class="function">Animal</span>()<span class="sign">{}</span>
 <span class="sign">};</span>
 
@@ -264,9 +264,9 @@
     <span class="function">public</span><span class="sign">:</span>
         <span class="function">Cat</span>()<span class="sign">{}</span>
         <span class="sign">~</span><span class="function">Cat</span>()<span class="sign">{}</span>
-        <span class="function">void</span> voice() <span class="function">override </span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
-        <span class="function">void</span> sound() <span class="function">override </span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow sound!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span> <span class="comment">// overriding the virtual method</span>
-        <span class="function">void</span> purr() <span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Purring..."</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;}</span> <span class="comment">// a method specific to Cat</span>
+        <span class="function">void</span> voice() <span class="function">override </span><span class="sign">{</span> <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="sign">}</span>
+        <span class="function">void</span> sound() <span class="function">override </span><span class="sign">{</span> <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Meow sound!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="sign">}</span> <span class="comment">// overriding the virtual method</span>
+        <span class="function">void</span> purr() <span class="sign">{</span> <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"Purring..."</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;}</span> <span class="comment">// a method specific to Cat</span>
 <span class="sign">};</span>
 
 <span class="function">int</span> main() <span class="sign">{</span>
@@ -298,17 +298,17 @@
 
 <span class="function">class</span> Father <span class="sign">:</span> <span class="function">public Person</span> <span class="sign">{</span>
     <span class="function">public</span><span class="sign">:</span></span>
-        <span class="function">void</span> role() <span class="function">override </span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I am a father!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
+        <span class="function">void</span> role() <span class="function">override </span><span class="sign">{</span> <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I am a father!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="sign">}</span>
 <span class="sign">};</span>
 
 <span class="function">class</span> Husband <span class="sign">:</span> <span class="function">public Person</span> <span class="sign">{</span>
     <span class="function">public</span><span class="sign">:</span>
-        <span class="function">void</span> role() <span class="function">override </span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I am a husband!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
+        <span class="function">void</span> role() <span class="function">override </span><span class="sign">{</span> <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I am a husband!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="sign">}</span>
 <span class="sign">};</span>
 
 <span class="function">class</span> Student <span class="sign">:</span> <span class="function">public Person</span> <span class="sign">{</span>
     <span class="function">public</span><span class="sign">:</span>
-        <span class="function">void</span> role() <span class="function">override </span><span class="sign">{</span><span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I am a student!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span><span class="sign">}</span>
+        <span class="function">void</span> role() <span class="function">override </span><span class="sign">{</span> <span class="command-c">cout</span> <span class="sign">&lt;&lt;</span> <span class="text">"I am a student!"</span> <span class="sign">&lt;&lt;</span> <span class="command-c">endl</span><span class="sign">;</span> <span class="sign">}</span>
 <span class="sign">};</span>
 
 <span class="function">int</span> main() <span class="sign">{</span>

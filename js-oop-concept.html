@@ -121,8 +121,8 @@
         <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Constructor"</span>)
     <span class="sign">}</span>
 
-    getAge() <span class="sign">{</span><span class="function">return this</span>.age<span class="sign">}</span>
-    setAge(age)<span class="sign">{</span><span class="function">this</span>.age <span class="sign">=</span> age<span class="sign">}</span>
+    getAge() <span class="sign">{</span> <span class="function">return this</span>.age<span class="sign">}</span>
+    setAge(age)<span class="sign">{</span> <span class="function">this</span>.age <span class="sign">=</span> age<span class="sign">}</span>
 <span class="sign">}</span>
 
 <span class="function">const</span> h <span class="sign">=</span> <span class="function">new Human</span>() <span class="comment">// an instance of a class</span>
@@ -140,7 +140,7 @@ h.setAge(10)
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Bank <span class="sign">{</span>
     <span class="sign">#</span>balance <span class="comment">// a private field</span>
-    <span class="function">constructor</span>() <span class="sign">{</span><span class="function">this</span>.<span class="sign">#</span>balance <span class="sign">=</span> 1000<span class="sign">}</span>
+    <span class="function">constructor</span>() <span class="sign">{</span> <span class="function">this</span>.<span class="sign">#</span>balance <span class="sign">=</span> 1000<span class="sign">}</span>
     getBalance(){</span><span class="function">return this</span>.<span class="sign">#</span>balance<span class="sign">}</span>
 
     <span class="sign">#</span>setBalance(balance) <span class="sign">{</span> <span class="comment">// a private method</span>
@@ -164,7 +164,7 @@ b.withdraw(400)
                                     
                                     <h2>Static objects</h2>
                                     
-                                    <p>A static variable is a variable that retains its value between method calls. Its memory address is allocated once, and it exists for the duration of the program. A variable of this type will still exist even if an instance of the class does not. It is shared by all objects and not tied to any class instance (shared across all instances of the class). We create static variables outside methods.</p>
+                                    <p>A static variable is a variable that retains its value between method calls. Its memory address is allocated once, and it exists for the duration of the program. A variable of this type will still exist even if an instance of the class does not. It is shared by all objects and not tied to any class instance (shared across all instances of the class). It can be accessed through the class name (<code>ClassName.field</code>). We create static variables outside methods.</p>
                                     
                                     <p>The same rule applies to methods - we can call them using the class directly without creating its instance. They have no access to the class's objects. Static methods differ from outside functions because we can override them later in a child class.</p>
 
@@ -173,7 +173,7 @@ b.withdraw(400)
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Example <span class="sign">{</span>
     <span class="function">static</span> static_variable <span class="sign">=</span> 0
-    <span class="function">static</span> method() <span class="sign">{</span><span class="function">this</span>.static_variable<span class="sign">++}</span>
+    <span class="function">static</span> method() <span class="sign">{</span> <span class="function">this</span>.static_variable<span class="sign">++}</span>
 <span class="sign">}</span>
 
 <span class="function">const</span> x <span class="sign">=</span> <span class="function">new Example</span>()
@@ -189,11 +189,11 @@ x.<span class="function">constructor</span>.method() <span class="comment">// ac
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Animal <span class="sign">{</span>
-    voice() <span class="sign">{</span><span class="command">console</span>.<span class="command">log</span>(<span class="text">"Voice!"</span>)<span class="sign">}</span>
+    voice() <span class="sign">{</span> <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Voice!"</span>)<span class="sign">}</span>
 <span class="sign">}</span>
 
 <span class="function">class</span> Cat <span class="function">extends Animal </span> <span class="sign">{</span>
-    breed() <span class="sign">{</span><span class="command">console</span>.<span class="command">log</span>(<span class="text">"I am a Bengal cat!"</span>)<span class="sign">}</span>
+    breed() <span class="sign">{</span> <span class="command">console</span>.<span class="command">log</span>(<span class="text">"I am a Bengal cat!"</span>)<span class="sign">}</span>
 <span class="sign">}</span>
 
 <span class="function">const</span> cat <span class="sign">=</span> <span class="function">new Cat</span>()
@@ -207,7 +207,7 @@ cat.breed()
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">class</span> Animal <span class="sign">{</span>
-    voice() <span class="sign">{</span><span class="command">console</span>.<span class="command">log</span>(<span class="text">"Voice!"</span>)<span class="sign">}</span>
+    voice() <span class="sign">{</span> <span class="command">console</span>.<span class="command">log</span>(<span class="text">"Voice!"</span>)<span class="sign">}</span>
 <span class="sign">}</span>
 
 <span class="function">class</span> Cat <span class="function">extends Animal</span> <span class="sign">{</span>
@@ -231,15 +231,15 @@ cat.voice()
 <span class="sign">}</span>
 
 <span class="function">class</span> Father <span class="function">extends Person</span> <span class="sign">{</span>
-    role() <span class="sign">{</span><span class="command">console</span>.<span class="command">log</span>(<span class="text">"I am a father!"</span>)<span class="sign">}</span>
+    role() <span class="sign">{</span> <span class="command">console</span>.<span class="command">log</span>(<span class="text">"I am a father!"</span>)<span class="sign">}</span>
 <span class="sign">}</span>
 
 <span class="function">class</span> Husband <span class="function">extends Person</span> <span class="sign">{</span>
-    role() <span class="sign">{</span><span class="command">console</span>.<span class="command">log</span>(<span class="text">"I am a husband!"</span>)<span class="sign">}</span>
+    role() <span class="sign">{</span> <span class="command">console</span>.<span class="command">log</span>(<span class="text">"I am a husband!"</span>)<span class="sign">}</span>
 <span class="sign">}</span>
 
 <span class="function">class</span> Student <span class="function">extends Person</span> <span class="sign">{</span>
-    role() <span class="sign">{</span><span class="command">console</span>.<span class="command">log</span>(<span class="text">"I am a student!"</span>)<span class="sign">}</span>
+    role() <span class="sign">{</span> <span class="command">console</span>.<span class="command">log</span>(<span class="text">"I am a student!"</span>)<span class="sign">}</span>
 <span class="sign">}</span>
 
 <span class="function">const</span> father <span class="sign">=</span> <span class="function">new Father</span>()
