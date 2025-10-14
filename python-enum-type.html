@@ -92,7 +92,7 @@
                                     <h5 class="m-0 font-weight-bold">Enum type</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p><code>Enum</code> (enumeration) is a custom data type (a data type that can define its type). We can determine what it contains. When defining it, we give a set of values of this type (similarly, e.g., an <code>int</code> has a set of allowed values - a range).</p>
+                                    <p>An <code>Enum</code> (short for enumeration) is a custom data type that allows us to define a fixed set of named values. In other words, it specifies exactly which values a variable of that type can take. When defining an <code>Enum</code>, we list all possible values inside braces. This is similar to how built-in types like <code>int</code> have a defined range of allowed values, but in this case, we explicitly decide what those values are.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">from</span> enum <span class="command">import</span> Enum
@@ -106,7 +106,7 @@
     Sa <span class="sign">=</span> <span class="text">"Saturday"</span>
     Su <span class="sign">=</span> <span class="text">"Sunday"</span>
 
-<span class="command">print</span>(<span class="function">Day</span>.Tu.value)
+<span class="command">print</span>(<span class="function">Day</span>.Tu.value) <span class="comment"># works like using a predefined constant instead of a raw value</span>
 
 <span class="function">def</span> get_day(x: <span class="function">Day</span>) <span class="sign">-&gt;</span> <span class="command">str</span>:
     <span class="function">return</span> x.value
