@@ -193,7 +193,28 @@
 <span class="sign">}</span>
                                     </code></pre>
 
-                                    <p>To properly invoke the superclass’s constructor, <code>super</code> must appear as the very first line in a subclass constructor. If the subclass constructor does not explicitly call <code>super</code>, the compiler automatically inserts a call to the superclass’s no-argument constructor — provided one exists. Otherwise, an explicit call to a superclass constructor with arguments is required.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
+        <span class="function">Dog</span> dog <span class="sign">=</span> <span class="function">new Dog</span>(<span class="text">"Buddy"</span>)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> Animal <span class="sign">{</span>
+    <span class="function">Animal</span>(<span class="function">String</span> name) <span class="sign">{</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Animal name: "</span> <span class="sign">+</span> name)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> Dog <span class="function">extends Animal</span> <span class="sign">{</span>
+    <span class="function">Dog</span>(<span class="function">String</span> name) <span class="sign">{</span>
+        <span class="function">super</span>(name)<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Woof!"</span>)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <p>To properly invoke the superclass’s constructor, <code>super</code> must appear as the very first line in a subclass constructor. If the subclass constructor does not explicitly call <code>super</code>, the compiler automatically inserts a call to the superclass’s no-argument constructor — provided one exists. Otherwise, an explicit call to a superclass constructor with arguments is required (like shown above).</p>
 
                                     <h2>Abstract objects, polymorphism</h2>
                                     
