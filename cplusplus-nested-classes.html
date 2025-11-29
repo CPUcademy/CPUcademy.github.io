@@ -99,12 +99,12 @@
 <span class="function">class</span> BankAccount <span class="sign">{</span>
     <span class="function">double</span> balance<span class="sign">;</span> <span class="comment">// private attribute</span>
     <span class="function">public</span><span class="sign">:</span>
-        <span class="function">BankAccount</span>(<span class="function">double</span> balance)<span class="sign">{</span>this</span> <span class="sign">-&gt;</span> balance <span class="sign">=</span> balance<span class="sign">;}</span>
-        <span class="sign">~</span><span class="function">BankAccount</span>()<span class="sign">{}</span>
+        <span class="function">BankAccount</span>(<span class="function">double</span> balance) <span class="sign">{</span>this</span> <span class="sign">-&gt;</span> balance <span class="sign">=</span> balance<span class="sign">;}</span>
+        <span class="sign">~</span><span class="function">BankAccount</span>() <span class="sign">{}</span>
 
         <span class="function">double</span> getBalance() <span class="sign">{</span> <span class="function">return</span> balance<span class="sign">;}</span>
-        <span class="function">void</span> updateBalance(<span class="function">double</span> amount)<span class="sign">{</span>balance <span class="sign">+=</span> amount<span class="sign">;</span> <span class="sign">}</span>
-        <span class="function">void</span> start(<span class="function">double</span> interestRate)<span class="sign">{</span> <span class="function">Interest</span> interest(interestRate, <span class="sign">*</span><span class="function">this</span>)<span class="sign">;}</span>
+        <span class="function">void</span> updateBalance(<span class="function">double</span> amount) <span class="sign">{</span>balance <span class="sign">+=</span> amount<span class="sign">;</span> <span class="sign">}</span>
+        <span class="function">void</span> start(<span class="function">double</span> interestRate) <span class="sign">{</span> <span class="function">Interest</span> interest(interestRate, <span class="sign">*</span><span class="function">this</span>)<span class="sign">;}</span>
 
         <span class="function">class</span> Interest <span class="sign">{</span> <span class="comment">// nested / inner class</span>
             <span class="function">double</span> interestRate<span class="sign">;</span> <span class="comment">// private attribute</span>
@@ -113,7 +113,7 @@
                     <span class="function">this</span> <span class="sign">-&gt;</span> interestRate <span class="sign">=</span> interestRate<span class="sign">;</span>
                     account.updateBalance((account.getBalance() <span class="sign">*</span> interestRate) <span class="sign">/</span> 100)<span class="sign">;</span>
                 <span class="sign">}</span>
-                <span class="sign">~</span><span class="function">Interest</span>()<span class="sign">{}</span>
+                <span class="sign">~</span><span class="function">Interest</span>() <span class="sign">{}</span>
         <span class="sign">};</span>
 <span class="sign">};</span>
 
