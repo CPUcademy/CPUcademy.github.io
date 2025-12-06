@@ -374,9 +374,10 @@
 
                                     <h4>Method arguments</h4>
 
-                                    <p>Objects (e.g., <code>ArrayList</code>) are passed as a method argument by reference value to the original object (any changes made to the object within the function will affect the object in the outer scope without the need for returning it). On the other hand, primitive types (e.g., <code>int</code>) are passed by value (a copy of the value is passed, so changes inside the method do not affect the original variable).</p>
+                                    <p>Objects (e.g., <code>ArrayList</code>) are passed as a method argument by reference value to the original object (any changes made to the object within the function will affect the object in the outer scope without the need for returning it). The same rule applies when copying object variables: writing <code>Obj objA = objB;</code> does not create a new object - it only copies the reference, so both variables point to the same underlying object. On the other hand, primitive types (e.g., <code>int</code>) are passed by value (a copy of the value is passed, so changes inside the method do not affect the original variable). This also applies when assigning primitives, such as <code>int i = i2;</code> - the value is fully copied, so the two variables remain independent.</p>
                                     
-                                    <p>Classic arrays are objects, so they are also passed by reference value. Modifying the array elements inside the method affects the original array. Reassigning the array inside the method does not affect the original reference outside.</p>
+                                    <p>Classic arrays are objects, so they are passed by reference. Modifying the elements of the array inside a method affects the original array. However, if the array parameter is reassigned to a new array inside the method, only the local reference is changed; the original array outside the method remains unaffected.</p>
+
 
                                     <h2>Addition to the lesson - <code>NaN</code></h2>
 

@@ -134,6 +134,8 @@
 <span class="sign">}</span>
                                     </code></pre>
 
+                                    <p>The superclass's constructor is automatically called before the subclass's constructor.</p>
+
                                     <h2>Multiple inheritance</h2>
                                     
                                     <p>A class can inherit features from more than one parent class but only indirectly, e.g., class <code>A</code> inherits from class <code>B</code>, class <code>B</code> inherits from class <code>C</code>, and not: class <code>A</code> inherits from classes <code>B</code> and <code>C</code>.</p>
@@ -191,6 +193,8 @@
 <span class="sign">}</span>
                                     </code></pre>
 
+                                    <p>To properly invoke the superclass’s constructor, <code>super</code> must appear as the very first line in a subclass constructor. If the subclass constructor does not explicitly call <code>super</code>, the compiler automatically inserts a call to the superclass’s no-argument constructor - provided one exists. Otherwise, an explicit call to a superclass constructor with arguments <b>is required</b>.</p>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main <span class="sign">{</span>
     <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
@@ -211,8 +215,6 @@
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
-
-                                    <p>To properly invoke the superclass’s constructor, <code>super</code> must appear as the very first line in a subclass constructor. If the subclass constructor does not explicitly call <code>super</code>, the compiler automatically inserts a call to the superclass’s no-argument constructor — provided one exists. Otherwise, an explicit call to a superclass constructor with arguments is required (like shown above).</p>
 
                                     <h2>Abstract objects, polymorphism</h2>
                                     
@@ -279,6 +281,8 @@
     <span class="sign">}</span>
 <span class="sign">}</span>
                                     </code></pre>
+
+                                    <p><code>Object text = "text";</code> demonstrates polymorphism because a variable of type <code>Object</code> can refer to an instance of any subclass, such as <code>String</code> (All classes in Java inherit from the <code>Object</code> class directly or indirectly).</p>
 
                                     <h2>Method overloading (a form of polymorphism)</h2>
                                     
