@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <title>Affine cipher</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D76ZFDYLCY');
+    </script>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Kotlin (Android)</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics.html">Electronics</a>
+                        <a class="collapse-item" href="it-and-computer-basics.html">IT &amp; computer basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">About me</div>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="cv.html">
+                    <i class="icon-adult"></i>
+                    <span>CV</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="services.html">
+                    <i class="icon-services"></i>
+                    <span>My services</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Affine cipher</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>Modular arithmetic, often referred to as "clock arithmetic," is a system of arithmetic for integers where numbers wrap around after reaching a certain value, known as the modulus. It is like telling time on a clock. For example, on a 12-hour clock, if it's 9 o'clock and you add 5 hours, you get 14, but since the clock wraps around, you subtract 12 to get 2 o'clock. This means 9 + 5 is equivalent to 2 in modular arithmetic. Similarly, if we subtract hours, we also wrap around. For example, 1 o'clock minus 3 hours goes back to 10 o'clock.</p>
+
+                                    <h2>Multiplicative cipher</h2>
+
+                                    <p>A multiplicative cipher, instead of adding the key to the index of the character, like the Caesar cipher, multiplies it. For example, the letter B with an index of 1, encrypted with the key 3, will be D (index 3). If the result, or key, is greater than the size of the character set, then we proceed as in the Caesar cipher: we take the result modulo the size of the character set to ensure it wraps around and corresponds to a valid character. Additionally, it's important to note that the key used in a multiplicative cipher must be coprime to the size of the character set. Two numbers are considered coprime if their greatest common divisor (GCD) is 1, meaning they have no common factors other than 1. This condition is crucial because it ensures that every character can be uniquely mapped to another character without any overlaps. For a set of 26 characters, there are only 12 viable keys.</p>
+
+                                    <h2>Affine cipher</h2>
+
+                                    <p> The affine cipher is a combination of the multiplicative and Caesar ciphers. It has two keys. The index of the character is first multiplied by key A, then the result is added to key B, and wrapped using modulo (the result modulo the size of the character set) if necessary. To decipher, we just reverse the order: subtract key B, multiply by the <b>modular inverse of key A</b>, and wrap it using modulo.</p>
+                                    
+                                    <p>The modular inverse of a number <b>A</b> is another number <b>A'</b> such that when you multiply them together and take the remainder when divided by <b>m</b>, the result is 1 (<code>(A * A') % m == 1</code>). For example, if <b>A</b> is 5 and <b>m</b> is 26 (the number of letters in the English alphabet), the modular inverse of <code>5 % 26</code> is 21 because <code>(5 * 21) % 26 = 1</code> (<code>5 * 21 = 105, 105 / 26 = 4.038, 4 * 26 = 104, remainder = 1</code>). It can be easily calculated using the Extended Euclidean Algorithm.</p>
+                                    
+                                    <p>The Extended Euclidean Algorithm (EEA) is a method used to find the greatest common divisor (GCD) of two integers while also determining the coefficients that express this GCD as a linear combination of the integers. It extends the basic Euclidean algorithm by keeping track of these coefficients, which are essential for finding the modular inverse in cryptographic applications.</p>
+
+                                    <h2>Implementation</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+CHARACTERS <span class="sign">=</span> <span class="text">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span> <span class="comment"># this string can contain other characters like !, @, etc.</span>
+CHARACTERS <span class="sign">=</span> <span class="command">len</span>(CHARACTERS)
+
+<span class="function">def</span> extended_gcd(a, b):
+    <span class="function">if</span> a <span class="sign">==</span> 0: <span class="comment"># base case: if a is 0, return b, and coefficients 0 and 1</span>
+        <span class="function">return</span> b, 0, 1
+    gcd, x1, y1 <span class="sign">=</span> extended_gcd(b <span class="sign">%</span> a, a) <span class="comment"># recursive call to finding GCD and coefficients</span>
+    x <span class="sign">=</span> y1 <span class="sign">-</span> (b <span class="sign">//</span> a) <span class="sign">*</span> x1 <span class="comment"># updating coefficients</span>
+    y <span class="sign">=</span> x1
+    <span class="function">return</span> gcd, x, y
+
+<span class="function">def</span> mod_inverse(a, m):
+    gcd, x, _ <span class="sign">=</span> extended_gcd(a, m) <span class="comment"># calculating GCD and coefficients using the Extended Euclidean Algorithm</span>
+    <span class="function">if</span> gcd <span class="sign">!=</span> 1: <span class="comment"># if GCD is not 1, the inverse does not exist</span>
+        <span class="function">raise</span> ValueError(<span class="text">"Inverse does not exist"</span>)
+    <span class="function">else</span>:
+        <span class="function">return</span> x <span class="sign">%</span> m
+
+<span class="function">def</span> encrypt(plaintext, A, B):
+    ciphertext <span class="sign">=</span> <span class="text">""</span>
+    plaintext <span class="sign">=</span> plaintext.<span class="command">upper</span>()
+    <span class="function">for</span> char <span class="function">in</span> plaintext:
+        <span class="function">if</span> char <span class="function">in</span> CHARACTERS: <span class="comment"># checking if the character is in the defined set</span>
+            x <span class="sign">=</span> CHARACTERS.<span class="command">index</span>(char) <span class="comment"># getting the index of the character</span>
+            encrypted_char <span class="sign">=</span> (A <span class="sign">*</span> x <span class="sign">+</span> B) <span class="sign">%</span> CHARACTERS <span class="comment"># applying the encryption formula</span>
+            ciphertext <span class="sign">+=</span> CHARACTERS[encrypted_char] <span class="comment"># converting back to a character</span>
+        <span class="function">else</span>:
+            ciphertext <span class="sign">+=</span> char <span class="comment"># non-defined characters remain unchanged</span>
+    <span class="function">return</span> ciphertext
+
+<span class="function">def</span> decrypt(ciphertext, A, B):
+    A_inv <span class="sign">=</span> mod_inverse(A, CHARACTERS) <span class="comment"># finding the modular inverse of A</span>
+    plaintext <span class="sign">=</span> <span class="text">""</span>
+    ciphertext <span class="sign">=</span> ciphertext.<span class="command">upper</span>()
+    <span class="function">for</span> char <span class="function">in</span> ciphertext:
+        <span class="function">if</span> char <span class="function">in</span> CHARACTERS: <span class="comment"># checking if the character is in the defined set</span>
+            y <span class="sign">=</span> CHARACTERS.<span class="command">index</span>(char) <span class="comment"># getting the index of the character</span>
+            decrypted_char <span class="sign">=</span> (A_inv <span class="sign">*</span> (y <span class="sign">-</span> B)) <span class="sign">%</span> CHARACTERS <span class="comment"># applying the decryption formula</span>
+            plaintext <span class="sign">+=</span> CHARACTERS[decrypted_char] <span class="comment"># converting back to a character</span>
+        <span class="function">else</span>:
+            plaintext <span class="sign">+=</span> char <span class="comment"># non-defined characters remain unchanged</span>
+    <span class="function">return</span> plaintext
+
+A <span class="sign">=</span> 5
+B <span class="sign">=</span> 8
+plaintext <span class="sign">=</span> <span class="text">"Secret message"</span>
+ciphertext <span class="sign">=</span> encrypt(plaintext, A, B)
+<span class="command">print</span>(<span class="text">f"Encrypted: {ciphertext}"</span>)
+
+decrypted_text <span class="sign">=</span> decrypt(ciphertext, A, B)
+<span class="command">print</span>(<span class="text">f"Decrypted: {decrypted_text}"</span>)                                                                                
+                                    </code></pre>
+
+                                    <h4>Cracking</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> affine <span class="command">import</span> <span class="sign">*</span>
+<span class="command">from</span> is_english <span class="command">import</span> is_english <span class="comment"># get this file from <a href="python-detecting-english.html" class="commentLink" target="_blank">here</a></span>
+
+CHARACTERS <span class="sign">=</span> <span class="text">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span> <span class="comment"># this string can contain other characters like !, @, etc.</span>
+CHARACTERS <span class="sign">=</span> <span class="command">len</span>(CHARACTERS)
+
+<span class="function">def</span> crack_affine(ciphertext):
+    <span class="function">for</span> A <span class="function">in</span> <span class="command">range</span>(1, CHARACTERS): <span class="comment"># iterating over all possible values of A in the range of CHARACTERS</span>
+        <span class="function">if</span> extended_gcd(A, CHARACTERS)[0] <span class="sign">!=</span> 1: <span class="comment"># A must be coprime to CHARACTERS</span>
+            <span class="function">continue</span>
+        <span class="function">for</span> B <span class="function">in</span> <span class="command">range</span>(CHARACTERS): <span class="comment"># iterating over all possible values of B in the range of CHARACTERS</span>
+            decrypted_text <span class="sign">=</span> decrypt(ciphertext, A, B)
+            <span class="function">if</span> is_english(decrypted_text):
+                <span class="command">print</span>(<span class="text">f"Found A: {A}, B: {B} -&gt; Decrypted Text: {decrypted_text}"</span>)
+
+ciphertext <span class="sign">=</span> <span class="text">"UCSPCZ QCUUIMC"</span>
+crack_affine(ciphertext)                                                                                         
+                                    </code></pre>
+
+                                    <h4>Choosing the right key</h4>
+                                    
+                                    <p>The maximum number of keys in an affine cipher is capped by the product of the number of valid values for A (which must be coprime to the size of the character set) and the total number of possible values for B (which can range from 0 to one less than the size of the character set). For example, with the English alphabet (26 letters), the total number of keys is 312, derived from 12 valid A values and 26 possible B values. Also, keys can't take certain values, as shown in the example below.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> affine <span class="command">import</span> <span class="sign">*</span>
+CHARACTERS <span class="sign">=</span> <span class="text">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span> <span class="comment"># this string can contain other characters like !, @, etc.</span>
+
+<span class="function">def</span> checkKeys(keyA, keyB, mode):
+    <span class="function">if</span> keyA <span class="sign">==</span> 1 <span class="function">and</span> mode <span class="sign">==</span> <span class="text">"encrypt"</span>:
+        <span class="command">print</span>(<span class="text">"Cipher is weak if key A is 1. Choose a different key."</span>)
+    <span class="function">if</span> keyB <span class="sign">==</span> 0 <span class="function">and</span> mode <span class="sign">==</span> <span class="text">"encrypt"</span>:
+        <span class="command">print</span>(<span class="text">"Cipher is weak if key B is 0. Choose a different key."</span>)
+    <span class="function">if</span> keyA <span class="sign">&lt;</span> 0 <span class="function">or</span> keyB <span class="sign">&lt;</span> 0 <span class="function">or</span> keyB <span class="sign">&gt;</span> <span class="command">len</span>(CHARACTERS) <span class="sign">-</span> 1:
+        <span class="command">print</span>(<span class="text">f"Key A must be greater than 0 and Key B must be between 0 and {len(CHARACTERS) - 1}."</span>)
+    <span class="function">if</span> extended_gcd(keyA, <span class="command">len</span>(CHARACTERS))[0] <span class="sign">!=</span> 1:
+        <span class="command">print</span>(<span class="text">f"Key A ({keyA}) and the symbol set size ({len(CHARACTERS)}) are not relatively prime. Choose a different key."</span>)
+
+checkKeys(5, 8, <span class="text">"encrypt"</span>)
+                                    </code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <title>Simple substitution cipher</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D76ZFDYLCY');
+    </script>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Kotlin (Android)</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics.html">Electronics</a>
+                        <a class="collapse-item" href="it-and-computer-basics.html">IT &amp; computer basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">About me</div>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="cv.html">
+                    <i class="icon-adult"></i>
+                    <span>CV</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="services.html">
+                    <i class="icon-services"></i>
+                    <span>My services</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Simple substitution cipher</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>The key in a simple substitution cipher is a string that represents the specific mapping of letters used for substitution, where each letter in the plaintext is replaced by a corresponding letter from the key. For example, if the key is "DCEFGHIJKLMNOPQRSTUVWXYZAB", then "A" would be replaced with "D", "B" with "C", and so on, creating a one-to-one mapping between the original and substituted letters. The key can be created by randomly shuffling the alphabet or by using a predetermined pattern.</p>
+
+                                    <table style="margin-bottom: 12px;">
+                                        <tr><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td></tr>
+                                        <tr><td>D</td><td>C</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td> <td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>A</td><td>B</td></tr>
+                                    </table>
+
+                                    <p>In this cipher, the number of possible keys is determined by the number of permutations of the alphabet. Since there are 26 letters in the English alphabet, the total number of possible keys is 26! (factorial), which equals approximately 4.03 x 10<sup>26</sup> different combinations.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> random
+CHARACTERS <span class="sign">=</span> <span class="text">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span>
+
+<span class="function">def</span> substitution_translate(key, message, mode):
+    original_chars <span class="sign">=</span> CHARACTERS
+    mapped_chars <span class="sign">=</span> key
+
+    <span class="function">if</span> mode <span class="sign">==</span> <span class="text">"decrypt"</span>:
+        original_chars, mapped_chars <span class="sign">=</span> mapped_chars, original_chars <span class="comment"># swapping the original and mapped characters, if the mode is "decrypt"</span>
+    
+    <span class="comment"># Creating a mapping dictionary that pairs each original character with its corresponding mapped character</span>
+    mapping_dict <span class="sign">=</span> <span class="command">dict</span>(<span class="command">zip</span>(original_chars, mapped_chars))
+
+    <span class="comment"># Translating the message while preserving the case of each character</span>
+    translated_message <span class="sign">=</span> [
+        mapping_dict[char.<span class="command">upper</span>()].<span class="command">upper</span>() <span class="function">if</span> char.<span class="command">isupper</span>() 
+        <span class="function">else</span> mapping_dict[char.<span class="command">upper</span>()].<span class="command">lower</span>() <span class="function">if</span> char.<span class="command">upper</span>() <span class="function">in</span> mapping_dict 
+        <span class="function">else</span> char <span class="function">for</span> char <span class="function">in</span> message
+    ]
+    
+    <span class="function">return</span> <span class="text">""</span>.<span class="command">join</span>(translated_message)
+
+<span class="function">def</span> getRandomKey():
+    key <span class="sign">=</span> <span class="command">list</span>(CHARACTERS)
+    random.<span class="command">shuffle</span>(key)
+    <span class="function">return</span> <span class="text">""</span>.<span class="command">join</span>(key)
+
+SUBSTITUTION_KEY <span class="sign">=</span> getRandomKey()
+plaintext <span class="sign">=</span> <span class="text">"HELLO WORLD!"</span>
+ciphertext <span class="sign">=</span> substitution_translate(SUBSTITUTION_KEY, plaintext, <span class="text">"encrypt"</span>)
+<span class="command">print</span>(<span class="text">f"Encrypted: {ciphertext}"</span>)
+
+decrypted_text <span class="sign">=</span> substitution_translate(SUBSTITUTION_KEY, ciphertext, <span class="text">"decrypt"</span>)
+<span class="command">print</span>(<span class="text">f"Decrypted: {decrypted_text}"</span>)
+                                    </code></pre>
+                                    
+                                    <h2>Cracking</h2>
+
+                                    <p>This cipher can be cracked using word pattern analysis, which identifies the structure of repeated letters in a word. For example, the word <code>HELLO</code> has the pattern <code>0.1.2.2.3</code>, meaning <code>H</code> is the first unique letter (0), <code>E</code> is the second (1), <code>L</code> appears twice (2), and <code>O</code> is the fifth unique letter (3). When an encrypted word shares this same pattern, it’s likely to be a substitution of <code>HELLO</code> or another word with an identical repetition structure. We can compare the patterns derived from the ciphertext with those in a dictionary containing patterns for each word in the English language, identifying which words align and fit the established patterns. By doing so, we can assign potential plaintext letters to each cipher letter, gradually constructing a key that decodes the entire message. As we analyze more words and their corresponding patterns, we refine this mapping, allowing us to decode the message step by step until the entire text is revealed. The longer the message is, the more data we have to work with, which increases the chances of identifying consistent patterns and making accurate substitutions.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> re, copy
+<span class="command">from</span> collections <span class="command">import</span> defaultdict
+<span class="command">from</span> is_english <span class="command">import</span> <span class="sign">*</span> <span class="comment"># get this file from <a href="python-detecting-english.html" class="commentLink" target="_blank">here</a></span>
+
+CHARACTERS <span class="sign">=</span> <span class="text">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span>
+NON_CHARACTERS_SPACE_PATTERN <span class="sign">=</span> re.<span class="command">compile</span>(<span class="text">r"[^A-Z\s]"</span>) <span class="comment"># pattern to remove any non-letter characters</span>
+
+<span class="comment"># Returning a pattern string for a word, e.g. HELLO -> 0.1.2.2.3</span>
+<span class="function">def</span> getWordPattern(word):
+    word <span class="sign">=</span> word.<span class="command">upper</span>()
+    letterNums <span class="sign">=</span> {}
+    wordPattern <span class="sign">=</span> [<span class="command">str</span>(letterNums.<span class="command">setdefault</span>(letter, <span class="command">len</span>(letterNums))) <span class="function">for</span> letter <span class="function">in</span> word] <span class="comment"># mapping letters to numbers</span>
+    <span class="function">return</span> <span class="text">"."</span>.<span class="command">join</span>(wordPattern)
+
+<span class="comment"># Generating a dictionary mapping word patterns to a list of words that match them</span>
+<span class="function">def</span> generate_word_pattern_dict(word_list):
+    word_pattern_dict <span class="sign">=</span> {}
+    <span class="function">for</span> word <span class="function">in</span> word_list:
+        pattern <span class="sign">=</span> getWordPattern(word)
+        <span class="function">if</span> pattern <span class="function">not in</span> word_pattern_dict: <span class="comment"># checking if this pattern is already a key in the dictionary</span>
+            word_pattern_dict[pattern] <span class="sign">=</span> []
+        word_pattern_dict[pattern].<span class="command">append</span>(word.<span class="command">upper</span>()) <span class="comment"># adding the current word to the list for this pattern</span>
+    <span class="function">return</span> word_pattern_dict
+
+allPatterns <span class="sign">=</span> generate_word_pattern_dict(ENGLISH_WORDS) <span class="comment"># precomputing patterns for all English words</span>
+
+<span class="comment"># Creating a blank mapping of cipher letters to possible decoded letters</span>
+<span class="function">def</span> get_blank_cipherletter_mapping():
+    <span class="function">return</span> {letter: [] <span class="function">for</span> letter <span class="function">in</span> CHARACTERS}
+
+<span class="comment"># Adding candidate letters for a cipher word to a letter mapping</span>
+<span class="function">def</span> add_characters_to_mapping(letterMapping, cipherword, candidate):
+    <span class="function">for</span> cipher_char, candidate_char <span class="function">in</span> <span class="command">zip</span>(cipherword, candidate): <span class="comment"># pairing each cipher letter with the corresponding candidate letter</span>
+        letterMapping[cipher_char] <span class="sign">=</span> <span class="command">list</span>(<span class="command">set</span>(letterMapping[cipher_char] <span class="sign">+</span> [candidate_char])) <span class="comment"># updating the mapping for the cipher letter by adding the candidate letter (using a set to ensure no duplicates)</span>
+
+<span class="comment"># Intersecting two mappings to keep only letters that appear in both</span>
+<span class="function">def</span> intersect_mappings(mapA, mapB):
+    intersectedMapping <span class="sign">=</span> <span class="command">defaultdict</span>(list)
+    <span class="function">for</span> letter <span class="function">in</span> CHARACTERS:
+        <span class="function">if</span> <span class="function">not</span> mapA[letter]:
+            intersectedMapping[letter] <span class="sign">=</span> copy.<span class="command">deepcopy</span>(mapB[letter])
+        <span class="function">elif</span> <span class="function">not</span> mapB[letter]:
+            intersectedMapping[letter] <span class="sign">=</span> copy.<span class="command">deepcopy</span>(mapA[letter])
+        <span class="function">else</span>:
+            intersectedMapping[letter] <span class="sign">=</span> <span class="command">list</span>(<span class="command">set</span>(mapA[letter]) <span class="sign">&amp;</span> <span class="command">set</span>(mapB[letter])) <span class="comment"># intersecting both lists (keeping only letters existing in both sets)</span>
+    <span class="function">return</span> intersectedMapping
+
+<span class="comment"># Removing solved letters from other entries to reduce ambiguity</span>
+<span class="function">def</span> remove_solved_characters_from_mapping(letter_mapping):
+    loop_again <span class="sign">=</span> <span class="function">True</span>
+    <span class="function">while</span> loop_again: <span class="comment"># looping until no further reductions</span>
+        loop_again <span class="sign">=</span> <span class="function">False</span>
+        <span class="comment"># A list of letters with only one candidate</span>
+        solved_characters <span class="sign">=</span> [
+            letter_mapping[cipherletter][0]
+            <span class="function">for</span> cipherletter <span class="function">in</span> CHARACTERS <span class="function">if</span> <span class="command">len</span>(letter_mapping[cipherletter]) <span class="sign">==</span> 1
+        ]
+
+        <span class="function">for</span> cipherletter <span class="function">in</span> CHARACTERS:
+            <span class="function">for</span> solved_letter <span class="function">in</span> solved_characters:
+                <span class="function">if</span> <span class="command">len</span>(letter_mapping[cipherletter]) <span class="sign">&gt;</span> 1 <span class="function">and</span> solved_letter <span class="function">in</span> letter_mapping[cipherletter]: <span class="comment"># checking if this cipher letter has multiple candidates and includes a solved letter</span>
+                    letter_mapping[cipherletter].<span class="command">remove</span>(solved_letter) <span class="comment"># remove solved letters from other entries</span>
+                    <span class="function">if</span> <span class="command">len</span>(letter_mapping[cipherletter]) <span class="sign">==</span> 1: <span class="comment"># if this removal leaves only one candidate</span>
+                        loop_again <span class="sign">=</span> <span class="function">True</span> <span class="comment"># if a new letter is solved, loop again</span>
+
+    <span class="function">return</span> letter_mapping
+
+<span class="comment"># Decrypting a message using a letter mapping</span>
+<span class="function">def</span> decrypt_with_cipherletter_mapping(ciphertext, letter_mapping):
+    decrypted <span class="sign">=</span> <span class="text">""</span>
+    <span class="function">for</span> char <span class="function">in</span> ciphertext:
+        <span class="function">if</span> char.<span class="command">upper</span>() <span class="function">in</span> CHARACTERS:
+            mapped_letters <span class="sign">=</span> letter_mapping[char.<span class="command">upper</span>()] <span class="comment"># the possible decoded letters for this cipher letter</span>
+            <span class="function">if</span> <span class="command">len</span>(mapped_letters) <span class="sign">==</span> 1: <span class="comment"># if we know the letter</span>
+                decrypted <span class="sign">+=</span> mapped_letters[0].<span class="command">lower</span>() <span class="function">if</span> char.<span class="command">islower</span>() <span class="function">else</span> mapped_letters[0].<span class="command">upper</span>()
+            <span class="function">else</span>:
+                decrypted <span class="sign">+=</span> <span class="text">"_"</span> <span class="comment"># replacing an unknown character with this one</span>
+        <span class="function">else</span>:
+            decrypted <span class="sign">+=</span> char
+    <span class="function">return</span> decrypted
+
+<span class="function">def</span> hack_substitution(message):
+    intersected_map <span class="sign">=</span> get_blank_cipherletter_mapping()
+    cipherword_list <span class="sign">=</span> NON_CHARACTERS_SPACE_PATTERN.<span class="command">sub</span>(<span class="text">""</span>, message.<span class="command">upper</span>()).<span class="command">split</span>()
+
+    <span class="function">for</span> cipherword <span class="function">in</span> cipherword_list:
+        candidate_map <span class="sign">=</span> get_blank_cipherletter_mapping()
+        word_pattern <span class="sign">=</span> getWordPattern(cipherword)
+        <span class="function">if</span> word_pattern <span class="function">not in</span> allPatterns: <span class="comment"># skip words with no English match</span>
+            <span class="command">continue</span>
+        <span class="function">for</span> candidate <span class="function">in</span> allPatterns[word_pattern]: <span class="comment"># iterating over all candidate words that match the pattern</span>
+            add_characters_to_mapping(candidate_map, cipherword, candidate) <span class="comment"># adding candidate letters to the map</span>
+        intersected_map <span class="sign">=</span> intersect_mappings(intersected_map, candidate_map)
+
+    <span class="function">return</span> remove_solved_characters_from_mapping(intersected_map)
+
+message <span class="sign">=</span> <span class="text">"Uj ylo qmhy ymxohyrv bz oauhyojio, bjo bzyoj ibjyofxgmyoh ylo jmykro bz romguyv mjd ylo ohhojio bz touje. Mro so foro bthorqorh uj m ermjd ibhfui xgmv, br db so xbhhohh ylo meojiv yb hlmxo bkr dohyujuoh? Ylo ujyorxgmv toysooj zmyo mjd zroo sugg rmuhoh xrbzbkjd wkohyubjh mtbky bkr xkrxbho. Mh so jmquemyo ylo gmtvrujyl bz guzo, omil ilbuio so fmco oilboh ylrbkel ylo ibrrudbrh bz yufo, ujzgkojiuje jby bjgv bkr xmylh tky mghb ylo guqoh bz bylorh. Kgyufmyogv, ylo xkrhkuy bz cjbsgodeo mjd kjdorhymjduje toibfoh m nbkrjov bz hogz-duhibqorv, roqomguje ylo ujyoribjjoiyodjohh bz mgg ylujeh mjd ylo xrbzbkjd tomkyv ylmy guoh suyluj ylo ilmbh bz oauhyojio."</span>
+letterMapping <span class="sign">=</span> hack_substitution(message)
+<span class="command">print</span>(letterMapping)
+<span class="command">print</span>()
+<span class="command">print</span>(message)
+<span class="command">print</span>()
+hackedMessage <span class="sign">=</span> decrypt_with_cipherletter_mapping(message, letterMapping)
+<span class="command">print</span>(hackedMessage)
+                                    </code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>

@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Turtle</title>
+    <title>Encrypting text files</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -47,11 +47,13 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="java.html">Java</a>
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Kotlin (Android)</a>
                         <a class="collapse-item" href="cplusplus.html">C++</a>
                         <a class="collapse-item" href="web.html">Basic web stack</a>
                         <a class="collapse-item" href="databases.html">Databases</a>
-                        <a class="collapse-item" href="electronics-and-it-basics.html">Electronics &amp; IT basics</a>
+                        <a class="collapse-item" href="electronics.html">Electronics</a>
+                        <a class="collapse-item" href="it-and-computer-basics.html">IT &amp; computer basics</a>
                     </div>
                 </div>
             </li>
@@ -87,59 +89,34 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Turtle</h5>
+                                    <h5 class="m-0 font-weight-bold">Encrypting text files</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>The <code>turtle</code> module is designed for creating drawings and serves as a tool for learning how to code.</p>
-            
+                                    <P>Using simple file handling, we can easily use any cipher to encrypt and decrypt text files. The script below encrypts the contents of <b><i>plaintext.txt</i></b> and writes them to <b><i>encrypted.txt</i></b>, and then it decrypts the contents of <b><i>encrypted.txt</i></b> and writes the output to <b><i>decrypted.txt</i></b>.</P>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">from</span> turtle <span class="command">import</span> <span class="sign">*</span>
+<span class="command">from</span> caesar <span class="command">import</span> caesar <span class="comment"># get this file from <a href="python-caesar-cipher.html#caesar" class="commentLink" target="_blank">here</a></span>
+CHARACTERS <span class="sign">=</span> <span class="text">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span> <span class="comment"># this string can contain other characters like !, @, etc.</span>
 
-<span class="command">forward</span>(100) <span class="comment"># moving forward the given number of pixels (also: fd())</span>
-<span class="command">right</span>(90) <span class="comment"># turning right by 90 degrees</span>
-<span class="command">backward</span>(100) <span class="comment"># moving backward the given number of pixels (also: bk() or back())</span>
-<span class="command">left</span>(90) <span class="comment"># turning left by 90 degrees</span>
+<span class="function">def</span> process_file(input_file, output_file, key, mode):
+    <span class="function">with</span> <span class="command">open</span>(input_file, <span class="text">"r"</span>) <span class="function">as</span> file:
+        text <span class="sign">=</span> file.<span class="command">read</span>()
 
-<span class="command">circle</span>(100) <span class="comment"># drawing a circle</span>
-<span class="command">undo</span>() <span class="comment"># undoing the last action</span>
+    message <span class="sign">=</span> <span class="text">""</span>
+    <span class="function">if</span> mode <span class="sign">==</span> <span class="text">"encrypt"</span>:
+        processed_text <span class="sign">=</span> caesar(text, key, <span class="text">"encrypt"</span>)
+        message <span class="sign">=</span> <span class="text">f"File '{input_file}' encrypted to '{output_file}' with key {key}."</span>
+    <span class="function">elif</span> mode <span class="sign">==</span> <span class="text">"decrypt"</span>:
+        processed_text <span class="sign">=</span> caesar(text, key, <span class="text">"decrypt"</span>)
+        message <span class="sign">=</span> <span class="text">f"File '{input_file}' decrypted to '{output_file}' with key {key}."</span>
 
-<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(4):
-    <span class="command">left</span>(90)
-    <span class="command">dot</span>(20) <span class="comment"># placing a dot</span>
-    <span class="command">penup</span>() <span class="comment"># lifting the pen up</span>
-    <span class="command">forward</span>(100)
-    <span class="command">pendown</span>() <span class="comment"># lowering the pen down</span>
+    <span class="function">with</span> <span class="command">open</span>(output_file, <span class="text">"w"</span>) <span class="function">as</span> file:
+        file.<span class="command">write</span>(processed_text)
 
-<span class="command">speed</span>(3) <span class="comment"># setting the drawing speed (fastest: 0, fast: 10, normal: 6, slow: 3, slowest: 1)</span>
-<span class="command">shape</span>(<span class="text">"turtle"</span>) <span class="comment"># setting the turtle's shape (arrow, turtle, circle, square, triangle, and classic)</span>
-<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(4):
-    <span class="command">penup</span>()
-    <span class="command">forward</span>(120)
-    <span class="command">pendown</span>()
-    <span class="command">stamp</span>() <span class="comment"># placing a stamp that looks like that the turtle's shape</span>
-    <span class="function">if</span> x <span class="sign">&lt;</span> 2:
-        <span class="command">left</span>(90)
-    <span class="function">else</span>:
-        <span class="command">right</span>(90)
-
-<span class="command">goto</span>(0, 0) <span class="comment"># moving to the specified coordinates</span>
-<span class="command">forward</span>(100)
-
-<span class="command">print</span>(position()) <span class="comment"># retrieving the current coordinates</span>
-
-<span class="command">pencolor</span>(<span class="text">"red"</span>) <span class="comment"># changing the pen color</span>
-<span class="command">forward</span>(100)
-
-<span class="command">fillcolor</span>(<span class="text">"red"</span>) <span class="comment"># setting the fill color</span>
-<span class="command">begin_fill</span>() <span class="comment"># starting the filling procedure</span>
-<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(4):
-    <span class="command">forward</span>(100)
-    <span class="command">right</span>(90)
-<span class="command">end_fill</span>() <span class="comment"># ending the filling procedure</span>
-
-<span class="command">home</span>() <span class="comment"># moving to the (0, 0) coordinates</span>
-                                    </code></pre>    
-                                    
+key <span class="sign">=</span> 13
+process_file(<span class="text">"plaintext.txt"</span>, <span class="text">"encrypted.txt"</span>, key, <span class="text">"encrypt"</span>)
+process_file(<span class="text">"encrypted.txt"</span>, <span class="text">"decrypted.txt"</span>, key, <span class="text">"decrypt"</span>)
+									</code></pre>
                                 </div>
                             </div>
                         </div>

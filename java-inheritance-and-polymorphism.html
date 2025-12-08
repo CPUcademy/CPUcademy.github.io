@@ -134,8 +134,6 @@
 <span class="sign">}</span>
                                     </code></pre>
 
-                                    <p>The superclass's constructor is automatically called before the subclass's constructor.</p>
-
                                     <h2>Multiple inheritance</h2>
                                     
                                     <p>A class can inherit features from more than one parent class but only indirectly, e.g., class <code>A</code> inherits from class <code>B</code>, class <code>B</code> inherits from class <code>C</code>, and not: class <code>A</code> inherits from classes <code>B</code> and <code>C</code>.</p>
@@ -210,7 +208,7 @@
 
 <span class="function">class</span> Dog <span class="function">extends Animal</span> <span class="sign">{</span>
     <span class="function">Dog</span>(<span class="function">String</span> name) <span class="sign">{</span>
-        <span class="function">super</span>(name)<span class="sign">;</span>
+        <span class="function">super</span>(name)<span class="sign">;</span> <span class="comment"># has to be the first statement</span>
         <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Woof!"</span>)<span class="sign">;</span>
     <span class="sign">}</span>
 <span class="sign">}</span>
@@ -282,11 +280,11 @@
 <span class="sign">}</span>
                                     </code></pre>
 
-                                    <p><code>Object text = "text";</code> demonstrates polymorphism because a variable of type <code>Object</code> can refer to an instance of any subclass, such as <code>String</code> (All classes in Java inherit from the <code>Object</code> class directly or indirectly).</p>
+                                    <p><code>Object text = "text";</code> demonstrates polymorphism because a variable of type <code>Object</code> can refer to an instance of any subclass, such as <code>String</code> (all classes in Java inherit from the <code>Object</code> class directly or indirectly).</p>
 
                                     <h2>Method overloading (a form of polymorphism)</h2>
                                     
-                                    <p>Two methods can have the same name as long as they have a different number of arguments and/or they have various types. This behavior is called method overloading. For example, if we provide two <code>double</code> arguments to an <code>addition()</code> method, the compiler will know that we want to use the specific version of the method that takes those arguments and not, e.g., the one that takes two integers.</p>
+                                    <p>Two methods can have the same name as long as they have a different number of arguments and/or they have various types. This behavior is called method overloading. For example, if we provide two <code>double</code> arguments to an <code>addition()</code> method, the compiler will know that we want to use the specific version of the method that takes those arguments and not, e.g., the one that takes two integers. The two overloaded functions have to differ in number or type of arguments, and can, but do not have to, have a different return type.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main <span class="sign">{</span>

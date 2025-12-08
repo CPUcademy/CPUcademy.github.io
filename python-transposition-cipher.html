@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <title>Transposition cipher</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
+	    <style>
+        .cell-content {
+            align-items: center;
+            justify-content: center;
+			text-align: center;
+        }
+        .separator {
+            width: 100%;
+            background-color: black;
+            height: 2px;
+            margin-bottom: 0px;
+        }
+		
+		td {
+			width: 28px;
+		}
+    </style>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D76ZFDYLCY');
+    </script>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Kotlin (Android)</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics.html">Electronics</a>
+                        <a class="collapse-item" href="it-and-computer-basics.html">IT &amp; computer basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">About me</div>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="cv.html">
+                    <i class="icon-adult"></i>
+                    <span>CV</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="services.html">
+                    <i class="icon-services"></i>
+                    <span>My services</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Transposition cipher</h5>
+                                </div>
+                                <div class="card-body">
+									<h2>Encryption</h2>
+								
+									<p>The transposition cipher encrypts a message by rearranging its characters based on a key that determines the number of columns in a grid. The message is written in the grid from left to right, and the characters are then read vertically, column by column, to form the encrypted output. The possible key values are determined by the length of the message, as a key longer than the message can introduce unnecessary complexity without enhancing security. At the same time, a key that is too short may not adequately scramble the message. Empty fields at the end of the grid are simply skipped during the reading process. The table below (a "transposition grid") has been generated using the key 6 for the string "This is my secret message."</p>
+								
+									<div class="table-container"><table>
+										<tr style="border: none;"><td style="border: none;">1</td><td style="border: none;">2</td><td style="border: none;">3</td><td style="border: none;">4</td><td style="border: none;">5</td><td style="border: none;">6</td></tr>
+										<tr><td>T</td><td>h</td><td>i</td><td>s</td><td>/</td><td>i</td></tr>
+										<tr><td>s</td><td>/</td><td>m</td><td>y</td><td>/</td><td>s</td></tr>
+										<tr><td>e</td><td>c</td><td>r</td><td>e</td><td>t</td><td>/</td></tr>
+										<tr><td>m</td><td>e</td><td>s</td><td>s</td><td>a</td><td>g</td></tr>
+										<tr><td>e</td><td>.</td><td style="background-color: black;"></td><td style="background-color: black;"></td><td style="background-color: black;"></td><td style="background-color: black;"></td></tr>
+									</table></div>
+									
+									<p>To encrypt a message using a script, we have to assign an index to each number, following the order of letters in the text.</p>
+									
+									<div class="table-container">
+										<table>
+											<tr>
+												<td><div class="cell-content"><span>T</span><div class="separator"></div><span>0</span></div></td>
+												<td><div class="cell-content"><span>h</span><div class="separator"></div><span>1</span></div></td>
+												<td><div class="cell-content"><span>i</span><div class="separator"></div><span>2</span></div></td>
+												<td><div class="cell-content"><span>s</span><div class="separator"></div><span>3</span></div></td>
+												<td><div class="cell-content"><span>/</span><div class="separator"></div><span>4</span></div></td>
+												<td><div class="cell-content"><span>i</span><div class="separator"></div><span>5</span></div></td>
+											</tr>
+											<tr>
+												<td><div class="cell-content"><span>s</span><div class="separator"></div><span>6</span></div></td>
+												<td><div class="cell-content"><span>/</span><div class="separator"></div><span>7</span></div></td>
+												<td><div class="cell-content"><span>m</span><div class="separator"></div><span>8</span></div></td>
+												<td><div class="cell-content"><span>y</span><div class="separator"></div><span>9</span></div></td>
+												<td><div class="cell-content"><span>/</span><div class="separator"></div><span>10</span></div></td>
+												<td><div class="cell-content"><span>s</span><div class="separator"></div><span>11</span></div></td>
+											</tr>
+											<tr>
+												<td><div class="cell-content"><span>e</span><div class="separator"></div><span>12</span></div></td>
+												<td><div class="cell-content"><span>c</span><div class="separator"></div><span>13</span></div></td>
+												<td><div class="cell-content"><span>r</span><div class="separator"></div><span>14</span></div></td>
+												<td><div class="cell-content"><span>e</span><div class="separator"></div><span>15</span></div></td>
+												<td><div class="cell-content"><span>t</span><div class="separator"></div><span>16</span></div></td>
+												<td><div class="cell-content"><span>/</span><div class="separator"></div><span>17</span></div></td>
+											</tr>
+											<tr>
+												<td><div class="cell-content"><span>m</span><div class="separator"></div><span>18</span></div></td>
+												<td><div class="cell-content"><span>e</span><div class="separator"></div><span>19</span></div></td>
+												<td><div class="cell-content"><span>s</span><div class="separator"></div><span>20</span></div></td>
+												<td><div class="cell-content"><span>s</span><div class="separator"></div><span>21</span></div></td>
+												<td><div class="cell-content"><span>a</span><div class="separator"></div><span>22</span></div></td>
+												<td><div class="cell-content"><span>g</span><div class="separator"></div><span>23</span></div></td>
+											</tr>
+											<tr>
+												<td><div class="cell-content"><span>e</span><div class="separator"></div><span>24</span></div></td>
+												<td><div class="cell-content"><span>.</span><div class="separator"></div><span>25</span></div></td>
+												<td style="background-color: black;"></td>
+												<td style="background-color: black;"></td>
+												<td style="background-color: black;"></td>
+												<td style="background-color: black;"></td>
+											</tr>
+										</table>
+									</div>
+									
+									<p>In the table above, we can notice a pattern. Each index equals the row number times the key (when the key is 6, the row numbers are 0, 6, 12, etc.) plus the column number (when the key is 6, the column numbers are 0, 1, 2, 3, 4, and 5). We can use this pattern in our algorithm.</p>
+									
+									<div class="table-container">
+										<table>
+											<tr>
+												<td><div class="cell-content"><span>T</span><div class="separator"></div><span>0+0=0</span></div></td>
+												<td><div class="cell-content"><span>h</span><div class="separator"></div><span>0+1=1</span></div></td>
+												<td><div class="cell-content"><span>i</span><div class="separator"></div><span>0+2=2</span></div></td>
+												<td><div class="cell-content"><span>s</span><div class="separator"></div><span>0+3=3</span></div></td>
+												<td><div class="cell-content"><span>/</span><div class="separator"></div><span>0+4=4</span></div></td>
+												<td><div class="cell-content"><span>i</span><div class="separator"></div><span>0+5=5</span></div></td>
+											</tr>
+											<tr>
+												<td><div class="cell-content"><span>s</span><div class="separator"></div><span>6+0=6</span></div></td>
+												<td><div class="cell-content"><span>/</span><div class="separator"></div><span>6+1=7</span></div></td>
+												<td><div class="cell-content"><span>m</span><div class="separator"></div><span>6+2=8</span></div></td>
+												<td><div class="cell-content"><span>y</span><div class="separator"></div><span>6+3=9</span></div></td>
+												<td><div class="cell-content"><span>/</span><div class="separator"></div><span>6+4=10</span></div></td>
+												<td><div class="cell-content"><span>s</span><div class="separator"></div><span>6+5=11</span></div></td>
+											</tr>
+											<tr>
+												<td><div class="cell-content"><span>e</span><div class="separator"></div><span>12+0=12</span></div></td>
+												<td><div class="cell-content"><span>c</span><div class="separator"></div><span>12+1=13</span></div></td>
+												<td><div class="cell-content"><span>r</span><div class="separator"></div><span>12+2=14</span></div></td>
+												<td><div class="cell-content"><span>e</span><div class="separator"></div><span>12+3=15</span></div></td>
+												<td><div class="cell-content"><span>t</span><div class="separator"></div><span>12+4=16</span></div></td>
+												<td><div class="cell-content"><span>/</span><div class="separator"></div><span>12+5=17</span></div></td>
+											</tr>
+											<tr>
+												<td><div class="cell-content"><span>m</span><div class="separator"></div><span>18+0=18</span></div></td>
+												<td><div class="cell-content"><span>e</span><div class="separator"></div><span>18+1=19</span></div></td>
+												<td><div class="cell-content"><span>s</span><div class="separator"></div><span>18+2=20</span></div></td>
+												<td><div class="cell-content"><span>s</span><div class="separator"></div><span>18+3=21</span></div></td>
+												<td><div class="cell-content"><span>a</span><div class="separator"></div><span>18+4=22</span></div></td>
+												<td><div class="cell-content"><span>g</span><div class="separator"></div><span>18+5=23</span></div></td>
+											</tr>
+											<tr>
+												<td><div class="cell-content"><span>e</span><div class="separator"></div><span>24+0=24</span></div></td>
+												<td><div class="cell-content"><span>.</span><div class="separator"></div><span>24+1=25</span></div></td>
+												<td style="background-color: black;"></td>
+												<td style="background-color: black;"></td>
+												<td style="background-color: black;"></td>
+												<td style="background-color: black;"></td>
+											</tr>
+										</table>
+									</div>
+									
+									<h2>Decryption</h2>
+									
+									<p>Our message has 26 characters, and we used the key 6, so to get the number of columns in the decryption transposition grid, we divide 26 by 6 and round <b>up</b> to 5. Now we can draw the table for the "Tsemeh ce.imrssyes tais g" encrypted string. The message is also written in the grid from left to right, and the characters are then read vertically, column by column, to form the decrypted output. However, here, we insert the black (empty) fields vertically, and we must calculate how many there are (when encrypting, we just filled the remaining fields at the end, which is not the case here). To find out how many empty fields there are, we can use this formula: <code>(total_columns * key) - message_length</code>.</p>
+									
+									<div class="table-container">
+										<table>
+											<tr style="border: none;"><td style="border: none;">1</td><td style="border: none;">2</td><td style="border: none;">3</td><td style="border: none;">4</td><td style="border: none;">5</td></tr>
+											<tr><td>T</td><td>s</td><td>e</td><td>m</td><td>e</td></tr>
+											<tr><td>h</td><td>/</td><td>c</td><td>e</td><td>.</td></tr>
+											<tr><td>i</td><td>m</td><td>r</td><td>s</td><td style="background-color: black;"></td></tr>
+											<tr><td>s</td><td>y</td><td>e</td><td>s</td><td style="background-color: black;"></td></tr>
+											<tr><td>/</td><td>/</td><td>t</td><td>a</td><td style="background-color: black;"></td></tr>
+											<tr><td>i</td><td>s</td><td>/</td><td>g</td><td style="background-color: black;"></td></tr>
+										</table>
+									</div>
+									
+									<h2>Implementation</h2>
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> math
+
+<span class="function">def</span> encrypt_transposition(message, key): <span class="comment"># the key represents the number of columns</span>
+    encrypted <span class="sign">=</span> [<span class="text">""</span>] <span class="sign">*</span> key <span class="comment"># creating an empty transposition grid</span>
+    <span class="comment"># Iterating through each column</span>
+    <span class="function">for</span> col <span class="function">in</span> <span class="command">range</span>(key):
+        index <span class="sign">=</span> col
+        <span class="comment"># Looping through the message</span>
+        <span class="function">while</span> index <span class="sign">&lt;</span> <span class="command">len</span>(message):
+            encrypted[col] <span class="sign">+=</span> message[index] <span class="comment"># adding a character to the column</span>
+            index <span class="sign">+=</span> key <span class="comment"># moving to the next character in the same column</span>
+    <span class="function">return</span> <span class="text">""</span>.<span class="command">join</span>(encrypted)
+
+<span class="function">def</span> decrypt_transposition(message, key):
+    total_columns <span class="sign">=</span> <span class="command">int</span>(math.<span class="command">ceil</span>(<span class="command">len</span>(message) <span class="sign">/</span> <span class="command">float</span>(key))) <span class="comment"># the number of rows for the transposition grid</span>
+    black_fields <span class="sign">=</span> (total_columns <span class="sign">*</span> key) <span class="sign">-</span> len(message) <span class="comment"># the number of black fields in the last column</span>
+    decrypted <span class="sign">=</span> [<span class="text">""</span>] <span class="sign">*</span> total_columns
+    col <span class="sign">=</span> 0
+    row <span class="sign">=</span> 0
+
+    <span class="comment"># Iterating through each character</span>
+    <span class="function">for</span> char <span class="function">in</span> message:
+        decrypted[col] <span class="sign">+=</span> char <span class="comment"># adding a character to the current column</span>
+        col <span class="sign">+=</span> 1 <span class="comment"># moving to the next column</span>
+        <span class="comment"># If we have reached the last column or a black field, we reset to the first column and move to the next row.</span>
+        <span class="function">if</span> (col <span class="sign">==</span> total_columns) <span class="function">or</span> (col <span class="sign">==</span> total_columns <span class="sign">-</span> 1 <span class="function">and</span> row <span class="sign">&gt;=</span> key <span class="sign">-</span> black_fields):
+            col <span class="sign">=</span> 0
+            row <span class="sign">+=</span> 1
+    <span class="function">return</span> <span class="text">""</span>.<span class="command">join</span>(decrypted)
+
+text_message <span class="sign">=</span> <span class="text">"This is my secret message."</span>
+key <span class="sign">=</span> 6
+
+encrypted_message <span class="sign">=</span> encrypt_transposition(text_message, key)
+<span class="command">print</span>(encrypted_message <span class="sign">+</span> <span class="text">"|"</span>) <span class="comment"># the "|" symbol is added so that no space is lost at the end</span>
+<span class="command">print</span>(decrypt_transposition(encrypted_message, key) <span class="sign">+</span> <span class="text">"|"</span>)
+									</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>
