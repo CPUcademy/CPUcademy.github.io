@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <title>Caesar cipher</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D76ZFDYLCY');
+    </script>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Kotlin (Android)</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics.html">Electronics</a>
+                        <a class="collapse-item" href="it-and-computer-basics.html">IT &amp; computer basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">About me</div>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="cv.html">
+                    <i class="icon-adult"></i>
+                    <span>CV</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="services.html">
+                    <i class="icon-services"></i>
+                    <span>My services</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Caesar cipher</h5>
+                                </div>
+                                <div class="card-body">
+									<p>The Caesar cipher is a form of substitution cipher where each letter in the plaintext is shifted a certain number of places (the value of the key) to the right down the character set. For example, with a key of 3, the letter A would be substituted with D (A=0 | 0+3=3 | 3=D), B would become E, and so forth. This technique is named after Julius Caesar, who used it in his personal communications. The possible key values are limited by the number of available characters. If the result of the addition exceeds the number of available characters, it must be reduced by taking the result modulo the size of the character set. This ensures that the resulting index wraps around and corresponds to a valid character within the defined character set. The same applies to keys, e.g., if the number of all characters is 26, and the key is 27, it will yield the same result as key 1.</p>
+							
+									<div class="table-container"><table>
+										<tr>
+											<td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td>
+										</tr>
+										<tr>
+											<td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td>
+										</tr>
+									</table></div>
+
+                                    <h2 id="caesar">Implementation</h2>
+								
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+CHARACTERS <span class="sign">=</span> <span class="text">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span> <span class="comment"># this string can contain other characters like !, @, etc.</span>
+
+<span class="function">def</span> caesar(message, key, mode):
+    text <span class="sign">=</span> message.<span class="command">upper</span>()
+    encrypted_text <span class="sign">=</span> <span class="text">""</span>
+    <span class="function">if</span> mode <span class="sign">==</span> <span class="text">"decrypt"</span>:
+        key <span class="sign">= -</span>key <span class="comment"># negating the key value to reverse the encryption</span>
+
+    <span class="function">for</span> char <span class="function">in</span> text: <span class="comment"># iterating over each character in the input text</span>
+        <span class="function">if</span> char <span class="function">in</span> CHARACTERS:
+            index <span class="sign">=</span> CHARACTERS.<span class="command">index</span>(char)
+            new_index <span class="sign">=</span> (index <span class="sign">+</span> key) <span class="sign">%</span> <span class="command">len</span>(CHARACTERS) <span class="comment"># calculating the new index by applying the key and wrapping around using modulo</span> 
+            <span class="comment"># "wrapping around" must be used when the new index exceeds the bounds of the CHARACTERS string</span>
+            encrypted_text <span class="sign">+=</span> CHARACTERS[new_index] <span class="comment"># appending the character at the new index to the encrypted_text variable</span>
+        <span class="function">else</span>:
+            encrypted_text <span class="sign">+=</span> char <span class="comment"># if the character is not in CHARACTERS, keep it unchanged</span>
+    <span class="function">return</span> encrypted_text
+
+message <span class="sign">=</span> <span class="text">"Secret message"</span>
+key <span class="sign">=</span> 13
+
+message <span class="sign">=</span> caesar(message, key, <span class="text">"encrypt"</span>)
+<span class="command">print</span>(message)
+message <span class="sign">=</span> caesar(message, key, <span class="text">"decrypt"</span>)
+<span class="command">print</span>(message)
+									</code></pre>
+									
+									<h2>A brute-force attack</h2>
+									
+									<p>A brute-force attack is a method of cracking encryption by systematically trying every possible combination of keys or passwords until the correct one is found. Despite its effectiveness against weak ciphers, like Caesar's, the method becomes impractical against modern encryption techniques, where the complexity and length of keys exponentially increase the time required to succeed.</p>
+									
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> caesar <span class="command">import</span> caesar
+CHARACTERS <span class="sign">=</span> <span class="text">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span> <span class="comment"># this string can contain other characters like !, @, etc.</span>
+
+<span class="function">def</span> brute_force_caesar(ciphertext):
+    <span class="function">for</span> key <span class="function">in</span> <span class="command">range</span>(1, <span class="command">len</span>(CHARACTERS)):
+        decrypted_message <span class="sign">=</span> caesar(ciphertext, key, <span class="text">"decrypt"</span>)
+        <span class="command">print</span>(<span class="text">f"Key {key}: {decrypted_message}"</span>)
+
+message <span class="sign">=</span> <span class="text">"FRPERG ZRFFNTR"</span>
+result <span class="sign">=</span> brute_force_caesar(message)
+<span class="command">print</span>(result)
+									</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>

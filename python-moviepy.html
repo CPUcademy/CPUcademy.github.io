@@ -99,7 +99,7 @@
                                     <p>A video played using <code>preview()</code> displays in full-screen mode and can't be stopped.</p>
                                             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+<span class="command">from</span> moviepy.editor <span class="command">import</span> <span class="sign"></span>*</span>
 clip <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video.mp4"</span>) <span class="comment"># the video object</span>
 clip.<span class="command">preview</span>() <span class="comment"># this method comes from the pygame module</span>
                                     </code></pre>
@@ -107,7 +107,7 @@ clip.<span class="command">preview</span>() <span class="comment"># this method 
                                     <h4>Rotating a video</h4>
                                 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+<span class="command">from</span> moviepy.editor <span class="command">import</span> <span class="sign">*</span>
 clip <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video.mp4"</span>)
 flipped <span class="sign">=</span> clip.<span class="command">rotate</span>(35) <span class="comment"># rotating the video by 35 degrees</span>
 flipped.<span class="command">write_videofile</span>(<span class="text">"video-flipped.mp4"</span>) <span class="comment"># exporting the video</span>
@@ -116,7 +116,7 @@ flipped.<span class="command">write_videofile</span>(<span class="text">"video-f
                                     <h4>Trimming a video</h4>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+<span class="command">from</span> moviepy.editor <span class="command">import</span> <span class="sign">*</span>
 clip <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video.mp4"</span>)
 duration <span class="sign">=</span> clip.<span class="command">duration</span>
 shortened <span class="sign">=</span> clip.<span class="command">subclip</span>(0, duration <span class="sign">/</span> 2) <span class="comment"># trimming the video by half</span>
@@ -126,7 +126,7 @@ shortened.<span class="command">write_videofile</span>(<span class="text">"video
                                     <h4>Speeding up a video</h4>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+<span class="command">from</span> moviepy.editor <span class="command">import</span> <span class="sign">*</span>
 clip <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video.mp4"</span>).<span class="command">fx</span>(<span class="command">vfx</span>.<span class="command">speedx</span>, 2) <span class="comment"># speeding up the video two times</span>
 clip.<span class="command">write_videofile</span>(<span class="text">"video-accelerated.mp4"</span>)
                                     </code></pre>
@@ -134,7 +134,7 @@ clip.<span class="command">write_videofile</span>(<span class="text">"video-acce
                                     <h4>Merging video files</h4>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+<span class="command">from</span> moviepy.editor <span class="command">import</span> <span class="sign">*</span>
 clip1 <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video.mp4"</span>)
 clip2 <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video2.mp4"</span>)
 mix <span class="sign">=</span> <span class="command">concatenate_videoclips</span>([clip1, clip2]) <span class="comment"># merging two video files</span>
@@ -146,7 +146,7 @@ mix.<span class="command">write_videofile</span>(<span class="text">"mix.mp4"</s
                                     <p>The example below will create four copies of a video, transform each of them differently, and join them into a collage.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+<span class="command">from</span> moviepy.editor <span class="command">import</span> <span class="sign">*</span>
 clip1 <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video.mp4"</span>).<span class="command">margin</span>(10)
 clip2 <span class="sign">=</span> clip1.<span class="command">fx</span>(<span class="command">vfx</span>.<span class="command">mirror_x</span>)
 clip3 <span class="sign">=</span> clip1.<span class="command">fx</span>(<span class="command">vfx</span>.<span class="command">mirror_y</span>)
@@ -158,7 +158,7 @@ clip.<span class="command">resize</span>(<span class="command">width</span><span
                                     <h4><code>.mp4</code> to <code>.gif</code></h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+<span class="command">from</span> moviepy.editor <span class="command">import</span> <span class="sign">*</span>
 clip <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video.mp4"</span>)
 clip.<span class="command">write_gif</span> (<span class="text">"video-gif.gif"</span>)
                                     </code></pre>    
@@ -168,7 +168,7 @@ clip.<span class="command">write_gif</span> (<span class="text">"video-gif.gif"<
                                     <p>An audio played using <code>preview()</code> can't be stopped.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+<span class="command">from</span> moviepy.editor <span class="command">import</span> <span class="sign">*</span>
 clip <span class="sign">=</span> <span class="function">AudioFileClip</span>(<span class="text">"audio.mp3"</span>) <span class="comment"># the audio object</span>
 clip.<span class="command">preview</span>()
                                     </code></pre>
@@ -176,7 +176,7 @@ clip.<span class="command">preview</span>()
                                     <h4>Changing the soundtrack in a video</h4>
                             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+<span class="command">from</span> moviepy.editor <span class="command">import</span> <span class="sign">*</span>
 videoclip <span class="sign">=</span> <span class="function">VideoFileClip</span>(<span class="text">"video.mp4"</span>)
 audioclip <span class="sign">=</span> <span class="function">AudioFileClip</span>(<span class="text">"audio.mp3"</span>)
 videoclip2 <span class="sign">=</span> videoclip.<span class="command">set_audio</span>(audioclip) <span class="comment"># changing the soundtrack</span>
@@ -186,7 +186,7 @@ videoclip2.<span class="command">write_videofile</span>(<span class="text">"vide
                                     <h4>Speeding up an audio</h4>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+<span class="command">from</span> moviepy.editor <span class="command">import</span> <span class="sign">*</span>
 clip <span class="sign">=</span> <span class="function">AudioFileClip</span>(<span class="text">"audio.mp3"</span>).<span class="command">fx</span>(<span class="command">vfx</span>.<span class="command">speedx</span>, 2) <span class="comment"># speeding up the audio two times</span>
 clip.<span class="command">write_audiofile</span>(<span class="text">"audio-accelerated.mp3"</span>) <span class="comment"># exporting the audio</span>
                                     </code></pre>
@@ -196,7 +196,7 @@ clip.<span class="command">write_audiofile</span>(<span class="text">"audio-acce
                                     <p>The example below will merge three audio files into one (one soundtrack after another).</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">from</span> moviepy.editor <span class="command">import</span> *
+<span class="command">from</span> moviepy.editor <span class="command">import</span> <span class="sign">*</span>
 clip1 <span class="sign">=</span> <span class="function">AudioFileClip</span>(<span class="text">"audio1.mp3"</span>)
 clip2 <span class="sign">=</span> <span class="function">AudioFileClip</span>(<span class="text">"audio2.mp3"</span>)
 clip3 <span class="sign">=</span> <span class="function">AudioFileClip</span>(<span class="text">"audio3.mp3"</span>)

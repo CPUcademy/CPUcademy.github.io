@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Turtle</title>
+    <title>Reverse cipher</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -47,11 +47,13 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="java.html">Java</a>
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Kotlin (Android)</a>
                         <a class="collapse-item" href="cplusplus.html">C++</a>
                         <a class="collapse-item" href="web.html">Basic web stack</a>
                         <a class="collapse-item" href="databases.html">Databases</a>
-                        <a class="collapse-item" href="electronics-and-it-basics.html">Electronics &amp; IT basics</a>
+                        <a class="collapse-item" href="electronics.html">Electronics</a>
+                        <a class="collapse-item" href="it-and-computer-basics.html">IT &amp; computer basics</a>
                     </div>
                 </div>
             </li>
@@ -87,59 +89,23 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Turtle</h5>
+                                    <h5 class="m-0 font-weight-bold">Reverse cipher</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>The <code>turtle</code> module is designed for creating drawings and serves as a tool for learning how to code.</p>
-            
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="command">from</span> turtle <span class="command">import</span> <span class="sign">*</span>
+									<p>The reverse cipher is one of the simplest encryption techniques that involves reversing the order of characters in a message to obscure its meaning. For example, the word "hello" would be transformed into "olleh."</p>
+								
+									<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> reverse(message):
+    output <span class="sign">=</span> <span class="text">""</span>
+    i <span class="sign">=</span> <span class="command">len</span>(message) <span class="sign">-</span> 1 <span class="comment"># starting from the last character</span>
+    <span class="function">while</span> i <span class="sign">&gt;=</span> 0:
+        output <span class="sign">=</span> output <span class="sign">+</span> message[i] <span class="comment"># appending the current character</span>
+        i <span class="sign">=</span> i <span class="sign">-</span> 1 <span class="comment"># moving to the previous character</span>
+    <span class="function">return</span> output
 
-<span class="command">forward</span>(100) <span class="comment"># moving forward the given number of pixels (also: fd())</span>
-<span class="command">right</span>(90) <span class="comment"># turning right by 90 degrees</span>
-<span class="command">backward</span>(100) <span class="comment"># moving backward the given number of pixels (also: bk() or back())</span>
-<span class="command">left</span>(90) <span class="comment"># turning left by 90 degrees</span>
-
-<span class="command">circle</span>(100) <span class="comment"># drawing a circle</span>
-<span class="command">undo</span>() <span class="comment"># undoing the last action</span>
-
-<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(4):
-    <span class="command">left</span>(90)
-    <span class="command">dot</span>(20) <span class="comment"># placing a dot</span>
-    <span class="command">penup</span>() <span class="comment"># lifting the pen up</span>
-    <span class="command">forward</span>(100)
-    <span class="command">pendown</span>() <span class="comment"># lowering the pen down</span>
-
-<span class="command">speed</span>(3) <span class="comment"># setting the drawing speed (fastest: 0, fast: 10, normal: 6, slow: 3, slowest: 1)</span>
-<span class="command">shape</span>(<span class="text">"turtle"</span>) <span class="comment"># setting the turtle's shape (arrow, turtle, circle, square, triangle, and classic)</span>
-<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(4):
-    <span class="command">penup</span>()
-    <span class="command">forward</span>(120)
-    <span class="command">pendown</span>()
-    <span class="command">stamp</span>() <span class="comment"># placing a stamp that looks like that the turtle's shape</span>
-    <span class="function">if</span> x <span class="sign">&lt;</span> 2:
-        <span class="command">left</span>(90)
-    <span class="function">else</span>:
-        <span class="command">right</span>(90)
-
-<span class="command">goto</span>(0, 0) <span class="comment"># moving to the specified coordinates</span>
-<span class="command">forward</span>(100)
-
-<span class="command">print</span>(position()) <span class="comment"># retrieving the current coordinates</span>
-
-<span class="command">pencolor</span>(<span class="text">"red"</span>) <span class="comment"># changing the pen color</span>
-<span class="command">forward</span>(100)
-
-<span class="command">fillcolor</span>(<span class="text">"red"</span>) <span class="comment"># setting the fill color</span>
-<span class="command">begin_fill</span>() <span class="comment"># starting the filling procedure</span>
-<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(4):
-    <span class="command">forward</span>(100)
-    <span class="command">right</span>(90)
-<span class="command">end_fill</span>() <span class="comment"># ending the filling procedure</span>
-
-<span class="command">home</span>() <span class="comment"># moving to the (0, 0) coordinates</span>
-                                    </code></pre>    
-                                    
+message <span class="sign">=</span> <span class="text">"Secret message"</span>
+<span class="command">print</span>(reverse(message))
+									</code></pre>
                                 </div>
                             </div>
                         </div>
