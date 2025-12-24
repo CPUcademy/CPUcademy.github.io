@@ -96,7 +96,7 @@
 
                                     <h2>Multiplicative cipher</h2>
 
-                                    <p>A multiplicative cipher, instead of adding the key to the index of the character, like the Caesar cipher, multiplies it. For example, the letter B with an index of 1, encrypted with the key 3, will be D (index 3). If the result, or key, is greater than the size of the character set, then we proceed as in the Caesar cipher: we take the result modulo the size of the character set to ensure it wraps around and corresponds to a valid character. Additionally, it's important to note that the key used in a multiplicative cipher must be coprime to the size of the character set. Two numbers are considered coprime if their greatest common divisor (GCD) is 1, meaning they have no common factors other than 1. This condition is crucial because it ensures that every character can be uniquely mapped to another character without any overlaps. For a set of 26 characters, there are only 12 viable keys.</p>
+                                    <p>A multiplicative cipher, instead of adding the key to the index of the character, like the Caesar cipher, multiplies it. For example, the letter B with an index of 1, encrypted using the key 3, will be D (index 3). If the result, or key, is greater than the size of the character set, then we proceed as in the Caesar cipher: we take the result modulo the size of the character set to ensure it wraps around and corresponds to a valid character. Additionally, it's important to note that the key used in a multiplicative cipher must be coprime to the size of the character set. Two numbers are considered coprime if their greatest common divisor (GCD) is 1, meaning they have no common factors other than 1. This condition is crucial because it ensures that every character can be uniquely mapped to another character without any overlaps. For a set of 26 characters, there are only 12 viable keys.</p>
 
                                     <h2>Affine cipher</h2>
 
@@ -110,7 +110,6 @@
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 CHARACTERS <span class="sign">=</span> <span class="text">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span> <span class="comment"># this string can contain other characters like !, @, etc.</span>
-CHARACTERS <span class="sign">=</span> <span class="command">len</span>(CHARACTERS)
 
 <span class="function">def</span> extended_gcd(a, b):
     <span class="function">if</span> a <span class="sign">==</span> 0: <span class="comment"># base case: if a is 0, return b, and coefficients 0 and 1</span>
@@ -123,7 +122,7 @@ CHARACTERS <span class="sign">=</span> <span class="command">len</span>(CHARACTE
 <span class="function">def</span> mod_inverse(a, m):
     gcd, x, _ <span class="sign">=</span> extended_gcd(a, m) <span class="comment"># calculating GCD and coefficients using the Extended Euclidean Algorithm</span>
     <span class="function">if</span> gcd <span class="sign">!=</span> 1: <span class="comment"># if GCD is not 1, the inverse does not exist</span>
-        <span class="function">raise</span> ValueError(<span class="text">"Inverse does not exist"</span>)
+        <span class="function">raise ValueError</span>(<span class="text">"Inverse does not exist"</span>)
     <span class="function">else</span>:
         <span class="function">return</span> x <span class="sign">%</span> m
 
@@ -133,20 +132,20 @@ CHARACTERS <span class="sign">=</span> <span class="command">len</span>(CHARACTE
     <span class="function">for</span> char <span class="function">in</span> plaintext:
         <span class="function">if</span> char <span class="function">in</span> CHARACTERS: <span class="comment"># checking if the character is in the defined set</span>
             x <span class="sign">=</span> CHARACTERS.<span class="command">index</span>(char) <span class="comment"># getting the index of the character</span>
-            encrypted_char <span class="sign">=</span> (A <span class="sign">*</span> x <span class="sign">+</span> B) <span class="sign">%</span> CHARACTERS <span class="comment"># applying the encryption formula</span>
+            encrypted_char <span class="sign">=</span> (A <span class="sign">*</span> x <span class="sign">+</span> B) <span class="sign">%</span> <span class="command">len</span>(CHARACTERS) <span class="comment"># applying the encryption formula</span>
             ciphertext <span class="sign">+=</span> CHARACTERS[encrypted_char] <span class="comment"># converting back to a character</span>
         <span class="function">else</span>:
             ciphertext <span class="sign">+=</span> char <span class="comment"># non-defined characters remain unchanged</span>
     <span class="function">return</span> ciphertext
 
 <span class="function">def</span> decrypt(ciphertext, A, B):
-    A_inv <span class="sign">=</span> mod_inverse(A, CHARACTERS) <span class="comment"># finding the modular inverse of A</span>
+    A_inv <span class="sign">=</span> mod_inverse(A, <span class="command">len</span>(CHARACTERS)) <span class="comment"># finding the modular inverse of A</span>
     plaintext <span class="sign">=</span> <span class="text">""</span>
     ciphertext <span class="sign">=</span> ciphertext.<span class="command">upper</span>()
     <span class="function">for</span> char <span class="function">in</span> ciphertext:
         <span class="function">if</span> char <span class="function">in</span> CHARACTERS: <span class="comment"># checking if the character is in the defined set</span>
             y <span class="sign">=</span> CHARACTERS.<span class="command">index</span>(char) <span class="comment"># getting the index of the character</span>
-            decrypted_char <span class="sign">=</span> (A_inv <span class="sign">*</span> (y <span class="sign">-</span> B)) <span class="sign">%</span> CHARACTERS <span class="comment"># applying the decryption formula</span>
+            decrypted_char <span class="sign">=</span> (A_inv <span class="sign">*</span> (y <span class="sign">-</span> B)) <span class="sign">%</span> <span class="command">len</span>(CHARACTERS) <span class="comment"># applying the decryption formula</span>
             plaintext <span class="sign">+=</span> CHARACTERS[decrypted_char] <span class="comment"># converting back to a character</span>
         <span class="function">else</span>:
             plaintext <span class="sign">+=</span> char <span class="comment"># non-defined characters remain unchanged</span>
@@ -169,13 +168,12 @@ decrypted_text <span class="sign">=</span> decrypt(ciphertext, A, B)
 <span class="command">from</span> is_english <span class="command">import</span> is_english <span class="comment"># get this file from <a href="python-detecting-english.html" class="commentLink" target="_blank">here</a></span>
 
 CHARACTERS <span class="sign">=</span> <span class="text">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span> <span class="comment"># this string can contain other characters like !, @, etc.</span>
-CHARACTERS <span class="sign">=</span> <span class="command">len</span>(CHARACTERS)
 
 <span class="function">def</span> crack_affine(ciphertext):
-    <span class="function">for</span> A <span class="function">in</span> <span class="command">range</span>(1, CHARACTERS): <span class="comment"># iterating over all possible values of A in the range of CHARACTERS</span>
-        <span class="function">if</span> extended_gcd(A, CHARACTERS)[0] <span class="sign">!=</span> 1: <span class="comment"># A must be coprime to CHARACTERS</span>
+    <span class="function">for</span> A <span class="function">in</span> <span class="command">range</span>(1, <span class="command">len</span>(CHARACTERS)): <span class="comment"># iterating over all possible values of A in the range of CHARACTERS</span>
+        <span class="function">if</span> extended_gcd(A, <span class="command">len</span>(CHARACTERS))[0] <span class="sign">!=</span> 1: <span class="comment"># A must be coprime to CHARACTERS</span>
             <span class="function">continue</span>
-        <span class="function">for</span> B <span class="function">in</span> <span class="command">range</span>(CHARACTERS): <span class="comment"># iterating over all possible values of B in the range of CHARACTERS</span>
+        <span class="function">for</span> B <span class="function">in</span> <span class="command">range</span>(<span class="command">len</span>(CHARACTERS)): <span class="comment"># iterating over all possible values of B in the range of CHARACTERS</span>
             decrypted_text <span class="sign">=</span> decrypt(ciphertext, A, B)
             <span class="function">if</span> is_english(decrypted_text):
                 <span class="command">print</span>(<span class="text">f"Found A: {A}, B: {B} -&gt; Decrypted Text: {decrypted_text}"</span>)

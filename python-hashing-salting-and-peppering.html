@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Detecting English</title>
+    <title>Hashing, salting, and peppering</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -89,46 +89,40 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Detecting English</h5>
+                                    <h5 class="m-0 font-weight-bold">Hashing, salting, and peppering</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p>To detect the English language in a string, we need a list of all English words. You can download such a list <a href="files/courses/dictionary.txt" download="dictionary.txt" target="_blank" class="link">here</a>. Then we must check the percentage of English words in the message. If it is greater than 20%, and the percentage of letters (not special characters) in the message is at least 85%, we can say the message is in English.</p>
-                                    
+                                    <p>Hashing is a one-way transformation used to securely store sensitive values such as passwords. In Python, secure hashing is typically done using algorithms like <code>bcrypt</code> or <code>hashlib</code>, but hashing alone is not enough. To defend against rainbow tables (precomputed tables that map plaintext passwords to their hash values to enable fast reverse lookups of hashes), a unique <b>salt</b> is added to each password before hashing. The salt is stored <b>alongside the hash in the database</b>, ensuring that identical passwords produce different hashes while still allowing verification. A <b>pepper</b> is an additional secret value added to the password during hashing, but unlike the salt, the pepper is <b>not stored in the database</b>. Instead, it is kept in a secure location such as an environment variable, configuration file, or key vault. The database, therefore, stores only the hash and the salt, while the pepper remains hidden from attackers even if the database is compromised.</p>
+
+                                    <p>Hashed passwords cannot be decrypted, because hashing is a one‑way operation that permanently transforms the original password into a fixed-length digest with no mathematical method to reverse it. Instead of decrypting, password systems verify a login attempt by hashing the user’s input again using the same salt and pepper, then comparing the result to the stored hash. If the two hashes match, the password is correct. This design ensures that even if an attacker gains access to the database, they cannot recover the original passwords, because only the hash and salt are stored in the database, while the pepper remains securely stored in an environment variable or key vault.</p>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-CHARACTERS <span class="sign">=</span> <span class="text">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span> <span class="comment"># this string can contain other characters like !, @, etc.</span>
-LETTERS_AND_SPACE <span class="sign">=</span> CHARACTERS <span class="sign">+</span> CHARACTERS.<span class="command">lower</span>() <span class="sign">+</span> <span class="text">" \t\n"</span> <span class="comment"># valid letters (uppercase and lowercase) and whitespace characters</span>
+<span class="command">import</span> os, hashlib, hmac, base64
+<span class="command">from</span> secrets <span class="command">import</span> token_bytes
 
-<span class="function">def</span> load_dictionary(file_path): <span class="comment"># loading a dictionary from a file and returning a set of words</span>
-    <span class="function">with</span> <span class="command">open</span>(file_path, <span class="text">"r"</span>) <span class="function">as</span> dictionary_file:
-        <span class="function">return</span> <span class="command">set</span>(word.<span class="command">strip</span>() <span class="function">for</span> word <span class="function">in</span> dictionary_file <span class="function">if</span> word.<span class="command">strip</span>()) <span class="comment"># creating the set of words, stripping whitespace characters and ignoring empty lines</span>
+salt <span class="sign">=</span> token_bytes(16) <span class="comment"># generating a random salt for each password</span>
+pepper <span class="sign">=</span> os.<span class="command">environ</span>.<span class="command">get</span>(<span class="text">"PEPPER_SECRET"</span>, <span class="text">"default_pepper"</span>).<span class="command">encode</span>() <span class="comment"># a secret pepper stored securely (e.g., an environment variable)</span>
 
-ENGLISH_WORDS <span class="sign">=</span> load_dictionary(<span class="text">"dictionary.txt"</span>)
+<span class="comment"># Hashing a password with SHA-256 + salt + pepper</span>
+password <span class="sign">=</span> <span class="text">"my_secure_password"</span>.<span class="command">encode</span>()
+combined <span class="sign">=</span> salt <span class="sign">+</span> password <span class="sign">+</span> pepper
+hash_value <span class="sign">=</span> hashlib.<span class="command">sha256</span>(combined).<span class="command">hexdigest</span>()
+<span class="command">print</span>(hash_value)
 
-<span class="function">def</span> remove_non_letters(message): <span class="comment"># removing non-letter characters from the message</span>
-    <span class="function">return</span> <span class="text">""</span>.<span class="command">join</span>(symbol <span class="function">for</span> symbol <span class="function">in</span> message <span class="function">if</span> symbol <span class="function">in</span> LETTERS_AND_SPACE)
+<span class="comment"># Saving hash and salt for later (simulated storage example)</span>
+stored_salt <span class="sign">=</span> base64.<span class="command">b64encode</span>(salt).<span class="command">decode</span>() <span class="comment"># encoding salt for storage (e.g., database, file)</span>
+stored_hash <span class="sign">=</span> hash_value
 
-<span class="function">def</span> get_english_count(message): <span class="comment"># returning the percentage of English words in the message</span>
-    message <span class="sign">=</span> message.<span class="command">upper</span>()
-    cleaned_message <span class="sign">=</span> remove_non_letters(message)
-    possible_words <span class="sign">=</span> cleaned_message.<span class="command">split</span>() <span class="comment"># splitting the cleaned message into individual words</span>
+<span class="comment">#### Later ####</span>
 
-    <span class="function">if not</span> possible_words: <span class="comment"># checking whether the list is empty (there are no words at all)</span>
-        <span class="function">return</span> 0.0
+<span class="function">def</span> verify_password(stored_hash, salt, password):
+    combined <span class="sign">=</span> salt <span class="sign">+</span> password.<span class="command">encode</span>() <span class="sign">+</span> pepper
+    new_hash <span class="sign">=</span> hashlib.<span class="command">sha256</span>(combined).<span class="command">hexdigest</span>()
+    <span class="function">return</span> hmac.<span class="command">compare_digest</span>(stored_hash, new_hash)
 
-    matches <span class="sign">=</span> sum</span>(1 <span class="function">for</span> word <span class="function">in</span> possible_words <span class="function">if</span> word <span class="function">in</span> ENGLISH_WORDS) <span class="comment"># counting how many of the found words are valid English words</span>
-    <span class="function">return</span> matches <span class="sign">/</span> <span class="command">len</span>(possible_words) <span class="comment"># return the ratio of valid words to total words</span>
-
-<span class="function">def</span> is_english(message, word_percentage <span class="sign">=</span> 20.0, letter_percentage <span class="sign">=</span> 70.0):
-    words_match <span class="sign">=</span> get_english_count(message) <span class="sign">*</span> 100 <span class="sign">&gt;=</span> word_percentage <span class="comment"># calculating if the percentage of English words meets the required threshold</span>
-    num_letters <span class="sign">=</span> <span class="command">len</span>(remove_non_letters(message)) <span class="comment"># counting letters in the cleaned message</span>
-    message_letters_percentage <span class="sign">=</span> (num_letters <span class="sign">/</span> <span class="command">len</span>(message)) <span class="sign">*</span> 100 <span class="function">if</span> message <span class="function">else</span> 0 <span class="comment"># calculating the percentage of letters in the original message</span>
-    letters_match <span class="sign">=</span> message_letters_percentage <span class="sign">&gt;=</span> letter_percentage <span class="comment"># calculating if the percentage of letters meets the required threshold</span>
-    <span class="function">return</span> words_match <span class="function">and</span> letters_match
-
-<span class="command">print</span>(is_english(<span class="text">"This is my secret message."</span>))
+loaded_salt <span class="sign">=</span> base64.<span class="command">b64decode</span>(stored_salt) <span class="comment"># loading and decoding stored salt</span>
+<span class="command">print</span>(verify_password(stored_hash, loaded_salt, <span class="text">"my_secure_password"</span>))
                                     </code></pre>
-
-                                    <p>Detecting a language in a string can be useful, e.g., when using a brute-force attack. Then, we would not have to go through each possible answer and only select the most probable ones.</p>
                                 </div>
                             </div>
                         </div>
