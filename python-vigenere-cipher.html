@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <title>Vigenère cipher</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D76ZFDYLCY');
+    </script>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Kotlin (Android)</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics.html">Electronics</a>
+                        <a class="collapse-item" href="it-and-computer-basics.html">IT &amp; computer basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">About me</div>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="cv.html">
+                    <i class="icon-adult"></i>
+                    <span>CV</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="services.html">
+                    <i class="icon-services"></i>
+                    <span>My services</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Vigenère cipher</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>The Vigenère cipher is a method of encrypting alphabetic text by using a simple form of polyalphabetic substitution. It employs a keyword, where each letter of the keyword corresponds to a shift in the alphabet for the plaintext letter. To encrypt a message, the plaintext is aligned with the repeated keyword, and each letter is shifted according to the position of the corresponding keyword letter in the alphabet (similar to the Caesar cipher but with a different key for each character). For example, if the keyword letter is "B", the plaintext letter is shifted by one position; if it's "C", the shift is by two positions, and so on. The resulting ciphertext is a combination of these shifted letters.</p>
+                                        
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><b>Plaintext letter</b></td>
+                                            <td><b>Keyword letter</b></td>
+                                            <td><b>Ciphertext letter</b></td>
+                                        </tr>
+                                        <tr><td>I (8)</td><td>B (1)</td><td>J (9)</td></tr>
+                                        <tr><td>L (11)</td><td>E (4)</td><td>P (15)</td></tr>
+                                        <tr><td>O (14)</td><td>A (0)</td><td>O (14)</td></tr>
+                                        <tr><td>V (21)</td><td>R (17)</td><td>M (12)</td></tr>
+                                        <tr><td>E (4)</td><td>B (1)</td><td>F (5)</td></tr>
+                                        <tr><td>C (2)</td><td>E (4)</td><td>G (6)</td></tr>
+                                        <tr><td>O (14)</td><td>A (0)</td><td>O (14)</td></tr>
+                                        <tr><td>D (3)</td><td>R (17)</td><td>U (20)</td></tr>
+                                        <tr><td>I (8)</td><td>B (1)</td><td>J (9)</td></tr>
+                                        <tr><td>N (13)</td><td>E (4)</td><td>R (17)</td></tr>
+                                        <tr><td>G (6)</td><td>A (0)</td><td>G (6)</td></tr>
+                                    </table></div>
+
+                                    <p>The total number of possible keys in the Vigenère cipher is calculated as 26 raised to the power of the keyword length (n), resulting in 26<sup>n</sup> possible combinations. For a 12-letter <b>random</b> keyword, the total number of possible combinations is 26<sup>12</sup>, which equals approximately 95 quadrillion combinations. In contrast, if the keyword is a <b>real word</b>, the number of combinations is limited to the number of valid words in the language, typically around 1 million, significantly reducing its security. This vulnerability is amplified by the risk of dictionary attacks, where attackers can systematically test common words or phrases, making it easier to guess the keyword and compromise the encryption.</p>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+CHARACTERS <span class="sign">=</span> <span class="text">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span>
+
+<span class="function">def</span> translate_message(key, message, mode):
+    translated <span class="sign">=</span> [] <span class="comment"># list used to collect processed characters before forming the final string</span>
+    key <span class="sign">=</span> key.<span class="command">upper</span>()
+    key_length <span class="sign">=</span> <span class="command">len</span>(key)
+    key_index <span class="sign">=</span> 0 <span class="comment"># tracking which character of the key should be applied to the current symbol</span>
+
+    <span class="function">for</span> symbol <span class="function">in</span> message:
+        <span class="function">if</span> symbol.<span class="command">upper</span>() <span class="function">in</span> CHARACTERS:
+            num <span class="sign">=</span> CHARACTERS.<span class="command">find</span>(symbol.<span class="command">upper</span>()) <span class="comment"># converting the message character to its alphabet index</span>
+            shift <span class="sign">=</span> CHARACTERS.<span class="command">find</span>(key[key_index]) <span class="comment"># determining how far to shift based on the current key character</span>
+            <span class="function">if</span> mode <span class="sign">==</span> <span class="text">"encrypt"</span>:
+                num <span class="sign">=</span> (num <span class="sign">+</span> shift) <span class="sign">%</span> <span class="command">len</span>(CHARACTERS) <span class="comment"># forward shift with wrap-around to stay inside alphabet bounds</span>
+            <span class="function">elif</span> mode <span class="sign">==</span> <span class="text">"decrypt"</span>:
+                num <span class="sign">=</span> (num <span class="sign">-</span> shift) <span class="sign">%</span> <span class="command">len</span>(CHARACTERS) <span class="comment"># reverse shift using modular arithmetic to avoid negative indices</span>
+
+            translated_symbol <span class="sign">=</span> CHARACTERS[num] <span class="comment"># converting the shifted index back into a character</span>
+            <span class="function">if</span> symbol.<span class="command">islower</span>():
+                translated_symbol <span class="sign">=</span> translated_symbol.<span class="command">lower</span>() <span class="comment"># restoring original case so output matches input formatting</span>
+
+            translated.<span class="command">append</span>(translated_symbol)
+            key_index <span class="sign">=</span> (key_index <span class="sign">+</span> 1) <span class="sign">%</span> key_length <span class="comment"># advancing through the key and loop back to the start when needed</span>
+        <span class="function">else</span>:
+            translated.<span class="command">append</span>(symbol) <span class="comment"># characters outside the alphabet (spaces, punctuation) are copied unchanged</span>
+
+    <span class="function">return</span> <span class="text">""</span>.<span class="command">join</span>(translated)
+
+message <span class="sign">=</span> <span class="text">"""In cryptography, the Vigenère cipher is a method of encrypting alphabetic text by using a simple form of polyalphabetic substitution. 
+A Vigenère cipher uses a keyword, where each letter of the keyword refers to a shift in the alphabet. 
+This method is more secure than a simple Caesar cipher, as it uses multiple shifts based on the keyword."""</span>
+
+translated <span class="sign">=</span> translate_message(<span class="text">"KEYWORD"</span>, message, <span class="text">"encrypt"</span>)
+<span class="command">print</span>(translated)
+                                    </code></pre>
+                                    <h2>Cracking the Vigenère Cipher</h2>
+
+                                    <h4>Frequency analysis</h4>
+                                    <p>Frequency analysis is a powerful technique used to break the Vigenère cipher by leveraging predictable patterns in letter usage. In English, certain letters—such as <b>E, T, A, O, I, N</b> - appear more frequently, while others like <b>Q, Z, X</b> are less common. The cracking process begins by isolating segments of the ciphertext based on assumed key lengths. Each segment is treated as if it were encrypted using a Caesar cipher, and its letter frequency is compared against the standard English frequency order (<b>ETAOINSHRDLCUMWFGYPBVKJXQZ</b>). By scoring how closely each segment matches expected English patterns, the algorithm identifies the most likely key characters. These candidates are then combined and tested to find a key that produces readable English text. This method dramatically reduces the number of possible keys and helps reveal the original message.</p>
+                                    
+                                    <h4>Kasiski examination</h4>
+                                    <p>Kasiski examination is a classical cryptanalysis method used to estimate the key length of a Vigenère cipher. It works by identifying repeated sequences of letters in the ciphertext and measuring the spacing between their occurrences. These spacings often share common factors that correspond to the actual key length. The algorithm extracts repeated sequences of 3 to 5 letters and calculates the distances between their appearances. It then analyzes the factors of these distances to determine which key lengths are most probable. This narrows down the search space and improves the efficiency of frequency analysis.</p>
+                                    
+                                    <h4>Brute-force fallback</h4>
+                                    <p>If frequency analysis and Kasiski examination fail to produce a valid decryption, the algorithm falls back to brute-force testing. It systematically tries all key lengths up to a defined maximum and evaluates each possible key combination using English language detection. Though computationally intensive, this ensures that even obscure or irregular keys can be cracked.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> itertools, re
+<span class="command">from</span> vigenère_cipher <span class="command">import</span> translate_message
+<span class="command">from</span> is_english <span class="command">import</span> <span class="sign">*</span>
+
+ALPHABET <span class="sign">=</span> <span class="text">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span>
+ENGLISH_FREQ_ORDER <span class="sign">=</span> <span class="text">"ETAOINSHRDLCUMWFGYPBVKJXQZ"</span> <span class="comment"># ranked by typical English frequency</span>
+MAX_KEY_LENGTH <span class="sign">=</span> 16
+TOP_CANDIDATES <span class="sign">=</span> 4
+NON_LETTER_REGEX <span class="sign">=</span> re.<span class="command">compile</span>(r<span class="text">"[^A-Z]"</span>) <span class="comment"># used to strip punctuation/spaces for analysis</span>
+
+<span class="comment">### Frequency analysis ###</span>
+
+<span class="function">def</span> count_letters(text):
+    counts <span class="sign">=</span> {char: 0 <span class="function">for</span> char <span class="function">in</span> ALPHABET} <span class="comment"># initializing frequency table</span>
+    <span class="function">for</span> char <span class="function">in</span> text.<span class="command">upper</span>():
+        <span class="function">if</span> char <span class="function">in</span> ALPHABET:
+            counts[char] <span class="sign">+=</span> 1 <span class="comment"># counting only A–Z characters</span>
+    <span class="function">return</span> counts
+
+<span class="function">def</span> sort_by_frequency(text):
+    freq_map <span class="sign">=</span> count_letters(text)
+    freq_to_letters <span class="sign">=</span> {} <span class="comment"># grouping letters by how often they appear</span>
+    <span class="function">for</span> letter, freq <span class="function">in</span> freq_map.<span class="command">items</span>():
+        freq_to_letters.<span class="command">setdefault</span>(freq, []).<span class="command">append</span>(letter)
+
+    <span class="function">for</span> freq <span class="function">in</span> freq_to_letters:
+        freq_to_letters[freq].<span class="command">sort</span>(key <span class="sign">=</span> ENGLISH_FREQ_ORDER.<span class="command">find</span>, reverse<span class="sign">=</span><span class="function">True</span>) <span class="comment"># breaking ties using English frequency</span>
+
+    sorted_freqs <span class="sign">=</span> <span class="command">sorted</span>(freq_to_letters.<span class="command">items</span>(), key <span class="sign">=</span> <span class="function">lambda</span> x: x[0], reverse<span class="sign">=</span><span class="function">True</span>) <span class="comment"># highest frequency first</span>
+    <span class="function">return</span> <span class="text">""</span>.<span class="command">join</span>(<span class="text">""</span>.<span class="command">join</span>(pair[1]) <span class="function">for</span> pair <span class="function">in</span> sorted_freqs) <span class="comment"># flattening into a ranked string</span>
+
+<span class="function">def</span> match_english_profile(text):
+    freq_order <span class="sign">=</span> sort_by_frequency(text) <span class="comment"># getting ranked letters from ciphertext segment</span>
+    score <span class="sign">=</span> <span class="command">sum</span>(1 <span class="function">for</span> c <span class="function">in</span> ENGLISH_FREQ_ORDER[:6] <span class="function">if</span> c <span class="function">in</span> freq_order[:6]) <span class="comment"># comparing most common letters</span>
+    score <span class="sign">+=</span> <span class="command">sum</span>(1 <span class="function">for</span> c <span class="function">in</span> ENGLISH_FREQ_ORDER[<span class="sign">-</span>6:] <span class="function">if</span> c <span class="function">in</span> freq_order[<span class="sign">-</span>6:]) <span class="comment"># comparing rare letters</span>
+    <span class="function">return</span> score <span class="comment"># higher score = more English-like</span>
+
+<span class="comment">### Kasiski examination ###</span>
+
+<span class="function">def</span> find_repeated_sequences(text):
+    cleaned <span class="sign">=</span> NON_LETTER_REGEX.<span class="command">sub</span>(<span class="text">""</span>, text.<span class="command">upper</span>()) <span class="comment"># stripping non‑letters so repeated patterns align cleanly</span>
+    spacings <span class="sign">=</span> {}
+    <span class="function">for</span> length <span class="function">in</span> <span class="command">range</span>(3, 6): <span class="comment"># typical repeated substring lengths for Kasiski</span>
+        <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(<span class="command">len</span>(cleaned) <span class="sign">-</span> length):
+            seq <span class="sign">=</span> cleaned[i:i <span class="sign">+</span> length] <span class="comment"># candidate repeated sequence</span>
+            <span class="function">for</span> j <span class="function">in</span> <span class="command">range</span>(i <span class="sign">+</span> length, <span class="command">len</span>(cleaned) <span class="sign">-</span> length):
+                <span class="function">if</span> cleaned[j:j <span class="sign">+</span> length] <span class="sign">==</span> seq:
+                    spacings.<span class="command">setdefault</span>(seq, []).<span class="command">append</span>(j <span class="sign">-</span> i) <span class="comment"># record distance between occurrences</span>
+    <span class="function">return</span> spacings
+
+<span class="function">def</span> get_factors(n):
+    <span class="function">return</span> [i <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(2, MAX_KEY_LENGTH <span class="sign">+</span> 1) <span class="function">if</span> n <span class="sign">%</span> i <span class="sign">==</span> 0] <span class="sign">+</span> \
+           [n <span class="sign">//</span> i <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(2, MAX_KEY_LENGTH <span class="sign">+</span> 1)
+            <span class="function">if</span> n <span class="sign">%</span> i <span class="sign">==</span> 0 <span class="function">and</span> n <span class="sign">//</span> i <span class="sign">&lt;=</span> MAX_KEY_LENGTH <span class="function">and</span> n <span class="sign">//</span> i <span class="sign">!=</span> 1] <span class="comment"># including complementary divisors that fit within key length</span>
+
+<span class="function">def</span> tally_factors(spacing_dict):
+    factor_counts <span class="sign">=</span> {} <span class="comment"># counting how often each factor appears across all spacings</span>
+    <span class="function">for</span> spacings <span class="function">in</span> spacing_dict.<span class="command">values</span>():
+        <span class="function">for</span> spacing <span class="function">in</span> spacings:
+            <span class="function">for</span> factor <span class="function">in</span> get_factors(spacing):
+                factor_counts[factor] <span class="sign">=</span> factor_counts.<span class="command">get</span>(factor, 0) <span class="sign">+</span> 1 <span class="comment"># incrementing count for each valid factor</span>
+    <span class="function">return</span> <span class="command">sorted</span>(factor_counts.<span class="command">items</span>(), key <span class="sign">=</span> <span class="function">lambda</span> x: x[1], reverse<span class="sign">=</span><span class="function">True</span>) <span class="comment"># most frequent factors first</span>
+
+<span class="function">def</span> kasiski_analysis(ciphertext):
+    repeats <span class="sign">=</span> find_repeated_sequences(ciphertext) <span class="comment"># locating repeated substrings and their spacings</span>
+    factor_data <span class="sign">=</span> tally_factors(repeats) <span class="comment"># determining which key lengths appear most plausible</span>
+    <span class="function">return</span> [factor <span class="function">for</span> factor, _ <span class="function">in</span> factor_data] <span class="comment"># returning ranked list of likely key lengths</span>
+
+<span class="comment">### Decryption attempt ###</span>
+
+<span class="function">def</span> extract_nth_letters(n, key_len, text):
+    cleaned <span class="sign">=</span> NON_LETTER_REGEX.<span class="command">sub</span>(<span class="text">""</span>, text.<span class="command">upper</span>()) <span class="comment"># removing punctuation so indexing aligns with key positions</span>
+    <span class="function">return</span> <span class="text">""</span>.<span class="command">join</span>(cleaned[i] <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(n <span class="sign">-</span> 1, <span class="command">len</span>(cleaned), key_len)) <span class="comment"># taking every n-th letter for frequency testing</span>
+
+<span class="comment"># Trying to decrypt the ciphertext using a given key length and frequency analysis</span>
+<span class="function">def</span> try_key_length(ciphertext, key_len):
+    candidates <span class="sign">=</span> [] <span class="comment"># storing top-scoring shift guesses for each key position</span>
+    <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(1, key_len <span class="sign">+</span> 1):
+        segment <span class="sign">=</span> extract_nth_letters(i, key_len, ciphertext) <span class="comment"># letters encrypted using the same key character</span>
+        scores <span class="sign">=</span> <span class="command">sorted</span>(
+            [(char, match_english_profile(translate_message(char, segment, <span class="text">"decrypt"</span>)))
+            <span class="function">for</span> char <span class="function">in</span> ALPHABET], <span class="comment"># testing all 26 possible shifts</span>
+            key <span class="sign">=</span> <span class="function">lambda</span> x: x[1],
+            reverse <span class="sign">=</span> <span class="function">True</span> <span class="comment"># highest English-likeness first</span>
+        )
+        candidates.<span class="command">append</span>(scores[:TOP_CANDIDATES]) <span class="comment"># keeping only the best few shifts</span>
+        <span class="command">print</span>(<span class="text">f"Top candidates for key position {i}: {' '.join(c[0] for c in scores[:TOP_CANDIDATES])}"</span>)
+
+    <span class="function">for</span> combo <span class="function">in</span> itertools.<span class="command">product</span>(<span class="command">range</span>(TOP_CANDIDATES), repeat <span class="sign">=</span> key_len): <span class="comment"># brute-force combinations of top candidates</span>
+        key <span class="sign">=</span> <span class="text">""</span>.<span class="command">join</span>(candidates[i][combo[i]][0] <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(key_len)) <span class="comment"># building a candidate key</span>
+        decrypted <span class="sign">=</span> translate_message(key, ciphertext.<span class="command">upper</span>(), <span class="text">"decrypt"</span>) <span class="comment"># attempting full decryption</span>
+
+        <span class="function">if</span> is_english(decrypted): <span class="comment"># checking if output resembles English text</span>
+            restored <span class="sign">=</span> <span class="text">""</span>.<span class="command">join</span>(
+                decrypted[i].<span class="command">upper</span>() <span class="function">if</span> ciphertext[i].<span class="command">isupper</span>() <span class="function">else</span> decrypted[i].<span class="command">lower</span>() <span class="comment"># restoring original capitalization pattern</span>
+                <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(<span class="command">len</span>(decrypted))
+            )
+            <span class="command">print</span>(f<span class="text">"\nPossible key found: {key}"</span>)
+            <span class="command">print</span>(restored)
+            <span class="function">if</span> <span class="command">input</span>(<span class="text">"Enter Q to quit, anything else to continue: "</span>).<span class="command">strip</span>().<span class="command">upper</span>().<span class="command">startswith</span>(<span class="text">"Q"</span>):
+                <span class="function">return</span> restored
+    <span class="function">return</span> <span class="function">None</span>
+
+<span class="function">def</span> crack_vigenère(ciphertext):
+    likely_lengths <span class="sign">=</span> kasiski_analysis(ciphertext) <span class="comment"># starting with statistically likely key lengths</span>
+    <span class="function">for</span> length <span class="function">in</span> likely_lengths:
+        result <span class="sign">=</span> try_key_length(ciphertext, length)
+        <span class="function">if</span> result:
+            <span class="function">return</span> result
+
+    <span class="command">print</span>(<span class="text">"No match found with likely lengths. Trying all possibilities..."</span>)
+    <span class="function">for</span> length <span class="function">in</span> <span class="command">range</span>(1, MAX_KEY_LENGTH <span class="sign">+</span> 1):
+        <span class="function">if</span> length <span class="function">not</span> <span class="function">in</span> likely_lengths: <span class="comment"># avoiding re-testing lengths already tried</span>
+            <span class="command">print</span>(f<span class="text">"Trying key length {length} ({TOP_CANDIDATES ** length} combinations)..."</span>)
+            result <span class="sign">=</span> try_key_length(ciphertext, length)
+            <span class="function">if</span> result:
+                <span class="function">return</span> result
+    <span class="function">return</span> <span class="function">None</span>
+
+ciphertext <span class="sign">=</span> <span class="text">"""Sr anmgwykpwdyb, dlc Rwxhxèvc ywgkov go o dhdlmz cw hxgpudklxk yhdydlireq khhx zu ijlxk y owdsvi dkfd rp tmhmrozlyxsklm wsxgkldyrece. 
+D Fmeabèih mmndsi xciq w yvbgspz, kyhbi cwqy ooxraf fi dlc gspzyvb nswhbw rk o jksjr eb kko ejlvreox. 
+Rdwj poxfkr zv wspa gvfevc pvrq k wgidch Mecooi fstfaf, rv sx sosj pepredch clgbhj ekwcz ce wri iamnrbh."""</span>
+
+result <span class="sign">=</span> crack_vigenère(ciphertext)
+<span class="command">print</span>(<span class="text">"\nFinal result:"</span> <span class="function">if</span> result <span class="function">else</span> <span class="text">"\nFailed to crack the cipher."</span>)
+<span class="function">if</span> result:
+    <span class="command">print</span>(result)
+                                    </code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>

@@ -106,14 +106,24 @@ chained <span class="sign">=</span> itertools.<span class="command">chain</span>
     <span class="command">print</span>(item) 
 
 <span class="comment"># Returning n-length tuples with combinations of elements from the iterable (sorted in lexicographical order)</span>
-combs <span class="sign">=</span> itertools.<span class="command">combinations</span>(<span class="text">"ABCD"</span>, 2) <span class="comment"># iterable, n</span>
+combs <span class="sign">=</span> itertools.<span class="command">combinations</span>(<span class="text">"ABCD"</span>, 2)
 <span class="function">for</span> comb <span class="function">in</span> combs:
     <span class="command">print</span>(comb)
 
-<span class="comment"># The same as combinations(), but each arrangement of elements is treated as a unique permutation (order matters), e.g., ('A', 'B') and ('B', 'A') are treated as different</span>
+<span class="comment"># The same as combinations(), but each arrangement of elements is treated as a unique permutation (order matters)</span>
 perms <span class="sign">=</span> itertools.<span class="command">permutations</span>(<span class="text">"ABCD"</span>, 2)
 <span class="function">for</span> perm <span class="function">in</span> perms:
     <span class="command">print</span>(perm)
+
+<span class="comment"># Returning the Cartesian product of input iterables (like nested loops)</span>
+prod <span class="sign">=</span> itertools.<span class="command">product</span>(<span class="text">"AB"</span>, <span class="text">"12"</span>) <span class="comment"># ('A','1'), ('A','2'), ('B','1'), ('B','2')</span>
+<span class="function">for</span> p <span class="function">in</span> prod:
+    <span class="command">print</span>(p)
+
+<span class="comment"># Using "repeat" to generate all n-length tuples with repetition allowed</span>
+prod_repeat <span class="sign">=</span> itertools.<span class="command">product</span>(<span class="text">"AB"</span>, repeat <span class="sign">=</span> 3)
+<span class="function">for</span> p <span class="function">in</span> prod_repeat:
+    <span class="command">print</span>(p)
                                     </code></pre>
                                 </div>
                             </div>
