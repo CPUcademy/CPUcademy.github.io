@@ -169,6 +169,16 @@ x <span class="sign">=</span> [[<span class="text">"a"</span>, 1], [<span class=
 <span class="function">for</span> index, [name, number] <span class="function">in</span> <span class="command">enumerate</span>(x):
     <span class="command">print</span>(<span class="text">f"{index}: {number} belongs to {name}"</span>)
                                     </code></pre>
+
+                                    <p>We can combine <code>enumerate()</code> with <code>zip()</code> to iterate over multiple iterables while also keeping track of the index.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+list1 <span class="sign">=</span> [<span class="text">"apple"</span>, <span class="text">"banana"</span>, <span class="text">"cherry"</span>]
+list2 <span class="sign">=</span> [5, 3, 8]
+
+<span class="function">for</span> index, (fruit, quantity) <span class="function">in</span> <span class="command">enumerate</span>(<span class="command">zip</span>(list1, list2)):
+    <span class="command">print</span>(<span class="text">f"{index}: {fruit} -> {quantity}"</span>)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

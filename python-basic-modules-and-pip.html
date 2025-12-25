@@ -200,6 +200,12 @@ d <span class="sign">=</span> datetime.<span class="command">date</span>(2019, 1
 timestamp <span class="sign">=</span> time.<span class="command">time</span>() <span class="comment"># a timestamp</span>
 <span class="command">print</span>(<span class="text">"Timestamp:"</span>, timestamp)
 
+<span class="comment"># For measuring time intervals, perf_counter() is more accurate than time()</span>
+t1 = time.<span class="command">perf_counter</span>()
+time.<span class="command">sleep</span>(1)
+t2 = time.<span class="command">perf_counter</span>()
+<span class="command">print</span>(t2 <span class="sign">-</span> t1)
+
 d <span class="sign">=</span> datetime.<span class="command">date</span>.<span class="command">fromtimestamp</span>(timestamp) <span class="comment"># a date object</span>
 <span class="command">print</span>(<span class="text">"Date:"</span>, d)
                                     </code></pre>
