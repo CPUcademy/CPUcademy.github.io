@@ -160,6 +160,8 @@ y <span class="sign">=</span> x
 y <span class="sign">=</span> <span class="text">"y"</span>
 <span class="command">print</span>(x <span class="function">is</span> y, x <span class="sign">==</span> y)
                                     </code></pre>
+
+                                    <p>When checking whether a variable is <code>None</code>, we should always use the <code>is</code> keyword instead of the <code>==</code> operator.</p>
             
                                     <h2>Mutable data structures</h2>
                                     
@@ -467,6 +469,9 @@ x <span class="sign">=</span> {<span class="text">"Python"</span>: <span class="
 <span class="command">print</span>(x.<span class="command">keys</span>())
 <span class="command">print</span>(x.<span class="command">values</span>())
 <span class="command">print</span>(x.<span class="command">items</span>())
+
+<span class="function">for</span> y <span class="function">in</span> x: <span class="comment"># iterating over the keys of a dictionary (the same as "for y in x.keys()")</span>
+    <span class="command">print</span>(y)
                                     </code></pre>
         
                                     <h4><code>del()</code></h4>
@@ -584,7 +589,7 @@ x <span class="sign">+=</span> (<span class="text">"Python"</span>,) <span class
                                     </code></pre>    
             
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-x <span class="sign">=</span> (<span class="text">"a"</span>, <span class="text">"b"</span>,)
+x <span class="sign">=</span> (<span class="text">"a"</span>, <span class="text">"b"</span>,) <span class="comment"># here, the comma at the end is optional because there are many objects inside</span>
 first, second <span class="sign">=</span> x
 <span class="command">print</span>(first, <span class="text">"and"</span>, second)
                                     </code></pre>

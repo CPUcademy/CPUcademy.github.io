@@ -193,6 +193,18 @@ list1 <span class="sign">=</span> [1, 2]
 <span class="command">print</span>(func3(1, 2))
                                     </code></pre>
 
+                                    <p>Remember to watch out for default arguments. As we can see in the example below, the default parameter’s value is shared among function calls.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> add(n, x <span class="sign">=</span> []):
+    x.<span class="command">append</span>(n)
+    <span class="function">return</span> x
+
+list1 <span class="sign">=</span> add(1)
+list2 <span class="sign">=</span> add(2)
+<span class="command">print</span>(list1, list2)
+                                    </code></pre>
+
                                     <p>We can also set type hints for lists, etc.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
