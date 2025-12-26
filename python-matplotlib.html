@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <title>Matplotlib</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D76ZFDYLCY');
+    </script>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="True" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics-and-it-basics.html">Electronics &amp; IT basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">About me</div>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="cv.html">
+                    <i class="icon-adult"></i>
+                    <span>CV</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="services.html">
+                    <i class="icon-services"></i>
+                    <span>My services</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Matplotlib</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p><code>Matplotlib</code> is used for creating static, interactive, and animated visualizations. It provides a wide range of plotting functions, allowing us to generate line plots, bar charts, histograms, scatter plots, and more.</p>
+
+                                    <p>Write the <code>import matplotlib.pyplot as plt</code> and/or <code>import numpy as np</code> statements at the beginning of every example.</p>
+
+                                    <h3>Table of contents</h3>
+            
+                                    <ul type="disc">
+                                        <li><a href="#introduction" class="link" style="text-decoration: none;">Introduction</a></li>
+                                        <li><a href="#custom-styles" class="link" style="text-decoration: none;">Custom styles</a></li>
+                                        <li><a href="#line-plots" class="link" style="text-decoration: none;">Line plots</a></li>
+                                        <li><a href="#bar-charts" class="link" style="text-decoration: none;">Bar charts</a></li>
+                                        <li><a href="#histograms" class="link" style="text-decoration: none;">Histograms</a></li>
+                                        <li><a href="#pie-charts" class="link" style="text-decoration: none;">Pie charts</a></li>
+                                        <li><a href="#box-charts" class="link" style="text-decoration: none;">Box charts</a></li>
+                                        <li><a href="#scatter-plots" class="link" style="text-decoration: none;">Scatter plots</a></li>
+                                        <li><a href="#subplots" class="link" style="text-decoration: none;">Subplots</a></li>
+                                        <li><a href="#3d-plots" class="link" style="text-decoration: none;">3D plots</a></li>
+                                    </ul>
+
+                                    <h2><a id="introduction">Introduction</a></h2>
+
+                                    <h5>How to create a chart?</h5>
+
+                                    <ol>
+                                        <li>Create the figure</li>
+                                        <li>Plot the data (multiple times, if needed)</li>
+                                        <li>Configure the axes</li>
+                                        <li>Add annotations</li>
+                                        <li>Show/save the figure</li>
+                                    </ol>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+plt.<span class="command">figure</span>() <span class="comment"># creating the graph figure</span>
+
+<span class="comment"># Setting the coordinates of the points to plot, their values, and labels for the legend</span>
+plt.<span class="command">plot</span>([1, 2], [3, 4], label <span class="sign">=</span> <span class="text">"Python"</span>)
+plt.<span class="command">plot</span>([1, 3], [1, 2], label <span class="sign">=</span> <span class="text">"Java"</span>)
+
+<span class="comment"># Setting the limits (boundaries) of both axes</span>
+plt.<span class="command">xlim</span>(0, 4)
+plt.<span class="command">ylim</span>(0, 5)
+
+<span class="comment"># Positions on the X axis where ticks should appear along with their optional labels</span>
+plt.<span class="command">xticks</span>([0, 1, 2, 3, 4], [<span class="text">"zero"</span>, <span class="text">"one"</span>, <span class="text">"two"</span>, <span class="text">"three"</span>, <span class="text">"four"</span>])
+plt.yticks([0, 1, 2, 3, 4, 5])
+
+<span class="comment"># Labeling the axes</span>
+plt.<span class="command">xlabel</span>(<span class="text">"X"</span>)
+plt.<span class="command">ylabel</span>(<span class="text">"Y"</span>)
+
+plt.<span class="command">legend</span>(loc <span class="sign">=</span> <span class="text">"upper center"</span>, ncol <span class="sign">=</span> 3) <span class="comment"># setting the placement of the legend</span>
+plt.<span class="command">grid</span>(<span class="function">True</span>) <span class="comment"># enabling the default major-grid lines</span>
+
+plt.<span class="command">show</span>() <span class="comment"># displaying the graph</span>
+<span class="comment"># plt.savefig("graph.png") - saving the graph as an image</span>
+                                    </code></pre>
+
+                                    <h2><a id="custom-styles">Custom styles</a></h2>
+
+                                    <p>We can use default and custom styles by just enclosing the whole code from the example above in a <code>with</code> clause like this: <code>with plt.style.context("ggplot"):</code>. While <code>ggplot</code> is a built-in style, you can also define your own styles using, e.g., <code>with plt.style.context("custom_style.mplstyle"):</code>.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+# the custom_style.mplstyle file
+
+# Colors
+axes.prop_cycle: cycler("color", ["#1b9e77", "#d95f02", "#7570b3", "#e7298a"])
+
+# Figure
+figure.figsize: 7, 4
+figure.dpi: 120
+
+# Axes
+axes.titlesize: 14
+axes.labelsize: 12
+axes.grid: True
+axes.spines.top: False
+axes.spines.right: False
+
+# Grid
+grid.color: gray
+grid.linestyle: -
+grid.linewidth: 0.8
+grid.alpha: 0.6
+
+# Ticks
+xtick.labelsize: 10
+ytick.labelsize: 10
+
+# Legend
+legend.frameon: False
+legend.fontsize: 10
+
+# Lines
+lines.linewidth: 2
+lines.markersize: 6
+                                    </code></pre>
+
+                                    <h2><a id="line-plots">Line plots</a></h2>
+
+                                    <p>Line plots are used to visualize trends and continuous data over time or ordered sequences.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+months <span class="sign">=</span> np.<span class="command">arange</span>(1, 13)
+sales <span class="sign">=</span> np.<span class="command">array</span>([1200, 1350, 1500, 1600, 1800, 2000, 2200, 2100, 1900, 1700, 1600, 1800])
+
+plt.<span class="command">figure</span>(figsize <span class="sign">=</span> (10, 6))
+plt.<span class="command">plot</span>(months, sales, marker <span class="sign">=</span> <span class="text">"o"</span>, color <span class="sign">=</span> <span class="text">"blue"</span>, linestyle <span class="sign">=</span> <span class="text">"-"</span>, linewidth <span class="sign">=</span> 2, markersize <span class="sign">=</span> 8, label <span class="sign">=</span> <span class="text">"Sales"</span>) <span class="comment"># marker is a symbol used to mark each data point on the line</span>
+plt.<span class="command">title</span>(<span class="text">"Monthly sales over a year"</span>)
+plt.<span class="command">xlabel</span>(<span class="text">"Month"</span>)
+plt.<span class="command">ylabel</span>(<span class="text">"Sales ($)"</span>)
+plt.<span class="command">xticks</span>(months) <span class="comment"># show all months on the X axis</span>
+plt.<span class="command">grid</span>(<span class="function">True</span>)
+plt.<span class="command">legend</span>()
+plt.<span class="command">show</span>()
+                                    </code></pre>
+
+                                    <img src="files/courses/line_plots.png" alt="Chart" class="img-fluid">
+
+                                    <h2><a id="bar-charts">Bar charts</a></h2>
+
+                                    <p>Bar charts are used to compare categorical data by showing values as rectangular bars.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+years <span class="sign">=</span> np.<span class="command">arange</span>(2020, 2023)
+values1 <span class="sign">=</span> [1, 4, 8]
+values2 <span class="sign">=</span> [2, 5, 9]
+
+plt.<span class="command">figure</span>()
+<span class="comment"># bar() - vertical bars, barh() - horizontal bars</span>
+
+plt.<span class="command">bar</span>(years <span class="sign">-</span> 0.2, values1, color <span class="sign">=</span> <span class="text">"blue"</span>, edgecolor <span class="sign">=</span> <span class="text">"none"</span>, width <span class="sign">=</span> 0.4, align <span class="sign">=</span> <span class="text">"center"</span>, label <span class="sign">=</span> <span class="text">"y1"</span>)
+plt.<span class="command">bar</span>(years <span class="sign">+</span> 0.2, values2, color <span class="sign">=</span> <span class="text">"green"</span>, edgecolor <span class="sign">=</span> <span class="text">"none"</span>, width <span class="sign">=</span> 0.4, align <span class="sign">=</span> <span class="text">"center"</span>, label <span class="sign">=</span> <span class="text">"y2"</span>)
+plt.<span class="command">xticks</span>(years, [<span class="command">str</span>(years) <span class="function">for</span> years <span class="function">in</span> years])
+
+plt.<span class="command">legend</span>()
+plt.<span class="command">show</span>()
+                                    </code></pre>
+
+                                    <img src="files/courses/bar_charts.png" alt="Chart" class="img-fluid">
+
+                                    <h2><a id="histograms">Histograms</a></h2>
+
+                                    <p>Histograms are used to display the distribution of numeric data by grouping values into bins.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+np.<span class="command">random</span>.<span class="command">seed</span>(0)
+scores <span class="sign">=</span> np.<span class="command">random</span>.<span class="command">normal</span>(loc <span class="sign">=</span> 75, scale <span class="sign">=</span> 10, size <span class="sign">=</span> 50) <span class="comment"># mean = 75, std = 10</span>
+
+plt.<span class="command">figure</span>(figsize <span class="sign">=</span> (8, 6))
+plt.hist(scores, bins <span class="sign">=</span> 10, color <span class="sign">=</span> <span class="text">"skyblue"</span>, edgecolor <span class="sign">=</span> <span class="text">"black"</span>, alpha <span class="sign">=</span> 0.7) <span class="comment"># bins is a number of intervals (bars) used to group the data</span>
+plt.<span class="command">title</span>(<span class="text">"Distribution of exam scores"</span>)
+plt.<span class="command">xlabel</span>(<span class="text">"Score"</span>)
+plt.<span class="command">ylabel</span>(<span class="text">"Number of students"</span>)
+plt.<span class="command">grid</span>(axis <span class="sign">=</span> <span class="text">"y"</span>, alpha <span class="sign">=</span> 0.75)
+plt.<span class="command">show</span>()
+                                    </code></pre>
+
+                                    <img src="files/courses/histograms.png" alt="Chart" class="img-fluid">
+
+                                    <h2><a id="pie-charts">Pie charts</a></h2>
+
+                                    <p>Pie charts are used to show proportions or percentages of a whole dataset.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+counts <span class="sign">=</span> [13, 15, 20]
+plt.<span class="command">figure</span>()
+plt.<span class="command">pie</span>(counts, colors <span class="sign">=</span> [<span class="text">"green"</span>, <span class="text">"blue"</span>, <span class="text">"red"</span>], labels <span class="sign">=</span> [<span class="text">"A"</span>, <span class="text">"B"</span>, <span class="text">"C"</span>],
+        startangle <span class="sign">=</span> 90, <span class="comment"># the rotation angle (in degrees) where the pie chart starts</span>
+        autopct <span class="sign">=</span> <span class="text">"%1.1f%%"</span>) <span class="comment"># the format for displaying percentage values on slices</span>
+plt.<span class="command">show</span>()
+                                    </code></pre>
+
+                                    <img src="files/courses/pie_charts.png" alt="Chart" class="img-fluid">
+
+                                    <h2><a id="box-charts">Box charts</a></h2>
+
+                                    <p>Box charts are used to summarize data distributions, highlighting medians, quartiles, and outliers.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+np.<span class="command">random</span>.<span class="command">seed</span>(0) <span class="comment"># setting a random seed to ensure reproducible results</span>
+class_a <span class="sign">=</span> np.<span class="command">random</span>.<span class="command">normal</span>(
+    75, <span class="comment"># mean (average exam score for class A)</span>
+    10, <span class="comment"># standard deviation (how spread out the scores are)</span>
+    30 <span class="comment"># number of students (data points to generate)</span>
+)
+class_b <span class="sign">=</span> np.<span class="command">random</span>.<span class="command">normal</span>(80, 12, 30)
+plt.<span class="command">figure</span>(figsize <span class="sign">=</span> (8, 6)) <span class="comment"># figsize is setting the width and height of the figure in inches</span>
+
+plt.<span class="command">boxplot</span>(
+    [class_a, class_b], <span class="comment"># data to be plotted as separate boxplots</span>
+    tick_labels <span class="sign">=</span> [<span class="text">"Class A"</span>, <span class="text">"Class B"</span>], <span class="comment"># labels shown on the x-axis</span>
+    patch_artist <span class="sign">=</span> <span class="function">True</span>, <span class="comment"># allowing box colors to be filled</span>
+    boxprops <span class="sign">=</span> <span class="command">dict</span>(
+        facecolor <span class="sign">=</span> <span class="text">"lightblue"</span>, <span class="comment"># fill color of the boxes</span>
+        color <span class="sign">=</span> <span class="text">"blue"</span> <span class="comment"># color of the box borders</span>
+    ),
+    medianprops <span class="sign">=</span> <span class="command">dict</span>(
+        color <span class="sign">=</span> <span class="text">"red"</span> <span class="comment"># color of the median line</span>
+    ),
+    whiskerprops <span class="sign">=</span> <span class="command">dict</span>(
+        color <span class="sign">=</span> <span class="text">"blue"</span> <span class="comment"># color of the whiskers</span>
+    ),
+    capprops <span class="sign">=</span> <span class="command">dict</span>(
+        color <span class="sign">=</span> <span class="text">"blue"</span> <span class="comment"># color of the whisker caps</span>
+    )
+)
+
+plt.<span class="command">title</span>(<span class="text">"Exam score distribution by class"</span>)
+plt.<span class="command">ylabel</span>(<span class="text">"Scores"</span>)
+
+plt.<span class="command">grid</span>(
+    axis <span class="sign">=</span> <span class="text">"y"</span>, <span class="comment"># enabling grid lines only along the y-axis</span>
+    alpha <span class="sign">=</span> 0.75 <span class="comment"># setting grid line transparency</span>
+)
+
+plt.<span class="command">show</span>()
+                                    </code></pre>
+
+                                    <img src="files/courses/box_charts.png" alt="Chart" class="img-fluid">
+
+                                    <h2><a id="scatter-plots">Scatter plots</a></h2>
+
+                                    <p>Scatter plots are used to examine relationships or correlations between two numeric variables.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+study_hours <span class="sign">=</span> np.<span class="command">array</span>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+exam_scores <span class="sign">=</span> np.<span class="command">array</span>([50, 55, 60, 65, 70, 72, 78, 85, 88, 95])
+
+plt.<span class="command">figure</span>(figsize=(8, 6))
+plt.<span class="command">scatter</span>(study_hours, exam_scores, color <span class="sign">=</span> <span class="text">"blue"</span>, s <span class="sign">=</span> 80, alpha <span class="sign">=</span> 0.7, edgecolors <span class="sign">=</span> <span class="text">"black"</span>) <span class="comment"># s is the size of points</span>
+plt.<span class="command">title</span>(<span class="text">"Relationship between study hours and exam scores"</span>)
+plt.<span class="command">xlabel</span>(<span class="text">"Study hours"</span>)
+plt.<span class="command">ylabel</span>(<span class="text">"Exam scores"</span>)
+plt.<span class="command">grid</span>(<span class="function">True</span>)
+
+z <span class="sign">=</span> np.<span class="command">polyfit</span>(study_hours, exam_scores, 1) <span class="comment"># degree 1 = linear fit</span>
+p <span class="sign">=</span> np.<span class="command">poly1d</span>(z) <span class="comment"># creating a polynomial function from fit</span>
+plt.<span class="command">plot</span>(study_hours, p(study_hours), <span class="text">"r--"</span>, label="Trend line"</span>) <span class="comment"># "r--" means a red dashed line</span>
+plt.<span class="command">legend</span>()
+
+plt.<span class="command">show</span>()
+                                    </code></pre>
+
+                                    <img src="files/courses/scatter_charts.png" alt="Chart" class="img-fluid">
+
+                                    <h2><a id="subplots">Subplots</a></h2>
+
+                                    <p>Subplots are used to display multiple plots in a single figure for comparison or combined visualization.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+x <span class="sign">=</span> np.<span class="command">linspace</span>(0.1, 10, 100) <span class="comment"># creating 100 evenly spaced values between 0.1 and 10 (from 0.1 to avoid division by zero for cot)</span>
+
+plt.<span class="command">figure</span>()
+
+<span class="function">def</span> draw_function(subplot_data, x, y, color, label, title):
+    plt.subplot(<span class="sign">*</span>subplot_data) <span class="comment"># subplot(nrows, ncols, index): 2 rows, 2 columns, first subplot position</span>
+    plt.<span class="command">plot</span>(x, y, color, label <span class="sign">=</span> label)
+    plt.<span class="command">title</span>(title)
+    <span class="function">if</span> title <span class="sign">==</span> <span class="text">"Tangent"</span> <span class="function">or</span> title <span class="sign">==</span> <span class="text">"Cotangent"</span>:
+        plt.<span class="command">ylim</span>(<span class="sign">-</span>10, 10) <span class="comment"># limit the Y axis for better visibility</span>
+    plt.<span class="command">legend</span>()
+    plt.<span class="command">grid</span>(<span class="function">True</span>)
+
+draw_function([2, 2, 1], x, np.<span class="command">sin</span>(x), <span class="text">"blue"</span>, <span class="text">"sin(x)"</span>, <span class="text">"Sine"</span>)
+draw_function([2, 2, 2], x, np.<span class="command">cos</span>(x), <span class="text">"red"</span>, <span class="text">"cos(x)"</span>, <span class="text">"Cosine"</span>)
+draw_function([2, 2, 3], x, np.<span class="command">tan</span>(x), <span class="text">"green"</span>, <span class="text">"tan(x)"</span>, <span class="text">"Tangent"</span>)
+draw_function([2, 2, 4], x, 1 <span class="sign">/</span> np.<span class="command">tan</span>(x), <span class="text">"purple"</span>, <span class="text">"cot(x)"</span>, <span class="text">"Cotangent"</span>)
+
+plt.<span class="command">tight_layout</span>() <span class="comment"># automatically adjusting spacing to prevent overlapping elements</span>
+plt.<span class="command">show</span>()
+                                    </code></pre>
+
+                                    <img src="files/courses/subplots.png" alt="Chart" class="img-fluid">
+                                    
+                                    <h2><a id="3d-plots">3D plots</a></h2>
+
+                                    <p>3D plots are used to visualize data with three dimensions to show spatial relationships or surface structures.</p>
+
+                                    <h5>3D contour plots</h5>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Simulating temperature on a plate</span>
+x <span class="sign">=</span> np.<span class="command">linspace</span>(<span class="sign">-</span>5, 5, 100)
+y <span class="sign">=</span> np.<span class="command">linspace</span>(<span class="sign">-</span>5, 5, 100)
+x, y <span class="sign">=</span> np.<span class="command">meshgrid</span>(x, y)
+z <span class="sign">=</span> np.<span class="command">exp</span>(<span class="sign">-</span>(x <span class="sign">**</span> 2 <span class="sign">+</span> y <span class="sign">**</span> 2)) <span class="comment"># temperature distribution</span>
+
+fig <span class="sign">=</span> plt.<span class="command">figure</span>()
+ax <span class="sign">=</span> fig.<span class="command">add_subplot</span>(111, projection <span class="sign">=</span> <span class="text">"3d"</span>)
+ax.<span class="command">contour3D</span>(x, y, z, 50, cmap <span class="sign">=</span> <span class="text">"coolwarm"</span>)
+
+ax.<span class="command">set_xlabel</span>(<span class="text">"X coordinate"</span>)
+ax.<span class="command">set_ylabel</span>(<span class="text">"Y coordinate"</span>)
+ax.<span class="command">set_zlabel</span>(<span class="text">"Temperature"</span>)
+ax.<span class="command">set_title</span>(<span class="text">"Heat distribution on a plate"</span>)
+
+plt.<span class="command">show</span>()
+                                    </code></pre>
+
+                                    <img src="files/courses/3d_contour_plots.png" alt="Chart" class="img-fluid">
+
+                                    <h5>3D line plots (a helical spring)</h5>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># A parametric equation of a helix</span>
+t <span class="sign">=</span> np.<span class="command">linspace</span>(0, 10 <span class="sign">*</span> np.<span class="command">pi</span>, 500)
+x <span class="sign">=</span> np.<span class="command">cos</span>(t)
+y <span class="sign">=</span> np.<span class="command">sin</span>(t)
+z <span class="sign">=</span> t <span class="sign">/</span> (2 <span class="sign">*</span> np.<span class="command">pi</span>) <span class="comment"># vertical axis</span>
+
+fig <span class="sign">=</span> plt.<span class="command">figure</span>()
+ax <span class="sign">=</span> fig.<span class="command">add_subplot</span>(111, projection <span class="sign">=</span> <span class="text">"3d"</span>)
+ax.<span class="command">plot</span>(x, y, z, color <span class="sign">=</span> <span class="text">"blue"</span>, linewidth <span class="sign">=</span> 2)
+
+ax.<span class="command">set_xlabel</span>(<span class="text">"X axis"</span>)
+ax.<span class="command">set_ylabel</span>(<span class="text">"Y axis"</span>)
+ax.<span class="command">set_zlabel</span>(<span class="text">"Height"</span>)
+ax.<span class="command">set_title</span>(<span class="text">"Helical spring path"</span>)
+                                    </code></pre>
+
+                                    <img src="files/courses/3d_line_plots.png" alt="Chart" class="img-fluid">
+
+                                    <h5>3D scatter plots</h5>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Simulating earthquake data (latitude, longitude, depth)</span>
+np.<span class="command">random</span>.<span class="command">seed</span>(0)
+latitude <span class="sign">=</span> np.<span class="command">random</span>.<span class="command">uniform</span>(<span class="sign">-</span>90, 90, 100)
+longitude <span class="sign">=</span> np.<span class="command">random</span>.<span class="command">uniform</span>(<span class="sign">-</span>180, 180, 100)
+depth <span class="sign">=</span> np.<span class="command">random</span>.<span class="command">uniform</span>(0, 700, 100) <span class="comment"># depth in km</span>
+magnitude <span class="sign">=</span> np.<span class="command">random</span>.<span class="command">uniform</span>(3, 8, 100) <span class="comment"># magnitude for color</span>
+
+fig <span class="sign">=</span> plt.<span class="command">figure</span>()
+ax <span class="sign">=</span> fig.<span class="command">add_subplot</span>(111, projection <span class="sign">=</span> <span class="text">"3d"</span>)
+scatter <span class="sign">=</span> ax.<span class="command">scatter</span>(longitude, latitude, <span class="sign">-</span>depth, c <span class="sign">=</span> magnitude, cmap <span class="sign">=</span> <span class="text">"hot"</span>, s <span class="sign">=</span> 50)
+
+ax.<span class="command">set_xlabel</span>(<span class="text">"Longitude"</span>)
+ax.<span class="command">set_ylabel</span>(<span class="text">"Latitude"</span>)
+ax.<span class="command">set_zlabel</span>(<span class="text">"Depth (km)"</span>)
+ax.<span class="command">set_title</span>(<span class="text">"Earthquake epicenters (depth vs location)"</span>)
+
+fig.<span class="command">colorbar</span>(scatter, ax <span class="sign">=</span> ax, label <span class="sign">=</span> <span class="text">"Magnitude"</span>)
+plt.<span class="command">show</span>()
+                                    </code></pre>
+
+                                    <img src="files/courses/3d_scatter_plots.png" alt="Chart" class="img-fluid">
+
+                                    <h5>3D surface plots (a gradient descent visualization)</h5>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Simulating a 3D quadratic loss function</span>
+x <span class="sign">=</span> np.<span class="command">linspace</span>(<span class="sign">-</span>3, 3, 100)
+y <span class="sign">=</span> np.<span class="command">linspace</span>(<span class="sign">-</span>3, 3, 100)
+x, y <span class="sign">=</span> np.<span class="command">meshgrid</span>(x, y)
+z <span class="sign">=</span> x <span class="sign">**</span> 2 <span class="sign">+</span> y <span class="sign">**</span> 2 <span class="comment"># a simple convex loss function</span>
+
+<span class="comment"># Gradient descent parameters</span>
+lr <span class="sign">=</span> 0.1
+num_steps <span class="sign">=</span> 20
+point <span class="sign">=</span> np.<span class="command">array</span>([2.5, 2.5]) <span class="comment"># the starting point</span>
+path <span class="sign">=</span> [point.copy</span>()]
+
+<span class="function">for</span> _ <span class="function">in</span> <span class="command">range</span>(num_steps):
+    grad <span class="sign">=</span> 2 <span class="sign">*</span> point
+    point <span class="sign">-=</span> lr <span class="sign">*</span> grad
+    path.<span class="command">append</span>(point.<span class="command">copy</span>())
+
+path <span class="sign">=</span> np.<span class="command">array</span>(path)
+z_path <span class="sign">=</span> np.<span class="command">sum</span>(path <span class="sign">**</span> 2, axis <span class="sign">=</span> 1)
+
+fig <span class="sign">=</span> plt.<span class="command">figure</span>()
+ax <span class="sign">=</span> fig.<span class="command">add_subplot</span>(111, projection <span class="sign">=</span> <span class="text">"3d"</span>)
+ax.<span class="command">plot_surface</span>(x, y, z, cmap <span class="sign">=</span> <span class="text">"viridis"</span>, alpha <span class="sign">=</span> 0.6)
+ax.<span class="command">plot</span>(path[:, 0], path[:, 1], z_path, color <span class="sign">=</span> <span class="text">"red"</span>, marker <span class="sign">=</span> <span class="text">"o"</span>, label <span class="sign">=</span> <span class="text">"Gradient descent path"</span>)
+
+ax.<span class="command">set_xlabel</span>(<span class="text">"X"</span>)
+ax.<span class="command">set_ylabel</span>(<span class="text">"Y"</span>)
+ax.<span class="command">set_zlabel</span>(<span class="text">"Loss"</span>)
+ax.<span class="command">set_title</span>(<span class="text">"Gradient descent on a quadratic loss"</span>)
+ax.<span class="command">legend</span>()
+plt.<span class="command">show</span>()
+                                    </code></pre>
+
+                                    <img src="files/courses/3d_surface_plots.png" alt="Chart" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>
