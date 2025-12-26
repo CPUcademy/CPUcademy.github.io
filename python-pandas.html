@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <title>Pandas</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D76ZFDYLCY');
+    </script>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics-and-it-basics.html">Electronics &amp; IT basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">About me</div>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="cv.html">
+                    <i class="icon-adult"></i>
+                    <span>CV</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="services.html">
+                    <i class="icon-services"></i>
+                    <span>My services</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Pandas</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p><code>Pandas</code> is a library built on top of <code>NumPy</code> for data manipulation and analysis. It provides flexible data structures like <code>DataFrame</code> and <code>Series</code> that make handling tabular and time-series data intuitive and efficient. <code>Pandas</code> is perfect for labeled data operations, missing data handling, and data aggregation, complementing <code>NumPy</code>’s numerical computing capabilities.</p>
+                                    
+                                    <p>Write the <code>import pandas as pd</code> and/or <code>import numpy as np</code> statements at the beginning of every example.</p>
+
+                                    <p>A <code>Series</code> is a one-dimensional labeled array capable of holding any data type, such as integers, floats, or strings. Each element in a <code>Series</code> has an associated index, allowing for fast lookups, slicing, and alignment with other <code>Series</code> or <code>DataFrames</code>. They are ideal for representing a single column of data, performing vectorized operations, and easily handling missing values.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">print</span>(pd.<span class="function">Series</span>([1, 2, 3, 4]))
+
+s <span class="sign">=</span> pd.<span class="function">Series</span>([1, 2, 3, 4], index <span class="sign">=</span> [<span class="text">"a"</span>, <span class="text">"b"</span>, <span class="text">"c"</span>, <span class="text">"d"</span>]) <span class="comment"># a Series with custom index labels</span>
+<span class="command">print</span>(s[0]) <span class="comment"># accessing the first element by position</span>
+<span class="command">print</span>(s[<span class="text">"b"</span>]) <span class="comment"># accessing an element by label</span>
+<span class="command">print</span>(s[1:3]) <span class="comment"># slicing elements by position</span>
+                                    </code></pre>
+
+                                    <p>A <code>DataFrame</code> is a two-dimensional labeled data structure, similar to a spreadsheet or SQL table, where each column is a <code>Series</code>. <code>DataFrames</code> support heterogeneous data types across columns, flexible indexing, and powerful operations like filtering, grouping, merging, and pivoting. They make it easy to manipulate, clean, and analyze large datasets efficiently.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">print</span>(pd.<span class="function">DataFrame</span>({
+    <span class="text">"A"</span>: [1, 2, 3], 
+    <span class="text">"B"</span>: [4, 5, 6], 
+    <span class="text">"C"</span>: [7, 8, 9]
+}))
+
+df <span class="sign">=</span> pd.<span class="function">DataFrame</span>(np.<span class="command">arange</span>(12).<span class="command">reshape</span>(3, 4), columns <span class="sign">=</span> [<span class="text">"A"</span>, <span class="text">"B"</span>, <span class="text">"C"</span>, <span class="text">"D"</span>]) <span class="comment"># creating a DataFrame from a NumPy array</span>
+
+<span class="command">print</span>(df.<span class="command">head</span>()) <span class="comment"># first 5 rows</span>
+<span class="command">print</span>(df.<span class="command">tail</span>()) <span class="comment"># last 5 rows</span>
+<span class="command">print</span>(df.<span class="command">shape</span>) <span class="comment"># shape (rows, columns)</span>
+<span class="command">print</span>(df.<span class="command">columns</span>) <span class="comment"># column names</span> 
+<span class="command">print</span>(df.<span class="command">index</span>) <span class="comment"># row indices</span>
+<span class="command">print</span>(df.<span class="command">info</span>()) <span class="comment"># summary with data types and non-null counts</span>
+<span class="command">print</span>(df.<span class="command">describe</span>()) <span class="comment"># basic statistics for numeric columns</span>
+
+<span class="comment"># Accessing data</span>
+<span class="command">print</span>(df[<span class="text">"A"</span>]) <span class="comment"># accessing a single column as a Series</span>
+<span class="command">print</span>(df[[<span class="text">"A"</span>, <span class="text">"B"</span>]]) <span class="comment"># accessing multiple columns</span>
+<span class="command">print</span>(df.<span class="command">iloc</span>[0]) <span class="comment"># accessing the first row (using position-based indexing)</span>
+<span class="command">print</span>(df.<span class="command">iloc</span>[0, 1]) <span class="comment"># accessing an element in the first row, second column</span>
+<span class="command">print</span>(df.<span class="command">loc</span>[0, <span class="text">"A"</span>]) <span class="comment"># accessing an element by label (row index and column name)</span>
+<span class="command">print</span>(df.<span class="command">iloc</span>[:, 1]) <span class="comment"># accessing all rows, second column</span>
+<span class="command">print</span>(df.<span class="command">loc</span>[:, [<span class="text">"A"</span>, <span class="text">"B"</span>]]) <span class="comment"># accessing all rows, multiple columns by label</span>
+
+<span class="comment"># Filtering data</span>
+<span class="command">print</span>(df[df[<span class="text">"A"</span>] <span class="sign">&gt;</span> 1]) <span class="comment"># filtering rows where the column value &gt; 1</span>
+<span class="command">print</span>(df[(df[<span class="text">"A"</span>] <span class="sign">&gt;</span> 0) <span class="sign">&</span> (df[<span class="text">"B"</span>] <span class="sign">&lt;</span> 5)]) <span class="comment"># filtering rows with multiple conditions</span>
+
+<span class="comment"># Adding / modifying columns</span>
+df[<span class="text">"E"</span>] <span class="sign">=</span> df[<span class="text">"A"</span>] <span class="sign">+</span> df[<span class="text">"B"</span>] <span class="comment"># creating a new column as a sum of two columns</span>
+df[<span class="text">"F"</span>] <span class="sign">=</span> 0 <span class="comment"># creating a new column filled with constant value 0</span>
+
+<span class="comment"># Dropping rows / columns</span>
+df.<span class="command">drop</span>(<span class="text">"F"</span>, axis <span class="sign">=</span> 1, inplace <span class="sign">=</span> <span class="function">True</span>) <span class="comment"># dropping a column in place (without creating a new DataFrame)</span>
+<span class="command">print</span>(df.<span class="command">drop</span>(0, axis <span class="sign">=</span> 0, inplace <span class="sign">=</span> <span class="function">False</span>)) <span class="comment"># dropping the first row (returns new DataFrame)</span>
+
+<span class="comment"># Handling missing values</span>
+df.<span class="command">loc</span>[1, <span class="text">"B"</span>] <span class="sign">=</span> np.<span class="command">nan</span> <span class="comment"># introducing a missing value (NaN)</span>
+<span class="command">print</span>(df.<span class="command">isnull</span>()) <span class="comment"># checking for missing values (boolean mask)</span>
+<span class="command">print</span>(df.<span class="command">dropna</span>()) <span class="comment"># dropping rows with NaN</span>
+<span class="command">print</span>(df.<span class="command">fillna</span>(0)) <span class="comment"># filling NaN with 0</span>
+
+<span class="comment"># Sorting</span>
+<span class="command">print</span>(df.<span class="command">sort_values</span>(<span class="text">"A"</span>)) <span class="comment"># sorting by a column</span>
+<span class="command">print</span>(df.<span class="command">sort_index</span>()) <span class="comment"># sorting by a row index</span>
+
+<span class="comment"># Aggregations</span>
+<span class="command">print</span>(df[<span class="text">"A"</span>].<span class="command">sum</span>()) <span class="comment"># sum of all values in a column</span>
+<span class="command">print</span>(df[<span class="text">"B"</span>].<span class="command">mean</span>()) <span class="comment"># mean of all values in a column</span>
+<span class="command">print</span>(df[<span class="text">"C"</span>].<span class="command">max</span>()) <span class="comment"># maximum value in a column</span>
+<span class="command">print</span>(df[[<span class="text">"A"</span>, <span class="text">"B"</span>]].<span class="command">min</span>()) <span class="comment"># minimum value for each of the columns</span>
+<span class="command">print</span>(df.<span class="command">describe</span>()) <span class="comment"># statistics summary</span>
+
+<span class="comment"># apply() and map()</span>
+<span class="command">print</span>(df[<span class="text">"B"</span>].<span class="command">apply</span>(<span class="function">lambda</span> x: x <span class="sign">*</span> 2)) <span class="comment"># an element-wise operation on a column</span>
+<span class="command">print</span>(df.<span class="command">apply</span>(np.<span class="command">sqrt</span>)) <span class="comment"># a column-wise operation</span>
+<span class="command">print</span>(df[<span class="text">"A"</span>].<span class="command">map</span>({1: <span class="text">"one"</span>, 2: <span class="text">"two"</span>})) <span class="comment"># mapping values using a dictionary</span>
+
+<span class="comment"># Saving / loading</span>
+df.<span class="command">to_csv</span>(<span class="text">"data.csv"</span>, index <span class="sign">=</span> <span class="function">False</span>) <span class="comment"># saving a DataFrame to a CSV file</span>
+df_loaded <span class="sign">=</span> pd.<span class="command">read_csv</span>(<span class="text">"data.csv"</span>, sep <span class="sign">=</span> <span class="text">","</span>) <span class="comment"># loading a DataFrame from a CSV file, "sep" specifies the column delimiter (default is a comma)</span>
+
+<span class="comment"># Resetting / setting index (see table below for example)</span>
+df_reset <span class="sign">=</span> df.<span class="command">reset_index</span>() <span class="comment"># converting the current index into a column</span>
+df_indexed <span class="sign">=</span> df.<span class="command">set_index</span>(<span class="text">"A"</span>) <span class="comment"># using the column as the new row index</span>
+                                    </code></pre>
+
+                                    <p>Original DataFrame (default index):</p>
+                                    <div class="table-container"><table>
+                                    <tr>
+                                        <td><b>Index</b></td>
+                                        <td><b>A</b></td>
+                                        <td><b>B</b></td>
+                                        <td><b>C</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>5</td>
+                                        <td>7</td>
+                                        <td>8</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>3</td>
+                                        <td>4</td>
+                                        <td>2</td>
+                                    </tr>
+                                    </table></div>
+
+                                    <p>After <code>df.set_index("A")</code> (using column "A" as the index):</p>
+                                    <div class="table-container"><table>
+                                    <tr>
+                                        <td><b>A (Index)</b></td>
+                                        <td><b>B</b></td>
+                                        <td><b>C</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>7</td>
+                                        <td>8</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>4</td>
+                                        <td>2</td>
+                                    </tr>
+                                    </table></div>
+
+                                    <p>This is done to make a column’s values serve as meaningful row labels, which makes looking up, selecting, or aligning data easier.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Grouping data</span>
+
+df <span class="sign">=</span> pd.<span class="function">DataFrame</span>({
+    <span class="text">"Category"</span>: [<span class="text">"X"</span>, <span class="text">"Y"</span>, <span class="text">"X"</span>, <span class="text">"Y"</span>],
+    <span class="text">"Values"</span>: [10, 20, 30, 40]
+})
+
+<span class="command">print</span>(df.<span class="command">groupby</span>(<span class="text">"Category"</span>).<span class="command">sum</span>()) <span class="comment"># sum of all values in a category</span>
+<span class="command">print</span>(df.<span class="command">groupby</span>(<span class="text">"Category"</span>).<span class="command">mean</span>()) <span class="comment"># mean of all values in a category</span>
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Merging / concatenating</span>
+
+df <span class="sign">=</span> pd.<span class="function">DataFrame</span>({<span class="text">"A"</span>: [1, 2], <span class="text">"B"</span>: [3, 4]})
+df2 <span class="sign">=</span> pd.<span class="function">DataFrame</span>({<span class="text">"A"</span>: [5, 6], <span class="text">"B"</span>: [7, 8]})
+<span class="command">print</span>(pd.<span class="command">concat</span>([df, df2])) <span class="comment"># vertical concatenation</span>
+<span class="command">print</span>(pd.<span class="command">concat</span>([df, df2], axis <span class="sign">=</span> 1)) <span class="comment"># horizontal concatenation</span>
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Converting to/from NumPy</span>
+
+arr = df.<span class="command">to_numpy</span>() <span class="comment"># converting a DataFrame to a NumPy array</span>
+df_from_arr <span class="sign">=</span> pd.<span class="function">DataFrame</span>(arr) <span class="comment"># converting a NumPy array to a DataFrame</span>
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># pivot() and crosstab()</span>
+
+df_pivot <span class="sign">=</span> pd.<span class="function">DataFrame</span>({
+    <span class="text">"Date"</span>: [<span class="text">"2025-12-26"</span>, <span class="text">"2025-12-26"</span>, <span class="text">"2025-12-27"</span>],
+    <span class="text">"Category"</span>: [<span class="text">"X"</span>, <span class="text">"Y"</span>, <span class="text">"X"</span>],
+    <span class="text">"Value"</span>: [10, 20, 30]
+})
+
+<span class="command">print</span>(df_pivot.<span class="command">pivot</span>(index <span class="sign">=</span> <span class="text">"Date"</span>, columns <span class="sign">=</span> <span class="text">"Category"</span>, values <span class="sign">=</span> <span class="text">"Value"</span>)) <span class="comment"># reorganizing the data to show "Value" for each "Category" per "Date" (index - rows, columns - column headers, values - cell values)</span>
+<span class="command">print</span>(pd.<span class="command">crosstab</span>(df_pivot[<span class="text">"Date"</span>], df_pivot[<span class="text">"Category"</span>])) <span class="comment"># counting how many times each combination of "Date" and "Category" occurs</span>
+                                    </code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>
