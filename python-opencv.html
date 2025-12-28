@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="<span class="function">if</span> you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
+    <meta name="description" content="if you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
     <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
@@ -97,7 +97,23 @@
 
                                     <p>Write the <code>import cv2</code> and/or <code>import numpy as np</code> statements at the beginning of every example.</p>
 
-                                    <h2>Basics</h2>
+                                    <h3>Table of contents</h3>
+            
+                                    <ul type="disc">
+                                        <li><a href="#basics" class="link" style="text-decoration: none;">Basics</a></li>
+                                        <li><a href="#important-methods" class="link" style="text-decoration: none;">Important methods</a></li>
+                                        <li><a href="#resizing-cropping-and-warping-perspective" class="link" style="text-decoration: none;">Resizing, cropping, and warping perspective</a></li>
+                                        <li><a href="#shapes" class="link" style="text-decoration: none;">Shapes</a></li>
+                                        <li><a href="#stacking-images-next-to-each-other" class="link" style="text-decoration: none;">Stacking images next to each other</a></li>
+                                        <li><a href="#basic-edge-detection" class="link" style="text-decoration: none;">Basic edge detection</a></li>
+                                        <li><a href="#detecting-contours" class="link" style="text-decoration: none;">Detecting contours</a></li>
+                                        <li><a href="#face-detection-using-haar-cascades" class="link" style="text-decoration: none;">Face detection using Haar cascades</a></li>
+                                        <li><a href="#color-segmentation" class="link" style="text-decoration: none;">Color segmentation</a></li>
+                                        <li><a href="#the-imutils-module" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">imutils</code> module</a></li>
+                                        <li><a href="#omr" class="link" style="text-decoration: none;">OMR (Optical Mark Recognition)</a></li>
+                                    </ul>
+
+                                    <h2><a id="basics">Basics</a></h2>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Displaying an image</span>
@@ -127,12 +143,12 @@ cap <span class="sign">=</span> cv2.<span class="command">VideoCapture</span>(<s
 cap.<span class="command">release</span>() <span class="comment"># releasing the video capture object</span>
 
 <span class="comment"># To display a webcam feed, we only need to change the beginning:
-# cap = cv2.VideoCapture(0, cv2.CAP_DSHOW) # loading the default webcam (0 - default camera id, cv2.CAP_DSHOW - increases startup speed on Windows)
+# cap = cv2.VideoCapture(0, cv2.CAP_DSHOW) # loading the default webcam (0 - default webcam id, cv2.CAP_DSHOW - increases startup speed on Windows)
 # cap.set(3, 640) # width (id: 3)
 # cap.set(4, 480) # height (id: 4)</span>
                                     </code></pre>
 
-                                    <h2>Important methods</h2>
+                                    <h2><a id="important-methods">Important methods</a></h2>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 img <span class="sign">=</span> cv2.<span class="command">imread</span>(<span class="text">"resources/image.jpg"</span>)
@@ -148,10 +164,10 @@ imgBlur <span class="sign">=</span> cv2.<span class="command">GaussianBlur</span
 cv2.<span class="command">imshow</span>(<span class="text">"Gaussian blur"</span>, imgBlur)
 
 <span class="comment"># Performing Canny edge detection on the grayscale image to highlight the edges</span>
-imgCanny <span class="sign">=</span> cv2.<span class="command">Canny</span>(imgGray, 250, 300) <span class="comment"># 250 and 300 are the lower and upper thresholds for edge</span> detection - edges with gradient values between these thresholds are detected
+imgCanny <span class="sign">=</span> cv2.<span class="command">Canny</span>(imgGray, 250, 300) <span class="comment"># 250 and 300 are the lower and upper thresholds for edge detection - edges with gradient values between these thresholds are detected</span>
 cv2.<span class="command">imshow</span>(<span class="text">"Canny"</span>, imgCanny)
 
-kernel <span class="sign">=</span> np.<span class="command">ones</span>((5, 5), np.<span class="command">uint8</span>) <span class="comment"># creating a 5x5 matrix of ones to use as the structuring element for  morphological operations</span>
+kernel <span class="sign">=</span> np.<span class="command">ones</span>((5, 5), np.<span class="command">uint8</span>) <span class="comment"># creating a 5x5 matrix of ones to use as the structuring element for morphological operations</span>
 
 <span class="comment"># Applying dilation to the edges to strengthen and expand them</span>
 imgDilated <span class="sign">=</span> cv2.<span class="command">dilate</span>(imgCanny, kernel, iterations <span class="sign">=</span> 1) <span class="comment"># iterations = 1 applies the dilation once - more iterations make edges thicker</span>
@@ -164,7 +180,7 @@ cv2.<span class="command">imshow</span>(<span class="text">"Eroded"</span>, imgE
 <span class="comment"># Applying thresholding to convert the grayscale image to a binary image</span>
 _, imgThresh <span class="sign">=</span> cv2.<span class="command">threshold</span>(imgBlur, 150, 255, cv2.<span class="function">THRESH_BINARY</span>)
 <span class="comment"># 150 is the threshold value - pixels above this become 255 (white), below become 0 (black)
-# THRESH_BINARY creates a simple black-and-white image useful for contour detection and shape analysis</span>
+# cv2.THRESH_BINARY creates a simple black-and-white image useful for contour detection and shape analysis</span>
 cv2.<span class="command">imshow</span>(<span class="text">"Threshold"</span>, imgThresh)
 
 cv2.<span class="command">waitKey</span>(0)
@@ -173,10 +189,10 @@ cv2.<span class="command">destroyAllWindows</span>()
 
                                     <img src="files/courses/opencv_1.png" alt="Images" class="img-fluid" style="margin-bottom: 20px;">
 
-                                    <h2>Resizing, cropping, and warping perspective</h2>
+                                    <h2><a id="resizing-cropping-and-warping-perspective">Resizing, cropping, and warping perspective</a></h2>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># All the points and coordinates were measured manually using an image editor (MS Paint)</span>
+<span class="comment"># All the points and coordinates were measured manually using an image editor (MS Paint).</span>
 
 img <span class="sign">=</span> cv2.<span class="command">imread</span>(<span class="text">"resources/charger.jpg"</span>)
 <span class="comment"># the (0, 0) point is in the top-left corner (the Y axis goes down)</span>
@@ -199,12 +215,12 @@ cv2.<span class="command">waitKey</span>(0)
 
                                     <img src="files/courses/opencv_2.png" alt="Images" class="img-fluid" style="margin-bottom: 20px;">
 
-                                    <h2>Shapes</h2>
+                                    <h2><a id="shapes">Shapes</a></h2>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 img <span class="sign">=</span> np.<span class="command">zeros</span>((512, 512, 3), np.<span class="command">uint8</span>) <span class="comment"># creating a black canvas of 512x512 pixels with 3 color channels (BGR)</span>
 <span class="command">print</span>(img)
-<span class="comment"># img[200:300, 100:300] = 255, 0, 0 # coloring the selected rectangle (to color the whole canvas, just write: img[:])</span>
+<span class="comment"># img[200:300, 100:300] = 255, 0, 0 # coloring the selected rectangle (to color the whole canvas, just write "img[:]")</span>
 
 cv2.<span class="command">line</span>(img, (0, 0), (img.shape[1], img.shape[0]), (0, 255, 0), 3) <span class="comment"># starting point, ending point, color, thickness</span>
 <span class="comment"># img.shape[0] - height, img.shape[1] - width</span>
@@ -222,19 +238,18 @@ cv2.<span class="command">waitKey</span>(0)
 
                                     <img src="files/courses/opencv_3.png" alt="Images" class="img-fluid" style="margin-bottom: 20px;">
 
-                                    <h2>Stacking images next to each other</h2>
+                                    <h2><a id="stacking-images-next-to-each-other">Stacking images next to each other</a></h2>
 
-                                    <p>All the stacked images must have the same number of channels; for example, we cannot stack a grayscale image with a BGR image.</p>
+                                    <p>All the stacked images must have the same number of channels. For example, we cannot stack a grayscale image with a BGR image.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 img <span class="sign">=</span> cv2.<span class="command">imread</span>(<span class="text">"resources/image.jpg"</span>)
 imgHorizontalStack <span class="sign">=</span> np.<span class="command">hstack</span>((img, img)) <span class="comment"># stacking images horizontally</span>
 imgVerticalStack <span class="sign">=</span> np.<span class="command">vstack</span>((img, img)) <span class="comment"># stacking images vertically</span>
-
 cv2.<span class="command">waitKey</span>(0)
                                     </code></pre>
 
-                                    <h2>Basic edge detection</h2>
+                                    <h2><a id="basic-edge-detection">Basic edge detection</a></h2>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 img <span class="sign">=</span> cv2.<span class="command">imread</span>(<span class="text">"resources/image.jpg"</span>, cv2.<span class="function">IMREAD_GRAYSCALE</span>) <span class="comment"># loading an image in grayscale (simplifies processing)</span>
@@ -263,7 +278,7 @@ cv2.<span class="command">destroyAllWindows</span>()
 
                                     <img src="files/courses/opencv_4.png" alt="Images" class="img-fluid" style="margin-bottom: 20px;">
 
-                                    <h2>Detecting contours</h2>
+                                    <h2><a id="detecting-contours">Detecting contours</a></h2>
 
                                     <img src="files/courses/shapes.png" alt="Images" class="img-fluid" style="margin-bottom: 20px;">
 
@@ -286,7 +301,7 @@ contours, _ <span class="sign">=</span> cv2.<span class="command">findContours</
     <span class="function">if</span> area <span class="sign">&lt;</span> 500: <span class="comment"># skipping small contours (noise)</span>
         <span class="function">continue</span>
         
-    cv2.<span class="command">drawContours</span>(imgContour, [cnt], <span class="sign">-</span>1, (255, 0, 0), 3) <span class="comment"># drawing the contours - contours (as a list), contour index (-1 means all), color, thickness</span>
+    cv2.<span class="command">drawContours</span>(imgContour, [cnt], <span class="sign">-</span>1, (255, 0, 0), 3) <span class="comment"># drawing the contours from the provided list, which contours are drawn (-1 = all, 0 = the first, 1 = the second), color, thickness</span>
     perimeter <span class="sign">=</span> cv2.<span class="command">arcLength</span>(cnt, <span class="function">True</span>) <span class="comment"># calculating the contour perimeter</span>
     approx <span class="sign">=</span> cv2.<span class="command">approxPolyDP</span>(cnt, 0.02 <span class="sign">*</span> perimeter, <span class="function">True</span>) <span class="comment"># approximating the contour to reduce the number of points</span>
     corners <span class="sign">=</span> <span class="command">len</span>(approx) <span class="comment"># the number of vertices</span>
@@ -310,9 +325,9 @@ cv2.<span class="command">waitKey</span>(0)
 
                                     <img src="files/courses/detected_shapes.png" alt="Images" class="img-fluid" style="margin-bottom: 20px;">
 
-                                    <h2>Face detection using Haar cascades</h2>
+                                    <h2><a id="face-detection-using-haar-cascades">Face detection using Haar cascades</a></h2>
 
-                                    <p>Haar cascades are pre-trained classifiers used for object detection, like detecting faces, eyes, or cars. They work by scanning an image at multiple scales and positions to find patterns that match the features learned during training. In OpenCV, we load a cascade XML file (e.g., for frontal faces) and use <code>detectMultiScale()</code> on a grayscale image to get bounding boxes for detected objects. These boxes can then be drawn with <code>rectangle()</code> to highlight the detected features. You can download the haarcascades <a href="files/courses/haarcascades.zip" download="haarcascades.zip" target="_blank" class="link">here</a>.</p>
+                                    <p>Haar cascades are pre-trained classifiers used for object detection, like detecting faces, eyes, or cars. They work by scanning an image at multiple scales and positions to find patterns that match the features learned during training. In OpenCV, we load a cascade XML file (e.g., for frontal faces) and use <code>detectMultiScale()</code> on a grayscale image to get bounding boxes for detected objects. These boxes can then be drawn with <code>rectangle()</code> to highlight the detected features. You can download the full <code>haarcascades</code> folder <a href="files/courses/haarcascades.zip" download="haarcascades.zip" target="_blank" class="link">here</a>.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 faceCascade <span class="sign">=</span> cv2.<span class="command">CascadeClassifier</span>(<span class="text">"haarcascades/haarcascade_frontalface_default.xml"</span>)
@@ -327,7 +342,9 @@ cv2.<span class="command">imshow</span>(<span class="text">"Image"</span>, img)
 cv2.<span class="command">waitKey</span>(0)
                                     </code></pre>
 
-                                    <h2>Color segmentation</h2>
+                                    <h2><a id="color-segmentation">Color segmentation</a></h2>
+
+                                    <p>The example below captures live video from the webcam, allows the user to select a color by clicking on the image, and segments that color in real time in a second window using the HSV color space.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> cv2
@@ -363,10 +380,10 @@ cv2.<span class="command">setMouseCallback</span>(<span class="text">"Webcam"</s
     <span class="function">if not</span> success:
         <span class="function">break</span>
 
-    current_frame <span class="sign">=</span> frame.<span class="command">copy</span>() <span class="comment"># updating the global frame</span>
+    current_frame <span class="sign">=</span> frame.<span class="command">copy</span>() <span class="comment"># updating the global frame copy</span>
     hsv_frame <span class="sign">=</span> cv2.<span class="command">cvtColor</span>(frame, cv2.<span class="function">COLOR_BGR2HSV</span>) <span class="comment"># converting the frame to HSV for color-based segmentation</span>
-    mask <span class="sign">=</span> cv2.<span class="command">inRange</span>(hsv_frame, lower_color, upper_color) <span class="comment"># creating a binary mask where selected HSV range appears white</span>
-    result <span class="sign">=</span> cv2.<span class="command">bitwise_and(</span>frame, frame, mask <span class="sign">=</span> mask) <span class="comment"># applying the mask to extract only the selected color</span>
+    mask <span class="sign">=</span> cv2.<span class="command">inRange</span>(hsv_frame, lower_color, upper_color) <span class="comment"># creating a binary mask where the pixels in the selected HSV range appear white</span>
+    result <span class="sign">=</span> cv2.<span class="command">bitwise_and</span>(frame, frame, mask <span class="sign">=</span> mask) <span class="comment"># applying the mask to extract only the selected color from the frame</span>
     cv2.<span class="command">imshow</span>(<span class="text">"Webcam"</span>, frame)
     cv2.<span class="command">imshow</span>(<span class="text">"Segmented color"</span>, result)
     <span class="function">if</span> cv2.<span class="command">waitKey</span>(1) <span class="sign">&</span> 0xFF <span class="sign">==</span> <span class="command">ord</span>(<span class="text">"q"</span>):
@@ -376,7 +393,7 @@ cap.<span class="command">release</span>()
 cv2.<span class="command">destroyAllWindows</span>()
                                     </code></pre>
 
-                                    <h2>The <code>imutils</code> module</h2>
+                                    <h2><a id="the-imutils-module">The <code style="color: #f5d67b;">imutils</code> module</a></h2>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> cv2, imutils
@@ -390,7 +407,7 @@ img <span class="sign">=</span> cv2.<span class="command">imread</span>(<span cl
 cv2.<span class="command">imshow</span>(<span class="text">"Original"</span>, img)
 
 <span class="comment"># Resizing an image while keeping the aspect ratio</span>
-resized <span class="sign">=</span> imutils.<span class="command">resize</span>(img, width <span class="sign">=</span> 400) <span class="comment"># automatically scaling height</span>
+resized <span class="sign">=</span> imutils.<span class="command">resize</span>(img, width <span class="sign">=</span> 400) <span class="comment"># automatically scaling the height</span>
 cv2.<span class="command">imshow</span>(<span class="text">"Resized"</span>, resized)
 
 <span class="comment"># Rotating an image</span>
@@ -408,7 +425,7 @@ cv2.<span class="command">waitKey</span>(0)
 cv2.<span class="command">destroyAllWindows</span>()
                                     </code></pre>
 
-                                    <h2>OMR (Optical Mark Recognition)</h2>
+                                    <h2><a id="omr">OMR (Optical Mark Recognition)</a></h2>
 
                                     <p>This example will demonstrate how we can use OMR to automatically detect and grade filled-in answer sheets.</p>
 
@@ -429,12 +446,12 @@ image <span class="sign">=</span> cv2.<span class="command">imread</span>(<span 
 
 gray <span class="sign">=</span> cv2.<span class="command">cvtColor</span>(image, cv2.<span class="function">COLOR_BGR2GRAY</span>) <span class="comment"># converting to grayscale</span>
 blurred <span class="sign">=</span> cv2.<span class="command">GaussianBlur</span>(gray, (5, 5), 0) <span class="comment"># applying a Gaussian blur (reducing noise)</span>
-thresh <span class="sign">=</span> cv2.<span class="command">adaptiveThreshold</span>(blurred, 255, cv2.<span class="function">ADAPTIVE_THRESH_MEAN_C</span>, cv2.<span class="function">THRESH_BINARY_INV</span>, 11, 2) <span class="comment"># applying adaptive threshold: local threshold per region, inverted binary, good for uneven lighting</span>
+thresh <span class="sign">=</span> cv2.<span class="command">adaptiveThreshold</span>(blurred, 255, cv2.<span class="function">ADAPTIVE_THRESH_MEAN_C</span>, cv2.<span class="function">THRESH_BINARY_INV</span>, 11, 2) <span class="comment"># applying an adaptive threshold: local threshold per region, inverted binary, good for uneven lighting</span>
 
 <span class="comment"># Finding contours in the thresholded image</span>
 foundContours <span class="sign">=</span> cv2.<span class="command">findContours</span>(thresh.<span class="command">copy</span>(), cv2.<span class="function">RETR_EXTERNAL</span>, cv2.<span class="function">CHAIN_APPROX_SIMPLE</span>)
 <span class="comment"># cv2.RETR_EXTERNAL - retrieves only the outermost contours (ignores nested ones), cv2.CHAIN_APPROX_SIMPLE - compresses horizontal, vertical, and diagonal segments into end points (saves memory)</span>
-foundContours <span class="sign">=</span> imutils.<span class="command">grab_contours</span>(foundContours) <span class="comment"># imutils.grab_contours extracts the contours list in a consistent format across OpenCV versions</span>
+foundContours <span class="sign">=</span> imutils.<span class="command">grab_contours</span>(foundContours) <span class="comment"># imutils.grab_contours extracts the list of contours in a consistent format across OpenCV versions</span>
 <span class="command">print</span>(<span class="text">f"Total contours found: {len(foundContours)}"</span>)
 
 <span class="comment"># Filtering contours that look like bubbles</span>
@@ -464,7 +481,7 @@ question_contours <span class="sign">=</span> contours.<span class="command">sor
         mask <span class="sign">=</span> cv2.<span class="command">bitwise_and</span>(thresh, thresh, mask <span class="sign">=</span> mask) <span class="comment"># applying the contour mask using bitwise AND, which keeps only the parts of "thresh" where the mask is white (255), setting everything else to 0</span>
         total <span class="sign">=</span> cv2.<span class="command">countNonZero</span>(mask) <span class="comment"># counting the number of white pixels inside the masked area (this tells us how much of the answer bubble is filled)</span>
 
-        <span class="comment"># if this is the first bubble checked or the current bubble has more white pixels than previous ones, consider it as the marked answer.</span>
+        <span class="comment"># If this is the first bubble checked or the current bubble has more white pixels than previous ones, consider it as the marked answer.</span>
         <span class="function">if</span> marked <span class="function">is None</span> <span class="function">or</span> total <span class="sign">&gt;</span> marked[0]:
             marked <span class="sign">=</span> (total, cnt_idx)
 
@@ -475,10 +492,8 @@ question_contours <span class="sign">=</span> contours.<span class="command">sor
 
     cv2.<span class="command">drawContours</span>(img, [fields[correct_answer]], <span class="sign">-</span>1, color, 2)
 
-<span class="comment"># Adding top border to make space for the result text</span>
-checked <span class="sign">=</span> cv2.<span class="command">copyMakeBorder</span>(img, 50, 0, 0, 0, cv2.<span class="function">BORDER_CONSTANT</span>, value <span class="sign">=</span> (255, 255, 255))
-
 <span class="comment"># Calculating the score and displaying the result</span>
+checked <span class="sign">=</span> cv2.<span class="command">copyMakeBorder</span>(img, 50, 0, 0, 0, cv2.<span class="function">BORDER_CONSTANT</span>, value <span class="sign">=</span> (255, 255, 255)) <span class="comment"># adding top border to make space for the result text</span>
 score <span class="sign">=</span> correct <span class="sign">/</span> 6
 status <span class="sign">=</span> <span class="text">"Passed"</span> <span class="function">if</span> score <span class="sign">&gt;=</span> 0.6 <span class="function">else</span> <span class="text">"Failed"</span>
 color <span class="sign">=</span> (50, 168, 82) <span class="function">if</span> score <span class="sign">&gt;=</span> 0.6 <span class="function">else</span> (71, 7, 219)
