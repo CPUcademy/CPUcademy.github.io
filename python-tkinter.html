@@ -56,23 +56,17 @@
                     </div>
                 </div>
             </li>
-            <hr class="sidebar-divider">
-            <div class="sidebar-heading">About me</div>
-            
+            <hr class="sidebar-divider my-0">
             <li class="nav-item">
-                <a class="nav-link" href="cv.html">
+                <a class="nav-link" href="about-me.html">
                     <i class="icon-adult"></i>
-                    <span>CV</span></a>
+                    <span>About me</span></a>
             </li>
+            <hr class="sidebar-divider my-0">
             <li class="nav-item">
                 <a class="nav-link" href="portfolio-projects.html">
                     <i class="icon-docs"></i>
                     <span>Portfolio projects</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="services.html">
-                    <i class="icon-services"></i>
-                    <span>My services</span></a>
             </li>
             <hr class="sidebar-divider">
         </ul>
@@ -117,7 +111,7 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>() <span cla
 root.<span class="command">title</span>(<span class="text">"Window"</span>) <span class="comment"># setting the window's title</span>
 root.<span class="command">geometry</span>(<span class="text">"300x200+100+200"</span>) <span class="comment"># setting the window's size (width x height), and where it will appear (x, y)</span>
 root.<span class="command">resizable</span>(<span class="function">False</span>, <span class="function">False</span>) <span class="comment"># setting whether the window's width (first value) and height (second value) are resizable</span>
-root.<span class="command">configure</span>(<span class="command">bg</span><span class="sign">=</span><span class="text">"lightblue"</span>) <span class="comment"># setting the window's background color</span>
+root.<span class="command">configure</span>(<span class="command">bg</span> <span class="sign">=</span> <span class="text">"lightblue"</span>) <span class="comment"># setting the window's background color</span>
 <span class="comment"># root.iconbitmap("app_icon.ico") # setting the window's icon</span>
 
 <span class="function">def</span> on_close():
@@ -135,18 +129,18 @@ root.<span class="command">mainloop</span>() <span class="comment"># running the
 <span class="command">import</span> tkinter <span class="function">as</span> tk
 root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 root.<span class="command">geometry</span>(<span class="text">"300x200"</span>)
-tk.<span class="function">Label</span></span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"CPUcademy"</span>).<span class="command">pack</span>() <span class="comment"># creating a label with the text "CPUcademy" and loading it into the window named root</span>
+tk.<span class="function">Label</span></span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"CPUcademy"</span>).<span class="command">pack</span>() <span class="comment"># creating a label with the text "CPUcademy" and loading it into the window named root</span>
 
-text <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Python"</span>, <span class="command">width</span><span class="sign">=</span>10, <span class="command">height</span><span class="sign">=</span>4) <span class="comment"># (width of 10 characters, height of 4 lines)</span>
+text <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Python"</span>, <span class="command">width</span> <span class="sign">=</span> 10, <span class="command">height</span> <span class="sign">=</span> 4) <span class="comment"># (width of 10 characters, height of 4 lines)</span>
 text.<span class="command">pack</span>()
 
-tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Java"</span>).<span class="command">pack</span>(<span class="command">side</span><span class="sign">=</span>tk.<span class="function">LEFT</span>) <span class="comment"># setting the position of the label (could be also: tk.RIGHT, tk.TOP, tk.BOTTOM)</span>
+tk.<span class="function">Label</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Java"</span>).<span class="command">pack</span>(<span class="command">side</span> <span class="sign">=</span> tk.<span class="function">LEFT</span>) <span class="comment"># setting the position of the label (could be also: tk.RIGHT, tk.TOP, tk.BOTTOM)</span>
 
-myLabel <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Tkinter"</span>, <span class="command">bg</span><span class="sign">=</span><span class="text">"red"</span>, <span class="command">fg</span><span class="sign">=</span><span class="text">"white"</span>, <span class="command">font</span><span class="sign">=</span>(<span class="text">"Arial"</span>, 20)) <span class="comment"># (background color red, font color white, font Arial with size 20)</span>
-myLabel.<span class="command">place</span>(<span class="command">x</span><span class="sign">=</span>100, <span class="command">y</span><span class="sign">=</span>100) <span class="comment"># placing the label at an absolute position</span>
+myLabel <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Tkinter"</span>, <span class="command">bg</span> <span class="sign">=</span> <span class="text">"red"</span>, <span class="command">fg</span> <span class="sign">=</span> <span class="text">"white"</span>, <span class="command">font</span> <span class="sign">=</span> (<span class="text">"Arial"</span>, 20)) <span class="comment"># (background color red, font color white, font Arial with size 20)</span>
+myLabel.<span class="command">place</span>(<span class="command">x</span> <span class="sign">=</span> 100, <span class="command">y</span> <span class="sign">=</span> 100) <span class="comment"># placing the label at an absolute position</span>
 
-myLabel <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Tkinter 2"</span>, <span class="command">anchor</span><span class="sign">=</span><span class="text">"e"</span>, <span class="command">width</span><span class="sign">=</span>10, <span class="command">bg</span><span class="sign">=</span><span class="text">"blue"</span>) <span class="comment"># anchor to the right (east) side of the Label's space</span>
-myLabel.<span class="command">place</span>(<span class="command">relx</span><span class="sign">=</span>0.5, <span class="command">rely</span><span class="sign">=</span>0.5) <span class="comment"># placing a widget at a position relative to the window</span>
+myLabel <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Tkinter 2"</span>, <span class="command">anchor</span> <span class="sign">=</span> <span class="text">"e"</span>, <span class="command">width</span> <span class="sign">=</span> 10, <span class="command">bg</span> <span class="sign">=</span> <span class="text">"blue"</span>) <span class="comment"># anchor to the right (east) side of the Label's space</span>
+myLabel.<span class="command">place</span>(<span class="command">relx</span> <span class="sign">=</span> 0.5, <span class="command">rely</span> <span class="sign">=</span> 0.5) <span class="comment"># placing a widget at a position relative to the window</span>
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
@@ -162,13 +156,13 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 <span class="function">def</span> buttonClicked():
     <span class="command">print</span>(<span class="text">"CPUcademy"</span>)
 
-myButton <span class="sign">=</span> tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Button"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked) <span class="comment"># we write the function name without parentheses because we want to get a callable function object and not call it right away (lambda: buttonClicked() would also work)</span>
+myButton <span class="sign">=</span> tk.<span class="function">Button</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Button"</span>, <span class="command">command</span> <span class="sign">=</span> buttonClicked) <span class="comment"># we write the function name without parentheses because we want to get a callable function object and not call it right away (lambda: buttonClicked() would also work)</span>
 myButton.<span class="command">pack</span>()
 
 <span class="comment"># Changing the status of a button (also works with other widgets)</span>
-tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Button 2"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked, <span class="command">state</span><span class="sign">=</span><span class="text">"active"</span>).<span class="command">pack</span>() <span class="comment"># the button is fully functional (the default state)</span>
-tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Button 2"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked, <span class="command">state</span><span class="sign">=</span><span class="text">"normal"</span>).<span class="command">pack</span>() <span class="comment"># the button is still functional, but the visual appearance is altered</span>
-tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Button 2"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked, <span class="command">state</span><span class="sign">=</span><span class="text">"disabled"</span>).<span class="command">pack</span>() <span class="comment"># the button is disabled</span>
+tk.<span class="function">Button</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Button 2"</span>, <span class="command">command</span> <span class="sign">=</span> buttonClicked, <span class="command">state</span> <span class="sign">=</span> <span class="text">"active"</span>).<span class="command">pack</span>() <span class="comment"># the button is fully functional (the default state)</span>
+tk.<span class="function">Button</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Button 2"</span>, <span class="command">command</span> <span class="sign">=</span> buttonClicked, <span class="command">state</span> <span class="sign">=</span> <span class="text">"normal"</span>).<span class="command">pack</span>() <span class="comment"># the button is still functional, but the visual appearance is altered</span>
+tk.<span class="function">Button</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Button 2"</span>, <span class="command">command</span> <span class="sign">=</span> buttonClicked, <span class="command">state</span> <span class="sign">=</span> <span class="text">"disabled"</span>).<span class="command">pack</span>() <span class="comment"># the button is disabled</span>
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
@@ -188,19 +182,21 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
     <span class="command">print</span>(text)
 
 ifSelected <span class="sign">=</span> 0
-myCheckbutton <span class="sign">=</span> tk.<span class="function">Checkbutton</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Checkbutton"</span>, <span class="command">command</span><span class="sign">=</span><span class="function">lambda</span>: buttonClicked(ifSelected))
-myCheckbutton.<span class="command">pack</span>(<span class="command">padx</span><span class="sign">=</span>20, <span class="command">pady</span><span class="sign">=</span>20) <span class="comment"># padx - padding on the x-axis, pady - padding on the y-axis (from both sides)</span>
+myCheckbutton <span class="sign">=</span> tk.<span class="function">Checkbutton</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Checkbutton"</span>, <span class="command">command</span> <span class="sign">=</span> <span class="function">lambda</span>: buttonClicked(ifSelected))
+myCheckbutton.<span class="command">pack</span>(<span class="command">padx</span> <span class="sign">=</span> 20, <span class="command">pady</span> <span class="sign">=</span> 20) <span class="comment"># padx - padding on the x-axis, pady - padding on the y-axis (from both sides)</span>
 
 v <span class="sign">=</span> tk.<span class="function">IntVar</span>() <span class="comment"># a variable to store the value of the selected radiobutton</span>
-myRadiobutton1 <span class="sign">=</span> tk.<span class="function">Radiobutton</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Python"</span>, <span class="command">variable</span><span class="sign">=</span>v, <span class="command">value</span><span class="sign">=</span>1, <span class="command">command</span><span class="sign">=</span><span class="function">lambda</span>: buttonClicked(<span class="text">"Python"</span>))
-myRadiobutton1.<span class="command">pack</span>(<span class="command">anchor</span><span class="sign">=</span><span class="text">"w"</span>, <span class="command">padx</span><span class="sign">=</span>20)
-myRadiobutton2 <span class="sign">=</span> tk.<span class="function">Radiobutton</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Java"</span>, <span class="command">variable</span><span class="sign">=</span>v, <span class="command">value</span><span class="sign">=</span>2, <span class="command">command</span><span class="sign">=</span><span class="function">lambda</span>: buttonClicked(<span class="text">"Java"</span>))
-myRadiobutton2.<span class="command">pack</span>(<span class="command">anchor</span><span class="sign">=</span><span class="text">"w"</span>, <span class="command">padx</span><span class="sign">=</span>20)
-myRadiobutton3 <span class="sign">=</span> tk.<span class="function">Radiobutton</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"C++"</span>, <span class="command">variable</span><span class="sign">=</span>v, <span class="command">value</span><span class="sign">=</span>3, <span class="command">command</span><span class="sign">=</span><span class="function">lambda</span>: buttonClicked(<span class="text">"C++"</span>))
-myRadiobutton3.<span class="command">pack</span>(<span class="command">anchor</span><span class="sign">=</span><span class="text">"w"</span>, <span class="command">padx</span><span class="sign">=</span>20)
+myRadiobutton1 <span class="sign">=</span> tk.<span class="function">Radiobutton</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Python"</span>, <span class="command">variable</span> <span class="sign">=</span> v, <span class="command">value</span> <span class="sign">=</span> 1, <span class="command">command</span> <span class="sign">=</span> <span class="function">lambda</span>: buttonClicked(<span class="text">"Python"</span>))
+myRadiobutton1.<span class="command">pack</span>(<span class="command">anchor</span> <span class="sign">=</span> <span class="text">"w"</span>, <span class="command">padx</span> <span class="sign">=</span> 20)
+myRadiobutton2 <span class="sign">=</span> tk.<span class="function">Radiobutton</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Java"</span>, <span class="command">variable</span> <span class="sign">=</span> v, <span class="command">value</span> <span class="sign">=</span> 2, <span class="command">command</span> <span class="sign">=</span> <span class="function">lambda</span>: buttonClicked(<span class="text">"Java"</span>))
+myRadiobutton2.<span class="command">pack</span>(<span class="command">anchor</span> <span class="sign">=</span> <span class="text">"w"</span>, <span class="command">padx</span> <span class="sign">=</span> 20)
+myRadiobutton3 <span class="sign">=</span> tk.<span class="function">Radiobutton</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"C++"</span>, <span class="command">variable</span> <span class="sign">=</span> v, <span class="command">value</span> <span class="sign">=</span> 3, <span class="command">command</span> <span class="sign">=</span> <span class="function">lambda</span>: buttonClicked(<span class="text">"C++"</span>))
+myRadiobutton3.<span class="command">pack</span>(<span class="command">anchor</span> <span class="sign">=</span> <span class="text">"w"</span>, <span class="command">padx</span> <span class="sign">=</span> 20)
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
+
+                                    <img src="files/courses/tkinter_1.png" alt="Window" class="img-fluid" style="margin-bottom: 20px;">
 
                                     <h2><a id="input">Input</a></h2>
 
@@ -215,11 +211,11 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 defaultText <span class="sign">=</span> tk.<span class="function">StringVar</span>()    
 defaultText.<span class="command">set</span>(<span class="text">"Write something..."</span>) <span class="comment"># setting the default text in the Entry widget</span>
 
-myEntry <span class="sign">=</span> tk.<span class="function">Entry</span>(root, <span class="command">textvariable</span><span class="sign">=</span>defaultText)
+myEntry <span class="sign">=</span> tk.<span class="function">Entry</span>(root, <span class="command">textvariable</span> <span class="sign">=</span> defaultText)
 myEntry.<span class="command">pack</span>()
-tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Confirm"</span>, <span class="command">command</span><span class="sign">=</span>myGet).<span class="command">pack</span>()
+tk.<span class="function">Button</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Confirm"</span>, <span class="command">command</span> <span class="sign">=</span> myGet).<span class="command">pack</span>()
 
-myPasswordEntry <span class="sign">=</span> tk.<span class="function">Entry</span>(root, <span class="command">show</span><span class="sign">=</span><span class="text">"*"</span>) <span class="comment"># hiding the text in the Entry widget (password protection)</span>
+myPasswordEntry <span class="sign">=</span> tk.<span class="function">Entry</span>(root, <span class="command">show</span> <span class="sign">=</span> <span class="text">"*"</span>) <span class="comment"># hiding the text in the Entry widget (password protection)</span>
 myPasswordEntry.<span class="command">pack</span>()
 
 root.<span class="command">mainloop</span>()
@@ -246,9 +242,9 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 defaultText <span class="sign">=</span> tk.<span class="function">StringVar</span>()
 defaultText.<span class="command">set</span>(<span class="text">"Write something..."</span>)
 
-myEntry <span class="sign">=</span> tk.<span class="function">Entry</span>(root, <span class="command">textvariable</span><span class="sign">=</span>defaultText)
+myEntry <span class="sign">=</span> tk.<span class="function">Entry</span>(root, <span class="command">textvariable</span> <span class="sign">=</span> defaultText)
 myEntry.<span class="command">pack</span>()
-tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Confirm"</span>, <span class="command">command</span><span class="sign">=</span>myGet).<span class="command">pack</span>()
+tk.<span class="function">Button</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Confirm"</span>, <span class="command">command</span> <span class="sign">=</span> myGet).<span class="command">pack</span>()
 myEntry.<span class="command">bind</span>(<span class="text">"&lt;FocusIn&gt;"</span>, on_focus_in)
 myEntry.<span class="command">bind</span>(<span class="text">"&lt;FocusOut&gt;"</span>, on_focus_out)
 
@@ -263,17 +259,17 @@ root.<span class="command">mainloop</span>()
 <span class="command">import</span> tkinter <span class="function">as</span> tk
 root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 
-myLabel1 <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"First:"</span>)
-myLabel2 <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Second:"</span>)
+myLabel1 <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"First:"</span>)
+myLabel2 <span class="sign">=</span> tk.<span class="function">Label</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Second:"</span>)
 
-myLabel1.<span class="command">grid</span>(<span class="command">row</span><span class="sign">=</span>0, <span class="command">column</span><span class="sign">=</span>0, <span class="command">pady</span><span class="sign">=</span>2)
-myLabel2.<span class="command">grid</span>(<span class="command">row</span><span class="sign">=</span>1, <span class="command">column</span><span class="sign">=</span>0, <span class="command">pady</span><span class="sign">=</span>2)
+myLabel1.<span class="command">grid</span>(<span class="command">row</span> <span class="sign">=</span> 0, <span class="command">column</span> <span class="sign">=</span> 0, <span class="command">pady</span> <span class="sign">=</span> 2)
+myLabel2.<span class="command">grid</span>(<span class="command">row</span> <span class="sign">=</span> 1, <span class="command">column</span> <span class="sign">=</span> 0, <span class="command">pady</span> <span class="sign">=</span> 2)
 
 myEntry1 <span class="sign">=</span> tk.<span class="function">Entry</span>(root)
 myEntry2 <span class="sign">=</span> tk.<span class="function">Entry</span>(root)
 
-myEntry1.<span class="command">grid</span>(<span class="command">row</span><span class="sign">=</span>0, <span class="command">column</span><span class="sign">=</span>1, <span class="command">pady</span><span class="sign">=</span>2)
-myEntry2.<span class="command">grid</span>(<span class="command">row</span><span class="sign">=</span>1, <span class="command">column</span><span class="sign">=</span>1, <span class="command">pady</span><span class="sign">=</span>2)
+myEntry1.<span class="command">grid</span>(<span class="command">row</span> <span class="sign">=</span> 0, <span class="command">column</span> <span class="sign">=</span> 1, <span class="command">pady</span> <span class="sign">=</span> 2)
+myEntry2.<span class="command">grid</span>(<span class="command">row</span> <span class="sign">=</span> 1, <span class="command">column</span> <span class="sign">=</span> 1, <span class="command">pady</span> <span class="sign">=</span> 2)
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
@@ -289,11 +285,11 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 myFrame <span class="sign">=</span> tk.<span class="function">Frame</span>(root)
 myFrame.<span class="command">pack</span>()
 
-tk.<span class="function">Label</span>(myFrame, <span class="command">text</span><span class="sign">=</span><span class="text">"First:"</span>).<span class="command">pack</span>()
+tk.<span class="function">Label</span>(myFrame, <span class="command">text</span> <span class="sign">=</span> <span class="text">"First:"</span>).<span class="command">pack</span>()
 myEntry <span class="sign">=</span> tk.<span class="function">Entry</span>(myFrame)
 myEntry.<span class="command">pack</span>()
 
-tk.<span class="function">Label</span>(myFrame, <span class="command">text</span><span class="sign">=</span><span class="text">"Second:"</span>).<span class="command">pack</span>()
+tk.<span class="function">Label</span>(myFrame, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Second:"</span>).<span class="command">pack</span>()
 myEntry2 <span class="sign">=</span> tk.<span class="function">Entry</span>(myFrame)
 myEntry2.<span class="command">pack</span>()
 
@@ -333,9 +329,9 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 
 <span class="function">def</span> open_window():
     top <span class="sign">=</span> tk.<span class="function">Toplevel</span>(root)
-    tk.<span class="function">Label</span>(top, <span class="command">text</span><span class="sign">=</span><span class="text">"This is a top-level window."</span>).<span class="command">pack</span>()
+    tk.<span class="function">Label</span>(top, <span class="command">text</span> <span class="sign">=</span> <span class="text">"This is a top-level window."</span>).<span class="command">pack</span>()
 
-tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Open a new window"</span>, <span class="command">command</span><span class="sign">=</span>open_window).<span class="command">pack</span>()
+tk.<span class="function">Button</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Open a new window"</span>, <span class="command">command</span> <span class="sign">=</span> open_window).<span class="command">pack</span>()
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
@@ -363,9 +359,9 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
             latestEnter <span class="sign">=</span> x
     <span class="command">print</span>(values)
 
-myText <span class="sign">=</span> tk.<span class="function">Text</span>(root, <span class="command">height</span><span class="sign">=</span>5, <span class="command">width</span><span class="sign">=</span>20, <span class="command">wrap</span><span class="sign">=</span>tk.<span class="function">WORD</span>)
+myText <span class="sign">=</span> tk.<span class="function">Text</span>(root, <span class="command">height</span> <span class="sign">=</span> 5, <span class="command">width</span> <span class="sign">=</span> 20, <span class="command">wrap</span> <span class="sign">=</span> tk.<span class="function">WORD</span>)
 myText.<span class="command">pack</span>()
-tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Show value"</span>, <span class="command">command</span><span class="sign">=</span>myGet).<span class="command">pack</span>()
+tk.<span class="function">Button</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Show value"</span>, <span class="command">command</span> <span class="sign">=</span> myGet).<span class="command">pack</span>()
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
@@ -376,8 +372,8 @@ root.<span class="command">mainloop</span>()
 <span class="command">import</span> tkinter <span class="function">as</span> tk
 
 root <span class="sign">=</span> tk.<span class="function">Tk</span>()
-img <span class="sign">=</span> tk.<span class="function">PhotoImage</span>(<span class="command">file</span><span class="sign">=</span><span class="text">"img.png"</span>)
-tk.<span class="function">Label</span>(root, <span class="command">image</span><span class="sign">=</span>img).<span class="command">pack</span>() <span class="comment"># this would also work for a button</span>
+img <span class="sign">=</span> tk.<span class="function">PhotoImage</span>(<span class="command">file</span> <span class="sign">=</span> <span class="text">"img.png"</span>)
+tk.<span class="function">Label</span>(root, <span class="command">image</span> <span class="sign">=</span> img).<span class="command">pack</span>() <span class="comment"># this would also work for a button</span>
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
@@ -389,17 +385,19 @@ root.<span class="command">mainloop</span>()
 <span class="command">from</span> tkinter <span class="command">import</span> colorchooser
 
 <span class="function">def</span> choose_color():
-    color_code <span class="sign">=</span> colorchooser.<span class="command">askcolor</span>(<span class="command">title</span><span class="sign">=</span><span class="text">"Choose a color"</span>)[1]
+    color_code <span class="sign">=</span> colorchooser.<span class="command">askcolor</span>(<span class="command">title</span> <span class="sign">=</span> <span class="text">"Choose a color"</span>)[1]
     <span class="function">if</span> color_code:
-        root.<span class="command">config</span>(<span class="command">bg</span><span class="sign">=</span>color_code)
+        root.<span class="command">config</span>(<span class="command">bg</span> <span class="sign">=</span> color_code)
 
 root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 
-color_button <span class="sign">=</span> tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Choose a color"</span>, <span class="command">command</span><span class="sign">=</span>choose_color)
-color_button.<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>20)
+color_button <span class="sign">=</span> tk.<span class="function">Button</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Choose a color"</span>, <span class="command">command</span> <span class="sign">=</span> choose_color)
+color_button.<span class="command">pack</span>(<span class="command">pady</span> <span class="sign">=</span> 20)
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
+
+                                    <img src="files/courses/tkinter_2.png" alt="Window" class="img-fluid" style="margin-bottom: 20px;">
 
                                     <h4>Tabs</h4>
 
@@ -409,19 +407,21 @@ root.<span class="command">mainloop</span>()
 root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 
 notebook <span class="sign">=</span> ttk.<span class="function">Notebook</span>(root)
-notebook.<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>10, <span class="command">expand</span><span class="sign">=</span><span class="function">True</span>)
+notebook.<span class="command">pack</span>(<span class="command">pady</span> <span class="sign">=</span> 10, <span class="command">expand</span> <span class="sign">=</span> <span class="function">True</span>)
 
 tab1 <span class="sign">=</span> ttk.<span class="function">Frame</span>(notebook)
 tab2 <span class="sign">=</span> ttk.<span class="function">Frame</span>(notebook)
 
-notebook.<span class="command">add</span>(tab1, <span class="command">text</span><span class="sign">=</span><span class="text">"Tab 1"</span>)
-notebook.<span class="command">add</span>(tab2, <span class="command">text</span><span class="sign">=</span><span class="text">"Tab 2"</span>)
+notebook.<span class="command">add</span>(tab1, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Tab 1"</span>)
+notebook.<span class="command">add</span>(tab2, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Tab 2"</span>)
 
-tk.<span class="function">Label</span>(tab1, <span class="command">text</span><span class="sign">=</span><span class="text">"This is Tab 1"</span>).<span class="command">pack</span>(<span class="command">padx</span><span class="sign">=</span>10, <span class="command">pady</span><span class="sign">=</span>10)
-tk.<span class="function">Label</span>(tab2, <span class="command">text</span><span class="sign">=</span><span class="text">"This is Tab 2"</span>).<span class="command">pack</span>(<span class="command">padx</span><span class="sign">=</span>10, <span class="command">pady</span><span class="sign">=</span>10)
+tk.<span class="function">Label</span>(tab1, <span class="command">text</span> <span class="sign">=</span> <span class="text">"This is Tab 1"</span>).<span class="command">pack</span>(<span class="command">padx</span> <span class="sign">=</span> 10, <span class="command">pady</span> <span class="sign">=</span> 10)
+tk.<span class="function">Label</span>(tab2, <span class="command">text</span> <span class="sign">=</span> <span class="text">"This is Tab 2"</span>).<span class="command">pack</span>(<span class="command">padx</span> <span class="sign">=</span> 10, <span class="command">pady</span> <span class="sign">=</span> 10)
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
+
+                                    <img src="files/courses/tkinter_3.png" alt="Window" class="img-fluid" style="margin-bottom: 20px;">
 
                                     <h4>Progressbar</h4>
 
@@ -437,12 +437,14 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
         root.<span class="command">update_idletasks</span>() <span class="comment"># updating the GUI</span>
         time.<span class="command">sleep</span>(0.05) <span class="comment"># simulating work</span>
 
-progress_bar <span class="sign">=</span> ttk.<span class="function">Progressbar</span>(root, <span class="command">length</span><span class="sign">=</span>300, <span class="command">mode</span><span class="sign">=</span><span class="text">"determinate"</span>, <span class="command">maximum</span><span class="sign">=</span>100) <span class="comment"># try also: mode="indeterminate"</span>
-progress_bar.<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>20)
-tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Start"</span>, <span class="command">command</span><span class="sign">=</span>start_progress).<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>10)
+progress_bar <span class="sign">=</span> ttk.<span class="function">Progressbar</span>(root, <span class="command">length</span> <span class="sign">=</span> 300, <span class="command">mode</span> <span class="sign">=</span> <span class="text">"determinate"</span>, <span class="command">maximum</span> <span class="sign">=</span> 100) <span class="comment"># try also: mode="indeterminate"</span>
+progress_bar.<span class="command">pack</span>(<span class="command">pady</span> <span class="sign">=</span> 20)
+tk.<span class="function">Button</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Start"</span>, <span class="command">command</span> <span class="sign">=</span> start_progress).<span class="command">pack</span>(<span class="command">pady</span> <span class="sign">=</span> 10)
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
+
+                                    <img src="files/courses/tkinter_4.png" alt="Window" class="img-fluid" style="margin-bottom: 20px;">
 
                                     <h4>Treeview</h4>
 
@@ -456,32 +458,34 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
     <span class="command">print</span>(<span class="text">f"Selected item: {treeview.item(selected_item)['text']}"</span>)
 
 treeview <span class="sign">=</span> ttk.<span class="function">Treeview</span>(root)
-treeview.<span class="command">pack</span>(<span class="command">padx</span><span class="sign">=</span>20, <span class="command">pady</span><span class="sign">=</span>20)
+treeview.<span class="command">pack</span>(<span class="command">padx</span> <span class="sign">=</span> 20, <span class="command">pady</span> <span class="sign">=</span> 20)
 
 <span class="comment"># Defining the columns (treeview has an implicit column 0)</span>
 treeview[<span class="text">"columns"</span>] <span class="sign">=</span> (<span class="text">"Size"</span>, <span class="text">"Type"</span>)
 
 <span class="comment"># Configuring the columns</span>
-treeview.<span class="command">column</span>(<span class="text">"#0"</span>, <span class="command">width</span><span class="sign">=</span>150, <span class="command">minwidth</span><span class="sign">=</span>150, <span class="command">anchor</span><span class="sign">=</span><span class="text">"w"</span>)
-treeview.<span class="command">column</span>(<span class="text">"Size"</span>, <span class="command">width</span><span class="sign">=</span>100, <span class="command">minwidth</span><span class="sign">=</span>100, <span class="command">anchor</span><span class="sign">=</span><span class="text">"e"</span>)
-treeview.<span class="command">column</span>(<span class="text">"Type"</span>, <span class="command">width</span><span class="sign">=</span>100, <span class="command">minwidth</span><span class="sign">=</span>100, <span class="command">anchor</span><span class="sign">=</span><span class="text">"w"</span>)
+treeview.<span class="command">column</span>(<span class="text">"#0"</span>, <span class="command">width</span> <span class="sign">=</span> 150, <span class="command">minwidth</span> <span class="sign">=</span> 150, <span class="command">anchor</span> <span class="sign">=</span> <span class="text">"w"</span>)
+treeview.<span class="command">column</span>(<span class="text">"Size"</span>, <span class="command">width</span> <span class="sign">=</span> 100, <span class="command">minwidth</span> <span class="sign">=</span> 100, <span class="command">anchor</span> <span class="sign">=</span> <span class="text">"e"</span>)
+treeview.<span class="command">column</span>(<span class="text">"Type"</span>, <span class="command">width</span> <span class="sign">=</span> 100, <span class="command">minwidth</span> <span class="sign">=</span> 100, <span class="command">anchor</span> <span class="sign">=</span> <span class="text">"w"</span>)
 
 <span class="comment"># Defining the headings (titles for the columns)</span>
-treeview.<span class="command">heading</span>(<span class="text">"#0"</span>, <span class="command">text</span><span class="sign">=</span><span class="text">"Name"</span>, <span class="command">anchor</span><span class="sign">=</span><span class="text">"w"</span>)
-treeview.<span class="command">heading</span>(<span class="text">"Size"</span>, <span class="command">text</span><span class="sign">=</span><span class="text">"Size"</span>, <span class="command">anchor</span><span class="sign">=</span><span class="text">"e"</span>)
-treeview.<span class="command">heading</span>(<span class="text">"Type"</span>, <span class="command">text</span><span class="sign">=</span><span class="text">"Type"</span>, <span class="command">anchor</span><span class="sign">=</span><span class="text">"w"</span>)
+treeview.<span class="command">heading</span>(<span class="text">"#0"</span>, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Name"</span>, <span class="command">anchor</span> <span class="sign">=</span> <span class="text">"w"</span>)
+treeview.<span class="command">heading</span>(<span class="text">"Size"</span>, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Size"</span>, <span class="command">anchor</span> <span class="sign">=</span> <span class="text">"e"</span>)
+treeview.<span class="command">heading</span>(<span class="text">"Type"</span>, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Type"</span>, <span class="command">anchor</span> <span class="sign">=</span> <span class="text">"w"</span>)
 
 <span class="comment"># Adding data (parent nodes and child nodes)</span>
-root_node <span class="sign">=</span> treeview.<span class="command">insert</span>(<span class="text">""</span>, <span class="text">"end"</span>, <span class="command">text</span><span class="sign">=</span><span class="text">"Root Folder"</span>, <span class="command">values</span><span class="sign">=</span>(<span class="text">""</span>, <span class="text">"Folder"</span>))
-treeview.<span class="command">insert</span>(root_node, <span class="text">"end"</span>, <span class="command">text</span><span class="sign">=</span><span class="text">"File1.txt"</span>, <span class="command">values</span><span class="sign">=</span>(<span class="text">"15KB"</span>, <span class="text">"File"</span>))
-treeview.<span class="command">insert</span>(root_node, <span class="text">"end"</span>, <span class="command">text</span><span class="sign">=</span><span class="text">"File2.txt"</span>, <span class="command">values</span><span class="sign">=</span>(<span class="text">"25KB"</span>, <span class="text">"File"</span>))
+root_node <span class="sign">=</span> treeview.<span class="command">insert</span>(<span class="text">""</span>, <span class="text">"end"</span>, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Root Folder"</span>, <span class="command">values</span> <span class="sign">=</span> (<span class="text">""</span>, <span class="text">"Folder"</span>))
+treeview.<span class="command">insert</span>(root_node, <span class="text">"end"</span>, <span class="command">text</span> <span class="sign">=</span> <span class="text">"File1.txt"</span>, <span class="command">values</span> <span class="sign">=</span> (<span class="text">"15KB"</span>, <span class="text">"File"</span>))
+treeview.<span class="command">insert</span>(root_node, <span class="text">"end"</span>, <span class="command">text</span> <span class="sign">=</span> <span class="text">"File2.txt"</span>, <span class="command">values</span> <span class="sign">=</span> (<span class="text">"25KB"</span>, <span class="text">"File"</span>))
 
-folder_node <span class="sign">=</span> treeview.<span class="command">insert</span>(<span class="text">""</span>, <span class="text">"end"</span>, <span class="command">text</span><span class="sign">=</span><span class="text">"Another Folder"</span>, <span class="command">values</span><span class="sign">=</span>(<span class="text">""</span>, <span class="text">"Folder"</span>))
-treeview.<span class="command">insert</span>(folder_node, <span class="text">"end"</span>, <span class="command">text</span><span class="sign">=</span><span class="text">"File3.txt"</span>, <span class="command">values</span><span class="sign">=</span>(<span class="text">"30KB"</span>, <span class="text">"File"</span>))
+folder_node <span class="sign">=</span> treeview.<span class="command">insert</span>(<span class="text">""</span>, <span class="text">"end"</span>, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Another Folder"</span>, <span class="command">values</span> <span class="sign">=</span> (<span class="text">""</span>, <span class="text">"Folder"</span>))
+treeview.<span class="command">insert</span>(folder_node, <span class="text">"end"</span>, <span class="command">text</span> <span class="sign">=</span> <span class="text">"File3.txt"</span>, <span class="command">values</span> <span class="sign">=</span> (<span class="text">"30KB"</span>, <span class="text">"File"</span>))
 
 treeview.<span class="command">bind</span>(<span class="text">"&lt;&lt;TreeviewSelect&gt;&gt;"</span>, on_select)
 root.<span class="command">mainloop</span>()
                                     </code></pre>
+
+                                    <img src="files/courses/tkinter_5.png" alt="Window" class="img-fluid" style="margin-bottom: 20px;">
 
                                     <h4>Spinbox</h4>
 
@@ -492,9 +496,9 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 <span class="function">def</span> show_value():
     <span class="command">print</span>(<span class="text">f"Selected value: {spinbox.get()}"</span>)
 
-spinbox <span class="sign">=</span> tk.<span class="function">Spinbox</span>(root, <span class="command">from_</span><span class="sign">=</span>0, <span class="command">to</span><span class="sign">=</span>10)
-spinbox.<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>20)
-tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Show value"</span>, <span class="command">command</span><span class="sign">=</span>show_value).<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>10)
+spinbox <span class="sign">=</span> tk.<span class="function">Spinbox</span>(root, <span class="command">from_</span> <span class="sign">=</span> 0, <span class="command">to</span> <span class="sign">=</span> 10)
+spinbox.<span class="command">pack</span>(<span class="command">pady</span> <span class="sign">=</span> 20)
+tk.<span class="function">Button</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Show value"</span>, <span class="command">command</span> <span class="sign">=</span> show_value).<span class="command">pack</span>(<span class="command">pady</span> <span class="sign">=</span> 10)
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
@@ -513,18 +517,18 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
         <span class="function">return None</span>
 
 myScrollbar <span class="sign">=</span> tk.<span class="function">Scrollbar</span>(root)
-myScrollbar.<span class="command">pack</span>(<span class="command">side</span><span class="sign">=</span>tk.<span class="function">RIGHT</span>, <span class="command">fill</span><span class="sign">=</span>tk.<span class="function">Y</span>)
+myScrollbar.<span class="command">pack</span>(<span class="command">side</span> <span class="sign">=</span> tk.<span class="function">RIGHT</span>, <span class="command">fill</span> <span class="sign">=</span> tk.<span class="function">Y</span>)
 
-myListbox <span class="sign">=</span> tk.<span class="function">Listbox</span>(root, <span class="command">yscrollcommand</span><span class="sign">=</span>myScrollbar.<span class="command">set</span>) <span class="comment"># creating a listbox widget with a scrollbar</span>
+myListbox <span class="sign">=</span> tk.<span class="function">Listbox</span>(root, <span class="command">yscrollcommand</span> <span class="sign">=</span> myScrollbar.<span class="command">set</span>) <span class="comment"># creating a listbox widget with a scrollbar</span>
 
 items <span class="sign">=</span> [<span class="text">"a"</span>, <span class="text">"b"</span>, <span class="text">"c"</span>, <span class="text">"d"</span>, <span class="text">"e"</span>, <span class="text">"f"</span>, <span class="text">"g"</span>, <span class="text">"h"</span>, <span class="text">"i"</span>, <span class="text">"j"</span>, <span class="text">"k"</span>, <span class="text">"l"</span>, <span class="text">"m"</span>, <span class="text">"n"</span>, <span class="text">"o"</span>, <span class="text">"p"</span>, <span class="text">"r"</span>, <span class="text">"s"</span>, <span class="text">"t"</span>, <span class="text">"u"</span>, <span class="text">"w"</span>, <span class="text">"y"</span>, <span class="text">"z"</span>]
 <span class="function">for</span> item <span class="function">in</span> items:
     myListbox.<span class="command">insert</span>(tk.<span class="function">END</span>, item)
 
-myListbox.<span class="command">pack</span>(<span class="command">side</span><span class="sign">=</span>tk.<span class="function">LEFT</span>, <span class="command">fill</span><span class="sign">=</span>tk.<span class="function">BOTH</span>, <span class="command">expand</span><span class="sign">=</span><span class="function">True</span>)
-myScrollbar.<span class="command">config</span>(<span class="command">command</span><span class="sign">=</span>myListbox.<span class="command">yview</span>)
+myListbox.<span class="command">pack</span>(<span class="command">side</span> <span class="sign">=</span> tk.<span class="function">LEFT</span>, <span class="command">fill</span> <span class="sign">=</span> tk.<span class="function">BOTH</span>, <span class="command">expand</span> <span class="sign">=</span> <span class="function">True</span>)
+myScrollbar.<span class="command">config</span>(<span class="command">command</span> <span class="sign">=</span> myListbox.<span class="command">yview</span>)
 
-tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Show value"</span>, <span class="command">command</span><span class="sign">=</span><span class="function">lambda</span>: <span class="command">print</span>(get_selected_item())).<span class="command">pack</span>()
+tk.<span class="function">Button</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Show value"</span>, <span class="command">command</span> <span class="sign">=</span> <span class="function">lambda</span>: <span class="command">print</span>(get_selected_item())).<span class="command">pack</span>()
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
@@ -538,8 +542,8 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 <span class="function">def</span> show_value(value):
     <span class="command">print</span>(<span class="text">f"Selected value: {value}"</span>)
 
-scale <span class="sign">=</span> tk.<span class="function">Scale</span>(root, <span class="command">from_</span><span class="sign">=</span>0, <span class="command">to</span><span class="sign">=</span>100, <span class="command">orient</span><span class="sign">=</span>tk.<span class="function">HORIZONTAL</span>, <span class="command">command</span><span class="sign">=</span>show_value)
-scale.<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>20)
+scale <span class="sign">=</span> tk.<span class="function">Scale</span>(root, <span class="command">from_</span> <span class="sign">=</span> 0, <span class="command">to</span> <span class="sign">=</span> 100, <span class="command">orient</span> <span class="sign">=</span> tk.<span class="function">HORIZONTAL</span>, <span class="command">command</span> <span class="sign">=</span> show_value)
+scale.<span class="command">pack</span>(<span class="command">pady</span> <span class="sign">=</span> 20)
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
@@ -553,7 +557,7 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 
 <span class="function">def</span> open_file():
     <span class="comment"># Opening a file dialog and getting the selected file's path</span>
-    file_path <span class="sign">=</span> filedialog.<span class="command">askopenfilename</span>(<span class="command">title</span><span class="sign">=</span><span class="text">"Open a File"</span>, <span class="command">filetypes</span><span class="sign">=</span>((<span class="text">"Text Files"</span>, <span class="text">"*.txt"</span>), (<span class="text">"All Files"</span>, <span class="text">"*.*"</span>)))
+    file_path <span class="sign">=</span> filedialog.<span class="command">askopenfilename</span>(<span class="command">title</span> <span class="sign">=</span> <span class="text">"Open a File"</span>, <span class="command">filetypes</span> <span class="sign">=</span> ((<span class="text">"Text Files"</span>, <span class="text">"*.txt"</span>), (<span class="text">"All Files"</span>, <span class="text">"*.*"</span>)))
     <span class="function">if</span> file_path:
         <span class="function">with</span> <span class="command">open</span>(file_path, <span class="text">"r"</span>) <span class="function">as</span> file:
             content <span class="sign">=</span> file.<span class="command">read</span>()
@@ -562,17 +566,17 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 
 <span class="function">def</span> save_file():
     <span class="comment"># Opening a save file dialog and getting the selected file's path</span>
-    file_path <span class="sign">=</span> filedialog.<span class="command">asksaveasfilename</span>(<span class="command">title</span><span class="sign">=</span><span class="text">"Save a File"</span>, <span class="command">defaultextension</span><span class="sign">=</span><span class="text">".txt"</span>, <span class="command">filetypes</span><span class="sign">=</span>((<span class="text">"Text Files"</span>, <span class="text">"*.txt"</span>), (<span class="text">"All Files"</span>, <span class="text">"*.*"</span>)))
+    file_path <span class="sign">=</span> filedialog.<span class="command">asksaveasfilename</span>(<span class="command">title</span> <span class="sign">=</span> <span class="text">"Save a File"</span>, <span class="command">defaultextension</span> <span class="sign">=</span> <span class="text">".txt"</span>, <span class="command">filetypes</span> <span class="sign">=</span> ((<span class="text">"Text Files"</span>, <span class="text">"*.txt"</span>), (<span class="text">"All Files"</span>, <span class="text">"*.*"</span>)))
     <span class="function">if</span> file_path:
         content <span class="sign">=</span> text_widget.<span class="command">get</span>(1.0, tk.<span class="function">END</span>) <span class="comment"># getting the content from the Text widget</span>
         <span class="function">with</span> <span class="command">open</span>(file_path, <span class="text">"w"</span>) <span class="function">as</span> file:
             file.<span class="command">write</span>(content) <span class="comment"># saving the content of the Text widget to a file</span>
 
-text_widget <span class="sign">=</span> tk.<span class="function">Text</span>(root, <span class="command">wrap</span><span class="sign">=</span>tk.<span class="function">WORD</span>, <span class="command">width</span><span class="sign">=</span>50, <span class="command">height</span><span class="sign">=</span>15)
-text_widget.<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>10)
+text_widget <span class="sign">=</span> tk.<span class="function">Text</span>(root, <span class="command">wrap</span> <span class="sign">=</span> tk.<span class="function">WORD</span>, <span class="command">width</span> <span class="sign">=</span> 50, <span class="command">height</span> <span class="sign">=</span> 15)
+text_widget.<span class="command">pack</span>(<span class="command">pady</span> <span class="sign">=</span> 10)
 
-tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Open File"</span>, <span class="command">command</span><span class="sign">=</span>open_file).<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>5)
-tk.<span class="function">Button</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Save File"</span>, <span class="command">command</span><span class="sign">=</span>save_file).<span class="command">pack</span>(<span class="command">pady</span><span class="sign">=</span>5)
+tk.<span class="function">Button</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Open File"</span>, <span class="command">command</span> <span class="sign">=</span> open_file).<span class="command">pack</span>(<span class="command">pady</span> <span class="sign">=</span> 5)
+tk.<span class="function">Button</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Save File"</span>, <span class="command">command</span> <span class="sign">=</span> save_file).<span class="command">pack</span>(<span class="command">pady</span> <span class="sign">=</span> 5)
 root.<span class="command">mainloop</span>()
                                     </code></pre>
 
@@ -585,19 +589,21 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 <span class="function">def</span> buttonClicked():
     <span class="command">print</span>(<span class="text">"CPUcademy"</span>)
 
-menu <span class="sign">=</span> tk.<span class="function">Menu</span>(root, <span class="command">tearoff</span><span class="sign">=</span>0)
-root.<span class="command">config</span>(<span class="command">menu</span><span class="sign">=</span>menu)
+menu <span class="sign">=</span> tk.<span class="function">Menu</span>(root, <span class="command">tearoff</span> <span class="sign">=</span> 0)
+root.<span class="command">config</span>(<span class="command">menu</span> <span class="sign">=</span> menu)
 filemenu <span class="sign">=</span> tk.<span class="function">Menu</span>(menu)
 
-menu.<span class="command">add_cascade</span>(<span class="command">label</span><span class="sign">=</span><span class="text">"File"</span>, <span class="command">menu</span><span class="sign">=</span>filemenu)
-filemenu.<span class="command">add_command</span>(<span class="command">label</span><span class="sign">=</span><span class="text">"Open"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked)
+menu.<span class="command">add_cascade</span>(<span class="command">label</span> <span class="sign">=</span> <span class="text">"File"</span>, <span class="command">menu</span> <span class="sign">=</span> filemenu)
+filemenu.<span class="command">add_command</span>(<span class="command">label</span> <span class="sign">=</span> <span class="text">"Open"</span>, <span class="command">command</span> <span class="sign">=</span> buttonClicked)
 filemenu.<span class="command">add_separator</span>()
-filemenu.<span class="command">add_command</span>(label</span><span class="sign">=</span><span class="text">"Save"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked)
+filemenu.<span class="command">add_command</span>(label</span> <span class="sign">=</span> <span class="text">"Save"</span>, <span class="command">command</span> <span class="sign">=</span> buttonClicked)
 
-menu.<span class="command">add_cascade</span>(<span class="command">label</span><span class="sign">=</span><span class="text">"Settings"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked)
+menu.<span class="command">add_cascade</span>(<span class="command">label</span> <span class="sign">=</span> <span class="text">"Settings"</span>, <span class="command">command</span> <span class="sign">=</span> buttonClicked)
 
 root.<span class="command">mainloop</span>()
                                     </code></pre>
+
+                                    <img src="files/courses/tkinter_6.png" alt="Window" class="img-fluid" style="margin-bottom: 20px;">
 
                                     <h4>Right-click context menu</h4>
 
@@ -611,15 +617,15 @@ root <span class="sign">=</span> tk.<span class="function">Tk</span>()
 <span class="function">def</span> show_menu(event):
     menu.<span class="command">post</span>(event.<span class="command">x_root</span>, event.<span class="command">y_root</span>) <span class="comment"># displaying the menu on right-click</span>
 
-menu <span class="sign">=</span> tk.<span class="function">Menu</span>(root, <span class="command">tearoff</span><span class="sign">=</span>0)
+menu <span class="sign">=</span> tk.<span class="function">Menu</span>(root, <span class="command">tearoff</span> <span class="sign">=</span> 0)
 
-filemenu <span class="sign">=</span> tk.<span class="function">Menu</span>(menu, <span class="command">tearoff</span><span class="sign">=</span>0)
-filemenu.<span class="command">add_command</span>(<span class="command">label</span><span class="sign">=</span><span class="text">"Open"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked)
+filemenu <span class="sign">=</span> tk.<span class="function">Menu</span>(menu, <span class="command">tearoff</span> <span class="sign">=</span> 0)
+filemenu.<span class="command">add_command</span>(<span class="command">label</span> <span class="sign">=</span> <span class="text">"Open"</span>, <span class="command">command</span> <span class="sign">=</span> buttonClicked)
 filemenu.<span class="command">add_separator</span>()
-filemenu.<span class="command">add_command</span>(<span class="command">label</span><span class="sign">=</span><span class="text">"Save"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked)
-menu.<span class="command">add_cascade</span>(<span class="command">label</span><span class="sign">=</span><span class="text">"File"</span>, <span class="command">menu</span><span class="sign">=</span>filemenu)
+filemenu.<span class="command">add_command</span>(<span class="command">label</span> <span class="sign">=</span> <span class="text">"Save"</span>, <span class="command">command</span> <span class="sign">=</span> buttonClicked)
+menu.<span class="command">add_cascade</span>(<span class="command">label</span> <span class="sign">=</span> <span class="text">"File"</span>, <span class="command">menu</span> <span class="sign">=</span> filemenu)
 
-menu.<span class="command">add_command</span>(<span class="command">label</span><span class="sign">=</span><span class="text">"Settings"</span>, <span class="command">command</span><span class="sign">=</span>buttonClicked)
+menu.<span class="command">add_command</span>(<span class="command">label</span> <span class="sign">=</span> <span class="text">"Settings"</span>, <span class="command">command</span> <span class="sign">=</span> buttonClicked)
 
 root.<span class="command">bind</span>(<span class="text">"&lt;Button-3&gt;"</span>, show_menu)
 root.<span class="command">mainloop</span>()
@@ -632,7 +638,7 @@ root.<span class="command">mainloop</span>()
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> customtkinter <span class="function">as</span> ctk
 root <span class="sign">=</span> ctk.<span class="function">CTk</span>()
-ctk.<span class="function">CTkLabel</span>(root, <span class="command">text</span><span class="sign">=</span><span class="text">"Hello World!"</span>).<span class="command">pack</span>()
+ctk.<span class="function">CTkLabel</span>(root, <span class="command">text</span> <span class="sign">=</span> <span class="text">"Hello World!"</span>).<span class="command">pack</span>()
 root.<span class="command">mainloop</span>()
                                     </code></pre>
                                 </div>

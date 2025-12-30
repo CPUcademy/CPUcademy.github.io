@@ -48,32 +48,25 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="python.html">Python</a>
-                        <a class="collapse-item" href="java.html">Java &amp; Kotlin (Android)</a>
+                        <a class="collapse-item" href="java.html">Java</a>
                         <a class="collapse-item" href="cplusplus.html">C++</a>
                         <a class="collapse-item" href="web.html">Basic web stack</a>
                         <a class="collapse-item" href="databases.html">Databases</a>
-                        <a class="collapse-item" href="electronics.html">Electronics</a>
-                        <a class="collapse-item" href="it-and-computer-basics.html">IT &amp; computer basics</a>
+                        <a class="collapse-item" href="electronics-and-it-basics.html">Electronics &amp; IT basics</a>
                     </div>
                 </div>
             </li>
-            <hr class="sidebar-divider">
-            <div class="sidebar-heading">About me</div>
-            
+            <hr class="sidebar-divider my-0">
             <li class="nav-item">
-                <a class="nav-link" href="cv.html">
+                <a class="nav-link" href="about-me.html">
                     <i class="icon-adult"></i>
-                    <span>CV</span></a>
+                    <span>About me</span></a>
             </li>
+            <hr class="sidebar-divider my-0">
             <li class="nav-item">
                 <a class="nav-link" href="portfolio-projects.html">
                     <i class="icon-docs"></i>
                     <span>Portfolio projects</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="services.html">
-                    <i class="icon-services"></i>
-                    <span>My services</span></a>
             </li>
             <hr class="sidebar-divider">
         </ul>
@@ -188,9 +181,9 @@ NON_LETTER_REGEX <span class="sign">=</span> re.<span class="command">compile</s
         freq_to_letters.<span class="command">setdefault</span>(freq, []).<span class="command">append</span>(letter)
 
     <span class="function">for</span> freq <span class="function">in</span> freq_to_letters:
-        freq_to_letters[freq].<span class="command">sort</span>(key <span class="sign">=</span> ENGLISH_FREQ_ORDER.<span class="command">find</span>, reverse<span class="sign">=</span><span class="function">True</span>) <span class="comment"># breaking ties using English frequency</span>
+        freq_to_letters[freq].<span class="command">sort</span>(key <span class="sign">=</span> ENGLISH_FREQ_ORDER.<span class="command">find</span>, reverse <span class="sign">=</span> <span class="function">True</span>) <span class="comment"># breaking ties using English frequency</span>
 
-    sorted_freqs <span class="sign">=</span> <span class="command">sorted</span>(freq_to_letters.<span class="command">items</span>(), key <span class="sign">=</span> <span class="function">lambda</span> x: x[0], reverse<span class="sign">=</span><span class="function">True</span>) <span class="comment"># highest frequency first</span>
+    sorted_freqs <span class="sign">=</span> <span class="command">sorted</span>(freq_to_letters.<span class="command">items</span>(), key <span class="sign">=</span> <span class="function">lambda</span> x: x[0], reverse <span class="sign">=</span> <span class="function">True</span>) <span class="comment"># highest frequency first</span>
     <span class="function">return</span> <span class="text">""</span>.<span class="command">join</span>(<span class="text">""</span>.<span class="command">join</span>(pair[1]) <span class="function">for</span> pair <span class="function">in</span> sorted_freqs) <span class="comment"># flattening into a ranked string</span>
 
 <span class="function">def</span> match_english_profile(text):
@@ -223,7 +216,7 @@ NON_LETTER_REGEX <span class="sign">=</span> re.<span class="command">compile</s
         <span class="function">for</span> spacing <span class="function">in</span> spacings:
             <span class="function">for</span> factor <span class="function">in</span> get_factors(spacing):
                 factor_counts[factor] <span class="sign">=</span> factor_counts.<span class="command">get</span>(factor, 0) <span class="sign">+</span> 1 <span class="comment"># incrementing count for each valid factor</span>
-    <span class="function">return</span> <span class="command">sorted</span>(factor_counts.<span class="command">items</span>(), key <span class="sign">=</span> <span class="function">lambda</span> x: x[1], reverse<span class="sign">=</span><span class="function">True</span>) <span class="comment"># most frequent factors first</span>
+    <span class="function">return</span> <span class="command">sorted</span>(factor_counts.<span class="command">items</span>(), key <span class="sign">=</span> <span class="function">lambda</span> x: x[1], reverse <span class="sign">=</span> <span class="function">True</span>) <span class="comment"># most frequent factors first</span>
 
 <span class="function">def</span> kasiski_analysis(ciphertext):
     repeats <span class="sign">=</span> find_repeated_sequences(ciphertext) <span class="comment"># locating repeated substrings and their spacings</span>

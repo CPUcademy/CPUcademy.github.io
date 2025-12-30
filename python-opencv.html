@@ -56,23 +56,17 @@
                     </div>
                 </div>
             </li>
-            <hr class="sidebar-divider">
-            <div class="sidebar-heading">About me</div>
-            
+            <hr class="sidebar-divider my-0">
             <li class="nav-item">
-                <a class="nav-link" href="cv.html">
+                <a class="nav-link" href="about-me.html">
                     <i class="icon-adult"></i>
-                    <span>CV</span></a>
+                    <span>About me</span></a>
             </li>
+            <hr class="sidebar-divider my-0">
             <li class="nav-item">
                 <a class="nav-link" href="portfolio-projects.html">
                     <i class="icon-docs"></i>
                     <span>Portfolio projects</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="services.html">
-                    <i class="icon-services"></i>
-                    <span>My services</span></a>
             </li>
             <hr class="sidebar-divider">
         </ul>
@@ -170,11 +164,11 @@ cv2.<span class="command">imshow</span>(<span class="text">"Canny"</span>, imgCa
 kernel <span class="sign">=</span> np.<span class="command">ones</span>((5, 5), np.<span class="command">uint8</span>) <span class="comment"># creating a 5x5 matrix of ones to use as the structuring element for morphological operations</span>
 
 <span class="comment"># Applying dilation to the edges to strengthen and expand them</span>
-imgDilated <span class="sign">=</span> cv2.<span class="command">dilate</span>(imgCanny, kernel, iterations <span class="sign">=</span> 1) <span class="comment"># iterations = 1 applies the dilation once - more iterations make edges thicker</span>
+imgDilated <span class="sign">=</span> cv2.<span class="command">dilate</span>(imgCanny, kernel, <span class="command">iterations</span> <span class="sign">=</span> 1) <span class="comment"># iterations = 1 applies the dilation once - more iterations make edges thicker</span>
 cv2.<span class="command">imshow</span>(<span class="text">"Dilated"</span>, imgDilated)
 
 <span class="comment"># Applying erosion to the dilated edges to reduce thickness and remove small noise</span>
-imgEroded <span class="sign">=</span> cv2.<span class="command">erode</span>(imgDilated, kernel, iterations <span class="sign">=</span> 1) <span class="comment"># iterations = 1 applies erosion once - more iterations shrink edges further</span>
+imgEroded <span class="sign">=</span> cv2.<span class="command">erode</span>(imgDilated, kernel, <span class="command">iterations</span> <span class="sign">=</span> 1) <span class="comment"># iterations = 1 applies erosion once - more iterations shrink edges further</span>
 cv2.<span class="command">imshow</span>(<span class="text">"Eroded"</span>, imgEroded)
 
 <span class="comment"># Applying thresholding to convert the grayscale image to a binary image</span>
@@ -254,14 +248,14 @@ cv2.<span class="command">waitKey</span>(0)
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 img <span class="sign">=</span> cv2.<span class="command">imread</span>(<span class="text">"resources/image.jpg"</span>, cv2.<span class="function">IMREAD_GRAYSCALE</span>) <span class="comment"># loading an image in grayscale (simplifies processing)</span>
 
-<span class="comment"># Sobel filter - detects edges in X or Y direction</span>
-sobelX <span class="sign">=</span> cv2.<span class="command">Sobel</span>(img, ddepth <span class="sign">=</span> cv2.<span class="function">CV_64F</span>, dx <span class="sign">=</span> 1, dy <span class="sign">=</span> 0) <span class="comment"># vertical edges</span>
-sobelY <span class="sign">=</span> cv2.<span class="command">Sobel</span>(img, ddepth <span class="sign">=</span> cv2.<span class="function">CV_64F</span>, dx <span class="sign">=</span> 0, dy <span class="sign">=</span> 1) <span class="comment"># horizontal edges</span>
+<span class="comment"># Sobel filter - detects e</span>dges in X or Y direction</span>
+sobelX <span class="sign">=</span> cv2.<span class="command">Sobel</span>(img, ddepth <span class="sign">=</span> cv2.<span class="function">CV_64F</span>, <span class="command">dx</span> <span class="sign">=</span> 1, <span class="command">dy</span> <span class="sign">=</span> 0) <span class="comment"># vertical edges</span>
+sobelY <span class="sign">=</span> cv2.<span class="command">Sobel</span>(img, ddepth <span class="sign">=</span> cv2.<span class="function">CV_64F</span>, <span class="command">dx</span> <span class="sign">=</span> 0, <span class="command">dy</span> <span class="sign">=</span> 1) <span class="comment"># horizontal edges</span>
 cv2.<span class="command">imshow</span>(<span class="text">"Sobel vertical"</span>, sobelX)
 cv2.<span class="command">imshow</span>(<span class="text">"Sobel horizontal"</span>, sobelY)
 
 <span class="comment"># Laplacian filter - detects edges regardless of direction</span>
-laplacian <span class="sign">=</span> cv2.<span class="command">Laplacian</span>(img, ddepth <span class="sign">=</span> cv2.<span class="function">CV_64F</span>)
+laplacian <span class="sign">=</span> cv2.<span class="command">Laplacian</span>(img, <span class="command">ddepth</span> <span class="sign">=</span> cv2.<span class="function">CV_64F</span>)
 cv2.<span class="command">imshow</span>(<span class="text">"Laplacian"</span>, laplacian)
 
 <span class="comment"># filter2D - custom kernel for simple edge detection or blurring
@@ -269,7 +263,7 @@ cv2.<span class="command">imshow</span>(<span class="text">"Laplacian"</span>, l
 kernel <span class="sign">=</span> np.<span class="command">array</span>([[<span class="sign">-</span>1, 0, 1],
                    [<span class="sign">-</span>2, 0, 2],
                    [<span class="sign">-</span>1, 0, 1]])
-customEdges <span class="sign">=</span> cv2.<span class="command">filter2D</span>(img, ddepth <span class="sign">= -</span>1, kernel <span class="sign">=</span> kernel)
+customEdges <span class="sign">=</span> cv2.<span class="command">filter2D</span>(img, <span class="command">ddepth</span> <span class="sign">= -</span>1, <span class="command">kernel</span> <span class="sign">=</span> kernel)
 cv2.<span class="command">imshow</span>(<span class="text">"Custom edge detection"</span>, customEdges)
 
 cv2.<span class="command">waitKey</span>(0)
@@ -351,8 +345,8 @@ cv2.<span class="command">waitKey</span>(0)
 <span class="command">import</span> numpy <span class="function">as</span> np
 
 <span class="comment"># HSV range used for color segmentation (updated dynamically on mouse click)</span>
-lower_color <span class="sign">=</span> np.<span class="command">array</span>([0, 0, 0], dtype <span class="sign">=</span> np.<span class="command">uint8</span>)
-upper_color <span class="sign">=</span> np.<span class="command">array</span>([179, 255, 255], dtype <span class="sign">=</span> np.<span class="command">uint8</span>)
+lower_color <span class="sign">=</span> np.<span class="command">array</span>([0, 0, 0], <span class="command">dtype</span> <span class="sign">=</span> np.<span class="command">uint8</span>)
+upper_color <span class="sign">=</span> np.<span class="command">array</span>([179, 255, 255], <span class="command">dtype</span> <span class="sign">=</span> np.<span class="command">uint8</span>)
 
 current_frame <span class="sign">=</span> <span class="function">None</span>
 
@@ -365,8 +359,8 @@ current_frame <span class="sign">=</span> <span class="function">None</span>
         <span class="command">print</span>(<span class="text">f"Clicked HSV: H={H}, S={S}, V={V}"</span>)
 
         <span class="comment"># Creating a tolerance range around the selected HSV color (it helps segment similar shades instead of a single exact color)</span>
-        lower_color <span class="sign">=</span> np.<span class="command">array</span>([<span class="command">max</span>(int(H) <span class="sign">-</span> 10, 0), <span class="command">max</span>(int(S) <span class="sign">-</span> 50, 0), <span class="command">max</span>(int(V) <span class="sign">-</span> 50, 0)], dtype <span class="sign">=</span> np.<span class="command">uint</span>8)
-        upper_color <span class="sign">=</span> np.<span class="command">array</span>([<span class="command">min</span>(int(H) <span class="sign">+</span> 10, 179), <span class="command">min</span>(int(S) <span class="sign">+</span> 50, 255), <span class="command">min</span>(int(V) <span class="sign">+</span> 50, 255)], dtype <span class="sign">=</span> np.<span class="command">uint8</span>)
+        lower_color <span class="sign">=</span> np.<span class="command">array</span>([<span class="command">max</span>(int(H) <span class="sign">-</span> 10, 0), <span class="command">max</span>(int(S) <span class="sign">-</span> 50, 0), <span class="command">max</span>(int(V) <span class="sign">-</span> 50, 0)], <span class="command">dtype</span> <span class="sign">=</span> np.<span class="command">uint</span>8)
+        upper_color <span class="sign">=</span> np.<span class="command">array</span>([<span class="command">min</span>(int(H) <span class="sign">+</span> 10, 179), <span class="command">min</span>(int(S) <span class="sign">+</span> 50, 255), <span class="command">min</span>(int(V) <span class="sign">+</span> 50, 255)], <span class="command">dtype</span> <span class="sign">=</span> np.<span class="command">uint8</span>)
         <span class="command">print</span>(<span class="text">f"Segmenting HSV range: lower <span class="sign">=</span> {lower_color}, upper <span class="sign">=</span> {upper_color}"</span>)
 
 cap <span class="sign">=</span> cv2.<span class="command">VideoCapture</span>(0, cv2.<span class="function">CAP_DSHOW</span>)
@@ -383,7 +377,7 @@ cv2.<span class="command">setMouseCallback</span>(<span class="text">"Webcam"</s
     current_frame <span class="sign">=</span> frame.<span class="command">copy</span>() <span class="comment"># updating the global frame copy</span>
     hsv_frame <span class="sign">=</span> cv2.<span class="command">cvtColor</span>(frame, cv2.<span class="function">COLOR_BGR2HSV</span>) <span class="comment"># converting the frame to HSV for color-based segmentation</span>
     mask <span class="sign">=</span> cv2.<span class="command">inRange</span>(hsv_frame, lower_color, upper_color) <span class="comment"># creating a binary mask where the pixels in the selected HSV range appear white</span>
-    result <span class="sign">=</span> cv2.<span class="command">bitwise_and</span>(frame, frame, mask <span class="sign">=</span> mask) <span class="comment"># applying the mask to extract only the selected color from the frame</span>
+    result <span class="sign">=</span> cv2.<span class="command">bitwise_and</span>(frame, frame, <span class="command">mask</span> <span class="sign">=</span> mask) <span class="comment"># applying the mask to extract only the selected color from the frame</span>
     cv2.<span class="command">imshow</span>(<span class="text">"Webcam"</span>, frame)
     cv2.<span class="command">imshow</span>(<span class="text">"Segmented color"</span>, result)
     <span class="function">if</span> cv2.<span class="command">waitKey</span>(1) <span class="sign">&</span> 0xFF <span class="sign">==</span> <span class="command">ord</span>(<span class="text">"q"</span>):
@@ -407,18 +401,18 @@ img <span class="sign">=</span> cv2.<span class="command">imread</span>(<span cl
 cv2.<span class="command">imshow</span>(<span class="text">"Original"</span>, img)
 
 <span class="comment"># Resizing an image while keeping the aspect ratio</span>
-resized <span class="sign">=</span> imutils.<span class="command">resize</span>(img, width <span class="sign">=</span> 400) <span class="comment"># automatically scaling the height</span>
+resized <span class="sign">=</span> imutils.<span class="command">resize</span>(img, <span class="command">width</span> <span class="sign">=</span> 400) <span class="comment"># automatically scaling the height</span>
 cv2.<span class="command">imshow</span>(<span class="text">"Resized"</span>, resized)
 
 <span class="comment"># Rotating an image</span>
-rotated <span class="sign">=</span> imutils.<span class="command">rotate</span>(img, angle <span class="sign">=</span> 45) <span class="comment"># simple rotation (may crop edges)</span>
+rotated <span class="sign">=</span> imutils.<span class="command">rotate</span>(img, <span class="command">angle</span> <span class="sign">=</span> 45) <span class="comment"># simple rotation (may crop edges)</span>
 cv2.<span class="command">imshow</span>(<span class="text">"Rotated"</span>, rotated)
 
-rotated_bound <span class="sign">=</span> imutils.<span class="command">rotate_bound</span>(img, angle <span class="sign">=</span> 45) <span class="comment"># rotation without cropping</span>
+rotated_bound <span class="sign">=</span> imutils.<span class="command">rotate_bound</span>(img, <span class="command">angle</span> <span class="sign">=</span> 45) <span class="comment"># rotation without cropping</span>
 cv2.<span class="command">imshow</span>(<span class="text">"Rotated bound"</span>, rotated_bound)
 
 <span class="comment"># Translating (shifting) an image</span>
-shifted <span class="sign">=</span> imutils.<span class="command">translate</span>(img, x <span class="sign">=</span> 100, y <span class="sign">=</span> 50) <span class="comment"># moving right by 100px and down by 50px</span>
+shifted <span class="sign">=</span> imutils.<span class="command">translate</span>(img, <span class="command">x</span> <span class="sign">=</span> 100, <span class="command">y</span> <span class="sign">=</span> 50) <span class="comment"># moving right by 100px and down by 50px</span>
 cv2.<span class="command">imshow</span>(<span class="text">"Shifted"</span>, shifted)
 
 cv2.<span class="command">waitKey</span>(0)
@@ -467,18 +461,18 @@ img <span class="sign">=</span> image.<span class="command">copy</span>()
 
 <span class="comment"># Sorting contours top-to-bottom</span>
 correct <span class="sign">=</span> 0
-question_contours <span class="sign">=</span> contours.<span class="command">sort_contours</span>(question_contours, method <span class="sign">=</span> <span class="text">"top-to-bottom"</span>)[0]
+question_contours <span class="sign">=</span> contours.<span class="command">sort_contours</span>(question_contours, <span class="command">method</span> <span class="sign">=</span> <span class="text">"top-to-bottom"</span>)[0]
 
 <span class="comment"># Processing each question (4 bubbles per question)</span>
 <span class="function">for</span> question, idx <span class="function">in</span> <span class="command">enumerate</span>(<span class="command">range</span>(0, <span class="command">len</span>(question_contours), 4)):
     fields <span class="sign">=</span> question_contours[idx:idx <span class="sign">+</span> 4] <span class="comment"># extracting the 4 bubbles corresponding to the current question</span>
-    fields <span class="sign">=</span> contours.<span class="command">sort_contours</span>(fields, method <span class="sign">=</span> <span class="text">"left-to-right"</span>)[0] <span class="comment"># sorting the contours of the current question from left to right</span>
+    fields <span class="sign">=</span> contours.<span class="command">sort_contours</span>(fields, <span class="command">method</span> <span class="sign">=</span> <span class="text">"left-to-right"</span>)[0] <span class="comment"># sorting the contours of the current question from left to right</span>
     marked <span class="sign">=</span> <span class="function">None</span>
 
     <span class="function">for</span> cnt_idx, cnt <span class="function">in</span> <span class="command">enumerate</span>(fields):
-        mask <span class="sign">=</span> np.<span class="command">zeros</span>(thresh.<span class="command">shape</span>, dtype <span class="sign">=</span> <span class="text">"uint8"</span>)
+        mask <span class="sign">=</span> np.<span class="command">zeros</span>(thresh.<span class="command">shape</span>, <span class="command">dtype</span> <span class="sign">=</span> <span class="text">"uint8"</span>)
         cv2.<span class="command">drawContours</span>(mask, [cnt], <span class="sign">-</span>1, 255, <span class="sign">-</span>1)
-        mask <span class="sign">=</span> cv2.<span class="command">bitwise_and</span>(thresh, thresh, mask <span class="sign">=</span> mask) <span class="comment"># applying the contour mask using bitwise AND, which keeps only the parts of "thresh" where the mask is white (255), setting everything else to 0</span>
+        mask <span class="sign">=</span> cv2.<span class="command">bitwise_and</span>(thresh, thresh, <span class="command">mask</span> <span class="sign">=</span> mask) <span class="comment"># applying the contour mask using bitwise AND, which keeps only the parts of "thresh" where the mask is white (255), setting everything else to 0</span>
         total <span class="sign">=</span> cv2.<span class="command">countNonZero</span>(mask) <span class="comment"># counting the number of white pixels inside the masked area (this tells us how much of the answer bubble is filled)</span>
 
         <span class="comment"># If this is the first bubble checked or the current bubble has more white pixels than previous ones, consider it as the marked answer.</span>
@@ -493,7 +487,7 @@ question_contours <span class="sign">=</span> contours.<span class="command">sor
     cv2.<span class="command">drawContours</span>(img, [fields[correct_answer]], <span class="sign">-</span>1, color, 2)
 
 <span class="comment"># Calculating the score and displaying the result</span>
-checked <span class="sign">=</span> cv2.<span class="command">copyMakeBorder</span>(img, 50, 0, 0, 0, cv2.<span class="function">BORDER_CONSTANT</span>, value <span class="sign">=</span> (255, 255, 255)) <span class="comment"># adding top border to make space for the result text</span>
+checked <span class="sign">=</span> cv2.<span class="command">copyMakeBorder</span>(img, 50, 0, 0, 0, cv2.<span class="function">BORDER_CONSTANT</span>, <span class="command">value</span> <span class="sign">=</span> (255, 255, 255)) <span class="comment"># adding top border to make space for the result text</span>
 score <span class="sign">=</span> correct <span class="sign">/</span> 6
 status <span class="sign">=</span> <span class="text">"Passed"</span> <span class="function">if</span> score <span class="sign">&gt;=</span> 0.6 <span class="function">else</span> <span class="text">"Failed"</span>
 color <span class="sign">=</span> (50, 168, 82) <span class="function">if</span> score <span class="sign">&gt;=</span> 0.6 <span class="function">else</span> (71, 7, 219)
