@@ -56,23 +56,17 @@
                     </div>
                 </div>
             </li>
-            <hr class="sidebar-divider">
-            <div class="sidebar-heading">About me</div>
-            
+            <hr class="sidebar-divider my-0">
             <li class="nav-item">
-                <a class="nav-link" href="cv.html">
+                <a class="nav-link" href="about-me.html">
                     <i class="icon-adult"></i>
-                    <span>CV</span></a>
+                    <span>About me</span></a>
             </li>
+            <hr class="sidebar-divider my-0">
             <li class="nav-item">
                 <a class="nav-link" href="portfolio-projects.html">
                     <i class="icon-docs"></i>
                     <span>Portfolio projects</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="services.html">
-                    <i class="icon-services"></i>
-                    <span>My services</span></a>
             </li>
             <hr class="sidebar-divider">
         </ul>
@@ -116,7 +110,7 @@ matrix <span class="sign">=</span> np.<span class="command">array</span>([[1, 2,
 <span class="command">print</span>(matrix.<span class="command">shape</span>) <span class="comment"># shape of the array (2, 3)</span>
 <span class="command">print</span>(matrix.<span class="command">ndim</span>) <span class="comment"># the number of axes (2, because it's 2D)</span>
 <span class="command">print</span>(matrix.<span class="command">size</span>) <span class="comment"># the number of elements in all sub-arrays</span>
-<span class="command">print</span>(matrix.<span class="command">sum</span>(axis <span class="sign">=</span> 0), matrix.<span class="command">sum</span>(axis <span class="sign">=</span> 1)) <span class="comment"># sum along columns and rows</span>
+<span class="command">print</span>(matrix.<span class="command">sum</span>(<span class="command">axis</span> <span class="sign">=</span> 0), matrix.<span class="command">sum</span>(<span class="command">axis</span> <span class="sign">=</span> 1)) <span class="comment"># sum along columns and rows</span>
 
 array_3d <span class="sign">=</span> np.<span class="command">array</span>([
     [[1, 2], [3, 4]],
@@ -181,7 +175,7 @@ matrix2 <span class="sign">=</span> np.<span class="command">array</span>([
 
 <span class="command">print</span>(np.<span class="command">zeros</span>(5)) <span class="comment"># a 1D array of 5 zeros (could be also ones() or empty())</span>
 <span class="command">print</span>(np.<span class="command">zeros</span>((3, 3))) <span class="comment"># a 3x3 matrix filled with zeros</span>
-<span class="command">print</span>(np.<span class="command">zeros</span>((3, 3), dtype <span class="sign">=</span> <span class="command">int</span>)) <span class="comment"># a 3x3 matrix filled with zeros as integers (without the decimal point)</span>
+<span class="command">print</span>(np.<span class="command">zeros</span>((3, 3), <span class="command">dtype</span> <span class="sign">=</span> <span class="command">int</span>)) <span class="comment"># a 3x3 matrix filled with zeros as integers (without the decimal point)</span>
                                     </code></pre>
 
                                     <p>An identity matrix acts as the multiplicative identity in linear algebra, meaning that multiplying any compatible matrix by it leaves the original matrix unchanged. It is commonly used in solving linear systems, computing matrix inverses, and performing transformations.</p>
@@ -191,8 +185,8 @@ matrix2 <span class="sign">=</span> np.<span class="command">array</span>([
                                         
 <span class="command">print</span>(np.<span class="command">identity</span>(3)) <span class="comment"># a 3x3 identity matrix (1s on main diagonal, 0s elsewhere)</span>
 <span class="command">print</span>(np.<span class="command">eye</span>(3, 3)) <span class="comment"># same as identity(), explicitly specifying rows and columns</span>
-<span class="command">print</span>(np.<span class="command">eye</span>(8, 4, k <span class="sign">=</span> 1)) <span class="comment"># a 8x4 matrix with 1s on the first upper diagonal (k = 0 - main diagonal, k &gt; 0 - above main diagonal, k &lt; 0 - below main diagonal)</span>
-<span class="command">print</span>(np.<span class="command">eye</span>(8, 4, k <span class="sign">= -</span>3))
+<span class="command">print</span>(np.<span class="command">eye</span>(8, 4, <span class="command">k</span> <span class="sign">=</span> 1)) <span class="comment"># a 8x4 matrix with 1s on the first upper diagonal (k = 0 - main diagonal, k &gt; 0 - above main diagonal, k &lt; 0 - below main diagonal)</span>
+<span class="command">print</span>(np.<span class="command">eye</span>(8, 4, <span class="command">k</span> <span class="sign">= -</span>3))
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -266,15 +260,15 @@ matrix <span class="sign">=</span> np.<span class="command">array</span>([
 ])
 
 <span class="comment"># sort() along axis = 0 (sort each column)</span>
-sorted_matrix <span class="sign">=</span> np.<span class="command">sort</span>(matrix, axis <span class="sign">=</span> 0)
+sorted_matrix <span class="sign">=</span> np.<span class="command">sort</span>(matrix, <span class="command">axis</span> <span class="sign">=</span> 0)
 <span class="command">print</span>(<span class="text">"Sorted along axis=0:\n"</span>, sorted_matrix)
 
 <span class="comment"># argsort() along axis = 0 (get row indices that would sort each column)</span>
-indices <span class="sign">=</span> np.<span class="command">argsort</span>(matrix, axis <span class="sign">=</span> 0)
+indices <span class="sign">=</span> np.<span class="command">argsort</span>(matrix, <span class="command">axis</span> <span class="sign">=</span> 0)
 <span class="command">print</span>(<span class="text">"Argsort along axis=0:\n"</span>, indices)
 
 <span class="comment"># using argsort() indices to reorder elements manually (useful for reordering related arrays)</span>
-sorted_matrix_using_indices <span class="sign">=</span> np.<span class="command">take_along_axis</span>(matrix, indices, axis <span class="sign">=</span> 0)
+sorted_matrix_using_indices <span class="sign">=</span> np.<span class="command">take_along_axis</span>(matrix, indices, <span class="command">axis</span> <span class="sign">=</span> 0)
 <span class="command">print</span>(<span class="text">"Sorted using argsort indices:\n"</span>, sorted_matrix_using_indices)
                                     </code></pre>
                                 </div>

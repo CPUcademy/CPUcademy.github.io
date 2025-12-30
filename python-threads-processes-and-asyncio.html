@@ -56,23 +56,17 @@
                     </div>
                 </div>
             </li>
-            <hr class="sidebar-divider">
-            <div class="sidebar-heading">About me</div>
-            
+            <hr class="sidebar-divider my-0">
             <li class="nav-item">
-                <a class="nav-link" href="cv.html">
+                <a class="nav-link" href="about-me.html">
                     <i class="icon-adult"></i>
-                    <span>CV</span></a>
+                    <span>About me</span></a>
             </li>
+            <hr class="sidebar-divider my-0">
             <li class="nav-item">
                 <a class="nav-link" href="portfolio-projects.html">
                     <i class="icon-docs"></i>
                     <span>Portfolio projects</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="services.html">
-                    <i class="icon-services"></i>
-                    <span>My services</span></a>
             </li>
             <hr class="sidebar-divider">
         </ul>
@@ -213,7 +207,7 @@ threads <span class="sign">=</span> []
 <span class="function">def</span> task(n): <span class="comment"># function to execute inside the thread pool</span>
     <span class="command">print</span>(<span class="text">f"Task {n} running in {threading.current_thread().name}"</span>)
 
-<span class="function">with ThreadPoolExecutor</span>(<span class="command">max_workers</span><span class="sign">=</span>3) <span class="function">as</span> executor: <span class="comment"># creating a thread pool with 3 worker threads</span>
+<span class="function">with ThreadPoolExecutor</span>(<span class="command">max_workers</span> <span class="sign">=</span> 3) <span class="function">as</span> executor: <span class="comment"># creating a thread pool with 3 worker threads</span>
     <span class="comment"># Submitting 5 tasks to the thread pool</span>
     <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(1, 6):
         executor.<span class="command">submit</span>(task, i) <span class="comment"># executing the task() function with argument "i"</span>
