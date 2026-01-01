@@ -87,27 +87,111 @@
                                 <div class="card-body">
                                     <h3>What is PostgreSQL?</h3>
 
-                                    <p></p>
+                                    <p>PostgreSQL is a powerful, open-source object-relational database management system (ORDBMS). Like MySQL, PostgreSQL runs as a dedicated server and is designed for large-scale, multi-user applications. It supports advanced SQL features, strong data integrity, and high concurrency.</p>
 
-                                    <h3>When is it useful?</h3>
+                                    <p>PostgreSQL is commonly used in backend systems, enterprise applications, and data-intensive services where reliability, performance, and scalability are critical. PostgreSQL focuses on strict standards compliance and advanced features, while MySQL prioritizes simplicity, speed, and ease of use for common web applications.</p>
 
-                                    <p></p>
+                                    <h3>Syntax</h3>
+
+                                    <p class="podpis">If you already know MySQL, PostgreSQL will feel familiar (most commands work similarly). Key differences include:</p>
+
+                                    <ul>
+                                        <li>Strong data typing: columns enforce declared data types.</li>
+                                        <li>Auto-increment is handled using <code>SERIAL</code> or <code>GENERATED AS IDENTITY</code>.</li>
+                                        <li>Advanced features such as <code>JSONB</code>, <code>CTEs</code>, window functions, and custom types.</li>
+                                        <li>Full support for transactions, constraints, and indexes.</li>
+                                    </ul>
 
                                     <h3>Setup</h3>
+
+                                    <p>PostgreSQL requires a running server. It can be installed locally from the official website or via a package manager. During installation, a default user and database are created. After installation, we connect to PostgreSQL using credentials (host, port, database name, user, and password).</p>
+
+                                    <p>pgAdmin is a graphical administration and management tool for PostgreSQL. It provides a user-friendly interface for connecting to PostgreSQL servers, creating and modifying databases, running SQL queries, and managing users and permissions. Of course, we can also use the terminal.</p>
                                     
-                                    <p></p>
+                                    <img src="files/courses/pgadmin.png" alt="CpgAdminhart" class="img-fluid" style="margin-bottom: 20px;">
+
+                                    <p>For the examples below to work, a previously created database is required. We can do it most easily in pgAdmin by right-clicking <code>PostgreSQL</code> in the tree on the left, and then: <code>Create/Database</code>.</p>
 
                                     <h3>Python implementation</h3>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 
-                                    </code></pre>  
+                                    <p>PostgreSQL comes built into Python as the <code>psycopg2</code> module, so no additional installation is required.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> psycopg2
+
+<span class="comment"># Connecting to the database (make sure database "dbtest" exists)</span>
+conn <span class="sign">=</span> psycopg2.<span class="command">connect</span>(
+    <span class="command">dbname</span> <span class="sign">=</span> <span class="text">"dbtest"</span>,
+    <span class="command">user</span> <span class="sign">=</span> <span class="text">"postgres"</span>,
+    <span class="command">password</span> <span class="sign">=</span> <span class="text">""</span>,
+    <span class="command">host</span> <span class="sign">=</span> <span class="text">"localhost"</span>,
+    <span class="command">port</span> <span class="sign">=</span> 5432
+)
+cursor <span class="sign">=</span> conn.<span class="command">cursor</span>() <span class="comment"># creating a cursor object to execute SQL commands</span>
+
+<span class="comment"># Creating a table</span>
+cursor.<span class="command">execute</span>(<span class="text">"""
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    age INTEGER
+)
+"""</span>)
+
+<span class="comment"># Inserting data</span>
+cursor.<span class="command">execute</span>(<span class="text">"INSERT INTO users (name, age) VALUES (%s, %s)"</span>, (<span class="text">"Alice"</span>, 30))
+cursor.<span class="command">execute</span>(<span class="text">"INSERT INTO users (name, age) VALUES (%s, %s)"</span>, (<span class="text">"Bob"</span>, 25))
+
+conn.<span class="command">commit</span>() <span class="comment"># committing changes</span>
+
+<span class="comment"># Querying data</span>
+cursor.<span class="command">execute</span>(<span class="text">"SELECT * FROM users"</span>)
+rows <span class="sign">=</span> cursor.<span class="command">fetchall</span>()
+<span class="function">for</span> row <span class="function">in</span> rows:
+    <span class="command">print</span>(row)
+
+<span class="comment"># Closing connections</span>
+cursor.<span class="command">close</span>()
+conn.<span class="command">close</span>()
+                                    </code></pre>
 
                                     <h3>Java implementation</h3>
-                                    
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 
-                                    </code></pre>     
+                                    <p>In Java, PostgreSQL is accessed using JDBC (Java Database Connectivity). We need to <a href="https://jdbc.postgresql.org/download/" target="_blank" class="link">download the JDBC driver for PostgreSQL</a> and add it to the project's dependencies (in IntelliJ, enter <code>File/Project Structure/Libraries/+</code> and select the downloaded JAR file).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.sql.Connection<span class="sign">;</span>
+<span class="command">import</span> java.sql.DriverManager<span class="sign">;</span>
+<span class="command">import</span> java.sql.ResultSet<span class="sign">;</span>
+<span class="command">import</span> java.sql.Statement<span class="sign">;</span>
+
+<span class="function">public</span> <span class="function">class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
+        <span class="function">String</span> url <span class="sign">=</span> <span class="text">"jdbc:postgresql://localhost:5432/dbtest"</span><span class="sign">;</span>
+        <span class="function">String</span> user <span class="sign">=</span> <span class="text">"postgres"</span><span class="sign">;</span>
+        <span class="function">String</span> password <span class="sign">=</span> <span class="text">""</span><span class="sign">;</span>
+
+        <span class="function">try</span> <span class="sign">{</span>
+            <span class="function">Connection</span> conn <span class="sign">=</span> DriverManager.<span class="command">getConnection</span>(url, user, password)<span class="sign">;</span> <span class="comment">// connecting to the database (make sure database "dbtest" exists)</span>
+            <span class="function">Statement</span> stmt <span class="sign">=</span> conn.<span class="command">createStatement</span>()<span class="sign">;</span> <span class="comment">// creating a statement object to execute SQL queries</span>
+            stmt.<span class="command">execute</span>(<span class="text">"CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name TEXT, age INTEGER)"</span>)<span class="sign">;</span> <span class="comment">// creating a table</span>
+
+            <span class="comment">// Inserting data</span>
+            stmt.<span class="command">executeUpdate</span>(<span class="text">"INSERT INTO users (name, age) VALUES ('Alice', 30)"</span>)<span class="sign">;</span>
+            stmt.<span class="command">executeUpdate</span>(<span class="text">"INSERT INTO users (name, age) VALUES ('Bob', 25)"</span>)<span class="sign">;</span>
+
+            <span class="comment">// Querying data</span>
+            <span class="function">ResultSet</span> rs <span class="sign">=</span> stmt.<span class="command">executeQuery</span>(<span class="text">"SELECT * FROM users"</span>)<span class="sign">;</span>
+            <span class="function">while</span> (rs.<span class="command">next</span>())
+                System.out.<span class="command">println</span>(rs.<span class="command">getInt</span>(<span class="text">"id"</span>) <span class="sign">+</span> <span class="text">" "</span> <span class="sign">+</span> rs.<span class="command">getString</span>(<span class="text">"name"</span>) <span class="sign">+</span> <span class="text">" "</span> <span class="sign">+</span> rs.<span class="command">getInt</span>(<span class="text">"age"</span>))<span class="sign">;</span>
+
+            conn.<span class="command">close</span>()<span class="sign">;</span> <span class="comment">// closing the connection</span>
+        <span class="sign">}</span> <span class="function">catch</span> (<span class="function">Exception</span> e) <span class="sign">{</span>
+            e.<span class="command">printStackTrace</span>()<span class="sign">;</span>
+        <span class="sign">}</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>   
                                 </div>
                             </div>
                         </div>

@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Forms</title>
+    <title>MySQL database access in PHP</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -82,13 +82,9 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Forms</h5>
+                                    <h5 class="m-0 font-weight-bold">MySQL database access in PHP</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h2>Method nr. 1 - two files</h2>
-
-                                    <h4>Main file</h4>
-
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">&lt;!DOCTYPE html&gt;</span>
 <span class="function">&lt;html <span class="command">lang</span> <span class="sign">=</span> <span class="text">"en"</span>&gt;</span>
@@ -96,76 +92,7 @@
     <span class="function">&lt;meta <span class="command">charset</span> <span class="sign">=</span> <span class="text">"UTF-8"</span>&gt;</span>
     <span class="function">&lt;meta <span class="command">name</span> <span class="sign">=</span> <span class="text">"viewport"</span> <span class="command">content</span> <span class="sign">=</span> <span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
     <span class="function">&lt;meta <span class="command">name</span> <span class="sign">=</span> <span class="text">"description"</span> <span class="command">content</span> <span class="sign">=</span> <span class="text">"PHP basics"</span>&gt;</span>
-    <span class="function">&lt;title&gt;</span>Multiplication table<span class="function">&lt;/title&gt;</span>
-<span class="function">&lt;/head&gt;</span>
-<span class="function">&lt;body&gt;</span>
-    <span class="function">&lt;h3&gt;</span>Enter the multiplication table range<span class="function">&lt;/h3&gt;</span>
-
-    <span class="function">&lt;form <span class="command">action</span> <span class="sign">=</span> <span class="text">"multiplication_table.php"</span> <span class="command">method</span> <span class="sign">=</span> <span class="text">"post"</span>&gt;</span>
-        <span class="function">&lt;p&gt;</span>Number of rows:<span class="function">&lt;/p&gt;</span>
-        <span class="function">&lt;input <span class="command">type</span> <span class="sign">=</span> <span class="text">"text"</span> <span class="command">name</span> <span class="sign">=</span> <span class="text">"n"</span>&gt;</span>
-        
-        <span class="function">&lt;p&gt;</span>Number of columns:<span class="function">&lt;/p&gt;</span>
-        <span class="function">&lt;input <span class="command">type</span> <span class="sign">=</span> <span class="text">"text"</span> <span class="command">name</span> <span class="sign">=</span> <span class="text">"m"</span>&gt;</span>
-        
-        <span class="function">&lt;br&gt;&lt;br&gt;</span>
-        <span class="function">&lt;input <span class="command">type</span> <span class="sign">=</span> <span class="text">"submit"</span> <span class="command">value</span> <span class="sign">=</span> <span class="text">"Submit"</span>&gt;</span>
-    <span class="function">&lt;/form&gt;</span>
-<span class="function">&lt;/body&gt;</span>
-<span class="function">&lt;/html&gt;</span>
-                                    </code></pre>
-
-                                    <h4>Second file</h4>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">&lt;!DOCTYPE html&gt;</span>
-<span class="function">&lt;html <span class="command">lang</span> <span class="sign">=</span> <span class="text">"en"</span>&gt;</span>
-<span class="function">&lt;head&gt;</span>
-    <span class="function">&lt;meta <span class="command">charset</span> <span class="sign">=</span> <span class="text">"UTF-8"</span>&gt;</span>
-    <span class="function">&lt;meta <span class="command">name</span> <span class="sign">=</span> <span class="text">"viewport"</span> <span class="command">content</span> <span class="sign">=</span> <span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
-    <span class="function">&lt;meta <span class="command">name</span> <span class="sign">=</span> <span class="text">"description"</span> <span class="command">content</span> <span class="sign">=</span> <span class="text">"PHP basics"</span>&gt;</span>
-    <span class="function">&lt;title&gt;</span>Multiplication table<span class="function">&lt;/title&gt;</span>
-    <span class="function">&lt;style&gt;</span>
-        table, td <span class="sign">{</span>
-            <span class="function">border</span><span class="sign">:</span> 1px solid black<span class="sign">;</span>
-            <span class="function">border-spacing</span><span class="sign">:</span> 0<span class="sign">;</span>
-        <span class="sign">}</span>
-    <span class="function">&lt;/style&gt;</span>
-<span class="function">&lt;/head&gt;</span>
-<span class="function">&lt;body&gt;</span>
-    <span class="function">&lt;?php</span>
-        <span class="function">$</span>n <span class="sign">=</span> <span class="function">$</span><span class="command">_POST</span>[<span class="text">'n'</span>]<span class="sign">;</span> <span class="comment">// receiving the value using the POST method</span>
-        <span class="function">$</span>m <span class="sign">=</span> <span class="function">$</span><span class="command">_POST</span>[<span class="text">'m'</span>]<span class="sign">;</span>
-        
-        <span class="command">echo</span> <span class="text">"&lt;table&gt;"</span><span class="sign">;</span>
-        <span class="function">for</span> (<span class="function">$</span>i <span class="sign">=</span> 1<span class="sign">;</span> <span class="function">$</span>i <span class="sign">&lt;=</span> <span class="function">$</span>n<span class="sign">;</span> <span class="function">$</span>i<span class="sign">++</span>) <span class="sign">{</span>
-            <span class="command">echo</span> <span class="text">"&lt;tr&gt;"</span><span class="sign">;</span>
-            <span class="function">for</span> (<span class="function">$</span>j <span class="sign">=</span> 1<span class="sign">;</span> <span class="function">$</span>j <span class="sign">&lt;=</span> <span class="function">$</span>m<span class="sign">;</span> <span class="function">$</span>j<span class="sign">++</span>)
-                <span class="command">echo</span> <span class="text">"&lt;td&gt;"</span> <span class="sign">.</span> (<span class="function">$</span>i <span class="sign">*</span> <span class="function">$</span>j) <span class="sign">.</span> <span class="text">"&lt;/td&gt;"</span><span class="sign">;</span>
-            <span class="command">echo</span> <span class="text">"&lt;/tr&gt;"</span><span class="sign">;</span>
-        <span class="sign">}</span>
-        <span class="command">echo</span> <span class="text">"&lt;/table&gt;"</span><span class="sign">;</span>
-    <span class="function">?&gt;</span>
-<span class="function">&lt;/body&gt;</span>
-<span class="function">&lt;/html&gt;</span>
-                                    </code></pre>
-
-                                    <h2>Method nr. 2 - one file (PostBack)</h2>
-
-                                    <p>We can interleave the PHP tags between instructions. For example, we can exit PHP in the middle of an <code>else</code> instruction, put some HTML elements there that will only display if this instruction was executed, and then come back to PHP.</p>
-
-                                    <p>The <code>isset()</code> method checks if a variable is set and is not <code>null</code>. It returns <code>true</code> if the variable exists and is not <code>null</code>, and <code>false</code> otherwise.</p>
-                                        
-                                    <p>The <code>empty()</code> method determines if a variable is empty, meaning it is unset, <code>null</code>, <code>false</code>, an empty string, 0, or an empty array. It returns <code>true</code> if the variable is empty and <code>false</code> if it has a non-empty value.</p>
-
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">&lt;!DOCTYPE html&gt;</span>
-<span class="function">&lt;html <span class="command">lang</span> <span class="sign">=</span> <span class="text">"en"</span>&gt;</span>
-<span class="function">&lt;head&gt;</span>
-    <span class="function">&lt;meta <span class="command">charset</span> <span class="sign">=</span> <span class="text">"UTF-8"</span>&gt;</span>
-    <span class="function">&lt;meta <span class="command">name</span> <span class="sign">=</span> <span class="text">"viewport"</span> <span class="command">content</span> <span class="sign">=</span> <span class="text">"width=device-width, initial-scale=1.0"</span>&gt;</span>
-    <span class="function">&lt;meta <span class="command">name</span> <span class="sign">=</span> <span class="text">"description"</span> <span class="command">content</span> <span class="sign">=</span> <span class="text">"PHP basics"</span>&gt;</span>
-    <span class="function">&lt;title&gt;</span>PostBack<span class="function">&lt;/title&gt;</span>
+    <span class="function">&lt;title&gt;</span>MySQL database access in PHP<span class="function">&lt;/title&gt;</span>
 <span class="function">&lt;/head&gt;</span>
 <span class="function">&lt;body&gt;</span>
     <span class="function">&lt;?php function</span> form(<span class="function">$</span>firstName <span class="sign">=</span> <span class="text">""</span>, <span class="function">$</span>lastName <span class="sign">=</span> <span class="text">""</span>, <span class="function">$</span>profession <span class="sign">=</span> <span class="text">""</span>, <span class="function">$</span>email <span class="sign">=</span> <span class="text">""</span>, <span class="function">$</span>mailingChecked <span class="sign">=</span> <span class="function">false</span>, <span class="function">$</span>gender <span class="sign">=</span> <span class="text">""</span>, <span class="function">$</span>education <span class="sign">=</span> <span class="text">""</span>) 
@@ -202,6 +129,28 @@
     <span class="function">&lt;?php</span> <span class="sign">}</span> <span class="function">?&gt;</span>
     
     <span class="function">&lt;?php</span>
+        <span class="function">$</span>servername <span class="sign">=</span> <span class="text">"localhost"</span><span class="sign">;</span>
+        <span class="function">$</span>username <span class="sign">=</span> <span class="text">"root"</span><span class="sign">;</span>
+        <span class="function">$</span>password <span class="sign">=</span> <span class="text">""</span><span class="sign">;</span>
+        <span class="function">$</span>dbname <span class="sign">=</span> <span class="text">"dbtest"</span><span class="sign">;</span>
+
+        <span class="comment">// Connecting to the database (make sure database "dbtest" exists)</span>
+        <span class="function">$</span>conn <span class="sign">=</span> <span class="function">new mysqli</span>(<span class="function">$</span>servername, <span class="function">$</span>username, <span class="function">$</span>password, <span class="function">$</span>dbname)<span class="sign">;</span>
+        <span class="function">if</span> (<span class="function">$</span>conn <span class="sign">-&gt;</span> connect_error)
+            <span class="command">die</span>(<span class="text">"&lt;p style='color: red;'&gt;Connection failed: "</span> <span class="sign">.</span> <span class="function">$</span>conn <span class="sign">-&gt;</span> connect_error <span class="sign">.</span> <span class="text">"&lt;/p&gt;"</span>)<span class="sign">;</span>
+
+        <span class="comment">// Creating a table if it doesn't exist</span>
+        <span class="function">$</span>conn <span class="sign">-&gt;</span> <span class="command">query</span>(<span class="text">"CREATE TABLE IF NOT EXISTS users (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            firstName VARCHAR(50),
+            lastName VARCHAR(50),
+            profession VARCHAR(50),
+            email VARCHAR(100),
+            gender VARCHAR(10),
+            education VARCHAR(20),
+            mailing BOOLEAN
+        )"</span>)<span class="sign">;</span>
+                                        
         <span class="function">if</span> (<span class="command">isset</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"submit"</span>])) <span class="sign">{</span>
             <span class="function">$</span>mailing <span class="sign">=</span> <span class="command">isset</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"mailing"</span>])<span class="sign">;</span>
             <span class="function">$</span>gender <span class="sign">=</span> <span class="command">isset</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"gender"</span>]) ? <span class="function">$</span><span class="command">_POST</span>[<span class="text">"gender"</span>] <span class="sign">:</span> <span class="text">""</span><span class="sign">;</span>
@@ -215,6 +164,11 @@
                 <span class="command">echo</span> <span class="text">"&lt;p style='color: red;'&gt;You must fill in all fields!&lt;/p&gt;"</span><span class="sign">;</span>
             <span class="sign">}</span> <span class="function">else</span> <span class="sign">{</span>
                 <span class="command">echo</span> <span class="text">"&lt;p&gt;Thank you for filling out the form!&lt;/p&gt;"</span><span class="sign">;</span>
+
+                <span class="function">$</span>stmt = <span class="function">$</span>conn <span class="sign">-&gt;</span> <span class="command">prepare</span>(<span class="text">"INSERT INTO users (firstName, lastName, profession, email, gender, education, mailing) VALUES (?, ?, ?, ?, ?, ?, ?)"</span>)<span class="sign">;</span>
+                <span class="function">$</span>stmt <span class="sign">-&gt;</span> <span class="command">bind_param</span>(<span class="text">"ssssssi"</span>, <span class="function">$</span><span class="command">_POST</span>[<span class="text">"firstName"</span>], <span class="function">$</span><span class="command">_POST</span>[<span class="text">"lastName"</span>], <span class="function">$</span><span class="command">_POST</span>[<span class="text">"profession"</span>], <span class="function">$</span><span class="command">_POST</span>[<span class="text">"email"</span>], <span class="function">$</span>gender, <span class="function">$</span>education, <span class="function">$</span>mailing)<span class="sign">;</span>
+                <span class="function">$</span>stmt <span class="sign">-&gt;</span> <span class="command">execute</span>()<span class="sign">;</span>
+                <span class="function">$</span>stmt <span class="sign">-&gt;</span> <span class="command">close</span>()<span class="sign">;</span>
                 <span class="function">?&gt;</span>
                 <span class="function">&lt;ul&gt;</span>
                     <span class="function">&lt;li&gt;</span>First name: <span class="function">&lt;b&gt;&lt;?=</span> <span class="command">trim</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"firstName"</span>])<span class="sign">;</span> <span class="function">?&gt;&lt;/b&gt;&lt;/li&gt;</span>
@@ -234,6 +188,7 @@
            <span class="sign">}</span>
         <span class="sign">}</span> <span class="function">else</span>
             form()<span class="sign">;</span>
+        <span class="function">$</span>conn <span class="sign">-&gt;</span> <span class="command">close</span>()<span class="sign">;</span>
     <span class="function">?&gt;</span>
 <span class="function">&lt;/body&gt;</span>
 <span class="function">&lt;/html&gt;</span>

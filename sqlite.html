@@ -87,13 +87,13 @@
                                 <div class="card-body">
                                     <h3>What is SQLite?</h3>
 
-                                    <p>SQLite is a lightweight, serverless, self-contained relational database engine. It stores the entire database in a single file, making it easy to use for embedded applications, small projects, and testing. Unlike MySQL or PostgreSQL, it does not require a separate server process.</p>
+                                    <p>SQLite is a lightweight, <b>serverless</b>, self-contained relational database engine. It stores the entire database in a <b>single file</b>, making it easy to use for embedded applications, small projects, and testing. Unlike MySQL or PostgreSQL, it does not require a separate server process.</p>
 
-                                    <p>SQLite is useful when you need a simple, reliable database without the overhead of setting up and maintaining a database server. Common use cases include desktop applications, small tools, mobile apps, prototyping, and testing.</p>
+                                    <p>SQLite is useful when we need a simple, reliable database without the overhead of setting up and maintaining a database server. Common use cases include desktop applications, small tools, mobile apps, prototyping, and testing.</p>
 
                                     <h3>Syntax</h3>
 
-                                    <p class="podpis">If you already know MySQL, SQLite will feel familiar. Most SQL commands like <code>CREATE TABLE</code>, <code>INSERT</code>, <code>SELECT</code>, <code>UPDATE</code>, and <code>DELETE</code> work the same. Key differences include:</p>
+                                    <p class="podpis">If you already know MySQL, SQLite will feel familiar (most commands work similarly). Key differences include:</p>
 
                                     <ul>
                                         <li>No strict data types: SQLite uses dynamic typing, which means we can store any type of data in any column, though we can declare types for clarity.</li>
@@ -102,41 +102,43 @@
                                         <li>Limited ALTER TABLE support: adding columns is easy, but dropping or renaming them is restricted.</li>
                                     </ul>
 
-                                    <p>Overall, writing SQL in SQLite is straightforward: you write standard SQL commands just like in MySQL, and the database executes them on the local file.</p>
-
                                     <h3>Python implementation</h3>
 
                                     <p>SQLite comes built into Python as the <code>sqlite3</code> module, so no additional installation is required.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-import sqlite3
+<span class="command">import</span> sqlite3
 
-conn = sqlite3.connect("database.db") # connecting to a database (creates the file if it doesn't exist)
-cursor = conn.cursor() # creating a cursor object to execute SQL commands
+conn <span class="sign">=</span> sqlite3.<span class="command">connect</span>(<span class="text">"dbtest.db"</span>) <span class="comment"># connecting to the database (creating the file if it doesn't exist)</span>
+cursor <span class="sign">=</span> conn.<span class="command">cursor</span>() <span class="comment"># creating a cursor object to execute SQL commands</span>
 
-# Creating a table
-cursor.execute("""
+<span class="comment"># Creating a table</span>
+cursor.<span class="command">execute</span>(<span class="text">"""
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY,
     name TEXT,
     age INTEGER
 )
-""")
+"""</span>)
 
-# Inserting data
-cursor.execute("INSERT INTO users (name, age) VALUES (?, ?)", ("Alice", 30))
-cursor.execute("INSERT INTO users (name, age) VALUES (?, ?)", ("Bob", 25))
+<span class="comment"># Inserting data</span>
+cursor.<span class="command">execute</span>(<span class="text">"INSERT INTO users (name, age) VALUES (?, ?)"</span>, (<span class="text">"Alice"</span>, 30))
+cursor.<span class="command">execute</span>(<span class="text">"INSERT INTO users (name, age) VALUES (?, ?)"</span>, (<span class="text">"Bob"</span>, 25))
 
-conn.commit() # committing changes
+conn.<span class="command">commit</span>() <span class="comment"># committing changes</span>
 
-# Querying data
-cursor.execute("SELECT * FROM users")
-rows = cursor.fetchall()
-for row in rows:
-    print(row)
+<span class="comment"># Querying data</span>
+cursor.<span class="command">execute</span>(<span class="text">"SELECT * FROM users"</span>)
+rows <span class="sign">=</span> cursor.<span class="command">fetchall</span>()
+<span class="function">for</span> row <span class="function">in</span> rows:
+    <span class="command">print</span>(row)
     
-conn.close() # closing the connection
+<span class="comment"># Closing connections</span>
+cursor.<span class="command">close</span>()
+conn.<span class="command">close</span>()
                                     </code></pre>
+
+                                    <p>We can also interact with SQLite directly from the terminal without writing Python code. SQLite provides a command-line shell that allows us to open a database file, execute SQL statements, create tables, insert data, and run queries in real time. To start, open the terminal and run <code>sqlite3 dbtest.db</code> (creating the file if it doesn’t exist). Once inside the shell, we can type SQL commands directly. The shell also supports helpful commands like <code>.tables</code> to list tables and <code>.schema</code> to see table structures.</p>
                                 </div>
                             </div>
                         </div>
