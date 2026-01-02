@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, android, android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <title>Kotlin and Jetpack Compose introduction</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D76ZFDYLCY');
+    </script>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics-and-it-basics.html">Electronics &amp; IT basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link" href="about-me.html">
+                    <i class="icon-adult"></i>
+                    <span>About me</span></a>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Kotlin and Jetpack Compose introduction</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>Kotlin is a modern, concise, and safe programming language fully interoperable with Java. This means we can freely mix Java and Kotlin code within the same project: call Kotlin functions from Java, use Java classes in Kotlin, and pass variables and objects between the two languages seamlessly. Kotlin runs on the JVM, is officially supported for Android development, reduces boilerplate code, and introduces powerful features such as null safety and type inference.</p>
+
+                                    <h2>Variables and type inference</h2>
+
+                                    <p>Immutable variables are created with <code>val</code> and mutable variables with <code>var</code>. Immutable variables (<code>val</code>) cannot be reassigned, while mutable variables (<code>var</code>) can be updated. Types can be explicitly declared or inferred.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">fun</span> main() <span class="sign">{</span>
+    <span class="function">val</span> username<span class="sign">:</span> <span class="function">String</span> <span class="sign">=</span> <span class="text">"Alice"</span> <span class="comment">// immutable String</span>
+    <span class="function">var</span> score<span class="sign">:</span> <span class="function">Int</span> <span class="sign">=</span> 42 <span class="comment">// mutable Int</span>
+
+    <span class="function">val</span> level <span class="sign">=</span> 3 <span class="comment">// type inferred as Int</span>
+    <span class="function">var</span> isActive <span class="sign">=</span> <span class="function">true</span> <span class="comment">// type inferred as Boolean</span>
+
+    <span class="command">println</span>(<span class="text">"$username has score $score and level $level, active: $isActive"</span>)
+
+    <span class="comment">// Updating mutable variables</span>
+    score <span class="sign">+=</span> 10
+    isActive <span class="sign">=</span> <span class="function">false</span>
+
+    <span class="command">println</span>(<span class="text">"After update: $username has score $score and level $level, active: $isActive"</span>)
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h2>Conditions and loops</h2>
+
+                                    <p>Kotlin supports <code>if</code>, <code>when</code> (like switch), and loops: <code>for</code>, <code>while</code>, and <code>do-while</code>.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">fun</span> main() <span class="sign">{</span>
+    <span class="comment">// if and if-else</span>
+    <span class="function">val</span> number <span class="sign">=</span> 10
+    <span class="function">if</span> (number <span class="sign">&gt;</span> 0)
+        <span class="command">println</span>(<span class="text">"$number is positive"</span>)
+    <span class="function">else if</span> (number <span class="sign">&lt;</span> 0)
+        <span class="command">println</span>(<span class="text">"$number is negative"</span>)
+    <span class="function">else</span>
+        <span class="command">println</span>(<span class="text">"$number is zero"</span>)
+
+    <span class="comment">// when statement</span>
+    <span class="function">val</span> x <span class="sign">=</span> 3
+    <span class="function">val</span> message <span class="sign">=</span> <span class="function">when</span> (x) <span class="sign">{</span>
+        1 <span class="sign">-></span> <span class="text">"One"</span>
+        2 <span class="sign">-></span> <span class="text">"Two"</span>
+        3 <span class="sign">-></span> <span class="text">"Three"</span>
+        <span class="function">in</span> 4<span class="sign">..</span>10 <span class="sign">-></span> <span class="text">"Between 4 and 10"</span>
+        <span class="function">is Int</span> <span class="sign">-></span> <span class="text">"Any integer"</span>
+        <span class="function">else</span> <span class="sign">-></span> <span class="text">"Unknown"</span>
+    <span class="sign">}</span>
+    <span class="command">println</span>(message)
+
+    <span class="comment">// for loop over a collection"</span>
+    <span class="function">val</span> numbers <span class="sign">=</span> <span class="command">listOf</span>(1, 2, 3, 4, 5)
+    <span class="function">for</span> (number <span class="function">in</span> numbers)
+        <span class="command">println</span>(number)
+
+    <span class="comment">// for loop with index</span>
+    <span class="function">for</span> ((index, value) <span class="function">in</span> numbers.<span class="command">withIndex</span>())
+        <span class="command">println</span>(<span class="text">"Index $index has value $value"</span>)
+
+    <span class="comment">// while loop</span>
+    <span class="function">var</span> i <span class="sign">=</span> 0
+    <span class="function">while</span> (i <span class="sign">&lt;</span> 3) <span class="sign">{</span>
+        <span class="command">println</span>(<span class="text">"While loop iteration $i"</span>)
+        i<span class="sign">++</span>
+    <span class="sign">}</span>
+
+    <span class="comment">// do-while loop</span>
+    <span class="function">var</span> j <span class="sign">=</span> 0
+    <span class="function">do</span> <span class="sign">{</span>
+        <span class="command">println</span>(<span class="text">"Do-while iteration $j"</span>)
+        j<span class="sign">++</span>
+    <span class="sign">}</span> <span class="function">while</span> (j <span class="sign">&lt;</span> 3)
+
+    <span class="comment">// Creating an empty mutable list and adding values in a loop</span>
+    <span class="function">val</span> squares <span class="sign">=</span> <span class="function">mutableListOf</span><span class="sign">&lt;</span><span class="function">Int</span><span class="sign">&gt;</span>()
+    <span class="function">for</span> (n <span class="function">in</span> 1<span class="sign">..</span>5)
+        squares.<span class="command">add</span>(n <span class="sign">*</span> n)
+    <span class="command">println</span>(<span class="text">"Squares: $squares"</span>)
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h2>Functions</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">fun</span> multiply(a<span class="sign">:</span> <span class="function">Int</span>, b<span class="sign">:</span> <span class="function">Int</span> <span class="sign">=</span> 2)<span class="sign">:</span> <span class="function">Int</span> <span class="sign">{</span> <span class="comment">// setting a default argument value, which means if we don’t pass it, it will be substituted</span>
+    <span class="function">return</span> a <span class="sign">*</span> b
+<span class="sign">}</span>
+
+<span class="function">fun</span> main() <span class="sign">{</span>
+    <span class="function">val</span> result1 <span class="sign">=</span> multiply(5)
+    <span class="command">println</span>(<span class="text">"5 * 2 = $result1"</span>)
+
+    <span class="function">val</span> result2 <span class="sign">=</span> multiply(a <span class="sign">=</span> 4, b <span class="sign">=</span> 3) <span class="comment">// we can use named arguments so that the order of arguments doesn't matter</span>
+    <span class="command">println</span>(<span class="text">"4 * 3 = $result2"</span>)
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h2>Classes, inheritance, and visibility modifiers</h2>
+
+                                    <p>In Kotlin, classes are <code>final</code> by default, which means they cannot be inherited unless they are marked with the <code>open</code> keyword. Methods and properties can have one of four visibility modifiers: <code>public</code>, <code>private</code>, <code>protected</code>, or <code>internal</code>. The <code>internal</code> modifier restricts visibility to the same module. If no visibility modifier is specified, the default visibility is <code>public</code>.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">open class</span> Animal <span class="sign">{</span>
+    <span class="function">open fun</span> voice() <span class="sign">{</span>
+        <span class="command">println</span>(<span class="text">"Some generic sound"</span>)
+    <span class="sign">}</span>
+
+    <span class="function">protected fun</span> protectedMethod() <span class="sign">{</span>
+        <span class="command">println</span>(<span class="text">"Protected method"</span>)
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">class</span> Cat <span class="sign">:</span> <span class="function">Animal</span>() <span class="sign">{</span>
+    <span class="function">override fun</span> voice() <span class="sign">{</span>
+        <span class="command">println</span>(<span class="text">"Meow!"</span>)
+    <span class="sign">}</span>
+
+    <span class="function">private fun</span> privateMethod() <span class="sign">{</span>
+        <span class="command">println</span>(<span class="text">"Private method"</span>)
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">fun</span> main() <span class="sign">{</span>
+    <span class="function">val</span> cat <span class="sign">=</span> <span class="function">Cat</span>()
+    cat.voice()
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h2>Companion objects (<code>static</code> equivalent)</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> MusicPlayer <span class="sign">{</span>
+    <span class="function">companion object</span> <span class="sign">{</span>
+        <span class="function">val</span> defaultVolume<span class="sign">:</span> <span class="function">Int</span> <span class="sign">=</span> 50 <span class="comment">// a static variable</span>
+        <span class="function">var</span> maxPlayers<span class="sign">:</span> <span class="function">Int</span> <span class="sign">=</span> 5 <span class="comment">// a mutable static variable</span>
+
+        <span class="function">fun</span> createDefaultPlayer()<span class="sign">:</span> <span class="function">MusicPlayer</span> <span class="sign">{</span> <span class="comment">// a static method</span>
+            <span class="function">return</span> <span class="function">MusicPlayer</span>()
+        <span class="sign">}</span>
+    <span class="sign">}</span>
+
+<span class="sign">}</span>
+
+<span class="function">fun</span> main() <span class="sign">{</span>
+    <span class="function">val</span> player <span class="sign">=</span> <span class="function">MusicPlayer</span>.createDefaultPlayer()
+    
+    <span class="command">println</span>(<span class="text">"Default volume: ${MusicPlayer.defaultVolume}"</span>)
+    <span class="command">println</span>(<span class="text">"Max players: ${MusicPlayer.maxPlayers}"</span>)
+
+    <span class="function">MusicPlayer</span>.maxPlayers <span class="sign">=</span> 10 <span class="comment">// updating a mutable companion object variable</span>
+    <span class="command">println</span>(<span class="text">"Updated max players: ${MusicPlayer.maxPlayers}"</span>)
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h2>Null safety</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">fun</span> main() <span class="sign">{</span>
+    <span class="function">var</span> name<span class="sign">:</span> <span class="function">String</span><span class="sign">? =</span> <span class="text">"Kotlin"</span> <span class="comment">// a nullable String</span>
+    <span class="command">println</span>(name<span class="sign">?.</span><span class="command">length</span>) <span class="comment">// the safe call operator ?. returns null if the object is null instead of throwing an exception</span>
+
+    name <span class="sign">=</span> <span class="function">null</span>
+    <span class="command">println</span>(name<span class="sign">?.</span><span class="command">length</span> <span class="sign">?:</span> 0) <span class="comment">// the Elvis operator ?: provides a default value if the expression on the left is null</span>
+
+    name <span class="sign">=</span> <span class="text">"Kotlin"</span>
+    <span class="command">println</span>(name<span class="sign">!!.</span><span class="command">length</span>) <span class="comment">// the not-null assertion operator !! throws NullPointerException if the value is null</span>
+    
+    <span class="comment">// A safe call with let{} executes a block only if the value is not null</span>
+    name <span class="sign">=</span> <span class="function">null</span>
+    name<span class="sign">?.</span><span class="function">let</span> <span class="sign">{</span>
+        <span class="command">println</span>(<span class="text">"Length of $it is ${it.length}"</span>)
+    <span class="sign">}</span> <span class="comment">// nothing is printed, because name is null</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h2>Try/catch</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">fun</span> safeDivide(a<span class="sign">:</span> <span class="function">Int</span>, b<span class="sign">:</span> <span class="function">Int</span>) <span class="sign">:</span> <span class="function">Int</span> <span class="sign">{</span>
+    <span class="function">return try</span> <span class="sign">{</span>
+        a <span class="sign">/</span> b
+    <span class="sign">}</span> <span class="function">catch</span> (e<span class="sign">:</span> <span class="function">ArithmeticException</span>) <span class="sign">{</span>
+        <span class="command">println</span>(<span class="text">"Cannot divide by zero"</span>)
+        0
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">fun</span> main() <span class="sign">{</span>
+    safeDivide(3, 0)
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h2>An example for Android development: a button click listener</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">package</span> com.example.example
+
+<span class="function">import</span> android.os.Bundle
+<span class="function">import</span> android.widget.Button
+<span class="function">import</span> androidx.appcompat.app.AppCompatActivity
+
+<span class="function">class</span> MainActivity <span class="sign">:</span> <span class="function">AppCompatActivity</span>() <span class="sign">{</span>
+    <span class="function">override fun</span> onCreate(savedInstanceState<span class="sign">:</span> <span class="function">Bundle</span><span class="sign">?</span>) <span class="sign">{</span>
+        <span class="function">super</span>.<span class="command">onCreate</span>(savedInstanceState)
+        <span class="command">setContentView</span>(<span class="function">R</span>.<span class="function">layout</span>.activity_main)
+
+        <span class="function">val</span> button<span class="sign">:</span> Button <span class="sign">=</span> <span class="command">findViewById</span>(<span class="function">R</span>.<span class="function">id</span>.myButton)
+        button.<span class="command">setOnClickListener</span> <span class="sign">{</span>
+            <span class="function">Functions</span>.print()
+        <span class="sign">}</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                </code></pre>
+
+                                <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">package</span> com.example.example<span class="sign">;</span>
+
+<span class="comment">// An interoperable Java class</span>
+<span class="function">public class</span> Functions <span class="sign">{</span>
+    <span class="function">public static void</span> print() <span class="sign">{</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Button clicked!"</span>)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                </code></pre>
+
+                                <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="sign">&lt;?</span><span class="function">xml</span> version<span class="sign">=</span><span class="text">"1.0"</span> encoding<span class="sign">=</span><span class="text">"utf-8"</span><span class="sign">?&gt;</span>
+<span class="sign">&lt;</span><span class="function">LinearLayout</span> xmlns<span class="sign">:</span><span class="function">android</span><span class="sign">=</span><span class="text">"http://schemas.android.com/apk/res/android"</span>
+    <span class="function">android</span><span class="sign">:</span>layout_width<span class="sign">=</span><span class="text">"match_parent"</span>
+    <span class="function">android</span><span class="sign">:</span>layout_height<span class="sign">=</span><span class="text">"match_parent"</span>
+    <span class="function">android</span><span class="sign">:</span>orientation<span class="sign">=</span><span class="text">"vertical"</span>
+    <span class="function">android</span><span class="sign">:</span>gravity<span class="sign">=</span><span class="text">"center"</span>
+    <span class="function">android</span><span class="sign">:</span>padding<span class="sign">=</span><span class="text">"16dp"</span>&gt;
+
+    <span class="sign">&lt;</span><span class="function">Button</span>
+        <span class="function">android</span><span class="sign">:</span>id<span class="sign">=</span><span class="text">"@+id/myButton"</span>
+        <span class="function">android</span><span class="sign">:</span>layout_width<span class="sign">=</span><span class="text">"wrap_content"</span>
+        <span class="function">android</span><span class="sign">:</span>layout_height<span class="sign">=</span><span class="text">"wrap_content"</span>
+        <span class="function">android</span><span class="sign">:</span>text<span class="sign">=</span><span class="text">"Click me!"</span><span class="sign">/&gt;</span>
+
+<span class="sign">&lt;/<span class="function">LinearLayout</span><span class="sign">&gt;</span>
+                                </code></pre>
+
+                                <h2>Jetpack Compose</h2>
+
+                                <p>Jetpack Compose is Android’s modern declarative UI toolkit, allowing developers to build native interfaces using Kotlin code rather than XML layouts. Instead of defining views and layouts in separate XML files and referencing them with <code>findViewById()</code>, we define composable functions that describe the UI hierarchy. The framework automatically updates the screen when data changes, making UI development more concise, readable, and reactive.</p>
+
+                                <p>To work, Jetpack Compose must be added to Gradle, as shown in the official, up-to-date documentation pages: <a href="https://developer.android.com/develop/ui/compose/setup?hl=en#kotlin" target="_blank" class="link">Compose Quick Start</a>, <a href="https://developer.android.com/develop/ui/compose/compiler?hl=en" target="_blank" class="link">Compose Compiler Gradle plugin</a>.</p>
+
+                                <p>In the example below, <code>MainActivity</code> extends <code>ComponentActivity</code> and uses <code>setContent { MyButtonScreen() }</code> to define the app’s user interface using Jetpack Compose instead of XML layouts. This means the entire UI is built using Kotlin code and composable functions.</p>
+
+                                <p>The <code>MyButtonScreen</code> composable contains a <code>Button</code>, which accepts an <code>onClick</code> lambda that is executed when the user taps the button. Inside the button, the <code>Text</code> composable is used to display the label <code>"Click me!"</code>. The modifier <code>Modifier.fillMaxSize().wrapContentSize(Alignment.Center)</code> first makes the layout take up the full screen and then centers the button both vertically and horizontally.</p>
+
+                                <p>The <code>@Preview</code> annotation allows the <code>MyButtonScreenPreview</code> function to display a live preview. This helps to quickly see how the UI looks without installing or running the app on a physical device or emulator, similar to previewing an XML layout.</p>
+
+
+                                <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">package</span> com.example.example
+
+<span class="function">import</span> android.os.Bundle
+<span class="function">import</span> androidx.activity.ComponentActivity
+<span class="function">import</span> androidx.activity.compose.setContent
+<span class="function">import</span> androidx.compose.foundation.layout.fillMaxSize
+<span class="function">import</span> androidx.compose.foundation.layout.wrapContentSize
+<span class="function">import</span> androidx.compose.material3.Button
+<span class="function">import</span> androidx.compose.material3.Text
+<span class="function">import</span> androidx.compose.runtime.Composable
+<span class="function">import</span> androidx.compose.ui.Alignment
+<span class="function">import</span> androidx.compose.ui.Modifier
+<span class="function">import</span> androidx.compose.ui.tooling.preview.Preview
+
+<span class="function">class</span> MainActivity <span class="sign">:</span> <span class="function">ComponentActivity</span>() <span class="sign">{</span>
+    <span class="function">override fun</span> onCreate(savedInstanceState<span class="sign">:</span> <span class="function">Bundle</span><span class="sign">?</span>) <span class="sign">{</span>
+        <span class="function">super</span>.<span class="command">onCreate</span>(savedInstanceState)
+        <span class="command">setContent</span> <span class="sign">{</span>
+            <span class="function">MyButtonScreen</span>()
+        <span class="sign">}</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">@Composable</span>
+<span class="function">fun</span> MyButtonScreen() <span class="sign">{</span>
+    <span class="function">Button</span>(
+        <span class="command">onClick</span> <span class="sign">=</span> <span class="sign">{</span> <span class="command">println</span>(<span class="text">"Button clicked!"</span>) <span class="sign">}</span>,
+        <span class="command">modifier</span> <span class="sign">=</span> <span class="function">Modifier</span>.<span class="command">fillMaxSize</span>().<span class="command">wrapContentSize</span>(<span class="function">Alignment</span>.<span class="function">Center</span>)
+    ) <span class="sign">{</span>
+        <span class="function">Text</span>(<span class="text">"Click me!"</span>)
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">@Preview</span>(showBackground <span class="sign">=</span> <span class="function">true</span>)
+<span class="function">@Composable</span>
+<span class="function">fun</span> MyButtonScreenPreview() <span class="sign">{</span>
+    <span class="function">MyButtonScreen</span>()
+<span class="sign">}</span>
+                                </code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>
