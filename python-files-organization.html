@@ -84,8 +84,72 @@
                                 <div class="card-header py-3">
                                     <h5 class="m-0 font-weight-bold">Files organization</h5>
                                 </div>
-                                <div class="card-body">
-                                    (shutil, send2trash i zipfile): 295-301 ANZZP, pathlib (261-277 ANZZP)
+                                <div class="card-body"> 
+                                    <h3>Table of contents</h3>
+                                    
+                                    <ul type="disc">
+                                        <li><a href="#pathlib" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">pathlib</code> module</a></li>
+                                        <li><a href="#shutil" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">shutil</code> module</a></li>
+                                        <li><a href="#send2trash" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">send2trash</code> module</a></li>
+                                        <li><a href="#zipfile" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">zipfile</code> module</a></li>
+                                    </ul>
+
+                                    <p>The <code>sys</code> and <code>os</code> modules can also be useful for this purpose, so check out a tutorial about them <a href="python-basic-modules-and-pip.html#sys-os" class="link">here</a>.</p>
+
+                                    <h2><a id="pathlib">The <code style="color: #f5d67b;">pathlib</code> module</a></h2>
+
+                                    261-277 ANZZP
+
+                                    <h2><a id="shutil">The <code style="color: #f5d67b;">shutil</code> module</a></h2>
+
+                                    295-299 ANZZP
+
+                                    <h2><a id="send2trash">The <code style="color: #f5d67b;">send2trash</code> module</a></h2>
+
+                                    299-302 ANZZP
+
+                                    <h2><a id="zipfile">The <code style="color: #f5d67b;">zipfile</code> module</a></h2>
+
+                                    <p>The <code>zipfile</code> module is used to handle files with the <code>.zip</code> extension, i.e. compressed folders.</p>
+
+                                    <p>Write the <code>import zipfile</code> statement at the beginning of every example.</p>
+                                
+                                    <h4>Zipping files</h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+z <span class="sign">=</span> zipfile.<span class="function">ZipFile</span>(<span class="text">"myZip.zip"</span>, <span class="text">"w"</span>)
+z.<span class="command">write</span>(<span class="text">"file.txt"</span>)
+z.<span class="command">write</span>(<span class="text">"file2.txt"</span>)
+z.<span class="command">close</span>()
+                                    </code></pre>
+                                    
+                                    </code></pre>
+                                    
+                                    <h4><code>namelist()</code></h4>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Checking the contents of a zip file (a list of files)</span>
+z <span class="sign">=</span> zipfile.<span class="function">ZipFile</span>(<span class="text">"myZip.zip"</span>, <span class="text">"r"</span>)
+<span class="command">print</span>(z.<span class="command">namelist</span>())
+z.<span class="command">close</span>()
+                                    </code></pre>
+                                    
+                                    <h4>Unzipping files</h4>
+                                    
+                                    <p>There are two ways of unzipping files.</p>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+z <span class="sign">=</span> zipfile.<span class="function">ZipFile</span>(<span class="text">"myZip.zip"</span>, <span class="text">"r"</span>)
+<span class="function">for</span> x <span class="function">in</span> z.<span class="command">namelist</span>():
+    z.<span class="command">extract</span>(x)
+z.<span class="command">close</span>()
+                                    </code></pre>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+z <span class="sign">=</span> zipfile.<span class="function">ZipFile</span>(<span class="text">"myZip.zip"</span>, <span class="text">"r"</span>)
+z.<span class="command">extractall</span>()
+z.<span class="command">close</span>()
+                                    </code></pre>  
                                 </div>
                             </div>
                         </div>

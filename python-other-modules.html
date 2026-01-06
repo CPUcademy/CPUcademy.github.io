@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <title>Shelve</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D76ZFDYLCY');
+    </script>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java &amp; Android</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics-and-it-basics.html">Electronics &amp; IT basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link" href="about-me.html">
+                    <i class="icon-adult"></i>
+                    <span>About me</span></a>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio projects</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Other</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h3>Table of contents</h3>
+                                    
+                                    <ul type="disc">
+                                        <li><a href="#copy" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">copy</code> module</a></li>
+                                        <li><a href="#itertools" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">itertools</code> module</a></li>
+                                        <li><a href="#shelve" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">shelve</code> module</a></li>
+                                        <li><a href="#pyinputplus" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">pyinputplus</code> module</a></li>
+                                        <li><a href="#pprint" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">pprint</code> module</a></li>
+                                        <li><a href="#turtle" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">turtle</code> module</a></li>
+                                    </ul>
+
+                                    <h2><a id="copy">The <code style="color: #f5d67b;">copy</code> module</a></h2>
+                                    
+                                    <p>The <code>copy</code> module provides tools for creating shallow and deep copies of objects, allowing for efficient object duplication and manipulation without affecting the original object.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># A shallow copy (both lists reference the same object)</span>
+list1 <span class="sign">=</span> [1, 2, 3]
+list2 <span class="sign">=</span> list1
+list2.<span class="command">append</span>(4)
+<span class="command">print</span>(list1)
+
+<span class="comment"># A shallow copy created using slicing (creates a new list but does not copy nested objects)</span>
+list3 <span class="sign">=</span> [1, 2, 3]
+list4 <span class="sign">=</span> list3[<span class="sign">:</span>]
+list4.<span class="command">append</span>(4)
+<span class="command">print</span>(list3)
+
+<span class="comment"># The same as the example above but using the copy module</span>
+<span class="command">import</span> copy
+list5 <span class="sign">=</span> [1, 2, 3]
+list6 <span class="sign">=</span> copy.<span class="command">copy</span>(list5)
+list6.<span class="command">append</span>(4)
+<span class="command">print</span>(list5)
+
+<span class="comment"># A deep copy (creates a completely independent copy, including nested objects)</span>
+list7 <span class="sign">=</span> [[1, 2], [3, 4]]
+list8 <span class="sign">=</span> copy.<span class="command">deepcopy</span>(list7)
+list8[0].<span class="command">append</span>(5)
+<span class="command">print</span>(list7)
+                                    </code></pre>
+
+                                    <p>In terms of classes, a shallow copy (<code>copy.copy()</code>) creates a new instance that shares references to nested objects (attributes), whereas a deep copy (<code>copy.deepcopy()</code>) creates a fully independent clone, including all nested objects.</p>
+
+                                    <h2><a id="itertools">The <code style="color: #f5d67b;">itertools</code> module</a></h2>
+
+                                    <p>The <code>itertools</code> module provides a collection of tools for working with iterators that operate on sequence items. These tools help create iterators for efficient looping.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> itertools
+
+<span class="comment"># Returning an iterator that repeats a given value a specific number of times</span>
+repeated <span class="sign">=</span> itertools.<span class="command">repeat</span>(10, 3) <span class="comment"># value, number of times</span>
+<span class="function">for</span> x <span class="function">in</span> repeated:
+    <span class="command">print</span>(x)
+
+<span class="comment"># Combining multiple iterables into one continuous sequence</span>
+chained <span class="sign">=</span> itertools.<span class="command">chain</span>([1, 2], [<span class="text">"a"</span>, <span class="text">"b"</span>], [<span class="function">True</span>, <span class="function">False</span>])
+<span class="function">for</span> item <span class="function">in</span> chained:
+    <span class="command">print</span>(item) 
+
+<span class="comment"># Returning n-length tuples with combinations of elements from the iterable (sorted in lexicographical order)</span>
+combs <span class="sign">=</span> itertools.<span class="command">combinations</span>(<span class="text">"ABCD"</span>, 2)
+<span class="function">for</span> comb <span class="function">in</span> combs:
+    <span class="command">print</span>(comb)
+
+<span class="comment"># The same as combinations(), but each arrangement of elements is treated as a unique permutation (order matters)</span>
+perms <span class="sign">=</span> itertools.<span class="command">permutations</span>(<span class="text">"ABCD"</span>, 2)
+<span class="function">for</span> perm <span class="function">in</span> perms:
+    <span class="command">print</span>(perm)
+
+<span class="comment"># Returning the Cartesian product of input iterables (like nested loops)</span>
+prod <span class="sign">=</span> itertools.<span class="command">product</span>(<span class="text">"AB"</span>, <span class="text">"12"</span>) <span class="comment"># ('A','1'), ('A','2'), ('B','1'), ('B','2')</span>
+<span class="function">for</span> p <span class="function">in</span> prod:
+    <span class="command">print</span>(p)
+
+<span class="comment"># Using "repeat" to generate all n-length tuples with repetition allowed</span>
+prod_repeat <span class="sign">=</span> itertools.<span class="command">product</span>(<span class="text">"AB"</span>, repeat <span class="sign">=</span> 3)
+<span class="function">for</span> p <span class="function">in</span> prod_repeat:
+    <span class="command">print</span>(p)
+                                    </code></pre>
+
+                                    <h2><a id="shelve">The <code style="color: #f5d67b;">shelve</code> module</a></h2>
+
+                                    <p>The <code>shelve</code> module allows us to store Python objects in a file using a dictionary-like interface. It automatically serializes objects so that we can save most Python data types, including lists and dictionaries, in a file. The data is persistent, meaning it stays available across program runs. When using <code>shelve.open()</code>, we specify the name of the binary file in which the data will be stored (binary files are more efficient than text files). The main benefits of <code>shelve</code> are its simplicity and automatic persistence, so objects can be easily saved, retrieved, and updated.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> shelve
+
+<span class="function">with</span> shelve.<span class="command">open</span>(<span class="text">"mydata"</span>) <span class="function">as</span> db:
+    db[<span class="text">"name"</span>] <span class="sign">=</span> <span class="text">"Alice"</span>
+    db[<span class="text">"age"</span>] <span class="sign">=</span> 30
+    
+<span class="function">with</span> shelve.<span class="command">open</span>(<span class="text">"mydata"</span>) <span class="function">as</span> db:
+    <span class="command">print</span>(db[<span class="text">"name"</span>])
+    <span class="command">print</span>(db[<span class="text">"age"</span>])
+                                    </code></pre>
+
+                                    <h2><a id="pyinputplus">The <code style="color: #f5d67b;">pyinputplus</code> module</a></h2>
+                                    
+                                    <p>This module is used to simplify input validation by providing functions that ensure user input meets specified criteria, such as type, range, or format.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> pyinputplus <span class="function">as</span> pyip
+
+response <span class="sign">=</span> pyip.<span class="command">inputNum</span>(<span class="command">prompt</span> <span class="sign">=</span> <span class="text">"Enter a number between 1 and 10: "</span>, <span class="command">min</span> <span class="sign">=</span> 1, <span class="command">max</span> <span class="sign">=</span> 10)
+<span class="command">print</span>(<span class="text">"You entered:"</span>, response)
+
+response <span class="sign">=</span> pyip.<span class="command">inputYesNo</span>(<span class="command">prompt</span> <span class="sign">=</span> <span class="text">"Do you want to continue? (yes/no): "</span>)
+<span class="function">if</span> response <span class="sign">==</span> <span class="text">"yes"</span>:
+    <span class="command">print</span>(<span class="text">"You chose to continue."</span>)
+<span class="function">else</span>:
+    <span class="command">print</span>(<span class="text">"You chose not to continue."</span>)
+                                    </code></pre>
+
+                                    <h2><a id="pprint">The <code style="color: #f5d67b;">pprint</code> module</a></h2>
+
+                                    <p>This module is used to format and print (pretty-print) complex data structures in a more readable and aesthetically pleasing way.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> pprint
+
+data <span class="sign">=</span> {
+    <span class="text">"name"</span>: <span class="text">"Alice"</span>,
+    <span class="text">"age"</span>: 25,
+    <span class="text">"hobbies"</span>: [<span class="text">"reading"</span>, <span class="text">"hiking"</span>, <span class="text">"coding"</span>],
+    <span class="text">"details"</span>: {
+        <span class="text">"location": "New York"</span>,
+        <span class="text">"languages"</span>: [<span class="text">"Python"</span>, <span class="text">"JavaScript"</span>],
+    },
+}
+
+pprint.<span class="command">pprint</span>(data)
+                                    </code></pre>
+
+                                    <h2><a id="turtle">The <code style="color: #f5d67b;">turtle</code> module</a></h2>
+
+                                    <p>The <code>turtle</code> module is designed for creating drawings and serves as a tool for learning how to code.</p>
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> turtle <span class="command">import</span> <span class="sign">*</span>
+
+<span class="command">forward</span>(100) <span class="comment"># moving forward the given number of pixels (also: fd())</span>
+<span class="command">right</span>(90) <span class="comment"># turning right by 90 degrees</span>
+<span class="command">backward</span>(100) <span class="comment"># moving backward the given number of pixels (also: bk() or back())</span>
+<span class="command">left</span>(90) <span class="comment"># turning left by 90 degrees</span>
+
+<span class="command">circle</span>(100) <span class="comment"># drawing a circle</span>
+<span class="command">undo</span>() <span class="comment"># undoing the last action</span>
+
+<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(4):
+    <span class="command">left</span>(90)
+    <span class="command">dot</span>(20) <span class="comment"># placing a dot</span>
+    <span class="command">penup</span>() <span class="comment"># lifting the pen up</span>
+    <span class="command">forward</span>(100)
+    <span class="command">pendown</span>() <span class="comment"># lowering the pen down</span>
+
+<span class="command">speed</span>(3) <span class="comment"># setting the drawing speed (fastest: 0, fast: 10, normal: 6, slow: 3, slowest: 1)</span>
+<span class="command">shape</span>(<span class="text">"turtle"</span>) <span class="comment"># setting the turtle's shape (arrow, turtle, circle, square, triangle, and classic)</span>
+<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(4):
+    <span class="command">penup</span>()
+    <span class="command">forward</span>(120)
+    <span class="command">pendown</span>()
+    <span class="command">stamp</span>() <span class="comment"># placing a stamp that looks like that the turtle's shape</span>
+    <span class="function">if</span> x <span class="sign">&lt;</span> 2:
+        <span class="command">left</span>(90)
+    <span class="function">else</span>:
+        <span class="command">right</span>(90)
+
+<span class="command">goto</span>(0, 0) <span class="comment"># moving to the specified coordinates</span>
+<span class="command">forward</span>(100)
+
+<span class="command">print</span>(position()) <span class="comment"># retrieving the current coordinates</span>
+
+<span class="command">pencolor</span>(<span class="text">"red"</span>) <span class="comment"># changing the pen color</span>
+<span class="command">forward</span>(100)
+
+<span class="command">fillcolor</span>(<span class="text">"red"</span>) <span class="comment"># setting the fill color</span>
+<span class="command">begin_fill</span>() <span class="comment"># starting the filling procedure</span>
+<span class="function">for</span> x <span class="function">in</span> <span class="command">range</span>(4):
+    <span class="command">forward</span>(100)
+    <span class="command">right</span>(90)
+<span class="command">end_fill</span>() <span class="comment"># ending the filling procedure</span>
+
+<span class="command">home</span>() <span class="comment"># moving to the (0, 0) coordinates</span>
+                                    </code></pre>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>
