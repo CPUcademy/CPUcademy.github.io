@@ -89,11 +89,24 @@
                                     
                                     <p>A package is a collection of related modules, which may also contain sub-packages. A library, on the other hand, is a broader term that refers to any collection of pre-written code that can include one or more packages, and helps developers perform common tasks.</p>                                    
 
-                                    <h2>The <code>random</code> module</h2>
+                                    <h3>Table of contents</h3>
+                                    
+                                    <ul type="disc">
+                                        <li><a href="#random" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">random</code> module</a></li>
+                                        <li><a href="#math" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">math</code> module</a></li>
+                                        <li><a href="#time" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">time</code> and <code style="color: #f5d67b;">datetime</code> modules</a></li>
+                                        <li><a href="#sys-os" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">sys</code> and <code style="color: #f5d67b;">os</code> modules</a></li>
+                                        <li><a href="#string" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">string</code> module</a></li>
+                                        <li><a href="#__name__" class="link" style="text-decoration: none;"><code style="color: #f5d67b;">__name__()</code></a></li>
+                                        <li><a href="#pip" class="link" style="text-decoration: none;"><code style="color: #f5d67b;">pip</code></a></li>
+                                        <li><a href="#executing-programs-from-a-terminal" class="link" style="text-decoration: none;">Executing programs from a terminal</a></li>
+                                    </ul>
+
+                                    <h2><a id="random">The <code style="color: #f5d67b;">random</code> module</a></h2>
                                     
                                     <p>The <code>random</code> module is used to generate random numbers. The numbers generated using this module are pseudorandom, which means they are drawn according to a certain pattern. The initial value used by the generator is called a seed. If we know the value of the seed, we can predict the rest of the numbers produced by the generator because, for a given seed, the same numbers will always be generated (in the same order). The seed can be set with the <code>random.seed(value)</code> method.</p>
                                     
-                                    <p>Write the <code>import random</code> statement at the beginning of every example.</p>
+                                    <p>Write the <code style="color: #f5d67b;">import random</code> statement at the beginning of every example.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment"># Drawing integers (we determine the range in the arguments - start, stop)</span>
@@ -130,7 +143,7 @@ x <span class="sign">=</span> random.<span class="command">uniform</span>(20, 60
                                         <b>Warning:</b> People starting to learn Python often get this error: <code>'random' has no attribute 'randint'</code>. What to do in that case? Find out from <a href="python-popular-problems-random-has-no-attribute-randint.html" class="link alert-warning alert-link">here</a>.
                                     </div>
                                     
-                                    <h2>The <code>math</code> module</h2>
+                                    <h2><a id="math">The <code style="color: #f5d67b;">math</code> module</a></h2>
 
                                     <p>The <code>math</code> module provides more complex mathematical operations.</p>
                                     
@@ -154,7 +167,7 @@ y <span class="sign">=</span> [1, 2, 3, 4]
 
                                     <p>We can check the complete list of methods a module contains by typing <code><span class="command">print</span>(dir([moduleName]))</code>.</p>
                                     
-                                    <h2>The <code>time</code> and <code>datetime</code> modules</h2>
+                                    <h2><a id="time">The <code style="color: #f5d67b;">time</code> and <code style="color: #f5d67b;">datetime</code> modules</a></h2>
                                     
                                     <p>These modules are used to handle time.</p>
 
@@ -253,7 +266,7 @@ datetime_object <span class="sign">=</span> datetime.<span class="command">datet
 
                                     <p><code>datetime.now()</code> works the same as <code>datetime.today()</code>, except it can take a timezone as an argument.</p>
 
-                                    <h2>The <code>sys</code> and <code>os</code> modules</h2>
+                                    <h2><a id="sys-os">The <code style="color: #f5d67b;">sys</code> and <code style="color: #f5d67b;">os</code> modules</a></h2>
                                     
                                     <p>The <code>sys</code> and <code>os</code> modules are used to handle system operations.</p>
                                     
@@ -286,7 +299,7 @@ m =</span> os.<span class="command">system</span>(<span class="text">"mkdir dir"
 <span class="command">print</span>(m)
                                     </code></pre>
 
-                                    <h2>The <code>string</code> module</h2>
+                                    <h2><a id="string">The <code style="color: #f5d67b;">string</code> module</a></h2>
 
                                     <p>The <code>string</code> module provides constants (letters, digits, punctuation), helper functions for text processing, and templates for advanced string formatting.</p>
 
@@ -312,7 +325,7 @@ random_string <span class="sign">=</span> <span class="text">""</span>.<span cla
                                         <b>Warning:</b> When importing some modules (e.g., <code>pygame</code>), the following error appears: <code>ModuleNotFoundError: No module named 'pygame'</code>. What to do in that case? Find out from <a href="python-popular-problems-no-module-named-pygame.html" class="link alert-warning alert-link">here</a>.
                                     </div>
 
-                                    <h2><code>__name__()</code></h2>
+                                    <h2><a id="__name__"><code style="color: #f5d67b;">__name__()</code></a></h2>
                                     
                                     <p>The conditional statement below checks if the Python script is being run directly (not imported as a module). If it is, the code inside the block is executed. This is a common practice in the main file of a program.</p>
                                     
@@ -332,9 +345,9 @@ random_string <span class="sign">=</span> <span class="text">""</span>.<span cla
 
 function(func)
                                     </code></pre>
-                                    
-                                    <h2><code>pip</code></h2>
-                                    
+
+                                    <h2><a id="pip"><code style="color: #f5d67b;">pip</code></a></h2>
+
                                     <p><code>pip</code> is the official and default package management system for the Python language environment, using a dedicated repository called Python Package Index or other remote and local repositories. We can install external Python modules using the <code>pip</code> command (the list of those modules is available at the <a href="https://pypi.org/" target="_blank" class="link">pypi.org</a> website). To use it, we have to add it to the <code>PATH</code>, as shown <a href="python-popular-problems-no-module-named-pygame.html" class="link">here</a>. After that, we can install the required module using <code>pip install moduleName</code> in CMD. To update a module, we have to add the <code>--upgrade</code> flag: <code>pip install --upgrade moduleName</code>. To update <code>pip</code> itself, write: <code>python -m pip install --upgrade pip</code> (or <code>python.exe</code> if needed).</p>
 
                                     <p><code>pip install</code> directly calls the <code>pip</code> executable, while <code>python -m pip install</code> runs <code>pip</code> as a module within a specific Python interpreter, ensuring the package is installed in the correct Python environment (the specific Python version). We can specify the version like this: <code>python3.9 -m pip install</code>. When using <code>python -m pip install</code>, the <code>pip</code> module is invoked directly through the Python interpreter, so <code>pip</code> itself does not need to be added to the <code>PATH</code>. Instead, it relies on the Python installation, which is already configured in the <code>PATH</code> (if selected during installation). On Windows systems, we can use <code>py</code> instead of <code>python</code> (<code>py</code> is a Python launcher).</p>
@@ -345,7 +358,7 @@ function(func)
 
                                     <p>In addition to regular package files, Python packages are often distributed in formats like <code>.tar.gz</code> (tarball) and <code>.whl</code> (wheel). A <code>.tar.gz</code> file is a compressed archive that contains the source code for a Python package, which needs to be compiled and installed. On the other hand, <code>.whl</code> files are pre-compiled binary distributions, which make installation faster since they don't require compiling the code. Wheel files are the preferred installation method when available because they simplify the installation process, especially for packages with complex dependencies.</p>
 
-                                    <h2>Executing programs from a terminal</h2>
+                                    <h2><a id="executing-programs-from-a-terminal">Executing programs from a terminal</a></h2>
 
                                     <p><code>python file.py</code> (remember that you have to be in the same folder as the file in CMD)</p>
 
