@@ -94,6 +94,7 @@
                                         <li><a href="#conditions-and-loops" class="link" style="text-decoration: none;">Conditions and loops</a></li>
                                         <li><a href="#functions" class="link" style="text-decoration: none;">Functions</a></li>
                                         <li><a href="#classes-inheritance-and-visibility-modifiers" class="link" style="text-decoration: none;">Classes, inheritance, and visibility modifiers</a></li>
+                                        <li><a href="#constructors" class="link" style="text-decoration: none;">Constructors</a></li>
                                         <li><a href="#companion-objects" class="link" style="text-decoration: none;">Companion objects (<code style="color: #f5d67b;">static</code> equivalent)</a></li>
                                         <li><a href="#null-safety" class="link" style="text-decoration: none;">Null safety</a></li>
                                         <li><a href="#try-catch" class="link" style="text-decoration: none;">Try/catch</a></li>
@@ -225,6 +226,29 @@
 <span class="function">fun</span> main() <span class="sign">{</span>
     <span class="function">val</span> cat <span class="sign">=</span> <span class="function">Cat</span>()
     cat.voice()
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h2><a id="constructors">Constructors</a></h2>
+
+                                    <p>Kotlin provides a primary constructor, defined in the class header, and optional secondary constructors inside the class body. The primary constructor is the most common and concise way to define and initialize properties, often combined with <code>val</code> or <code>var</code>, which automatically create class fields. Secondary constructors are useful when we need alternative ways to create an object and must always delegate to the primary constructor using the <code>this</code> keyword (every object must pass through the primary constructor at least once, so all base initialization happens in one place).</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">class</span> User <span class="function">constructor</span>(
+    <span class="function">val</span> name<span class="sign">:</span> <span class="function">String</span>,
+    <span class="function">var</span> age<span class="sign">:</span> <span class="function">Int</span>
+<span class="sign">) {</span>
+    <span class="function">constructor</span>(name<span class="sign">:</span> <span class="function">String</span>) <span class="sign">:</span> <span class="function">this</span>(name, 18) <span class="comment">// a secondary constructor providing a default age</span>
+    <span class="function">fun</span> introduce() <span class="sign">{</span>
+        <span class="command">println</span>(<span class="text">"My name is $name and I am $age years old"</span>)
+    <span class="sign">}</span>
+<span class="sign">}</span>
+
+<span class="function">fun</span> main() <span class="sign">{</span>
+    <span class="function">val</span> user1 <span class="sign">=</span> <span class="function">User</span>(<span class="text">"Alice"</span>, 25)
+    <span class="function">val</span> user2 <span class="sign">=</span> <span class="function">User</span>(<span class="text">"Bob"</span>)
+    user1.<span class="command">introduce</span>()
+    user2.<span class="command">introduce</span>()
 <span class="sign">}</span>
                                     </code></pre>
 
