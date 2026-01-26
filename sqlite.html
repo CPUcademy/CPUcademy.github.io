@@ -139,6 +139,82 @@ conn.<span class="command">close</span>()
                                     </code></pre>
 
                                     <p>We can also interact with SQLite directly from the terminal without writing Python code. SQLite provides a command-line shell that allows us to open a database file, execute SQL statements, create tables, insert data, and run queries in real time. To start, open the terminal and run <code>sqlite3 dbtest.db</code> (creating the file if it doesn’t exist). Once inside the shell, we can type SQL commands directly. The shell also supports helpful commands like <code>.tables</code> to list tables and <code>.schema</code> to see table structures.</p>
+
+                                    <h3>What is an ORM?</h3>
+
+                                    <p>An <b>ORM (Object-Relational Mapping)</b> is a programming technique that allows us to interact with a database using objects and classes, rather than writing raw SQL queries. In simple terms, an ORM maps database tables to classes and table rows to objects. Instead of manually writing <code>SELECT</code>, <code>INSERT</code>, or <code>UPDATE</code> statements, we interact with the database using normal Python code. The ORM automatically translates our Python instructions into SQL.</p>
+
+                                    <p class="podpis">For example, instead of writing SQL like this:</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">SELECT</span> * <span class="function">FROM</span> users <span class="function">WHERE</span> age &gt; 25;
+                                    </code></pre>
+
+                                    <p class="podpis">We can write Python code like this:</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+users <span class="sign">=</span> session.<span class="command">query</span>(<span class="function">User</span>).<span class="command">filter</span>(<span class="function">User</span>.age <span class="sign">&gt;</span> 25).<span class="command">all</span>()
+                                    </code></pre>
+
+                                    <h4>Why use an ORM?</h4>
+
+                                    <ul>
+                                        <li>Cleaner and more readable code - no large SQL strings scattered across the project.</li>
+                                        <li>Less error-prone - ORMs help prevent SQL injection attacks.</li>
+                                        <li>Database independence - switching from SQLite to MySQL or PostgreSQL often requires minimal changes.</li>
+                                        <li>Easier maintenance - changes to the database structure can be handled through models.</li>
+                                    </ul>
+
+                                    <h4>Popular Python ORMs</h4>
+
+                                    <ul>
+                                        <li><b>SQLAlchemy</b> - the most powerful and flexible ORM for Python.</li>
+                                        <li><b>Django ORM</b> - built into the Django framework.</li>
+                                        <li><b>Peewee</b> - lightweight and beginner-friendly.</li>
+                                    </ul>
+
+                                    <h4>SQLAlchemy + SQLite example</h4>
+
+                                    <p>Below is a simple example showing how to use SQLite with SQLAlchemy.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> sqlalchemy <span class="command">import</span> create_engine, Column, Integer, String
+<span class="command">from</span> sqlalchemy.ext.declarative <span class="command">import</span> declarative_base
+<span class="command">from</span> sqlalchemy.orm <span class="command">import</span> sessionmaker
+
+engine <span class="sign">=</span> <span class="command">create_engine</span>(<span class="text">"sqlite:///dbtest.db"</span>)
+Base <span class="sign">=</span> <span class="command">declarative_base</span>()
+
+<span class="comment"># Defining a table as a class</span>
+<span class="function">class</span> User(Base):
+    <span class="function">__tablename__</span> <span class="sign">=</span> <span class="text">"users"</span>
+
+    id <span class="sign">=</span> <span class="function">Column</span>(<span class="function">Integer</span>, <span class="command">primary_key</span> <span class="sign">=</span> <span class="function">True</span>)
+    name <span class="sign">=</span> <span class="function">Column</span>(<span class="function">String</span>)
+    age <span class="sign">=</span> <span class="function">Column</span>(<span class="function">Integer</span>)
+
+Base.<span class="command">metadata</span>.<span class="command">create_all</span>(engine)
+
+<span class="function">Session</span> <span class="sign">=</span> <span class="command">sessionmaker</span>(<span class="command">bind</span> <span class="sign">=</span> engine)
+session <span class="sign">=</span> <span class="function">Session</span>()
+
+<span class="comment"># Inserting data using objects</span>
+session.<span class="command">add</span>(<span class="function">User</span>(name</span> <span class="sign">=</span> <span class="text">"Alice"</span>, <span class="command">age</span> <span class="sign">=</span> 30))
+session.<span class="command">add</span>(<span class="function">User</span>(name</span> <span class="sign">=</span> <span class="text">"Bob"</span>, <span class="command">age</span> <span class="sign">=</span> 25))
+session.<span class="command">commit</span>()
+
+<span class="comment"># Querying data</span>
+users <span class="sign">=</span> session.<span class="command">query</span>(<span class="function">User</span>).<span class="command">all</span>()
+<span class="function">for</span> user <span class="function">in</span> users:
+    <span class="command">print</span>(user.name, user.age)
+                                    </code></pre>
+
+                                    <h4>SQLite VS ORM - when to use what?</h4>
+
+                                    <ul>
+                                        <li>Use <b>raw SQLite</b> when learning SQL, writing small scripts, or when full control over queries is needed.</li>
+                                        <li>Use an <b>ORM</b> for larger applications, long-term projects, and when working with complex data models.</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
