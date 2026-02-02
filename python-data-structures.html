@@ -258,15 +258,20 @@ x <span class="sign">=</span> [[<span class="text">"a"</span>, 1], [<span class=
 
                                     <p>Replace <code>range()</code> with <code>enumerate()</code> as often as possible (by <b>PEP8</b> guidelines).</p>
             
-                                    <h4><code>sorted()</code></h4>
-            
+                                    <h4><code>sorted()</code> and <code>sort()</code></h4>
+
+                                    <p>These two methods sort a collection (if it contains letters, alphabetically). While <code>sort()</code> modifies the original list in place and returns <code>None</code>, <code>sorted()</code> returns a new sorted list, leaving the original iterable unchanged. <code>sort()</code> works only for lists, and <code>sorted()</code> can also be used for other iterables (tuples, strings, etc.)</p>
+                                    
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># Sorting a list (alphabetically by default)</span>
-x <span class="sign">=</span> [<span class="text">"b"</span>, <span class="text">"e"</span>, <span class="text">"r"</span>, <span class="text">"z"</span>, <span class="text">"a"</span>]
-y <span class="sign">=</span> [6, 1, 4, 3, 5, 7]
+x <span class="sign">=</span> [<span class="text">"b"</span>, <span class="text">"d"</span>, <span class="text">"a"</span>, <span class="text">"c"</span>]
 <span class="command">print</span>(<span class="command">sorted</span>(x))
-<span class="command">print</span>(<span class="command">sorted</span>(y))
+
+y <span class="sign">=</span> [<span class="text">"b"</span>, <span class="text">"d"</span>, <span class="text">"a"</span>, <span class="text">"c"</span>]
+y.<span class="command">sort</span>()
+<span class="command">print</span>(y)  
                                     </code></pre>
+
+                                    <p>Both methods allow an optional argument (<code>reverse = True</code>) to customize how the list is sorted.</p>
 
                                     <h4><code>max()</code> and <code>min()</code></h4>
             
@@ -511,6 +516,15 @@ bananas <span class="sign">=</span> inventory.<span class="command">setdefault</
 <span class="command">print</span>(inventory)
 <span class="command">print</span>(apples)
 <span class="command">print</span>(bananas)
+                                    </code></pre>
+
+                                    <h4><code>sorted()</code></h4>
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Sorting dictionary keys by their values (in ascending order)</span>
+scores <span class="sign">=</span> {<span class="text">"Alice"</span>: 88, <span class="text">"Bob"</span>: 95, <span class="text">"Charlie"</span>: 70, <span class="text">"David"</span>: 88}
+sorted_keys <span class="sign">=</span> <span class="command">sorted</span>(scores, <span class="command">key</span> <span class="sign">=</span> scores.<span class="command">get</span>)
+<span class="command">print</span>(sorted_keys)
                                     </code></pre>
             
                                     <h4><code>popitem()</code></h4>
