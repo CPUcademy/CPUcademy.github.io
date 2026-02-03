@@ -88,7 +88,7 @@
 
                                     <h2>Generic types</h2>
 
-                                    <p>We create generic methods when we do not want to define many different methods for every possible type of argument. The class in which those methods occur must also be specified as a generic type. Inside the <code>&lt;&gt;</code> signs after the class name and before the method name, we create a custom name(s) for the data type(s). Inside the class, we replace all data type(s) with the one(s) specified earlier (they will substitute themselves with the arguments, which are, of course, data types).</p>
+                                    <p>We create generic classes and methods when we want the same code to work with different data types, instead of writing separate versions for each type. A generic type uses placeholders for data types, which are written inside the <code>&lt;&gt;</code> brackets after a class name or before a method name. These placeholders represent the real data types that will be provided later when the class or method is used. Inside the class or method, the placeholder types are used in place of concrete data types. Generic type parameters can also be bounded using the <code>extends</code> keyword, which restricts them to a specific class or interface and its subclasses. For example, <code>TYPE extends ClassName</code> ensures that the generic type must be <code>ClassName</code> or any of its subclasses, allowing the class to safely use methods and properties defined in <code>ClassName</code>. Multiple bounds are allowed, but only one class may be extended, while any additional bounds must be interfaces (in both cases the <code>extends</code> keyword is used).</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">public class</span> Main <span class="sign">{</span>
@@ -126,7 +126,7 @@
 
                                     <h2>Wildcards</h2>
                                     
-                                    <p>Generic types define classes, interfaces, or methods that can operate on various data types while preserving type safety at compile time. Wildcards make generic types more flexible, often appearing in method parameters to only allow subtypes (<code>? extends T</code>) or supertypes (<code>? super T</code>) of a specified type. Wildcards enable flexibility when an exact type does not need to be specified. In contrast to generics, which define specific types, wildcards allow for broader, more flexible applications.</p>
+                                    <p>Generic types let us create classes or methods that can work with different types of data without writing separate versions for each type. Sometimes, when using these generic types, the exact type does not matter. In such cases, wildcards can make the code more flexible. Wildcards are often used in method parameters to allow a method to accept a range of related types. The wildcard <code>? extends T</code> allows any subtype of <code>T</code>, while <code>? super T</code> allows any supertype of <code>T</code>. This lets us write methods that can work with many related types while still keeping the code type-safe.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> java.util.<span class="sign">*;</span>

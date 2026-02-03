@@ -239,112 +239,158 @@
                                     <p>Virtual machines (VMs) provide a convenient way to run Linux on a Windows machine without needing to dual-boot or modify the underlying hardware. By using software like VMware or VirtualBox, we can create a virtualized environment to install and run a Linux distribution alongside our existing Windows operating system. This allows developers, administrators, and security analysts to test, configure, or run Linux tools within a controlled and isolated environment. It is an efficient solution for running Linux-specific applications or conducting security analysis, all while keeping the host Windows system intact.</p>
 
                                     <h3><a id="basic-commands">Basic commands</a></h3>
-                                    <div class="table-container"><table>
-                                        <tr>
-                                            <td><code>ls</code></td>
-                                            <td>Listing the contents of a directory.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>cd</code></td>
-                                            <td>Changing the current directory.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>pwd</code></td>
-                                            <td>Displaying the current working directory.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>mkdir</code></td>
-                                            <td>Creating a new directory.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>rmdir</code></td>
-                                            <td>Removing an empty directory.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>rm</code></td>
-                                            <td>Removing files or directories.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>cp</code></td>
-                                            <td>Copying files or directories.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>mv</code></td>
-                                            <td>Moving or renames files or directories.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>touch</code></td>
-                                            <td>Creating an empty file or updates the timestamp of an existing file.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>cat</code></td>
-                                            <td>Displaying the contents of a file.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>echo</code></td>
-                                            <td>Displaying text or variables to the terminal.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>chmod</code></td>
-                                            <td>Changing file permissions.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>chown</code></td>
-                                            <td>Changing file ownership.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>ps</code></td>
-                                            <td>Displaying a list of currently running processes.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>top</code></td>
-                                            <td>Displaying real-time information about system processes and resource usage.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>grep</code></td>
-                                            <td>Searching for a pattern in files or output.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>find</code></td>
-                                            <td>Searching for files and directories in a directory hierarchy.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>df</code></td>
-                                            <td>Displaying information about disk space usage.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>du</code></td>
-                                            <td>Displaying disk space usage for files and directories.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>man</code></td>
-                                            <td>Displaying the manual for a command.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>sudo</code></td>
-                                            <td>Executing a command with superuser privileges (admin).</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>ifconfig</code></td>
-                                            <td>Displaying or configures network interfaces. <span style="color: red;">(Deprecated, use <code>ip</code> instead)</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>apt-get</code></td>
-                                            <td>Package management tool for handling installation, upgrades, and removals of software packages in all Debian Linux derivatives (e.g., Raspbian).</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>shutdown</code></td>
-                                            <td>Shuting down the system.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>passwd</code></td>
-                                            <td>Changing the password of a user account.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>crontab</code></td>
-                                            <td>Scheduling and managing recurring tasks or jobs to run automatically at specified times and intervals.</td>
-                                        </tr>
-                                    </table></div>      
+                                    <div class="table-container">
+                                        <table>
+                                            <tr>
+                                                <td><code>ls</code></td>
+                                                <td>Listing the contents of a directory, including hidden files (<code>ls -a</code>), displaying details (<code>ls -l</code>), or combining both (<code>ls -la</code>).</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>pwd</code></td>
+                                                <td>Displaying the current working directory.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>cd &lt;dir_name&gt;</code></td>
+                                                <td>Changing the current directory, navigating to root (<code>cd /</code>).</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>mkdir &lt;dir_name&gt;</code></td>
+                                                <td>Creating a new directory.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>rmdir &lt;dir_name&gt;</code></td>
+                                                <td>Removing an empty directory.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>rm &lt;file_name&gt;</code></td>
+                                                <td>Removing files, and recursively removing directories with all contents (<code>rm -rf &lt;dir_name&gt;</code>).</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>cp &lt;source&gt; &lt;destination&gt;</code></td>
+                                                <td>Copying files or directories to a new location.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>mv &lt;source&gt; &lt;destination&gt;</code></td>
+                                                <td>Moving or renaming files and directories.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>touch &lt;file_name&gt;</code></td>
+                                                <td>Creating an empty file or updating its timestamp.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>nano &lt;file_name&gt;</code></td>
+                                                <td>Opening a file in Nano editor, editing its content, creating if not exists, saving with <code>CTRL + S</code>, exiting with <code>CTRL + X</code>.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>cat &lt;file_name&gt;</code></td>
+                                                <td>Displaying the content of a file.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>echo &lt;text&gt;</code></td>
+                                                <td>Displaying text or variables in the terminal.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>chmod &lt;permissions&gt; &lt;file&gt;</code></td>
+                                                <td>Changing file permissions.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>chown &lt;user&gt; &lt;file&gt;</code></td>
+                                                <td>Changing file ownership.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>ps</code></td>
+                                                <td>Displaying currently running processes.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>top</code></td>
+                                                <td>Displaying real-time system processes and resource usage.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>grep &lt;pattern&gt; &lt;file&gt;</code></td>
+                                                <td>Searching for a pattern in files or output.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>find &lt;path&gt; -name &lt;name&gt;</code></td>
+                                                <td>Searching for files and directories in a directory hierarchy.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>df -h</code></td>
+                                                <td>Displaying disk space usage in human-readable format.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>du -h &lt;file/dir&gt;</code></td>
+                                                <td>Displaying disk usage of files or directories in human-readable format.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>man &lt;command&gt;</code></td>
+                                                <td>Displaying the manual of a command.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>sudo &lt;command&gt;</code></td>
+                                                <td>Executing a command with superuser privileges (admin).</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>ifconfig</code></td>
+                                                <td>Displaying or configuring network interfaces <span style="color: red;">(deprecated, use <code>ip</code> instead)</span>.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>apt-get install &lt;package&gt;</code></td>
+                                                <td>Installing software packages in Debian-based systems.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>apt-get remove &lt;package&gt;</code></td>
+                                                <td>Removing software packages.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>apt-get update</code></td>
+                                                <td>Updating package sources to latest versions.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>apt-get upgrade</code></td>
+                                                <td>Upgrading installed packages to the latest version.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>pip3 install &lt;module&gt;</code></td>
+                                                <td>Installing a Python module.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>pip3 uninstall &lt;module&gt;</code></td>
+                                                <td>Uninstalling a Python module.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>pip3 list</code></td>
+                                                <td>Listing installed Python modules.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>pip3 list | grep &lt;text&gt;</code></td>
+                                                <td>Searching for a module by name in the installed list.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>python3</code></td>
+                                                <td>Opening the Python3 interactive shell (use <code>exit()</code> to leave).</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>python3 &lt;file.py&gt;</code></td>
+                                                <td>Executing a Python3 script.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>shutdown</code></td>
+                                                <td>Shutting down the system.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>reboot</code></td>
+                                                <td>Rebooting the system.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>hostname -I</code></td>
+                                                <td>Displaying the system IP address.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>crontab -e</code></td>
+                                                <td>Editing scheduled tasks, managing recurring jobs.</td>
+                                            </tr>
+                                        </table>
+                                    </div>  
                                     
                                     <h3><a id="daemons">Daemons</a></h3>
                                     <p class="podpis"><b>Daemons</b> are background processes that run continuously on a Linux system, often starting automatically during the system boot. They are responsible for handling specific system or application tasks, such as scheduling, logging, or managing services. Common examples of daemons include:</p>
