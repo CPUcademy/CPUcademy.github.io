@@ -240,11 +240,17 @@ arr <span class="sign">=</span> np.<span class="command">array</span>([[1, 2, 3]
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="comment"># Random number generation</span>
+<span class="comment"># Random number generation (these methods are faster than Python's built-in random module for large arrays)</span>
 
-<span class="command">print</span>(np.<span class="command">random</span>.<span class="command">rand</span>(3)) <span class="comment"># 3 random floats</span>
-<span class="command">print</span>(np.<span class="command">random</span>.<span class="command">randint</span>(0, 10, 5)) <span class="comment"># 5 random integers from 0 to 9</span>
+<span class="command">print</span>(np.<span class="command">random</span>.<span class="command">rand</span>(3)) <span class="comment"># 3 random floats between 0 and 1 (uniform distribution)</span>
+<span class="command">print</span>(np.<span class="command">random</span>.<span class="command">randint</span>(0, 10)) <span class="comment"># 1 random integer from 0 (inclusive) to 10 (exclusive)</span>
+<span class="command">print</span>(np.<span class="command">random</span>.<span class="command">randint</span>(0, 10, 5)) <span class="comment"># 5 random integers from 0 (inclusive) to 10 (exclusive)</span>
 <span class="command">print</span>(np.<span class="command">random</span>.<span class="command">randn</span>(3,3)) <span class="comment"># generating a 3x3 array of random numbers from a standard normal distribution (mean = 0, std = 1), useful for simulations, testing, or initializing values in algorithms</span>
+
+arr <span class="sign">=</span> np.<span class="command">array</span>([10, 20, 30, 40, 50])
+<span class="command">print</span>(np.<span class="command">random</span>.<span class="command">choice</span>(arr)) <span class="comment"># randomly picking a single element from the array</span>
+random_matrix <span class="sign">=</span> np.<span class="command">random</span>.<span class="command">choice</span>(arr, (2, 4)) <span class="comment"># creating a 2D array of shape (2, 4) by randomly choosing elements from arr</span>
+<span class="command">print</span>(random_matrix)
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -256,7 +262,7 @@ b <span class="sign">=</span> np.<span class="command">array</span>([4,5,6])
 <span class="command">print</span>(np.<span class="command">hstack</span>([a,b])) <span class="comment"># horizontal stack</span>
                                     </code></pre>
 
-                                    <p>The <code>sort()</code> method directly sorts the elements of an array along a specified axis and returns the sorted array. The <code>argsort()</code> method, on the other hand, returns the indices that would sort the array. This is especially useful when we need to reorder other arrays or keep track of the original positions of elements after sorting. The example below shows both approaches: first sorting the columns directly, then obtaining the indices that would sort each column, and finally using those indices to manually reorder the array.</p>
+                                    <p>The <code>sort()</code> method directly sorts the elements of an array along a specified axis and returns the sorted array. The <code>argsort()</code> method, on the other hand, returns the indices that would sort the array. This is especially useful when we need to reorder other arrays or keep track of the original positions of elements after sorting. The example below shows both approaches: first sorting the columns directly, then obtaining the indices that would sort each column, and finally using those indices to manually reorder the array. These methods are faster than Python's built-in sorting functions for large arrays.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 matrix <span class="sign">=</span> np.<span class="command">array</span>([
@@ -276,6 +282,12 @@ indices <span class="sign">=</span> np.<span class="command">argsort</span>(matr
 <span class="comment"># using argsort() indices to reorder elements manually (useful for reordering related arrays)</span>
 sorted_matrix_using_indices <span class="sign">=</span> np.<span class="command">take_along_axis</span>(matrix, indices, <span class="command">axis</span> <span class="sign">=</span> 0)
 <span class="command">print</span>(<span class="text">"Sorted using argsort indices:\n"</span>, sorted_matrix_using_indices)
+                                    </code></pre>
+                                    
+                                    <pre class="wp-block-csstricks-code-block code-example" style="color: #EFEEEE;"><code markup="tt">
+arr <span class="sign">=</span> np.<span class="command">array</span>([1, 3, 5, 7])
+idx <span class="sign">=</span> np.<span class="command">searchsorted</span>(arr, 4) <span class="comment"># finding insertion indices to maintain order in a sorted array</span>
+<span class="command">print</span>(idx) <span class="comment"># returns 2, the index to insert 4 while keeping the array sorted</span>
                                     </code></pre>
                                 </div>
                             </div>

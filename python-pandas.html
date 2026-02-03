@@ -140,11 +140,12 @@ df[<span class="text">"F"</span>] <span class="sign">=</span> 0 <span class="com
 df.<span class="command">drop</span>(<span class="text">"F"</span>, axis <span class="sign">=</span> 1, <span class="command">inplace</span> <span class="sign">=</span> <span class="function">True</span>) <span class="comment"># dropping a column in place (without creating a new DataFrame)</span>
 <span class="command">print</span>(df.<span class="command">drop</span>(0, axis <span class="sign">=</span> 0, <span class="command">inplace</span> <span class="sign">=</span> <span class="function">False</span>)) <span class="comment"># dropping the first row (returns new DataFrame)</span>
 
-<span class="comment"># Handling missing values</span>
-df.<span class="command">loc</span>[1, <span class="text">"B"</span>] <span class="sign">=</span> np.<span class="command">nan</span> <span class="comment"># introducing a missing value (NaN)</span>
-<span class="command">print</span>(df.<span class="command">isnull</span>()) <span class="comment"># checking for missing values (boolean mask)</span>
-<span class="command">print</span>(df.<span class="command">dropna</span>()) <span class="comment"># dropping rows with NaN</span>
-<span class="command">print</span>(df.<span class="command">fillna</span>(0)) <span class="comment"># filling NaN with 0</span>
+<span class="comment"># Handling missing values (these commands also work for Series, which means also for single rows of DataFrames)</span>
+df.<span class="command">loc</span>[1, <span class="text">"B"</span>] <span class="sign">=</span> np.<span class="command">nan</span> <span class="comment"># introducing a missing value (NaN) at row 1, column "B"</span>
+<span class="command">print</span>(df.<span class="command">isnull</span>()) <span class="comment"># searching for missing values with a boolean mask: True where values are NaN, False elsewhere (isna() returns the same result)</span>
+<span class="command">print</span>(df.<span class="command">dropna</span>()) <span class="comment"># dropping rows with NaN values (returns a new DataFrame, df is not modified)</span>
+<span class="command">print</span>(df.<span class="command">fillna</span>(0)) <span class="comment"># filling NaN values with 0s (returns a new DataFrame, df is not modified)</span>
+<span class="command">print</span>(df.<span class="command">fillna</span>(0, <span class="command">inplace</span> <span class="sign">=</span> <span class="function">True</span>)) <span class="comment"># filling NaN values with 0s (directly in the original DataFrame)</span>
 
 <span class="comment"># Sorting</span>
 <span class="command">print</span>(df.<span class="command">sort_values</span>(<span class="text">"A"</span>)) <span class="comment"># sorting by a column</span>
@@ -161,6 +162,12 @@ df.<span class="command">loc</span>[1, <span class="text">"B"</span>] <span clas
 <span class="command">print</span>(df[<span class="text">"B"</span>].<span class="command">apply</span>(<span class="function">lambda</span> x: x <span class="sign">*</span> 2)) <span class="comment"># an element-wise operation on a column</span>
 <span class="command">print</span>(df.<span class="command">apply</span>(np.<span class="command">sqrt</span>)) <span class="comment"># a column-wise operation</span>
 <span class="command">print</span>(df[<span class="text">"A"</span>].<span class="command">map</span>({1: <span class="text">"one"</span>, 2: <span class="text">"two"</span>})) <span class="comment"># mapping values using a dictionary</span>
+
+<span class="comment"># iterrows()</span>
+<span class="function">for</span> index, row <span class="function">in</span> df.<span class="command">iterrows</span>():
+    <span class="command">print</span>(index, row[<span class="text">"A"</span>], row[<span class="text">"B"</span>]) <span class="comment"># iterating over DataFrame rows as (index, Series) pairs</span>
+
+<span class="command">print</span>(df.<span class="command">to_string</span>()) <span class="comment"># printing the entire DataFrame as a string (shows full content, unlike normal print, which may truncate)</span>
 
 <span class="comment"># Saving / loading</span>
 df.<span class="command">to_csv</span>(<span class="text">"data.csv"</span>, <span class="command">index</span> <span class="sign">=</span> <span class="function">False</span>) <span class="comment"># saving a DataFrame to a CSV file</span>
