@@ -146,8 +146,8 @@
     <span class="command">print</span>(<span class="text">"\nTask2: Sum = "</span> <span class="sign">+</span> <span class="command">str</span>(total))
 
 <span class="comment"># Creating threads</span>
-task1 <span class="sign">=</span> threading.<span class="function">Thread</span>(<span class="command">target</span> <span class="sign">=</span> count_to_10000) <span class="comment"># if the function takes arguments: threading.Thread(target = fun, args = [1, "a"])</span>
-task2 <span class="sign">=</span> threading.<span class="function">Thread</span>(<span class="command">target</span> <span class="sign">=</span> sum_to_10000)
+task1 <span class="sign">=</span> threading.<span class="function">Thread</span>(<span class="command">target</span><span class="sign">=</span>count_to_10000) <span class="comment"># if the function takes arguments: threading.Thread(target = fun, args = [1, "a"])</span>
+task2 <span class="sign">=</span> threading.<span class="function">Thread</span>(<span class="command">target</span><span class="sign">=</span>sum_to_10000)
 
 <span class="comment"># Starting threads</span>
 task1.<span class="command">start</span>()
@@ -185,7 +185,7 @@ lock <span class="sign">=</span> threading.<span class="function">Lock</span>()
 <span class="comment"># Creating multiple threads</span>
 threads <span class="sign">=</span> []
 <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(10):
-    thread <span class="sign">=</span> threading.<span class="function">Thread</span>(<span class="command">target</span> <span class="sign">=</span> increment)
+    thread <span class="sign">=</span> threading.<span class="function">Thread</span>(<span class="command">target</span><span class="sign">=</span>increment)
     threads.<span class="command">append</span>(thread)
     thread.<span class="command">start</span>()
 
@@ -207,7 +207,7 @@ threads <span class="sign">=</span> []
 <span class="function">def</span> task(n): <span class="comment"># function to execute inside the thread pool</span>
     <span class="command">print</span>(<span class="text">f"Task {n} running in {threading.current_thread().name}"</span>)
 
-<span class="function">with ThreadPoolExecutor</span>(<span class="command">max_workers</span> <span class="sign">=</span> 3) <span class="function">as</span> executor: <span class="comment"># creating a thread pool with 3 worker threads</span>
+<span class="function">with ThreadPoolExecutor</span>(<span class="command">max_workers</span><span class="sign">=</span>3) <span class="function">as</span> executor: <span class="comment"># creating a thread pool with 3 worker threads</span>
     <span class="comment"># Submitting 5 tasks to the thread pool</span>
     <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(1, 6):
         executor.<span class="command">submit</span>(task, i) <span class="comment"># executing the task() function with argument "i"</span>
