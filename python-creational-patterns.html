@@ -523,7 +523,7 @@ s2 <span class="sign">=</span> <span class="function">Database</span>()
             <span class="function">cls</span>._instances[<span class="function">cls</span>] <span class="sign">=</span> <span class="function">super</span>().<span class="function">__call__</span>(<span class="sign">*</span>args, <span class="sign">**</span>kwargs) <span class="comment"># creating and storing the instance</span>
         <span class="function">return</span> <span class="function">cls</span>._instances[<span class="function">cls</span>] <span class="comment"># returning the existing instance</span>
 
-<span class="function">class</span> Database(<span class="command">metaclass</span> <span class="sign">=</span> <span class="function">SingletonMeta</span>):
+<span class="function">class</span> Database(<span class="command">metaclass</span><span class="sign">=</span><span class="function">SingletonMeta</span>):
     <span class="function">def __init__</span>(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"Loading database"</span>)
 
@@ -544,7 +544,7 @@ s2 <span class="sign">=</span> <span class="function">Database</span>()
 
     <span class="function">def __new__</span>(<span class="function">cls</span>, <span class="sign">*</span>args, <span class="sign">**</span>kwargs):
         instance <span class="sign">=</span> <span class="function">super</span>().<span class="function">__new__</span>(<span class="function">cls</span>)
-        instance.<span class="function">__dict__</span> <span class="sign">=</span> <span class="function">cls</span>._state <span class="comment"># all instances share the same state</span>
+        instance.<span class="function">__dict__</span><span class="sign">=</span><span class="function">cls</span>._state <span class="comment"># all instances share the same state</span>
         <span class="function">return</span> instance
 
     <span class="function">def __init__</span>(<span class="function">self</span>, value):

@@ -113,7 +113,7 @@
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> redis
-r <span class="sign">=</span> redis.<span class="command">Redis</span>(<span class="command">host</span> <span class="sign">=</span> <span class="text">"localhost"</span>, <span class="command">port</span> <span class="sign">=</span> 6379, <span class="command">decode_responses</span> <span class="sign">=</span> <span class="function">True</span>) <span class="comment"># connecting to the Redis server</span>
+r <span class="sign">=</span> redis.<span class="command">Redis</span>(<span class="command">host</span><span class="sign">=</span><span class="text">"localhost"</span>, <span class="command">port</span><span class="sign">=</span>6379, <span class="command">decode_responses</span><span class="sign">=</span><span class="function">True</span>) <span class="comment"># connecting to the Redis server</span>
 
 <span class="comment"># Setting individual key-value pairs for a user's information</span>
 r.<span class="command">set</span>(<span class="text">"user:1:name"</span>, <span class="text">"Alice"</span>)
@@ -124,7 +124,7 @@ name <span class="sign">=</span> r.<span class="command">get</span>(<span class=
 age <span class="sign">=</span> r.<span class="command">get</span>(<span class="text">"user:1:age"</span>)
 <span class="command">print</span>(name, age)
 
-r.<span class="command">hset</span>(<span class="text">"user:2"</span>, <span class="command">mapping</span> <span class="sign">=</span> {<span class="text">"name"</span>: <span class="text">"Bob"</span>, <span class="text">"age"</span>: 25}) <span class="comment"># storing multiple related fields under a single key using a Redis hash</span>
+r.<span class="command">hset</span>(<span class="text">"user:2"</span>, <span class="command">mapping</span><span class="sign">=</span>{<span class="text">"name"</span>: <span class="text">"Bob"</span>, <span class="text">"age"</span>: 25}) <span class="comment"># storing multiple related fields under a single key using a Redis hash</span>
 user <span class="sign">=</span> r.<span class="command">hgetall</span>(<span class="text">"user:2"</span>) <span class="comment"># retrieving all fields and their values from the hash</span>
 <span class="command">print</span>(user)
                                     </code></pre>
