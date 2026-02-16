@@ -746,7 +746,7 @@ sorter.set_strategy(<span class="function">BubbleSort</span>())
 <span class="function">class</span> ReportTemplate(<span class="function">ABC</span>):
     <span class="function">def</span> generate_report(<span class="function">self</span>): <span class="comment"># a Template Method defining the steps for generating a report</span>
         <span class="function">self</span>.collect_data()
-        <span class="function">self</span>.analyze_data()
+        <span class="function">self</span>.analyse_data()
         <span class="command">print</span>(<span class="text">"Done."</span>)
         
     <span class="command">@abstractmethod</span>
@@ -754,21 +754,21 @@ sorter.set_strategy(<span class="function">BubbleSort</span>())
         <span class="function">pass</span>
 
     <span class="command">@abstractmethod</span>
-    <span class="function">def</span> analyze_data(<span class="function">self</span>):
+    <span class="function">def</span> analyse_data(<span class="function">self</span>):
         <span class="function">pass</span>
 
 <span class="function">class</span> SalesReport(<span class="function">ReportTemplate</span>):
     <span class="function">def</span> collect_data(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"Collecting sales data..."</span>)
 
-    <span class="function">def</span> analyze_data(<span class="function">self</span>):
+    <span class="function">def</span> analyse_data(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"Analyzing sales trends..."</span>)
 
 <span class="function">class</span> InventoryReport(<span class="function">ReportTemplate</span>):
     <span class="function">def</span> collect_data(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"Collecting inventory data..."</span>)
 
-    <span class="function">def</span> analyze_data(<span class="function">self</span>):
+    <span class="function">def</span> analyse_data(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"Checking stock levels..."</span>)
 
 sales <span class="sign">=</span> <span class="function">SalesReport</span>()
