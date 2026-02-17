@@ -186,20 +186,20 @@ Base <span class="sign">=</span> <span class="command">declarative_base</span>()
 
 <span class="comment"># Defining a table as a class</span>
 <span class="function">class</span> User(Base):
-    <span class="function">__tablename__</span> <span class="sign">=</span> <span class="text">"users"</span>
+    <span class="function">__tablename__</span><span class="sign">=</span><span class="text">"users"</span>
 
-    id <span class="sign">=</span> <span class="function">Column</span>(<span class="function">Integer</span>, <span class="command">primary_key</span> <span class="sign">=</span> <span class="function">True</span>)
+    id <span class="sign">=</span> <span class="function">Column</span>(<span class="function">Integer</span>, <span class="command">primary_key</span><span class="sign">=</span><span class="function">True</span>)
     name <span class="sign">=</span> <span class="function">Column</span>(<span class="function">String</span>)
     age <span class="sign">=</span> <span class="function">Column</span>(<span class="function">Integer</span>)
 
 Base.<span class="command">metadata</span>.<span class="command">create_all</span>(engine)
 
-<span class="function">Session</span> <span class="sign">=</span> <span class="command">sessionmaker</span>(<span class="command">bind</span> <span class="sign">=</span> engine)
+<span class="function">Session</span><span class="sign">=</span><span class="command">sessionmaker</span>(<span class="command">bind</span><span class="sign">=</span>engine)
 session <span class="sign">=</span> <span class="function">Session</span>()
 
 <span class="comment"># Inserting data using objects</span>
-session.<span class="command">add</span>(<span class="function">User</span>(name</span> <span class="sign">=</span> <span class="text">"Alice"</span>, <span class="command">age</span> <span class="sign">=</span> 30))
-session.<span class="command">add</span>(<span class="function">User</span>(name</span> <span class="sign">=</span> <span class="text">"Bob"</span>, <span class="command">age</span> <span class="sign">=</span> 25))
+session.<span class="command">add</span>(<span class="function">User</span>(name</span><span class="sign">=</span><span class="text">"Alice"</span>, <span class="command">age</span><span class="sign">=</span>30))
+session.<span class="command">add</span>(<span class="function">User</span>(name</span><span class="sign">=</span><span class="text">"Bob"</span>, <span class="command">age</span><span class="sign">=</span>25))
 session.<span class="command">commit</span>()
 
 <span class="comment"># Querying data</span>
