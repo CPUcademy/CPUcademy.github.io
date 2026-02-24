@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
-    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, MS Access, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Django, TensorFlow, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Binary">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Muscle Up">
     <meta name="author" content="Tymoteusz Kołodziejczyk">
     <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -39,6 +39,37 @@
         }
 
         .flag {float: left;}
+
+        .smooth-collapse {
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 1s ease-in-out, opacity 1s ease-in-out;
+        }
+
+        .smooth-collapse.show {
+            max-height: 1000px;
+            opacity: 1;
+        }
+
+        .toggle-description-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #8b8d99; 
+            background: #eaecf4; 
+            padding: 4px 12px; 
+            border-radius: 20px; 
+            text-decoration: none;
+        }
+
+        .toggle-description-btn:hover {
+            background: #dfe1eb;
+            color: #8b8d99;
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -69,9 +100,9 @@
                         <a class="collapse-item" href="python.html">Python</a>
                         <a class="collapse-item" href="java.html">Java &amp; Android</a>
                         <a class="collapse-item" href="cplusplus.html">C++</a>
-                        <a class="collapse-item" href="web.html">Basic web stack</a>
+                        <a class="collapse-item" href="web.html">Basic Web Stack</a>
                         <a class="collapse-item" href="databases.html">Databases</a>
-                        <a class="collapse-item" href="electronics-and-it-basics.html">Electronics &amp; IT basics</a>
+                        <a class="collapse-item" href="electronics-and-it-basics.html">Electronics &amp; IT Basics</a>
                     </div>
                 </div>
             </li>
@@ -108,15 +139,16 @@
                                         <img src="files/profile-picture.jpg" class="img-fluid" style="min-width: 100px;">
                                         <p style="display: block; text-align: center; font-size: small; margin-top: 5px; font-weight: bold; margin-bottom: 0px;">Tymoteusz Kołodziejczyk</p>
                                     </div>
-                                    <p class="podpis">Hello! My name is Tymoteusz Kołodziejczyk, and I am a software developer. I enjoy building creative projects that benefit myself and those around me. Through this website, I aim to share my knowledge and experiences with others who are interested in learning programming and related topics. I’m also interested in electronics and photography (check out my <a href="photo-gallery.html" class="link">photo gallery</a>).</p>
+                                    <p class="podpis">Hello There! My name is Tymoteusz Kołodziejczyk, and I am a Software Developer. I enjoy building creative projects that benefit myself and those around me. Through this website, I aim to share my knowledge and experiences with others who are interested in learning programming and related topics. I’m also interested in electronics and photography (check out my <a href="photo-gallery.html" class="link">photo gallery</a>).</p>
 
                                     <p>Check out my <a href="portfolio-projects.html" class="link">programming portfolio projects</a>.</p>
                                 </div>
                             </div>
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3"><h5 class="m-0 font-weight-bold">Experience</h5></div>
-                                <div class="card-body">
-                                    <div class="experience-card">
+                               <div class="card-body">
+                                    <div class="experience-card" style="position: relative;">
+                                        <a href="#" data-target="experience1" role="button" aria-expanded="false" class="toggle-description-btn">Show description</a>
                                         <div class="experience-content">
                                             <div class="vertically-aligned-container">
                                                 <div class="experience-dates">Dec 2025 – Present</div>
@@ -125,13 +157,15 @@
                                                     <div class="experience-company">SelfMaker</div>
                                                 </div>
                                             </div>
-                                            <!--<div class="experience-description">
-                                                <ul>
-                                                    <li>Developed a <b>Python Instagram chatbot</b> capable of managing multiple accounts simultaneously, leveraging Gemini AI and Meta APIs, using an SQLite3 knowledge base for account-specific queries, storing conversation contexts in Redis, and fully containerized with Docker for deployment.</li>
-                                                    <li>Contributed to the development of <b>schowki.com</b>, a self-storage platform, working on a C#/.NET backend and a React-based frontend, including the integration of KSeF (Polish National e-Invoicing System) to enable compliant electronic invoicing.</li>
-                                                    <li>Participated in developing <b>CryptoMind</b>, a React Native mobile application focused on cryptocurrency market tracking.</li>
-                                                </ul>
-                                            </div>-->
+                                            <div id="experience1" class="smooth-collapse mt-3">
+                                                <div class="experience-description">
+                                                    <ul>
+                                                        <li>Developed a <b>Python Instagram chatbot</b> capable of managing multiple accounts simultaneously, leveraging Gemini AI and <b>Meta APIs</b>, using an <b>SQLite3</b> knowledge base for account-specific queries, storing conversation contexts in <b>Redis</b>, and fully containerized with <b>Docker</b> for deployment.</li>
+                                                        <li>Contributed to the development of <a href="https://schowki.com" target="_blank" class="link">schowki.com</a>, a self-storage platform, working on a <b>C#/.NET</b> backend and a React-based frontend, including the integration of KSeF (Polish National e-Invoicing System) to enable compliant electronic invoicing.</li>
+                                                        <li>Participated in improving <b>CryptoMind</b>, a React Native mobile application focused on cryptocurrency market tracking.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -159,55 +193,54 @@
                                 <div class="card-body" style="padding-top: 15px;">
                                     <div class="skills-divider">High Proficiency</div>
                             
-                                    <img src="files/skill_logos/java-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/kotlin-icon.png" alt="Icon" class="social">
-                                    <!--<img src="files/skill_logos/springboot-icon.png" alt="Icon" class="social">-->
-                                    <img src="files/skill_logos/android-studio-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/mysql-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/firebase-icon.png" alt="Icon" class="social">
+                                    <img src="files/skill_logos/java-icon.png" alt="Java" class="social">
+                                    <!--<img src="files/skill_logos/springboot-icon.png" alt="Spring Boot" class="social">-->
+                                    <img src="files/skill_logos/python-icon.png" alt="Python" class="social">
+                                    <!--<img src="files/skill_logos/django-icon.png" alt="Django" class="social">-->
+                                    <img src="files/skill_logos/android-studio-icon.png" alt="Android Studio" class="social">
+                                    <img src="files/skill_logos/mysql-icon.png" alt="MySQL" class="social">
+                                    <img src="files/skill_logos/firebase-icon.png" alt="Firebase" class="social">
 
                                     <hr class="sidebar-divider" style="margin-bottom: 4px; height: 1px; background-color: lightgray; border: none;">
                                     <div class="skills-divider">Medium Proficiency</div>
 
-                                    <img src="files/skill_logos/python-icon.png" alt="Icon" class="social">
-                                    <!--<img src="files/skill_logos/django-icon.png" alt="Icon" class="social">-->
-                                    <img src="files/skill_logos/opencv-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/html-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/css-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/javascript-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/bootstrap-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/linux-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/git-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/sqllite-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/postgre-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/cplusplus-icon.png" alt="Icon" class="social">
-
+                                    <img src="files/skill_logos/docker-icon.png" alt="Docker" class="social">
+                                    <img src="files/skill_logos/git-icon.png" alt="Git" class="social">
+                                    <img src="files/skill_logos/linux-icon.png" alt="Linux" class="social">
+                                    <img src="files/skill_logos/kotlin-icon.png" alt="Kotlin" class="social">
+                                    <img src="files/skill_logos/opencv-icon.png" alt="OpenCV" class="social">
+                                    <img src="files/skill_logos/html-icon.png" alt="HTML" class="social">
+                                    <img src="files/skill_logos/css-icon.png" alt="CSS" class="social">
+                                    <img src="files/skill_logos/javascript-icon.png" alt="JavaScript" class="social">
+                                    <img src="files/skill_logos/bootstrap-icon.png" alt="Bootstrap" class="social">
+                                    <img src="files/skill_logos/sqllite-icon.png" alt="SQLite" class="social">
+                                    <img src="files/skill_logos/postgre-icon.png" alt="PostgreSQL" class="social">
+                                    <img src="files/skill_logos/cplusplus-icon.png" alt="C++" class="social">
+                                    
                                     <hr class="sidebar-divider" style="margin-bottom: 4px; height: 1px; background-color: lightgray; border: none;">
                                     <div class="skills-divider">Low Proficiency</div>
-
-                                    <img src="files/skill_logos/docker-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/redis-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/flutter-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/dart-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/react-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/csharp-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/net-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/jetpackcompose-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/php-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/wpf-icon.png" alt="Icon" class="social">
+                                    
+                                    <img src="files/skill_logos/react-icon.png" alt="React" class="social">
+                                    <img src="files/skill_logos/csharp-icon.png" alt="C#" class="social">
+                                    <img src="files/skill_logos/net-icon.png" alt=".NET" class="social">
+                                    <img src="files/skill_logos/flutter-icon.png" alt="Flutter" class="social">
+                                    <img src="files/skill_logos/redis-icon.png" alt="Redis" class="social">
+                                    <img src="files/skill_logos/php-icon.png" alt="PHP" class="social">
+                                    <img src="files/skill_logos/wpf-icon.png" alt="WPF" class="social">
+                                    <img src="files/skill_logos/jetpackcompose-icon.png" alt="Jetpack Compose" class="social">
 
                                     <hr class="sidebar-divider" style="margin-bottom: 4px; height: 1px; background-color: lightgray; border: none;">
                                     <div class="skills-divider">Additional Skills</div>
 
-                                    <img src="files/skill_logos/kicad-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/fusion360-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/autocad-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/adobeillustrator-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/adobephotoshop-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/adobepremierepro-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/msaccess-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/raspberrypi-icon.png" alt="Icon" class="social">
-                                    <img src="files/skill_logos/arduino-icon.png" alt="Icon" class="social">
+                                    <img src="files/skill_logos/kicad-icon.png" alt="KiCad" class="social">
+                                    <img src="files/skill_logos/fusion360-icon.png" alt="Autodesk Fusion 360" class="social">
+                                    <img src="files/skill_logos/autocad-icon.png" alt="AutoCAD" class="social">
+                                    <img src="files/skill_logos/adobeillustrator-icon.png" alt="Adobe Illustrator" class="social">
+                                    <img src="files/skill_logos/adobephotoshop-icon.png" alt="Adobe Photoshop" class="social">
+                                    <img src="files/skill_logos/adobepremierepro-icon.png" alt="Adobe Premiere Pro" class="social">
+                                    <img src="files/skill_logos/msaccess-icon.png" alt="Microsoft Access" class="social">
+                                    <img src="files/skill_logos/raspberrypi-icon.png" alt="Raspberry Pi" class="social">
+                                    <img src="files/skill_logos/arduino-icon.png" alt="Arduino" class="social">
                                 </div>
                             </div>
                             <div class="card shadow mb-4">
@@ -247,5 +280,24 @@
     <script src="configs/jquery/jquery.min.js"></script>
     <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="configs/script.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.toggle-description-btn').on('click', function (e) {
+                e.preventDefault();
+                var $btn = $(this);
+                var $target = $('#' + $btn.data('target'));
+
+                if ($target.hasClass('show')) {
+                    $target.removeClass('show');
+                    $btn.text('Show description');
+                    $btn.attr('aria-expanded', 'false');
+                } else {
+                    $target.addClass('show');
+                    $btn.text('Hide description');
+                    $btn.attr('aria-expanded', 'true');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
