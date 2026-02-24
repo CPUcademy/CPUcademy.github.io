@@ -95,8 +95,8 @@
 
                                     <p>The <code>action</code> attribute specifies the URL where the form data will be sent. The <code>method</code> attribute defines how the data is transmitted. Common values include <code>post</code> (sends data in the request's body) and <code>get</code> (appends data to the URL).</p>
 
-                                    <p>Form controls, such as input fields, checkboxes, and buttons, can also be managed using JavaScript. When handled with JavaScript, these controls do not necessarily need to be enclosed within a <code>&lt;form&gt;</code> tag. However, if the data needs to be submitted to a server, using the <code>&lt;form&gt;</code> tag is recommended for proper structure and functionality. We get the inputted values from controls through the <code>id</code> and <code>name</code> attributes.</p>
-                                    
+                                    <p>Form controls, such as input fields, checkboxes, and buttons, can also be managed using JavaScript. When handled with JavaScript, these controls do not necessarily need to be enclosed within a <code>&lt;form&gt;</code> tag. However, if the data needs to be submitted to a server, using the <code>&lt;form&gt;</code> tag is recommended for proper structure and functionality. Each control can have an <code>id</code> and a <code>name</code>: <code>id</code> uniquely identifies the element for JavaScript or CSS, while <code>name</code> is used as the key when sending data to the server. Often, both are used together for interactive and functional forms.</p>
+
                                     <ul>
                                         <li><code>text</code>
                                             <ul>
@@ -145,8 +145,8 @@
                                         </li>
                                         <li><code>file</code>
                                             <ul>
-                                                <li>Defines a file upload button.</li>
-                                                <li><code>&lt;input type="file" name="profile_pic" accept=".jpg,.png"&gt;</code></li>
+                                                <li>Defines a file upload button (in this case, accepting only images).</li>
+                                                <li><code>&lt;input type="file" name="profile_pic" accept="image/*"&gt;</code> (to restrict to specific types, use the following syntax: <code>accept="image/jpeg,image/png"</code>)</li>
                                                 <li style="list-style-type: none; margin-top: 5px; margin-bottom: 25px;"><input type="file" name="profile_pic" accept=".jpg,.png"></li>
                                             </ul>
                                         </li>

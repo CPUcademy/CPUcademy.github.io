@@ -175,20 +175,33 @@
 <span class="function">&lt;/div&gt;</span>
 
 <span class="function">&lt;script&gt;</span>
-    <span class="function">function</span> color(c) <span class="sign">{</span> <span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"#example"</span>).<span class="command">style</span>.<span class="command">backgroundColor</span><span class="sign">=</span>c<span class="sign">}</span>
-    <span class="function">function</span> font(c) <span class="sign">{</span> <span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"#example"</span>).<span class="command">style</span>.<span class="command">color</span><span class="sign">=</span>c<span class="sign">}</span>
-    <span class="function">function</span> font_size(c) <span class="sign">{</span> <span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"#example"</span>).<span class="command">style</span>.<span class="command">fontSize</span><span class="sign">=</span>c<span class="sign">}</span>
-    <span class="function">function</span> style_type(c) <span class="sign">{</span> <span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"#list"</span>).<span class="command">style</span>.<span class="command">listStyleType</span><span class="sign">=</span>c<span class="sign">}</span>
+    <span class="function">function</span> color(c) <span class="sign">{</span> <span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"#example"</span>).<span class="command">style</span>.<span class="command">backgroundColor</span> <span class="sign">=</span> c <span class="sign">}</span>
+    <span class="function">function</span> font(c) <span class="sign">{</span> <span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"#example"</span>).<span class="command">style</span>.<span class="command">color</span> <span class="sign">=</span> c <span class="sign">}</span>
+    <span class="function">function</span> font_size(c) <span class="sign">{</span> <span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"#example"</span>).<span class="command">style</span>.<span class="command">fontSize</span> <span class="sign">=</span> c <span class="sign">}</span>
+    <span class="function">function</span> style_type(c) <span class="sign">{</span> <span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"#list"</span>).<span class="command">style</span>.<span class="command">listStyleType</span> <span class="sign">=</span> c <span class="sign">}</span>
 
     <span class="function">function</span> add_border() <span class="sign">{</span>
         <span class="function">let</span> img <span class="sign">=</span> <span class="function">document</span>.<span class="command">querySelector</span>(<span class="text">"#example"</span>)
         <span class="function">if</span> (<span class="function">document</span>.<span class="command">getElementById</span>(<span class="text">"border"</span>).<span class="command">checked</span>)
-            img.<span class="command">style</span>.<span class="command">border</span><span class="sign">=</span><span class="text">"5px solid black"</span>
+            img.<span class="command">style</span>.<span class="command">border</span> <span class="sign">=</span> <span class="text">"5px solid black"</span>
         <span class="function">else</span>
-            img.<span class="command">style</span>.<span class="command">borderWidth</span><span class="sign">=</span><span class="text">"0px"</span>
+            img.<span class="command">style</span>.<span class="command">borderWidth</span> <span class="sign">=</span> <span class="text">"0px"</span>
     <span class="sign">}</span>
 <span class="function">&lt;/script&gt;</span>
                                         </code></pre>
+
+                                        <p>To retrieve the value of the selected radio button, we can also use <code>document.getElementsByName("r")</code>, which returns a NodeList of all radio buttons with the name <code>r</code>. We then loop through them and check which one has <code>checked</code> set to <code>true</code>. For example:</p>
+
+                                        <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">let</span> radios <span class="sign">=</span> <span class="function">document</span>.<span class="command">getElementsByName</span>(<span class="text">"r"</span>)
+<span class="function">for</span> (<span class="function">let</span> i <span class="sign">=</span> 0<span class="sign">;</span> i <span class="sign">&lt;</span> radios.<span class="command">length</span><span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+    <span class="function">if</span> (radios[i].<span class="command">checked</span>) <span class="sign">{</span>
+        <span class="command">console</span>.<span class="command">log</span>(radios[i].<span class="command">value</span>)
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                        </code></pre>
+
+                                        <p>This approach is useful when we need the selected value without attaching individual <code>onclick</code> handlers to each button. Similarly, when retrieving values from <code>&lt;input type="file"&gt;</code>, we also get a list (<code>FileList</code>) containing all selected files, which we can iterate over just like with the radio buttons. To access the name of the first element of the list, we can write: <code>document.querySelector("#fileInput").files[0].name</code>.</p>
 
                                         <div id="example">
                                             <p>Background color</p>
