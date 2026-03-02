@@ -585,21 +585,38 @@ db.get_data() <span class="comment"># accessing the data again, no re-initializa
                                     <p>Dependency Injection allows us to inject dependencies (such as services, objects, or configurations) into a class rather than having the class create them itself. This promotes loose coupling (meaning the class has less direct knowledge or control over the specific implementation details of its dependencies), making the code more modular, flexible, and easier to test. With DI, the class doesn't need to worry about how its dependencies are created or managed. Instead, they are provided externally (often by a framework or a container), which simplifies testing and maintenance.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-<span class="function">class</span> Database:
+<span class="command">from</span> abc <span class="command">import</span> ABC, abstractmethod
+
+<span class="function">class</span> DatabaseInterface(<span class="function">ABC</span>):
+    <span class="command">@abstractmethod</span>
     <span class="function">def</span> connect(<span class="function">self</span>):
-        <span class="command">print</span>(<span class="text">"Connecting to the database..."</span>)
+        <span class="function">pass</span>
+
+<span class="function">class</span> MySQLDatabase(<span class="function">DatabaseInterface</span>):
+    <span class="function">def</span> connect(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Connecting to MySQL database..."</span>) <span class="comment"># MySQL implementation</span>
+
+<span class="function">class</span> SQLiteDatabase(<span class="function">DatabaseInterface</span>):
+    <span class="function">def</span> connect(<span class="function">self</span>):
+        <span class="command">print</span>(<span class="text">"Connecting to SQLite database..."</span>) <span class="comment"># SQLite implementation</span>
 
 <span class="function">class</span> Service:
-    <span class="function">def __init__</span>(<span class="function">self</span>, database: <span class="function">Database</span>):
+    <span class="function">def __init__</span>(<span class="function">self</span>, database: <span class="function">DatabaseInterface</span>):
         <span class="function">self</span>.database <span class="sign">=</span> database <span class="comment"># injecting the dependency through the constructor</span>
 
     <span class="function">def</span> execute(<span class="function">self</span>):
         <span class="command">print</span>(<span class="text">"Service is running..."</span>)
         <span class="function">self</span>.database.connect() <span class="comment"># using the injected dependency</span>
 
-db <span class="sign">=</span> <span class="function">Database</span>()
-service <span class="sign">=</span> <span class="function">Service</span>(db) <span class="comment"># injecting the Database instance into the Service</span>
-service.execute()
+<span class="comment"># Creating database instances</span>
+mysql_db <span class="sign">=</span> <span class="function">MySQLDatabase</span>()
+sqlite_db <span class="sign">=</span> <span class="function">SQLiteDatabase</span>()
+
+<span class="comment"># Injecting the DatabaseInterface instances into the Service</span>
+service1 <span class="sign">=</span> <span class="function">Service</span>(mysql_db) <span class="comment"># using MySQL</span>
+service1.execute()
+service2 <span class="sign">=</span> <span class="function">Service</span>(sqlite_db) <span class="comment"># using SQLite</span>
+service2.execute()
                                     </code></pre>
                                 </div>
                             </div>
