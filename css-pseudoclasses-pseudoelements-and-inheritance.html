@@ -336,6 +336,23 @@
 
                                     <p id="p3">Try to copy this text.</p>
 
+                                    <h4><code>:root</code></h4>
+                                    <p><code>:root</code> represents the highest-level parent in the document (usually the <code>&lt;html&gt;</code> element). It is commonly used for defining global CSS variables, which can then be reused anywhere in the stylesheet. This approach allows for consistent theming and easier maintenance of values like colors, fonts, and spacing.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code>
+<span class="function">&lt;style&gt;</span>
+    <span class="sign">:</span><span class="function">root</span> <span class="sign">{</span>
+        <span class="function">--main-color</span><span class="sign">:</span> #157267<span class="sign">;</span>
+        <span class="function">--font-size</span><span class="sign">:</span> 16px<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    body <span class="sign">{</span>
+        <span class="function">color</span><span class="sign">:</span> <span class="function">var</span>(<span class="function">--main-color</span>)<span class="sign">;</span>
+        <span class="function">font-size</span><span class="sign">:</span> <span class="function">var</span>(<span class="function">--font-size</span>)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="function">&lt;/style&gt;</span>
+                                    </code></pre>
+
                                     <h2>Inheritance</h2>
 
                                     <p>A "child" is an object inside a "parent" object.</p>
