@@ -95,6 +95,7 @@
                                         <li><a href="#staging-and-committing-changes" class="link" style="text-decoration: none;">Staging and committing changes</a></li>
                                         <li><a href="#synchronizing-with-the-remote-repository" class="link" style="text-decoration: none;">Synchronizing with the remote repository</a></li>
                                         <li><a href="#branching-basics" class="link" style="text-decoration: none;">Branching basics</a>, <a href="#merging-branches" class="link" style="text-decoration: none;">Merging branches</a>, <a href="#merge-conflicts" class="link" style="text-decoration: none;">Merge conflicts</a></li>
+                                        <li><a href="#switching-to-a-specific-commit" class="link" style="text-decoration: none;">Switching to a specific commit</a></li>
                                         <li><a href="#pull-requests-on-github" class="link" style="text-decoration: none;">Pull requests on GitHub</a></li>
                                         <li><a href="#reset" class="link" style="text-decoration: none;">Reset</a>, <a href="#revert" class="link" style="text-decoration: none;">Revert</a>, <a href="#stash" class="link" style="text-decoration: none;">Stash</a>, <a href="#tags" class="link" style="text-decoration: none;">Tags</a>, <a href="#flags" class="link" style="text-decoration: none;">Flags</a></li>
                                         <li><code><a href="#gitignore" class="link" style="color: #f5d67b; text-decoration: none;">.gitignore</a></code></li>
@@ -274,8 +275,7 @@
                                         </tr>
                                     </table></div>
                                     <p>An upstream branch is a remote branch that the local branch is tracking, allowing for easy synchronization of changes between the two. Setting an upstream branch enables us to use simplified Git commands, such as <code>git push</code> and <code>git pull</code> (without defining the branch every time).</p>
-                                    
-                                    
+                                          
                                     <h3><a id="branching-basics">Branching basics</a></h3>
                                     <div class="table-container"><table>
                                         <tr>
@@ -362,6 +362,29 @@ git merge feature_branch
 git add [resolved_file]
 git commit -m "Resolve merge conflicts in feature_branch"
                                     </code></pre>
+
+                                    <h3><a id="switching-to-a-specific-commit">Switching to a specific commit</a></h3>
+
+                                    <p>Sometimes we want to inspect or test the state of the repository at a specific commit. Each commit in Git has a unique hash (identifier), which allows us to move the repository to that exact point in the project history.</p>
+
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><code>git checkout [commit-hash]</code></td>
+                                            <td>Switching to a specific commit using its unique identifier.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>git switch --detach [commit-hash]</code></td>
+                                            <td>Switching to a specific commit in a detached HEAD state (modern Git command).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>git switch -c [new-branch] [commit-hash]</code></td>
+                                            <td>Creating a new branch starting from a specific commit.</td>
+                                        </tr>
+                                    </table></div>
+
+                                    <p>When we switch directly to a commit, Git enters a <b>detached HEAD state</b>. This means we are no longer on a branch but instead viewing the repository at that specific commit. This is useful for inspecting previous versions or testing older states of the project.</p>
+
+                                    <p>If we want to continue development from that commit, it is recommended to create a new branch from it using <code>git switch -c</code>. Otherwise, any commits made in the detached state may become difficult to track.</p>
 
                                     <h3><a id="pull-requests-on-github">Pull requests on GitHub</a></h3>
                                     <p>A pull request (PR) is a GitHub feature for proposing and discussing changes before merging them into the main branch. This is useful for code reviews and ensures better-quality code.</p>
