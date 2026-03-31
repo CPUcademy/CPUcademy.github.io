@@ -129,66 +129,30 @@
     <span class="function">&lt;?php</span> <span class="sign">}</span> <span class="function">?&gt;</span>
     
     <span class="function">&lt;?php</span>
-        <span class="function">$</span>servername <span class="sign">=</span> <span class="text">"localhost"</span><span class="sign">;</span>
-        <span class="function">$</span>username <span class="sign">=</span> <span class="text">"root"</span><span class="sign">;</span>
-        <span class="function">$</span>password <span class="sign">=</span> <span class="text">""</span><span class="sign">;</span>
-        <span class="function">$</span>dbname <span class="sign">=</span> <span class="text">"dbtest"</span><span class="sign">;</span>
+        <span class="function">$</span>connection <span class="sign">=</span> <span class="command">mysqli_connect</span>(<span class="text">"localhost"</span>, <span class="text">"root"</span>, <span class="text">""</span>, <span class="text">"dbtest"</span>)<span class="sign">;</span> <span class="comment">// creating the connection</span>
 
-        <span class="comment">// Connecting to the database (make sure database "dbtest" exists)</span>
-        <span class="function">$</span>conn <span class="sign">=</span> <span class="function">new mysqli</span>(<span class="function">$</span>servername, <span class="function">$</span>username, <span class="function">$</span>password, <span class="function">$</span>dbname)<span class="sign">;</span>
-        <span class="function">if</span> (<span class="function">$</span>conn <span class="sign">-&gt;</span> connect_error)
-            <span class="command">die</span>(<span class="text">"&lt;p style='color: red;'&gt;Connection failed: "</span> <span class="sign">.</span> <span class="function">$</span>conn <span class="sign">-&gt;</span> connect_error <span class="sign">.</span> <span class="text">"&lt;/p&gt;"</span>)<span class="sign">;</span>
-
-        <span class="comment">// Creating a table if it doesn't exist</span>
-        <span class="function">$</span>conn <span class="sign">-&gt;</span> <span class="command">query</span>(<span class="text">"CREATE TABLE IF NOT EXISTS users (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            firstName VARCHAR(50),
-            lastName VARCHAR(50),
-            profession VARCHAR(50),
-            email VARCHAR(100),
-            gender VARCHAR(10),
-            education VARCHAR(20),
-            mailing BOOLEAN
-        )"</span>)<span class="sign">;</span>
-                                        
         <span class="function">if</span> (<span class="command">isset</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"submit"</span>])) <span class="sign">{</span>
             <span class="function">$</span>mailing <span class="sign">=</span> <span class="command">isset</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"mailing"</span>])<span class="sign">;</span>
             <span class="function">$</span>gender <span class="sign">=</span> <span class="command">isset</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"gender"</span>]) ? <span class="function">$</span><span class="command">_POST</span>[<span class="text">"gender"</span>] <span class="sign">:</span> <span class="text">""</span><span class="sign">;</span>
             <span class="function">$</span>education <span class="sign">=</span> <span class="command">isset</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"education"</span>]) ? <span class="function">$</span><span class="command">_POST</span>[<span class="text">"education"</span>] <span class="sign">:</span> <span class="text">""</span><span class="sign">;</span>
-            
-            form(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"firstName"</span>], <span class="function">$</span><span class="command">_POST</span>[<span class="text">"lastName"</span>], <span class="function">$</span><span class="command">_POST</span>[<span class="text">"profession"</span>], <span class="function">$</span><span class="command">_POST</span>[<span class="text">"email"</span>], <span class="function">$</span>mailing, <span class="function">$</span>gender, <span class="function">$</span>education)<span class="sign">;</span>
-            
-            <span class="function">if</span> (<span class="command">empty</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"firstName"</span>]) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"lastName"</span>]) <span class="sign">||</span> 
-            <span class="command">empty</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"profession"</span>]) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"email"</span>]) <span class="sign">||</span> 
-            <span class="command">empty</span>(<span class="function">$</span>gender) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span>education)) {
-                <span class="command">echo</span> <span class="text">"&lt;p style='color: red;'&gt;You must fill in all fields!&lt;/p&gt;"</span><span class="sign">;</span>
-            <span class="sign">}</span> <span class="function">else</span> <span class="sign">{</span>
-                <span class="command">echo</span> <span class="text">"&lt;p&gt;Thank you for filling out the form!&lt;/p&gt;"</span><span class="sign">;</span>
 
-                <span class="function">$</span>stmt = <span class="function">$</span>conn <span class="sign">-&gt;</span> <span class="command">prepare</span>(<span class="text">"INSERT INTO users (firstName, lastName, profession, email, gender, education, mailing) VALUES (?, ?, ?, ?, ?, ?, ?)"</span>)<span class="sign">;</span>
-                <span class="function">$</span>stmt <span class="sign">-&gt;</span> <span class="command">bind_param</span>(<span class="text">"ssssssi"</span>, <span class="function">$</span><span class="command">_POST</span>[<span class="text">"firstName"</span>], <span class="function">$</span><span class="command">_POST</span>[<span class="text">"lastName"</span>], <span class="function">$</span><span class="command">_POST</span>[<span class="text">"profession"</span>], <span class="function">$</span><span class="command">_POST</span>[<span class="text">"email"</span>], <span class="function">$</span>gender, <span class="function">$</span>education, <span class="function">$</span>mailing)<span class="sign">;</span>
-                <span class="function">$</span>stmt <span class="sign">-&gt;</span> <span class="command">execute</span>()<span class="sign">;</span>
-                <span class="function">$</span>stmt <span class="sign">-&gt;</span> <span class="command">close</span>()<span class="sign">;</span>
-                <span class="function">?&gt;</span>
-                <span class="function">&lt;ul&gt;</span>
-                    <span class="function">&lt;li&gt;</span>First name: <span class="function">&lt;b&gt;&lt;?=</span> <span class="command">trim</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"firstName"</span>])<span class="sign">;</span> <span class="function">?&gt;&lt;/b&gt;&lt;/li&gt;</span>
-                    <span class="function">&lt;li&gt;</span>Last name: <span class="function">&lt;b&gt;&lt;?=</span> <span class="command">trim</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"lastName"</span>])<span class="sign">;</span> <span class="function">?&gt;&lt;/b&gt;&lt;/li&gt;</span>
-                    <span class="function">&lt;li&gt;</span>Profession: <span class="function">&lt;b&gt;&lt;?=</span> <span class="command">trim</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"profession"</span>])<span class="sign">;</span> <span class="function">?&gt;&lt;/b&gt;&lt;/li&gt;</span>
-                    <span class="function">&lt;li&gt;</span>Email address: <span class="function">&lt;b&gt;&lt;?=</span> <span class="command">trim</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"email"</span>])<span class="sign">;</span> <span class="function">?&gt;&lt;/b&gt;&lt;/li&gt;</span>
-                    <span class="function">&lt;li&gt;</span>Gender: <span class="function">&lt;b&gt;&lt;?=</span> <span class="function">$</span>gender<span class="sign">;</span> <span class="function">?&gt;&lt;/b&gt;&lt;/li&gt;</span>
-                    <span class="function">&lt;li&gt;</span>Education: <span class="function">&lt;b&gt;&lt;?=</span> <span class="function">$</span>education<span class="sign">;</span> <span class="function">?&gt;&lt;/b&gt;&lt;/li&gt;</span>
-                    <span class="function">&lt;?php</span>
-                        <span class="function">if</span> (<span class="function">$</span>mailing)
-                            <span class="command">echo</span> <span class="text">"&lt;li&gt;You want to receive commercial information.&lt;/li&gt;"</span><span class="sign">;</span>
-                        <span class="function">else</span>
-                            <span class="command">echo</span> <span class="text">"&lt;li&gt;You do not want to receive commercial information.&lt;/li&gt;"</span><span class="sign">;</span>
-                    <span class="function">?&gt;</span>
-                <span class="function">&lt;/ul&gt;</span>
-                <span class="function">&lt;?php</span>
-           <span class="sign">}</span>
-        <span class="sign">}</span> <span class="function">else</span>
+             <span class="comment">// $_POST takes values from the submitted form, while $_GET would take them from the URL GET request parameters</span>
+            form(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"firstName"</span>], <span class="function">$</span><span class="command">_POST</span>[<span class="text">"lastName"</span>], <span class="function">$</span><span class="command">_POST</span>[<span class="text">"profession"</span>], <span class="function">$</span><span class="command">_POST</span>[<span class="text">"email"</span>], <span class="function">$</span>mailing, <span class="function">$</span>gender, <span class="function">$</span>education)<span class="sign">;</span>
+
+            <span class="function">if</span> (<span class="command">empty</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"firstName"</span>]) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"lastName"</span>]) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"profession"</span>]) <span class="sign">||</span>
+                <span class="command">empty</span>(<span class="function">$</span><span class="command">_POST</span>[<span class="text">"email"</span>]) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span>gender) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span>education)) <span class="sign">{</span>
+                <span class="command">echo</span> <span class="text">"&lt;p style='color:red;'&gt;You must fill in all fields!&lt;/p&gt;"</span><span class="sign">;</span>
+            <span class="sign">}</span> <span class="function">else</span> <span class="sign">{</span>
+                <span class="function">$</span>sql <span class="sign">=</span> <span class="text">"INSERT INTO users (firstName, lastName, profession, email, gender, education, mailing)
+                VALUES ('{$_POST["firstName"]}', '{$_POST["lastName"]}', '{$_POST["profession"]}', '{$_POST["email"]}', '$gender', '$education', $mailing)"</span><span class="sign">;</span>
+                <span class="command">mysqli_query</span>(<span class="function">$</span>connection, <span class="function">$</span>sql)<span class="sign">;</span> <span class="comment">// executing the query</span>
+                <span class="command">echo</span> <span class="text">"&lt;p&gt;Saved to database!&lt;/p&gt;"</span><span class="sign">;</span>
+            <span class="sign">}</span>
+        <span class="sign">}</span>
+        <span class="function">else</span>
             form()<span class="sign">;</span>
-        <span class="function">$</span>conn <span class="sign">-&gt;</span> <span class="command">close</span>()<span class="sign">;</span>
+
+        <span class="command">mysqli_close</span>(<span class="function">$</span>connection)<span class="sign">;</span> <span class="comment">// closing the connection</span>
     <span class="function">?&gt;</span>
 <span class="function">&lt;/body&gt;</span>
 <span class="function">&lt;/html&gt;</span>
