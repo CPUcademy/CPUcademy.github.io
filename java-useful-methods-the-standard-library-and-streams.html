@@ -87,7 +87,22 @@
                                 <div class="card-body">
                                     <p>A library is a collection of related modules that provides reusable functionality to simplify development. The Java Standard Library is a collection of pre-written classes and APIs that provide essential functionality for Java development, such as data structures, networking, file I/O, and utilities and is bundled with the Java Development Kit (JDK). In this lesson, we will use the built-in classes from this library. We import these classes using the <code>import</code> statement, e.g., <code>import java.util.Random;</code>.</p>
 
-                                    <h2>The <code>Random</code> class</h2>
+                                    <h3>Table of contents</h3>
+            
+                                    <ul type="disc">
+                                        <li><a href="#random-class" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">Random</code> class</a></li>
+                                        <li><a href="#streams" class="link" style="text-decoration: none;">Streams</a></li>
+                                        <li><a href="#math-class" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">Math</code> class</a></li>
+                                        <li><a href="#calendar-and-date-classes" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">Calendar</code> and <code style="color: #f5d67b;">Date</code> classes</a></li>
+                                        <li><a href="#arrays-class" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">Arrays</code> class</a></li>
+                                        <li><a href="#system-class" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">System</code> class</a></li>
+                                        <li><a href="#string-class" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">String</code> class</a></li>
+                                        <li><a href="#character-class" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">Character</code> class</a></li>
+                                        <li><a href="#stringbuilder-class" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">StringBuilder</code> class</a></li>
+                                        <li><a href="#converting-between-strings-and-numbers" class="link" style="text-decoration: none;">Converting between strings and numbers</a></li>
+                                    </ul>
+
+                                    <h2><a id="random-class">The <code style="color: #f5d67b;">Random</code> class</a></h2>
                                                                         
                                     <p>The <code>Random</code> class is used to generate random numbers. The numbers generated using this class are pseudorandom, which means they are drawn according to a certain pattern. The initial value used by the generator is called a seed. If we know the value of the seed, we can predict the rest of the numbers produced by the generator because, for a given seed, the same numbers will always be generated (in the same order). The seed can be set with the <code>randomObject.seed(value)</code> command.</p>
 
@@ -118,19 +133,129 @@
 <span class="sign">}</span>
                                     </code></pre>
 
-                                    <h2>Streams</h2>
+                                    <h2><a id="streams">Streams</a></h2>
 
-                                    <p>Streams provide a way to process data sequences, including collections and arrays, in a functional style. The Stream API allows us to perform operations such as filtering, mapping, and reducing data sets concisely. The Random class offers methods like <code>doubles()</code>, <code>ints()</code>, and <code>longs()</code> that return streams of random values of the specified type (they can be customized with parameters to define range). This enables the generation of random numbers within specific bounds. By using streams, we can efficiently handle large volumes of data and perform complex operations. Additionally, streams support lazy evaluation, meaning random numbers are generated on the fly as they are consumed, leading to performance optimizations when not all values are needed simultaneously (we do not need to store the whole sequence).</p>
-                                    
-                                    <p>Here’s how we can create a stream of random doubles:</p> 
-                                    
+                                    <p>Streams provide a way to process data sequences, including collections and arrays, in a functional style. The Stream API enables us to perform operations such as filtering, mapping, and reducing datasets concisely. By using streams, we can efficiently handle large volumes of data. Additionally, streams support <b>lazy evaluation</b>, meaning values are generated on the fly as they are consumed, leading to performance optimizations when not all values are needed simultaneously (we do not need to store the whole sequence).</p>
+
+                                    <h3>Creating streams</h3>
+
+                                    <p>Streams can be created from many sources. The most common way is from a collection using <code>.stream()</code>, but we can also create them from arrays, individual values, or generate them programmatically.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">// Creating from a List</span>
+<span class="function">List</span><span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> names <span class="sign">=</span> <span class="function">List</span>.<span class="command">of</span>(<span class="text">"Alice"</span>, <span class="text">"Bob"</span>, <span class="text">"Charlie"</span>)<span class="sign">;</span>
+<span class="function">Stream</span><span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> nameStream <span class="sign">=</span> names.<span class="command">stream</span>()<span class="sign">;</span>
+
+<span class="comment">// Creating from individual values</span>
+<span class="function">Stream</span><span class="sign">&lt;</span><span class="function">Integer</span><span class="sign">&gt;</span> numStream <span class="sign">=</span> <span class="function">Stream</span>.<span class="command">of</span>(1, 2, 3, 4, 5)<span class="sign">;</span>
+
+<span class="comment">// Creating from an array</span>
+<span class="function">String</span>[] arr <span class="sign">=</span> {<span class="text">"x"</span>, <span class="text">"y"</span>, <span class="text">"z"</span>}<span class="sign">;</span>
+<span class="function">Stream</span><span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> arrStream <span class="sign">=</span> <span class="function">Arrays</span>.<span class="command">stream</span>(arr)<span class="sign">;</span>
+
+<span class="comment">// Infinite stream generated programmatically</span>
+<span class="function">Stream</span><span class="sign">&lt;</span><span class="function">Integer</span><span class="sign">&gt;</span> generated <span class="sign">=</span> <span class="function">Stream</span>.<span class="command">iterate</span>(0, n <span class="sign">-&gt;</span> n <span class="sign">+</span> 2).<span class="command">limit</span>(5)<span class="sign">;</span> <span class="comment">// 0, 2, 4, 6, 8</span>
+
+<span class="comment">// Flattening a list of lists</span>
+<span class="function">List</span><span class="sign">&lt;</span><span class="function">List</span><span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;&gt;</span> allSources <span class="sign">=</span> <span class="function">List</span>.<span class="command">of</span>(<span class="function">List</span>.<span class="command">of</span>(<span class="text">"Alice"</span>, <span class="text">"Bob"</span>), <span class="function">List</span>.<span class="command">of</span>(<span class="text">"Charlie"</span>, <span class="text">"Dave"</span>), <span class="function">List</span>.<span class="command">of</span>(<span class="text">"Eve"</span>, <span class="text">"Frank"</span>))<span class="sign">;</span>
+<span class="function">List</span><span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> allListsInOne <span class="sign">=</span> <span class="function">new ArrayList</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+allSources.<span class="command">forEach</span>(allListsInOne<span class="sign">::</span><span class="command">addAll</span>)<span class="sign">;</span>
+                                    </code></pre>
+
+                                    <h3>Random streams</h3>
+
+                                    <p>The <code>Random</code> class offers methods like <code>doubles()</code>, <code>ints()</code>, and <code>longs()</code> that return streams of random values of the specified type. They can be customized with parameters to define a range, enabling the generation of random numbers within specific bounds. Because streams use lazy evaluation, random numbers are generated on the fly as they are consumed, so we do not need to store the whole sequence in memory. Here's how we can create a stream of random doubles:</p>
+
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">Random</span> rand1 <span class="sign">=</span> <span class="function">new Random</span>()<span class="sign">;</span>
 <span class="function">DoubleStream</span> stream <span class="sign">=</span> rand1.<span class="function">doubles</span>(0, 10).<span class="command">limit</span>(10)<span class="sign">;</span> <span class="comment">// 10 double numbers from the range 0-10</span>
-stream.<span class="function">forEach</span>(<span class="function">System</span>.<span class="command">out</span><span class="sign">::</span><span class="command">println</span>)<span class="sign">;</span> <span class="comment">// displaying all of the stream values</span>
+stream.<span class="function">forEach</span>(<span class="function">System</span>.<span class="command">out</span><span class="sign">::</span><span class="command">println</span>)<span class="sign">;</span> <span class="comment">// displaying all stream values</span>
+                                    </code></pre>
+
+                                    <h3>The <code>map()</code> method</h3>
+
+                                    <p>The <code>map()</code> method takes a function as a parameter. It applies the given function to each element in the stream and returns a new stream with the transformed results.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">List</span><span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> names <span class="sign">=</span> <span class="function">List</span>.<span class="command">of</span>(<span class="text">"alice"</span>, <span class="text">"bob"</span>, <span class="text">"charlie"</span>)<span class="sign">;</span>
+
+names.<span class="command">stream</span>()
+     .<span class="command">map</span>(<span class="function">String</span><span class="sign">::</span><span class="command">toUpperCase</span>) <span class="comment">// transforming each name to uppercase</span>
+     .<span class="function">forEach</span>(<span class="function">System</span>.<span class="command">out</span><span class="sign">::</span><span class="command">println</span>)<span class="sign">;</span>
+                                    </code></pre>
+
+                                    <h3>The <code>filter()</code> method</h3>
+
+                                    <p>The <code>filter()</code> method takes a predicate (a function returning a boolean) as a parameter. It applies the given predicate to each element in the stream and returns a new stream containing only those elements for which the function returned <code>true</code>.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">List</span><span class="sign">&lt;</span><span class="function">Integer</span><span class="sign">&gt;</span> numbers <span class="sign">=</span> <span class="function">List</span>.<span class="command">of</span>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)<span class="sign">;</span>
+
+numbers.<span class="command">stream</span>()
+       .<span class="command">filter</span>(n <span class="sign">-&gt;</span> n <span class="sign">%</span> 2 <span class="sign">==</span> 0) <span class="comment">// keeping only even numbers</span>
+       .<span class="function">forEach</span>(<span class="function">System</span>.<span class="command">out</span><span class="sign">::</span><span class="command">println</span>)<span class="sign">;</span>
+                                    </code></pre>
+
+                                    <h3>The <code>reduce()</code> method</h3>
+
+                                    <p>The <code>reduce()</code> method takes an identity value and an accumulator function as parameters. It applies a rolling computation to the elements of the stream, combining them one by one into a single result.</p>
+
+                                    <p>The identity value is the initial value for the reduction - it's the starting point for the accumulation. For example, if we're summing numbers, the identity would be 0, and if we're multiplying, it would be 1. It's also the value returned if the stream is empty.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">List</span><span class="sign">&lt;</span><span class="function">Integer</span><span class="sign">&gt;</span> numbers <span class="sign">=</span> <span class="function">List</span>.<span class="command">of</span>(1, 2, 3, 4, 5)<span class="sign">;</span>
+
+<span class="function">int</span> sum <span class="sign">=</span> numbers.<span class="command">stream</span>().<span class="command">reduce</span>(0, (a, b) <span class="sign">-&gt;</span> a <span class="sign">+</span> b)<span class="sign">;</span>
+
+<span class="comment">// Using a method reference</span>
+<span class="function">int</span> product <span class="sign">=</span> numbers.<span class="command">stream</span>().<span class="command">reduce</span>(1, <span class="function">Integer</span><span class="sign">::</span><span class="command">multiply</span>)<span class="sign">;</span>
+                                    </code></pre>
+
+                                    <h3>The <code>collect()</code> method</h3>
+
+                                    <p>The <code>collect()</code> method is a terminal operation that gathers the stream elements into a collection or other data structure. It is used with the <code>Collectors</code> utility class, which provides ready-made collectors for lists, sets, maps, and more.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">List</span><span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> names <span class="sign">=</span> <span class="function">List</span>.<span class="command">of</span>(<span class="text">"Alice"</span>, <span class="text">"Bob"</span>, <span class="text">"Charlie"</span>, <span class="text">"Anna"</span>)<span class="sign">;</span>
+
+<span class="comment">// Collecting to a List with an additional condition</span>
+<span class="function">List</span><span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> filtered <span class="sign">=</span> names.<span class="command">stream</span>().<span class="command">filter</span>(n <span class="sign">-&gt;</span> n.<span class="command">startsWith</span>(<span class="text">"A"</span>)).<span class="command">collect</span>(<span class="function">Collectors</span>.<span class="command">toList</span>())<span class="sign">;</span> <span class="comment">// [Alice, Anna]</span>
+
+<span class="comment">// Collecting to a Set</span>
+<span class="function">Set</span><span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> nameSet <span class="sign">=</span> names.<span class="command">stream</span>().<span class="command">collect</span>(<span class="function">Collectors</span>.<span class="command">toSet</span>())<span class="sign">;</span>
+
+<span class="comment">// Joining into a single String</span>
+<span class="function">String</span> joined <span class="sign">=</span> names.<span class="command">stream</span>().<span class="command">collect</span>(<span class="function">Collectors</span>.<span class="command">joining</span>(<span class="text">", "</span>))<span class="sign">;</span> <span class="comment">// "Alice, Bob, Charlie, Anna"</span>
+                                    </code></pre>
+
+                                    <h3>The <code>sorted()</code> and <code>distinct()</code> methods</h3>
+
+                                    <p>The <code>sorted()</code> method returns a stream with elements in natural order (or by a custom comparator), while the <code>distinct()</code> method removes duplicate elements. Both are intermediate operations.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">List</span><span class="sign">&lt;</span><span class="function">Integer</span><span class="sign">&gt;</span> nums <span class="sign">=</span> <span class="function">List</span>.<span class="command">of</span>(5, 3, 1, 4, 1, 2, 3)<span class="sign">;</span>
+
+nums.<span class="command">stream</span>().<span class="command">distinct</span>().<span class="command">sorted</span>().<span class="function">forEach</span>(<span class="function">System</span>.<span class="command">out</span><span class="sign">::</span><span class="command">println</span>)<span class="sign">;</span>
+
+<span class="comment">// Custom comparator - sorting strings by length</span>
+names.<span class="command">stream</span>().<span class="command">sorted</span>(<span class="function">Comparator</span>.<span class="command">comparingInt</span>(<span class="function">String</span><span class="sign">::</span><span class="command">length</span>)).<span class="function">forEach</span>(<span class="function">System</span>.<span class="command">out</span><span class="sign">::</span><span class="command">println</span>)<span class="sign">;</span>
+                                    </code></pre>
+
+                                    <h3>Chaining operations</h3>
+
+                                    <p>The real power of streams comes from chaining multiple intermediate operations together before a terminal operation. Each intermediate operation returns a new stream, so they can be composed into a clean, readable pipeline.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">List</span><span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> names <span class="sign">=</span> <span class="function">List</span>.<span class="command">of</span>(<span class="text">"Alice"</span>, <span class="text">"Bob"</span>, <span class="text">"Charlie"</span>, <span class="text">"Anna"</span>, <span class="text">"Brian"</span>)<span class="sign">;</span>
+
+<span class="function">List</span><span class="sign">&lt;</span><span class="function">String</span><span class="sign">&gt;</span> result <span class="sign">=</span> names.<span class="command">stream</span>()
+    .<span class="command">filter</span>(n <span class="sign">-&gt;</span> n.<span class="command">length</span>() <span class="sign">&gt;</span> 3) <span class="comment">// keep names longer than 3 chars</span>
+    .<span class="command">map</span>(<span class="function">String</span><span class="sign">::</span><span class="command">toUpperCase</span>) <span class="comment">// convert to uppercase</span>
+    .<span class="command">sorted</span>() <span class="comment">// sort alphabetically</span>
+    .<span class="command">collect</span>(<span class="function">Collectors</span>.<span class="command">toList</span>())<span class="sign">;</span> <span class="comment">// [ALICE, BRIAN, CHARLIE]</span>
                                     </code></pre>
                                     
-                                    <h2>The <code>Math</code> class</h2>
+                                    <h2><a id="math-class">The <code style="color: #f5d67b;">Math</code> class</a></h2>
                                     <p>The <code>Math</code> class provides more complex mathematical operations.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -154,7 +279,7 @@ stream.<span class="function">forEach</span>(<span class="function">System</span
 <span class="sign">}</span>
                                     </code></pre>
                                     
-                                    <h2>The <code>Calendar</code> and <code>Date</code> classes</h2>
+                                    <h2><a id="calendar-and-date-classes">The <code style="color: #f5d67b;">Calendar</code> and <code style="color: #f5d67b;">Date</code> classes</a></h2>
                                     <p>These classes are used to handle time. Creating and instance of the <code>Date</code> class will assign the current date and time to a variable: <code>final Date date = new Date();</code>. </p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -177,7 +302,7 @@ stream.<span class="function">forEach</span>(<span class="function">System</span
 <span class="sign">}</span>
                                     </code></pre>
 
-                                    <h2>The <code>Arrays</code> class</h2>
+                                    <h2><a id="arrays-class">The <code style="color: #f5d67b;">Arrays</code> class</a></h2>
                                     <p>The <code>Arrays</code> class allows us to, e.g., sort arrays.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -195,7 +320,7 @@ stream.<span class="function">forEach</span>(<span class="function">System</span
 <span class="sign">}</span>
                                     </code></pre>                                    
                                     
-                                    <h2>The <code>System</code> class</h2>
+                                    <h2><a id="system-class">The <code style="color: #f5d67b;">System</code> class</a></h2>
                                     <p>The <code>System</code> class is used to handle system operations.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -214,7 +339,7 @@ stream.<span class="function">forEach</span>(<span class="function">System</span
 <span class="sign">}</span>
                                     </code></pre>
                                     
-                                    <h2>The <code>String</code> class</h2>
+                                    <h2><a id="string-class">The <code style="color: #f5d67b;">String</code> class</a></h2>
                                     <p>The <code>String</code> class is used to manipulate strings.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -264,7 +389,7 @@ stream.<span class="function">forEach</span>(<span class="function">System</span
 <span class="sign">}</span>
                                     </code></pre>
 
-                                    <h2>The <code>Character</code> class</h2>
+                                    <h2><a id="character-class">The <code style="color: #f5d67b;">Character</code> class</a></h2>
                                     <p>The <code>Character</code> class provides static methods to work with individual characters.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -281,7 +406,7 @@ stream.<span class="function">forEach</span>(<span class="function">System</span
 <span class="sign">}</span>
                                     </code></pre>
                                     
-                                    <h2>The <code>StringBuilder</code> class</h2>
+                                    <h2><a id="stringbuilder-class">The <code style="color: #f5d67b;">StringBuilder</code> class</a></h2>
                                     <p>The <code>StringBuilder</code> class is used for creating and modifying mutable strings. Unlike <code>String</code>, which creates a new object on every modification, it allows for more efficient string manipulation.</p>
                                     
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -306,7 +431,7 @@ stream.<span class="function">forEach</span>(<span class="function">System</span
 <span class="sign">}</span>
                                     </code></pre>
                                     
-                                    <h2>Converting between strings and numbers</h2>
+                                    <h2><a id="converting-between-strings-and-numbers">Converting between strings and numbers</a></h2>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="function">String</span> str <span class="sign">=</span> <span class="text">"15"</span><span class="sign">;</span>

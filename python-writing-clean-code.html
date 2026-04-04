@@ -85,13 +85,16 @@
                                     <h5 class="m-0 font-weight-bold">Writing clean code</h5>
                                 </div>
                                 <div class="card-body">
-                                    Sphinks lub docxypypy docs + JavaDoc review
-                                    refaktoryzacja
-                                    vectorization
-                                    duck typing
-                                    testing
+                                    <h3>Table of contents</h3>
+            
+                                    <ul type="disc">
+                                        <li><a href="#basic-conventions-and-pieces-of-advice" class="link" style="text-decoration: none;">Basic conventions and pieces of advice</a></li>
+                                        <li><a href="#clean-coding-techniques" class="link" style="text-decoration: none;">Clean coding techniques</a></li>
+                                        <li><a href="#unit-testing" class="link" style="text-decoration: none;">Unit testing</a></li>
+                                        <li><a href="#creating-documentation" class="link" style="text-decoration: none;">Creating documentation</a></li>
+                                    </ul>
 
-                                    <h2>Basic conventions and pieces of advice</h2>
+                                    <h2><a id="basic-conventions-and-pieces-of-advice">Basic conventions and pieces of advice</a></h2>
 
                                     <p class="podpis">Some <b>PEP8</b> standard guidelines:</p>
                                     <ul>
@@ -102,13 +105,17 @@
                                         <li>And an extra: Always assume the user of your code is stupid and validate your input in every way possible.</li>
                                     </ul>
 
-                                    <p>By convention, a variable named "_" is used to indicate a value that will be ignored and should not be used, e.g., in a loop or tuple unpacking.</p>
+                                    <p>By convention, a variable named "_" is used to indicate a value that will be ignored and not used, e.g., an iterator in a <code>for</code> loop.</p>
 
                                     <p>The <code>None</code> type is falsy in conditional statements. When a function cannot produce a meaningful value, returning <code>None</code> is common, but if the absence of a value represents an error, raising an exception is more appropriate.</p>
 
                                     <p>Use <code>if</code> checks for expected conditions and reserve exceptions for rare or truly unexpected errors, since raising exceptions is more time- and memory-intensive.</p>
 
                                     <p>Magic numbers are hardcoded values in a program that are used directly without explanation or context, making the code harder to understand and maintain. These numbers typically represent constants or values with specific meaning, but their purpose is unclear without additional context. To improve code readability and maintainability, such numbers should be replaced with named constants or variables that explain their meaning.</p>
+
+                                    <p>Vectorization - the practice of replacing explicit loops with operations that act on entire arrays or sequences at once, typically using libraries like <code>NumPy</code>, resulting in faster and more concise code. For example, instead of looping through a list to multiply each element by 2, we can write <code>array * 2</code> directly.</p>
+
+                                    <p>Duck typing is how Python's type system works by default - Python never checks what type an object is. It only checks whether the object has the method or attribute being called at the moment it's needed. This is in contrast to statically typed languages like Java, where we must explicitly declare types and the compiler enforces compatibility at compile time. For example, a function that calls <code>.speak()</code> on its argument will work with a <code>Dog</code>, <code>Cat</code>, or any other object that has a <code>.speak()</code> method, regardless of its class - whereas in Java, passing a <code>Robot</code> to a method expecting an <code>Animal</code> would be a compile error unless <code>Robot</code> extends or implements <code>Animal</code>. The name comes from the phrase "if it walks like a duck and quacks like a duck, it's a duck."</p>
 
                                     <p>Each function should be responsible for its own actions. A “master” object should not control or manage all functions. Instead, each function should handle obtaining the information it needs and implementing any changes itself. The control program can communicate with different categories of functions, but it does not need to know how they are implemented. Functions manage themselves, while the control program only coordinates them. Code should be organized into self-contained, independent units, each handling a specific task.</p>
 
@@ -124,7 +131,7 @@ tasks_completed <span class="sign">+=</span> emails_sent <span class="sign">+</s
 <span class="command">print</span>(<span class="text">"Messages read:"</span>, messages_read)
                                     </code></pre>
 
-                                    <h2>Clean coding techinques</h2>
+                                    <h2><a id="clean-coding-techniques">Clean coding techinques</a></h2>
 
                                     <h4>Use dictionaries instead of if-else statements</h4>
 
@@ -177,7 +184,7 @@ result <span class="sign">=</span> {
 
                                     <h4>Memoization</h4>
 
-                                    <p>Memoization is an optimization technique that stores the results of expensive function calls and reuses the cached result when the same inputs occur again. In the example below, I counted the execution time of the first and second calls of a memoized function with the same argument to demonstrate the performance improvement after the result is cached.</p>
+                                    <p>Memoization is an optimization technique that stores the results of expensive function calls and reuses the cached result when the same inputs occur again. In the example below, the execution time of the first and second calls of a memoized function with the same argument is counted to demonstrate the performance improvement after the result is cached.</p>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> math, time
@@ -252,7 +259,7 @@ end_time <span class="sign">=</span> time.<span class="command">time</span>()
 <span class="command">print</span>(<span class="text">f"Execution time of the second call (with decorator): {end_time - start_time:.10f} seconds."</span>)
                                     </code></pre>
                                     
-                                    <h2 id="unit-testing">Unit testing</h2>
+                                    <h2><a id="unit-testing">Unit testing</a></h2>
 
                                     <p>Unit testing is a software testing technique where individual units or components of a program are tested in isolation. Python provides a module called <code>unittest</code> that supports test automation, sharing of setup code, aggregation of tests into collections, and independence from the reporting framework.</p>
                                 
@@ -281,14 +288,14 @@ end_time <span class="sign">=</span> time.<span class="command">time</span>()
                                     <h4>Common assertions</h4>
 
                                     <ul>
-                                        <li><code>assertEqual(a, b)</code> – checks if <code>a == b</code></li>
-                                        <li><code>assertNotEqual(a, b)</code> – checks if <code>a != b</code></li>
-                                        <li><code>assertTrue(x)</code> – checks if <code>x is True</code></li>
-                                        <li><code>assertFalse(x)</code> – checks if <code>x is False</code></li>
-                                        <li><code>assertGreater(a, b)</code> – checks if <code>a &gt; b</code></li>
-                                        <li><code>assertLess(a, b)</code> – checks if <code>a &lt; b</code></li>
-                                        <li><code>assertIsNone(x)</code> – checks if <code>x is None</code></li>
-                                        <li><code>assertRaises(Exception, func)</code> – checks if an exception is raised</li>
+                                        <li><code>assertEqual(a, b)</code> - checking if <code>a == b</code></li>
+                                        <li><code>assertNotEqual(a, b)</code> - checking if <code>a != b</code></li>
+                                        <li><code>assertTrue(x)</code> - checking if <code>x is True</code></li>
+                                        <li><code>assertFalse(x)</code> - checking if <code>x is False</code></li>
+                                        <li><code>assertGreater(a, b)</code> - checking if <code>a &gt; b</code></li>
+                                        <li><code>assertLess(a, b)</code> - checking if <code>a &lt; b</code></li>
+                                        <li><code>assertIsNone(x)</code> - checking if <code>x is None</code></li>
+                                        <li><code>assertRaises(Exception, func)</code> - checking if an exception is raised</li>
                                     </ul>
 
                                     <h4>Using the <code>with</code> keyword</h4>
@@ -331,6 +338,24 @@ end_time <span class="sign">=</span> time.<span class="command">time</span>()
         
 <span class="function">if __name__</span> <span class="sign">==</span> <span class="text">"__main__"</span>:
     unittest.<span class="function">main</span>()
+                                    </code></pre>
+
+                                    <h2><a id="creating-documentation">Creating documentation</a></h2>
+
+                                    <p>The standard way to document code in Python is through <code>docstrings</code> - triple-quoted strings placed immediately after the definitions of functions, methods, and classes. The most widely used format is Google style, which uses sections like <code>Args</code> and <code>Returns</code> to describe parameters and return values.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> add(a, b):
+    <span class="comment">"""Return the sum of two numbers.
+
+    Args:
+        a (int): The first number.
+        b (int): The second number.
+
+    Returns:
+        int: The sum of a and b.
+    """</span>
+    <span class="function">return</span> a <span class="sign">+</span> b
                                     </code></pre>
                                 </div>
                             </div>

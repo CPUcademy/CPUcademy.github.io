@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Shelve</title>
+    <title>Other modules</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -88,6 +88,7 @@
                                     <h3>Table of contents</h3>
                                     
                                     <ul type="disc">
+                                        <li><a href="#sqlalchemy" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">SQLAlchemy</code> module</a></li>
                                         <li><a href="#copy" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">copy</code> module</a></li>
                                         <li><a href="#itertools" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">itertools</code> module</a></li>
                                         <li><a href="#shelve" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">shelve</code> module</a></li>
@@ -95,6 +96,46 @@
                                         <li><a href="#pprint" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">pprint</code> module</a></li>
                                         <li><a href="#turtle" class="link" style="text-decoration: none;">The <code style="color: #f5d67b;">turtle</code> module</a></li>
                                     </ul>
+
+                                    <h2><a id="sqlalchemy">The <code style="color: #f5d67b;">SQLAlchemy</code> module</a></h2>
+
+                                    <p><code>SQLAlchemy</code> is a Python library that allows us to interact with relational databases using Python code instead of raw SQL queries. It acts as an ORM (Object Relational Mapper), meaning it maps database tables to Python classes and rows to objects, allowing us to work with databases in a more Pythonic way. SQLAlchemy supports many popular relational databases, including <b>SQLite</b>, <b>PostgreSQL</b>, and <b>MySQL</b>.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> sqlalchemy <span class="command">import</span> create_engine, func, and_, or_, not_
+<span class="command">from</span> sqlalchemy.orm <span class="command">import</span> sessionmaker
+
+engine <span class="sign">=</span> <span class="command">create_engine</span>(<span class="text">"sqlite:///mydb.db"</span>) <span class="comment"># SQLite</span>
+<span class="comment"># engine = create_engine("postgresql://user:password@localhost/mydb") # PostgreSQL
+# engine = create_engine("mysql+pymysql://user:password@localhost/mydb") # MySQL</span>
+<span class="function">Session</span> <span class="sign">=</span> <span class="command">sessionmaker</span>(<span class="command">bind</span><span class="sign">=</span>engine)
+
+<span class="function">with Session</span>() <span class="function">as</span> session: <span class="comment"># the session is closed properly on leaving the block</span>
+    <span class="comment"># Querying</span>
+    users <span class="sign">=</span> session.<span class="command">query</span>(User).<span class="command">all</span>()
+    user <span class="sign">=</span> session.<span class="command">query</span>(User).<span class="command">filter</span>(User.age <span class="sign">&gt;</span> 25).<span class="command">first</span>()
+    user <span class="sign">=</span> session.<span class="command">query</span>(User).<span class="command">filter_by</span>(<span class="command">name</span><span class="sign">=</span><span class="text">"Alice"</span>).<span class="command">first</span>()
+
+    <span class="comment"># Ordering, limiting, and pagination</span>
+    users <span class="sign">=</span> session.<span class="command">query</span>(User).<span class="command">order_by</span>(User.age).<span class="command">all</span>()
+    users <span class="sign">=</span> session.<span class="command">query</span>(User).<span class="command">order_by</span>(User.age.<span class="command">desc</span>()).<span class="command">all</span>()
+    users <span class="sign">=</span> session.<span class="command">query</span>(User).<span class="command">limit</span>(10).<span class="command">all</span>()
+    users <span class="sign">=</span> session.<span class="command">query</span>(User).<span class="command">offset</span>(10).<span class="command">limit</span>(10).<span class="command">all</span>() <span class="comment"># skip 10, get next 10</span>
+
+    <span class="comment"># Aggregate functions</span>
+    count <span class="sign">=</span> session.<span class="command">query</span>(func.<span class="command">count</span>(User.id)).<span class="command">scalar</span>()
+    avg_age <span class="sign">=</span> session.<span class="command">query</span>(func.<span class="command">avg</span>(User.age)).<span class="command">scalar</span>()
+    max_age <span class="sign">=</span> session.<span class="command">query</span>(func.<span class="command">max</span>(User.age)).<span class="command">scalar</span>()
+
+    <span class="comment"># Logical operators</span>
+    users <span class="sign">=</span> session.<span class="command">query</span>(User).<span class="command">filter</span>(<span class="command">and_</span>(User.age <span class="sign">&gt;</span> 20, User.name <span class="sign">==</span> <span class="text">"Alice"</span>)).<span class="command">all</span>()
+    users <span class="sign">=</span> session.<span class="command">query</span>(User).<span class="command">filter</span>(<span class="command">or_</span>(User.age <span class="sign">&lt;</span> 20, User.age <span class="sign">&gt;</span> 50)).<span class="command">all</span>()
+    users <span class="sign">=</span> session.<span class="command">query</span>(User).<span class="command">filter</span>(<span class="command">not_</span>(User.name <span class="sign">==</span> <span class="text">"Bob"</span>)).<span class="command">all</span>()
+
+    <span class="comment"># Joins</span>
+    results <span class="sign">=</span> session.<span class="command">query</span>(User, Post).<span class="command">join</span>(Post, User.id <span class="sign">==</span> Post.user_id).<span class="command">all</span>()
+    results <span class="sign">=</span> session.<span class="command">query</span>(User, Post).<span class="command">outerjoin</span>(Post, User.id <span class="sign">==</span> Post.user_id).<span class="command">all</span>()
+                                    </code></pre>
 
                                     <h2><a id="copy">The <code style="color: #f5d67b;">copy</code> module</a></h2>
                                     

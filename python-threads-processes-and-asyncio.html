@@ -385,7 +385,7 @@ asyncio.<span class="command">run</span>(main())
         <span class="command">print</span>(<span class="text">"Releasing resource:"</span>, id)
 
 <span class="function">async def</span> main():
-    semaphore <span class="sign">=</span> asyncio.<span class="function">Semaphore</span>(2)
+    semaphore <span class="sign">=</span> asyncio.<span class="function">Semaphore</span>(2) <span class="comment"># only 2 coroutines can access the resource at a time</span>
     <span class="function">await</span> asyncio.<span class="function">gather</span>(<span class="sign">*</span>(access_resource(semaphore, i) <span class="function">for</span> i <span class="function">in</span> <span class="command">range</span>(5)))
 
 asyncio.<span class="command">run</span>(main())

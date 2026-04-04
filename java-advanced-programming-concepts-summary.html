@@ -111,29 +111,24 @@
                                           <td>A static variable is a variable that won't be deleted while "exiting" a method (its address is reserved only once). A variable of this type will still exist even if an instance of the class does not. It is shared by all objects and not tied to any class instance (shared across all instances of the class). We create static variables outside methods. A static variable is also called a <b>class attribute</b>.</td>
                                         </tr>
                                         <tr>
-                                          <td>Class methods</td>
-                                          <td>Class methods are used to modify the value of static variables inside the class and create alternative constructors. They can be useful when there are several variations of arguments a class can take. For example, instead of the user's age, we can take his date of birth and then calculate the age. We call class methods using the class directly without creating its instance (<code>Example.classMethod()</code>).
-                                          </td>
-                                        </tr>
-                                        <tr>
                                           <td>Static methods</td>
-                                          <td>The same rule as with static variables applies to methods. We can call static methods using the class directly without creating its instance (like class methods). They take neither a <code>self</code> nor a <code>cls</code> argument, so they don't have access to class fields, which makes them essentially ordinary functions within the class. They have no access to the class's objects. Static methods differ from outside functions because we can override them later in a child class.</td>
+                                          <td>The same rule as with static variables applies to methods. We can call static methods using the class directly without creating its instance (like class methods). They have no access to the class's objects, which makes them essentially ordinary functions within the class. Static methods differ from outside functions because we can override them later in a child class.</td>
                                         </tr>
                                         <tr>
                                           <td>Abstract methods</td>
-                                          <td>An abstract class is a class that is designed specifically to be used as a base class (e.g., creating an instance of a generic <code>Vehicle</code> wouldn’t make sense unless it’s a specific type like a <code>Car</code> or <code>Truck</code>). It can't call out its own objects or have instances, so we can only use them in its child classes. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). An abstract method is a method that is inside an abstract class and has the <code>@abstractmethod</code> decorator in front of it. We create abstract classes by inheriting the <code>ABC</code> object from the imported module. These classes provide a base for subclasses to extend and implement abstract methods and are used as a blueprint for other classes. An abstract class forces all its child classes to override all its abstract methods. It isn't mandatory to override a non-abstract method from an abstract class. Non-abstract methods can contain implementations to be inherited in the child classes (abstract methods have to be overridden, so it wouldn't make sense for them to contain implementations). If an abstract class contains a constructor, it will be executed when its subclass is instantiated.</td>
+                                          <td>An abstract class is a class that is designed specifically to be used as a base class (e.g., creating an instance of a generic <code>Vehicle</code> wouldn’t make sense unless it’s a specific type like a <code>Car</code> or <code>Truck</code>). It can't call out its own objects or have instances, so we can only use them in its child classes. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). We create abstract objects by adding the <code>abstract</code> keyword before their type. An abstract method is a method that is inside an abstract class and has the <code>abstract</code> keyword before its type. An abstract class forces all its child classes to override all its abstract methods. It isn't mandatory to override a non-abstract method from an abstract class. Abstract methods can't contain any implementation, providing only method signatures that must be implemented by subclasses. Non-abstract methods can contain implementations to be inherited in the child classes (abstract methods have to be overridden, so it wouldn't make sense for them to contain implementations). If an abstract class contains a constructor, it will be executed when its subclass is instantiated.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Method overloading</td>
+                                            <td>Two methods can have the same name as long as they have a different number of arguments and/or they have various types. This behavior is called method overloading. For example, if we provide two <code>double</code> arguments to an <code>addition()</code> method, the compiler will know that we want to use the specific version of the method that takes those arguments and not, e.g., the one that takes two integers. The two overloaded functions have to differ in number or type of arguments, and can, but do not have to, have a different return type.</td>
                                         </tr>
                                         <tr>
                                           <td>Overloading operators</td>
-                                          <td>Overloading an operator means overriding its functionalities so it can work with, e.g., our class's objects. In Python, we cannot overload operators directly as we do in languages like C++ (e.g., <code>==</code>, <code>&lt;&lt;</code>). Here, we override methods corresponding to the operators (e.g., <code>__eq__()</code> equals <code>==</code>).</td>
+                                          <td>Overloading an operator means overriding its functionalities so it can work with, e.g., our class's objects. In Java, we cannot overload operators directly as we do in languages like C++ (e.g., <code>==</code>, <code>&lt;&lt;</code>). Here, we override methods corresponding to the operators (e.g., <code>equals</code>()</code> equals <code>==</code>). The <code>toString()</code> method defines how a class object will be displayed when printed or converted to a string (using <code>toString()</code>).</td>
                                         </tr>
                                         <tr>
-                                          <td>Dunder methods</td>
-                                          <td><code>__init__()</code> (initialization) is an example of a special method. These methods are called dunder (double underscore). Some overload operators and others allow us to use Python's built-in methods.</td>
-                                        </tr>
-                                        <tr>
-                                          <td>Decorators</td>
-                                          <td>A decorator is a higher-order function that takes another function as its argument, enhances or modifies its behavior, and returns the modified function. One function can have multiple decorators assigned. They are used to add reusable code and improve its readability and maintainability.</td>
+                                            <td>Downcasting</td>
+                                            <td>Downcasting is when we have an object stored as its parent type, but cast it back to its child type to access methods that only exist in the child class. It means more or less "reverse inheritance".</td>
                                         </tr>
                                         <tr>
                                           <td>Composition</td>
@@ -148,28 +143,12 @@
                                           <td>We can put classes in each other. This solution is used for logically grouping related classes, enhancing encapsulation by restricting visibility to the outer class, and improving code organization. Inner classes have access to the outer class's objects.</td>
                                         </tr>
                                         <tr>
-                                          <td>Generators</td>
-                                          <td>A generator is a function that uses <code>yield</code> to produce a sequence of values lazily, allowing iteration without storing the entire sequence in memory.</td>
+                                          <td>Anonymous classes</td>
+                                          <td>Anonymous classes allow us to declare and instantiate a class at the same time, in a single expression, without giving it a name. They are typically used to provide a one-off implementation of an interface or abstract class inline, eliminating the need to define a separate named class. Anonymous classes can access variables from their enclosing scope, provided those variables are <code>final</code> or effectively <code>final</code> (a variable that is never reassigned after its initial assignment).</td>
                                         </tr>
                                         <tr>
                                           <td>Threads</td>
                                           <td>A thread is a unit of execution within a process that allows tasks to run concurrently, sharing the same memory space.</td>
-                                        </tr>
-                                        <tr>
-                                          <td>Processes</td>
-                                          <td>A process is an independent execution unit with its own memory space, enabling tasks to run in parallel on separate CPU cores.</td>
-                                        </tr>
-                                        <tr>
-                                          <td>Async IO</td>
-                                          <td>Async IO is a concurrency framework that uses an event loop to run asynchronous tasks cooperatively, allowing efficient handling of I/O-bound operations.</td>
-                                        </tr>
-                                        <tr>
-                                          <td>Metaclasses</td>
-                                          <td>A metaclass is a class that defines the behavior and structure of other classes, allowing dynamic creation and modification of class definitions.</td>
-                                        </tr>
-                                        <tr>
-                                          <td>Context managers</td>
-                                          <td>Context managers allow us to allocate and release resources precisely when needed, using the <code>with</code> statement.</td>
                                         </tr>
                                       </table></div>                                    
                                 </div>

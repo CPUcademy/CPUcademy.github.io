@@ -176,7 +176,7 @@
 
     <span class="function">START TRANSACTION</span>;
 
-    <span class="comment">-- Check if the accounts exist</span>
+    <span class="comment">-- Checking if the accounts exist</span>
     <span class="function">IF</span> (<span class="function">SELECT COUNT</span>(*) <span class="function">FROM</span> accounts <span class="function">WHERE</span> id = p_source_account_id) = 0 <span class="function">THEN</span>
         <span class="function">SIGNAL SQLSTATE</span> '45000' <span class="function">SET MESSAGE_TEXT</span> = 'Source account does not exist.';
     <span class="function">END IF</span>;
@@ -185,7 +185,7 @@
         <span class="function">SIGNAL SQLSTATE</span> '45000' <span class="function">SET MESSAGE_TEXT</span> = 'Target account does not exist.';
     <span class="function">END IF</span>;
 
-    <span class="comment">-- Check the balance on the source account</span>
+    <span class="comment">-- Checking the balance on the source account</span>
     <span class="function">SELECT</span> balance <span class="function">INTO</span> source_balance <span class="function">FROM</span> accounts <span class="function">WHERE</span> id = p_source_account_id <span class="function">FOR UPDATE</span>;
 
     <span class="function">IF</span> source_balance >= p_amount <span class="function">THEN</span>
