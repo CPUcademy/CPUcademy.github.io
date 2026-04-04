@@ -225,7 +225,73 @@ th.<span class="command">start</span>()<span class="sign">;</span>
 
                                     <h4>Semaphore</h4>
 
-                                    <p>Unlike a lock, a semaphore allows a specified number of threads to access a resource at the same time. It ensures mutual exclusion based on the defined limit. When setting the semaphore limit to 2, exactly two threads can access the resource simultaneously. You can check online for implementation details.</p>
+                                    <p>Unlike a lock, a semaphore allows a specified number of threads to access a resource at the same time. It ensures mutual exclusion based on the defined limit. The example below demonstrates controlled access to the resource. When setting the semaphore limit to 2, exactly two threads can access the resource simultaneously.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.concurrent.ExecutorService<span class="sign">;</span>
+<span class="command">import</span> java.util.concurrent.Executors<span class="sign">;</span>
+<span class="command">import</span> java.util.concurrent.Semaphore<span class="sign">;</span>
+
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
+        <span class="function">Semaphore</span> semaphore <span class="sign">=</span> <span class="function">new Semaphore</span>(2)<span class="sign">;</span> <span class="comment">// only 2 threads can access the resource at a time</span>
+        <span class="function">ExecutorService</span> executor <span class="sign">=</span> <span class="function">Executors</span>.<span class="command">newFixedThreadPool</span>(5)<span class="sign">;</span>
+        <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 5<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+            <span class="function">final int</span> taskId <span class="sign">=</span> i<span class="sign">;</span>
+            executor.<span class="command">submit</span>(() <span class="sign">-&gt;</span> <span class="sign">{</span>
+                <span class="function">try</span> <span class="sign">{</span>
+                    semaphore.<span class="command">acquire</span>()<span class="sign">;</span> <span class="comment">// acquiring a permit</span>
+                    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Task "</span> <span class="sign">+</span> taskId <span class="sign">+</span> <span class="text">" is accessing the resource."</span>)<span class="sign">;</span>
+                    <span class="function">Thread</span>.<span class="command">sleep</span>(1000)<span class="sign">;</span> <span class="comment">// simulating work</span>
+                    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Task "</span> <span class="sign">+</span> taskId <span class="sign">+</span> <span class="text">" finished."</span>)<span class="sign">;</span>
+                <span class="sign">}</span> <span class="function">catch</span> (<span class="function">InterruptedException</span> e) <span class="sign">{</span>
+                    <span class="function">Thread</span>.<span class="command">currentThread</span>().<span class="command">interrupt</span>()<span class="sign">;</span>
+                <span class="sign">}</span> <span class="function">finally</span> <span class="sign">{</span>
+                    semaphore.<span class="command">release</span>()<span class="sign">;</span> <span class="comment">// releasing the permit</span>
+                <span class="sign">}</span>
+            <span class="sign">}</span>)<span class="sign">;</span>
+        <span class="sign">}</span>
+        executor.<span class="command">shutdown</span>()<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h4>CountDownLatch</h4>
+
+                                    <p>A <code>CountDownLatch</code> is a synchronization tool that allows one or more threads to wait until a set of operations in other threads completes. It is initialized with a count, and each call to <code>countDown()</code> decrements it. The thread calling <code>await()</code> blocks until the count reaches zero. Unlike <code>join()</code>, it does not require a direct reference to the threads being waited on.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.concurrent.CountDownLatch<span class="sign">;</span>
+<span class="command">import</span> java.util.concurrent.ExecutorService<span class="sign">;</span>
+<span class="command">import</span> java.util.concurrent.Executors<span class="sign">;</span>
+
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
+        <span class="function">CountDownLatch</span> latch <span class="sign">=</span> <span class="function">new CountDownLatch</span>(3)<span class="sign">;</span> <span class="comment">// waiting for 3 threads</span>
+        <span class="function">ExecutorService</span> executor <span class="sign">=</span> <span class="function">Executors</span>.<span class="command">newFixedThreadPool</span>(3)<span class="sign">;</span>
+        <span class="function">for</span> (<span class="function">int</span> i <span class="sign">=</span> 1<span class="sign">;</span> i <span class="sign">&lt;=</span> 3<span class="sign">;</span> i<span class="sign">++</span>) <span class="sign">{</span>
+            <span class="function">final int</span> taskId <span class="sign">=</span> i<span class="sign">;</span>
+            executor.<span class="command">submit</span>(() <span class="sign">-&gt;</span> <span class="sign">{</span>
+                <span class="function">try</span> <span class="sign">{</span>
+                    <span class="function">Thread</span>.<span class="command">sleep</span>(1000)<span class="sign">;</span> <span class="comment">// simulating work</span>
+                    <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="string">"Task "</span> <span class="sign">+</span> taskId <span class="sign">+</span> <span class="string">" completed."</span>)<span class="sign">;</span>
+                <span class="sign">}</span> <span class="function">catch</span> (<span class="function">InterruptedException</span> e) <span class="sign">{</span>
+                    <span class="function">Thread</span>.<span class="command">currentThread</span>().<span class="command">interrupt</span>()<span class="sign">;</span>
+                <span class="sign">}</span> <span class="function">finally</span> <span class="sign">{</span>
+                    latch.<span class="command">countDown</span>()<span class="sign">;</span> <span class="comment">// decrementing the latch count</span>
+                <span class="sign">}</span>
+            <span class="sign">}</span>)<span class="sign">;</span>
+        <span class="sign">}</span>
+        <span class="function">try</span> <span class="sign">{</span>
+            latch.<span class="command">await</span>()<span class="sign">;</span> <span class="comment">// main thread waits until count reaches 0</span>
+        <span class="sign">}</span> <span class="function">catch</span> (<span class="function">InterruptedException</span> e) <span class="sign">{</span>
+            <span class="function">Thread</span>.<span class="command">currentThread</span>().<span class="command">interrupt</span>()<span class="sign">;</span>
+        <span class="sign">}</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="string">"All tasks finished."</span>)<span class="sign">;</span>
+        executor.<span class="command">shutdown</span>()<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
