@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="If you're looking for concise and on-topic programming tutorials and notes with examples, you are in the right place! Here, you'll find tutorials on Python, Java, C++, web development, and databases. This website is a personal portfolio built and maintained by a single creator.">
+    <meta name="keywords" content="Programming, Coding, Python, Web Development, C++, HTML Tutorial, CSS Tutorial, Bootstrap Tutorial, Python Tutorial, C++ Tutorial, HTML, CSS, Bootstrap, Software Development, Algorithms, Data Structures, Programming Tutorials, Coding Tips, Code Examples, Programming Resources, Learn Python, Programming Beginner To Expert, Coding Community, Online Coding Courses, Databases, OOP, Object Oriented Programming, IT, Computer Science, Data Science, AI, Java, Java Tutorial, Android, Android Studio, Kotlin, Electronics, Muscle Up">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="font/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="files/logo.png" rel="icon">
+    <link href="files/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <title>Writing clean code</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D76ZFDYLCY');
+    </script>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #157267;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <img src="files/logo.png" alt="Logo" id="logo">
+                <div class="sidebar-brand-text mx-3">CPUcademy</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">
+                    <i class="icon-home"></i>
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider" style="margin-bottom: 0px;">
+    
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="icon-th-list"></i>
+                    <span>Tutorials</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="python.html">Python</a>
+                        <a class="collapse-item" href="java.html">Java</a>
+                        <a class="collapse-item" href="cplusplus.html">C++</a>
+                        <a class="collapse-item" href="web.html">Basic Web Stack</a>
+                        <a class="collapse-item" href="databases.html">Databases</a>
+                        <a class="collapse-item" href="electronics-and-it-basics.html">Electronics &amp; IT Basics</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link" href="about-me.html">
+                    <i class="icon-adult"></i>
+                    <span>About Me</span></a>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link" href="portfolio-projects.html">
+                    <i class="icon-docs"></i>
+                    <span>Portfolio Projects</span></a>
+            </li>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars" style="color: #157267;"></i>
+                </button>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="m-0 font-weight-bold">Writing clean code</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h3>Table of contents</h3>
+            
+                                    <ul type="disc">
+                                        <li><a href="#basic-conventions-and-pieces-of-advice" class="link" style="text-decoration: none;">Basic conventions and pieces of advice</a></li>
+                                        <li><a href="#clean-coding-techniques" class="link" style="text-decoration: none;">Clean coding techniques</a></li>
+                                        <li><a href="#unit-testing" class="link" style="text-decoration: none;">Unit testing</a></li>
+                                        <li><a href="#creating-documentation" class="link" style="text-decoration: none;">Creating documentation</a></li>
+                                    </ul>
+
+                                    <h2><a id="basic-conventions-and-pieces-of-advice">Basic conventions and pieces of advice</a></h2>
+
+                                    <p class="podpis">Some <b>Java</b> standard guidelines:</p>
+                                    <ul>
+                                        <li class="podpis">Classes should be separated by one blank line and organized into packages.</li> 
+                                        <li class="podpis">Use one public class per file, and name the file the same as the class.</li>
+                                        <li class="podpis">Methods inside a class should be separated by one blank line.</li> 
+                                        <li class="podpis">A line should be at most 100–120 characters long.</li>
+                                        <li class="podpis">Stay consistent with your style (spaces, etc.)</li>
+                                        <li>And an extra: Always validate input and handle exceptions properly—never trust user input.</li>
+                                    </ul>
+
+                                    <p>By convention, a variable named "ignored" is used to indicate a value that will be ignored and not used, e.g., an iterator in a <code>for</code> loop.</p>
+
+                                    <p>Use <code>if</code> checks for expected conditions and reserve exceptions for rare or truly unexpected errors, since raising exceptions is more time- and memory-intensive.</p>
+
+                                    <p>Magic numbers are hardcoded values in a program that are used directly without explanation or context, making the code harder to understand and maintain. These numbers typically represent constants or values with specific meaning, but their purpose is unclear without additional context. To improve code readability and maintainability, such numbers should be replaced with named constants or variables that explain their meaning.</p>
+
+                                    <p>Each function should be responsible for its own actions. A “master” object should not control or manage all functions. Instead, each function should handle obtaining the information it needs and implementing any changes itself. The control program can communicate with different categories of functions, but it does not need to know how they are implemented. Functions manage themselves, while the control program only coordinates them. Code should be organized into self-contained, independent units, each handling a specific task.</p>
+
+                                    <h2><a id="clean-coding-techniques">Clean coding techinques</a></h2>
+
+                                    <h4>Using custom API wrappers to isolate modules from the source code</h4>
+
+                                    <p><b>API</b> - Application Programming Interface, a set of rules and protocols that allows different software applications to communicate with each other. It defines the methods and data formats that programs can use to request and exchange information.</p>
+
+                                    <p>An API wrapper is a function or set of functions that encapsulate the functionality of a third-party service or module, providing a simpler or more controlled interface to interact with it. This allows developers to call specific functions from a module without dealing directly with the complexity of that module. Wrapping APIs can also help handle errors, manage data formatting, add flexibility for future changes, and adjust requests in a way that suits the application's needs. If the module needs to be replaced, only the wrapper has to change.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(calculateCosine(1))<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="function">public static Double</span> calculateCosine(<span class="function">double</span> x) <span class="sign">{</span>
+        <span class="function">try</span> <span class="sign">{</span>
+            <span class="function">double</span> result <span class="sign">=</span> Math</span>.<span class="command">cos</span>(x)<span class="sign">;</span>
+            <span class="function">return</span> result<span class="sign">;</span>
+        <span class="sign">}</span> <span class="function">catch</span> (<span class="function">Exception</span> e) <span class="sign">{</span>
+            <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"An error occurred: "</span> <span class="sign">+</span> e.<span class="command">getMessage()</span>)<span class="sign">;</span>
+            <span class="function">return null</span><span class="sign">;</span>
+        <span class="sign">}</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h4>Memoization</h4>
+
+                                    <p>Memoization is an optimization technique that stores the results of expensive function calls and reuses the cached result when the same inputs occur again. In the example below, the execution time of the first and second calls of a memoized function with the same argument is counted to demonstrate the performance improvement after the result is cached.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> java.util.HashMap<span class="sign">;</span>
+<span class="command">import</span> java.util.Map<span class="sign">;</span>
+
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="function">private static final Map<span class="sign">&lt;</span>Double, Double<span class="sign">&gt;</span></span> memoizedValues <span class="sign">=</span> <span class="function">new HashMap</span><span class="sign">&lt;&gt;</span>()<span class="sign">;</span>
+
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
+        <span class="function">long</span> startTime <span class="sign">=</span> <span class="function">System</span>.<span class="command">nanoTime</span>()<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(memoizedCos(1));</span>
+        <span class="function">long</span> endTime <span class="sign">=</span> <span class="function">System</span>.<span class="command">nanoTime</span>()<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Execution time of the first call: "</span> <span class="sign">+</span> (endTime <span class="sign">-</span> startTime) <span class="sign">+</span> <span class="text">" ns."</span>)<span class="sign">;</span>
+
+        startTime <span class="sign">=</span> <span class="function">System</span>.<span class="command">nanoTime</span>()<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(memoizedCos(1))<span class="sign">;</span>
+        endTime <span class="sign">=</span> <span class="function">System</span>.<span class="command">nanoTime</span>()<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(<span class="text">"Execution time of the first call: "</span> <span class="sign">+</span> (endTime <span class="sign">-</span> startTime) <span class="sign">+</span> <span class="text">" ns."</span>)<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="function">public static double</span> memoizedCos(<span class="function">double</span> x) <span class="sign">{</span>
+        <span class="function">if</span> (<span class="sign">!</span>memoizedValues.<span class="command">containsKey</span>(x))
+            memoizedValues.<span class="command">put</span>(x, <span class="function">Math</span>.<span class="command">cos</span>(x))<span class="sign">;</span>
+        <span class="function">return</span> memoizedValues.<span class="command">get</span>(x)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+                                    
+                                    <h2><a id="unit-testing">Unit testing</a></h2>
+
+                                    <p>Unit testing is a software testing technique where individual units or components of a program are tested in isolation. In Java, a widely used framework for this purpose is <code>JUnit</code>, which supports automated testing, reusable setup logic, and structured test organization.</p>
+
+                                    <p>A unit test in Java is a class that contains methods annotated with <code>@Test</code>. These methods are automatically executed by the test runner to verify expected behavior.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> org.junit.jupiter.api.Test<span class="sign">;</span>
+<span class="command">import</span> static org.junit.jupiter.api.Assertions.<span class="sign">*;</span>
+
+<span class="function">class</span> TestMath <span class="sign">{</span>
+    <span class="function">int</span> add(<span class="function">int</span> x, <span class="function">int</span> y) <span class="sign">{</span>
+        <span class="function">return</span> x <span class="sign">+</span> y<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="command">@Test</span> 
+    <span class="function">void</span> testAddPositive() <span class="sign">{</span>
+        <span class="command">assertEquals</span>(5, add(2, 3))<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="command">@Test</span> 
+    <span class="function">void</span> testAddZero() <span class="sign">{</span>
+        <span class="command">assertEquals</span>(0, add(0, 0))<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="command">@Test</span> 
+    <span class="function">void</span> testAddNegative() <span class="sign">{</span>
+        <span class="command">assertEquals</span>(<span class="sign">-</span>2, add(<span class="sign">-</span>1, <span class="sign">-</span>1))<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h4>Common assertions</h4>
+
+                                    <ul>
+                                        <li><code>assertEquals(a, b)</code> - checking if <code>a == b</code></li>
+                                        <li><code>assertNotEquals(a, b)</code> - checking if <code>a != b</code></li>
+                                        <li><code>assertTrue(x)</code> - checking if <code>x == true</code></li>
+                                        <li><code>assertFalse(x)</code> - checking if <code>x == false</code></li>
+                                        <li><code>assertThrows(Exception.class, () -&gt; ...)</code> - checking if an exception is thrown</li>
+                                    </ul>
+
+                                    <h4>Testing exceptions</h4>
+
+                                    <p>Exceptions can be tested using <code>assertThrows</code>, which verifies that a specific exception is thrown when executing a block of code.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> org.junit.jupiter.api.Test<span class="sign">;</span>
+<span class="command">import</span> static org.junit.jupiter.api.Assertions.<span class="sign">*;</span>
+
+<span class="function">class</span> TestDivide <span class="sign">{</span>
+    <span class="function">int</span> divide(<span class="function">int</span> a, <span class="function">int</span> b) <span class="sign">{</span>
+        <span class="function">return</span> a <span class="sign">/</span> b<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="command">@Test</span> 
+    <span class="function">void</span> testZeroDivision() <span class="sign">{</span>
+        <span class="command">assertThrows</span>(<span class="function">ArithmeticException</span>.<span class="function">class</span>, () <span class="sign">-&gt;</span> divide(10, 0))<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="command">@Test</span> 
+    <span class="function">void</span> testValidDivision() <span class="sign">{</span>
+        <span class="command">assertEquals</span>(5, divide(10, 2))<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h4>Using setup and cleanup methods</h4>
+
+                                    <p>Methods annotated with <code>@BeforeEach</code> run before every test, while methods annotated with <code>@AfterEach</code> run after each test. They are used to prepare and clean up test data.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> org.junit.jupiter.api.Test<span class="sign">;</span>
+<span class="command">import</span> static org.junit.jupiter.api.Assertions.<span class="sign">*;</span>
+
+<span class="function">class</span> TestExample <span class="sign">{</span>
+    <span class="function">int</span>[] data<span class="sign">;</span>
+
+    <span class="command">@BeforeEach</span>
+    <span class="function">void</span> setUp() <span class="sign">{</span>
+        data <span class="sign">=</span> <span class="function">new int</span>[] <span class="sign">{</span>1, 2, 3<span class="sign">};</span>
+    <span class="sign">}</span>
+
+    <span class="command">@AfterEach</span>
+    <span class="function">void</span> tearDown() <span class="sign">{</span>
+        data <span class="sign">=</span> <span class="function">null</span><span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="command">@Test</span> 
+    <span class="function">void</span> testLength() <span class="sign">{</span>
+        <span class="command">assertEquals</span>(3, data.<span class="command">length</span>)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
+
+                                    <h4>Other types of tests</h4>
+
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><b>Testing type</b></td>
+                                            <td><b>Description</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Unit testing</td>
+                                            <td>Testing individual units or components of a program.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Integration testing</td>
+                                            <td>Testing combined parts of an application to ensure they work together.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>System testing</td>
+                                            <td>Testing the complete and integrated software system.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Acceptance testing</td>
+                                            <td>Validating the software meets business requirements.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Performance testing</td>
+                                            <td>Testing software performance under load and stress conditions.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Security testing</td>
+                                            <td>Ensuring the software is protected against threats and vulnerabilities.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Regression testing</td>
+                                            <td>Ensuring new changes do not break existing functionality.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Usability testing</td>
+                                            <td>Evaluating how user-friendly and intuitive the software is.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Alpha testing</td>
+                                            <td>Internal testing performed by the development team before release.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Beta testing</td>
+                                            <td>External testing by end-users before official release.</td>
+                                        </tr>
+                                    </table></div>
+
+                                    <h2><a id="creating-documentation">Creating documentation</a></h2>
+
+                                    <p>The comments created using <code>/**</code> differ from the ones that use <code>/*</code> because they are interpreted by Javadoc. It is a tool used to generate documentation in HTML format. These special comments are used by Javadoc to create the documentation of our classes. We can add tags with the <code>@</code> sign. They suggest, e.g., what parameters a method takes or what it returns. We can also use HTML tags. To generate a Javadoc document in IntelliJ Idea, we go to <code>Tools / Generate JavaDoc...</code>. These comments are placed immediately before the definitions of functions, methods, and classes.</p>
+            
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">/**
+ * The object &lt;code&gt;obj&lt;/code&gt; represents an object.
+ *
+ * @author CPUcademy
+ * @version 1.0.1
+ */</span>
+<span class="function">public class</span> Main <span class="sign">{</span>
+    <span class="comment">/**
+     * @param args
+     */</span>
+    <span class="function">public static void</span> main(<span class="function">String</span>[] args) <span class="sign">{</span>
+        <span class="comment">/**
+         * This is the main method.
+         */</span>
+    <span class="sign">}</span>
+    
+    <span class="comment">/**
+     * Returns the sum of two numbers.
+     *
+     * @param a the first number
+     * @param b the second number
+     * @return the sum of a and b
+     */</span>
+    <span class="function">public int</span> add(<span class="function">int</span> a<span class="sign">,</span> <span class="function">int</span> b) <span class="sign">{</span> <span class="function">return</span> a <span class="sign">+</span> b<span class="sign">; }</span>
+<span class="sign">}</span>
+                                    </code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CPUcademy All Rights Reserved | <a href="license-and-sources.html" class="link">License &amp; Sources</a></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="configs/jquery/jquery.min.js"></script>
+    <script src="configs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="configs/script.js"></script>
+</body>
+</html>
