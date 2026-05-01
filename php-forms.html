@@ -134,7 +134,7 @@
 <span class="function">&lt;/head&gt;</span>
 <span class="function">&lt;body&gt;</span>
     <span class="function">&lt;?php</span>
-        <span class="function">$</span>n <span class="sign">=</span> <span class="function">$</span><span class="command">_POST</span>[<span class="text">'n'</span>]<span class="sign">;</span> <span class="comment">// receiving the value using the POST method</span>
+        <span class="function">$</span>n <span class="sign">=</span> <span class="function">$</span><span class="command">_POST</span>[<span class="text">'n'</span>]<span class="sign">;</span> <span class="comment">// receiving the value using the POST method ($_POST is a superglobal array)</span>
         <span class="function">$</span>m <span class="sign">=</span> <span class="function">$</span><span class="command">_POST</span>[<span class="text">'m'</span>]<span class="sign">;</span>
         
         <span class="command">echo</span> <span class="text">"&lt;table&gt;"</span><span class="sign">;</span>
@@ -212,6 +212,7 @@
 
             <span class="function">if</span> (<span class="command">empty</span>(<span class="function">$</span>firstName) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span>lastName) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span>profession) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span>email) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span>gender) <span class="sign">||</span> <span class="command">empty</span>(<span class="function">$</span>education)) <span class="sign">{</span>
                 <span class="command">echo</span> <span class="text">"&lt;p style='color: red;'&gt;You must fill in all fields!&lt;/p&gt;"</span><span class="sign">;</span>
+                form(<span class="function">$</span>firstName, <span class="function">$</span>lastName, <span class="function">$</span>profession, <span class="function">$</span>email, <span class="function">$</span>mailing, <span class="function">$</span>gender, <span class="function">$</span>education)<span class="sign">;</span>
             <span class="sign">}</span> <span class="function">else</span> <span class="sign">{</span>
                 <span class="command">echo</span> <span class="text">"&lt;p&gt;Thank you for filling out the form!&lt;/p&gt;"</span><span class="sign">;</span>
                 <span class="function">?&gt;</span>
@@ -230,7 +231,6 @@
                     <span class="function">?&gt;</span>
                 <span class="function">&lt;/ul&gt;</span>
                 <span class="function">&lt;?php</span>
-                form(<span class="function">$</span>firstName, <span class="function">$</span>lastName, <span class="function">$</span>profession, <span class="function">$</span>email, <span class="function">$</span>mailing, <span class="function">$</span>gender, <span class="function">$</span>education)<span class="sign">;</span>
            <span class="sign">}</span>
         <span class="sign">}</span> <span class="function">else</span>
             form()<span class="sign">;</span>
