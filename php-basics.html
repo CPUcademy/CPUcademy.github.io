@@ -100,6 +100,7 @@
                                         <li><a href="#conditional-statements" class="link" style="text-decoration: none;">Conditional statements</a></li>
                                         <li><a href="#functions" class="link" style="text-decoration: none;">Functions</a></li>
                                         <li><a href="#strings" class="link" style="text-decoration: none;">Strings</a></li>
+                                        <li><a href="#dates" class="link" style="text-decoration: none;">Dates</a></li>
                                         <li><a href="#writing-to-a-file" class="link" style="text-decoration: none;">Writing to a file</a></li>
                                     </ul>
 
@@ -487,7 +488,32 @@ default_parameters()<span class="sign">;</span>
                                             <td><code>str_split($string, $length)</code></td>
                                             <td>Splitting a string into an array of substrings, where each substring has a specified maximum length. Example: <code>str_split("Hello", 2);</code> (returns: <code>["He", "ll", "o"]</code>).</td>
                                         </tr>                                    
-                                    </table></div>     
+                                    </table></div> 
+                                    
+                                    <h2><a id="dates">Dates</a></h2>
+
+                                    <div class="table-container"><table>
+                                        <tr>
+                                            <td><code>time()</code></td>
+                                            <td>Returning the current Unix timestamp (number of seconds since 1970-01-01).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>date($format, $timestamp)</code></td>
+                                            <td>Formatting a timestamp into a readable date string. The <code>$timestamp</code> parameter is optional. If it is not provided, PHP uses the current time automatically (as if <code>time()</code> was passed). Example: <code>date("Y-m-d")</code> returns the current date in YYYY-MM-DD format.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>date("N")</code></td>
+                                            <td>Returning the numeric representation of the day of the week (1 for Monday through 7 for Sunday).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>strtotime($string)</code></td>
+                                            <td>Converting a human-readable date into a Unix timestamp. Example: <code>strtotime("2024-01-01");</code>.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>getdate($timestamp)</code></td>
+                                            <td>Returning an associative array with date and time information based on a timestamp.</td>
+                                        </tr>
+                                    </table></div>
                                     
                                     <h2><a id="writing-to-a-file">Writing to a file</a></h2>
 
