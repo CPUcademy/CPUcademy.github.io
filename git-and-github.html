@@ -561,13 +561,9 @@ git rebase origin/main
                                             <td><code>git rebase -i [commit-hash]</code></td>
                                             <td>Rebasing interactively from a specific commit.</td>
                                         </tr>
-                                        <tr>
-                                            <td><code>git rebase --abort</code></td>
-                                            <td>Canceling the rebase operation.</td>
-                                        </tr>
                                     </table></div>
                                     
-                                    <p><code>HEAD~n</code> refers to a specific commit in Git's history, where <code>HEAD</code> represents the current commit we are on, and n is a number indicating how many commits to go back from that point. For example, <code>HEAD~1</code> refers to the commit just before the current one, <code>HEAD~2</code> refers to two commits back, and so on.</p>
+                                    <p><code>HEAD~n</code> refers to a specific commit in Git's history, where <code>HEAD</code> represents the current commit and <code>n</code> is how many commits to go back. When used with <code>git rebase -i</code>, the specified commit acts as the <strong>base</strong> - meaning it won't be edited itself, but all commits between it and <code>HEAD</code> will appear in the rebase editor. For example, <code>HEAD~1</code> rebases the last commit, <code>HEAD~2</code> rebases the last 2 commits, and so on.</p>
                                     
                                     <h5>Examples</h5>
                                     <h6>Interactive rebase session</h6>
@@ -583,6 +579,8 @@ reword f7f3f6d Add form validation
 edit cdd94dc Implement password reset
                                     </code></pre>
                                     
+                                    <p>When we run an interactive rebase, Git opens a text file in the default editor listing the selected commits, each prefixed with a command (defaulting to <code>pick</code>). We edit this file by replacing the command word next to each commit to control what happens to it, then save and close the editor to start the rebase.</p>
+
                                     <p class="podpis">The <code>pick</code> command indicates that the commit with the specified hash should be included in the final history as is.</p>
                                     <p class="podpis">The <code>squash</code> command combines the specified commit with the previous one, allowing us to merge their changes and edit the commit message.</p>
                                     <p class="podpis">The <code>fixup</code> command also combines the specified commit with the previous one, but it does so without prompting to edit the commit message.</p>
