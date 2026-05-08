@@ -85,10 +85,52 @@
                                     <h5 class="m-0 font-weight-bold">CSV and JSON files</h5>
                                 </div>
                                 <div class="card-body">
-                                    461-475 ANZZP
-        
-                                    String to dict - json.loads() (też string to list ale w inny sposób)
-                                    *jeśli jej używamy przy plikach, stosujmy " a nie '
+                                    <h2>CSV files</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> csv
+
+rows <span class="sign">=</span> [
+    [<span class="text">"Tom"</span>, 25],
+    [<span class="text">"Anna"</span>, 30]
+]
+
+<span class="function">with</span> <span class="command">open</span>(<span class="text">"people.csv"</span>, <span class="text">"w"</span>, <span class="command">newline</span><span class="sign">=</span><span class="text">""</span>) <span class="function">as</span> file:
+    writer <span class="sign">=</span> csv.<span class="command">writer</span>(file)
+    writer.<span class="command">writerow</span>([<span class="text">"Name"</span>, <span class="text">"Age"</span>]) <span class="comment"># writing a header row</span>
+    writer.<span class="command">writerows</span>(rows) <span class="comment"># writing multiple rows</span>
+
+<span class="comment"># Displaying each row</span>
+<span class="function">with</span> <span class="command">open</span>(<span class="text">"people.csv"</span>, <span class="text">"r"</span>) <span class="function">as</span> file:
+    reader <span class="sign">=</span> csv.<span class="command">reader</span>(file)
+    <span class="function">for</span> row <span class="function">in</span> reader:
+        <span class="command">print</span>(row)
+                                    </code></pre>
+
+                                    <h2>JSON files</h2>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> json
+
+person <span class="sign">=</span> {<span class="text">"name"</span>: <span class="text">"Tom"</span>, <span class="text">"age"</span>: 25}
+
+jsonString <span class="sign">=</span> json.<span class="command">dumps</span>(person) <span class="comment"># converting a dictionary to a JSON string</span>
+<span class="command">print</span>(jsonString)
+
+data <span class="sign">=</span> json.<span class="command">loads</span>(<span class="text">'{"name": "Tom", "age": 25}'</span>) <span class="comment"># converting a JSON string to a dictionary</span>
+<span class="command">print</span>(data[<span class="text">"name"</span>])
+
+numbers <span class="sign">=</span> json.<span class="command">loads</span>(<span class="text">'[1, 2, 3, 4]'</span>) <span class="comment"># converting a JSON string to a list</span>
+<span class="command">print</span>(numbers)
+
+<span class="function">with</span> <span class="command">open</span>(<span class="text">"data.json"</span>, <span class="text">"w"</span>) <span class="function">as</span> file:
+    json.<span class="command">dump</span>(person, file) <span class="comment"># saving a dictionary to a JSON file</span>
+
+<span class="function">with</span> <span class="command">open</span>(<span class="text">"data.json"</span>, <span class="text">"r"</span>) <span class="function">as</span> file:
+    data <span class="sign">=</span> json.<span class="command">load</span>(file) <span class="comment"># reading a dictionary from a JSON file</span>
+
+<span class="command">print</span>(data)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

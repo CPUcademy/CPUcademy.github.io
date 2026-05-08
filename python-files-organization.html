@@ -98,15 +98,62 @@
 
                                     <h2><a id="pathlib">The <code style="color: #f5d67b;">pathlib</code> module</a></h2>
 
-                                    261-277 ANZZP
+                                    <p>The <code>pathlib</code> module provides an object-oriented interface for handling filesystem paths.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> pathlib <span class="command">import</span> Path
+<span class="command">import</span> os
+
+p <span class="sign">=</span> <span class="function">Path</span>(<span class="text">"folder/file.txt"</span>) <span class="comment"># creating a Path object</span>
+
+<span class="command">print</span>(p.<span class="command">name</span>) <span class="comment"># displaying the file name</span>
+<span class="command">print</span>(p.<span class="command">stem</span>) <span class="comment"># displaying the file name without extension</span>
+<span class="command">print</span>(p.<span class="command">suffix</span>) <span class="comment"># displaying the file extension</span>
+<span class="command">print</span>(p.<span class="command">parent</span>) <span class="comment"># displaying the parent directory</span>
+<span class="command">print</span>(p.<span class="command">anchor</span>) <span class="comment"># displaying the root or drive</span>
+<span class="command">print</span>(p.parts[0]) <span class="comment"># displaying the first part of the path</span>
+<span class="command">print</span>(p.parts[1]) <span class="comment"># displaying the second part of the path</span>
+
+<span class="command">print</span>(<span class="function">Path</span>.<span class="command">cwd</span>()) <span class="comment"># displaying the current working directory</span>
+<span class="command">print</span>(<span class="function">Path</span>.<span class="command">home</span>()) <span class="comment"># displaying the home directory</span>
+<span class="command">print</span>(p.<span class="command">absolute</span>()) <span class="comment"># displaying the absolute path</span>
+
+<span class="command">print</span>(os.<span class="command">path</span>.<span class="command">abspath</span>(<span class="text">"file.txt"</span>)) <span class="comment"># converting a path to an absolute path</span>
+<span class="command">print</span>(os.<span class="command">path</span>.<span class="command">isabs</span>(<span class="text">"file.txt"</span>)) <span class="comment"># checking whether the path is absolute</span>
+<span class="command">print</span>(os.<span class="command">path</span>.<span class="command">relpath</span>(<span class="text">"/home/user/file.txt"</span>, <span class="text">"/home"</span>)) <span class="comment"># calculating the relative path</span>
+
+<span class="command">print</span>(os.<span class="command">path</span>.<span class="command">getsize</span>(<span class="text">"file.txt"</span>)) <span class="comment"># displaying the file size</span>
+<span class="command">print</span>(os.<span class="command">path</span>.<span class="command">dirname</span>(<span class="text">"/home/user/file.txt"</span>)) <span class="comment"># displaying the directory name</span>
+
+<span class="function">for</span> file <span class="function">in</span> <span class="function">Path</span>(<span class="text">"."</span>).<span class="command">glob</span>(<span class="text">"*.txt"</span>)<span class="sign">:</span>
+    <span class="command">print</span>(file) <span class="comment"># displaying all TXT files</span>
+                                    </code></pre>
 
                                     <h2><a id="shutil">The <code style="color: #f5d67b;">shutil</code> module</a></h2>
 
-                                    295-299 ANZZP
+                                    <p>The <code>shutil</code> module allows us to copy and move files and folders.</p>
+
+<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> shutil
+<span class="command">from</span> pathlib <span class="command">import</span> Path
+
+p <span class="sign">=</span> Path(<span class="text">"file.txt"</span>) <span class="comment"># creating a path object</span>
+
+shutil.<span class="command">copy</span>(<span class="text">"file.txt"</span>, <span class="text">"copy.txt"</span>) <span class="comment"># copying a file</span>
+shutil.<span class="command">move</span>(<span class="text">"copy.txt"</span>, <span class="text">"folder/copy.txt"</span>) <span class="comment"># moving a file</span>
+shutil.<span class="command">copytree</span>(<span class="text">"folder"</span>, <span class="text">"folderCopy"</span>) <span class="comment"># copying a whole directory</span>
+
+p.<span class="command">unlink</span>() <span class="comment"># deleting a file</span>
+                                    </code></pre>
 
                                     <h2><a id="send2trash">The <code style="color: #f5d67b;">send2trash</code> module</a></h2>
 
-                                    299-302 ANZZP
+                                    <p>The <code>send2trash</code> module allows us to move files to the trash can instead of permanently deleting them.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> send2trash <span class="command">import</span> send2trash
+<span class="command">send2trash</span>(<span class="text">"file.txt"</span>)
+                                    </code></pre>
 
                                     <h2><a id="zipfile">The <code style="color: #f5d67b;">zipfile</code> module</a></h2>
 
