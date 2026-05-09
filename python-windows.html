@@ -100,29 +100,78 @@
 
                                     <h2><a id="subprocess">The <code style="color: #f5d67b;">subprocess</code> module</a></h2>
 
-                                    503-510 ANZZP
+                                    <p>The <code>subprocess</code> module allows us to run external programs, system commands, and terminal instructions. It can also capture command output and communicate with other processes.</p>
 
-                                    <h2><a id="pyautogi">The <code style="color: #f5d67b;">pyautogi</code> module</a></h2>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> subprocess
 
-                                    583-618 ANZZP
+subprocess.<span class="command">run</span>([<span class="text">"echo"</span>, <span class="text">"Hello World"</span>]) <span class="comment"># running a system command</span>
+
+result <span class="sign">=</span> subprocess.<span class="command">run</span>([<span class="text">"ipconfig"</span>], <span class="command">capture_output</span><span class="sign">=</span><span class="function">True</span>, <span class="command">text</span><span class="sign">=</span><span class="function">True</span>)
+<span class="command">print</span>(result.<span class="command">stdout</span>) <span class="comment"># displaying the command output</span>
+
+subprocess.<span class="function">Popen</span>([<span class="text">"notepad.exe"</span>]) <span class="comment"># opening a program</span>
+                                    </code></pre>
+
+                                    <h2><a id="pyautogi">The <code style="color: #f5d67b;">pyautogui</code> module</a></h2>
+
+                                    <p>The <code>pyautogui</code> module allows us to control the mouse and keyboard. It can be used for GUI automation, clicking buttons, typing text, taking screenshots, and moving the cursor.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> pyautogui
+
+pyautogui.<span class="command">moveTo</span>(500, 300) <span class="comment"># moving the cursor to given coordinates</span>
+pyautogui.<span class="command">click</span>() <span class="comment"># performing a mouse click</span>
+pyautogui.<span class="command">write</span>(<span class="text">"Hello World!"</span>) <span class="comment"># typing text using the keyboard</span>
+
+<span class="comment"># Taking a screenshot</span>
+screenshot <span class="sign">=</span> pyautogui.<span class="command">screenshot</span>()
+screenshot.<span class="command">save</span>(<span class="text">"screen.png"</span>)
+                                    </code></pre>
 
                                     <h2><a id="pywin32">The <code style="color: #f5d67b;">pywin32</code> module</a></h2>
 
+                                    <p>The <code>pywin32</code> module provides access to many Windows APIs. It allows us to work with Windows applications, services, dialogs, and system features.</p>
 
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> win32api, win32con
+
+win32api.<span class="command">MessageBox</span>(0, <span class="text">"Hello World!"</span>, <span class="text">"Message"</span>, win32con.<span class="command">MB_OK</span>) <span class="comment"># displaying a message box</span>
+<span class="command">print</span>(win32api.<span class="command">GetComputerName</span>()) <span class="comment"># getting the computer name</span>
+                                    </code></pre>
 
                                     <h2><a id="textblob">The <code style="color: #f5d67b;">textblob</code> module</a></h2>
 
+                                    <p>The <code>textblob</code> module is used for processing textual data. It supports sentiment analysis, translation, spelling correction, noun phrase extraction, and other natural language processing tasks.</p>
 
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> textblob <span class="command">import</span> TextBlob
+
+<span class="comment"># Analyzing text sentiment</span>
+text <span class="sign">=</span> <span class="function">TextBlob</span>(<span class="text">"Python is amazing!"</span>)
+<span class="command">print</span>(text.<span class="command">sentiment</span>)
+
+<span class="comment"># Correcting spelling mistakes</span>
+text <span class="sign">=</span> <span class="function">TextBlob</span>(<span class="text">"Pythn is awsome"</span>)
+<span class="command">print</span>(text.<span class="command">correct</span>())
+                                    </code></pre>
 
                                     <h2><a id="win10toast">The <code style="color: #f5d67b;">win10toast</code> module</a></h2>
 
+                                    <p>The <code>win10toast</code> module allows us to display Windows toast notifications.</p>
 
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> win10toast <span class="command">import</span> ToastNotifier
+
+toast <span class="sign">=</span> <span class="function">ToastNotifier</span>() <span class="comment"># creating a notifier object</span>
+toast.<span class="command">show_toast</span>(<span class="text">"Notification"</span>, <span class="text">"Hello World!"</span>, <span class="command">duration</span><span class="sign">=</span>5)
+                                    </code></pre>
 
                                     <h2><a id="pyperclip">The <code style="color: #f5d67b;">pyperclip</code> module</a></h2>
 
                                     <p>The <code>pyperclip</code> module is used to copy text to the clipboard. The <code>copy()</code> function copies a given text to the clipboard, and the <code>paste()</code> function retrieves the most recently copied text. This module is not in the default package, so we have to install it as shown <a href="python-popular-problems-no-module-named-pygame.html" class="link">here</a>.</p>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+                                                                        <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="command">import</span> pyperclip
 pyperclip.<span class="command">copy</span>(<span class="text">"Hello World!"</span>)
 <span class="command">print</span>(pyperclip.<span class="command">paste</span>())

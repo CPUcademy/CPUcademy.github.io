@@ -13,7 +13,7 @@
     <link href="files/logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="css/fontello.css" type="text/css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <title>Microsoft Word &amp; Excel</title>
+    <title>Pillow</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D76ZFDYLCY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -82,25 +82,63 @@
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold">Microsoft Word &amp; Excel</h5>
+                                    <h5 class="m-0 font-weight-bold">Pillow</h5>
                                 </div>
                                 <div class="card-body">
-                                    <h3>Table of contents</h3>
-                                    
-                                    <ul type="disc">
-                                        <li><a href="#excel" class="link" style="text-decoration: none;">Microsoft Excel</a></li>
-                                        <li><a href="#word" class="link" style="text-decoration: none;">Microsoft Word</a></li>
-                                    </ul>
+                                    <p>Python allows us to create and edit images using the <code>Pillow</code> library. It allows us to open images, resize them, crop them, rotate them, draw shapes, and save files in different image formats.</p>
 
-                                    <h2><a id="excel">Microsoft Excel</a></h2>
+                                    <p>Write the <code>from PIL import Image</code> statement at the beginning of every example.</p>
 
-                                    377-404 ANZZP
-                                    xlwings (https://www.geeksforgeeks.org/working-with-excel-files-in-python-using-xlwings/?ref=rp)
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Opening and displaying an image</span>
+image <span class="sign">=</span> <span class="function">Image</span>.<span class="command">open</span>(<span class="text">"photo.jpg"</span>)
+image.<span class="command">show</span>()
+                                    </code></pre>
 
-                                    
-                                    <h2><a id="word">Microsoft Word</a></h2>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Getting image information</span>
+image <span class="sign">=</span> <span class="function">Image</span>.<span class="command">open</span>(<span class="text">"photo.jpg"</span>)
+<span class="command">print</span>(image.<span class="command">size</span>) <span class="comment"># displaying image dimensions</span>
+<span class="command">print</span>(image.<span class="command">format</span>) <span class="comment"># displaying image format</span>
+<span class="command">print</span>(image.<span class="command">mode</span>) <span class="comment"># displaying image color mode</span>
+                                    </code></pre>
 
-                                    444-455 ANZZP
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Resizing an image</span>
+image <span class="sign">=</span> <span class="function">Image</span>.<span class="command">open</span>(<span class="text">"photo.jpg"</span>)
+resized <span class="sign">=</span> image.<span class="command">resize</span>((300, 300)) <span class="comment"># resizing the image</span>
+resized.<span class="command">save</span>(<span class="text">"resized.jpg"</span>) <span class="comment"># saving the resized image</span>
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Cropping an image</span>
+image <span class="sign">=</span> <span class="function">Image</span>.<span class="command">open</span>(<span class="text">"photo.jpg"</span>)
+cropped <span class="sign">=</span> image.<span class="command">crop</span>((50, 50, 200, 200)) <span class="comment"># cropping the image</span>
+cropped.<span class="command">save</span>(<span class="text">"cropped.jpg"</span>)
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Rotating an image</span>
+image <span class="sign">=</span> <span class="function">Image</span>.<span class="command">open</span>(<span class="text">"photo.jpg"</span>)
+rotated <span class="sign">=</span> image.<span class="command">rotate</span>(90) <span class="comment"># rotating the image by 90 degrees</span>
+rotated.<span class="command">save</span>(<span class="text">"rotated.jpg"</span>)
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Converting an image format</span>
+image <span class="sign">=</span> <span class="function">Image</span>.<span class="command">open</span>(<span class="text">"photo.png"</span>)
+image.<span class="command">save</span>(<span class="text">"photo.jpg"</span>) <span class="comment"># converting PNG to JPG</span>
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Drawing on an image</span>
+<span class="command">from</span> PIL <span class="command">import</span> ImageDraw
+
+image <span class="sign">=</span> <span class="function">Image</span>.<span class="command">open</span>(<span class="text">"photo.jpg"</span>)
+draw <span class="sign">=</span> ImageDraw.<span class="function">Draw</span>(image) <span class="comment"># creating a drawing object</span>
+draw.<span class="command">rectangle</span>((50, 50, 200, 200), outline<span class="sign">=</span><span class="text">"red"</span>, <span class="command">width</span><span class="sign">=</span>3) <span class="comment"># drawing a rectangle</span>
+image.<span class="command">save</span>(<span class="text">"drawn.jpg"</span>)
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>

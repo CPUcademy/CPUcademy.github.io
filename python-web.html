@@ -92,64 +92,214 @@
                                         <li><a href="#celery" class="linkh" style="text-decoration: none;">The <code style="color: #f5d67b;">celery</code> module</a></li>
                                         <li><a href="#webbrowser" class="linkh" style="text-decoration: none;">The <code style="color: #f5d67b;">webbrowser</code> module</a></li>
                                         <li><a href="#requests" class="linkh" style="text-decoration: none;">The <code style="color: #f5d67b;">requests</code> module</a></li>
-                                        <li><a href="#httpx" class="linkh" style="text-decoration: none;">The <code style="color: #f5d67b;">httpx</code> module</a></li>
                                         <li><a href="#beautifulsoup" class="linkh" style="text-decoration: none;">The <code style="color: #f5d67b;">BeautifulSoup</code> module</a></li>
                                         <li><a href="#googlesearch" class="linkh" style="text-decoration: none;">The <code style="color: #f5d67b;">googlesearch</code> module</a></li>
                                         <li><a href="#scrapy" class="linkh" style="text-decoration: none;">The <code style="color: #f5d67b;">scrapy</code> module</a></li>
                                         <li><a href="#selenium" class="linkh" style="text-decoration: none;">The <code style="color: #f5d67b;">selenium</code> module</a></li>
-                                        <li><a href="#playwright" class="linkh" style="text-decoration: none;">The <code style="color: #f5d67b;">playwright</code> module</a></li>
-                                        <li><a href="#ezsheets" class="linkh" style="text-decoration: none;">The <code style="color: #f5d67b;">EZSheets</code> module</a></li>
                                         <li><a href="#socket" class="linkh" style="text-decoration: none;">The <code style="color: #f5d67b;">socket</code> module</a></li>
                                     </ol>
                                     
                                     <h2><a id="flask">The Flask framework</a></h2>
 
-                                    Zappa
-                                    Vidstream
-                                    https://www.youtube.com/watch?v=Qr4QMBUPxWo
+                                    <p>Flask is a lightweight Python web framework used for creating websites, APIs, dashboards, and web applications. It provides routing, request handling, template rendering, and many extensions for authentication, databases, and forms.</p>
+
+                                    <p>A Flask application consists of routes. A route defines what happens when a user visits a given URL.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Creating a basic Flask application</span>
+<span class="command">from</span> flask <span class="command">import</span> Flask
+
+app <span class="sign">=</span> <span class="function">Flask</span>(<span class="function">__name__</span>)
+<span class="command">@app.route</span>(<span class="text">"/"</span>)
+<span class="function">def</span> home():
+    <span class="function">return</span> <span class="text">"Hello World!"</span>
+app.<span class="command">run</span>() <span class="comment"># starting the web server</span>
+                                    </code></pre>
+
+                                    <p>The <code>render_template()</code> function allows us to display HTML templates stored in the <code>templates</code> directory. Templates are regular HTML files that define the structure and appearance of web pages.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> flask <span class="command">import</span> Flask, render_template
+
+app <span class="sign">=</span> <span class="function">Flask</span>(<span class="function">__name__</span>)
+<span class="command">@app.route</span>(<span class="text">"/"</span>)
+<span class="function">def</span> home():
+    <span class="function">return</span> <span class="command">render_template</span>(<span class="text">"index.html"</span>)
+app.<span class="command">run</span>()
+                                    </code></pre>
+
+                                    <p>Flask also supports handling URL parameters and form data.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> flask <span class="command">import</span> Flask
+
+app <span class="sign">=</span> <span class="function">Flask</span>(<span class="function">__name__</span>)
+<span class="command">@app.route</span>(<span class="text">"/user/&lt;name&gt;"</span>)
+<span class="function">def</span> user(name):
+    <span class="function">return</span> <span class="text">f"Hello {name}!"</span>
+app.<span class="command">run</span>()
+                                    </code></pre>
+
+                                <p>Flask also supports handling form data sent using POST requests.</p>
+
+<pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> flask <span class="command">import</span> Flask, request
+
+app <span class="sign">=</span> <span class="function">Flask</span>(<span class="function">__name__</span>)
+<span class="command">@app.route</span>(<span class="text">"/login"</span>, <span class="command">methods</span><span class="sign">=</span>[<span class="text">"POST"</span>])
+<span class="function">def</span> login():
+    username <span class="sign">=</span> request.<span class="command">form</span>[<span class="text">"username"</span>] <span class="comment"># getting form data</span>
+    password <span class="sign">=</span> request.<span class="command">form</span>[<span class="text">"password"</span>]
+    <span class="function">return</span> <span class="text">f"Logged in as {username}"</span>
+app.<span class="command">run</span>()
+                                    </code></pre>    
 
                                     <h2><a id="celery">The <code style="color: #f5d67b;">celery</code> module</a></h2>
 
+                                   <p>The <code>celery</code> module is used for running background tasks asynchronously. It works with a message broker (such as Redis) to queue tasks and send them to worker processes that execute them outside the main program. It is commonly used to send emails, process files, handle queues, and run scheduled tasks without blocking the application.</p>
 
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> celery <span class="command">import</span> Celery
+
+app <span class="sign">=</span> <span class="function">Celery</span>(<span class="text">"tasks"</span>, <span class="command">broker</span><span class="sign">=</span><span class="text">"redis://localhost:6379/0"</span>)
+<span class="command">@app.task</span>
+<span class="function">def</span> add(x, y):
+    <span class="function">return</span> x <span class="sign">+</span> y
+result <span class="sign">=</span> add.<span class="command">delay</span>(5, 3) <span class="comment"># running the task asynchronously (arguments passed to the task function)</span>
+                                    </code></pre>
 
                                     <h2><a id="webbrowser">The <code style="color: #f5d67b;">webbrowser</code> module</a></h2>
 
-                                    337-341 ANZZP
+                                    <p>The <code>webbrowser</code> module allows us to open websites directly in the default web browser, which is useful for quickly launching web pages, automating simple navigation tasks, and integrating Python scripts with online resources.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> webbrowser
+
+webbrowser.<span class="command">open</span>(<span class="text">"https://google.com"</span>) <span class="comment"># opening a website</span>
+
+query <span class="sign">=</span> <span class="text">"Python tutorials"</span>
+webbrowser.<span class="command">open</span>(<span class="text">f"https://google.com/search?q={query}"</span>) <span class="comment"># performing a Google search</span>
+                                    </code></pre>
 
                                     <h2><a id="requests">The <code style="color: #f5d67b;">requests</code> module</a></h2>
 
-                                    341-345 ANZZP
+                                    <p>The <code>requests</code> module is used for sending HTTP requests. It allows us to communicate with websites and APIs.</p>
 
-                                    <h2><a id="httpx">The <code style="color: #f5d67b;">httpx</code> module</a></h2>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> requests
+
+<span class="comment"># Sending a GET request</span>
+response <span class="sign">=</span> requests.<span class="command">get</span>(<span class="text">"https://api.github.com"</span>)
+<span class="command">print</span>(response.<span class="command">status_code</span>)
+<span class="command">print</span>(response.<span class="command">text</span>)
+
+<span class="comment"># Sending a POST request</span>
+data <span class="sign">=</span> {<span class="text">"name"</span>: <span class="text">"Tom"</span>, <span class="text">"age"</span>: 25}
+response <span class="sign">=</span> requests.<span class="command">post</span>(<span class="text">"https://httpbin.org/post"</span>, <span class="command">json</span><span class="sign">=</span>data)
+<span class="command">print</span>(response.<span class="command">json</span>())
+                                    </code></pre>
 
                                     <h2><a id="beautifulsoup">The <code style="color: #f5d67b;">BeautifulSoup</code> module</a></h2>
 
-                                    352-359 ANZZP
+                                    <p>The <code>BeautifulSoup</code> module is used for parsing HTML and XML documents. It is commonly used in web scraping.</p>
+
+                                    <p>Write the <code>from bs4 import BeautifulSoup</code> statement at the beginning of every example.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Parsing HTML content</span>
+html <span class="sign">=</span> <span class="text">"&lt;h1&gt;Hello&lt;/h1&gt;"</span>
+soup <span class="sign">=</span> <span class="function">BeautifulSoup</span>(html, <span class="text">"html.parser"</span>)
+<span class="command">print</span>(soup.<span class="command">h1</span>.<span class="command">text</span>)
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Extracting links from HTML</span>
+html <span class="sign">=</span> <span class="text">"&lt;a href='https://google.com'&gt;Google&lt;/a&gt;"</span>
+soup <span class="sign">=</span> <span class="function">BeautifulSoup</span>(html, <span class="text">"html.parser"</span>)
+link <span class="sign">=</span> soup.<span class="command">a</span>[<span class="text">"href"</span>] <span class="comment"># getting the href attribute</span>
+<span class="command">print</span>(link)
+                                    </code></pre>
 
                                     <h2><a id="googlesearch">The <code style="color: #f5d67b;">googlesearch</code> module</a></h2>
 
+                                    <p>The <code>googlesearch</code> module allows us to perform Google searches and extract search results.</p>
 
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> googlesearch <span class="command">import</span> search
+<span class="function">for</span> result <span class="function">in</span> <span class="command">search</span>(<span class="text">"Python programming"</span>, <span class="command">num_results</span><span class="sign">=</span>5):
+    <span class="command">print</span>(result)
+                                    </code></pre>
 
                                     <h2><a id="scrapy">The <code style="color: #f5d67b;">scrapy</code> module</a></h2>
 
+                                    <p>The <code>scrapy</code> module is a powerful web scraping framework used for extracting data from websites.</p>
 
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Creating a Scrapy spider that extracts the page title from a website</span>
+<span class="command">import</span> scrapy
+
+<span class="function">class</span> ExampleSpider(scrapy.<span class="function">Spider</span>):
+    name <span class="sign">=</span> <span class="text">"example"</span>
+    start_urls <span class="sign">=</span> [<span class="text">"https://example.com"</span>]
+    <span class="function">def</span> parse(<span class="function">self</span>, response):
+        <span class="function">yield</span> {
+            <span class="text">"title"</span>: response.<span class="command">css</span>(<span class="text">"title::text"</span>).<span class="command">get</span>()
+        }
+                                    </code></pre>
 
                                     <h2><a id="selenium">The <code style="color: #f5d67b;">selenium</code> module</a></h2>
 
-                                    365-372 ANZZP
+                                    <p>The <code>selenium</code> module is used for browser automation and testing web applications. It allows us to open websites, click buttons, fill forms, and interact with webpage elements automatically. Selenium requires a browser driver such as ChromeDriver for Google Chrome.</p>
 
-                                    <h2><a id="playwright">The <code style="color: #f5d67b;">playwright</code> module</a></h2>
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">from</span> selenium <span class="command">import</span> webdriver
 
+driver <span class="sign">=</span> webdriver.<span class="function">Chrome</span>() <span class="comment"># opening the Chrome browser</span>
+driver.<span class="command">get</span>(<span class="text">"https://google.com"</span>) <span class="comment"># opening a webpage</span>
+<span class="command">print</span>(driver.<span class="command">title</span>) <span class="comment"># displaying the page title</span>
+driver.<span class="command">quit</span>() <span class="comment"># closing the browser</span>
+                                    </code></pre>
 
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment"># Filling a text field and clicking a button</span>
+<span class="command">from</span> selenium <span class="command">import</span> webdriver
+<span class="command">from</span> selenium.webdriver.common.by <span class="command">import</span> By
 
-                                    <h2><a id="ezsheets">The <code style="color: #f5d67b;">EZSheets</code> module</a></h2>
+driver <span class="sign">=</span> webdriver.<span class="function">Chrome</span>()
+driver.<span class="command">get</span>(<span class="text">"https://google.com"</span>)
 
+search <span class="sign">=</span> driver.<span class="command">find_element</span>(By.<span class="command">NAME</span>, <span class="text">"q"</span>) <span class="comment"># finding the search field</span>
+search.<span class="command">send_keys</span>(<span class="text">"Python Selenium"</span>) <span class="comment"># typing text into the field</span>
 
+button <span class="sign">=</span> driver.<span class="command">find_element</span>(By.<span class="command">NAME</span>, <span class="text">"btnK"</span>) <span class="comment"># finding the search button</span>
+button.<span class="command">click</span>() <span class="comment"># clicking the button</span>
+
+driver.<span class="command">quit</span>()
+                                    </code></pre>
 
                                     <h2><a id="socket">The <code style="color: #f5d67b;">socket</code> module</a></h2>
 
+                                    <p>The <code>socket</code> module allows us to create network connections and communicate over TCP or UDP protocols.</p>
 
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> socket
 
+<span class="comment"># Creating a client socket</span>
+client <span class="sign">=</span> socket.<span class="function">socket</span>()
+client.<span class="command">connect</span>((<span class="text">"google.com"</span>, 80)) <span class="comment"># connecting to a server</span>
+client.<span class="command">send</span>(<span class="text">b"Hello"</span>) <span class="comment"># sending bytes</span>
+client.<span class="command">close</span>() <span class="comment"># closing the connection</span>
+
+<span class="comment"># Receiving data from a server</span>
+client <span class="sign">=</span> socket.<span class="function">socket</span>()
+client.<span class="command">connect</span>((<span class="text">"example.com"</span>, 80))
+client.<span class="command">send</span>(<span class="text">b"GET / HTTP/1.1\r\nHost: example.com\r\n\r\n"</span>) <span class="comment"># sending an HTTP request</span>
+data <span class="sign">=</span> client.<span class="command">recv</span>(1024) <span class="comment"># receiving up to 1024 bytes</span>
+<span class="command">print</span>(data.<span class="command">decode</span>()) <span class="comment"># converting bytes to text</span>
+client.<span class="command">close</span>()
+                                    </code></pre>
+
+                                    <p>To choose TCP or UDP in the <code>socket</code> module, we set the socket type: TCP uses <code>SOCK_STREAM</code> for reliable connections like <code>socket.socket(socket.AF_INET, socket.SOCK_STREAM)</code>, while UDP uses <code>SOCK_DGRAM</code> for fast, connectionless communication like <code>socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</code>. <code>AF_INET</code> defines the IPv4 address family used for internet communication.</p>
                                 </div>
                             </div>
                         </div>
