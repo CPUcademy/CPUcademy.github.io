@@ -340,6 +340,34 @@ end_time <span class="sign">=</span> time.<span class="command">time</span>()
     unittest.<span class="function">main</span>()
                                     </code></pre>
 
+                                    <h4>Testing using <code>pytest</code></h4>
+
+                                    <p><code>pytest</code> is another popular Python testing framework that simplifies writing and running tests. Unlike <code>unittest</code>, it does not require creating classes that inherit from <code>TestCase</code>. Tests are written as regular functions whose names start with <code>test_</code>. Tests can be executed by running <code>pytest</code> in the terminal. The framework automatically searches for files and functions starting with <code>test_</code>.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="function">def</span> add(a, b):
+    <span class="function">return</span> a <span class="sign">+</span> b
+
+<span class="function">def</span> test_add_positive():
+    <span class="function">assert</span> add(2, 3) <span class="sign">==</span> 5
+
+<span class="function">def</span> test_add_negative():
+    <span class="function">assert</span> add(<span class="sign">-</span>1, <span class="sign">-</span>1) <span class="sign">==</span> <span class="sign">-</span>2
+                                    </code></pre>
+
+                                    <p><code>pytest</code> also supports exception testing using the <code>raises()</code> method.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">import</span> pytest
+
+<span class="function">def</span> divide(a, b):
+    <span class="function">return</span> a <span class="sign">/</span> b
+
+<span class="function">def</span> test_zero_division():
+    <span class="function">with</span> pytest.<span class="function">raises</span>(<span class="function">ZeroDivisionError</span>):
+        divide(10, 0)
+                                    </code></pre>
+
                                     <h4>Other types of tests</h4>
 
                                     <div class="table-container"><table>
