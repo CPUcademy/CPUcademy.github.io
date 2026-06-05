@@ -131,7 +131,8 @@ heading.<span class="command">textContent</span> <span class="sign">=</span> <sp
 
 <span class="function">const</span> newParagraph <span class="sign">=</span> <span class="function">document</span>.<span class="command">createElement</span>(<span class="text">"p"</span>) <span class="comment">// creating a new HTML element (a paragraph)</span>
 newParagraph.<span class="command">textContent</span> <span class="sign">=</span> <span class="text">"This paragraph was added dynamically."</span> <span class="comment">// setting the text inside the new paragraph</span>
-newParagraph.<span class="command">className</span> <span class="sign">=</span> <span class="text">"cssClass"</span> <span class="comment">// setting the CSS class of the element</span>
+newParagraph.<span class="command">className</span> <span class="sign">=</span> <span class="text">"cssClass"</span> <span class="comment">// setting the CSS class of the element</span> <span class="comment">(it could be done using: newParagraph.setAttribute("class", "cssClass"))</span>
+newParagraph.<span class="command">style</span>.<span class="command">cssText</span> <span class="sign">=</span> <span class="text">"background-color: red; width: 200px; height: 100px;"</span> <span class="comment">// setting many CSS styles at once</span>
 <span class="function">document</span>.<span class="function">body</span>.<span class="command">appendChild</span>(newParagraph) <span class="comment">// adding the new element to the &lt;body&gt;</span>
                                     </code></pre>
 
@@ -195,7 +196,7 @@ document</span>.<span class="command">write</span>(<span class="text">"&lt;ol&gt
                                         document.write("</ol>")
                                     </script>
 
-                                    <p>I will talk more about the DOM tree in the upcoming lessons.</p>
+                                    <p>The <code>scrollIntoView()</code> method scrolls the page so that a specific element becomes visible in the viewport (e.g. <code>document.querySelector("#section2").scrollIntoView()</code>).</p>
                                 </div>
                             </div>
                         </div>
