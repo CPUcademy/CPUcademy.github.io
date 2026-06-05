@@ -87,7 +87,7 @@
                                 <div class="card-body">
                                     <p>Triggers are blocks of SQL statements that run automatically in response to events, such as adding (<code>INSERT</code>), updating (<code>UPDATE</code>), or deleting (<code>DELETE</code>) records from a table. They can run <code>BEFORE</code> or <code>AFTER</code> an event. Triggers are used for process automation, data validation, tracking changes, and maintaining referential integrity.</p>
 
-                                    <p>The <code>DELIMITER $$</code> command changes the end-of-line delimiter from the default <code>;</code> to <code>$$</code>. This is necessary because, inside the trigger, there are multiple SQL statements that each require a semicolon to end that particular statement. However, the semicolon is also the default delimiter for SQL queries, so using it within the trigger would end the <code>CREATE TRIGGER</code> statement too early. By setting the delimiter to <code>$$</code>, we can safely use semicolons inside the trigger without confusing the SQL parser. Once the trigger creation is complete, the <code>DELIMITER ;</code> command restores the default semicolon delimiter for subsequent queries. This ensures that other SQL statements can be executed normally outside the trigger definition.</p>
+                                    <p>The <code>DELIMITER $$</code> statement changes the end-of-line delimiter from the default <code>;</code> to <code>$$</code>. This is necessary because, inside the trigger, there are multiple SQL statements that each require a semicolon to end that particular statement. However, the semicolon is also the default delimiter for SQL queries, so using it within the trigger would end the <code>CREATE TRIGGER</code> statement too early. By setting the delimiter to <code>$$</code>, we can safely use semicolons inside the trigger without confusing the SQL parser. Once the trigger creation is complete, the <code>DELIMITER ;</code> statement restores the default semicolon delimiter for subsequent queries. This ensures that other SQL statements can be executed normally outside the trigger definition.</p>
 
                                     <h4><code>AFTER INSERT</code> trigger</h4>
 
@@ -181,7 +181,7 @@
 
                                     <p>*It is impossible to delete a table that another table depends on through relationships. We have to delete related records from the database like a cascade.</p>
 
-                                    <h4>Basic commands</h4>
+                                    <h4>Basic statements</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment">-- Displaying the code of a trigger</span>

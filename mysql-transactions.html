@@ -93,7 +93,7 @@
                                         <li>Durability - once a transaction is committed, its changes are permanent, even during a system failure.</li>
                                     </ul>
 
-                                    <h4>Basic commands</h4>
+                                    <h4>Basic statements</h4>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment">-- Starting a transaction</span>
@@ -125,7 +125,7 @@
 
                                     <h4>Locking</h4>
 
-                                    <p>Locking is a mechanism that controls access to data during a transaction. It allows us to manage concurrency in a multi-user environment. Locks can be applied to specific rows (e.g., <code>FOR UPDATE</code>), or entire tables (<code>LOCK TABLES</code>). If inside a transaction, we write something like this: <code>SELECT column_name FROM table_name WHERE id = 1 FOR UPDATE;</code>, other users in different terminals will be blocked from updating this row (<code>UPDATE table_name SET column_name = column_name - 100.00 WHERE id = 1;</code>) until we commit our transaction. In our transaction, everything will work as it's supposed to. We can do the same thing for whole tables like this: <code>LOCK TABLE table_name WRITE;</code>. We can unlock tables with this command: <code>UNLOCK TABLES;</code>.</p>
+                                    <p>Locking is a mechanism that controls access to data during a transaction. It allows us to manage concurrency in a multi-user environment. Locks can be applied to specific rows (e.g., <code>FOR UPDATE</code>), or entire tables (<code>LOCK TABLES</code>). If inside a transaction, we write something like this: <code>SELECT column_name FROM table_name WHERE id = 1 FOR UPDATE;</code>, other users in different terminals will be blocked from updating this row (<code>UPDATE table_name SET column_name = column_name - 100.00 WHERE id = 1;</code>) until we commit our transaction. In our transaction, everything will work as it's supposed to. We can do the same thing for whole tables like this: <code>LOCK TABLE table_name WRITE;</code>. We can unlock tables with this statement: <code>UNLOCK TABLES;</code>.</p>
 
                                     <h4>Deadlocks</h4>
 

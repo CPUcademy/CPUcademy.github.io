@@ -140,7 +140,7 @@ df[<span class="text">"F"</span>] <span class="sign">=</span> 0 <span class="com
 df.<span class="command">drop</span>(<span class="text">"F"</span>, axis <span class="sign">=</span> 1, <span class="command">inplace</span><span class="sign">=</span><span class="function">True</span>) <span class="comment"># dropping a column in place (without creating a new DataFrame)</span>
 <span class="command">print</span>(df.<span class="command">drop</span>(0, axis <span class="sign">=</span> 0, <span class="command">inplace</span><span class="sign">=</span><span class="function">False</span>)) <span class="comment"># dropping the first row (returns new DataFrame)</span>
 
-<span class="comment"># Handling missing values (these commands also work for Series, which means also for single rows of DataFrames)</span>
+<span class="comment"># Handling missing values (these methods also work for Series, which means also for single rows of DataFrames)</span>
 df.<span class="command">loc</span>[1, <span class="text">"B"</span>] <span class="sign">=</span> np.<span class="command">nan</span> <span class="comment"># introducing a missing value (NaN) at row 1, column "B"</span>
 <span class="command">print</span>(df.<span class="command">isnull</span>()) <span class="comment"># searching for missing values with a boolean mask: True where values are NaN, False elsewhere (isna() returns the same result)</span>
 <span class="command">print</span>(df.<span class="command">dropna</span>()) <span class="comment"># dropping rows with NaN values (returns a new DataFrame, df is not modified)</span>
