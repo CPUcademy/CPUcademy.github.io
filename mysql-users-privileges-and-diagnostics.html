@@ -115,6 +115,7 @@
 <span class="comment">-- Granting chosen privileges (if we want to add many in the same statement, we write them after a comma like this: SELECT, INSERT ON...)</span>
 <span class="function">GRANT SELECT</span> <span class="function">ON</span> database_name.* <span class="function">TO</span> 'user'@'localhost'; <span class="comment">-- privileges to select on all tables in a given database (could be also INSERT, UPDATE, DELETE, etc.)</span>
 <span class="function">GRANT SELECT</span> <span class="function">ON</span> database_name.table_name <span class="function">TO</span> 'user'@'localhost'; <span class="comment">-- privileges to select on a given table in a given database</span>
+<span class="function">GRANT SELECT</span> <span class="function">ON</span> table_name <span class="function">TO</span> 'user'@'localhost'; <span class="comment">-- if only table name is given without database prefix, MySQL uses the currently active database (set by USE database_name)</span>
 
 <span class="comment">-- Revoking chosen privileges</span>
 <span class="function">REVOKE SELECT</span> <span class="function">ON</span> database_name.* <span class="function">FROM</span> 'user'@'localhost';
