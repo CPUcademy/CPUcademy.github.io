@@ -135,13 +135,13 @@
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment">-- Adding a column to a table</span>
 <span class="function">ALTER TABLE</span> table_name
-<span class="function">ADD</span> column_name datatype;
+<span class="function">ADD</span> column_name datatype; <span class="comment">-- constraints like NOT NULL, UNIQUE, etc. can be added after the datatype</span>
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
 <span class="comment">-- Deleting a column from a table</span>
 <span class="function">ALTER TABLE</span> table_name
-<span class="function">DROP</span> column_name datatype;
+<span class="function">DROP</span> column_name;
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
@@ -154,6 +154,12 @@
 <span class="comment">-- Adding a column after another specific column</span>
 <span class="function">ALTER TABLE</span> table_name
 <span class="function">ADD</span> column_name datatype <span class="function">AFTER</span> existing_column_name;
+                                    </code></pre>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="comment">-- Changing a column's name</span>
+<span class="function">ALTER TABLE</span> table_name
+<span class="function">CHANGE</span> old_column_name new_column_name datatype;
                                     </code></pre>
 
                                     <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
