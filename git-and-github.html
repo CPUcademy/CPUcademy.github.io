@@ -115,6 +115,8 @@
 
                                     <p>When we're ready to commit certain changes, we add ("<b>stage</b>") them to Git's <b>staging area</b> using <code>git add</code>. The staging area holds a snapshot of these changes, preparing them for the commit. This allows us to control which changes go into each commit. The <b>working directory</b> is the local folder where we edit and save files. Any changes made here are untracked by Git until they are staged (into the staging area).</p>
 
+                                    <p><code>HEAD</code> is a pointer that references your current checked-out commit (usually through the current branch). <code>HEAD^</code> refers to the parent of <code>HEAD</code>, and <code>HEAD^n</code> refers to the <em>n</em>th parent of a merge commit (e.g., <code>HEAD^2</code> is the second parent). <code>HEAD^</code> refers to the parent commit of <code>HEAD</code> (the commit directly before it). <code>HEAD~n</code> refers to the commit that is <em>n</em> commits before <code>HEAD</code> by following the main history (first parent). For example, <code>HEAD~2</code> is two commits before <code>HEAD</code>.</p>
+
                                     <img src="files/courses/git-architecture.png" alt="Git architecture" class="img-fluid">
 
                                     <h3><a id="configuration">Configuration</a></h3>
@@ -387,13 +389,13 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                     <p>If we want to continue development from that commit, it is recommended to create a new branch from it using <code>git switch -c</code>. Otherwise, any commits made in the detached state may become difficult to track.</p>
 
                                     <h3><a id="pull-requests-on-github">Pull requests on GitHub</a></h3>
-                                    <p>A pull request (PR) is a GitHub feature for proposing and discussing changes before merging them into the main branch. This is useful for code reviews and ensures better-quality code.</p>
+                                    <p>A pull request (PR) is a GitHub feature that allows developers to propose, review, and discuss code changes before merging them into the main branch. It helps facilitate collaboration, enables code reviews, and improves overall code quality.</p>
                                     
                                     <h5>Creating a pull request</h5>
                                     <ol>
                                         <li>Create and switch to the feature branch: <code>git switch -b feature-branch</code>.</li>
                                         <li>Make changes and commit them.</li>
-                                        <li>Push branch: <code>git push -u origin feature-branch</code>.</li>
+                                        <li>Push the changes to the remote repository.</li>
                                         <li>On GitHub:
                                             <ul>
                                                 <li>Navigate to the repository.</li>
@@ -450,7 +452,7 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                             <td>Continuing the revert process when multiple commits are being reverted, used in cases like undoing merges.</td>
                                         </tr>
                                     </table></div>
-                                    <p><code>git reset</code> changes the repository's history by moving the branch pointer, making it useful for local changes not yet pushed. <code>git revert</code> is ideal for undoing specific commits without altering commit history, as it creates a new commit.</p>
+                                    <p><code>git reset</code> moves the current branch to a specified commit. Any commits after the selected commit are removed from the branch's history, making <code>git reset</code> best suited for undoing local commits that have not been pushed. <code>git revert</code> undoes the changes introduced by a specific commit by creating a new commit, which preserves the existing commit history and is safe for shared branches.</p>
                                     
                                     <h3><a id="stash">Stash</a></h3>
                                     <div class="table-container"><table>
@@ -512,7 +514,7 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                     <p>A fork is a copy of a repository that allows us to freely experiment with changes without affecting the original project. This workflow is particularly useful in open-source development, where contributors don't have direct write access to the main repository. When we want to contribute to an open-source project, we have to fork the repository, which means creating a copy of the original repository under our GitHub account. This allows us to make changes, add features, or fix bugs independently without impacting the original codebase. After making our desired changes in our forked repository, we can submit a pull request to the original repository, proposing that our changes be reviewed and potentially merged into the main project. This process encourages collaboration and helps maintain the integrity of the original project while allowing contributors to experiment and innovate freely. To fork a repository on GitHub, log in to GitHub and navigate to the repository you want to fork, click the Fork button in the upper right corner, select your account if prompted, wait for the forking process to complete, access your forked repository under your GitHub account, and optionally clone your fork locally using <code>git clone https://github.com/your-username/repository-name.git</code>.</p>
                                     
                                     <h3><a id="rebasing">Rebasing</a> (<code>git rebase</code>)</h3>
-                                    <p>Rebasing is used to move or replay a sequence of commits from one base to another. This is commonly done to update a feature branch with the latest changes from the main branch while keeping a linear history.</p>
+                                    <p>Rebasing is used to move or replay a sequence of commits from one base to another. This is commonly done to update a feature branch with the latest changes from the main branch while keeping a linear history. The flow is as follows:</p>
                                     
                                     <div class="table-container"><table>
                                         <tr>
@@ -528,22 +530,10 @@ git commit -m "Resolve merge conflicts in feature_branch"
                                             <td>Reapplying the feature branch commits on top of the latest main branch.</td>
                                         </tr>
                                     </table></div>
-                                    
-                                    <p>This ensures that the changes are applied on top of the most recent work from the main branch, helping to avoid unnecessary merge commits.</p>
-                                    
-                                    <h5>Example</h5>
 
-                                    <p>This example fetches the latest changes from the remote repository (<code>origin/main</code>) and then reapplies the commits from the current local feature branch (<code>feature</code>) on top of it. This results in a cleaner, linear history without introducing a merge commit.</p>
+                                    <p>This rebased the current <code>feature</code> branch onto the latest <code>origin/main</code> by replaying its commits on top of it. This created a clean, linear commit history. The argument <code>origin/main</code> specifies the new base for the rebase. It is <b>not</b> the branch being modified. The branch that changes is the one we are currently on.</p>
 
-                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
-# On the feature branch
-git fetch origin
-git rebase origin/main
-                                    </code></pre>
-                                    
-                                    <p class="podpis">Use rebasing for local branches to keep commit history clean before merging.</p>
-                                    <p class="podpis">Avoid rebasing public/shared branches to prevent rewriting published history.</p>
-                                    <p>Resolve any conflicts that arise during the rebase process and continue using <code>git rebase --continue</code>.</p>
+                                    <p>Rebasing is commonly used to update a local feature branch with the latest changes from the main branch before merging. It keeps the commit history clean and linear. Avoid rebasing branches that have already been shared with others because rebasing rewrites commit history. If merge conflicts occur during the rebase, resolve them and continue the process with <code>git rebase --continue</code>.</p>
                                     
                                     <h3><a id="interactive-rebasing">Interactive rebasing</a> (<code>git rebase -i</code>)</h3>
                                     <p>Interactive rebasing is a powerful tool for cleaning up our commit history before sharing our code. It allows us to modify commits in various ways, including combining, editing, or removing them.</p>
@@ -631,7 +621,7 @@ git rebase --continue
                                     <div class="table-container"><table>
                                         <tr>
                                             <td><code>git cherry-pick [commit]</code></td>
-                                            <td>Selectively applying a specific commit to the current branch, useful for incorporating a fix without merging the entire branch (<b>merging only a selected commit</b>).</td>
+                                            <td>Selectively applying a specific commit to the current branch, useful for incorporating a fix without merging the entire branch (<b>merging only a selected commit</b>). We can use this command on multiple commits simultaneously.</td>
                                         </tr>
                                         <tr>
                                             <td><code>git bisect</code></td>
