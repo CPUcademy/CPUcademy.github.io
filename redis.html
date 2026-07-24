@@ -128,6 +128,34 @@ r.<span class="command">hset</span>(<span class="text">"user:2"</span>, <span cl
 user <span class="sign">=</span> r.<span class="command">hgetall</span>(<span class="text">"user:2"</span>) <span class="comment"># retrieving all fields and their values from the hash</span>
 <span class="command">print</span>(user)
                                     </code></pre>
+
+                                    <h3>Java Spring Boot implementation</h3>
+
+                                    <p>Spring is a Java framework for building web, enterprise, and backend applications. Spring Boot is an extension of Spring that simplifies building and running Spring applications through automatic configuration.</p>
+
+                                    <p>Redis can be used in Spring Boot through the <code>Spring Data Redis</code> library. Instead of communicating with the Redis server directly, applications typically use the <code>RedisTemplate</code> class, which provides convenient methods for performing Redis operations. Spring Boot automatically configures the connection to the Redis server and, by default, uses the <code>Lettuce</code> client.</p>
+
+                                    <pre class="wp-block-csstricks-code-block code-example" data-line="" style="color: #EFEEEE;"><code markup="tt">
+<span class="command">@Service</span>
+<span class="function">public class</span> UserService <span class="sign">{</span>
+    <span class="function">private final RedisTemplate</span><span class="sign">&lt;</span><span class="function">String</span>, <span class="function">String</span><span class="sign">&gt;</span> redisTemplate<span class="sign">;</span>
+
+    <span class="function">public</span> UserService(<span class="function">RedisTemplate</span><span class="sign">&lt;</span><span class="function">String</span>, <span class="function">String</span><span class="sign">&gt;</span> redisTemplate) <span class="sign">{</span>
+        <span class="function">this</span>.redisTemplate <span class="sign">=</span> redisTemplate<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="function">public void</span> saveUser() <span class="sign">{</span>
+        redisTemplate.<span class="command">opsForValue</span>().<span class="command">set</span>(<span class="text">"user:1:name"</span>, <span class="text">"Alice"</span>)<span class="sign">;</span>
+        redisTemplate.<span class="command">opsForValue</span>().<span class="command">set</span>(<span class="text">"user:1:age"</span>, <span class="text">"30"</span>)<span class="sign">;</span>
+    <span class="sign">}</span>
+
+    <span class="function">public void</span> printUser() <span class="sign">{</span>
+        <span class="function">String</span> name <span class="sign">=</span> redisTemplate.<span class="command">opsForValue</span>().<span class="command">get</span>(<span class="text">"user:1:name"</span>)<span class="sign">;</span>
+        <span class="function">String</span> age <span class="sign">=</span> redisTemplate.<span class="command">opsForValue</span>().<span class="command">get</span>(<span class="text">"user:1:age"</span>)<span class="sign">;</span>
+        <span class="function">System</span>.<span class="command">out</span>.<span class="command">println</span>(name <span class="sign">+</span> <span class="text">" "</span> <span class="sign">+</span> age)<span class="sign">;</span>
+    <span class="sign">}</span>
+<span class="sign">}</span>
+                                    </code></pre>
                                 </div>
                             </div>
                         </div>
