@@ -8,6 +8,8 @@ import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 import { languageCategoryTransformer } from './src/keyword-colors.js'
 
 export default defineConfig({
+  base: '/',
+
   plugins: [
     {
       enforce: 'pre',

@@ -2,7 +2,7 @@ import { useEffect } from "react"
 
 export default function CodeClickExample() {
     useEffect(() => {
-        const handleClick = (event: MouseEvent) => {
+        const handleClick = () => {
             console.log("click")
         }
 
