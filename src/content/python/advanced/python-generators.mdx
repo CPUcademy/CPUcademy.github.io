@@ -82,17 +82,17 @@ def gen(n):
     for i in range(n):
         yield i
     
-for x in gen(5):
-    print(x)
+for i in gen(5):
+    print(i)
 ```
 
 <p>The two examples below have the same output in terms of the values yielded, but they differ in behavior after the last value is yielded. In the second program, the last value printed is ```4```, and not ```y``` because when we manually call ```next()```, the generator function halts after yielding all its values (when the generator object is exhausted) and does not proceed to the last ```print("y")``` statement. In contrast, the loop in the first example automatically handles the entire iteration, which allows it to reach the final ```print("y")``` statement.</p>
 
 ```python
 def generator(n):
-    for x in range(n):
+    for i in range(n):
         print("x")
-        yield x
+        yield i
         print("y")
 
 for y in generator(5):
@@ -101,14 +101,14 @@ for y in generator(5):
 
 ```python
 def generator(n):
-    for x in range(n):
+    for i in range(n):
         print("x")
-        yield x
+        yield i
         print("y")
 
 x = generator(5)
 for i in range(5):
-    print(next(x))
+    print(next(i))
 ```
 
 <h2>Practical examples</h2>
@@ -136,16 +136,16 @@ def powers_of_2(n):
         yield p
         p *= 2
     
-for x in powers_of_2(8):
-    print(x)
+for i in powers_of_2(8):
+    print(i)
 ```
 
 <p>Using ```*args``` with a generator can be risky and memory-intensive. In the example below, when we call ```func(*g)```, Python expands the generator ```g``` into individual arguments all at once before passing them to the function. Suppose the generator produces a large or infinite sequence. In that case, Python will attempt to materialize all elements in memory simultaneously, which can lead to excessive memory usage or even crash the program with a ```MemoryError```, defeating the generator’s usual one-at-a-time, lazy behavior.</p>
 
 ```python
 def generator():
-    for x in range(10):
-        yield x
+    for i in range(10):
+        yield i
 
 def func(*args):
     print(args)

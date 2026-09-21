@@ -5,36 +5,36 @@ order: 5
 
 <h2>The ```for``` loop</h2>
 
-<p>The ```for``` loop is a repetition loop. It repeats given instructions a certain number of times (of course, this number can be typed in as a variable). In the example below, the loop will work from 0 to 6 (6 times because the "start" value is inclusive, and the "stop" value is exclusive) for the ```x``` variable (this variable doesn't have to be created earlier). This variable is called an iterator (it will increment every iteration).</p>
+<p>The ```for``` loop is a repetition loop. It repeats given instructions a certain number of times (of course, this number can be typed in as a variable). In the example below, the loop will work from 0 to 6 (6 times because the "start" value is inclusive, and the "stop" value is exclusive) for the ```i``` variable (this variable doesn't have to be created earlier). This variable is called an iterator (it will increment every iteration). A standard name for an iterator variable is ```i```.</p>
 
 ```python
-for x in range(0, 6):
-    print(x)
+for i in range(0, 6):
+    print(i)
 ```
 
-<p>We don't have to add the range "start" argument if it equals <b>zero</b> because it is the default value. Instead of from (0, 6), we could write, e.g., (1, 7), and the number of executions would be the same. As long as we don't use nested loops (a loop in a loop), we can use the same iterator name in every loop because its value resets during reinitialization (```for x in ...```).</p>
+<p>We don't have to add the range "start" argument if it equals <b>zero</b> because it is the default value. Instead of from (0, 6), we could write, e.g., (1, 7), and the number of executions would be the same. As long as we don't use nested loops (a loop in a loop), we can use the same iterator name in every loop because its value resets during reinitialization (```for i in ...```).</p>
 
 ```python
-for x in range(6):
+for i in range(6):
     print("Hello World!")
     
-x = 6
-for y in range(x):
+i = 6
+for y in range(i):
     print("Hello World!")
 ```
 
 <p>We can add a "step" argument to a loop. It defines the increments between valid values. If the range is from zero to ten, and this argument equals two, the loop will execute five times because it will "jump" every two increments (0, 2, 4, 6, 8).</p>
 
 ```python
-for x in range(0, 10, 2):
+for i in range(0, 10, 2):
     print("Hello World!")
 ```
 
 <p>In the following example, the first loop will execute the other four times (and the second one will execute two times). That will give us eight repetitions overall. We can also nest a ```while``` loop in a ```for``` loop, etc.</p>
 
 ```python
-for x in range(4):
-    for y in range(2):
+for i in range(4):
+    for j in range(2):
         print("Hello World!")
 ```
 
