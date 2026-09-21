@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import Footer from './components/ui/Footer'
 import Navbar from './components/ui/Navbar'
-import { Outlet } from 'react-router-dom'
+import { Outlet, ScrollRestoration } from 'react-router-dom'
 import usePageTracking from './hooks/usePageTracking'
 
 function App() {
@@ -42,6 +42,7 @@ function App() {
                     <Footer/>
                 </div>
             </div>
+            <ScrollRestoration />
         </>
     )
 }
