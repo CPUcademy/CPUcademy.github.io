@@ -1,0 +1,97 @@
+---
+title: "Microsoft Windows"
+order: 8
+---
+
+<h3>Table of contents</h3>
+
+<ul type="disc">
+    <li><a href="#subprocess" class="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>subprocess</code> module</a></li>
+    <li><a href="#pyautogi" class="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>pyautogi</code> module</a></li>
+    <li><a href="#pywin32" class="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>pywin32</code> module</a></li>
+    <li><a href="#textblob" class="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>textblob</code> module</a></li>
+    <li><a href="#win10toast" class="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>win10toast</code> module</a></li>
+    <li><a href="#pyperclip" class="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>pyperclip</code> module</a></li>
+</ul>
+
+<p>The ```sys``` and ```os``` modules can also be useful for this purpose, so check out a tutorial about them <a href="python-basic-modules-and-pip.html#sys-os" class="link">here</a>.</p>
+
+<h2><a id="subprocess">The <code style={{color: "#157267"}}>subprocess</code> module</a></h2>
+
+<p>The ```subprocess``` module allows us to run external programs, system commands, and terminal instructions. It can also capture command output and communicate with other processes.</p>
+
+```python
+import subprocess
+
+subprocess.run(["echo", "Hello World"]) # running a system command
+
+result = subprocess.run(["ipconfig"], capture_output=True, text=True)
+print(result.stdout) # displaying the command output
+
+subprocess.Popen(["notepad.exe"]) # opening a program
+```
+
+<h2><a id="pyautogi">The <code style={{color: "#157267"}}>pyautogui</code> module</a></h2>
+
+<p>The ```pyautogui``` module allows us to control the mouse and keyboard. It can be used for GUI automation, clicking buttons, typing text, taking screenshots, and moving the cursor.</p>
+
+```python
+import pyautogui
+
+pyautogui.moveTo(500, 300) # moving the cursor to given coordinates
+pyautogui.click() # performing a mouse click
+pyautogui.write("Hello World!") # typing text using the keyboard
+
+# Taking a screenshot
+screenshot = pyautogui.screenshot()
+screenshot.save("screen.png")
+```
+
+<h2><a id="pywin32">The <code style={{color: "#157267"}}>pywin32</code> module</a></h2>
+
+<p>The ```pywin32``` module provides access to many Windows APIs. It allows us to work with Windows applications, services, dialogs, and system features.</p>
+
+```python
+import win32api
+import win32con
+
+win32api.MessageBox(0, "Hello World!", "Message", win32con.MB_OK) # displaying a message box
+print(win32api.GetComputerName()) # getting the computer name
+```
+
+<h2><a id="textblob">The <code style={{color: "#157267"}}>textblob</code> module</a></h2>
+
+<p>The ```textblob``` module is used for processing textual data. It supports sentiment analysis, translation, spelling correction, noun phrase extraction, and other natural language processing tasks.</p>
+
+```python
+from textblob import TextBlob
+
+# Analyzing text sentiment
+text = TextBlob("Python is amazing!")
+print(text.sentiment)
+
+# Correcting spelling mistakes
+text = TextBlob("Pythn is awsome")
+print(text.correct())
+```
+
+<h2><a id="win10toast">The <code style={{color: "#157267"}}>win10toast</code> module</a></h2>
+
+<p>The ```win10toast``` module allows us to display Windows toast notifications.</p>
+
+```python
+from win10toast import ToastNotifier
+
+toast = ToastNotifier() # creating a notifier object
+toast.show_toast("Notification", "Hello World!", duration=5)
+```
+
+<h2><a id="pyperclip">The <code style={{color: "#157267"}}>pyperclip</code> module</a></h2>
+
+<p>The ```pyperclip``` module is used to copy text to the clipboard. The ```copy()``` function copies a given text to the clipboard, and the ```paste()``` function retrieves the most recently copied text. This module is not in the default package, so we have to install it as shown <a href="python-popular-problems-no-module-named-pygame.html" class="link">here</a>.</p>
+
+```python
+import pyperclip
+pyperclip.copy("Hello World!")
+print(pyperclip.paste())
+```

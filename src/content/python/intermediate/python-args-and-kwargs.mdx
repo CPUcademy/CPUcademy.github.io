@@ -1,0 +1,104 @@
+---
+title: "*args and **kwargs"
+order: 5
+---
+
+<p>When we don't know the number of arguments we will give to a method or a function, we can use ```*args``` and ```**kwargs```. We do this by placing ```*``` or ```**``` before the argument name.</p>
+
+<h2>```*args```</h2>
+
+<p>```*args``` - non-keyword (normal) arguments.</p>
+
+```python
+def function(*numbers):
+    sum1 = 0
+    for x in numbers:
+        sum1 += x
+    print("Sum: ", sum1)
+
+function(1, 2)
+function(1, 2, 3)
+function(1, 2, 3, 4)
+```
+
+<h2>```**kwargs```</h2>
+
+<p>```**kwargs``` - keyword arguments. A keyword argument is an argument represented by a key-value pair, similar to a dictionary.</p>
+
+```python
+def function(**data):
+    for key, value in data.items():
+        print(f"{key}: {value}")
+
+function(name = "John", surname = "Anderson", age = 20)
+function(name = "Liam", surname = "Brown", age = 20, country = "USA")
+```
+
+<h2>```*args``` and ```**kwargs```</h2>
+
+<p>When using ```*args``` and ```**kwargs``` along with standard arguments, remember to follow this order: standard arguments first, then ```*args```, followed by ```**kwargs```.</p>
+
+```python
+def function(argument1, argument2, *args, **kwargs):
+    print("Standard argument nr. 1:", argument1)
+    print("Standard argument nr. 2:", argument2)
+    for x in args:
+        print("Args:", x)
+    for key, value in kwargs.items():
+        print(f"Kwargs: {key} - {value}")
+
+function(1, 2, 3, 4, a = 5, b = 6, c = 7)
+```
+
+<h2>```*``` and ```**``` symbols</h2>
+
+<p>A single asterisk can also be used to unpack a list into individual elements.</p>
+
+```python
+list1 = ["one", 2]
+print(*list1)
+print(*list1, sep=", ") # separating each element with a comma
+```
+
+<p>Double asterisks can also be used to merge dictionaries.</p>
+
+```python
+dict1 = {"one": 1}
+dict2 = {"two": 2}
+linked = {**dict1, **dict2}
+print(linked)
+```
+
+<p>Below are some examples of unpacking lists using a single asterisk. Remember that an expression can have only one variable with ```*``` for it to make sense.</p>
+
+```python
+ages_descending = [90, 65, 40, 25, 10]
+
+oldest, *others, youngest = ages_descending
+print(oldest)
+print(others)
+print(youngest)
+
+*others, second_youngest, youngest = ages_descending
+print(others)
+print(second_youngest)
+print(youngest)
+
+def get_values():
+    return 1, 2, 3, 4, 5
+    
+a, b, *others = get_values()
+print(a, b, others)
+```
+
+<p>Adding a new positional argument to a function with ```*args``` can cause subtle errors.</p>
+
+```python
+def func(*args):
+    print(args)
+func(1, 2, 3) # (1, 2, 3)
+
+def func(a, *args):
+    print(a, args)
+func(1, 2, 3) # 1 (2, 3) - the first value now goes to "a" instead of *args
+```

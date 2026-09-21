@@ -1,0 +1,268 @@
+---
+title: "Writing clean code"
+order: 7
+---
+
+<h3>Table of contents</h3>
+            
+<ul type="disc">
+    <li><a href="#basic-conventions-and-pieces-of-advice" class="link" style={{textDecoration: "none"}}>Basic conventions and pieces of advice</a></li>
+    <li><a href="#clean-coding-techniques" class="link" style={{textDecoration: "none"}}>Clean coding techniques</a></li>
+    <li><a href="#unit-testing" class="link" style={{textDecoration: "none"}}>Unit testing</a></li>
+    <li><a href="#creating-documentation" class="link" style={{textDecoration: "none"}}>Creating documentation</a></li>
+</ul>
+
+<h2><a id="basic-conventions-and-pieces-of-advice">Basic conventions and pieces of advice</a></h2>
+
+<p class="noBottomMargin">Some <b>Java</b> standard guidelines:</p>
+<ul>
+    <li class="noBottomMargin">Classes should be separated by one blank line and organized into packages.</li> 
+    <li class="noBottomMargin">Use one public class per file, and name the file the same as the class.</li>
+    <li class="noBottomMargin">Methods inside a class should be separated by one blank line.</li> 
+    <li class="noBottomMargin">A line should be at most 100–120 characters long.</li>
+    <li class="noBottomMargin">Stay consistent with your style (spaces, etc.)</li>
+    <li>And an extra: Always validate input and handle exceptions properly—never trust user input.</li>
+</ul>
+
+<p>By convention, a variable named "ignored" is used to indicate a value that will be ignored and not used, e.g., an iterator in a ```for``` loop.</p>
+
+<p>Use ```if``` checks for expected conditions and reserve exceptions for rare or truly unexpected errors, since raising exceptions is more time- and memory-intensive.</p>
+
+<p>DRY (Don't Repeat Yourself) is a programming principle that states that the same logic or information should not be unnecessarily repeated in multiple places. Instead, reusable functions, classes, or modules should be used to reduce duplication and make code easier to maintain.</p>
+
+<p>Magic numbers are hardcoded values in a program that are used directly without explanation or context, making the code harder to understand and maintain. These numbers typically represent constants or values with specific meaning, but their purpose is unclear without additional context. To improve code readability and maintainability, such numbers should be replaced with named constants or variables that explain their meaning.</p>
+
+<p>Each function should be responsible for its own actions. A “master” object should not control or manage all functions. Instead, each function should handle obtaining the information it needs and implementing any changes itself. The control program can communicate with different categories of functions, but it does not need to know how they are implemented. Functions manage themselves, while the control program only coordinates them. Code should be organized into self-contained, independent units, each handling a specific task.</p>
+
+<h2><a id="clean-coding-techniques">Clean coding techinques</a></h2>
+
+<h4>Using custom API wrappers to isolate modules from the source code</h4>
+
+<p><b>API</b> - Application Programming Interface, a set of rules and protocols that allows different software applications to communicate with each other. It defines the methods and data formats that programs can use to request and exchange information.</p>
+
+<p>An API wrapper is a function or set of functions that encapsulate the functionality of a third-party service or module, providing a simpler or more controlled interface to interact with it. This allows developers to call specific functions from a module without dealing directly with the complexity of that module. Wrapping APIs can also help handle errors, manage data formatting, add flexibility for future changes, and adjust requests in a way that suits the application's needs. If the module needs to be replaced, only the wrapper has to change.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(calculateCosine(1));
+    }
+
+    public static Double calculateCosine(double x) {
+        try {
+            double result = Math.cos(x);
+            return result;
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
+            return null;
+        }
+    }
+}
+```
+
+<h4>Memoization</h4>
+
+<p>Memoization is an optimization technique that stores the results of expensive function calls and reuses the cached result when the same inputs occur again. In the example below, the execution time of the first and second calls of a memoized function with the same argument is counted to demonstrate the performance improvement after the result is cached.</p>
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class Main {
+    private static final Map<Double, Double> memoizedValues = new HashMap<>();
+
+    public static void main(String[] args) {
+        long startTime = System.nanoTime();
+        System.out.println(memoizedCos(1));
+        long endTime = System.nanoTime();
+        System.out.println("Execution time of the first call: " + (endTime - startTime) + " ns.");
+
+        startTime = System.nanoTime();
+        System.out.println(memoizedCos(1));
+        endTime = System.nanoTime();
+        System.out.println("Execution time of the first call: " + (endTime - startTime) + " ns.");
+    }
+
+    public static double memoizedCos(double x) {
+        if (!memoizedValues.containsKey(x))
+            memoizedValues.put(x, Math.cos(x));
+        return memoizedValues.get(x);
+    }
+}
+```
+
+<h2><a id="unit-testing">Unit testing</a></h2>
+
+<p>Unit testing is a software testing technique where individual units or components of a program are tested in isolation. In Java, a widely used framework for this purpose is ```JUnit```, which supports automated testing, reusable setup logic, and structured test organization.</p>
+
+<p>A unit test in Java is a class that contains methods annotated with ```@Test```. These methods are automatically executed by the test runner to verify expected behavior.</p>
+
+```java
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class TestMath {
+    int addition(int x, int y) {
+        return x + y;
+    }
+
+    @Test 
+    void testAddPositive() {
+        assertEquals(5, addition(2, 3));
+    }
+
+    @Test 
+    void testAddZero() {
+        assertEquals(0, addition(0, 0));
+    }
+
+    @Test 
+    void testAddNegative() {
+        assertEquals(-2, addition(-1, -1));
+    }
+}
+```
+
+<h4>Common assertions</h4>
+
+<ul>
+    <li>```assertEquals(a, b)``` - checking if ```a == b```</li>
+    <li>```assertNotEquals(a, b)``` - checking if ```a != b```</li>
+    <li>```assertTrue(x)``` - checking if ```x == true```</li>
+    <li>```assertFalse(x)``` - checking if ```x == false```</li>
+    <li>```assertThrows(Exception.class, () -> ...)``` - checking if an exception is thrown</li>
+</ul>
+
+<h4>Testing exceptions</h4>
+
+<p>Exceptions can be tested using ```assertThrows```, which verifies that a specific exception is thrown when executing a block of code.</p>
+
+```java
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class TestDivide {
+    int divide(int a, int b) {
+        return a / b;
+    }
+
+    @Test 
+    void testZeroDivision() {
+        assertThrows(ArithmeticException.class, () -> divide(10, 0));
+    }
+
+    @Test 
+    void testValidDivision() {
+        assertEquals(5, divide(10, 2));
+    }
+}
+```
+
+<h4>Using setup and cleanup methods</h4>
+
+<p>Methods annotated with ```@BeforeEach``` run before every test, while methods annotated with ```@AfterEach``` run after each test. They are used to prepare and clean up test data.</p>
+
+```java
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class TestExample {
+    int[] data;
+
+    @BeforeEach
+    void setUp() {
+        data = new int[] {1, 2, 3};
+    }
+
+    @AfterEach
+    void tearDown() {
+        data = null;
+    }
+
+    @Test 
+    void testLength() {
+        assertEquals(3, data.length);
+    }
+}
+```
+
+<h4>Other types of tests</h4>
+
+<div className="table-container"><table>
+    <tr>
+        <td><b>Testing type</b></td>
+        <td><b>Description</b></td>
+    </tr>
+    <tr>
+        <td>Unit testing</td>
+        <td>Testing individual units or components of a program.</td>
+    </tr>
+    <tr>
+        <td>Integration testing</td>
+        <td>Testing combined parts of an application to ensure they work together.</td>
+    </tr>
+    <tr>
+        <td>System testing</td>
+        <td>Testing the complete and integrated software system.</td>
+    </tr>
+    <tr>
+        <td>Acceptance testing</td>
+        <td>Validating the software meets business requirements.</td>
+    </tr>
+    <tr>
+        <td>Performance testing</td>
+        <td>Testing software performance under load and stress conditions.</td>
+    </tr>
+    <tr>
+        <td>Security testing</td>
+        <td>Ensuring the software is protected against threats and vulnerabilities.</td>
+    </tr>
+    <tr>
+        <td>Regression testing</td>
+        <td>Ensuring new changes do not break existing functionality.</td>
+    </tr>
+    <tr>
+        <td>Usability testing</td>
+        <td>Evaluating how user-friendly and intuitive the software is.</td>
+    </tr>
+    <tr>
+        <td>Alpha testing</td>
+        <td>Internal testing performed by the development team before release.</td>
+    </tr>
+    <tr>
+        <td>Beta testing</td>
+        <td>External testing by end-users before official release.</td>
+    </tr>
+</table></div>
+
+<h2><a id="creating-documentation">Creating documentation</a></h2>
+
+<p>The comments created using ```/**``` differ from the ones that use ```/*``` because they are interpreted by Javadoc. It is a tool used to generate documentation in HTML format. These special comments are used by Javadoc to create the documentation of our classes. We can add tags with the ```@``` sign. They suggest, e.g., what parameters a method takes or what it returns. We can also use HTML tags. To generate a Javadoc document in IntelliJ Idea, we go to ```Tools / Generate JavaDoc...```. These comments are placed immediately before the definitions of functions, methods, and classes.</p>
+            
+```java
+/**
+ * The object ```obj``` represents an object.
+ *
+ * @author CPUcademy
+ * @version 1.0.1
+ */
+public class Main {
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+        /**
+         * This is the main method.
+         */
+    }
+    
+    /**
+     * Returns the sum of two numbers.
+     *
+     * @param a the first number
+     * @param b the second number
+     * @return the sum of a and b
+     */
+    public int add(int a, int b) { return a + b; }
+}
+```

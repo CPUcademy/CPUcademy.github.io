@@ -1,0 +1,223 @@
+---
+title: "OOP concept"
+order: 1
+---
+
+<h2>Functions (methods)</h2>
+            
+<p>A function is a sequence of program instructions that performs a specific task, packaged as a unit. When we create a function, we can name the arguments it takes (but we don't have to). Arguments are variables that we give to the function so that it can operate on them. Functions follow the same naming rules as variables.</p>
+
+<p>A function can return objects to the outside (variables, numbers, arithmetic operations, etc.) When it does, the function's return value is the result of its "calling." To see this value, we have to display this "calling" in the console using ```System.our.println()``` directly or assign it to a variable and then display it. The ```return``` instruction also ends the function's execution. We create functions using this pattern: "type of the object it returns - name - parenthesis", and below it, the content in braces. If the function doesn't return anything, we can use the ```void``` type. However, if we want to stop executing such a function, we can use an empty return (```return;```). It will work like the ```break``` statement but for a function.</p>
+
+<p>To call a function (run it), we write its name and a parenthesis (we type a semicolon at the end only if this line isn't, e.g., inside a ```System.out.println()```, but stands alone). If it takes any arguments, we write them inside the parenthesis. The names of the arguments don't have to be the same as the passed variables.</p>
+
+<p>Method parameters are "placeholders" defined in a function declaration (```int addition(int x, int y)```), while arguments are the actual values passed to the method during its call (```addition(2, 4);```).</p>
+
+<p>The term "function" exists only in structural programming, and Java is an object-oriented language. Here, functions are called "methods".</p>
+
+<h2>Packages</h2>
+
+<p>We can separate our classes into different files and categorize them into folders called packages (to organize them). Remember that only one class in a file can be ```public``` and a class must be ```public``` to be imported into another file/package. While using packages, at the top of every file, we have to write a declaration for the package it is in (```package packageName;```). We can import a particular class from another package like this: ```import packageName.ClassName;```, and if we want to import all of them, we can use an asterisk: ```import packageName.*;```. You can find an example of a program structure with packages <a href="https://drive.google.com/drive/folders/1VB5JAkXlGfplTZVgHrDvSxkkp_lCd3pe?usp=sharing" target="_blank" class="link">here</a>.</p>
+
+<h2>OOP concept</h2>
+
+<ul>
+    <li>OOP (Object-Oriented Programming) is a programming paradigm that organizes code into reusable objects, making it modular, easier to maintain, and more scalable.</li>
+    <li>In OOP, we define classes, which serve as blueprints for creating objects. Objects represent real-world entities or concepts.</li>
+    <li>A class defines the structure and behavior of these objects, serving as a template.</li>
+    <li>An instance of a class is simply an object created from that class that represents it (a variable the class object, ```new ClassName()```, is assigned to). A class can have many instances (e.g., a ```User``` class can have many real user instances filled with personal data). Their names do not matter.</li>
+    <li>Attributes (also called fields or properties) are variables associated with an object, representing the state or characteristics of the object. Their values ​​differ between instances (e.g., the age varies by user but is still the same type of numerical value).</li>
+    <li>Inside classes, we define methods, which are functions that determine the behavior of objects. Methods are invoked using an object of the class they belong to (an instance).</li>
+    <li>Once an instance is created, we can access and modify the class's attributes and call its methods through it. Classes use the ```PascalCase``` naming convention.</li>
+</ul>
+
+<p>Every object can be ```public```, ```protected```, or ```private```. We grant these access modifiers by adding their keyword before the object's type. ```public``` means that the objects are also available outside the class. ```protected``` means that the objects are ```private```, except for the class's subclasses and other classes in the same package (I will explain what subclasses are in a lesson about inheritance). ```private``` means that the objects can be accessed only inside the class. Of course, we can assign those modifiers only to objects of the class (fields, methods, etc.).</p>
+
+<p>If no access modifier is specified (i.e., no ```public```, ```protected```, or ```private``` keyword), the default access level is ```package-private```. It means an object can be accessed only within classes in the same package.</p>
+
+<p>A Java file can contain many classes, from which only one can be ```public```, but it's not a good practice. Each file should contain only one class.</p>
+
+<h2>Abstraction</h2>
+
+<p>Abstraction is a process that deals with complexity by hiding unnecessary information from the user. It simplifies reality by creating a version of an object that consists only of essential information. Data is visible only to semantically related functions to prevent misuse. In this approach, we use the ```public``` mode often. Example: We can do many things on a computer, but it doesn't show us how it's doing them because we don't need that information. The implementation parts are hidden. It is the first concept of object-oriented programming.</p>
+
+<p>A constructor (```NameOfTheClass()```) is a method called by the compiler when an object of the class is created. A destructor is called by the compiler when the object is destroyed. In Java, constructors are not mandatory (the default constructor is executed anyway), and destructors DON'T EXIST. It is because Java has an advanced Garbage Collector. The constructor is commonly used for setting the initial values of variables. It never features the ```return``` instruction. Methods can take arguments. If a constructor takes them, we give them while assigning the class to a variable, and in other words - creating its instance (e.g., ```Human h = new Human(20);```). A class can have multiple constructors that execute according to the number of given arguments, e.g., if we give three arguments when creating a new instance, the constructor that takes three arguments of these specific types is called. To allow a class to be instantiated from outside itself, its constructor must be ```public```, ```protected```, or ```package-private``` (a ```private``` constructor prevents external instantiation).</p>
+
+<p>A field is a variable of any type that is declared inside the class. In a class, the order of methods and other objects is irrelevant because all objects have access to the whole class the whole time. Each class should be placed in a separate file.</p>
+
+<p>A getter is a method that returns values outside of a class, and a setter is a method that edits an object belonging to a class. We should use them because, inside them, we can add, e.g., validation rules.</p>
+
+<p>The ```this``` keyword represents the class it is used in and allows to address all objects of the class at any point in the class. ```this.x``` and ```x``` are different variables. The former is an object belonging to a class (a field), and the latter is just a variable.</p>
+
+<p>```ClassName.class``` refers to the ```Class``` object representing the class, ```this``` refers to the current object, and ```ClassName.this``` refers to the current instance of the enclosing class from within an inner class.</p>
+
+```java
+public class Main { // this name has to be the same as the file name
+    public static void main(String[] args) { // the main method of the main class that executes automatically
+        Human h = new Human(); // an instance of a class (the class acts like a data type)
+        h.age = 20;
+        h.setAge(10);
+        System.out.println(h.getAge());
+
+        Human hCopy = h; // hCopy references the same Human object as h (no new object created)
+        hCopy.setAge(15);
+        System.out.println(h.getAge());
+
+        Human h2 = new Human(20);
+        System.out.println(h2.getAge());
+
+        Human[] h3 = new Human[3];
+        for (int i = 0; i < 3; i++) {
+            h3[i] = new Human(30 + i);
+            System.out.println(h3[i].getAge());
+        }
+
+        new Human(); // executing the constructor (object not assigned and discarded)
+    }
+}            
+
+class Human {
+    Human() {
+        age = 0;
+        System.out.println("Constructor");
+    }
+
+    Human(int age) {
+        this.age = age;
+    }
+
+    int getAge() {
+        return age;
+    }
+
+    void setAge(int age) {
+        this.age = age;
+    }
+
+    int age; // a field (an instance variable - its value differs by instance)
+}
+```
+
+<p>A <b>copy constructor</b> is a special constructor used to create a new object as a copy of an existing one. It takes another object (an instance) of the same class as a parameter and copies its field values to initialize the new object.</p>
+
+<h2>Encapsulation</h2>
+
+<p>Encapsulation prevents external code from being concerned with the internal workings of an object. It involves hiding the fields and methods of a class so that they are not accessible from the outside but only inside the class. The difference between abstraction and encapsulation is that abstraction hides objects and processes to show only the result at the end because it is the only thing that matters, while encapsulation hides them and blocks access to them, e.g., because some data should not be changed directly without a setter with validation rules inside. Encapsulation also promotes the creation of small, specialized methods and classes to keep them easy to understand, maintain, and reuse. It is the second concept of object-oriented programming. We should always identify the part of the code that changes and, when possible, encapsulate it.</p>
+
+<p>If an object is created in ```private``` mode, it cannot be called outside its class. Encapsulation blocks the possibility of bypassing certain instructions by, for example, editing the output variable outside of the class. Most objects should be private, and outside of the class, they should be edited only through methods of this class (setters). If we try to get or change the value of a private object outside the class, we will get an error.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Bank b = new Bank();
+        System.out.println(b.getBalance());
+        b.withdraw(400);
+        System.out.println(b.getBalance());
+    }
+}
+
+class Bank {
+    private int balance; // a private field
+    private void setBalance(int balance) { // a private method
+        this.balance = balance;
+    }
+
+    Bank() {
+        balance = 1000;
+    }
+
+    int getBalance() {
+        return balance;
+    }
+
+    boolean withdraw(int howMuch) {
+        if (balance < howMuch)
+            return false;
+        else
+            setBalance(balance - howMuch);
+        return true;
+    }
+}
+```
+
+<h2>Static objects</h2>
+
+<p>A static variable is a variable that retains its value between method calls. Its memory address is allocated once, and it exists for the duration of the program. A variable of this type will still exist even if an instance of the class does not. It is shared by all objects and not tied to any class instance (shared across all instances of the class). It can be accessed through the class name (```ClassName.field```). We create static variables outside methods. A static variable is also called a class attribute.</p>
+
+<p>The same rule applies to methods - we can call them using the class directly without creating its instance. They have no access to the class's objects. Static methods differ from outside functions because we can override them later in a child class.</p>
+
+<p>We create all static objects by adding the ```static``` keyword before their type. When creating a ```final static``` object, the order of the ```final``` and ```static``` keywords does not matter.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Example x = new Example();
+        x.method();
+        Example.method();
+        System.out.println(x.static_variable + " " + Example.static_variable);
+    }
+}
+
+class Example {
+    static void method() {
+        static_variable++;
+    }
+    static int static_variable = 0;
+}
+```
+
+<p>A static context refers to a situation where methods or variables are associated with a class rather than any specific instance of that class. In this context, methods can be called directly using the class name without needing to create an instance, which is particularly useful for utility methods or constants. This approach enhances code organization and efficiency by allowing access to related functionality without the overhead of object instantiation. However, non-static methods and fields require an instance of the class to be invoked because they often operate on instance-specific data, and attempting to call them from a static context would not have a reference to any particular object, leading to potential errors. This means a static method cannot directly access instance (non-static) fields or instance methods, because it is not associated with any particular object. To access them, we must call them using an instance of the class.</p>
+
+<p>```local``` variables are variables created inside a block (a loop, conditional statement, method, etc.) and are accessible only inside this block. In contrast, static variables, if declared ```public```, can be accessed from anywhere in the program using the class name, effectively behaving as <b>global</b> variables.</p>
+
+<p>A ```static {}``` block is a static initializer that runs once when the class is first loaded, before any objects are created or static methods are called. It is often used to initialize static variables, perform setup tasks, or run code that should only execute once for the class. A class can have multiple static blocks. They execute in the order they appear.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Demo obj = new Demo();
+        Demo.showValue();
+    }
+}
+
+class Demo {
+    static int value;
+
+    static {
+        value = 10;
+        System.out.println("First static block, value = " + value);
+    }
+
+    static {
+        value += 5;
+        System.out.println("Second static block, value = " + value);
+    }
+
+    Demo() {
+        System.out.println("Constructor executed");
+    }
+
+    static void showValue() {
+        System.out.println("Current value = " + value);
+    }
+}
+```
+
+<p>A static variable can be accessed through an instance of the class (```obj.field```), but it should be accessed through the class name (```ClassName.field```).</p>
+
+<h2>Recursive methods</h2>
+
+<p>A recursive method is a method that calls itself. Recursion is often used in various algorithms. In the example below, after a while, the Java compiler will throw an error because of too many iterations.</p>
+
+```java
+public class Main {
+    static void method() {
+        System.out.println("x");
+        method();
+    }
+
+    public static void main(String[] args) {
+        method();
+    }
+}
+```

@@ -1,0 +1,67 @@
+---
+title: "Video deepfakes (DeepFaceLab)"
+order: 1
+---
+
+<p>If you don't have a good graphics card (preferably Nvidia, as it's dedicated for this project), <span style={{ color: "red" }}>it's best not to proceed</span>, as it could overload your computer!</p>
+
+<p>A deepfake is a type of synthetic media where artificial intelligence is used to manipulate or replace a person's face and voice in video, making it appear as though they are saying or doing something they never actually did. To make one, you have to install DeepFaceLab from its <a href="https://github.com/iperov/DeepFaceLab" target="_blank" className="link">GitHub repository</a> or directly from <a href="https://drive.google.com/file/d/1_9nlGPj3ivok4EllQe1qLpE0DRSuRaBV/view?usp=sharing" target="_blank" className="link">here</a>. The downloaded folder will include everything you need to create a deepfake, along with demo videos featuring Elon Musk and Robert Downey Jr, whose faces will be swapped in this tutorial.</p>
+
+<ol>
+    <li>
+        Run the ```2) extract images from video data_src``` script. A CMD console will open, where you will respond to all questions by pressing ENTER (inserting the default value). The frames from the ```data_src``` video will be extracted to the ```data_src``` folder. This video contains the person whose face is to be cut out and merged into the other video.
+    </li>
+
+    <li>
+        Run the ```3) extract images from video data_dst FULL FPS``` script and again choose the default values by pressing ENTER. This script will extract all frames from the ```data_dst``` video to the ```data_dst``` folder.
+    </li>
+
+    <li>
+        Run the ```4) data_src faceset extract``` script and enter the default values. It will extract the face from each frame stored in the ```data_src``` folder to ```data_src / aligned```.
+    </li>
+
+    <li>
+        To view the extracted faces, run ```4.1) data_src view aligned result```. There, you can delete any frames you don't like, but it's not necessary.
+    </li>
+
+    <li>
+        Run the ```5) data_dst faceset extract``` script (here, also enter the default values). This script will also extract faces, but from the frames stored in the ```data_dst``` directory.
+    </li>
+
+    <li>
+        Run the ```6) train Quick96``` script to begin training the model. Enter the project's name, insert the default values, and wait. A preview window will appear (press ```p``` on your keyboard to update it). When the iteration count (```Iter```) reaches more than 150,000, close the window by pressing ENTER.
+
+        <div>
+            <img
+                src="/data/courses/deepfacelab.png"
+                alt="DeepFaceLab training preview"
+                className="img-fluid"
+                style={{ display: "block", marginBottom: "10px", marginTop: "10px" }}
+            />
+        </div>
+    </li>
+
+    <li>
+        Run the ```7) merge Quick96``` script, confirm the default values, and wait. Once a window appears, set ```erode mask``` to 20 and ```blur mask``` to 100 (using the listed keys). The values set for the current frame can be viewed in the console. Press TAB to switch to the video preview. You will need to adjust the mentioned values accordingly along with the video (use ```>``` and ```<``` to navigate frames).
+
+        <div>
+            <img
+                src="/data/courses/deepfacelab2.png"
+                alt="DeepFaceLab merge preview"
+                className="img-fluid"
+                style={{ marginBottom: "10px", marginTop: "10px", marginRight: "10px" }}
+            />
+
+            <img
+                src="/data/courses/deepfacelab3.png"
+                alt="DeepFaceLab merge settings"
+                className="img-fluid"
+                style={{ marginBottom: "10px", marginTop: "10px" }}
+            />
+        </div>
+    </li>
+
+    <li>
+        Run the ```8) merged to mp4``` script and set the default values. It will export the video to an ```.mp4``` file in the ```workspace``` folder. When everything is done and you no longer wish to make any changes, move the final file to another folder and run ```1) clear workspace``` to delete all files (extracted frames, etc.).
+    </li>
+</ol>

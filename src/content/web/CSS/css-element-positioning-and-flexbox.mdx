@@ -1,0 +1,524 @@
+---
+title: "Element positioning and Flexbox"
+order: 3
+---
+
+<h2>```float``` and ```clear```</h2>
+<p>The ```float``` property positions (sticks) elements to the left or right of their container, allowing other objects to wrap around them. The ```clear``` property stops elements from wrapping around floated elements by clearing the ```float``` effect.</p>
+                            
+<h4>Float options</h4>
+<div className="table-container"><table>
+    <tr>
+        <td>```float: left;```</td>
+        <td>Positioning the element on the left side of its container, allowing text to wrap on the right.</td>
+    </tr>
+    <tr>
+        <td>```float: right;```</td>
+        <td>Positioning the element on the right side of its container, allowing text to wrap on the left.</td>
+    </tr>
+    <tr>
+        <td>```float: none;```</td>
+        <td>The default value (keeps the element in normal document flow).</td>
+    </tr>
+</table></div>
+                            
+<h4>Clear options</h4>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```clear: left;```</td>
+        <td>Preventing the element from appearing next to left-floated elements.</td>
+    </tr>
+    <tr>
+        <td>```clear: right;```</td>
+        <td>Preventing the element from appearing next to right-floated elements.</td>
+    </tr>
+    <tr>
+        <td>```clear: both;```</td>
+        <td>Preventing the element from appearing next to any floated elements (clears both sides).</td>
+    </tr>
+    <tr>
+        <td>```clear: none;```</td>
+        <td>The default value (does not clear any floated elements).</td>
+    </tr>
+</table></div>
+
+<p>It is recommended to use Flexbox instead of these statements, but they are still in use.</p>
+                            
+```css
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Float and Clear Example</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            color: white;
+            text-align: center;
+            line-height: 100px;
+        }
+        
+        .box1 {
+            background-color: red;
+            float: left;
+        }
+
+        .box2 {
+            background-color: blue;
+            float: right;
+        }
+
+        .box3 {
+            background-color: green;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div class="box box1">Left</div>
+    <div class="box box2">Right</div>
+    <div class="box box3">Cleared</div>
+</body>
+</html>
+```
+
+<iframe src="/float-example.html" title="Example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="v1"></iframe>
+
+<h2>```position```</h2>
+
+<p>The ```position``` property specifies the positioning method used for an element. It defines how an element is placed in the document flow and interacts with other elements. Different positioning methods provide flexibility in creating layouts and controlling element placement.</p>
+
+<h3>Position options</h3>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```position: static;```</td>
+        <td>The default positioning - elements are positioned according to the normal flow of the document.</td>
+    </tr>
+    <tr>
+        <td>```position: relative;```</td>
+        <td>Positioning the element relative to its normal position.</td>
+    </tr>
+    <tr>
+        <td>```position: absolute;```</td>
+        <td>Removing the element from the document flow, positioning it relative to the nearest positioned ancestor or the viewport if none exists.</td>
+    </tr>
+    <tr>
+        <td>```position: fixed;```</td>
+        <td>Positioning the element relative to the viewport, meaning it stays in the same place even when scrolling.</td>
+    </tr>
+    <tr>
+        <td>```position: sticky;```</td>
+        <td>A hybrid of ```relative``` and ```fixed``` - the element is treated as ```relative``` until it crosses a specified threshold, then it becomes ```fixed```.</td>
+    </tr>
+</table></div>
+
+<h4>```top```, ```left```, ```right```, ```bottom```</h4>
+<p>These properties specify the offset distance between an element and the corresponding edge of its containing block. They only take effect when the ```position``` property is set to ```relative```, ```absolute```, ```fixed```, or ```sticky```. When the ```position``` is ```static``` (the default), these properties are ignored. When the ```position``` is ```sticky```, these attributes define at what specific scroll position the element becomes "stuck" (its threshold). To visualize it, scroll down to the example.</p>                          
+                            
+```css
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Position Example</title>
+    <style>
+        .static {
+            position: static;
+            left: 250px;
+            height: 50px;
+            border: 3px solid blue;
+            margin-bottom: 20px;
+        }
+
+        .relative {
+            position: relative;
+            width: 600px;
+            height: 120px;
+            border: 3px solid pink;
+            margin-bottom: 20px;
+        }
+
+        .absolute {
+            position: absolute;
+            top: 200px;
+            right: 50px;
+            width: 100px;
+            height: 50px;
+            border: 3px solid green;
+        }
+
+        .fixed {
+            position: fixed;
+            top: 120px;
+            right: 0px;
+            width: 100px;
+            border: 3px solid red;
+        }
+
+        .sticky {
+            position: sticky;
+            top: 0; /* the threshold */
+            width: 800px;
+            height: 50px;
+            border: 3px solid purple;
+        }
+    </style>
+</head>
+<body style="height: 1300px;">
+    <div class="static">Static</div>
+    <div class="fixed">Fixed</div>
+    <div class="relative">Relative</div>
+    <div class="absolute">Absolute</div>
+    <div class="sticky">Sticky</div>
+</body>
+</html>
+```
+
+<iframe src="/positioning-example.html" title="Example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="v1"></iframe>
+
+<h2>```display```</h2>
+
+<p>The ```display``` property determines how an HTML element is displayed in the layout and how it interacts with other elements. It plays a crucial role in defining the element's box model behavior.</p>
+
+<h4>Display options</h4>
+<div className="table-container"><table>
+    <tr>
+        <td>```display: block;```</td>
+        <td>The element is displayed as a block, taking up the full width of its container.</td>
+      </tr>
+      <tr>
+        <td>```display: inline;```</td>
+        <td>The element is displayed as an inline element, taking up only as much width as necessary.</td>
+      </tr>
+      <tr>
+        <td>```display: inline-block;```</td>
+        <td>The element behaves as an inline-level block, allowing width and height to be set.</td>
+      </tr>
+      <tr>
+        <td>```display: none;```</td>
+        <td>The element is not rendered and does not occupy any space in the layout (it is completly gone).</td>
+      </tr>
+      <tr>
+        <td>```display: flex;```</td>
+        <td>The element becomes a flex container, enabling the use of Flexbox layout properties.</td>
+      </tr>
+      <tr>
+        <td>```display: grid;```</td>
+        <td>The element becomes a grid container, enabling the use of CSS Grid layout properties.</td>
+      </tr>
+      <tr>
+        <td>```display: inline-flex;```</td>
+        <td>Similar to ```flex```, but the container is treated as an inline element.</td>
+      </tr>
+      <tr>
+        <td>```display: inline-grid;```</td>
+        <td>Similar to ```grid```, but the container is treated as an inline element.</td>
+      </tr>
+      <tr>
+        <td>```display: list-item;```</td>
+        <td>The element is displayed as a list item, with a marker if used in a list.</td>
+      </tr>
+      <tr>
+        <td>```display: table;```</td>
+        <td>The element is displayed as a table container, mimicking the behavior of an HTML table.</td>
+      </tr>
+</table></div>
+
+<p>Every HTML element has a default ```display``` value defined by the browser. For example, ```<div>``` is block-level by default, while ```<span>``` is inline by default.</p>
+
+```css
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Display example</title>
+    <style>
+        .example-container {
+            margin-bottom: 20px;
+        }
+
+        .block {
+            display: block;
+            background-color: #f4a261;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .inline {
+            display: inline;
+            background-color: #2a9d8f;
+            padding: 5px;
+        }
+
+        .inline-block {
+            display: inline-block;
+            background-color: #e76f51;
+            padding: 10px;
+            width: 100px;
+            height: 50px;
+            text-align: center;
+        }
+
+        .none {
+            display: none;
+        }
+
+        .flex {
+            display: flex;
+            gap: 10px; /* space between items */
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .flex-item, .grid-item {
+            background-color: #264653;
+            color: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+  <div class="example-container">
+      <h3>Block Display</h3>
+      <div class="block">This is a block element.</div>
+  </div>
+
+  <div class="example-container">
+      <h3>Inline Display</h3>
+      <span class="inline">This is an inline element.
+      <span class="inline">This is another inline element.
+  </div>
+
+  <div class="example-container">
+      <h3>Inline-Block Display</h3>
+      <div class="inline-block">Inline-Block 1</div>
+      <div class="inline-block">Inline-Block 2</div>
+  </div>
+
+  <div class="example-container">
+      <h3>Flex Display</h3>
+      <div class="flex">
+          <div class="flex-item">Flex Item 1</div>
+          <div class="flex-item">Flex Item 2</div>
+          <div class="flex-item">Flex Item 3</div>
+      </div>
+  </div>
+
+  <div class="example-container">
+      <h3>Grid Display</h3>
+        <div class="grid">
+          <div class="grid-item">Grid Item 1</div>
+          <div class="grid-item">Grid Item 2</div>
+          <div class="grid-item">Grid Item 3</div>
+      </div>
+  </div>
+
+  <div class="example-container">
+      <h3>None Display</h3>
+      <div class="none">This element is hidden and takes no space.</div>
+      <p>Notice there is no hidden element here because its display is set to "none".</p>
+  </div>
+</body>
+</html>
+```
+
+<iframe src="/display-example.html" title="Example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="v1"></iframe>
+
+<h2>Flexbox</h2>
+
+<p>Flexbox is a layout model that enables the efficient arrangement of elements within a container. It provides more control over the alignment, direction, and spacing of items, allowing for flexible and responsive designs. Except for ```position``` and ```display```, it features:</p>
+
+<div className="table-container"><table>
+    <tr>
+      <td>```flex-direction```</td>
+      <td>Specifying the direction of the flex items within the flex container (```row```, ```row-reverse```, ```column```, ```column-reverse```).</td>
+    </tr>
+    <tr>
+      <td>```justify-content```</td>
+      <td>Aligning flex items along the main axis in the direction specified by ```flex-direction``` (```flex-start```, ```flex-end```, ```center```, ```space-between```, ```space-around```).</td>
+    </tr>
+    <tr>
+      <td>```align-items```</td>
+      <td>Aligning flex items along the cross axis perpendicular to the main axis (```flex-start```, ```flex-end```, ```center```, ```baseline```, ```stretch```).</td>
+    </tr>
+    <tr>
+      <td>```flex-wrap```</td>
+      <td>Controlling whether flex items should wrap onto multiple lines (```nowrap```, ```wrap```, ```wrap-reverse```).</td>
+    </tr>
+    <tr>
+        <td>```flex-grow```</td>
+        <td>Specifying the ability for a flex item to grow if necessary. The value defines how much the item will grow relative to other items in the flex container. For example, a value of ```2``` means the item will grow twice as much as an item with ```flex-grow: 1```. A value of ```0``` means the item will not grow at all.</td>
+    </tr>
+    <tr>      
+        <td>```flex-shrink```</td>
+        <td>Specifying the ability for a flex item to shrink if necessary. A value of ```2``` means the item can shrink twice as much as an item with ```flex-shrink: 1```.</td>
+    </tr>
+    <tr>
+      <td>```flex-basis```</td>
+      <td>Defining the default size of an element before the remaining space is distributed (e.g., ```2```).</td>
+    </tr>
+    <tr>
+      <td>```z-index```</td>
+      <td>Controlling the stacking order of elements. The higher the value, the closer the element will appear on top of other elements. ```z-index``` works only on positioned elements (elements with ```position``` set to ```relative```, ```absolute```, ```fixed```, or ```sticky```).</td>
+    </tr>
+</table></div>
+
+<h2>Other examples</h2>
+
+```css
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Flexbox example</title>
+    <style>
+        .middle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 310px;
+            height: 310px;
+            transform: translate(-50%, -50%);
+        }
+
+        #middle {
+            display: flex;
+            align-items: center;
+            text-align: center; 
+            background-color: pink;
+        }
+
+        #right2 {
+            top: 208px;
+            background-color: yellowgreen;
+        }
+
+        #left2 {
+            top: 208px;
+            left: 0px;
+            background-color: lightblue;
+        }
+        
+        .box {
+            position: absolute; 
+            top: 0px; 
+            left: 208px;
+        }
+        
+        .box2 {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            background-color: brown;
+        }
+
+        #rounded {
+            background-color: blueviolet;
+            border-radius: 7px;
+        }
+    </style>
+</head>
+<body>
+    <div class="middle">
+        <div class="middle box2" id="middle">Example</div>
+        <div class="box2">HTML</div>
+        <div class="box box2" id="rounded">CSS</div>
+        <div class="box box2" id="right2">Flexbox</div>
+        <div class="box box2" id="left2">Display</div>
+    </div>
+</body>
+</html>
+```
+
+<iframe src="/flexbox-example.html" title="Example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="v1"></iframe>
+
+```css
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Z-index example</title>
+    <style>
+        .middle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 350px;
+            height: 350px;
+            background-color: orange;
+            transform: translate(-50%, -50%);
+        }
+        
+        #middle {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            text-align: center; 
+            background-color: pink;
+            z-index: 5;
+            border: 3px solid teal;
+        }
+        
+        #one {
+            width: 150px;
+            height: 150px;
+            background-color: brown;
+            z-index: 4;
+        }
+
+        #two {
+            width: 200px;
+            height: 200px;
+            background-color: blueviolet;
+            z-index: 3;
+        }
+
+        #three {
+            width: 250px;
+            height: 250px;
+            background-color: yellowgreen;
+            z-index: 2;
+        }
+
+        #four {
+            width: 300px;
+            height: 300px;
+            background-color: lightblue;
+            z-index: 1;
+            box-shadow: 0 0 20px black; 
+        }
+
+        .box {
+            position: absolute; 
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="middle">
+        <div class="box middle" id="middle">Example</div>
+        <div class="box middle" id="one">HTML</div>
+        <div class="box middle" id="two">CSS</div>
+        <div class="box middle" id="three">Flexbox</div>
+        <div class="box middle" id="four">Display</div>
+    </div>
+</body>
+</html>
+```
+
+<iframe src="/z-index-example.html" title="Example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="v1"></iframe>
+                                

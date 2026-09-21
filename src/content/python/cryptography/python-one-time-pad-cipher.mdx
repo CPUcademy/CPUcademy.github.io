@@ -1,0 +1,10 @@
+---
+title: "One-Time Pad cipher"
+order: 9
+---
+
+ <p>The One‑Time Pad (OTP) is the only known cipher that is mathematically proven to be unbreakable, but this perfect security is guaranteed only under very strict conditions. The key must be <b>truly random</b>, <b>exactly as long as the message</b>, and <b>used only once</b>. Any reuse of the key immediately destroys the cipher’s perfect secrecy. Because the key is random and never repeated, every possible plaintext of the same length is equally likely, meaning an attacker cannot distinguish the real message from any other plausible message. The key must also remain completely secret and must be securely exchanged between the communicating parties before use. The One‑Time Pad is essentially a Vigenère cipher taken to its theoretical extreme, where the key meets all the conditions mentioned above, making it a perfect and unbreakable version of the Vigenère system.</p>
+    
+<p>A truly random key must be generated using a cryptographically secure random number generator (letters can be later assigned to corresponding numbers). For example, ```secrets.randbelow()``` is suitable because it produces unpredictable values, while ```random.randint()``` is not secure because it uses a deterministic pseudorandom generator that can be predicted or reproduced. For a 40‑letter message using a 26‑character alphabet, there are <b>26<sup>40</sup></b> possible keys, an astronomically large number that makes brute‑force attacks infeasible. Moreover, a single OTP‑encrypted message can be decrypted into many different meaningful plaintexts depending on which key is used, and because all these plaintexts are equally plausible, a cryptanalyst has no way to determine which one is correct without knowing the exact key (although this ambiguity disappears if many messages are encrypted with the same key, since patterns begin to emerge). When all required conditions are met, the OTP cannot be broken even with unlimited computational power.</p>
+
+<p>This cipher is rarely used because generating, storing, and securely distributing truly random keys is impractical.</p>

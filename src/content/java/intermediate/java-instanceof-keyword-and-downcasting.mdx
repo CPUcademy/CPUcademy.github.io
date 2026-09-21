@@ -1,0 +1,49 @@
+---
+title: "Instanceof keyword and downcasting"
+order: 8
+---
+
+<p>The ```instanceof``` keyword checks if an object is an instance of a given class.</p>
+    
+<p>Downcasting is when we have an object stored as its parent type, but cast it back to its child type to access methods that only exist in the child class. It means more or less "reverse inheritance".</p>
+            
+```java
+public class Main {
+    public static void main(String[] args) {
+        Person[] p = new Person[2];
+        p[0] = new Person("Liam", "Anderson");
+        p[1] = new Employee("John", "Smith", 5000);
+
+        for (Person person: p) {
+            if (person instanceof Person)
+                person.description();
+
+            if (person instanceof Employee)
+                ((Employee)person).work(); // downcasting
+        }
+    }
+}
+
+class Person {
+    String name;
+    String surname;
+    Person(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+    void description() {
+        System.out.println("I am a person!");
+    }
+}
+
+class Employee extends Person {
+    double salary;
+    Employee(String name, String surname, double salary) {
+        super(name, surname);
+        this.salary = salary;
+    }
+    void work() {
+        System.out.println("I am working!");
+    }
+}
+```

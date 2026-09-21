@@ -1,0 +1,103 @@
+---
+title: "Useful methods"
+order: 11
+---
+
+<h4>```sum()```</h4>
+
+```python
+# A sum of a list's elements (also works with tuples, etc.)
+x = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+print(sum(x))
+```
+
+<h4>```round()```</h4>
+
+```python
+# Rounding a number to the nearest integer
+x = 5.4
+print(round(x))
+
+y = 5.436
+print(round(y, 2)) # rounding to 2 decimal places
+```
+
+<h4>```id()```</h4>
+
+```python
+# Checking the object's ID in memory (its memory address)
+x = 5
+print(id(x))
+```
+
+<h4>```abs()```</h4>
+
+```python
+# An absolute value of a number
+x = abs(-5)
+print(x)
+```
+
+<h4>```split()```</h4>
+
+```python
+# Taking two values separated with a space, and storing them in two separate variables
+x, y = input().split()
+print(x + y)
+```
+
+<h4>```eval()```</h4>
+
+<p>The ```eval()``` function takes a string with a mathematical expression or Python code and calculates/runs it. Its version from the ```ast``` module, ```literal_eval()```, takes a string with a literal (a list, a dict, etc.) and turns it into a data structure we can operate on. It is safer to use for this purpose because it prevents executing other code.</p>
+
+```python
+expression = "3 * (4 + 5)"
+result = eval(expression)
+print(result)
+```
+
+```python
+def func1():
+    print("func1 call")
+
+def func2():
+    print("func2 call")
+
+functions = ["func1", "func2"]
+for x in functions:
+    eval(x)() # calling the functions from the list
+```
+
+```python
+import ast
+literal_list = "[1, 2, 3, 4, 5]"
+literal_dict = "{'a': 1, 'b': 2}"
+result_list = ast.literal_eval(literal_list)
+result_dict = ast.literal_eval(literal_dict)
+print(result_list)
+print(result_dict)
+```
+
+<h4>```compile()``` and ```exec()```</h4>
+
+<p>The ```compile()``` function takes a string with Python code, converts it to "code," and ```exec()``` executes it.</p>
+
+```python
+code = """
+for i in range(5):
+    print(i)
+"""
+compiled_code = compile(code, "<string>", "exec")
+exec(compiled_code)
+```
+
+<h4>```callable()```</h4>
+
+```python
+# Checking whether an object can be called
+def func1():
+    pass
+x = 5
+print(callable(func1))
+print(callable(x))
+```

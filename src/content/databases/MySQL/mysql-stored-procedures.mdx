@@ -1,0 +1,55 @@
+---
+title: "Stored procedures"
+order: 11
+---
+
+ <p>Stored procedures are blocks of SQL statements executed on demand. They allow us to define operations that can be simply performed multiple times. Procedures can but don't have to take arguments.</p>
+
+<h4>Creating a procedure</h4>
+
+```sql
+DELIMITER // -- we can use any custom delimiter
+CREATE PROCEDURE add_a_client(IN name_pr VARCHAR(50), IN surname_pr VARCHAR(50), IN email_pr VARCHAR(50))
+BEGIN
+   INSERT INTO clients(name, surname, email) VALUES (name_pr, surname_pr, email_pr);
+END//
+DELIMITER ;
+
+-- Calling a procedure
+CALL add_a_client('Josh', 'Swift', 'josh@example.com');
+```
+
+<h4>Basic statements</h4>
+
+```sql
+-- Calling a procedure
+CALL add_a_client('Josh', 'Swift');
+
+-- Displaying a list of procedures (two versions)
+SHOW PROCEDURE STATUS WHERE Db = '[database_name]'; -- for a specified database
+SHOW PROCEDURE STATUS; -- for all databases on a server
+
+-- Displaying the code of a procedure
+SHOW CREATE PROCEDURE procedure_name;
+
+-- Deleting a procedure
+DROP PROCEDURE procedure_name;
+```
+
+<h4>Addition - random numbers and dates</h4>
+
+```sql
+-- Random number between 2 and 10 (FLOOR(RAND() * (max - min + 1)) + min)
+SELECT FLOOR(RAND() * 9) + 2;
+```
+
+```sql
+-- Current date and time
+SELECT NOW();
+
+-- Current date
+SELECT CURDATE();
+
+-- Current time
+SELECT CURTIME();
+```

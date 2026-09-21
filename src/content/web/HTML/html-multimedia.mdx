@@ -1,0 +1,73 @@
+---
+title: "Multimedia"
+order: 5
+---
+
+<h2>Video</h2>
+            
+```html    
+<video width="50%" controls>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>   
+```
+                                
+<video controls className="v">
+    <source src="/data/courses/video.webm" type="video/webm"/>
+    Your browser does not support the video tag.
+</video>   
+
+<p>We can also add ```autoplay``` and ```muted``` attributes to this tag. The former causes the video to play immediately after it loads, while the latter mutes the video. The ```controls``` attribute displays the play button, the scroll bar, etc.</p>
+
+<h2>Audio</h2>
+
+```html    
+<audio width="50%" controls>
+    <source src="audio.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
+```
+
+<audio controls className="v">
+    <source src="/data/courses/audio.mp3" type="audio/mp3"/>
+    Your browser does not support the audio element.
+</audio>
+
+<p>This tag supports the same attributes as the ```<video>``` tag.</p>
+
+<h2>The ```<object>``` tag</h2>
+
+<p>The ```<object>``` tag is used to embed external resources into a webpage, such as PDFs, images, or other media files. Unlike specialized tags like ```<video>``` or ```<audio>```, it is more general and can handle different types of content depending on the ```type``` and ```data``` attributes.</p>
+
+```html    
+<object data="document.pdf" type="application/pdf" width="100%" height="500px">
+    Your browser does not support the object element.
+</object>
+```
+
+<h2>Iframe</h2>
+
+<p>An iframe is a frame inside which we can embed any web page except the ones that block this functionality.</p>
+
+<h4>YouTube videos</h4>
+
+<p>To add an iframe of a YouTube video, go to the video, click "Share," and then select "Embed." From there, you can adjust parameters, such as the video start time, or simply click "Copy" to get the entire iframe code.</p>
+
+```html    
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fBE8WfiTrpc?si=SuLOOfi8InXKlqju" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
+```
+
+<iframe height="315" src="https://www.youtube.com/embed/fBE8WfiTrpc?si=SuLOOfi8InXKlqju" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen className="v2"></iframe>
+
+<h4>HTML files</h4>
+
+```html
+<iframe width="80%" height="315" src="index.html" title="Homepage" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+```
+
+<iframe height="315" src="/" title="Homepage" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen className="v1"></iframe>
+
+<h2 style={{ marginTop: 10 }}>Web fonts</h2>
+
+<p>A web font is a font that can be used on a website, including special icons that are just appropriately styled text. We can download many of those icons for free from <a href="https://fontello.com/" target="_blank" className="link">Fontello</a>. After downloading the ones we need (as a ```.zip``` file), we have to copy the ```font``` and ```css``` folders to our website directory and link the ```fontello.css``` file in the ```<head>``` tag of every HTML file where we want to use these icons, like this: ```<link rel="stylesheet" href="css/fontello.css" type="text/css">```. After that, we open the ```demo.html``` file (from the ```.zip``` file) and check the icon names, which we then can use on our website like this: ```<i class="icon-IconName"></i>```. Remember that these icons are text, not images, so we do not edit their ```width``` but ```font-size```, etc.</p>
+                                

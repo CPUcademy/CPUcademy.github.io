@@ -1,0 +1,51 @@
+---
+title: "CSV and JSON files"
+order: 6
+---
+
+<h2>CSV files</h2>
+
+```python
+import csv
+
+rows = [
+    ["Tom", 25],
+    ["Anna", 30]
+]
+
+with open("people.csv", "w", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerow(["Name", "Age"]) # writing a header row
+    writer.writerows(rows) # writing multiple rows
+
+# Displaying each row
+with open("people.csv", "r") as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(row)
+```
+
+<h2>JSON files</h2>
+
+```python
+import json
+
+person = {"name": "Tom", "age": 25}
+
+jsonString = json.dumps(person) # converting a dictionary to a JSON string
+print(jsonString)
+
+data = json.loads('{"name": "Tom", "age": 25}') # converting a JSON string to a dictionary
+print(data["name"])
+
+numbers = json.loads('[1, 2, 3, 4]') # converting a JSON string to a list
+print(numbers)
+
+with open("data.json", "w") as file:
+    json.dump(person, file) # saving a dictionary to a JSON file
+
+with open("data.json", "r") as file:
+    data = json.load(file) # reading a dictionary from a JSON file
+
+print(data)
+```

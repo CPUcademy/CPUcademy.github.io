@@ -1,0 +1,115 @@
+---
+title: "Files organization"
+order: 5
+---
+
+<h3>Table of contents</h3>
+
+<ul type="disc">
+    <li><a href="#pathlib" class="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>pathlib</code> module</a></li>
+    <li><a href="#shutil" class="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>shutil</code> module</a></li>
+    <li><a href="#send2trash" class="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>send2trash</code> module</a></li>
+    <li><a href="#zipfile" class="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>zipfile</code> module</a></li>
+</ul>
+
+<p>The ```sys``` and ```os``` modules can also be useful for this purpose, so check out a tutorial about them <a href="python-basic-modules-and-pip.html#sys-os" class="link">here</a>.</p>
+
+<h2><a id="pathlib">The <code style={{color: "#157267"}}>pathlib</code> module</a></h2>
+
+<p>The ```pathlib``` module provides an object-oriented interface for handling filesystem paths.</p>
+
+```python
+from pathlib import Path
+import os
+
+p = Path("folder/file.txt") # creating a Path object
+
+print(p.name) # displaying the file name
+print(p.stem) # displaying the file name without extension
+print(p.suffix) # displaying the file extension
+print(p.parent) # displaying the parent directory
+print(p.anchor) # displaying the root or drive
+print(p.parts[0]) # displaying the first part of the path
+print(p.parts[1]) # displaying the second part of the path
+
+print(Path.cwd()) # displaying the current working directory
+print(Path.home()) # displaying the home directory
+print(p.absolute()) # displaying the absolute path
+
+print(os.path.abspath("file.txt")) # converting a path to an absolute path
+print(os.path.isabs("file.txt")) # checking whether the path is absolute
+print(os.path.relpath("/home/user/file.txt", "/home")) # calculating the relative path
+
+print(os.path.getsize("file.txt")) # displaying the file size
+print(os.path.dirname("/home/user/file.txt")) # displaying the directory name
+
+for file in Path(".").glob("*.txt"):
+    print(file) # displaying all TXT files
+```
+
+<h2><a id="shutil">The <code style={{color: "#157267"}}>shutil</code> module</a></h2>
+
+<p>The ```shutil``` module allows us to copy and move files and folders.</p>
+
+```python
+import shutil
+from pathlib import Path
+
+p = Path("file.txt") # creating a path object
+
+shutil.copy("file.txt", "copy.txt") # copying a file
+shutil.move("copy.txt", "folder/copy.txt") # moving a file
+shutil.copytree("folder", "folderCopy") # copying a whole directory
+
+p.unlink() # deleting a file
+```
+
+<h2><a id="send2trash">The <code style={{color: "#157267"}}>send2trash</code> module</a></h2>
+
+<p>The ```send2trash``` module allows us to move files to the trash can instead of permanently deleting them.</p>
+
+```python
+from send2trash import send2trash
+send2trash("file.txt")
+```
+
+<h2><a id="zipfile">The <code style={{color: "#157267"}}>zipfile</code> module</a></h2>
+
+<p>The ```zipfile``` module is used to handle files with the ```.zip``` extension, i.e. compressed folders.</p>
+
+<p>Write the ```import zipfile``` statement at the beginning of every example.</p>
+                                
+<h4>Zipping files</h4>
+
+```python
+z = zipfile.ZipFile("myZip.zip", "w")
+z.write("file.txt")
+z.write("file2.txt")
+z.close()
+```
+
+<h4>```namelist()```</h4>
+
+```python
+# Checking the contents of a zip file (a list of files)
+z = zipfile.ZipFile("myZip.zip", "r")
+print(z.namelist())
+z.close()
+```
+
+<h4>Unzipping files</h4>
+
+<p>There are two ways of unzipping files.</p>
+
+```python
+z = zipfile.ZipFile("myZip.zip", "r")
+for x in z.namelist():
+    z.extract(x)
+z.close()
+```
+
+```python
+z = zipfile.ZipFile("myZip.zip", "r")
+z.extractall()
+z.close()
+```  

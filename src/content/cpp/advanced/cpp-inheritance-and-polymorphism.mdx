@@ -1,0 +1,249 @@
+---
+title: "Inheritance and polymorphism"
+order: 2
+---
+
+<p>Classes can inherit objects (methods) from each other. The class that is being inherited from is called a parent class (also a base class or a superclass). The class that inherits from another class is called a child class (also a derived class or a subclass). It is the third concept of object-oriented programming. We can inherit objects in three modes:</p>
+
+<ol>
+    <li>
+    ```public``` - every object of this type in the parent class, in the child class will become:
+    <ul>
+        <li>public = public</li>
+        <li>protected = protected</li>
+        <li>private = unavailable</li>
+    </ul>
+    </li>
+
+    <li>
+    ```protected``` - every object of this type in the parent class, in the child class will become:
+    <ul>
+        <li>public = protected</li>
+        <li>protected = protected</li>
+        <li>private = unavailable</li>
+    </ul>
+    </li>
+
+    <li>
+    ```private``` - every object of this type in the parent class, in the child class will become:
+    <ul>
+        <li>public = private</li>
+        <li>protected = private</li>
+        <li>private = unavailable</li>
+    </ul>
+    </li>
+</ol>
+
+```cpp
+#include <iostream>
+using namespace std;    
+
+class Animal {
+    public:
+        Animal(int i = 0) { cout << "Animal C" << endl; } // setting a default argument value, which means if we don’t pass it, it will be substituted
+        ~Animal() { cout << "Animal D" << endl; }
+
+        void voice() {
+            cout << "Voice!" << endl;
+        }
+};
+
+class Cat : public Animal { // public inheritance (the first mode)
+    public:
+        Cat() { cout << "Cat C" << endl; }
+        ~Cat() { cout << "Cat D" << endl; }
+
+        void breed() {
+            cout << "I am a Bengal cat!" << endl;
+        }
+};
+
+int main() {
+    Cat cat;
+    cat.voice();
+    cat.breed();
+
+    return 0;
+}
+```
+
+<p>In the example above, you can see that the constructor and destructor from the parent class were executed. Well, they were executed but not inherited. The child class has to have its constructor and destructor. Pay attention to the order in which these methods were executed.</p>
+
+<p>The superclass's constructor is automatically called before the subclass's constructor.</p>
+
+<h2>Multiple inheritance</h2>
+
+<p>A class can inherit features from more than one parent class.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Animal {
+    public:
+        Animal() {}
+        ~Animal() {}
+
+        void voice() {
+            cout << "Voice!" << endl;
+        }
+};
+
+class Mammal {
+    public:
+        Mammal() {}
+        ~Mammal() {}
+
+        void appearance() {
+            cout << "I have fur!" << endl;
+        }
+};
+
+class Tiger : public Animal, public Mammal {
+    public:
+        Tiger() {}
+        ~Tiger() {}
+
+        void sound() {
+            cout << "Raah!" << endl;
+        }
+};
+
+class Cat : public Tiger {
+    public:
+        Cat() {}
+        ~Cat() {}
+
+        void breed() {
+            cout << "I am a Bengal cat!" << endl;
+        }
+};
+
+int main() {
+    Cat cat;
+    cat.voice();
+    cat.appearance();
+    cat.sound();
+    cat.breed();
+
+    return 0;
+}
+```
+
+<h2>Virtual methods and abstract classes, polymorphism</h2>
+
+<p>Polymorphism    means operating the same way on objects of different types (it states that an object can have many forms). For example, the ```+``` operator behaves polymorphically because it can add numbers and concatenate strings (it works with various data types in a very similar way). It is the fourth concept of object-oriented programming. Example: A man can be a father, a husband, a student, etc. One person can have different roles. This mechanism can also be used in structural programming.</p>
+
+<p>Overriding means providing a new method implementation in the subclass that replaces the method defined in the parent class (e.g., defining a ```speak()``` method in a ```Cat``` subclass to replace the general ```speak()``` method from an ```Animal``` parent class).</p>
+
+<p>A normal (non-virtual) method is resolved at compile time using static binding (early binding). This means the function that gets called is determined based on the type of the pointer/reference, not the actual object it points to. A virtual method is resolved at runtime using dynamic dispatch (late binding). This allows polymorphism, meaning the function that gets called depends on the actual object type, not just the pointer type (```Animal *cat = new Cat;```). Virtual methods are declared using the ```virtual``` keyword, enabling dynamic method binding so that the correct method is executed based on the object's actual type. In one of the examples below, a ```Cat``` object is referenced by an ```Animal*``` pointer, so calling the virtual ```sound()``` method will invoke the overridden ```Cat``` version instead of the base ```Animal``` version. If this method were non-virtual, it would invoke the ```Animal``` version.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Animal {
+    public:
+        virtual void speak() { cout << "Voice!" << endl; }
+};
+
+class Cat : public Animal {
+    public:
+        void speak() override { cout << "Meow!" << endl; } // "override" indicates we want to override a method from the superclass. If the method signature (name and parameters) doesn't match, the compiler will generate an error.
+};
+
+int main() {
+    Cat c;
+    c.speak();
+}
+```
+
+<p>A class is considered abstract if it has at least one pure virtual method (i.e., a virtual method with ```= 0```). An abstract class is a class that is designed specifically to be used as a base class (e.g., creating an instance of a generic ```Vehicle``` wouldn’t make sense unless it’s a specific type like a ```Car``` or ```Truck```). It can't call out its own objects or have instances, so we can only use them in its child classes. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). An abstract method is a method that is inside an abstract class and is a pure virtual method. An abstract class forces all its child classes to override all its abstract methods. It isn't mandatory to override a non-abstract method from an abstract class. Non-abstract methods can contain implementations to be inherited in the child classes (abstract methods have to be overridden, so it wouldn't make sense for them to contain implementations). If an abstract class contains a constructor, it will be executed when its subclass is instantiated.</p>
+
+<p>When creating an abstract class, we also have to make a virtual destructor (write ```virtual``` before the destructor definition). A constructor is not mandatory in an abstract class because it works implicitly.</p>
+
+<p>An abstraction defines the general structure or interface without specifying details, while a concrete implementation provides the actual functionality based on that abstraction.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Animal {
+    public:
+        virtual void voice() = 0; // an abstract method to be implemented by subclasses
+        void voice2() { cout << "Voice!" << endl; };
+        virtual void sound() { cout << "Animal sound!" << endl; }; // a virtual method
+        virtual ~Animal() {}
+};
+
+class Cat : public Animal {
+    public:
+        Cat() {}
+        ~Cat() {}
+        void voice() override    { cout << "Meow!" << endl; }
+        void sound() override    { cout << "Meow sound!" << endl; } // overriding the virtual method
+        void purr() { cout << "Purring..." << endl; } // a method specific to Cat
+};
+
+int main() {
+    Animal *cat = new Cat; // creating a Cat object using a pointer of type Animal - polymorphism
+    cat -> voice();
+    cat -> voice2();
+    cat -> sound();
+
+    // Using dynamic_cast to safely downcast the Animal pointer to a Cat pointer
+    Cat *catPtr = dynamic_cast<Cat*>(cat); // checking if cat is actually a Cat object
+    if (catPtr)
+        catPtr -> purr(); // accessing the method specific to Cat
+    else
+        cout << "Failed to downcast." << endl;
+
+    delete cat; // freeing the allocated memory
+    return 0;
+}
+```
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Person {
+    public:
+        virtual void role() = 0; // an abstract method to be implemented by subclasses
+};
+
+class Father : public Person {
+    public:
+        void role() override    { cout << "I am a father!" << endl; }
+};
+
+class Husband : public Person {
+    public:
+        void role() override    { cout << "I am a husband!" << endl; }
+};
+
+class Student : public Person {
+    public:
+        void role() override    { cout << "I am a student!" << endl; }
+};
+
+int main() {
+    Person* father = new Father();
+    Person* husband = new Husband();
+    Person* student = new Student();
+
+    Person* people[] = {father, husband, student};
+    for (Person* person: people)
+        person -> role(); // calling the same role() method on different objects - polymorphism
+
+    delete father;
+    delete husband;
+    delete student;
+
+    return 0;
+}
+```
+
+<h4>Static vs dynamic polymorphism</h4>
+
+<p><b>Static polymorphism</b> (compile-time polymorphism) occurs when multiple methods share the same name but differ in parameters (method overloading), allowing the compiler to decide which method to call. <b>Dynamic polymorphism</b> (runtime polymorphism) occurs when a base class reference calls an overridden method in a derived class, with the method being chosen at runtime (method overriding).</p>

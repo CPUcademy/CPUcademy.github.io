@@ -1,0 +1,102 @@
+---
+title: "Manipulation"
+order: 3
+---
+
+<h4>```CREATE TABLE``` statement</h4>
+```sql
+-- Creating a new table
+CREATE TABLE table_name (
+    column1_name datatype,
+    column2_name datatype
+);
+```
+
+<p>Column constraints define the rules that apply to the values within individual columns. A ```PRIMARY KEY``` constraint is used to uniquely identify each row in a table. Columns marked as ```UNIQUE``` must contain different values for every row. Columns with ```NOT NULL``` are required to have a value. The ```DEFAULT``` constraint assigns a default value to a column. Each table can have only one ```PRIMARY KEY``` column, but it can have multiple ```UNIQUE``` columns. The ```AUTO_INCREMENT``` attribute is used to automatically generate a unique value for a column, typically for a primary key.</p>
+
+
+```sql
+CREATE TABLE table1_name (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) UNIQUE,
+    grade INTEGER NOT NULL,
+    age INTEGER DEFAULT 10,
+    id2 INTEGER,
+    FOREIGN KEY (id2) REFERENCES table2_name(id)
+);
+```
+
+<p>*```FOREIGN KEY (id2) REFERENCES table2_name(id)``` - the ```id2``` field from this table is a foreign key referencing the ```id``` field from the second table. ```VARCHAR``` is a string in SQL, and 50 is its max length (in this example).</p>
+
+<h4>```INSERT``` statement</h4>
+```sql
+-- Inserting data into columns in the order they are defined in a table
+INSERT INTO table_name
+VALUES (value1, value2);
+```
+
+```sql
+-- Inserting data into columns by their names
+INSERT INTO table_name (column1_name, column2_name)
+VALUES (value1, value2);
+```
+
+<h4>```UPDATE``` statement</h4>
+```sql
+-- Updating data in a table
+UPDATE table_name
+SET column1_name = value1, column2_name = value2
+WHERE some_column_name = some_value;
+```
+
+<h4>```ALTER TABLE``` statement</h4>
+```sql
+-- Adding a column to a table
+ALTER TABLE table_name
+ADD column_name datatype; -- constraints like NOT NULL, UNIQUE, etc. can be added after the datatype
+```
+
+```sql
+-- Deleting a column from a table
+ALTER TABLE table_name
+DROP column_name;
+```
+
+```sql
+-- Modifying a column's datatype
+ALTER TABLE table_name
+MODIFY column_name datatype;
+```
+
+```sql
+-- Adding a column after another specific column
+ALTER TABLE table_name
+ADD column_name datatype AFTER existing_column_name;
+```
+
+```sql
+-- Changing a column's name
+ALTER TABLE table_name
+CHANGE old_column_name new_column_name datatype;
+```
+
+```sql
+-- Adding a UNIQUE constraint to a column
+ALTER TABLE table_name
+ADD CONSTRAINT unique_constraint_name UNIQUE (column_name);
+```
+
+<p>We can add, edit, and delete all constraints and keys similarly. I won't list all those statements here because there are too many. If you want, search the internet for specific instructions.</p>
+
+<h4>```DELETE``` statement</h4>
+```sql
+-- Deleting data from a table
+DELETE FROM table_name
+WHERE some_column_name = some_value;
+```
+
+<h4>```DROP``` statement</h4>
+```sql
+-- Deleting a table
+DROP TABLE table_name;   
+```

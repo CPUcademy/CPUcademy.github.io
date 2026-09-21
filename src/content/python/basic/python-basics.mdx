@@ -1,0 +1,123 @@
+---
+title: "Basics"
+order: 3
+---
+
+<h2>Fundamental rules</h2>
+
+<p>We count from zero, not from one.</p>
+<p>Quotation marks and apostrophes mean the same, although we can't close one string between a quotation mark and an apostrophe.</p>
+<p>In Python, we don't have to end a line of code with a semicolon like in other languages. We also don't have to indicate which instructions belong to, e.g., a loop, in any other way than indentations (properly placed TABs).</p>
+<p>We can create comments by using the ```#``` symbol. Things that we write after this sign don't count as code. Comments are often used to describe the code. Multiline comments can be written between ```"""``` and ```"""``` signs.</p>
+<p>In Python, everything is an object.</p>
+
+<h2>Variables</h2>
+
+<p className="noBottomMargin">A variable is a "drawer" for data in the RAM. We can store every sort of data in them. We have five basic variable types:</p>
+<p className="noBottomMargin">```int``` - integers</p>
+<p className="noBottomMargin">```float``` - decimals</p>
+<p className="noBottomMargin">```str``` (string) - texts (a number can also be a part of it, e.g., "abc123")</p>
+<p className="noBottomMargin">```bool``` (boolean) - ```True``` and ```False``` values</p>
+<p>```None``` - a value used to indicate the absence of a value</p>      
+
+<p>In Python (unlike in, e.g., C++), we do not have to define the type when creating a variable. It is assigned automatically based on the value.</p>
+
+<p>Everything on the left side of the ```=``` sign is a variable's name (it cannot contain spaces), and on the right is a value.</p>
+
+<p>Be cautious because, e.g., variables ```x``` and ```X``` are not the same!</p>
+
+<p>```number = 4``` will initialize an ```int``` variable called "number" and immediately assign it the value 4. We can later change its value in the same way.</p>
+
+<p>While naming variables, we cannot add any numbers or spaces at the beginning. The first letter should not be in uppercase. Python uses the ```snake_case``` naming convention.</p>
+
+<p>A constant is a variable whose value cannot be changed. We can't define variables like this in Python, however, there is a convention that the names of supposed-to-be constants should be in uppercase, with words separated by underscores.</p>
+
+<p>A variable named ```_``` is, by convention, treated as a placeholder and intentionally ignored.</p>
+
+<p>Variables in Python can change their type during the program runtime (they are dynamically typed).</p>
+
+<p>A “falsy” number is a number that evaluates to ```False``` when converted to a boolean (only 0), while all other numbers are “truthy” and evaluate to ```True```.</p>
+
+<p>```\n``` symbolizes the enter key and can be used inside of strings.</p>
+
+<p>*In the examples I provide, I will not always give the entire code but fragments of it.</p>
+
+<p>For now, a method is a special statement that performs a specific task, often related to something in our program, like printing text or calculating a result (I will talk more about methods later).</p>
+
+<h2>The ```print()``` method</h2>
+
+<p>The ```print()``` method displays data of all types on the screen.</p>
+
+```python
+# Displaying text
+print("Hello World!")
+
+# Displaying variables
+x = 10
+print(x)
+
+# Mixing elements
+y = 10
+print(5, "+ 5 is equal", y)
+
+# Displaying text after an enter
+print("\nText")
+
+# Concatenation (joining strings)
+print("a" + "b")
+
+# Displaying text with a chosen string after it
+print("Python", end=" ")
+print("Python")
+```
+
+<p>We can run a Python file from the terminal using the ```python main.py``` command.</p>
+
+<h2>The ```input()``` method</h2>    
+
+<p>The ```input()``` method retrieves data from the user and saves it to a variable.</p>
+
+```python
+x = input()
+print(x)
+
+# Adding a text that will be displayed before the answer field
+x = input("Enter some data: ")
+print(x)
+```
+
+<p>We can add an intended type to input. It is a form of pre-validation. If the user inputs a value of a different type than the suggested one, an error will occur.</p>
+
+```python
+x = int(input("Enter an integer: "))
+```
+
+<p>*```int()``` converts a given string (the input) to an integer (type casting).</p>
+
+<h2>Python interpreters</h2>
+
+<h4>CPython</h4>
+<p>CPython is the default and most widely used implementation of Python. Written in the C programming language, CPython serves as the reference implementation of Python, meaning it defines the language's specifications and behavior. It compiles Python code into bytecode, which is then interpreted by the Python Virtual Machine (commonly referenced as "the interpreter"). CPython is known for its extensive support for libraries and compatibility with most Python code.</p>
+
+<h4>Jython</h4>
+<p>Jython is an implementation of Python written in Java. It allows seamless integration with Java libraries, enabling Python developers to use Java code and vice versa. Jython compiles Python code into Java bytecode, which runs on the Java Virtual Machine (JVM). It is particularly useful for developers working in environments that require interoperability between Python and Java.</p>
+
+<h4>PyPy</h4>
+<p>PyPy is a high-performance implementation of Python that features a Just-In-Time (JIT) compiler. The JIT compilation allows PyPy to execute Python code faster than CPython in many cases, making it ideal for performance-critical applications. PyPy is also highly compatible with existing Python code, and its focus on speed and efficiency makes it a popular choice for large-scale applications.</p>
+
+<h4>MicroPython</h4>
+<p>MicroPython is a lightweight implementation of Python designed for microcontrollers and other constrained environments. It is optimized to run on devices with limited resources, such as embedded systems, IoT devices, and microcontrollers like the ESP32 and Raspberry Pi Pico. Despite its small footprint, MicroPython supports most of the core Python features, making it a powerful tool for embedded programming.</p>
+
+<h2>Anaconda</h2>
+
+<p>Anaconda is an open-source distribution of Python and R designed for scientific computing, data analysis, and machine learning. It simplifies package management and deployment by providing a comprehensive set of pre-installed libraries, tools, and frameworks. With Anaconda, we can easily install, update, and manage libraries like NumPy, pandas, and TensorFlow, as well as create isolated environments to avoid version conflicts. The distribution includes the conda package manager, which handles dependency management and ensures compatibility between libraries. Anaconda also includes popular data science tools such as Jupyter Notebook and Spyder, making it a convenient platform for both beginners and professionals working with data science and machine learning projects.</p>
+
+<h2>Python bytecode</h2>
+
+<p>The compiled Python bytecode is stored in files that have their names ending with ```.pyc```. These files are automatically generated by the Python interpreter when a script is executed, and they contain a platform-independent, optimized version of the Python code that can be executed faster by the interpreter. These ```.pyc``` files are typically stored in a ```__pycache__()``` directory within the folder containing the source ```.py``` file. When a Python program is run, the interpreter checks whether the ```.pyc``` file exists and is up-to-date. If it is, the interpreter uses the ```.pyc``` file instead of recompiling the source code, which speeds up the execution. If the ```.pyc``` file is missing or out-of-date, Python recompiles the ```.py``` file and generates a new ```.pyc``` file.</p>
+
+<h2>Python versions</h2>
+
+<p>You can come back to this section later.</p>
+
+<p>Python 2 and Python 3 are two major versions of the Python programming language, with Python 3 being the successor to Python 2. The most notable difference is the change in how strings are handled: in Python 2, strings are ASCII by default, while Python 3 uses Unicode for all strings. Additionally, Python 2’s ```print``` is a statement, whereas Python 3 treats ```print``` as a function. Integer division also differs between the two: Python 2 performs floor division by default when dividing integers, while Python 3 returns a float. Another significant change is the behavior of ```range()```: in Python 2, ```range()``` returns a list, whereas in Python 3, it returns an iterator, making it more memory-efficient. While Python 3 is the future of the language with ongoing updates and support, Python 2 is still in use in some legacy systems, though it officially reached the end of its life in January 2020.</p>

@@ -1,0 +1,436 @@
+---
+title: "Basics"
+order: 1
+---
+
+<p>PHP is a cross-platform <b>deprecated</b> scripting language. It allows developers to write code for web development projects of all sizes. PHP is <b>still widely used</b> in server-side web development, database management, and creating content management systems because it would be <b>costly to replace all the architectures</b>. It is an interpreted, high-level, and general-purpose language. PHP supports procedural, object-oriented, and functional programming paradigms. The extension of a PHP file is ```.php```.</p>
+
+<p>To write in PHP, we need a server. We can host a local one on our computer using the XAMPP Control Panel. You can download it from <a href="https://www.apachefriends.org/download.html" target="_blank" className="link">here</a>. After installation, start the Apache server. The PHP scripts have to be placed in the ```htdocs``` folder inside the ```xampp``` directory to be visible under the ```localhost/your_script_name.php``` address in the web browser.</p>
+
+<p>I do not recommend learning it unless you absolutely have to and definitely do not learn it as your first language. In this tutorial, I will assume you know all the basic programming concepts and only superficially describe the syntax (<b>I will not explain these concepts</b>). The more in-depth part of this tutorial will be about handling HTML forms and communication with a MySQL database.</p>
+
+<h3>Table of contents</h3>
+            
+<ul type="disc">
+    <li><a href="#basic-structure-and-methods" className="link" style={{ textDecoration: "none" }}>Basic structure and methods</a></li>
+    <li><a href="#arrays" className="link" style={{ textDecoration: "none" }}>Arrays</a></li>
+    <li><a href="#loops" className="link" style={{ textDecoration: "none" }}>Loops</a></li>
+    <li><a href="#conditional-statements" className="link" style={{ textDecoration: "none" }}>Conditional statements</a></li>
+    <li><a href="#functions" className="link" style={{ textDecoration: "none" }}>Functions</a></li>
+    <li><a href="#strings" className="link" style={{ textDecoration: "none" }}>Strings</a></li>
+    <li><a href="#dates" className="link" style={{ textDecoration: "none" }}>Dates</a></li>
+    <li><a href="#writing-to-a-file" className="link" style={{ textDecoration: "none" }}>Writing to a file</a></li>
+</ul>
+
+<h2><a id="basic-structure-and-methods">Basic structure and methods</a></h2>
+
+<p>PHP code is written within the ```<body>``` section of an HTML document (with a ```.php``` extension) or in a separate ```.php``` file, enclosed between the ```<?php``` and ```?>``` tags. The ```echo``` instruction is used to print values on the web page. Inside it, we can use HTML elements that will be rendered as part of the output, allowing us to mix PHP and HTML code seamlessly. This enables dynamic content generation within static HTML structures. In PHP, a semicolon is placed after each statement. We must indicate which instructions belong to, e.g., a loop, by putting them in braces (unless it's only one line).</p>
+
+<p>In PHP, ```==``` checks if two values are equal, while ```===``` checks both the value and the type, meaning it returns ```true``` only if both the value and the type are identical.</p>
+
+```php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PHP basics">
+    <title>PHP basics</title>
+</head>
+<body>
+    <?php
+        echo "<br><b>Hello World!</b><br>";
+                    
+        $x = 4; 
+        echo $x;
+        
+        // Quotation marks and apostrophes differ only when displaying variables (variables are parsed within quotation marks but not within apostrophes).
+        echo '<br>';
+        echo 'The value of $x', " is $x";
+        echo "<br>";
+        
+        $z = "World!";
+        echo "Hello ", $z, "<br>";
+        
+        // The operators in PHP are the same as those in C++.
+        $y = 3;
+        echo $x + $y, "<br>";
+        echo $x - $y, "<br>";
+        echo $x * $y, "<br>";
+        echo $x / $y, "<br>";
+        echo $x % $y, "<br>";
+        echo "$x + $y = " . ($x + $y); // dot is a concatenation operator
+
+        $a = 2;
+        $b = 1;
+        $b = $a++; // $a-- also exists
+        echo "<br> $b<br>";
+        $b = ++$a; // --$a  also exists
+        echo "$b <br>";
+        
+        $x = 2;
+        $x += 1; // -=, *=, /=, %= etc.
+
+        // Checking the type of a variable (the is_ methods return 1 for true and nothing for false)
+        $y = null;
+        echo is_array($y);
+        echo is_bool($y);
+        echo is_float($y);
+        echo is_integer($y);
+        echo is_null($y);
+        echo is_string($y);
+        echo "<br>" . gettype($y) . "<br>";
+
+        // Type casting
+        $a = "2";
+        $b = (int)$a;
+        
+        // Long texts (text inside a heredoc is parsed, meaning variables within it are expanded, while nowdoc treats the content as a plain string without parsing variables)
+        $text = "<br>Text";
+// heredoc		
+$lorem = <<<EOD
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat, lacus non aliquet sagittis, justo lectus mollis lorem, quis tempus augue velit a enim. Mauris finibus tellus odio. $text
+EOD;
+        echo $lorem . "<br>";
+
+// nowdoc
+$lorem1 = <<<'EOD'
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat, lacus non aliquet sagittis, justo lectus mollis lorem, quis tempus augue velit a enim. Mauris finibus tellus odio. $text
+EOD;
+        echo $lorem1;
+        
+        // Defining constants
+        define("PI", 3.1415);
+        const NAME = 3.1415;
+    ?>
+</body>
+</html>
+```
+
+<h2><a id="arrays">Arrays</a></h2>
+
+```php
+$array = array(2, 5, 7);
+$array2 = [2, 5, 7];
+echo "<br>" . $array[0];
+
+$assoc_array = array("a" => "b", "c" => "d"); // an associative array = a map
+echo "<br>" . $assoc_array["a"];
+$assoc_array["c"] = "e";
+echo "<br>" . $assoc_array["c"];
+$assoc_array["f"] = "g";
+echo "<br>" . $assoc_array["f"];
+```
+
+<p>The functions with no parameters listed take only one - the array.</p>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```count()```</td>
+        <td>Returning the number of elements in an array (equivalent to ```sizeof()```).</td>
+    </tr>
+    <tr>
+        <td>```sort()```, ```rsort()```</td>
+        <td>Sorting an array in ascending / descending order (uppercase letters are considered smaller than lowercase).</td>
+    </tr>
+    <tr>
+        <td>```asort()```, ```arsort()```</td>
+        <td>Sorting an associative array in ascending / descending order based on the value.</td>
+    </tr>
+    <tr>
+        <td>```ksort()```</td>
+        <td>Sorting an associative array in ascending order based on the key.</td>
+    </tr>
+    <tr>
+        <td>```min()```, ```max()```</td>
+        <td>Returning the minimum / maximum value of an array.</td>
+    </tr>
+    <tr>
+        <td>```array_pop()```</td>
+        <td>Returning the last element of an array and removing it.</td>
+    </tr>
+    <tr>
+        <td>```array_shift()```</td>
+        <td>Returning the first element of an array and removing it.</td>
+    </tr>
+    <tr>
+        <td>```array_reverse()```</td>
+        <td>Creating a copy of an array with reversed element order.</td>
+    </tr>
+    <tr>
+        <td>```array_sum()```</td>
+        <td>Returning the sum of the elements in an array.</td>
+    </tr>
+    <tr>
+        <td>```array_unique()```</td>
+        <td>Removing duplicates from an array.</td>
+    </tr>
+    <tr>
+        <td>```array_merge()```</td>
+        <td>Merging two arrays.</td>
+    </tr>
+    <tr>
+        <td>```shuffle()```</td>
+        <td>Shuffling the array's elements.</td>
+    </tr>
+    <tr>
+        <td>```print_r()```</td>
+        <td>Displaying the contents of an array.</td>
+    </tr>
+    <tr>
+        <td>```array_flip()```</td>
+        <td>Swapping the keys and values of an associative array.</td>
+    </tr>
+    <tr>
+        <td>```array_push($t, $v1, $v2, ...)```</td>
+        <td>Adding values ```$v1```, ```$v2```, ... at the end of array ```$t```.</td>
+    </tr>
+    <tr>
+        <td>```range($s, $k, $c)```</td>
+        <td>Creating an array containing integers from ```$s``` to ```$k``` with step ```$c``` (optional). Example: ```range(1, 10, 2);``` (returns: ```[1, 3, 5, 7, 9]```).</td>
+    </tr>
+    <tr>
+        <td>```array_slice($t, $o, $m)```</td>
+        <td>Creating an array containing ```$m``` elements from array ```$t```, starting from index ```$o```. Example: ```array_slice([1, 2, 3, 4, 5, 6, 7, 8], 2, 3);``` (returns: ```[3, 4, 5]```).</td>
+    </tr>
+</table></div>                                  
+
+<h2><a id="loops">Loops</a></h2>
+```php
+// Multiplication table from a random range
+$n = rand(10, 30); // generating a random number from 10 to 30
+echo "<table>";
+for ($i = 1; $i <= $n; $i++) {
+    echo "<tr>";
+    for ($j = 1; $j <= $n; $j++)
+        echo "<td>" . ($i * $j) . "</td>";
+    echo "</tr>";
+}
+echo "</table>";
+```
+
+```php
+$number = 132;
+echo "The number $number written in reverse order is: ";
+while ($number > 0) {
+    echo $number % 10;
+    $number = floor($number / 10);
+}
+```
+
+```php
+$i = 1;
+do {
+    echo "<br>X<br>";
+} while ($i < 1);
+```
+
+```php
+$sum = 0;
+$array = [7, 45, 23, 79, 90, 12, 34, 7, -4, 3];
+foreach($array as $value) {
+    echo $value . "<br>";
+    $sum += $value;
+}
+echo "The sum of the array values is $sum.<br>";
+```
+
+```php
+$names = array('Peter' => 'Smith', 'Ada' => 'Jones', 'John' => 'Williams', 'Anne' => 'Brown');
+foreach($names as $key => $value) {
+    echo $key . " " . $value . "<br>";
+}    
+```
+
+<h2><a id="conditional-statements">Conditional statements</a></h2>
+
+```php
+$x = 126;
+if ($x % 2 == 0) {
+    echo "Number $x is even<br>";
+}
+elseif ($x == 0) { // could be also: "else if" (with a space)
+    echo "Number $x is 0<br>";
+}
+else {
+    echo "Number $x is odd<br>";
+}
+```
+
+```php
+$sign = "+";
+$a = rand(0, 100);
+$b = rand(0, 100);
+echo "The generated numbers are $a and $b <br>";
+switch ($sign) {
+    case "+":
+        echo $a + $b;
+        break;
+    case "-":
+        echo $a - $b;
+        break;
+    case "*":
+        echo $a * $b;
+        break;
+    default:
+        echo "Operation not selected";
+        break;
+}
+```
+
+```php
+$x = 10;
+$condition = ($x > 10) ? 5 : 6;
+```
+
+<h2><a id="functions">Functions</a></h2>
+
+<ul>
+    <li>Local variables = inside functions</li>
+    <li>Global variables = throughout the entire script except functions</li>
+    <li>Superglobal variables = throughout the entire script</li>
+</ul>
+
+```php
+function func() {
+    echo "Function<br>";
+}
+func();
+```
+
+```php
+function addition($x, $y) {
+    return $x + $y;
+}
+echo addition(5, 3) . "<br>";
+```
+
+```php
+$x = 7;
+function area() {
+    global $x; // accessing a global variable inside a function (could be also: $x = $GLOBALS['x'];)
+    $area = $x * $x;
+    echo "The area of a square with side $x is $area.<br>";
+}
+area();
+```
+
+```php
+function count1() {
+    static $a = 0; // a static variable
+    echo $a . "<br>";
+    $a++;
+}
+count1();
+count1();
+count1();
+```
+
+```php
+function increment(&$a) { // a reference
+    $a++;
+}
+$a = 5;
+increment($a);
+echo $a . "<br>";
+```
+
+```php
+function default_parameters($x = 1) {
+    echo $x;
+}
+default_parameters();    
+```
+
+<h2><a id="strings">Strings</a></h2>
+
+<p>The functions with no parameters listed take only one - the string.</p>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```mb_strlen()```</td>
+        <td>Returning the number of characters in a string (its length).</td>
+    </tr>
+    <tr>
+        <td>```strtolower()```, ```strtoupper()```</td>
+        <td>Converting a string to lowercase / uppercase.</td>
+    </tr>
+    <tr>
+        <td>```strrev()```</td>
+        <td>Reversing a string.</td>
+    </tr>
+    <tr>
+        <td>```trim()```</td>
+        <td>Removing whitespace characters from both ends of a string.</td>
+    </tr>
+    <tr>
+        <td>```ucwords()```</td>
+        <td>Capitalizing the first letter of each word in a string.</td>
+    </tr>
+    <tr>
+        <td>```substr($string, $starting_index, $length)```</td>
+        <td>Returning a part of a string. Example: ```substr("Hello World!", 6, 5);``` (returns: ```"World"```).</td>
+    </tr>
+    <tr>
+        <td>```strpos($string, $substring)```</td>
+        <td>Finding the position of the first occurrence of a substring in a string (the index of the substring's first letter). If there are more than one - the index of the first one encountered. Example: ```strpos("Hello World!", "World");``` (returns: ```6```).</td>
+    </tr>
+    <tr>
+        <td>```explode($delimiter, $string)```</td>
+        <td>Breaking a string into an array by dividing it every time a given delimiter is encountered. Example: ```explode(",", "apple,banana,cherry");``` (returns: ```["apple", "banana", "cherry"]```).</td>
+    </tr>
+    <tr>
+        <td>```implode($delimiter, $array)```</td>
+        <td>Joining the elements of an array into a single string by inserting a delimiter between each element. Example: ```implode("-", ["apple", "banana", "cherry"]);``` (returns: ```"apple-banana-cherry"```).</td>
+    </tr>
+    <tr>
+        <td>```str_replace($search, $replacement, $string)```</td>
+        <td>Replacing all occurrences of a substring with another substring. Example: ```str_replace("apples", "oranges", "I like apples.");``` (returns: ```"I like oranges."```).</td>
+    </tr>
+    <tr>
+        <td>```str_repeat($string, $times)```</td>
+        <td>Repeating a string a specified number of times. Example: ```str_repeat("abc", 3);``` (returns: ```"abcabcabc"```).</td>
+    </tr>
+    <tr>
+        <td>```str_pad($string, $length, $pad_string, $pad_type)```</td>
+        <td>Padding a string to a certain length with another string. Example: ```str_pad("123", 5, "0", STR_PAD_LEFT);``` (returns: ```"00123"```).</td>
+    </tr>
+    <tr>
+        <td>```str_split($string, $length)```</td>
+        <td>Splitting a string into an array of substrings, where each substring has a specified maximum length. Example: ```str_split("Hello", 2);``` (returns: ```["He", "ll", "o"]```).</td>
+    </tr>          
+    <tr>
+        <td>```strstr($string, $substring)```</td>
+        <td>Checking whether a string contains a given substring and returning the part of the string from the first occurrence of that substring to the end, or ```false``` if the substring is not found. Example: ```strstr("Hello World!", "World");``` (returns: ```"World!"```).</td>
+    </tr>                          
+</table></div> 
+
+<h2><a id="dates">Dates</a></h2>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```time()```</td>
+        <td>Returning the current Unix timestamp (number of seconds since 1970-01-01).</td>
+    </tr>
+    <tr>
+        <td>```date($format, $timestamp)```</td>
+        <td>Formatting a timestamp into a readable date string. The ```$timestamp``` parameter is optional. If it is not provided, PHP uses the current time automatically (as if ```time()``` was passed). Example: ```date("Y-m-d")``` returns the current date in YYYY-MM-DD format (```H``` - hour (```G``` also means hour but without leading zeros), ```i``` - minute, ```s``` - second).</td>
+    </tr>
+    <tr>
+        <td>```date("N")```</td>
+        <td>Returning the numeric representation of the day of the week (1 for Monday through 7 for Sunday).</td>
+    </tr>
+    <tr>
+        <td>```strtotime($string)```</td>
+        <td>Converting a human-readable date into a Unix timestamp. Example: ```strtotime("2024-01-01");```.</td>
+    </tr>
+    <tr>
+        <td>```getdate($timestamp)```</td>
+        <td>Returning an associative array with date and time information based on a timestamp.</td>
+    </tr>
+</table></div>
+
+<h2><a id="writing-to-a-file">Writing to a file</a></h2>
+
+<p>The ```file_put_contents()``` method is used to write data to a file. If the file does not exist, it will be created. We can also use this method to overwrite existing files or append data based on the optional flags provided. Writing to a file: ```file_put_contents($file_name, $content);```. Appending to a file: ```file_put_contents($file_name, $content, FILE_APPEND);```. The ```file_get_contents()``` method is used to read from a file (```$content = file_get_contents($file_name);```).</p>
+                                

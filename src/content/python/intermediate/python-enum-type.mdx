@@ -1,0 +1,42 @@
+---
+title: "Enum type"
+order: 12
+---
+
+<p>An ```Enum``` (short for enumeration) is a custom data type that allows us to define a fixed set of named values. In other words, it specifies exactly which values a variable of that type can take. When defining an ```Enum```, we list all possible values inside braces. This is similar to how built-in types like ```int``` have a defined range of allowed values, but in this case, we explicitly decide what those values are.</p>
+
+```python
+from enum import Enum
+
+class Day(Enum):
+    Mo = "Monday"
+    Tu = "Tuesday"
+    We = "Wednesday"
+    Th = "Thursday"
+    Fr = "Friday"
+    Sa = "Saturday"
+    Su = "Sunday"
+
+print(Day.Tu.value) # works like using a predefined constant instead of a raw value
+
+def get_day(x: Day) -> str:
+    return x.value
+
+today = Day.Mo
+print(get_day(today))
+```
+
+<p></p>
+
+```python
+from enum import Enum, auto
+
+class Color(Enum):
+    RED = auto() # automatically assigning increasing integer values (starting from 1) to the members of an Enum class
+    GREEN = auto()
+    BLUE = auto()
+
+print(Color.RED.value) # 1
+print(Color.GREEN.value) # 2
+print(Color.BLUE.value) # 3
+```

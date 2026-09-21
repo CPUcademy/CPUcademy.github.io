@@ -1,0 +1,93 @@
+---
+title: "The most important built-in methods"
+order: 11
+---
+
+ <h2>The ```map()``` method</h2>
+            
+<p>The ```map()``` method takes a function and a list of numbers as parameters. It applies the given function to each item in the list and returns a new one with the results.</p>
+
+```python
+print(list(map(lambda x: x + 3, [1, 2, 3, 4]))) # this fuction doesn't have to be a lambda
+
+numbers = list(map(int, input().split())) # taking space-separated input, converting each item to an integer, and storing them in a list
+print(numbers)
+
+n, m = map(int, input().split()) # taking two values separated with a space, converting each value to an integer, and storing them in two separate variables
+print("Sum:", n + m)
+
+print(list(map(chr, range(97, 123)))) # creating a list of all English lowercase letters (from ASCII characters)
+```
+
+<h2>The ```filter()``` method</h2>
+
+<p>The ```filter()``` method takes a predicate (a function returning a boolean) and a list of numbers as parameters. It applies the given function to each item in the list and returns a new one with only those items for which the function returned ```True```.</p>
+
+```python
+print(list(filter(lambda x: x % 2 == 0, [1, 2, 3, 4])))
+```
+
+<h2>The ```reduce()``` method</h2>
+
+<p>The ```reduce()``` method takes an accumulator function and a list of numbers as parameters. It applies a rolling computation to the elements of the list, combining them one by one into a single result.</p>
+
+```python
+from functools import reduce
+print(reduce(lambda x, y: x + y, [1, 2, 3, 4]))
+```
+
+<h2>The ```zip()``` method</h2>
+
+<p>The ```zip()``` method can be used to process multiple iterables (iterable objects) simultaneously (the first example) or to combine elements of two or more iterables into one object (the second example).</p>
+
+```python
+strings = ["a", "ab", "abc"]
+counts = [len(n) for n in strings]
+longest_string = None
+max_count = 0
+for stringg, countt in zip(strings, counts):
+    if countt > max_count:
+        longest_string = stringg
+        max_count = countt
+print(longest_string)
+```
+
+```python
+list1 = ["1", "2", "3", "4"]
+list2 = ["a", "b", "c", "d"]
+merged = list(zip(list1, list2))
+print(merged)    
+```
+
+<h2>The ```enumerate()``` method</h2>
+
+<p>I have already mentioned this method in the lesson about data structures. It is very useful and preferred over ```range()```.</p>
+
+  ```python
+# Accessing the item and its index simultaneously while iterating a list (it works with all iterable data structures)
+x = ["a", "b", "c", "d"]
+for indexx, item in enumerate(x):
+    print(indexx, item)
+```
+            
+```python
+x = enumerate(["a", "b", "c", "d", "e", "f"])
+print(next(x)) # (0, "a")
+print(next(x)) # (1, "b")
+```
+
+```python
+x = [["a", 1], ["b", 2], ["c", 3]]
+for indexx, [name, number] in enumerate(x):
+    print(f"{indexx}: {number} belongs to {name}")
+```
+
+<p>We can combine ```enumerate()``` with ```zip()``` to iterate over multiple iterables while also keeping track of the index.</p>
+
+```python
+list1 = ["apple", "banana", "cherry"]
+list2 = [5, 3, 8]
+
+for indexx, (fruit, quantity) in enumerate(zip(list1, list2)):
+    print(f"{indexx}: {fruit} -> {quantity}")
+```

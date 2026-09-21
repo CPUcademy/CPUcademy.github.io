@@ -1,0 +1,47 @@
+---
+title: "Stored functions"
+order: 12
+---
+
+<p>Stored functions are blocks of SQL statements executed on demand. Unlike stored procedures, they have to return a value (of any type) and are called within SQL queries. Functions can but don't have to take arguments.</p>
+
+<p>A parameter is a variable declared in a function definition to act as a placeholder for input values passed during a function call. Parameters are specified in parentheses, separated by commas, and are used within the function. For example, in ```UPPER(str)```, ```str``` is a parameter. An argument is the actual input value provided to the function when it is called. For instance, in ```UPPER('hello world')```, the string ```'hello world'``` is an argument.</p>
+
+<h4>Creating a function</h4>
+
+<p>The ```INTO``` keyword captures a query's result value and assigns it to a variable, which can then be used in the function's ```RETURN``` statement.</p>
+
+```sql
+DELIMITER //
+CREATE FUNCTION sum_of_values () RETURNS INT -- VARCHAR and CHAR would have to include the number of allowed characters, e.g., VARCHAR(255)
+BEGIN
+    DECLARE sum1 INT;
+    SELECT SUM(column_name) INTO sum1 FROM table_name;
+    RETURN sum1;
+END//
+DELIMITER ;
+
+-- Calling a function
+SELECT sum_of_values();
+```
+
+```sql
+CREATE FUNCTION full_name(name CHAR(20), surname CHAR(20)) RETURNS CHAR(40) -- a function that takes arguments
+RETURN CONCAT(name, ' ', surname); -- concatenating (joining) strings
+```
+
+<h4>Basic statements</h4>
+
+```sql
+-- Calling a function
+SELECT UPPER('hello world'); -- UPPER is a built-in function
+
+-- Displaying a list of functions
+SHOW FUNCTION STATUS;
+
+-- Displaying the code of a function
+SHOW CREATE FUNCTION function_name;
+
+-- Deleting a function
+DROP FUNCTION function_name;
+```

@@ -1,0 +1,178 @@
+---
+title: "Iterative and recursive algorithms"
+order: 3
+---
+
+<p>Each of the algorithms below has two versions: iterative and recursive. Iterative is the one made using loops, and recursive is the one where the function executes itself.</p>
+
+<h3>Table of contents</h3>
+
+<ul type="disc">
+    <li><a href="#factorial" className="link" style={{ textDecoration: "none" }}>Factorial</a></li>
+    <li><a href="#fibonacci-sequence" className="link" style={{ textDecoration: "none" }}>Fibonacci sequence</a></li>
+    <li><a href="#horners-method" className="link" style={{ textDecoration: "none" }}>Horner's method</a></li>
+    <li><a href="#exponentiation" className="link" style={{ textDecoration: "none" }}>Exponentiation</a></li>
+</ul>
+
+<h2><a id="factorial">Factorial</a></h2>
+
+<p>A factorial is a product of all natural numbers to a given number.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+unsigned int factorial1(int x) {
+    int result = 1;
+    for (int i = 1; i <= x; i++)
+        result *= i;
+    return result;
+}
+
+unsigned int factorial2(int x) {
+    if (x == 1 || x == 0)
+        return 1;
+    return factorial2(x - 1) * x;
+}
+
+int main() {
+    cout << factorial1(5) << endl;
+    cout << factorial2(5) << endl;
+
+    return 0;
+}
+```
+
+<h2><a id="fibonacci-sequence">Fibonacci sequence</a></h2>
+
+<p>The Fibonacci sequence is a sequence in which each number is the sum of the two preceding ones (0 1 1 2 3 5 8 13 21 34 55 89 144 ...).</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+unsigned int fib1(int n) { // this solution is more efficient
+    int leftNumber = 0, rightNumber = 1, result;
+
+    if (n == 0)
+        return 0;
+    else if (n == 1)
+        return 1;
+    else {
+        for (int i = 2; i <= n; i++) {
+            result = leftNumber + rightNumber;
+            leftNumber = rightNumber;
+            rightNumber = result;
+        }
+    }
+
+    return result;
+}
+
+unsigned int fib2(int n) {
+    if (n == 0)
+        return 0;
+    else if (n == 1)
+        return 1;
+    else
+        return fib2(n - 1) + fib2(n - 2);
+}
+
+int main() {
+    cout << fib1(7) << endl;
+    cout << fib2(7) << endl;
+
+    return 0;
+}
+```
+
+<h2><a id="horners-method">Horner's method</a></h2>
+
+<p>Horner's method allows us to simplify polynomials with lots of multiplications by taking the factors out of brackets, and therefore it speeds up the operations.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int Horner1(int factors[], int polynomialDegree, int x) {
+    int result = factors[0];
+    for (int i = 1; i <= polynomialDegree; i++)
+        result = result * x + factors[i];
+    return result;
+}
+
+int Horner2(int factors[], int polynomialDegree, int x) {
+    if (polynomialDegree == 0)
+        return factors[0];
+    else
+        return x * Horner2(factors, polynomialDegree - 1, x) + factors[polynomialDegree];
+}
+
+int main() {
+    /* Example: 
+    Polynomial: x^5 + 7x^3 + x + 1
+    The greatest power inside of it: 5
+
+    The factors: 1, 0, 7, 0, 1, 1
+    For the 5th power, there is one x, for the 4th power - 0x, for the 3rd power - 7x ... and there is one without an x at the end.
+    */
+
+    int polynomialDegree; // the greatest power inside of the polynomial
+    cout << "Enter the degree of the polynomial: ";
+    cin >> polynomialDegree;
+
+    int *factors = new int[polynomialDegree]; 
+    cout << "Enter the factors of the polynomial: ";
+    for (int i = 0; i <= polynomialDegree; i++) { 
+        cout << "Factor nr. " << i + 1 << " = ";
+        cin >> factors[i]; 
+    } 
+
+    int x;
+    cout << "Enter x: ";
+    cin >> x; 
+
+    cout << Horner1(factors, polynomialDegree, x) << endl;
+    cout << Horner2(factors, polynomialDegree, x) << endl;
+
+    delete[] factors;
+
+    return 0;
+}
+```
+
+<h2><a id="exponentiation">Exponentiation</a></h2>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int b, e;
+
+int Exponentiation1(int b, int e) {
+    int result = 1;
+    for (int i = 0; i < e; i++)
+        result *= b;
+    return result;
+}
+
+int Exponentiation2(int e) {
+    if (e == 0)
+        return 1;
+    else
+        return b * Exponentiation2(e - 1);
+}
+
+int main() {
+    cout << "Enter the base: ";
+    cin >> b;
+
+    cout << "Enter the exponent: ";
+    cin >> e;
+
+    cout << Exponentiation1(b, e) << endl;
+    cout << Exponentiation2(e) << endl;
+
+    return 0;
+}
+```

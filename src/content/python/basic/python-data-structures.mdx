@@ -1,0 +1,680 @@
+---
+title: "Data structures"
+order: 8
+---
+
+<p>A data structure organizes and stores data in memory for efficient access and modification. A collection is a group of data items treated as a single unit, focusing on operations like adding, removing, and iterating over elements. While collections rely on data structures, they offer a more abstract way to manage groups of objects. All collections are based on data structures, but not all data structures are collections.</p>
+
+<p class="noBottomMargin">There are a lot of data structures:</p>
+<ul type="disc">
+    <li>Text structure: ```str```</li>
+    <li>Numeric structures: ```int```, ```float```, <a href="#complex" class="link"><code style={{color: "#157267"}}>complex</code></a></li>
+    <li>Sequence structures: <a href="#list" class="link"><code style={{color: "#157267"}}>list</code></a>, <a href="#tuple" class="link"><code style={{color: "#157267"}}>tuple</code></a></li>
+    <li>Mapping structure: <a href="#dict" class="link"><code style={{color: "#157267"}}>dict</code></a></li>
+    <li>Set structures: <a href="#set" class="link"><code style={{color: "#157267"}}>set</code></a>, <a href="#frozenset" class="link"><code style={{color: "#157267"}}>frozenset</code></a></li>
+    <li>Boolean structure: ```bool```</li>
+    <li>Null structure: ```None```</li>
+    <li>Binary structures: <a href="#bytes" class="link"><code style={{color: "#157267"}}>bytes</code></a>, <a href="#bytearray" class="link"><code style={{color: "#157267"}}>bytearray</code></a></li>
+    <li>From the ```collections``` module: <a href="#deque" class="link"><code style={{color: "#157267"}}>deque</code></a>, <a href="#defaultdict" class="link"><code style={{color: "#157267"}}>defaultdict</code></a></li>
+</ul>
+
+<p>In this lesson, we will also learn about <a href="#multidimensional-structures" class="link">multidimensional structures</a> and <a href="#type-casting" class="link">type casting</a>. Some of the names above are links to specific sections of this page.</p>
+
+<p>We already know a few structures (```str```, ```int```, ```float```, ```bool```, and ```None```), and I will introduce the rest in this lesson. Data structures have different qualities based on how they are declared and used. We can go with a loop through sequence, mapping, and set structures, just like with strings (e.g., ```for x in "abcde":```). They are called <b>iterable</b> data structures.</p>
+
+<p>A list is mutable, which means that if we assign it to an ```x``` variable, we will have two names referring to the same object (they will have the same ID). However, if we assign a string to an ```x``` variable, a second variable will be created (because it is immutable). This variable will contain the same data, but while editing the original version, we will not edit the copy (which was the case with the list). All the structures we already know are immutable.</p>
+                
+```python
+listt = [1, 2, 3] # list is mutable
+x = listt
+print(x)
+print(listt)
+x.append(4)
+print(x)
+print(listt)
+```
+            
+```python
+stringg = "string" # string is immutable
+x = stringg
+print(x)
+print(stringg)
+x += "s"
+print(x)
+print(stringg)
+```
+
+<p>All mutable types, like lists, when passed as arguments to a function and modified inside it, will change their value in the outer scope (the parameter holds a reference to the original object). Meanwhile, all immutable types, like strings, must be returned from a function for the changes made inside to take effect.</p>
+
+```python
+def modify_list(numbers):
+    numbers.append(4)
+
+def modify_string(textS):
+    textS = textS + " world"
+
+numbers = [1, 2, 3]
+modify_list(numbers)
+print(numbers) # [1, 2, 3, 4]
+
+textS = "hello"
+modify_string(textS)
+print(textS) # "hello"
+```
+
+<h4>```is```</h4>
+
+<p>The ```is``` keywords check whether two objects are the same (in terms of memory addresses), while the ```==``` operator checks whether two objects have the same values.</p>
+
+```python
+x = "x"
+y = x
+print(x is y, x == y)
+y = "y"
+print(x is y, x == y)
+```
+
+<p>When checking whether a variable is ```None```, we should always use the ```is``` keyword instead of the ```==``` operator.</p>
+            
+<h2>Mutable data structures</h2>
+
+<h2><a id="list">Lists</a></h2>
+
+<p>We use lists to store many objects of all types. We create them using square brackets. We can immediately fill the array with objects after commas or leave it empty. Remember that we can't name a list "list" because it is its keyword, and we use it in type casting (I will explain it at the end of this lesson). A list index is the position number used to access or reference a specific element within an array, starting from 0. Just like with strings, we can use the ```index()``` method to get the index of any item in the list and check how many elements it has using the ```len()``` method.</p>
+
+<h4>```append()```</h4>
+
+```python
+# Adding an element to a list
+x = []
+print("List before:", x)
+x.append("Python")
+print("List after:", x)
+```
+            
+<h4>```reverse()``` and ```reversed()```</h4>
+            
+```python
+# Reversing the order of elements in a list
+x = [3, 3.5, "Python"]
+print("List before:", x)
+x.reverse()
+print("List after:", x)
+
+y = list(reversed(x)) # creating a new reversed list without modifying the original list
+print("A new reversed list:", y)
+```
+            
+<h4>```remove()```</h4>
+            
+```python
+# Deleting an element from a list
+x = ["Python"]
+print("List before:", x)
+x.remove("Python")
+print("List after:", x)
+```
+            
+<h4>List indexing</h4>
+
+<p>The rules are the same as for string indexing. We can index all iterable data structures.</p>
+            
+```python
+x = ["a", "b", "c", "d", "e", "f"]
+print(x[2]) # the third element - "c"
+print(x[1:3]) # from the 2nd element (included) to the 4th (excluded) - ["b", "c"]
+```
+            
+<h4>Iterating over a list</h4>
+            
+```python
+# Accessing every single list element independently
+x = [3, 3.5, "Python"]
+for y in x:
+    print(y)
+```
+
+<h4>Unpacking a list</h4>
+            
+```python
+# Unpacking list values to individual variables (also works with, e.g., tuples)
+a, b, c = [1, 2, 3]
+```
+
+<h4>Modifying a list with indexing</h4>
+            
+```python
+x = [1, 2, 3, 4, 5, 6]
+x[2:4] = [7, 8]
+print(x) # [1, 2, 7, 8, 5, 6]
+
+y = [1, 2, 3, 4, 5, 6]
+y[2:3] = [7, 8]
+print(y) # [1, 2, 7, 8, 4, 5, 6]
+```
+            
+<h4>```enumerate()```</h4>
+            
+```python
+# Accessing the item and its index simultaneously while iterating a list (it works with all iterable data structures)
+x = ["a", "b", "c", "d"]
+for indexx, item in enumerate(x):
+    print(indexx, item)
+```
+            
+```python
+x = enumerate(["a", "b", "c", "d", "e", "f"])
+print(next(x)) # (0, "a")
+print(next(x)) # (1, "b")
+```
+
+```python
+x = [["a", 1], ["b", 2], ["c", 3]]
+for indexx, [name, number] in enumerate(x):
+    print(f"{indexx}: {number} belongs to {name}")
+```
+
+<p>Replace ```range()``` with ```enumerate()``` as often as possible (by <b>PEP8</b> guidelines).</p>
+            
+<h4>```sorted()``` and ```sort()```</h4>
+
+<p>These two methods sort a collection (if it contains letters, alphabetically). While ```sort()``` modifies the original list in place and returns ```None```, ```sorted()``` returns a new sorted list, leaving the original iterable unchanged. ```sort()``` works only for lists, and ```sorted()``` can also be used for other iterables (tuples, strings, etc.)</p>
+
+```python
+x = ["b", "d", "a", "c"]
+print(sorted(x))
+
+y = ["b", "d", "a", "c"]
+y.sort()
+print(y)  
+```
+
+<p>Both methods allow an optional argument (```reverse = True```) to customize how the list is sorted.</p>
+
+<h4>```max()``` and ```min()```</h4>
+            
+```python
+x = [1, 2, 3, 4, 5]
+print(max(x)) # the biggest number from a list
+print(min(x)) # the smallest number from a list
+```
+            
+<p>If the list contains letters, the sorting is alphabetical.</p>
+
+<h4>```insert()```</h4>
+            
+```python
+# Adding an element to a list on a particular index (the rest of the items will move)
+x = ["a", "b", "c", "d"]
+x.insert(0, "e")
+print(x)
+```
+            
+<h4>```pop()```</h4>
+    
+<p>This method also works with sets and dictionaries.</p>
+            
+```python
+# Deleting an element chosen by index from a list (if no argument is given - the last element)
+x = ["a", "b", "c", "d"]
+x.pop(2) # if we assign this method to a variable, it will equal this deleted value (this method returns it)
+print(x)
+```
+            
+<h4>```count()```</h4>
+            
+```python
+# Counting the number of times an element occurs in a list
+x = ["a", "b", "c", "d"]
+print(x.count("a"))
+```
+            
+<h4>```extend()```</h4>
+            
+```python
+# Extending a list with an another iterable data structure
+x = ["a", "b", "c", "d"]
+y = ["e", "f"]
+x.extend(y)
+print(x)
+```
+            
+<h4>"Truly" copying a list</h4>
+
+<div className="alert alert-warning">
+    Come back here after learning what a module is.
+</div>  
+
+<p>Check out the <a href="python-copy.html" target="_blank" class="link"><code style={{color: "#157267"}}>copy</code></a> module. These methods also work with sets and dictionaries.</p>
+            
+<h4>```clear()```</h4>
+
+<p>This method also works with sets and dictionaries.</p>
+            
+```python
+# Purging a list
+x = ["a", "b", "c", "d"]
+x.clear()
+print(x)
+```
+            
+<h4>```any()``` and ```all()```</h4>
+
+<p>```any()``` checks if any element in a list is ```True```, and ```all()``` scans if all of them are.</p>
+            
+```python
+x = int(input())
+y = int(input())
+z = [x == 2, y == 4]
+if any(z):
+    print("The x variable equals 2, or/and the y variable equals 4.")
+```
+            
+```python
+x = int(input())
+y = int(input())
+z = [x == 2, y == 4]
+if all(z):
+    print("The x variable eqauls 2, and the y variable equals 4.")
+```
+
+<h4>Unpacking a list</h4>
+
+<p>This method also works with sets and dictionaries.</p>
+            
+```python
+# Purging a list
+x = ["a", "b", "c", "d"]
+x.clear()
+print(x)
+```
+
+<h2><a id="set">Sets</a></h2>
+
+<p>Sets are like lists, but their elements are unique. Even if we add, e.g., the number 4 twice, it will keep only one. Its elements can mix indexes (they are stored in random order). We write its elements in braces, but if we want to create an empty set, we have to write ```x = set()``` because empty braces are reserved for dictionaries.</p>
+
+<p>We can achieve better performance when searching sets than other data structures, e.g., lists.</p>
+
+<h4>```add()```</h4>
+            
+```python
+# Adding an element to a set
+x = {3, 3.5}
+x.add("Python")
+print(x)
+```
+            
+<h4>```union()```</h4>
+            
+```python
+# Merging two sets
+x = {1, 2}
+y = {3, 4}
+print(x.union(y))
+```
+            
+<h4>```discard()```</h4>
+            
+```python
+# Deleting an element from a set
+x = {1, 2, 3, 4}
+x.discard(2)
+print(x)
+```    
+        
+<h4>```issuperset()``` and ```issubset()```</h4>
+
+<p>Set ```x``` is the superset of set ```y``` if all elements of ```y``` are in ```x```. A set is a subset of another set if it is not its superset.</p>
+            
+```python
+x = {1, 2, 3, 4}
+y = {1, 2}
+print(x.issuperset(y))
+print(y.issuperset(x))
+print(x.issubset(y))
+print(y.issubset(x))
+```
+            
+<h4>```intersection()```</h4>
+            
+```python
+# Creating a new set with elements that occur in both sets
+x = {1, 2, 3, 4}
+y = {1, 3, 5}
+print(x.intersection(y))
+```
+            
+<h4>```difference()```</h4>
+            
+```python
+# Creating a new set with elements that occur only in the first set
+x = {1, 2, 3, 4, 8}
+y = {1, 3, 5, 7}
+print(x.difference(y))
+```
+            
+<h4>```isdisjoint()```</h4>
+            
+```python
+# Checking if two sets have any common elements
+x = {1, 2, 3, 4}
+y = {1, 3, 5, 7}
+z = {9, 10}
+print(x.isdisjoint(y))
+print(x.isdisjoint(z))
+```
+
+<h2><a id="dict">Dictionaries</a></h2>
+
+<p>Dictionaries work on the key-value coding rule, which states that searching for the key will give us the value. Every data structure can be a value. Using the dictionary keys, we can fetch the assigned values. In the example below, "Python" and "list" are keys, and "programming language" and "data structure" are values.</p>
+
+```python
+x = {"Python": "programming language", "list": "data type"}
+x["list"] = "mutable data structure" # editing the value under a given key
+print(x["list"]) # displaying the value under a given key
+```
+
+<p>We can add objects to the dictionary using the same method.</p>
+            
+```python
+x = {"Python": "programming language", "list": "data structure"}
+x["tuple"] = "immutable data structure"
+print(x)
+```
+            
+<p>The ```keys()``` method gives us a list of keys in the dictionary, while the ```values()``` method provides a list of its values. The ```items()``` method creates a list of tuples with keys and values inside them.</p>
+            
+```python
+x = {"Python": "programming language", "list": "data structure"}
+print(x.keys())
+print(x.values())
+print(x.items())
+
+for y in x: # iterating over the keys of a dictionary (the same as "for y in x.keys()")
+    print(y)
+```
+        
+<h4>```del()```</h4>
+            
+```python
+# Deleting a key (and its value) from the dictionary
+x = {"Python": "programming language", "list": "data structure"}
+del x["Python"]
+print(x)
+```    
+
+<h4>```get()```</h4>
+            
+```python
+# Displaying the value under a given key, and if it doesn't exist - the default value
+x = {"first": 1, "second": 2}
+print(x.get("second", "default"))
+print(x.get("third", "default"))
+```
+            
+<h4>```update()```</h4>
+            
+```python
+# Merging and overriding dictionaries
+x = {"Python": "programming language", "list": "data structure"}
+y = {"C++": "programming language"}
+z = {"list": "mutable data structure"}
+x.update(y)
+x.update(z)
+print(x)
+```
+    
+<h4>```setdefault()```</h4>
+            
+```python
+# Providing a default value for a dictionary key (it returns the value if the key exists, otherwise sets it to the default)
+inventory = {"apples": 5, "oranges": 3}
+print(inventory)
+
+apples = inventory.setdefault("apples", 0) # key exists, returns 5
+bananas = inventory.setdefault("bananas", 10) # key doesn't exist, sets to 10
+print(inventory)
+print(apples)
+print(bananas)
+```
+
+<h4>```sorted()```</h4>
+            
+```python
+# Sorting dictionary keys by their values (in ascending order)
+scores = {"Alice": 88, "Bob": 95, "Charlie": 70, "David": 88}
+sorted_keys = sorted(scores, key=scores.get)
+print(sorted_keys)
+```
+            
+<h4>```popitem()```</h4>
+            
+```python
+# Deleting the last element from a dictionary (if we assign this method to a variable, it will equal this deleted value)
+x = {"a": 1, "b": 2, "c": 3}
+x.popitem()
+print(x)
+y = x.popitem()
+print(y)
+print(x)
+```
+            
+<h4>```True``` and 1</h4>
+            
+```python
+z = {True: "a", 1: "b", 1.0: "c"}
+print(z[True]) # True = 1 = 1.0 so True = "c"
+```
+            
+<h2><a id="bytearray">Bytearray</a></h2>
+
+<p>I recommend you read about <a href="#bytes" class="link">bytes</a> first and then come back. We use bytearray, e.g., like this: ```bytearray([65, 66])```. It has the same properties as the bytes structure, except it is mutable. This makes it suitable for situations where we need to change the byte data during processing.</p>
+
+<p>We can create a bytearray object using the ```bytearray()``` method, passing a list of integers between 0 and 255. For example: ```bytearray([65, 66])```. The result would be ```b'AB'``` (it decodes from Unicode). We can modify its contents like this: ```data[0] = 67``` (change from "A" to "C").</p>
+
+<p>We handle binary files using different symbols, such as ```rb``` instead of ```r``` and ```wb``` instead of ```w```.</p>
+
+```python
+data = bytearray(10)
+for i in range(len(data)):
+    data[i] = 10 + i
+
+with open("file.bin", "wb") as file:
+    file.write(data)    
+```
+
+<p>Two ways of reading from a binary file:</p>
+
+```python
+data = bytearray(10)
+
+with open("file.bin", "rb") as file:
+    file.readinto(data)
+    
+for x in data:
+    print(hex(x), end=" ")
+```
+
+```python
+with open("file.bin", "rb") as file:
+    data = bytearray(file.read())
+    
+for x in data:
+    print(hex(x), end=" ")
+```
+
+<p>Bytes is immutable, making it ideal for storing fixed binary data. Bytearray, however, allows modifying the data, which makes it more suitable for processing or manipulating data in memory.</p>
+
+<h2>Immutable data structures</h2>
+
+<h2><a id="tuple">Tuples</a></h2>
+
+<p>Tuples are similar to lists, but they are immutable. When we add an object to a tuple, Python creates another tuple with the same name and items plus the added one, while the previous one deletes itself. We write its elements in parentheses. Tuples share most methods with lists.</p>
+            
+```python
+x = (3, 3.5)
+x += ("Python",) # the comma at the end is necessary (otherwise, this would be considered a string because there is only one object inside)
+print(x)
+```    
+            
+```python
+x = ("a", "b",) # here, the comma at the end is optional because there are many objects inside
+first, second = x
+print(first, "and", second)
+```
+            
+<h2><a id="frozenset">Frozenset</a></h2>
+
+<p>Frozenset is an immutable version of a set.</p>
+            
+```python
+x = ["a", "b", "c", "d"] # this could be any iterable data structure
+fSet = frozenset(x)
+print(fSet)
+```
+            
+<h2><a id="bytes">Bytes</a></h2>
+
+<p>Bytes is sequence of integers, where each integer is in the range of 0 to 255. This makes it efficient to store binary data since each byte is only 8 bits. This data structure is particularly useful for handling binary data in files or transmitting data over networks. We can create a bytes object using the ```bytes()``` method, passing a list of integers between 0 and 255. For example: ```data = bytes([65, 66])```. The result would be: ```b'AB'``` (it decodes from Unicode).</p>
+
+<p>Strings have no binary encoding assigned, and bytes has no text encoding assigned as it is used to store raw binary data. We can convert Unicode to binary data using the ```encode()``` method and vice versa using the ```decode()``` method.</p>
+
+```python
+textS = "CPUcademy"
+x = textS.encode("utf-8")
+print(x)
+```
+
+<p>Go back to <a href="#bytearray" class="link">bytearray</a>.</p>
+
+<h2><a id="complex">Complex</a></h2>
+
+<p>Complex numbers are expressed as ```a+bj```, where ```a``` and ```b``` are real numbers, and ```j``` is an imaginary number, e.g., ```100+3j```. They are used in mathematics.</p>
+
+<h2><a id="deque">Deque</a></h2>
+
+<p>Deque stands for Double-Ended Queue. With it, we can easily add and remove elements not only at the end (like with lists) but also at the beginning. Its elements can be accessed by index. This data structure has to be imported from the ```collections``` module.</p>
+
+```python
+from collections import deque
+
+integers = deque()
+integers.append(2) # adding an element at the end
+integers.append(4)
+integers.pop() # deleting an element at the end
+integers.appendleft(1) # adding an element at the beginning
+integers.popleft() # deleting an element at the beginning
+print(integers)      
+```
+
+<p class="noBottomMargin">These data structures don't exist in Python but can be implemented using ```deque```:</p>
+
+<p>Stacks and Queues are data structures for storing data in specific orders. Their elements can't be accessed by index. Stacks operate in a Last-In-First-Out (LIFO) order, where elements can only be added and deleted from the top of the stack. Queues operate in a First-In-First-Out (FIFO) order, where elements can be added at the end of the queue and removed from the front.</p>
+
+<h2><a id="defaultdict">Defaultdict</a></h2>
+
+<p>```defaultdict``` is a specialized dictionary from the ```collections``` module that automatically assigns a default value to a key if it does not already exist. This eliminates the need to manually check whether a key is present before using it. This data structure has to be imported from the ```collections``` module.</p>
+
+```python
+from collections import defaultdict
+
+visits = defaultdict(set) # automatically creating an empty set when accessing a missing key
+visits["USA"].add("New York")
+visits["USA"].add("Los Angeles")
+visits["France"].add("Paris")
+print(visits)
+
+# Without defaultdict we must manually check if the key exists and initialize it
+visits = {}
+country = "USA"
+city = "Chicago"
+if country not in visits:
+    visits[country] = set()
+visits[country].add(city)                                 
+```
+
+<h2><a id="multidimensional-structures">Multidimensional structures</a></h2>
+
+<p>A multidimensional structure is a structure that has another structure inside it, e.g., a list in a list or a tuple in a list, etc. A two-dimensional list is called a matrix.</p>
+
+```python
+listt = [[1, 2, 3], [4, 5, 6]]
+print(listt[1])
+```
+
+<p>To access an element from the internal list, we do as in the example below. The first index means which list we are entering (in this case, the second one), and the second index means which element of the internal list we want to access (in this case, the first one).</p>
+            
+```python
+listt = [[1, 2, 3], [4, 5, 6]]
+print(listt[1][0])
+```
+
+<p>The code below checks which workers make over 90000 dollars annually. I will explain the one-lined instructions in the upcoming lessons, and now, please focus on the multidimensional structures.</p>
+
+```python
+workers = [("John", 110000), ("Amelia", 100000), ("Josh", 80000), ("James", 90000)]
+listt = [x for x, y in workers if y > 90000]
+print(listt)
+```
+
+```python
+# Jumping every other element in every list
+numbers = [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20]]
+numbers2 = [line[::2] for line in numbers]
+print(numbers2)
+```
+
+<h2><a id="type-casting">Type casting</a></h2>
+
+<p>Type casting, also known as type conversion, is the process of converting one data type to another (e.g., ```list``` to ```str```). We can't perform a conversion from, e.g., ```dict``` to ```list``` because it wouldn't make sense. We can check the variable's type using the ```type(x)``` method. If we write ```type(x).__qualname__()```, we will get only, e.g., ```int``` instead of ```<class 'int'>```. Here are a few examples of type casting:</p>
+
+```python
+# String to list (every character as a separate value)
+stringg = "Python"
+listt = list(stringg)
+print(listt)
+```
+
+```python
+# String to list using split() (breaking a string into a list by dividing it every time a given delimiter is encountered)
+a = input() # the string can be entered by the user
+b = a.split("-") # a space is the default delimiter
+print(b)
+```
+        
+```python
+# List to string (joining the elements of a list into a single string by inserting a delimiter between each element)
+listt = ["Python", "Coding"] # this list cannot contain numbers
+stringg = " ".join(listt) # the space is the delimiter (we can choose a different one)
+print(stringg)
+```
+
+```python
+# String to tuple
+stringg = "Python"
+tup = tuple(stringg)
+print(tup)    
+```
+
+```python
+# Tuple to string
+tup = ("Python", "Coding")
+stringg = str(tup)
+print(stringg)
+```
+
+```python
+# List to tuple
+listt = ["Python", 3, 3.5]
+tup = tuple(listt)
+print(tup)    
+```
+
+```python
+# Tuple to list
+tup = ("Python", 3, 3.5)
+listt = list(tup)
+print(listt)    
+```
+
+<p>Type casting can be implicit, where a type is automatically converted to another (e.g., when dividing an integer by another integer, resulting in a floating-point number), or explicit, as shown above.</p>

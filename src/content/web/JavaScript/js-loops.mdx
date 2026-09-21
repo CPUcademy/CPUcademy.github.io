@@ -1,0 +1,53 @@
+---
+title: "Loops"
+order: 4
+---
+
+<h2>The ```for``` loop</h2>
+
+<p>The ```for``` loop is a repetition loop. It repeats given instructions a certain number of times (of course, this number can be typed in as a variable). We create ```for``` loops using this pattern: "for (initializing a variable (an iterator); condition; instruction that executes after each iteration)." In the example below, the loop will work until ```i``` is less than three (it will increment every iteration).</p>
+
+```javascript
+for (let i = 0; i < 3; i++) 
+    document.write(i + "<br>") // we can dynamically add HTML elements like this
+```
+
+<p>We don't have to initialize the iterator in the loop - we can only give the name of a variable <b>created earlier</b>: ```for (i; i < 3; i++)```. We usually write the  contents of a loop in braces, but we don't have to if there is only one instruction (this rule applies to all loops, conditional statements, functions, etc.) As long as we don't use nested loops (a loop in a loop), we can use the same iterator name in every loop because its value resets during reinitialization (```int i = 0;```).</p>
+
+<p>In the following example, the first loop will execute the other four times (and the second one will execute two times). That will give us eight repetitions overall. We can also nest a ```while``` loop in a ```for``` loop, etc.</p>
+
+```javascript
+for (let x = 0; x < 4; x++) {
+    for (let y = 0; y < 2; y++)
+        console.log("Hello World!")
+}
+```
+
+<h2>The ```while``` loop</h2>
+
+<p>The ```while``` loop repeats instructions as long as the condition is met. The "The user entered a negative number." string from the example below will display after the loop stops executing.</p>
+
+```javascript
+let x = parseInt(prompt("Enter a negative number: "));
+while (x > 0) 
+    x = parseInt(prompt("Try again: "))
+console.log("The user entered a negative number.");
+```
+
+<p>In the following example, the loop will execute endlessly. We would gain the same effect as below using this condition: ```while (1+1==2)```.</p>
+
+```javascript
+while (true)
+    console.log("This is an infinite loop.")
+```
+
+<h2>The ```do while``` loop</h2>
+
+<p>The only difference between ```while``` and ```do while``` loops is that the ```do while``` loop will, no matter what, run the first iteration. It executes the code first and checks the condition afterwards.</p>
+
+```javascript
+let x = 1
+do {
+    console.log("Hello World!")
+} while (x < 1)
+```

@@ -1,0 +1,31 @@
+---
+title: "The cryptography module"
+order: 11
+---
+
+ <p>The ```cryptography``` module is one of the most actively maintained libraries for secure cryptographic operations. It provides high-level, easy-to-use interfaces for encryption, hashing, key management, and digital signatures, while still exposing low-level primitives for advanced users. One of its most popular components is cryptography.fernet, a symmetric encryption system that guarantees that data cannot be read or modified without the correct key. It handles everything: key generation, AES encryption, HMAC authentication, timestamps, and safe serialization - making.</p>
+
+```python
+from cryptography.fernet import Fernet
+
+key = Fernet.generate_key() # generating a new key (do this once)
+
+# Saving the key to a file
+with open("secret.key", "wb") as key_file:
+    key_file.write(key)
+
+# Loading the key later
+with open("secret.key", "rb") as key_file:
+    loaded_key = key_file.read()
+
+cipher = Fernet(loaded_key)
+
+# Encrypting a message
+message = "Top secret message".encode()
+token = cipher.encrypt(message)
+print(token)
+
+# Decrypting the message
+plaintext = cipher.decrypt(token)
+print(plaintext.decode())
+```

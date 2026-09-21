@@ -1,0 +1,223 @@
+---
+title: "Boolean algebra and logic gates"
+order: 3
+---
+
+<h2>Boolean algebra</h2>
+
+<p>Boolean algebra is a mathematical system that operates on true (1) and false (0) values, serving as the foundation for digital circuits and computer logic.</p>
+
+<p className="noBottomMargin">A and B can be equal 0 or 1.</p>
+<p><span style={{ textDecoration: "overline" }}>A</span> = not A, contradiction of A, A reversed</p>
+
+<p className="noBottomMargin"><b>Statement 1.</b> - Commutative Law</p>
+<p className="noBottomMargin">A + B = B + A</p>
+<p>A * B = B * A</p>
+
+<p className="noBottomMargin"><b>Statement 2.</b> - Associative Law</p>
+<p>(A + B) + C = A + (B + C)</p>
+
+<p className="noBottomMargin"><b>Statement 3.</b></p>
+<p className="noBottomMargin">A * (B + C) = A * B + A * C</p>
+<p>A + (B * C) = (A + B) * (A + C)</p>
+
+<p className="noBottomMargin"><b>Statement 4.</b> - Idempotent Law</p>
+<p className="noBottomMargin">A + A = A</p>
+<p>A * A = A</p>
+
+<p className="noBottomMargin"><b>Statement 5.</b></p>
+<p className="noBottomMargin">A * B + A * <span style={{ textDecoration: "overline" }}>B</span> = A</p>
+<p>(A + B) * (A + B) = A</p>
+
+<p className="noBottomMargin"><b>Statement 6.</b> - Absorption Law</p>
+<p className="noBottomMargin">A + A * B = A</p>
+<p>A * (A + B) = 1</p>
+
+<p className="noBottomMargin"><b>Statement 7.</b> - Identity Law</p>
+<p className="noBottomMargin">0 + A = A</p>
+<p>0 * A = 0</p>
+
+<p className="noBottomMargin"><b>Statement 8.</b></p>
+<p className="noBottomMargin">1 + A = 1</p>
+<p>1 * A = A</p>
+
+<p className="noBottomMargin"><b>Statement 9.</b></p>
+<p className="noBottomMargin"><span style={{ textDecoration: "overline" }}>A</span> + A = 1</p>
+<p><span style={{ textDecoration: "overline" }}>A</span> * A = 0</p>
+
+<p className="noBottomMargin"><b>Statement 10.</b></p>
+<p className="noBottomMargin">A + <span style={{ textDecoration: "overline" }}>A</span> * B = A + B</p>
+<p>A * (<span style={{ textDecoration: "overline" }}>A</span> + B) = A * B</p>
+
+<p className="noBottomMargin"><b>Statement 11.</b> - De Morgan’s Law</p>
+<p className="noBottomMargin"><span style={{ textDecoration: "overline" }}>A + B</span> = <span style={{ textDecoration: "overline" }}>A</span> * <span style={{ textDecoration: "overline" }}>B</span></p>
+<p><span style={{ textDecoration: "overline" }}>A * B</span> = <span style={{ textDecoration: "overline" }}>A</span> + <span style={{ textDecoration: "overline" }}>B</span></p>
+
+<h2>Logic gates</h2>
+
+<p>Logic gates are the fundamental building blocks of digital circuits that perform logical operations such as AND, OR, and NOT. They are used for processing binary signals.</p>
+
+<p className="noBottomMargin">Y is the result of letting A and B through a given logic gate.</p>
+
+<div className="table-container"><table>
+    <tr>
+        <td colspan="3" className="tde tde2 tde3">OR</td>
+        <td colspan="3" className="tde tde3">AND</td>
+        <td colspan="3" className="tde tde3">XOR</td>
+        <td colspan="3" className="tde tde3">NOT</td>
+        <td colspan="3" className="tde tde3">NOR</td>
+        <td colspan="3" className="tde tde3">NAND</td>
+        <td colspan="3" className="tde tde3">XNOR</td>
+    </tr>
+    <tr>
+        <td colspan="3" className="tde tde2">Y = A + B</td>
+        <td colspan="3" className="tde">Y = A * B</td>
+        <td colspan="3" className="tde">Y = A * <span style={{ textDecoration: "overline" }}>B</span> + <span style={{ textDecoration: "overline" }}>A</span> * B</td>
+        <td colspan="3" className="tde">Y = <span style={{ textDecoration: "overline" }}>A</span></td>
+        <td colspan="3" className="tde tde2">Y = <span style={{ textDecoration: "overline" }}>A + B</span></td>
+        <td colspan="3" className="tde">Y = <span style={{ textDecoration: "overline" }}>A * B</span></td>
+        <td colspan="3" className="tde">Y = A * B + <span style={{ textDecoration: "overline" }}>A</span> * <span style={{ textDecoration: "overline" }}>B</span></td>
+    </tr>
+    <tr>
+        <td className="tde2">A</td>
+        <td>B</td>
+        <td className="tde">Y</td>
+        <td>A</td>
+        <td>B</td>
+        <td className="tde">Y</td>
+        <td>A</td>
+        <td>B</td>
+        <td className="tde">Y</td>
+        <td>A</td>
+        <td colspan="2" className="tde">B</td>
+        <td>A</td>
+        <td>B</td>
+        <td className="tde">Y</td>
+        <td>A</td>
+        <td>B</td>
+        <td className="tde">Y</td>
+        <td>A</td>
+        <td>B</td>
+        <td className="tde">Y</td>
+    </tr>
+    <tr>
+        <td className="tde2">0</td>
+        <td>0</td>
+        <td className="tde">0</td>
+        <td>0</td>
+        <td>0</td>
+        <td className="tde">0</td>
+        <td>0</td>
+        <td>0</td>
+        <td className="tde">0</td>
+        <td>0</td>
+        <td colspan="2" className="tde">1</td>
+        <td>0</td>
+        <td>0</td>
+        <td className="tde">1</td>
+        <td>0</td>
+        <td>0</td>
+        <td className="tde">1</td>
+        <td>0</td>
+        <td>0</td>
+        <td className="tde">1</td>
+    </tr>
+    <tr>
+        <td className="tde2">0</td>
+        <td>1</td>
+        <td className="tde">1</td>
+        <td>0</td>
+        <td>1</td>
+        <td className="tde">0</td>
+        <td>0</td>
+        <td>1</td>
+        <td className="tde">1</td>
+        <td>1</td>
+        <td colspan="2" className="tde">0</td>
+        <td>0</td>
+        <td>1</td>
+        <td className="tde">0</td>
+        <td>0</td>
+        <td>1</td>
+        <td className="tde">1</td>
+        <td>0</td>
+        <td>1</td>
+        <td className="tde">0</td>
+    </tr>
+    <tr>
+        <td className="tde2">1</td>
+        <td>0</td>
+        <td className="tde">1</td>
+        <td>1</td>
+        <td>0</td>
+        <td className="tde">0</td>
+        <td>1</td>
+        <td>0</td>
+        <td className="tde">1</td>
+        <td colspan="3" rowspan="2" className="tde tde4"></td>
+        <td>1</td>
+        <td>0</td>
+        <td className="tde">0</td>
+        <td>1</td>
+        <td>0</td>
+        <td className="tde">1</td>
+        <td>1</td>
+        <td>0</td>
+        <td className="tde">0</td>
+    </tr>
+    <tr>
+        <td className="tde2 tde4">1</td>
+        <td className="tde4">1</td>
+        <td className="tde tde4">1</td>
+        <td className="tde4">1</td>
+        <td className="tde4">1</td>
+        <td className="tde tde4">1</td>
+        <td className="tde4">1</td>
+        <td className="tde4">1</td>
+        <td className="tde tde4">0</td>
+        <td className="tde2 tde4">1</td>
+        <td className="tde4">1</td>
+        <td className="tde tde4">0</td>
+        <td className="tde4">1</td>
+        <td className="tde4">1</td>
+        <td className="tde tde4">0</td>
+        <td className="tde4">1</td>
+        <td className="tde4">1</td>
+        <td className="tde tde4">1</td>
+    </tr>
+</table></div>
+
+<p>The NOR, NAND, and XNOR gates are the negations (NOT) of OR, AND, and XOR.</p>
+
+<div className="table-container"><table>
+    <tr>
+        <td>A</td>
+        <td>B</td>
+        <td style={{ textDecoration: "overline" }}>A * B</td>
+        <td><span style={{ textDecoration: "overline" }}>A</span> * <span style={{ textDecoration: "overline" }}>B</span></td>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+        <td>0</td>
+    </tr>
+</table></div>

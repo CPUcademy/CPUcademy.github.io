@@ -1,0 +1,43 @@
+---
+title: "Copy constructor"
+order: 4
+---
+
+<p>For us to be able to make a "true" copy of a class (with a different memory address), it has to have a copy constructor.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Copier {
+    public:
+        Copier(int x) {
+            this -> x = x;
+        }
+
+        Copier(const Copier &obj) { // a copy constructor (it takes a reference to the whole "Copier" type as an argument)
+            this -> x = obj.x;
+        }
+
+        ~Copier() {}
+        int x;
+};
+
+int main() {
+    int a = 10;
+    int b = a;
+    a = 40;
+    cout << "a: " << a << endl;
+    cout << "b: " << b << endl;
+
+    cout << "--------" << endl;
+
+    Copier obj(10);
+    Copier obj2 = obj;
+    obj.x = 40;
+    cout << "obj.x: " << obj.x << endl;
+    cout << "obj2.x: " << obj2.x << endl;
+
+    return 0;
+}
+```

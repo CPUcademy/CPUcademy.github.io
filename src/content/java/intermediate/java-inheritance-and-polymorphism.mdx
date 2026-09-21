@@ -1,0 +1,240 @@
+---
+title: "Inheritance and polymorphism"
+order: 3
+---
+
+<p>Classes can inherit objects (methods) from each other. The class that is being inherited from is called a parent class (also a base class or a superclass). The class that inherits from another class is called a child class (also a derived class or a subclass). It is the third concept of object-oriented programming.</p>
+            
+```java
+public class Main {
+    public static void main(String[] args) {
+        Cat cat = new Cat();
+        cat.voice();
+        cat.breed();
+    }
+}
+
+class Animal {
+    void voice() {
+        System.out.println("Voice!");
+    }
+}
+
+class Cat extends Animal {
+    void breed() {
+        System.out.println("I am a Bengal cat!");
+    }
+}
+```
+
+<p>A class cannot be inherited if it is marked as ```final```. Similarly, ```final``` methods cannot be overridden by subclasses (but still can be used). If an attribute of the class is ```final``` it has to be instantiated (it cannot be just declared). Overriding means providing a new method implementation in the subclass that replaces the method defined in the parent class (e.g., defining a ```speak()``` method in a ```Cat``` subclass to replace the general ```speak()``` method from an ```Animal``` parent class).</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Cat cat = new Cat();
+        cat.speak();
+    }
+}
+
+class Animal {
+    void speak() { System.out.println("Voice!"); }
+}
+
+class Cat extends Animal {
+    @Override // an annotation indicating we want to override a method from the superclass. If the method signature (name and parameters) doesn't match, the compiler will generate an error.
+    void speak() { System.out.println("Meow!"); }
+}
+```
+
+<h2>Multiple inheritance</h2>
+
+<p>A class can inherit features from more than one parent class but only indirectly, e.g., class ```A``` inherits from class ```B```, class ```B``` inherits from class ```C```, and not: class ```A``` inherits from classes ```B``` and ```C```.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Cat cat = new Cat();
+        cat.voice();
+        cat.sound();
+        cat.breed();
+    }
+}
+
+class Animal {
+    void voice() {
+        System.out.println("Voice!");
+    }
+}
+
+class Tiger extends Animal {
+    void sound() {
+        System.out.println("Raah!");
+    }
+}
+
+class Cat extends Tiger {
+    void breed() {
+        System.out.println("I am a Bengal cat!");
+    }
+}
+```
+
+<h2>The ```super``` keyword</h2>
+
+<p>The ```super``` keyword allows us to call the original method from the parent class when overriding it in a subclass.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Cat cat = new Cat();
+        cat.voice();
+    }
+}
+
+class Animal {
+    void voice() { System.out.println("Voice!"); }
+}
+
+class Cat extends Animal {
+    void voice() {
+        super.voice();
+        System.out.println("Meow!");
+    }
+}
+```
+
+<p>To properly invoke the superclass’s constructor, ```super``` must appear as the very first line in a subclass constructor. If the subclass constructor does not explicitly call ```super```, the compiler automatically inserts a call to the superclass’s no-argument constructor - provided one exists. Otherwise, an explicit call to a superclass constructor with arguments <b>is required</b>.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Dog dog = new Dog("Buddy");
+    }
+}
+
+class Animal {
+    Animal(String name) {
+        System.out.println("Animal name: " + name);
+    }
+}
+
+class Dog extends Animal {
+    Dog(String name) {
+        super(name); // has to be the first statement
+        System.out.println("Woof!");
+    }
+}
+```
+
+<h2>Abstract objects, polymorphism</h2>
+
+<p>Polymorphism means operating in the same way on objects of different types. It refers to an object's ability to take on many forms. For example, the ```+``` operator behaves polymorphically because it can add numbers and concatenate strings (it works with various data types in a very similar way). It is the fourth concept of object-oriented programming. Example: A man can be a father, a husband, a student, etc. One person can have different roles.</p>
+
+<p>An abstract class is a class that is designed specifically to be used as a base class (e.g., creating an instance of a generic ```Vehicle``` wouldn’t make sense unless it’s a specific type like a ```Car``` or ```Truck```). It can't call out its own objects or have instances, so we can only use them in its child classes. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). We create abstract objects by adding the ```abstract``` keyword before their type. An abstract method is a method that is inside an abstract class and has the ```abstract``` keyword before its type. An abstract class forces all its child classes to override all its abstract methods. It isn't mandatory to override a non-abstract method from an abstract class. Abstract methods can't contain any implementation, providing only method signatures that must be implemented by subclasses. Non-abstract methods can contain implementations to be inherited in the child classes (abstract methods have to be overridden, so it wouldn't make sense for them to contain implementations). If an abstract class contains a constructor, it will be executed when its subclass is instantiated.</p>
+
+<p>An abstraction defines the general structure or interface without specifying details, while a concrete implementation provides the actual functionality based on that abstraction.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Animal cat = new Cat(); // we can create many different objects (e.g., Cat or Dog) using only one type (Animal) - polymorphism
+        cat.voice();
+        cat.voice2();
+    }
+}
+
+abstract class Animal {
+    protected int lifespan = 10; // public in child classes but private outside
+    abstract void voice();
+    void voice2() { System.out.println("Voice!"); }
+}
+
+class Cat extends Animal {
+    Cat() { // the default constructor is public by default
+        lifespan = 14;
+    }
+
+    @Override
+    void voice() { System.out.println("Meow!"); }
+}
+```
+
+```java
+abstract class Person {
+    abstract void role(); // an abstract method to be implemented by subclasses
+}
+
+class Father extends Person {
+    @Override
+    void role() { System.out.println("I am a father!"); }
+}
+
+class Husband extends Person {
+    @Override
+    void role() { System.out.println("I am a husband!"); }
+}
+
+class Student extends Person {
+    @Override
+    void role() { System.out.println("I am a student!"); }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Person father = new Father();
+        Person husband = new Husband();
+        Person student = new Student();
+        
+        Person[] people = {father, husband, student};
+        for (Person person: people)
+            person.role(); // polymorphism: calling the same method "role()" on different objects
+    }
+}
+```
+
+<p>```Object text = "text";``` demonstrates polymorphism because a variable of type ```Object``` can refer to an instance of any subclass, such as ```String``` (all classes in Java inherit from the ```Object``` class directly or indirectly).</p>
+
+<h2>Method overloading (a form of polymorphism)</h2>
+
+<p>Two methods can have the same name as long as they have a different number of arguments and/or they have various types. This behavior is called method overloading. For example, if we provide two ```double``` arguments to an ```addition()``` method, the compiler will know that we want to use the specific version of the method that takes those arguments and not, e.g., the one that takes two integers. The two overloaded functions have to differ in number or type of arguments, and can, but do not have to, have a different return type.</p>
+
+```java
+public class Main {
+    static int addition(int x, int y) { // this method has to be static because we are referring to it from the main method (a static context)
+        return x + y;
+    }
+
+    static double addition(double x, double y) {
+        return x + y;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(addition(5, 6));
+        System.out.println(addition(5.5, 6.6));
+    }
+}
+```
+
+```java
+// Overloading constructors                                
+class Person {
+    String name;
+    int age;
+    boolean gender;
+
+    Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    Person(String name, int age, boolean gender) {
+        this(name, age); // avoiding code duplication by calling the two-parameter constructor
+        this.gender = gender;
+    }
+}
+```
+
+<h4>Static vs dynamic polymorphism</h4>
+
+<p><b>Static polymorphism</b> (compile-time polymorphism) occurs when multiple methods share the same name but differ in parameters (method overloading), allowing the compiler to decide which method to call. <b>Dynamic polymorphism</b> (runtime polymorphism) occurs when a base class reference calls an overridden method in a derived class, with the method being chosen at runtime (method overriding).</p>

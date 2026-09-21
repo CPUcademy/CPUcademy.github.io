@@ -1,0 +1,42 @@
+---
+title: "Overloading operators"
+order: 6
+---
+
+<p>Overloading an operator means overriding its functionalities so it can work with, e.g., our class's objects. In Java, we cannot overload operators directly as we do in languages like C++ (e.g., ```==```, ```<<```). Here, we override methods corresponding to the operators (e.g., ```equals()``` equals ```==```). The ```toString()``` method defines how a class object will be displayed when printed or converted to a string (using ```toString()```). The example below shows how to overload the ```equals()``` method so it can compare class instances and the ```toString()``` method so they can be displayed properly.</p>
+            
+```java
+class Comparison {
+    private int x;
+    private int y;
+
+    public Comparison(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Comparison other = (Comparison) obj; // casting the object from the argument to the "Comparison" type
+        return this.x == other.x && this.y == other.y;
+    }
+
+    @Override
+    public String toString() {
+        return "x: " + x + ", y: " + y;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Comparison x = new Comparison(10, 20);
+        Comparison y = new Comparison(10, 20);
+        System.out.println(y);
+
+        if (x.equals(y))
+            System.out.println("x and y are the same");
+    }
+}                                   
+```
+
+<p>Another important operator-like method is ```compareTo()```, which simulates comparison operators like ```<```, ```>```, and ```==``` for objects. It returns a negative integer if this object is less than the argument, zero if they are equal, and a positive integer if this object is greater than the argument.</p>

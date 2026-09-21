@@ -1,0 +1,124 @@
+---
+title: "Functions"
+order: 8
+---
+
+<p>A function is a sequence of program instructions that performs a specific task, packaged as a unit. When we create a function, we can name the arguments it takes (but we don't have to). Arguments are variables that we give to the function so that it can operate on them (generally, a function cannot access objects created outside it in the ```main()``` or any other function due to variable scopes, which I will discuss in a moment). Functions follow the same naming rules as variables.</p>
+
+<p>A function can return objects to the outside (variables, numbers, arithmetic operations, etc.) When it does, the function's return value is the result of its "calling." To see this value, we have to display this "calling" in the console using ```cout``` directly or assign it to a variable and then display it. The ```return``` instruction also ends the function's execution. We create functions using this pattern: "type of the object it returns - name - parenthesis", and below it, the content in braces. If the function doesn't return anything, we can use the ```void``` type. However, if we want to stop executing such a function, we can use an empty return (```return;```). It will work like the ```break``` instruction but for a function.</p>
+
+<p>We have to write all functions above the ```main()``` function. To call a function (run it), we write its name and a parenthesis (we type a semicolon at the end only if this line isn't, e.g., inside a ```cout```, but stands alone). If it takes any arguments, we write them inside the parenthesis. The names of the arguments don't have to be the same as the passed variables. The ```main()``` function can also take arguments, which is used when executing programs from CMD or creating projects (I will talk about projects in a different lesson).</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+void function() {
+    cout << "Function" << endl;
+}
+
+int addition(int x, int y) { // this function will return an int object and take two int variables as arguments
+    cout << "Addition" << endl;
+    return x + y;
+}
+
+int inline_addition(int x, int y) { return x + y; } // inline function (intended for short operations)
+
+int main() {
+    function();
+
+    int x = 2, y = 4;
+    cout << addition(x, y) << endl;
+    cout << inline_addition(x, y) << endl;
+
+    return 0;
+}
+```
+
+<p>In C++, we can declare a function at the beginning of the page before the ```main()``` function, e.g., ```void function(int, int);```, and define it at the bottom after the ```main()``` function: ```void function(int x, int y){...}```. Some people do it to organize their code.</p>
+
+<p>Function parameters are "placeholders" defined in a function declaration (```int addition(int x, int y)```), while arguments are the actual values passed to the function during its call (```addition(2, 4);```).</p>
+
+<h2>Variable scopes</h2>
+
+<p>Not every variable is accessible in every part of the program. Variables created in the main block (outside of any functions) are called ```global``` variables. They are accessible in all functions and instructions. ```local``` variables are variables created inside a block (a loop, conditional statement, function, etc.) and are accessible only inside this block. The default value of ```global``` variables is 0, but ```local``` variables do not have one. It's recommended to initialize a ```local``` variable immediately instead of just declaring it unless we input its value from the user.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int global_variable = 5;
+
+void func() {
+    global_variable += 1;
+    cout << "Global: " << global_variable << endl;
+}
+
+void func2(int local_variable) {
+    local_variable += 1;
+    cout << "Local: " << local_variable << endl;
+}
+
+int func3(int local_variable) {
+    local_variable += 1;
+    cout << "Local: " << local_variable << endl;
+    return local_variable; // to see the changes made to a local variable in the outer block, we have to return its value     
+}
+
+int main() {
+    func();
+    global_variable = 6;
+    func();
+
+    int local_variable = 7;
+    func2(local_variable);
+    cout << global_variable << " " << local_variable << endl; // 7 7
+
+    local_variable = func3(local_variable);
+    cout << local_variable << endl; // 8
+
+    return 0;
+}
+```
+
+<h2>Function overloading</h2>
+
+<p>Two functions can have the same name as long as they have a different number of arguments and/or they have various types. This behavior is called function overloading. For example, if we provide two ```double``` arguments to the ```addition()``` function, the compiler will know that we want to use the specific version of the function that takes those arguments and not, e.g., the one that takes two integers. The two overloaded functions have to differ in number or type of arguments, and can, but do not have to, have a different return type.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int addition(int x, int y) {
+    return x + y;
+}
+
+double addition(double x, double y) {
+    return x + y;
+}
+
+int main() {    
+    cout << addition(5, 6) << endl;
+    cout << addition(5.5, 6.6) << endl;
+    return 0;
+}
+```
+
+<h2>Recursive functions</h2>
+
+<p>A recursive function is a function that calls itself. Recursion is often used in various algorithms.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+void function() {
+    cout << "x" << endl;
+    function();
+}
+
+int main() {      
+    function();
+    return 0;
+}
+```

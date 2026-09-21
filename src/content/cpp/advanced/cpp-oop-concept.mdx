@@ -1,0 +1,193 @@
+---
+title: "OOP concept"
+order: 1
+---
+
+<ul>
+    <li>OOP (Object-Oriented Programming) is a programming paradigm that organizes code into reusable objects, making it modular, easier to maintain, and more scalable.</li>
+    <li>In OOP, we define classes, which serve as blueprints for creating objects. Objects represent real-world entities or concepts.</li>
+    <li>A class defines the structure and behavior of these objects, serving as a template.</li>
+    <li>An instance of a class is simply an object created from that class that represents it (a variable the class object, ```new ClassName()```, is assigned to). A class can have many instances (e.g., a ```User``` class can have many real user instances filled with personal data). Their names do not matter.</li>
+    <li>Attributes (also called fields or properties) are variables associated with an object, representing the state or characteristics of the object. Their values ​​differ between instances (e.g., the age varies by user but is still the same type of numerical value).</li>
+    <li>Inside classes, we define methods, which are functions that determine the behavior of objects. Methods are invoked using an object of the class they belong to (an instance).</li>
+    <li>Once an instance is created, we can access and modify the class's attributes and call its methods through it. Classes use the ```PascalCase``` naming convention.</li>
+</ul>
+
+<p>Everything inside a class can, by default, be accessed only inside it (```private```). We can make it ```public``` or ```protected``` (or, again, ```private```) by typing these words with colons. Everything after that label can be accessed in this particular way (until encountering a different one). ```public``` means that the objects are also available outside of the class. ```protected``` means that the objects are ```private```, except for the class's subclasses (I will explain what subclasses are in a lesson about inheritance). These "modes" are called access modifiers.</p>
+
+<p>We should use structures to store data that describes something and classes when we want to add the so-called functionalities or activities for such objects. A structure is an object (a class) inside which all objects are ```public``` by default.</p>
+
+<p>To organize a project with classes, we can create three separate files: the main file, a ```.cpp``` file, and a ```.h``` file. The ```.h``` file contains the class declaration (header), the additional ```.cpp``` file defines the class methods (it is possible to do outside the class thanks to the ```::``` scope resolution operator), and the main file handles everything else. For example, the ```getAge()``` method from the ```Human``` class would be defined as ```Human::getAge()``` (the ```::``` operator indicates that the method belongs to the class). While it's possible to write everything in a single file, using separate files improves code structure. If working with multiple files, remember to include the header (```.h```) file in the other files using ```#include "file.h"```. To save space and reduce redundancy, I will write everything in one place in the examples.</p>
+
+<h2>Abstraction</h2>
+
+<p>Abstraction is a process that deals with complexity by hiding unnecessary information from the user. It simplifies reality by creating a version of an object that consists only of essential information. Data is visible only to semantically related functions to prevent misuse. In this approach, we use the ```public``` mode often. Example: We can do many things on a computer, but it doesn't show us how it's doing them because we don't need that information. The implementation parts are hidden. It is the first concept of object-oriented programming.</p>
+
+<p>A constructor (```NameOfTheClass()```) is a method called by the compiler when an object of the class is created. A destructor (```~NameOfTheClass()```) is called by the compiler when the object is destroyed. In C++, they are mandatory (we can leave them empty so that only the default version is executed). The constructor is commonly used for setting the initial values of variables. These two methods never feature the ```return``` instruction. Methods can take arguments. If a constructor takes them, we give them while assigning the class to a variable, and in other words - creating its instance (e.g., ```Human x(5);```). A class can have multiple constructors that execute according to the number of given arguments, e.g., if we give three arguments when creating a new instance, the constructor that takes three arguments of these specific types is called. Of course, the constructor must be ```public```.</p>
+
+<p>A field is a variable of any type that is declared inside the class. In a class, the order of methods and other objects is irrelevant because all objects have access to the whole class the whole time. Each class should be placed in a separate file.</p>
+
+<p>A getter is a method that returns values outside of a class, and a setter is a method that edits an object belonging to a class. We should use them because, inside them, we can add, e.g., validation rules.</p>
+
+<p>The ```->``` operator indicates that an object belongs to a given class. The ```this``` keyword can replace the class name while using the ```->``` operator (when addressing objects). It indicates the class it is used in and allows to address all objects of the class at any point in the class. ```this -> x``` and ```x``` are different variables. The former is an object belonging to a class (a field), and the latter is just a variable.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Human {
+    public:
+        Human() {
+            age = 0;
+            cout << "Constructor" << endl;
+        }
+
+        Human(unsigned short age) {
+            this -> age = age;
+        }
+
+        ~Human() {
+            cout << "Destructor" << endl;
+        }
+
+        unsigned short getAge() {
+            return age;
+        }
+
+        void setAge(unsigned short age) {
+            this -> age = age;
+        }
+
+        unsigned short age; // a field (an instance variable - its value differs by instance)
+};
+
+int main() {
+    Human h; // an instance of a class (the class acts like a data type)
+    h.age = 20;
+    h.setAge(10);
+    cout << h.getAge() << endl;
+
+    Human h2(40);
+    cout << h2.getAge() << endl;
+
+    Human *h3 = new Human[3]; // a pointer to an array of Human objects
+    for (int i = 0; i < 3; i++) {
+        h3[i].setAge(30 + i);
+        cout << h3[i].getAge() << endl;
+    }
+    delete[] h3; // properly releasing memory of the dynamically allocated array of Human objects
+
+    return 0;
+}
+```
+
+<h4>```unique_ptr```</h4>
+
+<p>```unique_ptr``` is a smart pointer that automatically deletes the object when it is no longer needed.</p>
+
+```cpp
+#include <iostream>
+#include <memory> // for unique_ptr
+using namespace std;    
+
+class Example {
+    public:
+        Example(int val) : value(val) {} // the member variable "value" is initialized with the value of "val"
+        ~Example() {}
+        void show() { cout << value << endl; }
+
+    private:
+        int value;
+};
+
+int main() {
+    // Creating a unique_ptr to manage an Example instance
+    unique_ptr<Example> ptr = make_unique<Example>(42);
+    ptr -> show();
+    // No need to delete the object manually (unique_ptr will handle it).
+    
+    return 0;
+}
+```
+
+<h2>Encapsulation</h2>
+
+<p>Encapsulation prevents external code from being concerned with the internal workings of an object. It involves hiding the fields and methods of a class so that they are not accessible from the outside but only inside the class. The difference between abstraction and encapsulation is that abstraction hides objects and processes to show only the result at the end because it is the only thing that matters, while encapsulation hides them and blocks access to them, e.g., because some data should not be changed directly without a setter with validation rules inside. Encapsulation also promotes the creation of small, specialized methods and classes to keep them easy to understand, maintain, and reuse. It is the second concept of object-oriented programming. We should always identify the part of the code that changes and, when possible, encapsulate it.</p>
+
+<p>If an object is created in ```private``` mode, it cannot be called outside its class. Encapsulation blocks the possibility of bypassing certain instructions by, for example, editing the output variable outside of the class. Most objects should be private, and outside of the class, they should be edited only through methods of this class (setters). If we try to get or change the value of a private object outside the class, we will get an error.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Bank {
+    // private by default
+    int balance;
+    void setBalance(int balance) {
+        this -> balance = balance;
+    }
+
+    public:
+        Bank() {
+            balance = 1000;
+        }
+        ~Bank() {}
+
+        int getBalance() {
+            return balance;
+        }
+
+        bool withdraw(int howMuch) {
+            if (balance < howMuch)
+                return false;
+            else
+                setBalance(balance - howMuch);
+            return true;
+        }
+};
+
+int main() {
+    Bank b;
+    cout << b.getBalance() << endl;
+    b.withdraw(400);
+    cout << b.getBalance() << endl;
+
+    return 0;
+}
+```
+
+<h2>Static objects</h2>
+
+<p>A static variable is a variable that retains its value between method calls. Its memory address is allocated once, and it exists for the duration of the program. A variable of this type will still exist even if an instance of the class does not. It is shared by all objects and not tied to any class instance (shared across all instances of the class). It can be accessed through the class name (```ClassName.field```). We create static variables outside methods.</p>
+
+<p>The same rule applies to methods - we can call them using the class directly without creating its instance. They have no access to the class's objects. Static methods differ from outside functions because we can override them later in a child class.</p>
+
+<p>We create all static objects by adding the ```static``` keyword before their type. Static variables exist also in structural programming.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Example {
+    public:
+        Example() {}
+        ~Example() {}
+
+        static void method() {
+            static_variable++;
+        }
+        
+        static int static_variable;
+};
+
+int Example::static_variable = 0; // "static_variable" definition
+
+int main() {
+    Example x;
+    x.method();
+    Example::method();
+    cout << x.static_variable << " " << Example::static_variable << endl;
+
+    return 0;
+}
+```

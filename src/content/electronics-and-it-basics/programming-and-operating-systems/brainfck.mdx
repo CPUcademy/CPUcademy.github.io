@@ -1,0 +1,106 @@
+---
+title: "Brainf*ck - a programming language"
+order: 4
+---
+
+<p>Brainf*ck is a minimalist, esoteric programming language created by Urban Müller in 1993. It is known for its simplicity, as the entire language consists of only eight commands. Despite its simplicity, Brainf*ck is Turing-complete, meaning it can theoretically solve any computational problem given enough time and memory.</p>
+
+<p>While Brainf*ck isn't practical for real-world applications, it is an excellent exercise in understanding the fundamentals of computation, memory management, and instruction handling. Programmers often explore Brainf*ck for fun or as a challenge to better understand low-level programming concepts.</p>
+
+<h2>The eight Brainf*ck commands</h2>
+<div className="table-container"><table>
+    <tr>
+        <td><b>Command</b></td>
+        <td><b>Description</b></td>
+        <td><b>C language equivalent</b></td>
+    </tr>
+    <tr>
+        <td>```>```</td>
+        <td>Moving the memory pointer to the right.</td>
+        <td>```++p;```</td>
+    </tr>
+    <tr>
+        <td>```<```</td>
+        <td>Moving the memory pointer to the left.</td>
+        <td>```--p;```</td>
+    </tr>
+    <tr>
+        <td>```+```</td>
+        <td>Incrementing the memory cell at the pointer.</td>
+        <td>```++(*p);```</td>
+    </tr>
+    <tr>
+        <td>```-```</td>
+        <td>Decrementing the memory cell at the pointer.</td>
+        <td>```--(*p);```</td>
+    </tr>
+    <tr>
+        <td>```.```</td>
+        <td>Displaying the character at the memory cell.</td>
+        <td>```putchar(*p);```</td>
+    </tr>
+    <tr>
+        <td>```,```</td>
+        <td>Inputting a character and storing it in the memory cell.</td>
+        <td>```*p=getchar();```</td>
+    </tr>
+    <tr>
+        <td>```[```</td>
+        <td>Starting a loop - executing the instructions inside until the memory cell is zero.</td>
+        <td>```while (*p)&#123;```</td>
+    </tr>
+    <tr>
+        <td>```]```</td>
+        <td>Ending a loop.</td>
+        <td>```&#125;```</td>
+    </tr>
+</table></div>
+
+<p>Brainf*ck operates on an array of memory cells (usually 30,000), each initialized to zero (```char array[30000] = {0};```). A pointer starts at the first cell and can move left or right across the array. Commands modify the value at the current memory cell or handle input/output.</p>
+
+<h2>The ASCII table</h2>
+
+<img src="/data/courses/ascii.jpg" alt="ASCII" className="img-fluid" style={{ width: "70%", marginBottom: "20px" }}/>
+
+<h2>"Hello, World!" program</h2>
+
+<p>Everything that is not a Brainf*ck command is treated as a comment.</p>
+
+```text
+// A loop setting convenient values (near letters in ASCII)
+
+++++++++++ // Cell 0 = 10
+[ // While loop (as long as cell 0 is not 0)
+>+++++++ // Cell 1 add 7 
+>++++++++++ // Cell 2 add 10
+>+++ // Cell 3 add 3
+>+ // Cell 4 add 1
+<<<<- // Return to cell 0 and decrement it
+]
+
+// After the loop ends:
+// Cell 1 = 70
+// Cell 2 = 100
+// Cell 3 = 30
+// Cell 4 = 10
+
+>++. // Cell 1 (70) add 2 = 72 (in ASCII 'H') = prints
+>+. // Cell 2 (100) add 1 = 101 (in ASCII 'e') = prints
++++++++. // Cell 2 (101) add 7 = 108 (in ASCII 'l') = prints
+. // prints l
++++. // Cell 2 (108) add 3 = 111 (in ASCII 'o') = prints
+>++. // Cell 3 (30) add 2 = 32 (in ASCII ' ') = prints
+<<+++++++++++++++. // Cell 1 (72) add 15 = 87 (in ASCII 'W') = prints
+>. // Cell 2 (111) (in ASCII 'o') = prints
++++. // Cell 2 (111) add 3 = 114 (in ASCII 'r') = prints
+------. // Cell 2 (114) subtract 6 = 108 (in ASCII 'l') = prints
+--------. // Cell 2 (114) subtract 6 = 108 (in ASCII 'l') = prints
+>+. // Cell 3 (32) add 1 = 33 (in ASCII '!') = prints
+>. // Cell 4 (10) (in ASCII '\n') = prints
+```
+
+```text
+++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.
+```
+
+<p>You can find a Brainf*ck compiler <a href="https://copy.sh/brainfuck/" target="_blank" className="link">here</a>.</p>

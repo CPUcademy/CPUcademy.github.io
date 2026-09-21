@@ -1,0 +1,26 @@
+---
+title: "Generating pseudorandom numbers"
+order: 4
+---
+
+<p>We can't generate truly random numbers because a computer doesn't have the element of randomness. We can only generate pseudorandom numbers, which are generated based on a seed. For a certain seed, the generator will always draw the same number. We would have to set the seed manually every time, but luckily, we can set the current time as the seed value because it is in constant movement.</p>
+
+<p>To generate random numbers, we use the ```<stdlib.h>``` library. We can set a seed with the ```srand()``` method (its argument is the seed value) and generate a number with the ```rand()``` method (it doesn't take any arguments). If we want to set a range from which we can draw numbers, we can write, e.g., ```rand() % 3```, which will set the range of numbers to 0-2.</p>
+
+<p>To operate on time, we use the ```<time.h>``` library. We can use the ```time()``` method to return the current calendar time as a single arithmetic value (this method takes a pointer as an argument). If we give ```NULL``` as this argument, it will only return the value and not save it in a pointer. The arithmetic value is the number of seconds elapsed since 00:00:00 hours, GMT (Greenwich Mean Time), January 1, 1970.</p>
+
+```cpp
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+using namespace std;
+
+int main() {
+    srand(time(NULL));
+    for (int i = 0; i < 10; i++) {
+        int number = rand() % 3;
+        cout << number << endl;
+    }
+    return 0;
+}
+```

@@ -1,0 +1,232 @@
+---
+title: "Other"
+order: 7
+---
+
+<h3>Table of contents</h3>
+
+<ul type="disc">
+    <li><a href="#sqlalchemy" className="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>SQLAlchemy</code> module</a></li>
+    <li><a href="#copy" className="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>copy</code> module</a></li>
+    <li><a href="#itertools" className="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>itertools</code> module</a></li>
+    <li><a href="#shelve" className="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>shelve</code> module</a></li>
+    <li><a href="#pyinputplus" className="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>pyinputplus</code> module</a></li>
+    <li><a href="#pprint" className="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>pprint</code> module</a></li>
+    <li><a href="#turtle" className="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>turtle</code> module</a></li>
+</ul>
+
+<h2><a id="sqlalchemy">The <code style={{color: "#157267"}}>SQLAlchemy</code> module</a></h2>
+
+<p>```SQLAlchemy``` is a Python library that allows us to interact with relational databases using Python code instead of raw SQL queries. It acts as an ORM (Object Relational Mapper), meaning it maps database tables to Python classes and rows to objects, allowing us to work with databases in a more Pythonic way. SQLAlchemy supports many popular relational databases, including <b>SQLite</b>, <b>PostgreSQL</b>, and <b>MySQL</b>.</p>
+
+```python
+from sqlalchemy import create_engine, func, and_, or_, not_
+from sqlalchemy.orm import sessionmaker
+
+engine = create_engine("sqlite:///mydb.db") # SQLite
+# engine = create_engine("postgresql://user:password@localhost/mydb") # PostgreSQL
+# engine = create_engine("mysql+pymysql://user:password@localhost/mydb") # MySQL
+Session = sessionmaker(bind=engine)
+
+with Session() as session: # the session is closed properly on leaving the block
+    # Querying
+    users = session.query(User).all()
+    userr = session.query(User).filter(User.age > 25).first()
+    userr = session.query(User).filter_by(name="Alice").first()
+
+    # Ordering, limiting, and pagination
+    users = session.query(User).order_by(User.age).all()
+    users = session.query(User).order_by(User.age.desc()).all()
+    users = session.query(User).limit(10).all()
+    users = session.query(User).offset(10).limit(10).all() # skip 10, get next 10
+
+    # Aggregate functions
+    count_rows = session.query(func.count(User.id)).scalar()
+    avg_age = session.query(func.avg(User.age)).scalar()
+    max_age = session.query(func.max(User.age)).scalar()
+
+    # Logical operators
+    users = session.query(User).filter(and_(User.age > 20, User.name == "Alice")).all()
+    users = session.query(User).filter(or_(User.age < 20, User.age > 50)).all()
+    users = session.query(User).filter(not_(User.name == "Bob")).all()
+
+    # Joins
+    results = session.query(User, Post).join(Post, User.id == Post.user_id).all()
+    results = session.query(User, Post).outerjoin(Post, User.id == Post.user_id).all()
+```
+
+<h2><a id="copy">The <code style={{color: "#157267"}}>copy</code> module</a></h2>
+
+<p>The ```copy``` module provides tools for creating shallow and deep copies of objects, allowing for efficient object duplication and manipulation without affecting the original object.</p>
+
+```python
+# A shallow copy (both lists reference the same object)
+list1 = [1, 2, 3]
+list2 = list1
+list2.append(4)
+print(list1)
+
+# A shallow copy created using slicing (creates a new list but does not copy nested objects)
+list3 = [1, 2, 3]
+list4 = list3[:]
+list4.append(4)
+print(list3)
+
+# The same as the example above but using the copy module
+import copy
+list5 = [1, 2, 3]
+list6 = copy.copy(list5)
+list6.append(4)
+print(list5)
+
+# A deep copy (creates a completely independent copy, including nested objects)
+list7 = [[1, 2], [3, 4]]
+list8 = copy.deepcopy(list7)
+list8[0].append(5)
+print(list7)
+```
+
+<p>In terms of classes, a shallow copy (```copy.copy()```) creates a new instance that shares references to nested objects (attributes), whereas a deep copy (```copy.deepcopy()```) creates a fully independent clone, including all nested objects.</p>
+
+<h2><a id="itertools">The <code style={{color: "#157267"}}>itertools</code> module</a></h2>
+
+<p>The ```itertools``` module provides a collection of tools for working with iterators that operate on sequence items. These tools help create iterators for efficient looping.</p>
+
+```python
+import itertools
+
+# Returning an iterator that repeats a given value a specific number of times
+repeated = itertools.repeat(10, 3) # value, number of times
+for x in repeated:
+    print(x)
+
+# Combining multiple iterables into one continuous sequence
+chained = itertools.chain([1, 2], ["a", "b"], [True, False])
+for item in chained:
+    print(item) 
+
+# Returning n-length tuples with combinations of elements from the iterable (sorted in lexicographical order)
+combs = itertools.combinations("ABCD", 2)
+for comb in combs:
+    print(comb)
+
+# The same as combinations(), but each arrangement of elements is treated as a unique permutation (order matters)
+perms = itertools.permutations("ABCD", 2)
+for perm in perms:
+    print(perm)
+
+# Returning the Cartesian product of input iterables (like nested loops)
+prod = itertools.product("AB", "12") # ('A','1'), ('A','2'), ('B','1'), ('B','2')
+for p in prod:
+    print(p)
+
+# Using "repeat" to generate all n-length tuples with repetition allowed
+prod_repeat = itertools.product("AB", repeat = 3)
+for p in prod_repeat:
+    print(p)
+```
+
+<h2><a id="shelve">The <code style={{color: "#157267"}}>shelve</code> module</a></h2>
+
+<p>The ```shelve``` module allows us to store Python objects in a file using a dictionary-like interface. It automatically serializes objects so that we can save most Python data types, including lists and dictionaries, in a file. The data is persistent, meaning it stays available across program runs. When using ```shelve.open()```, we specify the name of the binary file in which the data will be stored (binary files are more efficient than text files). The main benefits of ```shelve``` are its simplicity and automatic persistence, so objects can be easily saved, retrieved, and updated.</p>
+
+```python
+import shelve
+
+with shelve.open("mydata") as db:
+    db["name"] = "Alice"
+    db["age"] = 30
+    
+with shelve.open("mydata") as db:
+    print(db["name"])
+    print(db["age"])
+```
+
+<h2><a id="pyinputplus">The <code style={{color: "#157267"}}>pyinputplus</code> module</a></h2>
+
+<p>This module is used to simplify input validation by providing functions that ensure user input meets specified criteria, such as type, range, or format.</p>
+
+```python
+import pyinputplus as pyip
+
+response = pyip.inputNum(prompt="Enter a number between 1 and 10: ", min=1, max=10)
+print("You entered:", response)
+
+response = pyip.inputYesNo(prompt="Do you want to continue? (yes/no): ")
+if response == "yes":
+    print("You chose to continue.")
+else:
+    print("You chose not to continue.")
+```
+
+<h2><a id="pprint">The <code style={{color: "#157267"}}>pprint</code> module</a></h2>
+
+<p>This module is used to format and print (pretty-print) complex data structures in a more readable and aesthetically pleasing way.</p>
+
+```python
+import pprint
+
+data = {
+    "name": "Alice",
+    "age": 25,
+    "hobbies": ["reading", "hiking", "coding"],
+    "details": {
+        "location": "New York",
+        "languages": ["Python", "JavaScript"],
+    },
+}
+
+pprint.pprint(data)
+```
+
+<h2><a id="turtle">The <code style={{color: "#157267"}}>turtle</code> module</a></h2>
+
+<p>The ```turtle``` module is designed for creating drawings and serves as a tool for learning how to code.</p>
+            
+```python
+from turtle import *
+
+forward(100) # moving forward the given number of pixels (also: fd())
+right(90) # turning right by 90 degrees
+backward(100) # moving backward the given number of pixels (also: bk() or back())
+left(90) # turning left by 90 degrees
+
+circle(100) # drawing a circle
+undo() # undoing the last action
+
+for x in range(4):
+    left(90)
+    dot(20) # placing a dot
+    penup() # lifting the pen up
+    forward(100)
+    pendown() # lowering the pen down
+
+speed(3) # setting the drawing speed (fastest: 0, fast: 10, normal: 6, slow: 3, slowest: 1)
+shape("turtle") # setting the turtle's shape (arrow, turtle, circle, square, triangle, and classic)
+for x in range(4):
+    penup()
+    forward(120)
+    pendown()
+    stamp() # placing a stamp that looks like that the turtle's shape
+    if x < 2:
+        left(90)
+    else:
+        right(90)
+
+goto(0, 0) # moving to the specified coordinates
+forward(100)
+
+print(position()) # retrieving the current coordinates
+
+pencolor("red") # changing the pen color
+forward(100)
+
+fillcolor("red") # setting the fill color
+begin_fill() # starting the filling procedure
+for x in range(4):
+    forward(100)
+    right(90)
+end_fill() # ending the filling procedure
+
+home() # moving to the (0, 0) coordinates
+```  

@@ -1,0 +1,158 @@
+---
+title: "Forms"
+order: 2
+---
+
+<h2>Method nr. 1 - two files</h2>
+
+<h4>Main file</h4>
+
+```php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PHP basics">
+    <title>Multiplication table</title>
+</head>
+<body>
+    <h3>Enter the multiplication table range</h3>
+
+    <form action="multiplication_table.php" method="POST">
+        <p>Number of rows:</p>
+        <input type="text" name="n">
+        
+        <p>Number of columns:</p>
+        <input type="text" name="m">
+        
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+```
+
+<h4>Second file</h4>
+
+```php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PHP basics">
+    <title>Multiplication table</title>
+    <style>
+        table, td {
+            border: 1px solid black;
+            border-spacing: 0;
+        }
+    </style>
+</head>
+<body>
+    <?php
+        $n = $_POST['n']; // receiving the value using the POST method ($_POST is a superglobal array). $_GET also exists and is used for GET requests
+        $m = $_POST['m'];
+        
+        echo "<table>";
+        for ($i = 1; $i <= $n; $i++) {
+            echo "<tr>";
+            for ($j = 1; $j <= $m; $j++)
+                echo "<td>" . ($i * $j) . "</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+    ?>
+</body>
+</html>
+```
+
+<h2>Method nr. 2 - one file (PostBack)</h2>
+
+<p>We can interleave the PHP tags between instructions. For example, we can exit PHP in the middle of an ```else``` instruction, put some HTML elements there that will only display if this instruction was executed, and then come back to PHP.</p>
+
+<p>The ```isset()``` method checks if a variable is set and is not ```null```. It returns ```true``` if the variable exists and is not ```null```, and ```false``` otherwise.</p>
+    
+<p>The ```empty()``` method determines if a variable is empty, meaning it is unset, ```null```, ```false```, an empty string, 0, or an empty array. It returns ```true``` if the variable is empty and ```false``` if it has a non-empty value.</p>
+
+```php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PHP basics">
+    <title>PostBack</title>
+</head>
+<body>
+    <?php function form($firstName = "", $lastName = "", $profession = "", $email = "", $mailingChecked = false, $gender = "", $education = "") 
+    { ?>
+        <form action="" method="POST">
+            <div>
+                <p>First name:</p>
+                <input type="text" id="firstName" name="firstName" value="<?= $firstName; ?>"><br>
+                <p>Last name:</p>
+                <input type="text" id="lastName" name="lastName" value="<?= $lastName; ?>"><br>
+                <p>Profession:</p>
+                <input type="text" id="profession" name="profession" value="<?= $profession; ?>"><br>
+                <p>Email address:</p>
+                <input type="email" id="email" name="email" value="<?= $email; ?>"><br>
+
+                <p>Gender:</p>
+                <input type="radio" name="gender" id="male" value="Male" <?php if ($gender === "Male") echo "checked"; ?>><label for="male">Male</label><br>
+                <input type="radio" name="gender" id="female" value="Female" <?php if ($gender === "Female") echo "checked"; ?>><label for="female">Female</label><br>
+
+                <p>Education:</p>
+                <select id="education" name="education">
+                    <option value="">-- Select --</option>
+                    <option value="High School" <?php if ($education === "High School") echo "selected"; ?>>High School</option>
+                    <option value="Bachelor's" <?php if ($education === "Bachelor's") echo "selected"; ?>>Bachelor's</option>
+                    <option value="Master's" <?php if ($education === "Master's") echo "selected"; ?>>Master's</option>
+                    <option value="PhD" <?php if ($education === "PhD") echo "selected"; ?>>PhD</option>
+                </select><br><br>
+
+                <input type="checkbox" id="mailing" name="mailing" <?php if ($mailingChecked) echo "checked"; ?>>I want to receive commercial information<br><br>
+                <input type="submit" value="Submit" id="submit" name="submit">
+            </div>
+        </form>
+    <?php } ?>
+    
+    <?php
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $firstName = $_POST["firstName"] ?? "";
+            $lastName = $_POST["lastName"] ?? "";
+            $profession = $_POST["profession"] ?? "";
+            $email = $_POST["email"] ?? "";
+            $mailing = isset($_POST["mailing"]);
+            $gender = $_POST["gender"] ?? "";
+            $education = $_POST["education"] ?? "";
+
+            if (empty($firstName) || empty($lastName) || empty($profession) || empty($email) || empty($gender) || empty($education)) {
+                echo "<p style='color: red;'>You must fill in all fields!</p>";
+                form($firstName, $lastName, $profession, $email, $mailing, $gender, $education);
+            } else {
+                echo "<p>Thank you for filling out the form!</p>";
+                ?>
+                <ul>
+                    <li>First name: <b><?= trim($firstName); ?></b></li>
+                    <li>Last name: <b><?= trim($lastName); ?></b></li>
+                    <li>Profession: <b><?= trim($profession); ?></b></li>
+                    <li>Email address: <b><?= trim($email); ?></b></li>
+                    <li>Gender: <b><?= $gender; ?></b></li>
+                    <li>Education: <b><?= $education; ?></b></li>
+                    <?php
+                        if ($mailing)
+                            echo "<li>You want to receive commercial information.</li>";
+                        else
+                            echo "<li>You do not want to receive commercial information.</li>";
+                    ?>
+                </ul>
+                <?php
+           }
+        } else
+            form();
+    ?>
+</body>
+</html>
+```

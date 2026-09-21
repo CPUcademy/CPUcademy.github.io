@@ -1,0 +1,181 @@
+---
+title: "Pandas"
+order: 2
+---
+
+<p>```Pandas``` is a library built on top of ```NumPy``` for data manipulation and analysis. It provides flexible data structures like ```DataFrame``` and ```Series``` that make handling tabular and time-series data intuitive and efficient. ```Pandas``` is perfect for labeled data operations, missing data handling, and data aggregation, complementing ```NumPy```’s numerical computing capabilities.</p>
+
+<p>Write the ```import pandas as pd``` and/or ```import numpy as np``` statements at the beginning of every example.</p>
+
+<p>A ```Series``` is a one-dimensional labeled array capable of holding any data type, such as integers, floats, or strings. Each element in a ```Series``` has an associated index, allowing for fast lookups, slicing, and alignment with other ```Series``` or ```DataFrames```. They are ideal for representing a single column of data, performing vectorized operations, and easily handling missing values.</p>
+
+```python
+print(pd.Series([1, 2, 3, 4]))
+
+s = pd.Series([1, 2, 3, 4], index=["a", "b", "c", "d"]) # a Series with custom index labels
+print(s[0]) # accessing the first element by position
+print(s["b"]) # accessing an element by label
+print(s[1:3]) # slicing elements by position
+```
+
+<p>A ```DataFrame``` is a two-dimensional labeled data structure, similar to a spreadsheet or SQL table, where each column is a ```Series```. ```DataFrames``` support heterogeneous data types across columns, flexible indexing, and powerful operations like filtering, grouping, merging, and pivoting. They make it easy to manipulate, clean, and analyse large datasets efficiently.</p>
+
+```python
+print(pd.DataFrame({
+    "A": [1, 2, 3], 
+    "B": [4, 5, 6], 
+    "C": [7, 8, 9]
+}))
+
+df = pd.DataFrame(np.arange(12).reshape(3, 4), columns=["A", "B", "C", "D"]) # creating a DataFrame from a NumPy array
+
+print(df.head()) # first 5 rows
+print(df.tail()) # last 5 rows
+print(df.shape) # shape (rows, columns)
+print(df.columns) # column names 
+print(df.index) # row indices
+print(df.info()) # summary with data types and non-null counts
+print(df.describe()) # basic statistics for numeric columns
+
+# Accessing data
+print(df["A"]) # accessing a single column as a Series
+print(df[["A", "B"]]) # accessing multiple columns
+print(df.iloc[0]) # accessing the first row (using position-based indexing)
+print(df.iloc[0, 1]) # accessing an element in the first row, second column
+print(df.loc[0, "A"]) # accessing an element by label (row index and column name)
+print(df.iloc[:, 1]) # accessing all rows, second column
+print(df.loc[:, ["A", "B"]]) # accessing all rows, multiple columns by label
+
+# Filtering data
+print(df[df["A"] > 1]) # filtering rows where the column value > 1
+print(df[(df["A"] > 0) & (df["B"] < 5)]) # filtering rows with multiple conditions
+
+# Adding / modifying columns
+df["E"] = df["A"] + df["B"] # creating a new column as a sum of two columns
+df["F"] = 0 # creating a new column filled with constant value 0
+
+# Dropping rows / columns
+df.drop("F", axis = 1, inplace=True) # dropping a column in place (without creating a new DataFrame)
+print(df.drop(0, axis = 0, inplace=False)) # dropping the first row (returns new DataFrame)
+
+# Handling missing values (these methods also work for Series, which means also for single rows of DataFrames)
+df.loc[1, "B"] = np.nan # introducing a missing value (NaN) at row 1, column "B"
+print(df.isnull()) # searching for missing values with a boolean mask: True where values are NaN, False elsewhere (isna() returns the same result)
+print(df.dropna()) # dropping rows with NaN values (returns a new DataFrame, df is not modified)
+print(df.fillna(0)) # filling NaN values with 0s (returns a new DataFrame, df is not modified)
+print(df.fillna(0, inplace=True)) # filling NaN values with 0s (directly in the original DataFrame)
+
+# Sorting
+print(df.sort_values("A")) # sorting by a column
+print(df.sort_index()) # sorting by a row index
+
+# Aggregations
+print(df["A"].sum()) # sum of all values in a column
+print(df["B"].mean()) # mean of all values in a column
+print(df["C"].max()) # maximum value in a column
+print(df[["A", "B"]].min()) # minimum value for each of the columns
+print(df.describe()) # statistics summary
+
+# apply() and map()
+print(df["B"].apply(lambda x: x * 2)) # an element-wise operation on a column
+print(df.apply(np.sqrt)) # a column-wise operation
+print(df["A"].map({1: "one", 2: "two"})) # mapping values using a dictionary
+
+# iterrows()
+for indexx, row in df.iterrows():
+    print(indexx, row["A"], row["B"]) # iterating over DataFrame rows as (index, Series) pairs
+
+print(df.to_string()) # printing the entire DataFrame as a string (shows full content, unlike normal print, which may truncate)
+
+# Saving / loading
+df.to_csv("data.csv", index=False) # saving a DataFrame to a CSV file
+df_loaded = pd.read_csv("data.csv", sep=",") # loading a DataFrame from a CSV file, "sep" specifies the column delimiter (default is a comma)
+
+# Resetting / setting index (see table below for example)
+df_reset = df.reset_index() # converting the current index into a column
+df_indexed = df.set_index("A") # using the column as the new row index
+```
+
+<p>Original DataFrame (default index):</p>
+<div className="table-container"><table>
+<tr>
+    <td><b>Index</b></td>
+    <td><b>A</b></td>
+    <td><b>B</b></td>
+    <td><b>C</b></td>
+</tr>
+<tr>
+    <td>0</td>
+    <td>5</td>
+    <td>7</td>
+    <td>8</td>
+</tr>
+<tr>
+    <td>1</td>
+    <td>3</td>
+    <td>4</td>
+    <td>2</td>
+</tr>
+</table></div>
+
+<p>After ```df.set_index("A")``` (using column "A" as the index):</p>
+<div className="table-container"><table>
+<tr>
+    <td><b>A (Index)</b></td>
+    <td><b>B</b></td>
+    <td><b>C</b></td>
+</tr>
+<tr>
+    <td>5</td>
+    <td>7</td>
+    <td>8</td>
+</tr>
+<tr>
+    <td>3</td>
+    <td>4</td>
+    <td>2</td>
+</tr>
+</table></div>
+
+<p>This is done to make a column’s values serve as meaningful row labels, which makes looking up, selecting, or aligning data easier.</p>
+
+```python
+# Grouping data
+
+df = pd.DataFrame({
+    "Category": ["X", "Y", "X", "Y"],
+    "Values": [10, 20, 30, 40]
+})
+
+print(df.groupby("Category").sum()) # sum of all values in a category
+print(df.groupby("Category").mean()) # mean of all values in a category
+```
+
+```python
+# Merging / concatenating
+
+df = pd.DataFrame({"A": [1, 2], "B": [3, 4]})
+df2 = pd.DataFrame({"A": [5, 6], "B": [7, 8]})
+print(pd.concat([df, df2])) # vertical concatenation
+print(pd.concat([df, df2], axis=1)) # horizontal concatenation
+```
+
+```python
+# Converting to/from NumPy
+
+arr = df.to_numpy() # converting a DataFrame to a NumPy array
+df_from_arr = pd.DataFrame(arr) # converting a NumPy array to a DataFrame
+```
+
+```python
+# pivot() and crosstab()
+
+df_pivot = pd.DataFrame({
+    "Date": ["2025-12-26", "2025-12-26", "2025-12-27"],
+    "Category": ["X", "Y", "X"],
+    "Value": [10, 20, 30]
+})
+
+print(df_pivot.pivot(index = "Date", columns="Category", values="Value")) # reorganizing the data to show "Value" for each "Category" per "Date" (index - rows, columns - column headers, values - cell values)
+print(pd.crosstab(df_pivot["Date"], df_pivot["Category"])) # counting how many times each combination of "Date" and "Category" occurs
+```

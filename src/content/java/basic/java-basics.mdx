@@ -1,0 +1,137 @@
+---
+title: "Basics"
+order: 3
+---
+
+<h2>Fundamental rules</h2>
+<p>We count from zero, not from one.</p>
+<p>Quotation marks and apostrophes mean something slightly different, and I will explain it in a moment.</p>
+<p>In Java, a semicolon is placed after each statement. We must indicate which instructions belong to, e.g., a loop, by putting them in braces (unless it's only one line).</p>
+<p>We can create comments by using the ```//``` symbols. Things that we write after these signs don't count as code. Comments are often used to describe the code. Multiline comments can be written between ```/*``` and ```*/``` signs.</p>
+
+<h2>Variables</h2>
+
+<p class="noBottomMargin">A variable is a "drawer" for data in the RAM. We can store every sort of data in them. We have a lot of basic variable types:</p>
+<p class="noBottomMargin">```byte``` (1 byte) - integers in this range: [-128 to 127]</p>
+<p class="noBottomMargin">```short``` (2 bytes) - integers in this range: [-32768, 32767]</p>
+<p class="noBottomMargin">```int``` (4 bytes) - integers in this range: [-2147483648, 2147483647]</p>
+<p class="noBottomMargin">```long``` (4 bytes) - integers in this range: [-2147483648, 2147483647]</p>
+<p class="noBottomMargin">```float``` (4 bytes) - decimals (up to 6-7 digits after the decimal point)</p>
+<p class="noBottomMargin">```double``` (8 bytes) - decimals with double precision (up to 15-16 digits after the decimal point)</p>
+<p class="noBottomMargin">```String``` - texts (a number can also be a part of it, e.g., "abc123")</p>        
+<p class="noBottomMargin">```char``` (2 bytes) - one character. When using this type, we have to use apostrophes and not quotation marks. This rule goes both ways, and we can't use apostrophes with strings. A character can be converted to an integer (ASCII).</p>        
+<p class="noBottomMargin">```boolean``` (1 byte) - ```true``` and ```false``` values.</p>    
+<p>```null``` - a value used to indicate the absence of a value.</p>
+
+<p>We have to define the type when creating a variable.</p>
+
+<p>Everything on the left side of the ```=``` sign is a variable's name (it cannot contain spaces), and on the right is a value.</p>
+
+<p>Be cautious because, e.g., variables ```x``` and ```X``` are not the same!</p>
+
+<p>```int number = 4;``` will initialize an ```int``` variable called "number" and immediately assign it the value 4. Java will reserve 4 bytes for it. ```number = 5;``` will change the value of this variable to 5.</p>
+
+<p>If we don't immediately have any value to assign to the variable, we can simply declare it, e.g., ```int number2;```. We say that we declare a variable if it is empty at the beginning, and we initialize it when we give it a value. We can assign a value to the declared variable the same way as if we were changing the value of a variable that has already been initialized (```number2 = 6;```).</p>
+
+```java
+int number = 4; 
+number = 5;
+int number2;
+number2 = 6;
+```
+
+<p>*In the examples I provide, I will not always give the entire code but fragments of it.</p>
+
+<p>While naming variables, we cannot add any numbers or spaces at the beginning. The first letter should not be in uppercase. Java uses the ```camelCase``` naming convention.</p>
+
+<p>We can define a variable as a constant, whose value cannot be changed, by adding ```final``` before the variable definition (e.g., ```final String NAME = "text";```). There is a convention that the names of constants should be in uppercase, with words separated by underscores.</p>
+
+<p>A variable named ```_``` is, by convention, treated as a placeholder and intentionally ignored.</p>
+
+<p>Variables can be declared in bulk, e.g., ```int a, b, c;```. They can also be defined in the same way: ```int a = 1, b, c = 2;``` (we can define only some of them if we want). In this case, the ```b``` variable is not empty, although it has no value assigned. It contains a value previously stored at this address in the computer memory. It is always safer to assign a value to a variable at the beginning to avoid errors (even if its value would be 0).</p>
+
+<p>If, for example, the number 4 is assigned to a ```float``` variable, it will be written as 4.0. If we divide 4.5 by 2, we get 2.25, but if we divide 5 by 2, we get 2 because when we divide an ```int``` by an ```int```, we get an ```int```. When dividing an ```int``` by an ```int```, we should write, e.g., 5.0 / 2, to get the exact result.</p>
+
+<p>If we assign a ```char``` character to an ```int```, it will be converted to the ASCII number corresponding to that character. A ```float``` number assigned to an ```int``` would be abbreviated without rounding (e.g., 2.6 would equal 2), and an ```int``` assigned to a ```float``` would be extended (e.g., 2 would equal 2.0).</p>
+
+<p>We can concatenate (join) strings with the ```+``` operator, e.g., ```String a = b + c;```, where ```b``` and ```c``` are ```String``` variables.</p>
+
+<p>When we use the ```long``` or the ```float``` type, we have to add a corresponding letter at the end of the number: ```long a = 1234334124252345252L;```, ```float b = 4.75f;```.</p>
+
+<p>If we divide 1234 by 10, the result will be 123 because we are dividing by 10, not 10.0 (numbers after the decimal point will not be included).</p>
+
+<p>Money should not be stored as a ```float``` because floating-point numbers cannot represent many decimal values exactly, which can cause rounding errors. Instead, we can store monetary amounts as an ```int``` representing the smallest currency unit, such as cents ($10.99 -> 1099).</p>
+
+<p>A “falsy” number is a number that evaluates to ```false``` when converted to a boolean (only 0), while all other numbers are “truthy” and evaluate to ```true```.</p>
+
+<p>```\n``` symbolizes the enter key and can be used inside of strings.</p>
+
+<p>Retrieving data from the user is complicated, so I will show you how to do it later.</p>
+
+<p>For now, a method is a special statement that performs a specific task, often related to something in our program, like printing text or calculating a result (I will talk more about methods later).</p>
+
+<p>The ```var``` keyword allows the compiler to infer the variable's type from the assigned value, making code shorter and more readable. For example, ```var message = "Hello";``` automatically infers that ```message``` is of type ```String```. Note that ```var``` can only be used for local variables with an initializer, and the type is fixed at compile time (cannot be changed later).</p>
+
+<h2>Hello World program</h2>
+
+<p>The ```System.out.println()``` method displays data of all types on the screen. You will learn what the rest of the code means when you get to the lessons about OOP, and for now, let's say it's just a template for all code.</p>        
+                            
+```java
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+
+        String name = "John";
+        int age = 25;
+        System.out.println(String.format("My name is %s and I am %d years old.", name, age)); // easily combining strings and variables
+    }
+}
+```
+
+<p>We can compile a Java file from the terminal using the ```javac Main.java``` command, and then run it using ```java Main``` (the name of the file has to be the same as the name of the class within it). Each file should contain only one class.</p>
+
+<h2>Type casting</h2>
+
+<p>Type casting, also known as type conversion, is the process of converting one data type to another (e.g., ```double``` to ```int```).</p>
+
+```java
+double x = 5.5;
+int y = (int)x; // the type written inside the parenthesis is the one that we are converting to
+System.out.println(y);
+```
+
+<p>Type casting can be implicit, where a type is automatically converted to another (e.g., when dividing an integer by another integer, resulting in a floating-point number), or explicit, as shown above. An example of implicit type casting: </p>
+
+```java
+int x = 5;
+int y = 10;
+System.out.println("Example" + x + y); // the result is "Example510" because one value is a string, so + acts as the concatenation operator (it can't "add" a string)
+```
+
+<h2>Important terms</h2>
+
+<p>You can come back to this section later.</p>
+
+<h4>Garbage Collector</h4>
+<p>The garbage collector in Java is an automatic memory management system that helps reclaim memory by removing objects that are no longer in use. It operates in the background, allowing developers to focus on writing code without worrying about manual memory deallocation.</p>
+
+<h4>JVM (Java Virtual Machine)</h4>
+<p>The Java Virtual Machine (JVM) is an abstract computing machine that enables Java bytecode to be executed on any platform, providing the "write once, run anywhere" capability. It manages system resources, including memory and execution threads, ensuring that Java applications run efficiently and securely.</p>
+
+<h4>JDK (Java Development Kit)</h4>
+<p>The Java Development Kit (JDK) is a software development environment that provides the tools necessary for developing Java applications, including the Java compiler, libraries, and documentation. It includes the JRE (Java Runtime Environment) and additional tools for debugging, monitoring, and packaging Java applications.</p>
+
+<h4>JRE (Java Runtime Environment)</h4>
+<p>The Java Runtime Environment (JRE) is a part of the Java Development Kit (JDK) that provides the necessary libraries and components to run Java applications. It includes the Java Virtual Machine (JVM) and standard class libraries, allowing developers to execute Java programs on their machines without needing the full development tools.</p>
+
+<h4>```.jar``` (Java Archive)</h4>
+<p>A ```.jar``` (Java Archive) file is a package file format used to bundle Java classes, metadata, and resources (such as images or libraries) into a single file. ```.jar``` files are used for distributing Java applications or libraries, making them easier to deploy and manage. They are typically compressed, enabling efficient storage and distribution of Java programs.</p>
+
+<h4>Bytecode</h4>
+<p>Bytecode is the intermediate representation of Java source code, which is generated after compiling the code with the Java compiler. This platform-independent code is executed by the Java Virtual Machine (JVM), allowing Java programs to be run on any device or operating system that supports the JVM. Bytecode is a crucial aspect of Java's "write once, run anywhere" philosophy.</p>
+
+<h4>Gradle</h4>
+<p>Gradle is a build automation tool that gives developers a lot of flexibility in how they define and run their projects. Instead of relying on strict configuration files, it uses a more natural scripting approach (with Groovy or Kotlin), which makes it feel closer to writing actual code. This allows us to customize almost every part of the build process. Gradle only rebuilds what has changed, which can make a big performance difference in larger projects. Because of this, it’s the default build system for Android development and is widely used in modern Java applications.</p>
+
+<h4>Maven</h4>
+<p>Maven is a more traditional build tool that focuses on simplicity and consistency. It uses an XML file (```pom.xml```) to describe how a project should be built, what dependencies it needs, and which plugins should be used. While the XML format can feel a bit verbose, it helps enforce a clear and predictable project structure, which is especially useful when working in teams. Maven follows the idea of “convention over configuration,” meaning it assumes a standard way of organizing projects so we don’t have to set everything up manually. It may not be as flexible as Gradle, but it’s very stable and easy to understand.</p>

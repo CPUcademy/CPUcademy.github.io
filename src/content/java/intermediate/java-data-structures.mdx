@@ -1,0 +1,263 @@
+---
+title: "Data structures"
+order: 5
+---
+
+<p>A data structure organizes and stores data in memory for efficient access and modification. A collection is a group of data items treated as a single unit, focusing on operations like adding, removing, and iterating over elements. While collections rely on data structures, they offer a more abstract way to manage groups of objects. All collections are based on data structures, but not all data structures are collections.</p>
+
+<h2>ArrayList & LinkedList</h2>
+
+<p>Lists are dynamic arrays, so we do not have to know their size at the beginning (but we have to determine the type of its elements). It works because the memory is reserved in advance based on how many elements we added in the past. That reserved in advance memory is the list's capacity, and its size is how much of this memory is used.</p>
+
+<ul>
+    <li><b>ArrayList</b><ul><li>Fast access time to objects.</li><li>Slow insertion and removal time of objects.</li></ul></li>
+    <li><b>LinkedList</b><ul><li>Fast insertion and removal time of objects.</li><li>Slow access time to objects.</li></ul></li>
+</ul>
+
+```java
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<Integer> integers = new ArrayList<>();
+        integers.add(2); // adding an element at the end
+        integers.add(4);
+
+        System.out.println(integers.get(0)); // the same as integers[0] with arrays
+        System.out.println(integers.getFirst()); // the first value
+        System.out.println(integers.getLast()); // the last value
+        integers.set(1, 3); // changing the value under a given index
+        System.out.println(integers.get(1));
+        System.out.println(integers.size()); // the length of the list
+        integers.remove(1); // deleting the element under a given index
+    }
+}
+```
+
+<p>Both ```ArrayList``` and ```LinkedList``` inherit features from the ```List``` interface, which is why we can write: ```List<String> x = new ArrayList<>();``` (polymorphism). ```List``` defines the general contract for all list-like data structures, but it doesn’t provide concrete implementations of methods. We can use the ```List``` interface when declaring the variable to keep the code less dependent on a specific implementation.</p>
+
+<p>We can assign all the values at declaration using ```ArrayList<Integer> integers = new ArrayList<>(Arrays.asList(1, 2, 3));``` or ```ArrayList<Integer> integers = new ArrayList<>(List.of(1, 2, 3));```.</p>
+
+<p>The ```list1.addAll(list2);``` method adds all elements from ```list2``` to ```list1```.</p>
+
+<p>```ArrayList<Integer> list1;``` is just a declaration of a list. If we try to add objects to it, we will get a ```NullPointerException``` error. It is necessary to also initialize it (```ArrayList<Integer> list1 = new ArrayList<>();```).</p>
+
+<p>The ```new ArrayList<>(x)``` phrase means the ```x``` list will be copied to the ```y``` list (```y``` won't be just another name for the list but its actual copy that can have different values than the original). We can achieve something similar using the ```clone()``` method (```ArrayList<Integer> cloned = (ArrayList<Integer>) original.clone();```). These two do not work as expected if the ```ArrayList``` contains mutable objects (objects whose internal state can be changed after creation, such as instances of classes with modifiable fields), as both new ```ArrayList<>(x)``` and ```clone()``` only create a shallow copy, meaning changes to those mutable objects in one list will reflect in the other. To create a deep copy of an ```ArrayList``` containing mutable objects, we need to manually copy each object inside the list.</p>
+
+```java
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<Integer> x = new ArrayList<>(Arrays.asList(1, 2));
+        ArrayList<Integer> y = new ArrayList<>(x);
+        y.add(3);
+
+        for (int i: x)
+            System.out.print(i); // print with no enter afterwards
+        System.out.println();
+        for (int i: y)
+            System.out.print(i);
+    }
+}
+```
+
+<h2>Iterators</h2>
+
+<p>An iterator is an object pointing at a particular position inside a container (e.g., a list). We use it to get to certain elements inside the container. Not all elements inside a container are in a row inside the memory (this was the case with arrays). An iterator is basically an object that contains a countable number of values. The ```next()``` method is a built-in method used to advance the iterator to the next item and retrieve the value at the current position.</p>
+
+```java
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        LinkedList<String> l = new LinkedList<>(Arrays.asList("1", "2", "3"));
+        Iterator<String> iter = l.iterator();
+
+        // Iterating through the list
+        while (iter.hasNext())
+            System.out.println(iter.next());
+
+        // Restarting the iterator
+        iter = l.iterator();
+
+        // Removing the first element returned by next()
+        if (iter.hasNext()) {
+            iter.next(); // moving to the first element
+            iter.remove(); // removing the first element (the iterator is now pointing to the next valid element - "2")
+        }
+
+        // Displaying the list after removal
+        iter = l.iterator();
+        while (iter.hasNext())
+            System.out.println(iter.next());
+    }
+}
+```
+
+<h2>Useful methods</h2>
+
+<p>These methods work with most data structures.</p>
+
+<p class="noBottomMargin">```.size()``` - returning the number of elements in the collection.</p>
+<p class="noBottomMargin">```.contains()``` - checking if the collection contains a specified element.</p>
+<p class="noBottomMargin">```.clear()``` - removing all elements from the collection.</p>
+<p class="noBottomMargin">```.remove()``` - removing a specified element from the collection.</p>
+<p class="noBottomMargin">```.isEmpty()``` - checking if the collection is empty.</p>
+<p>```.hashCode()``` - returning the hash code value for the collection (a numerical value generated by a hash function that uniquely represents an object, allowing for efficient data retrieval and comparison in data structures like hash tables).</p>     
+
+<h2>The ```Collections``` class</h2>
+
+<p>The ```Collections``` class provides static methods that operate on or return ```Collection``` objects. We can use them with most data structures.</p>
+
+<p class="noBottomMargin">```Collections.max()``` - returning the biggest number from a ```List``` (alphabetically or based on a ```Comparator```).</p>
+<p class="noBottomMargin">```Collections.min()``` - returning the smallest number from a ```List``` (alphabetically or based on a ```Comparator```).</p>
+<p class="noBottomMargin">```Collections.reverse()``` - reversing the order of elements in a ```List```.</p>
+<p class="noBottomMargin">```Collections.shuffle()``` - randomizing the order of elements in a ```List```.</p>
+<p class="noBottomMargin">```Collections.sort()``` - sorting a ```List``` alphabetically or based on a ```Comparator```.</p>
+<p>```Collections.swap()``` - swapping the positions of two elements in a ```List```.</p>
+
+<h2>Stacks & queues</h2>
+
+<p>Stacks and Queues are data structures for storing data in specific orders. Their elements can't be accessed by index. Stacks operate in a Last-In-First-Out (LIFO) order, where elements can only be added and deleted from the top of the stack. Queues operate in a First-In-First-Out (FIFO) order, where elements can be added at the end of the queue and removed from the front.</p>
+
+```java
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
+public class Main {
+    public static void main(String[] args) {
+        Stack<Integer> integers = new Stack<>();
+        integers.push(1); // adding an element
+        integers.push(2);
+        integers.pop(); // deleting an element
+        System.out.println(integers.peek()); // the value from the top of the stack (1)
+
+        Queue<Integer> integers2 = new LinkedList<>();
+        integers2.add(1); // adding an element
+        integers2.add(2);
+        integers2.add(3);
+        integers2.remove(); // deleting an element
+        System.out.println(integers2.peek()); // the value from the front of the queue (2)
+    }
+}
+```
+
+<h2>Deques</h2>
+
+<p>Deque stands for Double-Ended Queue. With it, we can easily add and remove elements not only at the end (like with lists) but also at the beginning. Its elements can be accessed by index.</p>
+
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+public class Main {
+    public static void main(String[] args) {
+        Deque<Integer> integers = new ArrayDeque<>();
+        integers.addLast(2); // adding an element at the end
+        integers.addLast(4);
+        integers.removeLast(); // deleting an element at the end
+        integers.addFirst(1); // adding an element at the beginning
+        integers.removeFirst(); // deleting an element at the beginning
+        System.out.println(integers.getFirst()); // integers.getLast() would return the same number as there is only one
+
+        for (Integer integer: integers)
+            System.out.println(integer);
+    }
+}
+```
+
+<h2>Sets</h2>
+
+<p>Sets store unique elements (even if we add, e.g., the number 4 twice, it will keep only one) that are not accessible by index. An unordered set (unordered_set) stores elements without an order (we could enter them like this: 1, 2, 3, and then receive 3, 1, 2).</p>
+
+<ul>
+    <li><b>HashSet</b><ul><li>Based on a hash table.</li><li>No specific order of elements.</li><li>Constant time for basic operations (adding, removing, checking for element containment).</li></ul></li>
+    <li><b>TreeSet</b><ul><li>Elements are sorted according to their natural order or by a Comparator provided during set creation.</li><li>The time complexity for basic operations is logarithmic.</li></ul></li>
+    <li><b>LinkedHashSet</b><ul><li>Implemented as a combination of a hash table and a LinkedList.</li><li>Maintains the order of element insertion.</li><li>Constant time for basic operations.</li></ul></li>
+</ul>
+
+```java
+import java.util.Set;
+import java.util.HashSet;
+
+public class Main {
+    public static void main(String[] args) {
+        Set<Integer> integers = new HashSet<>();
+        integers.add(1);
+        integers.add(5);
+        integers.remove(1);
+
+        for (int i: integers)
+            System.out.println(i);
+    }
+}
+```
+
+<h2>Maps</h2>
+
+<p>Maps work on the key-value coding rule, which states that searching for the key will give us the value. Using the map keys, we can fetch the assigned values. In the example below, "Java" and "map" are keys, and "programming language" and "data structure" are values.</p>
+
+<ul>
+    <li><b>HashMap</b><ul><li>Based on a hash table.</li><li>No specific order of elements.</li><li>Constant time for basic operations (adding, removing key-value pairs).</li></ul></li>
+    <li><b>TreeMap</b><ul><li>Does not allow null keys or values.</li><li>Elements are sorted according to their natural order or by a Comparator provided at the time of map creation.</li><li>The time complexity for basic operations is logarithmic.</li></ul></li>
+    <li><b>LinkedHashMap</b><ul><li>A map of keys implemented as a combination of a hash table and a LinkedList.</li><li>Maintains the order of element insertion.</li><li>Constant time for basic operations.</li></ul></li>
+</ul>
+
+```java
+import java.util.Map;
+import java.util.HashMap;
+
+public class Main {
+    public static void main(String[] args) {
+        Map<String, String> myMap = new HashMap<>();
+        myMap.put("Java", "programming language"); // adding an element / editing the value under a given key
+        myMap.put("map", "data structure");
+
+        System.out.println(myMap.get("Java")); // displaying the value under a given key
+        System.out.println(myMap.containsKey("Java")); // checking whether the map contains a given key
+        System.out.println(myMap.containsValue("Java")); // checking whether the map contains a given value
+        myMap.remove("Java");
+
+        for (String i: myMap.keySet()) // going through a list of map keys
+            System.out.println(i);
+
+        for (String i: myMap.values()) // going through a list of map values
+            System.out.println(i);
+
+        for (Map.Entry<String, String> i: myMap.entrySet()) // going through a list of map keys and their associated values
+            System.out.println(i);
+    }
+}
+```
+
+<h2>Primitive types and objects</h2>
+
+<p>Primitive types, such as ```int```, ```char```, and ```boolean```, are predefined data types that hold simple values and are stored directly in memory, leading to efficient performance. In contrast, non-primitive types, also known as reference types, include classes (e.g., ```String```, ```Integer```), arrays, and interfaces, which can hold complex data structures and are stored as references to their memory locations, allowing for greater flexibility and functionality but with additional overhead in terms of memory and processing.</p>
+
+<p>The ```Integer``` type is a wrapper class (an object) for the primitive type ```int```, allowing integer values to be treated as objects. This is particularly useful when working with collections, such as ```ArrayList```, which can only store objects. The ```Integer``` class provides various methods, such as ```Integer.parseInt(String s)```, which converts a string to an integer, and ```compareTo(Integer anotherInteger)```, which allows for comparison between two ```Integer``` objects. This functionality enhances the versatility of integer handling, enabling more complex operations beyond what primitive types offer.</p>
+
+```java
+Integer x = 10;
+int y = x; // unboxing: Integer to int
+
+int a = 20;
+Integer b = a; // autoboxing: int to Integer
+
+int x = Integer.parseInt("123"); // returns int
+Integer y = Integer.valueOf("123"); // returns Integer
+```
+
+<p>Reference types have a default value of ```null```, while primitive types default to ```0```, ```0.0```, or ```false``` depending on their kind.</p>
+
+<h4>Method arguments</h4>
+
+<p>Objects (e.g., ```ArrayList```) are passed as a method argument by reference value to the original object (any changes made to the object within the function will affect the object in the outer scope without the need for returning it). The same rule applies when copying object variables: writing ```Obj objA = objB;``` does not create a new object - it only copies the reference, so both variables point to the same underlying object. On the other hand, primitive types (e.g., ```int```) are passed by value (a copy of the value is passed, so changes inside the method do not affect the original variable). This also applies when assigning primitives, such as ```int i = i2;``` - the value is fully copied, so the two variables remain independent.</p>
+
+<p>Classic arrays are objects, so they are passed by reference. Modifying the elements of the array inside a method affects the original array. However, if the array parameter is reassigned to a new array inside the method, only the local reference is changed; the original array outside the method remains unaffected.</p>
+
+
+<h2>Addition to the lesson - ```NaN```</h2>
+
+<p>```NaN``` (Not a Number) in Java is a special constant defined in the ```Double``` and ```Float``` classes that represents an undefined or unrepresentable numerical result. For example, an expression like ```0.0 / 0.0``` produces ```NaN```. A comparison ```NaN == NaN``` returns ```false```, because ```NaN``` is not considered equal to any value, including itself. To check if a value is ```NaN```, we can use ```Double.isNaN()``` or ```Float.isNaN()```. ```NaN``` is commonly used to represent invalid results in floating-point arithmetic, such as division by zero or operations with undefined mathematical meaning.</p>

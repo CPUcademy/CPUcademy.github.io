@@ -1,0 +1,108 @@
+---
+title: "Users, privileges, and diagnostics"
+order: 8
+---
+
+<h2>Users</h2>
+
+<p>The default database user with administrative privileges is called ```root``` (admin).</p>
+
+```sql
+-- Creating a user
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'password';
+
+-- Displaying the current user
+SELECT CURRENT_USER();
+
+-- Displaying all users
+SELECT DISTINCT User FROM mysql.user;
+
+-- Changing the user's password (two versions)
+SET PASSWORD FOR 'user'@'localhost' = PASSWORD('new_password');
+ALTER USER 'user'@'localhost' IDENTIFIED BY 'new_password';
+
+-- Renaming a user
+RENAME USER 'user'@'localhost' TO 'new_user'@'localhost';
+
+-- Deleting a user
+DROP USER 'user'@'localhost';
+```
+    
+<h2>Privileges</h2>
+```sql
+-- Granting chosen privileges (if we want to add many in the same statement, we write them after a comma like this: SELECT, INSERT ON...)
+GRANT SELECT ON database_name.* TO 'user'@'localhost'; -- privileges to select on all tables in a given database (could be also INSERT, UPDATE, DELETE, etc.)
+GRANT SELECT ON database_name.table_name TO 'user'@'localhost'; -- privileges to select on a given table in a given database
+GRANT SELECT ON table_name TO 'user'@'localhost'; -- if only table name is given without database prefix, MySQL uses the currently active database (set by USE database_name)
+
+-- Revoking chosen privileges
+REVOKE SELECT ON database_name.* FROM 'user'@'localhost';
+
+-- Granting all privileges (WITH GRANT OPTION = including administrative privileges)
+GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost' WITH GRANT OPTION;
+
+-- Displaying privileges of a given user
+SHOW GRANTS FOR 'user'@'localhost';
+
+-- Displaying all privileges of all users on the database level
+SELECT User, Host, Select_priv, Insert_priv, Update_priv, Delete_priv FROM mysql.user;
+```
+
+<p>For the privileges to be applied, they have to be flushed.</p>
+```sql
+FLUSH PRIVILEGES;
+```  
+
+<h2>Diagnostics</h2>
+
+<h4>Checking data consistency</h4>
+
+<p>Regularly checking data consistency is crucial to maintaining the database.</p>
+
+```sql
+-- Single table
+CHECK TABLE table_name; -- displaying the status of the table (if there are any errors)
+-- All tables
+mysqlcheck -u [username] -p --auto-repair --check [database_name]
+```
+
+<p>The ```--auto-repair``` flag is optional and will attempt to repair any corrupted tables that are found.</p>
+
+<h4>Repairing corrupt tables</h4>
+
+<p>Repairing tables is necessary after unexpected server failures or disk problems.</p>
+
+```sql
+-- Single table
+REPAIR TABLE table_name USE_FRM;
+-- All tables
+mysqlcheck -u [username] -p --auto-repair --repair --use-frm [database_name]
+```
+
+<p>If you want to check out these statements, change the engine of the chosen table to ```MyISAM``` because it is more potent to damage: ```ALTER TABLE table_name ENGINE=MyISAM;```. The default engine is usually ```InnoDB```. The ```USE_FRM``` option is used to repair the table using the ```.frm``` file, which contains the table structure. However, this parameter is optional, and we should use it when the ```REPAIR``` statement isn't working properly.</p>
+
+<h4>Table optimization</h4>
+
+<p>Table optimization improves performance by defragmenting data.</p>
+
+```sql
+-- Single table
+OPTIMIZE TABLE table_name;
+-- All tables
+mysqlcheck -u [username] -p --optimize [database_name]
+```
+
+<h4>Performance analysis</h4>
+
+<p>Performance analysis monitoring helps to identify performance bottlenecks.</p>
+
+```sql
+-- Query analysis
+EXPLAIN SELECT * FROM table_name;
+-- Monitoring server activity
+SHOW PROCESSLIST;
+-- Single table analysis
+ANALYZE TABLE table_name;
+-- All tables analysis
+mysqlcheck -u [username] -p --analyse [database_name]
+```

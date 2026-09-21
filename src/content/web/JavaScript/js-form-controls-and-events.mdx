@@ -1,0 +1,101 @@
+---
+title: "Form controls and events"
+order: 11
+---
+
+import DynamicParagraphExample from "../../../components/examples/DynamicParagraphExample"
+import FormControlsExample from "../../../components/examples/FormControlsExample"
+
+<h2>Dynamically adding paragraphs from input</h2>
+
+<p>An HTML ```onclick``` attribute is an event. It determines what function executes when a button is clicked. Of course, there are many event types, but the most used (besides ```onclick```) is ```onchange```, which defines what happens when, e.g., the ```<input type="text">``` control's value gets changed (no need for a confirm button). When using form controls with JavaScript, they do not need to be enclosed within the ```<form>``` tag.</p>
+
+```javascript
+<input type="text" id="textInput" style="float: left; margin-right: 10px;">
+<input type="button" value="Add" onclick="add()">
+<h4 style="margin-top: 10px; clear: both;">Values</h4>
+<div id="container"></div>
+
+<script>
+    function add() {
+        let t = document.getElementById("textInput").value // accessing the value of an "<input type="text">" form control
+        let container = document.getElementById("container")
+        let newValue = document.createElement("p")
+        newValue.className = "newValue"
+        newValue.style.margin = "0px"
+        newValue.innerText = t
+        container.insertBefore(newValue, container.firstChild) // inserting the new value at the top of the container (as its "firstChild")
+    }
+</script>
+```
+
+<DynamicParagraphExample />
+
+<h2>Form controls - example</h2>
+
+```javascript
+<div id="example">
+    <p>Background color</p>
+
+    <button id="orange" onclick="colorr('orange')">Orange</button>
+    <button id="lightblue" onclick="colorr('lightblue')">Lightblue</button>
+    <button id="green" onclick="colorr('green')">Green</button>
+
+    <p>Font color</p>
+
+    <select name="font" id="font" onclick="font(this.value)">
+        <option value="black">Black</option>
+        <option value="red">Red</option>
+        <option value="yellow">Yellow</option>
+        <option value="purple">Purple</option>
+    </select>
+
+    <p>Font size, e.g., 200%</p>
+
+    <input type="text" id="size" name="size" value="100%" onchange="font_size(this.value)">
+
+    <p>Change the list style type</p>
+
+    <input type="radio" id="disc" name="r" value="disc" onclick="style_type(this.value)"><label for="disc">Disc</label>
+    <input type="radio" id="square" name="r" value="square" onclick="style_type(this.value)"><label for="square">Square</label>
+    <input type="radio" id="circle" name="r" value="circle" onclick="style_type(this.value)"><label for="circle">Circle</label>
+
+    <ul id="list">
+        <li>a</li>
+        <li>b</li>
+        <li>c</li>
+    </ul>
+    
+    <input type="checkbox" id="border" name="border" onclick="add_border()"><label for="border">Add border to the ```&lt;div&gt;```</label>
+</div>
+
+<script>
+    function colorr(c) { document.querySelector("#example").style.backgroundColor = c }
+    function font(c) { document.querySelector("#example").style.color = c }
+    function font_size(c) { document.querySelector("#example").style.fontSize = c }
+    function style_type(c) { document.querySelector("#list").style.listStyleType = c }
+
+    function add_border() {
+        let img = document.querySelector("#example")
+        if (document.getElementById("border").checked)
+            img.style.border = "5px solid black"
+        else
+            img.style.borderWidth = "0px"
+    }
+</script>
+```
+
+<p>To retrieve the value of the selected radio button, we can also use ```document.getElementsByName("r")```, which returns a NodeList of all radio buttons with the name ```r```. We then loop through them and check which one has ```checked``` set to ```true```. For example:</p>
+
+```javascript
+let radios = document.getElementsByName("r")
+for (let i = 0; i < radios.length; i++) {
+    if (radios[i].checked) {
+        console.log(radios[i].value)
+    }
+}
+```
+
+<p>This approach is useful when we need the selected value without attaching individual ```onclick``` handlers to each button. Similarly, when retrieving values from ```<input type="file">```, we also get a list (```FileList```) containing all selected files, which we can iterate over just like with the radio buttons. To access the name of the first list element, we can use: ```document.querySelector("#fileInput").files[0].name```.</p>
+
+<FormControlsExample />

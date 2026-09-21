@@ -1,0 +1,19 @@
+---
+title: "Reverse cipher"
+order: 1
+---
+
+<p>The reverse cipher is one of the simplest encryption techniques that involves reversing the order of characters in a message to obscure its meaning. For example, the word "hello" would be transformed into "olleh."</p>
+								
+```python
+def reverse(message):
+    output_message = ""
+    i = len(message) - 1 # starting from the last character
+    while i >= 0:
+        output_message = output_message + message[i] # appending the current character
+        i = i - 1 # moving to the previous character
+    return output_message
+
+message = "Secret message"
+print(reverse(message))
+```

@@ -1,0 +1,109 @@
+---
+title: "Conditional statements"
+order: 6
+---
+
+<h2>```if``` conditional statement</h2>
+            
+<p>The ```if``` conditional statement allows us to check if a given condition is fulfilled. We commonly use logical operators in conditional statements.</p>
+
+```java
+int x = 5;
+if (x == 5)
+    System.out.println("The x variable equals 5.");
+```
+
+<p>We use the modulo operator very often in conditional statements. In the example below, the condition checks if the ```x``` variable is divisible by 2 (whether it is even).</p>
+
+```java
+int x = 6;
+if (x % 2 == 0)
+    System.out.println("The x variable is an even number.");
+```
+
+<p>We can simplify the ```if``` statement by using boolean conditions. We can just write ```if (x)```, and if ```x``` is ```true```, the instruction will be executed. ```true``` means any value other than 0.</p>
+
+<h2>```else``` and ```else if``` conditional statements</h2>
+
+<p>```else``` is a statement that allows us to simplify our code by avoiding the need for another ```if``` statement, replacing it with an alternative action when the original condition is ```false```.</p>
+
+```java
+int x = 5;
+if (x > 0)
+    System.out.println("The x variable is a positive number.");
+else
+    System.out.println("The x variable is a negative number.");
+```
+
+<p>The code above doesn't handle the case where the user enters 0. To do that, we need ```else if```. It works similarly to ```else```, but allows us to specify an additional condition (like in an ```if``` statement). We can use as many ```else if``` instructions as we want, relating to a single ```if```.</p>
+
+```java
+int x = 5;
+if (x > 0)
+    System.out.println("The x variable is a positive number.");
+else if (x < 0)
+    System.out.println("The x variable is a negative number.");
+else
+    System.out.println("The x variable equals 0.");
+```
+
+<p>We use this instruction instead of writing multiple ```if``` statements because if any of the conditions relating to a single ```if``` statement have been met, the rest will not be considered.</p>
+
+<h2>```break``` and ```continue``` keywords</h2>
+
+<p>The ```break``` keyword is used to break the continuity of a loop, and ```continue``` can skip particular iterations within it.</p>
+
+```java
+int x = 0;
+while (true) {
+    if (x == 5)
+        break;
+    System.out.println(x);
+    x++;
+}
+
+for (int y = 1; y <= 10; y++) {
+    if (y == 4 || y == 8)
+        continue;
+    System.out.println("y equals: " + y);
+}
+```
+
+<h2>```switch``` conditional statement</h2>
+
+<p>```switch``` is a statement that simplifies complex conditions by replacing multiple ```if``` and ```else if``` statements with a more concise structure.</p>
+
+```java
+int x = 5;
+
+switch (x) {
+    case 0:
+        System.out.println("x equals 0");
+        break;
+    case 25:
+        System.out.println("x equals 25");
+        break;
+    case 50:
+        System.out.println("x equals 50");
+        break;
+    default:
+        System.out.println("x doesn't equal 0, 25, or 50");
+}
+```
+
+<p>An argument of the ```switch``` statement can be an ```int``` or a ```char``` (it will convert characters to numbers based on the ASCII array).</p>
+
+<p>If we want several ```cases``` to be called upon in a given ```case```, we do not put the ```break``` statement at the end of it (they will execute until a ```break``` is encountered or the ```switch``` instruction ends).</p>
+
+<h2>The ternary operator (```?```)</h2>
+
+<p>The ternary operator allows us to create a simplifed one-line version of the ```if-else``` statement. If the condition is ```true```, the instruction on the left side of the colon will execute, and if not - the one on the right side. Check the results in your editor.</p>
+
+```java
+System.out.println(7 > 4 ? 4: 7);
+
+int a = 7, b = 10;
+String x = a >= b ? "a >= b": "a <= b";
+
+System.out.println(x);
+```

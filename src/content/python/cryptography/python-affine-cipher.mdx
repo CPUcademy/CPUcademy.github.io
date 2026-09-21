@@ -1,0 +1,114 @@
+---
+title: "Affine cipher"
+order: 6
+---
+
+<p>Modular arithmetic, often referred to as "clock arithmetic," is a system of arithmetic for integers where numbers wrap around after reaching a certain value, known as the modulus. It is like telling time on a clock. For example, on a 12-hour clock, if it's 9 o'clock and you add 5 hours, you get 14, but since the clock wraps around, you subtract 12 to get 2 o'clock. This means 9 + 5 is equivalent to 2 in modular arithmetic. Similarly, if we subtract hours, we also wrap around. For example, 1 o'clock minus 3 hours goes back to 10 o'clock.</p>
+
+<h2>Multiplicative cipher</h2>
+
+<p>A multiplicative cipher, instead of adding the key to the index of the character, like the Caesar cipher, multiplies it. For example, the letter B with an index of 1, encrypted using the key 3, will be D (index 3). If the result, or key, is greater than the size of the character set, then we proceed as in the Caesar cipher: we take the result modulo the size of the character set to ensure it wraps around and corresponds to a valid character. Additionally, it's important to note that the key used in a multiplicative cipher must be coprime to the size of the character set. Two numbers are considered coprime if their greatest common divisor (GCD) is 1, meaning they have no common factors other than 1. This condition is crucial because it ensures that every character can be uniquely mapped to another character without any overlaps. For a set of 26 characters, there are only 12 viable keys.</p>
+
+<h2>Affine cipher</h2>
+
+<p> The affine cipher is a combination of the multiplicative and Caesar ciphers. It has two keys. The index of the character is first multiplied by key A, then the result is added to key B, and wrapped using modulo (the result modulo the size of the character set) if necessary. To decipher, we just reverse the order: subtract key B, multiply by the <b>modular inverse of key A</b>, and wrap it using modulo.</p>
+
+<p>The modular inverse of a number <b>A</b> is another number <b>A'</b> such that when you multiply them together and take the remainder when divided by <b>m</b>, the result is 1 (```(A * A') % m == 1```). For example, if <b>A</b> is 5 and <b>m</b> is 26 (the number of letters in the English alphabet), the modular inverse of ```5 % 26``` is 21 because ```(5 * 21) % 26 = 1``` (```5 * 21 = 105, 105 / 26 = 4.038, 4 * 26 = 104, remainder = 1```). It can be easily calculated using the Extended Euclidean Algorithm.</p>
+
+<p>The Extended Euclidean Algorithm (EEA) is a method used to find the greatest common divisor (GCD) of two integers while also determining the coefficients that express this GCD as a linear combination of the integers. It extends the basic Euclidean algorithm by keeping track of these coefficients, which are essential for finding the modular inverse in cryptographic applications.</p>
+
+<h2>Implementation</h2>
+
+```python
+CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" # this string can contain other characters like !, @, etc.
+
+def extended_gcd(a, b):
+    if a == 0: # base case: if a is 0, return b, and coefficients 0 and 1
+        return b, 0, 1
+    gcd, x1, y1 = extended_gcd(b % a, a) # recursive call to finding GCD and coefficients
+    x = y1 - (b // a) * x1 # updating coefficients
+    y = x1
+    return gcd, x, y
+
+def mod_inverse(a, m):
+    gcd, x, _ = extended_gcd(a, m) # calculating GCD and coefficients using the Extended Euclidean Algorithm
+    if gcd != 1: # if GCD is not 1, the inverse does not exist
+        raise ValueError("Inverse does not exist")
+    else:
+        return x % m
+
+def encrypt(plaintext, A, B):
+    ciphertext = ""
+    plaintext = plaintext.upper()
+    for char in plaintext:
+        if char in CHARACTERS: # checking if the character is in the defined set
+            x = CHARACTERS.index(char) # getting the index of the character
+            encrypted_char = (A * x + B) % len(CHARACTERS) # applying the encryption formula
+            ciphertext += CHARACTERS[encrypted_char] # converting back to a character
+        else:
+            ciphertext += char # non-defined characters remain unchanged
+    return ciphertext
+
+def decrypt(ciphertext, A, B):
+    A_inv = mod_inverse(A, len(CHARACTERS)) # finding the modular inverse of A
+    plaintext = ""
+    ciphertext = ciphertext.upper()
+    for char in ciphertext:
+        if char in CHARACTERS: # checking if the character is in the defined set
+            y = CHARACTERS.index(char) # getting the index of the character
+            decrypted_char = (A_inv * (y - B)) % len(CHARACTERS) # applying the decryption formula
+            plaintext += CHARACTERS[decrypted_char] # converting back to a character
+        else:
+            plaintext += char # non-defined characters remain unchanged
+    return plaintext
+
+A = 5
+B = 8
+plaintext = "Secret message"
+ciphertext = encrypt(plaintext, A, B)
+print(f"Encrypted: {ciphertext}")
+
+decrypted_text = decrypt(ciphertext, A, B)
+print(f"Decrypted: {decrypted_text}")        
+```
+
+<h4>Cracking</h4>
+
+```python
+from affine import *
+from is_english import is_english # this file was created in a lesson about detecting English
+CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" # this string can contain other characters like !, @, etc.
+
+def crack_affine(ciphertext):
+    for A in range(1, len(CHARACTERS)): # iterating over all possible values of A in the range of CHARACTERS
+        if extended_gcd(A, len(CHARACTERS))[0] != 1: # A must be coprime to CHARACTERS
+            continue
+        for B in range(len(CHARACTERS)): # iterating over all possible values of B in the range of CHARACTERS
+            decrypted_text = decrypt(ciphertext, A, B)
+            if is_english(decrypted_text):
+                print(f"Found A: {A}, B: {B} -> Decrypted Text: {decrypted_text}")
+
+ciphertext = "UCSPCZ QCUUIMC"
+crack_affine(ciphertext)                 
+```
+
+<h4>Choosing the right key</h4>
+
+<p>The maximum number of keys in an affine cipher is capped by the product of the number of valid values for A (which must be coprime to the size of the character set) and the total number of possible values for B (which can range from 0 to one less than the size of the character set). For example, with the English alphabet (26 letters), the total number of keys is 312, derived from 12 valid A values and 26 possible B values. Also, keys can't take certain values, as shown in the example below.</p>
+
+```python
+from affine import *
+CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" # this string can contain other characters like !, @, etc.
+
+def checkKeys(keyA, keyB, cipher_mode):
+    if keyA == 1 and cipher_mode == "encrypt":
+        print("Cipher is weak if key A is 1. Choose a different key.")
+    if keyB == 0 and cipher_mode == "encrypt":
+        print("Cipher is weak if key B is 0. Choose a different key.")
+    if keyA < 0 or keyB < 0 or keyB > len(CHARACTERS) - 1:
+        print(f"Key A must be greater than 0 and Key B must be between 0 and {len(CHARACTERS) - 1}.")
+    if extended_gcd(keyA, len(CHARACTERS))[0] != 1:
+        print(f"Key A ({keyA}) and the symbol set size ({len(CHARACTERS)}) are not relatively prime. Choose a different key.")
+
+checkKeys(5, 8, "encrypt")
+```

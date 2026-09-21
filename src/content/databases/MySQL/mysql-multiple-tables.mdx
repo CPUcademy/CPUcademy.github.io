@@ -1,0 +1,54 @@
+---
+title: "Multiple tables"
+order: 6
+---
+
+<h4>Inner Join</h4>
+```sql
+-- Joining tables based on related columns between them (we can join more than two tables)
+SELECT *
+FROM table1_name
+JOIN table2_name
+ON table1_name.id = table2_name.id;  
+```
+
+```sql
+-- Using table name shortcuts
+SELECT *
+FROM table1_name t1
+JOIN table2_name t2
+ON t1.id = t2.id;  
+```
+
+<h4>Outer Join</h4>
+<p>A table join that includes all rows from both tables, even if there are no matching columns (non-matching columns are marked as ```NULL```).</p>
+```sql
+SELECT *
+FROM table1_name
+LEFT JOIN table2_name
+ON table1_name.column_name = table2_name.column_name;
+```
+                                
+<p>*```RIGHT JOIN``` also exists, and it works the other way around.</p>
+
+<h4>```CROSS JOIN``` clause</h4>
+```sql
+-- Displaying all possible combinations of given columns
+SELECT table1_name.column1_name, table2_name.column2_name
+FROM table1_name
+CROSS JOIN table2_name; 
+```
+
+<h4>```UNION``` clause</h4>
+```sql
+-- Combining the results of two or more SELECT queries (including only unique rows)    
+SELECT column1_name FROM table1_name
+UNION
+SELECT column2_name FROM table2_name;
+```
+
+<h4>Conclusion</h4>
+<p className="noBottomMargin">A ```JOIN``` operation combines rows from different tables based on a specified join condition.</p>
+<p className="noBottomMargin">A ```LEFT JOIN``` returns all rows from the left table, and when there is no matching row in the right table, it fills the corresponding columns with ```NULL``` values.</p>
+<p className="noBottomMargin">A ```CROSS JOIN``` combines every row from one table with every row from another table, resulting in a Cartesian product.</p>
+<p>The ```UNION``` operator stacks one dataset on top of another, merging the results into a single dataset.</p>

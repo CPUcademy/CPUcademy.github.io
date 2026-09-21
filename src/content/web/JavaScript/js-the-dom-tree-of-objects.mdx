@@ -1,0 +1,102 @@
+---
+title: "The DOM tree of objects"
+order: 10
+---
+
+import TextImageExample from "../../../components/examples/TextImageExample"
+import ArrayListExample from "../../../components/examples/ArrayListExample"
+
+<p>The DOM tree is a representation of an HTML document in the browser. It allows JavaScript to interact with, manipulate, and traverse the elements of a web page.</p>
+
+<p>Each HTML tag is a node in the tree, and there are three primary types of nodes:</p>
+<ul>
+  <li><b>Element nodes</b> - representing HTML elements like ```<div>```, ```<p>```, etc.</li>
+  <li><b>Text nodes</b> - representing the text inside HTML elements.</li>
+  <li><b>Attribute nodes</b> - representing the attributes of elements (e.g., ```class```, ```id```).</li>
+</ul>
+                                
+<h2>Structure of the DOM tree</h2>
+<p>The DOM tree has a hierarchical structure. Consider the following HTML:</p>
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example</title>
+</head>
+<body>
+    <h1>Hello World</h1>
+    <p>This is a paragraph.</p>
+</body>
+</html>
+```
+                                
+<p>This HTML generates the following DOM tree:</p>
+```json
+Document
+└── html
+    ├── head
+    │   └── title
+    │       └── Text: "Example"
+    └── body
+        ├── h1
+        │   └── Text: "Hello World"
+        └── p
+            └── Text: "This is a paragraph."
+```
+                                
+<h2>Interacting with the DOM tree</h2>
+                                
+```javascript
+const heading = document.querySelector("h1") // selecting the <h1> tag
+heading.textContent = "Welcome to the DOM!" // changing the text inside the <h1> tag
+
+const newParagraph = document.createElement("p") // creating a new HTML element (a paragraph)
+newParagraph.textContent = "This paragraph was added dynamically." // setting the text inside the new paragraph
+newParagraph.className = "cssClass" // setting the CSS class of the element (it could be done using: newParagraph.setAttribute("class", "cssClass"))
+newParagraph.style.cssText = "background-color: red; width: 200px; height: 100px;" // setting many CSS styles at once
+document.body.appendChild(newParagraph) // adding the new element to the <body>
+```
+
+<p>The ```querySelector()``` method can also address IDs or classes like this: ```document.querySelector("#id")```, ```document.querySelector(".class")```. Alternatively, we can use specific methods to address each element type: ```getElementById("id")```, ```getElementsByClassName("class")```, ```getElementsByTagName("h1")```.</p>
+
+<p>The ```querySelectorAll()``` method allows us to select all elements that match the specified selector, returning a static NodeList, like this: ```document.querySelectorAll(".class")```, ```document.querySelectorAll("p")```. The "normal" ```querySelector()``` method chooses the first element encountered if there are many.</p>
+
+<p>Note that the ```querySelectorAll()``` method returns a <b>static</b> NodeList, meaning that if the DOM changes after the selection, the NodeList will not reflect the new changes. On the other hand, methods like ```getElementsByClassName("class")``` return a <b>live</b> NodeList, which automatically updates when the DOM is changed.</p>
+
+<h4>Text and image modification example</h4>
+
+```javascript
+<p id="t">Text</p>
+<img src="" alt="Img" id="i">
+
+<script>
+    let text = document.querySelector("#t")
+    text.innerHTML = "TEXT"
+    text.style.color = "orange"
+    text.style.backgroundColor = "black"
+    text.style.fontSize = "20px"
+
+    let image = document.querySelector("#i")
+    image.src = "img.jpg"
+    image.style.width = "30%"
+</script>    
+```
+
+<TextImageExample />
+
+<p>The ```innerHTML``` attribute differs from ```textContent``` because ```innerHTML``` can retrieve or set HTML content, including tags, while ```textContent``` only deals with plain text, excluding any HTML.</p>
+
+<h4>Dynamically creating an HTML list</h4>
+
+```javascript
+let arr = ["a", "b", "c", "d", "e"]
+document.write("<ol>")
+for (let i = 0; i < arr.length; i++)
+    document.write("<li>" + arr[i] + "</li>")
+document.write("</ol>")
+```
+
+<ArrayListExample/>
+
+<p>The ```scrollIntoView()``` method scrolls the page so that a specific element becomes visible in the viewport (e.g. ```document.querySelector("#section2").scrollIntoView()```).</p>
+                                

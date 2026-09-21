@@ -1,0 +1,378 @@
+---
+title: "Text files"
+order: 8
+---
+
+<h3>Table of contents</h3>
+
+<ul type="disc">
+    <li><a href="#basics" className="link" style={{ textDecoration: "none" }}>Basics</a></li>
+    <li><a href="#errors" className="link" style={{ textDecoration: "none" }}>Errors</a></li>
+    <li><a href="#seek-and-tell" className="link" style={{ textDecoration: "none" }}>Seek and tell</a></li>
+    <li><a href="#getline-get-and-ignore" className="link" style={{ textDecoration: "none" }}><span className="colorAppPrimary">```getline()```</span>, <span className="colorAppPrimary">```get()```</span>, and <span className="colorAppPrimary">```ignore()```</span></a></li>
+    <li><a href="#comparing-two-files" className="link" style={{ textDecoration: "none" }}>Comparing two files</a></li>
+    <li><a href="#put" className="link" style={{ textDecoration: "none", color: "#157267" }}>```put()```</a></li>
+    <li><a href="#peek" className="link" style={{ textDecoration: "none", color: "#157267" }}>```peek()```</a></li>
+    <li><a href="#putback" className="link" style={{ textDecoration: "none", color: "#157267" }}>```putback()```</a></li>
+    <li><a href="#write" className="link" style={{ textDecoration: "none", color: "#157267" }}>```write()```</a></li>
+    <li><a href="#gcount" className="link" style={{ textDecoration: "none", color: "#157267" }}>```gcount()```</a></li>
+</ul>
+
+<h2><a id="basics">Basics</a></h2>
+
+<p>This section provides all the information you will ever use unless you want to get really advanced, so you don't have to read the whole article.</p>
+
+<p className="noBottomMargin">To perform operations on text files, we need to include the ```<fstream>``` library. Firstly, we have to create a variable of the ```fstream``` type and then use the ```open()``` method on it. Its first argument is the file's name, and the second is flags. We can add multiple flags using the ```|``` sign. They are modes in which the file can be opened, and they can be:</p>
+<ul type="disc">
+    <li>```ios::out``` - output - writing to a file (if the file doesn’t exist, it creates a new one). If the file exists, it overrides its content with new data.</li>
+    <li>```ios::in``` - input - reading from a file.</li>
+    <li>```ios::trunc``` - truncate - erasing the whole content.</li>
+    <li>```ios::app``` - append - writing at the end of a file (without overriding the content).</li>
+    <li>```ios::ate``` - at the end - starting from the end of a file with the possibilities of reading and writing.</li>
+    <li>```ios::binary``` - binary type (it will still be interpreted as a text, but we could, e.g., open an image in the form of zeros and ones).</li>
+</ul>
+
+<p>For all operations, we have to first specify, whether we want to write or read, and only then add flags like ```ios::app``` using ```|```.</p>
+
+<p>In the example below, after we check if the file has been opened properly with the ```is_open()``` method, we write two lines of text in it and close it (it is necessary). Then, we read from it.</p>
+
+```cpp
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    fstream file;
+
+    file.open("file.txt", ios::out | ios::app);
+
+    if (file.is_open()) {
+        file << "Text\n";
+        file << "Text2";
+        file.close();
+    }
+
+    file.open("file.txt", ios::in);
+    string text;
+
+    if (file.is_open()) {
+        while (getline(file, text))
+            cout << text << endl;
+        file.close();
+    }
+
+    return 0;
+}
+```
+
+<p>Instead of creating a ```fstream``` variable, we can use an ```ofstream``` or an ```ifstream``` object. ```ofstream``` defaults to ```ios::out``` and ```ifstream``` to ```ios::in```, so there's no need to specify these flags explicitly.</p>
+
+<h2><a id="errors">Errors</a></h2>
+
+<p>To prevent errors while operating on text files, we can use these methods:</p>
+
+<ul type="disc">
+    <li>```bad()``` - badbit - it returns ```true``` if there is an error, e.g., writing to a file while on read mode.</li>
+    <li>```good()``` - goodbit - it returns ```true``` if everything is alright.</li>
+    <li>```fail()``` - failbit - it returns ```true``` if we read, e.g., a string to an int variable (badbit doesn't occur when failbit does).</li>
+    <li>```eof()``` - eofbit (end of file) - it returns ```true``` if a file opened with the read mode will reach the file's end.</li>
+    <li>```rdstate()``` - ReadState - it shows in which of the states from above is our file (1 - badbit, 0 - goodbit, 4 - failbit, 2 - eofbit).</li>
+    <li>```clear()``` - clearing the state.</li>
+</ul>
+
+```cpp
+fstream file;
+
+file.open("file.txt", ios::in);
+
+if (file.is_open()) {
+    string temp;
+    file >> temp;
+    do {
+        file >> temp;
+        cout << temp << endl;
+    } while (!file.eof()); // while we haven't read the whole file
+
+    cout << file.rdstate();
+    if ((file.rdstate() ^ ifstream::eofbit) == 0) // if (file.rdstate() == 0) would also work, but not in all cases
+        file.clear();
+
+    if (file.bad())
+        cout << "Error" << endl;
+    file.close();
+}
+```    
+
+<h2><a id="seek-and-tell">Seek and tell</a></h2>
+
+<p>Here, we should use the ```ios::binary``` flag to avoid errors. When we want to read something specific from a file, we can use ```seekg()``` and ```tellg()```. ```seekg()``` stands for "seek get", and it moves the ```get``` pointer to a desired location (this pointer is used for reading from the file). ```tellg()``` stand for "tell get", and it says where the ```get``` pointer is in a file. ```seekg()``` takes two arguments: how many bytes (one character is one byte) should it jump, and from where. It can start from the beginning of the file (```ios::beg```), from the end (```ios::end```), or from the moment when the reading of the file finished last time, which is the current moment (```ios::cur```). ```ios::beg``` is the default second argument, so we don't have to write it. ```tellg()``` doesn't take any arguments. Keep in mind that after we reach the end of the file, we have to set the pointer at the beginning if we want to use it again. These two methods won't be available with ```ofstream```.</p>
+
+```cpp
+fstream file;
+
+file.open("file.txt", ios::in | ios::binary);
+
+if (file.is_open()) {
+    string temp;
+
+    streampos sizeOfFile;
+    file.seekg(0, ios::end);
+    sizeOfFile = file.tellg();
+    file.seekg(0);
+    cout << "Size of the file is " << sizeOfFile << " bytes" << endl;
+
+    do {
+        file >> temp;
+        cout << temp << endl;
+    } while (!file.eof());
+
+    cout << file.rdstate();
+    if ((file.rdstate() ^ ifstream::eofbit) == 0)
+        file.clear();
+
+    if (file.good()) {
+        cout << "Everything is good" << endl;
+        cout << file.tellg() << endl;
+        file.seekg(0);
+        file >> temp;
+        cout << temp << endl;
+    }
+    file.close();
+}
+```
+
+<p>We can do the same thing but in the writing mode. For this, we use ```seekp()``` and ```tellp()```. Everything is the same, except that we can use these methods while writing in a file. ```seekp()``` stands for "seek put", and ```tellp()``` for "tell put". ```put``` is a pointer used for writing inside of the file. ```ios::beg``` is a default second argument for ```seekp()```. These two methods won't be available with ```ifstream```.</p>
+
+```cpp
+if (file.is_open()) {
+    string temp = "Text";
+    file << temp;
+    cout << file.tellp() << endl;
+    file.seekp(2);
+    file << "s"; // swaping the third character in the file to "s"
+
+    file.close();
+}
+```
+
+<h2><a id="getline-get-and-ignore">```getline()```, ```get()```, and ```ignore()```</a></h2>
+
+<p>```getline()``` will read from a file until it encounters a delimiter (by default - the enter sign) or exceeds a given range of characters. It also deletes the delimiter after it meets it, so while reading from the file the next time, it won't stop on the first character. ```get()``` works on the same principles, except it doesn't delete the delimiter. Both take three arguments: where to save the text, how many characters to read, and the delimiter (a character that, if encountered, stops the execution). With ```file.get()```, we don't have to give any arguments, but then we must use the ```ignore()``` method after it. It takes two arguments: how many characters to ignore and a delimiter.</p>
+
+<p>Open the file in these modes: ```ios::in | ios::binary```, and write the examples from below inside the ```if (file.is_open())``` conditional statement. These examples won't work when put together because of the pointer position. Remember to close the file. In the test ```.txt``` file, write these three lines:</p>
+```cpp
+John Smith
+Hannah Jones
+Harry Evans
+```
+
+```cpp
+// Reading every line of the file
+char temp[50] = {0};
+
+while (file.getline(temp, 50))
+    cout << temp << endl;
+```
+
+```cpp
+// Reading the first two lines of the file
+char temp[50] = {0};
+
+file.get(temp, 50);
+cout << temp << endl;
+
+file.ignore();
+
+file.get(temp, 50);
+cout << temp << endl;
+```
+
+```cpp
+// Reading the names and the first letters of the surnames
+char last;
+char tempName[30];
+do {
+    file.get(tempName, 30, ' ');
+    file.ignore(1, ' ');
+    last = file.get();
+    file.ignore(100, '\n');
+
+    cout << tempName << " " << last << "." << endl;
+} while (!file.eof());
+```
+
+<h2><a id="comparing-two-files">Comparing two files</a></h2>
+
+<p>Firstly, create a file and write something inside it. Then, make a second file and copy the content of the first one. If we leave it like that, the files will be identical. If we add one character, they will have different sizes, and if we change one character, they will be different. To compare them, we will use the ```memcmp()``` (memory comparison) method from the ```"string.h"``` module. As arguments, it will take the content of the first and the second files and the number of characters to compare. If this method returns 0, the files are the same. We will also use the ```read()``` method, which saves a chosen number of bytes from the file to a variable.</p>
+
+<p>In the example below, our ```sizeOfFile()``` function will check the file's size by setting the pointer on its end, reading at which byte it is, and returning to the beginning (the number of bytes at the end is the file's length). The ```main()``` function will open two files and compare them using our ```areFilesEqual()``` function. If it returns ```true```, the files are identical. If the file is larger than one megabyte, it will be divided and checked one megabyte at a time (to save memory).</p>
+
+```cpp
+#include <iostream>
+#include <fstream>
+#include "string.h"
+using namespace std;
+
+int sizeOfFile(fstream *file) {
+    file -> seekg(0, ios::end);
+    int sizeOfFile = file -> tellg();
+    file -> seekg(0);
+    return sizeOfFile;
+}
+
+bool areFilesEqual(fstream *x, fstream *y) {
+    int size;
+    int fileSize1 = sizeOfFile(x);
+    int fileSize2 = sizeOfFile(y);
+
+    if (fileSize1 > 1024)
+        size = 1024;
+    else
+        size = fileSize1;
+
+    if (fileSize1 == fileSize2) {
+        char *file1Temp = new char[size];
+        char *file2Temp = new char[size];
+
+        do {
+            x -> read(file1Temp, size);
+            y -> read(file2Temp, size);
+
+            if (memcmp(file1Temp, file2Temp, size) != 0) {
+                cout << "The files are not the same" << endl;
+                delete[] file1Temp;
+                delete[] file2Temp;
+                return false;
+            }
+        } while (x -> good() && y -> good());
+
+        delete[] file1Temp;
+        delete[] file2Temp;
+        return true;
+    } else {
+        cout << "The files have different sizes" << endl;
+        return false;
+    }
+}
+
+int main() {
+    fstream file1, file2;
+
+    file1.open("file.txt", ios::in | ios::binary);
+    file2.open("file2.txt", ios::in | ios::binary);
+
+    if (file1.is_open() && file2.is_open())
+    {    
+        if (areFilesEqual(&file1, &file2))
+            cout << "The files are identical" << endl;
+
+        file1.close();
+        file2.close();
+    }
+
+    return 0;
+}
+```
+
+<h2><a id="put">```put()```</a></h2>
+
+<p>The ```put()``` method puts something inside a stream, e.g., ```cout.put('a');``` puts ```'a'``` inside the output stream.</p>
+
+```cpp
+string text = "text";
+for (int i = 0; i < text.length(); i++)
+    cout.put(text[i]).put(' '); // writing a space after every character
+
+cout << endl;
+
+fstream file;
+file.open("file.txt", ios::out | ios::binary);
+
+if (file.is_open()) {
+    // writing in a file until a dot is encountered
+    char character;
+    do {
+        character = cin.get();
+        file.put(character);
+    } while (character != '.');
+
+    file.close();
+}    
+```
+
+<h2><a id="peek">```peek()```</a></h2>
+
+<p>The ```peek()``` method peeks at the first character. In the example below, based on the first character from the input stream, we determine if it is a string or a number (of course, it could be wrong, e.g., "5d" would be considered a number). It can be applied while reading from text files.</p>
+
+```cpp
+char c;
+c = cin.peek();
+
+if (c > '0' && c < '9') {
+    int number;
+    cin >> number;
+    cout << "You entered a number: " << number << endl;
+}
+else {
+    string text;
+    cin >> text;
+    cout << "You entered a string: " << text << endl;
+}
+```
+
+<h2><a id="putback">```putback()```</a></h2>
+
+<p>The ```get()``` method takes a character out of the stream, so it isn't there anymore. To put it back, we use the ```putback()``` method. It can be applied while reading from text files.</p>
+
+```cpp
+char c;
+c = cin.get();
+cin.putback(c);
+
+if (c > '0' && c < '9') {
+    int number;
+    cin >> number;
+    cout << "You entered a number: " << number << endl;
+}
+else {
+    string text;
+    cin >> text;
+    cout << "You entered a string: " << text << endl;
+}
+```
+
+<h2><a id="write">```write()```</a></h2>
+
+<p>The ```write()``` method writes to a file. It differs from the previously used ```file << "Text";``` because it writes exactly the number of bytes we tell it to (if the given number of bytes is longer than the given string, it will write some memory addresses). In the example below, we have to subtract one from the size of our text because we don't want the ```NULL``` at the end to be written.</p>
+
+```cpp
+fstream file;
+
+file.open("file.txt", ios::out | ios::binary);
+
+if (file.is_open()) {
+    char text[] = "text";
+    file.write(text, sizeof(text)-1);
+    file.close();
+}
+```
+
+<h2><a id="gcount">```gcount()```</a></h2>
+
+<p>```gcount()``` stands for "get character count," and it returns the number of characters taken out during the last extraction from the file (e.g., using ```getline()```).</p>
+
+```cpp
+fstream file;
+
+file.open("file.txt", ios::in | ios::binary);
+
+if (file.is_open()) {
+    char temp[250];
+    do {
+        file.getline(temp, 250);
+        cout << temp << ", the length: " << file.gcount() << endl;
+    } while (!file.eof());
+
+    file.close();
+}    
+```

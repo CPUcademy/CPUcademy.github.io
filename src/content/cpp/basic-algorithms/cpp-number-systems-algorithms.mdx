@@ -1,0 +1,82 @@
+---
+title: "Number systems algorithms"
+order: 4
+---
+
+<p>To understand what's going on here, you'll need some basic knowledge about number systems conversion, which you can find <a href="number-systems-conversion.html" className="link">here</a>.</p>
+
+<h2>Decimal to binary</h2>
+
+```cpp
+int x, y;
+int a[100];
+
+cout << "Enter a decimal number: ";
+cin >> x;
+
+int i = 0;
+do {
+    i++;
+    a[i] = x % 2;
+    x = x / 2;
+    y = 2 * x + a[i];
+} while (y >= 2);
+
+cout << "Your number in the binary system is: ";
+for (; i > 0; i--) {
+    cout << a[i];
+}
+```
+
+<h2>Binary to decimal</h2>
+
+```cpp
+string x;
+int result = 0;
+
+cout << "Enter a binary number: ";
+cin >> x;
+
+for (short int i = 0; i < x.length(); i++) {
+    if (x[i] == '1')
+        result = result * 2 + 1;
+    else
+        result = result * 2;
+}
+
+cout << "Your number in the decimal system is: " << result << endl;
+```
+
+<h2>Any number system to decimal</h2>
+
+<p>We can use the Horner's method to convert any number system to decimal.</p>
+
+```cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int horner(int factors[], int polynomialDegree, int x) {
+    int result = factors[0];
+    for (int i = 1; i <= polynomialDegree; i++)
+        result = result * x + factors[i];
+    return result;
+}
+
+int main() {
+    string number = "1010";
+    int number_system = 2;
+
+    vector<int> results;
+    int *a = new int[number.length()];
+    for (int i = 0; i < number.length(); i++)
+        a[i] = (int(number[i])) - 48;
+    results.push_back(horner(a, number.length() - 1, number_system));
+
+    for (int i = 0; i < results.size(); i++)
+        cout << results[i] << "\n";
+
+    return 0;
+}
+```

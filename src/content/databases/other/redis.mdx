@@ -1,0 +1,76 @@
+---
+title: "Redis"
+order: 3
+---
+
+<h3>What is Redis?</h3>
+
+<p>Redis is an <b>in-memory</b>, <b>key-value</b> data store designed for extremely fast data access. Unlike traditional relational databases, Redis stores data primarily in RAM, making it ideal for use cases where performance and low latency are crucial. Redis can persist data to disk, but its main strength lies in speed rather than long-term storage.</p>
+
+<p>Redis is commonly used for caching, session storage, real-time analytics, message queues, leaderboards, and rate limiting. It is often used in conjunction with databases like MySQL or PostgreSQL to reduce load and enhance application performance.</p>
+
+<h3>Syntax</h3>
+
+<p className="noBottomMargin">Redis does not use SQL. Instead, it works with simple commands operating on keys and data structures. Key characteristics include:</p>
+
+<ul>
+    <li>Key-value based: data is accessed using unique keys.</li>
+    <li>In-memory storage: data is kept in RAM for fast reads and writes.</li>
+    <li>Rich data types: strings, lists, sets, sorted sets, hashes, and more.</li>
+    <li>No tables or rows: data is organized by keys, not schemas.</li>
+    <li>Optional persistence: data can be saved to disk using snapshots or append-only files.</li>
+</ul>
+
+<h3>Running a Redis server</h3>
+
+<p>Before we can use Redis in Python, we need a Redis server running locally or remotely. Redis is a server-client database, so the Python ```redis``` module connects to a running server. On Windows, we can install it using <a href="https://www.memurai.com/get-memurai" target="_blank" className="link">Memurai for Redis</a>. After installation, Memurai will by default listen on port 6379.</p>
+
+<h3>Python implementation</h3>
+
+<p>Redis can be used in Python via the ```redis``` module. A Redis server must be running locally or remotely before connecting.</p>
+
+```python
+import redis
+r = redis.Redis(host="localhost", port=6379, decode_responses=True) # connecting to the Redis server
+
+# Setting individual key-value pairs for a user's information
+r.set("userr:1:name", "Alice")
+r.set("userr:1:age", 30)
+
+# Getting and printing the stored values
+name = r.get("userr:1:name")
+age = r.get("userr:1:age")
+print(name, age)
+
+r.hset("userr:2", mapping={"name": "Bob", "age": 25}) # storing multiple related fields under a single key using a Redis hash
+userr = r.hgetall("userr:2") # retrieving all fields and their values from the hash
+print(userr)
+```
+
+<h3>Java Spring Boot implementation</h3>
+
+<p>Spring is a Java framework for building web, enterprise, and backend applications. Spring Boot is an extension of Spring that simplifies building and running Spring applications through automatic configuration.</p>
+
+<p>Redis can be used in Spring Boot through the ```Spring Data Redis``` library. Instead of communicating with the Redis server directly, applications typically use the ```RedisTemplate``` class, which provides convenient methods for performing Redis operations. Spring Boot automatically configures the connection to the Redis server and, by default, uses the ```Lettuce``` client.</p>
+
+```java
+@Service
+public class UserService {
+    private final RedisTemplate<String, String> redisTemplate;
+
+    public UserService(RedisTemplate<String, String> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
+
+    public void saveUser() {
+        redisTemplate.opsForValue().set("userr:1:name", "Alice");
+        redisTemplate.opsForValue().set("userr:1:age", "30");
+    }
+
+    public void printUser() {
+        String name = redisTemplate.opsForValue().get("userr:1:name");
+        String age = redisTemplate.opsForValue().get("userr:1:age");
+        System.out.println(name + " " + age);
+    }
+}
+```

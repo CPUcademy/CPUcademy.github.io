@@ -1,0 +1,99 @@
+---
+title: Constant instances and friend objects
+order: 3
+---
+
+<h2>Constant instances</h2>
+
+<p>When we make a constant instance of a class, any operations on its objects are forbidden. If we want to access one of the methods of the constant instance, we can write ```const``` after its declaration, which will make it available.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Example {
+    int x = 0;
+    public:
+        Example() {}
+        ~Example() {}
+
+        int getX() const {
+            return x;
+        }
+};
+
+
+int main() {
+    const Example x; // remember that "Example" acts as a data type here
+    cout << x.getX() << endl;
+    return 0;
+}
+```
+
+<h2>Friend functions</h2>
+
+<p>Friend functions are functions from outside the class that can operate on its private objects. We can befriend a function by writing its declaration in the class (preceded by the ```friend``` keyword).</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Example {
+    int x = 0;
+    public:
+        Example() {}
+        ~Example() {}
+        int getX() {
+            return x;
+        }
+        friend void setX(Example &, int);
+};
+
+void setX(Example &object, int x) { // the reference is there so that the function edits the object, not its local version
+    object.x = x;
+}
+
+int main() {
+    Example x;
+    cout << x.getX() << endl;
+    setX(x, 10);
+    cout << x.getX() << endl;
+    return 0;
+}
+```
+
+<h2>Friend classes</h2>
+
+<p>Classes also can be befriended. We can accomplish this just like with functions (```friend class B;```). It doesn't matter if we write this line in the ```public```, ```protected```, or ```private``` mode. If class ```B``` is a friend of class ```A```, it doesn't mean that class ```A``` is a friend of class ```B```.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class A {
+    friend class B;
+    int x = 0;
+    public:
+        A() {}
+        ~A() {}
+        int getX() {
+            return x;
+        }
+};
+
+class B {
+    public:
+        B() {}
+        ~B() {}
+        void setX(A &object, int x) {
+            object.x = x;
+        }
+};
+
+int main() {
+    A objA;
+    B objB;
+    objB.setX(objA, 10);
+    cout << objA.getX() << endl;
+}
+```

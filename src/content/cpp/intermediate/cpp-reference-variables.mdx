@@ -1,0 +1,54 @@
+---
+title: "Reference variables"
+order: 1
+---
+
+<p>A reference variable is an object that is referring to another object by its address in memory. It is a kind of synonym, a nickname. We have to define its value immediately (it cannot be left just declared). A reference variable can't change its value (the association with a particular variable). A reference variable must be the same type as the variable assigned to it. We create reference variables by adding an ampersand before their name (like when getting to a variable's address).</p>
+
+```cpp
+int normal_var = 4;
+cout << "normal_var equals " << normal_var << " and has the address " << &normal_var << endl;
+int &reference_var = normal_var; 
+cout << "reference_var equals " << reference_var << " and has the address " << &reference_var << endl; // the address is the same
+
+reference_var = 3;
+cout << "normal_var equals " << normal_var << " and has the address " << &normal_var << endl;
+cout << "reference_var equals " << reference_var << " and has the address " << &reference_var << endl;
+
+int normal_var_2 = normal_var; 
+cout << "normal_var_2 equals " << normal_var_2 << " and has the address " << &normal_var_2 << endl; // the address is different
+
+int x = 10;
+const int &y = x;
+
+/* y = 10; - this wouldn't work because "y" is a constant ("reference_var" also was a constant in a way
+because we couldn't change its associated address, but now we also can't change the value under the address) */
+x = 40; // we can change the value of the "y" constant by using the variable it is referring to ("x")
+cout << "x equals " << x << " and has the address " << &x << endl;
+cout << "y equals " << y << " and has the address " << &y << endl;
+```
+
+<p>The code below wouldn't work without setting the arguments as reference variables because ```x``` and ```y``` are local variables, and we would have to return them. Here, we refer to the addresses of ```a``` and ```b``` and modify their values directly with ```x``` and ```y``` reference variables inside the function.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+void swap(int &x, int &y) {
+    int t = x;
+    x = y;
+    y = t;
+}
+
+int main() {
+    int a = 10;
+    int b = 20;
+
+    swap(a, b);
+
+    cout << "a: " << a << endl;
+    cout << "b: " << b << endl;
+
+    return 0;
+}
+```

@@ -1,0 +1,75 @@
+---
+title: "Subqueries"
+order: 7
+---
+
+<p>A subquery is a query that appears inside another query.</p>
+
+<h4>```WITH``` clause</h4>
+```sql
+-- Defining a subquery that can be reused many times within the main query
+WITH temp AS (
+    SELECT *
+    FROM table1_name
+)
+SELECT *
+FROM temp
+WHERE column_name BETWEEN 2 AND 5; 
+```  
+
+<p>The ```WITH``` clause creates a temporary result set that can be referenced multiple times within a single query, while normal subqueries can be more straightforward for simpler tasks.</p>
+
+<h4>Subqueries in ```SELECT```</h4>
+
+<p>Subqueries in the ```SELECT``` clause retrieve data from another table and display it as a calculated column in the outer query.</p>
+
+```sql
+SELECT id, column1_name, 
+(SELECT AVG(column2_name) 
+    FROM table2_name
+    WHERE table_name.id = table2_name.id) AS avg
+FROM table_name;
+```
+
+<h4>Subqueries in ```FROM```</h4>
+
+<p>Subqueries in the ```FROM``` clause specify the data source for the outer query. The subquery acts as a temporary table.</p>
+
+```sql
+SELECT id, AVG(avg)
+FROM (
+    SELECT id, SUM(amount) AS avg
+    FROM table_name
+    GROUP BY id
+) AS subquery
+GROUP BY id;
+```
+
+<h4>Subqueries in ```WHERE```</h4>
+
+<p>Subqueries in the ```WHERE``` clause filter results based on the output of another query.</p>
+
+```sql
+SELECT column1_name, column2_name
+FROM table_name
+WHERE column2_name > (
+    SELECT AVG(column2_name)
+    FROM table_name
+);
+```
+
+<p>When building subqueries, we can use the ```IN``` and ```NOT IN``` keywords to check whether a certain value figures in the result of another query: ```SELECT * FROM table1_name WHERE column_name NOT IN (SELECT * FROM table2_name);```.</p>
+
+<h4>Subqueries in ```HAVING```</h4>
+
+<p>Subqueries in the ```HAVING``` clause are used with grouped results (```GROUP BY```) to filter groups based on the output of another query.</p>
+
+```sql
+SELECT column1_name, AVG(column2_name) 
+FROM table_name
+GROUP BY column1_name
+HAVING AVG(column2_name) > (
+    SELECT AVG(column2_name)
+    FROM table2_name
+);
+```

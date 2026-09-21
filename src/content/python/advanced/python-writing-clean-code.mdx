@@ -1,0 +1,361 @@
+---
+title: "Writing clean code"
+order: 4
+---
+
+<h3>Table of contents</h3>
+            
+<ul type="disc">
+    <li><a href="#basic-conventions-and-pieces-of-advice" className="link" style={{textDecoration: "none"}}>Basic conventions and pieces of advice</a></li>
+    <li><a href="#clean-coding-techniques" className="link" style={{textDecoration: "none"}}>Clean coding techniques</a></li>
+    <li><a href="#unit-testing" className="link" style={{textDecoration: "none"}}>Unit testing</a></li>
+    <li><a href="#creating-documentation" className="link" style={{textDecoration: "none"}}>Creating documentation</a></li>
+</ul>
+
+<h2><a id="basic-conventions-and-pieces-of-advice">Basic conventions and pieces of advice</a></h2>
+
+<p className="noBottomMargin">Some <b>PEP8</b> standard guidelines:</p>
+<ul>
+    <li className="noBottomMargin">Functions and classes should be separated by two blank lines.</li> 
+    <li className="noBottomMargin">In a class, methods should be separated by one blank line.</li> 
+    <li className="noBottomMargin">A line should be at most 79 characters long.</li>
+    <li className="noBottomMargin">Stay consistent with your style (spaces, etc.)</li>
+    <li>And an extra: Always assume the user of your code is stupid and validate your input in every way possible.</li>
+</ul>
+
+<p>By convention, a variable named "_" is used to indicate a value that will be ignored and not used, e.g., an iterator in a ```for``` loop.</p>
+
+<p>The ```None``` type is falsy in conditional statements. When a function cannot produce a meaningful value, returning ```None``` is common, but if the absence of a value represents an error, raising an exception is more appropriate.</p>
+
+<p>Use ```if``` checks for expected conditions and reserve exceptions for rare or truly unexpected errors, since raising exceptions is more time- and memory-intensive.</p>
+
+<p>DRY (Don't Repeat Yourself) is a programming principle that states that the same logic or information should not be unnecessarily repeated in multiple places. Instead, reusable functions, classes, or modules should be used to reduce duplication and make code easier to maintain.</p>
+
+<p>PEP8 file import guidelines recommend placing imports at the top of the file, putting each import on a separate line, importing only what is needed, grouping standard library imports before third-party imports and local imports, separating these groups with a blank line, preferring explicit imports over wildcard imports, avoiding (```from module import *```), and generally using absolute imports.</p>
+
+<p>Magic numbers are hardcoded values in a program that are used directly without explanation or context, making the code harder to understand and maintain. These numbers typically represent constants or values with specific meaning, but their purpose is unclear without additional context. To improve code readability and maintainability, such numbers should be replaced with named constants or variables that explain their meaning.</p>
+
+<p>Vectorization - the practice of replacing explicit loops with operations that act on entire arrays or sequences at once, typically using libraries like ```NumPy```, resulting in faster and more concise code. For example, instead of looping through a list to multiply each element by 2, we can write ```array * 2``` directly.</p>
+
+<p>Duck typing is how Python's type system works by default - Python never checks what type an object is. It only checks whether the object has the method or attribute being called at the moment it's needed. This is in contrast to statically typed languages like Java, where we must explicitly declare types and the compiler enforces compatibility at compile time. For example, a function that calls ```.speak()``` on its argument will work with a ```Dog```, ```Cat```, or any other object that has a ```.speak()``` method, regardless of its class - whereas in Java, passing a ```Robot``` to a method expecting an ```Animal``` would be a compile error unless ```Robot``` extends or implements ```Animal```. The name comes from the phrase "if it walks like a duck and quacks like a duck, it's a duck."</p>
+
+<p>Each function should be responsible for its own actions. A “master” object should not control or manage all functions. Instead, each function should handle obtaining the information it needs and implementing any changes itself. The control program can communicate with different categories of functions, but it does not need to know how they are implemented. Functions manage themselves, while the control program only coordinates them. Code should be organized into self-contained, independent units, each handling a specific task.</p>
+
+```python
+# Multiple variable assignments can help clean up the code
+tasks_completed = emails_sent = messages_read = 0
+emails_sent += 5
+messages_read += 12
+tasks_completed += emails_sent + messages_read
+
+print("Tasks completed:", tasks_completed)
+print("Emails sent:", emails_sent)
+print("Messages read:", messages_read)
+```
+
+<h2><a id="clean-coding-techniques">Clean coding techinques</a></h2>
+
+<h4>Use dictionaries instead of if-else statements</h4>
+
+```python
+x = 5
+if x > 0:
+    print("Positive")
+elif x < 0:
+    print("Negative")
+else:
+    print("Zero")
+
+result = {x > 0: "Positive", x < 0: "Negative", x == 0: "Zero"}
+print(result[True])
+```
+
+```python
+operation = "add"
+a, b = 5, 3
+
+result = {
+    "add": a + b,
+    "subtract": a - b,
+    "multiply": a * b,
+    "divide": a / b if b != 0 else "Division by zero is not allowed."
+}
+
+print(result.get(operation, "Invalid operation"))
+```
+
+<h4>Using custom API wrappers to isolate modules from the source code</h4>
+
+<p><b>API</b> - Application Programming Interface, a set of rules and protocols that allows different software applications to communicate with each other. It defines the methods and data formats that programs can use to request and exchange information.</p>
+
+<p>An API wrapper is a function or set of functions that encapsulate the functionality of a third-party service or module, providing a simpler or more controlled interface to interact with it. This allows developers to call specific functions from a module without dealing directly with the complexity of that module. Wrapping APIs can also help handle errors, manage data formatting, add flexibility for future changes, and adjust requests in a way that suits the application's needs. If the module needs to be replaced, only the wrapper has to change.</p>
+
+```python
+import math
+
+def calculate_cosine(x):
+    try:
+        result = math.cos(x)
+        return result
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
+
+print(calculate_cosine(1))
+```
+
+<h4>Memoization</h4>
+
+<p>Memoization is an optimization technique that stores the results of expensive function calls and reuses the cached result when the same inputs occur again. In the example below, the execution time of the first and second calls of a memoized function with the same argument is counted to demonstrate the performance improvement after the result is cached.</p>
+
+```python
+import math
+import time
+
+memoized_values = {}
+
+def memoized_cos(x):
+    if x not in memoized_values:
+        memoized_values[x] = math.cos(x)
+    return memoized_values[x]
+
+start_time = time.time()
+print(memoized_cos(1))
+end_time = time.time()
+print(f"Execution time of the first call: {end_time - start_time:.10f} seconds.")
+
+start_time = time.time()
+print(memoized_cos(1))
+end_time = time.time()
+print(f"Execution time of the second call: {end_time - start_time:.10f} seconds.")
+```
+
+```python
+# Memoization using closures
+import math
+import time
+
+def memoizer():
+    memoized_values = {}
+    def memoized_cos(x):
+        if x not in memoized_values:
+            memoized_values[x] = math.cos(x)
+        return memoized_values[x]
+    return memoized_cos
+
+memoized_cos = memoizer()
+
+start_time = time.time()
+print(memoized_cos(1))
+end_time = time.time()
+print(f"Execution time of the first call: {end_time - start_time:.10f} seconds.")
+
+start_time = time.time()
+print(memoized_cos(1))
+end_time = time.time()
+print(f"Execution time of the second call: {end_time - start_time:.10f} seconds.")
+```
+
+```python
+# Memoization using a custom decorator
+import math
+import time
+
+def memoize(func):
+    memoized_values = {}
+    def wrapper(x):
+        if x not in memoized_values:
+            memoized_values[x] = func(x)
+        return memoized_values[x]
+    return wrapper
+
+@memoize
+def cos_function(x):
+    return math.cos(x)
+
+start_time = time.time()
+print(cos_function(1))
+end_time = time.time()
+print(f"Execution time of the first call (with decorator): {end_time - start_time:.10f} seconds.")
+
+start_time = time.time()
+print(cos_function(1))
+end_time = time.time()
+print(f"Execution time of the second call (with decorator): {end_time - start_time:.10f} seconds.")
+```
+
+<h2><a id="unit-testing">Unit testing</a></h2>
+
+<p>Unit testing is a software testing technique where individual units or components of a program are tested in isolation. Python provides a module called ```unittest``` that supports test automation, sharing of setup code, aggregation of tests into collections, and independence from the reporting framework.</p>
+                                
+<p>A unit test in Python is a class that inherits from ```unittest.TestCase``` and contains methods starting with ```test_```. These ```test_``` methods get automatically executed when the test suite is run, allowing for verification of expected behavior.</p>
+
+```python
+import unittest
+                                
+def add(x, y):
+    return x + y
+
+class TestMath(unittest.TestCase):
+    def test_add_positive(self):
+        self.assertEqual(add(2, 3), 5)
+
+    def test_add_zero(self):
+        self.assertEqual(add(0, 0), 0)
+
+    def test_add_negative(self):
+        self.assertEqual(add(-1, -1), -2)
+
+if __name__ == "__main__":
+    unittest.main()
+```
+
+<h4>Common assertions</h4>
+
+<ul>
+    <li>```assertEqual(a, b)``` - checking if ```a == b```</li>
+    <li>```assertNotEqual(a, b)``` - checking if ```a != b```</li>
+    <li>```assertTrue(x)``` - checking if ```x is True```</li>
+    <li>```assertFalse(x)``` - checking if ```x is False```</li>
+    <li>```assertGreater(a, b)``` - checking if ```a > b```</li>
+    <li>```assertLess(a, b)``` - checking if ```a < b```</li>
+    <li>```assertIsNone(x)``` - checking if ```x is None```</li>
+    <li>```assertRaises(Exception, func)``` - checking if an exception is raised</li>
+</ul>
+
+<h4>Using the ```with``` keyword</h4>
+
+<p>The ```with``` keyword simplifies exception testing by clearly defining a block of code that is expected to raise an error.</p>
+
+```python
+import unittest
+
+def divide(a, b):
+    return a / b
+
+class TestDivide(unittest.TestCase):
+    def test_zero_division(self):
+        with self.assertRaises(ZeroDivisionError):
+            divide(10, 0)
+
+    def test_valid_division(self):
+        self.assertEqual(divide(10, 2), 5)
+
+if __name__ == "__main__":
+    unittest.main()
+```
+  
+<h4>Using ```setUp()``` and ```tearDown()```</h4>
+<p>These methods run before and after each test to prepare and clean up test data.</p>
+
+```python
+import unittest
+
+class TestExample(unittest.TestCase):
+    def setUp(self):
+        self.data = [1, 2, 3]
+
+    def tearDown(self):
+        self.data = None
+
+    def test_length(self):
+        self.assertEqual(len(self.data), 3)
+        
+if __name__ == "__main__":
+    unittest.main()
+```
+
+<h4>Testing using ```pytest```</h4>
+
+<p>```pytest``` is another popular Python testing framework that simplifies writing and running tests. Unlike ```unittest```, it does not require creating classes that inherit from ```TestCase```. Tests are written as regular functions whose names start with ```test_```. Tests can be executed by running ```pytest``` in the terminal. The framework automatically searches for files and functions starting with ```test_```.</p>
+
+```python
+def add(a, b):
+    return a + b
+
+def test_add_positive():
+    assert add(2, 3) == 5
+
+def test_add_negative():
+    assert add(-1, -1) == -2
+```
+
+<p>```pytest``` also supports exception testing using the ```raises()``` method.</p>
+
+```python
+import pytest
+
+def divide(a, b):
+    return a / b
+
+def test_zero_division():
+    with pytest.raises(ZeroDivisionError):
+        divide(10, 0)
+```
+
+<h4>Other types of tests</h4>
+
+<div className="table-container"><table>
+    <tr>
+        <td><b>Testing type</b></td>
+        <td><b>Description</b></td>
+    </tr>
+    <tr>
+        <td>Unit testing</td>
+        <td>Testing individual units or components of a program.</td>
+    </tr>
+    <tr>
+        <td>Integration testing</td>
+        <td>Testing combined parts of an application to ensure they work together.</td>
+    </tr>
+    <tr>
+        <td>System testing</td>
+        <td>Testing the complete and integrated software system.</td>
+    </tr>
+    <tr>
+        <td>Acceptance testing</td>
+        <td>Validating the software meets business requirements.</td>
+    </tr>
+    <tr>
+        <td>Performance testing</td>
+        <td>Testing software performance under load and stress conditions.</td>
+    </tr>
+    <tr>
+        <td>Security testing</td>
+        <td>Ensuring the software is protected against threats and vulnerabilities.</td>
+    </tr>
+    <tr>
+        <td>Regression testing</td>
+        <td>Ensuring new changes do not break existing functionality.</td>
+    </tr>
+    <tr>
+        <td>Usability testing</td>
+        <td>Evaluating how user-friendly and intuitive the software is.</td>
+    </tr>
+    <tr>
+        <td>Alpha testing</td>
+        <td>Internal testing performed by the development team before release.</td>
+    </tr>
+    <tr>
+        <td>Beta testing</td>
+        <td>External testing by end-users before official release.</td>
+    </tr>
+</table></div>
+
+<h2><a id="creating-documentation">Creating documentation</a></h2>
+
+<p>The standard way to document code in Python is through ```docstrings``` - triple-quoted strings placed immediately after the definitions of functions, methods, and classes. The most widely used format is Google style, which uses sections like ```Args``` and ```Returns``` to describe parameters and return values.</p>
+
+```python
+def add(a, b):
+    """Return the sum of two numbers.
+
+    Args:
+        a (int): The first number.
+        b (int): The second number.
+
+    Returns:
+        int: The sum of a and b.
+    """
+    return a + b
+```

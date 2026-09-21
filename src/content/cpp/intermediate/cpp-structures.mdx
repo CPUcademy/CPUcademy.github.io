@@ -1,0 +1,92 @@
+---
+title: "Structures"
+order: 7
+---
+
+<p>A structure defines how a given object is built. Inside it, we define its properties (variables). We can address these variables by an object, which we place in the main function. We create a structure as shown below. Remember about the semicolon after the braces. It is there because we could also make it like this: ```} human;```. We can define the structure's variables both inside and outside of it. Structures can contain functions.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Human {
+    string name;
+    string surname = "Smith";
+    string phoneNr;
+    string ID;
+    unsigned short age;
+    void display() { cout << name << endl; }
+};
+
+int main() {
+    Human human; // the structure's object (like using a data type)
+    human.name = "John";
+
+    human.display();
+    cout << human.name << endl;
+    cout << human.surname << endl;
+
+    return 0;
+}
+```
+
+<p>When we create the structure's object as an array, all of the structure's variables can have a different value for every index.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Human {
+    string name;
+    string surname;
+    string phoneNr;
+    string ID;
+    unsigned short age;
+};
+
+int main() {
+    Human human[10];
+
+    human[0].name = "Liam";
+    cout << human[0].name << endl;
+    cout << human[1].name << endl;
+
+    human[1].name = "Noah";
+    cout << human[0].name << endl;
+    cout << human[1].name << endl;
+
+    return 0;
+}
+```
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Human {
+    string name;
+    string surname;
+    string phoneNr;
+    string ID;
+    unsigned short age;
+};
+
+int main() {
+    Human human[10];
+
+    human -> name = "Olivia"; // this is the same as (*human).name = "Olivia";
+    cout << human[0].name << endl;
+
+    (human + 1) -> name = "Emma";
+    cout << human[1].name << endl;
+
+    cout << "Simpler notation:" << endl;
+
+    Human *pointer = &human[0]; // it points on the "Human" data type
+
+    cout << pointer++ -> name << endl;
+    cout << pointer -> name << endl;
+
+    return 0;
+}
+```

@@ -1,0 +1,340 @@
+---
+title: "Kotlin and Jetpack Compose introduction"
+order: 5
+---
+
+<p>Kotlin is a modern, concise, and safe programming language fully interoperable with Java. This means we can freely mix Java and Kotlin code within the same project: call Kotlin functions from Java, use Java classes in Kotlin, and pass variables and objects between the two languages seamlessly. Kotlin runs on the JVM, is officially supported for Android development, reduces boilerplate code, and introduces powerful features such as null safety and type inference.</p>
+
+<h3>Table of contents</h3>
+
+<ul type="disc">
+    <li><a href="#variables-and-type-inference" className="link" style={{ textDecoration: "none" }}>Variables and type inference</a></li>
+    <li><a href="#conditions-and-loops" className="link" style={{ textDecoration: "none" }}>Conditions and loops</a></li>
+    <li><a href="#functions" className="link" style={{ textDecoration: "none" }}>Functions</a></li>
+    <li><a href="#classes-inheritance-and-visibility-modifiers" className="link" style={{ textDecoration: "none" }}>Classes, inheritance, and visibility modifiers</a></li>
+    <li><a href="#constructors" className="link" style={{ textDecoration: "none" }}>Constructors</a></li>
+    <li><a href="#companion-objects" className="link" style={{ textDecoration: "none" }}>Companion objects (```static``` equivalent)</a></li>
+    <li><a href="#null-safety" className="link" style={{ textDecoration: "none" }}>Null safety</a></li>
+    <li><a href="#try-catch" className="link" style={{ textDecoration: "none" }}>Try/catch</a></li>
+    <li><a href="#an-example-for-android-development-a-button-click-listener" className="link" style={{ textDecoration: "none" }}>An example for Android development: a button click listener</a></li>
+    <li><a href="#jetpack-compose" className="link" style={{ textDecoration: "none" }}>Jetpack Compose</a></li>
+</ul>
+
+<h2><a id="variables-and-type-inference">Variables and type inference</a></h2>
+
+<p>Immutable variables are created with ```val``` and mutable variables with ```var```. Immutable variables (```val```) cannot be reassigned, while mutable variables (```var```) can be updated. Types can be explicitly declared or inferred.</p>
+
+```kotlin
+fun main() {
+    val username: String = "Alice" // immutable String
+    var score: Int = 42 // mutable Int
+
+    val level = 3 // type inferred as Int
+    var isActive = true // type inferred as Boolean
+
+    println("$username has score $score and level $level, active: $isActive")
+
+    // Updating mutable variables
+    score += 10
+    isActive = false
+
+    println("After update: $username has score $score and level $level, active: $isActive")
+}
+```
+
+<h2><a id="conditions-and-loops">Conditions and loops</a></h2>
+
+<p>Kotlin supports ```if```, ```when``` (like switch), and loops: ```for```, ```while```, and ```do-while```.</p>
+
+```kotlin
+fun main() {
+    // if and if-else
+    val number = 10
+    if (number > 0)
+        println("$number is positive")
+    else if (number < 0)
+        println("$number is negative")
+    else
+        println("$number is zero")
+
+    // when statement
+    val x = 3
+    val message = when (x) {
+        1 -> "One"
+        2 -> "Two"
+        3 -> "Three"
+        in 4..10 -> "Between 4 and 10"
+        is Int -> "Any integer"
+        else -> "Unknown"
+    }
+    println(message)
+
+    // for loop over a collection"
+    val numbers = listOf(1, 2, 3, 4, 5)
+    for (number in numbers)
+        println(number)
+
+    // for loop with index
+    for ((index, value) in numbers.withIndex())
+        println("Index $index has value $value")
+
+    // while loop
+    var i = 0
+    while (i < 3) {
+        println("While loop iteration $i")
+        i++
+    }
+
+    // do-while loop
+    var j = 0
+    do {
+        println("Do-while iteration $j")
+        j++
+    } while (j < 3)
+
+    // Creating an empty mutable list and adding values in a loop
+    val squares = mutableListOf<Int>()
+    for (n in 1..5)
+        squares.add(n * n)
+    println("Squares: $squares")
+}
+```
+
+<h2><a id="functions">Functions</a></h2>
+
+```kotlin
+fun multiply(a: Int, b: Int = 2): Int { // setting a default argument value, which means if we don’t pass it, it will be substituted
+    return a * b
+}
+
+fun main() {
+    val result1 = multiply(5)
+    println("5 * 2 = $result1")
+
+    val result2 = multiply(a = 4, b = 3) // we can use named arguments so that the order of arguments doesn't matter
+    println("4 * 3 = $result2")
+}
+```
+
+<h2><a id="classes-inheritance-and-visibility-modifiers">Classes, inheritance, and visibility modifiers</a></h2>
+
+<p>In Kotlin, classes are ```final``` by default, which means they cannot be inherited unless they are marked with the ```open``` keyword. Methods and properties can have one of four visibility modifiers: ```public```, ```private```, ```protected```, or ```internal```. The ```internal``` modifier restricts visibility to the same module. If no visibility modifier is specified, the default visibility is ```public```.</p>
+
+```kotlin
+open class Animal {
+    open fun voice() {
+        println("Some generic sound")
+    }
+
+    protected fun protectedMethod() {
+        println("Protected method")
+    }
+}
+
+class Cat : Animal() {
+    override fun voice() {
+        println("Meow!")
+    }
+
+    private fun privateMethod() {
+        println("Private method")
+    }
+}
+
+fun main() {
+    val cat = Cat()
+    cat.voice()
+}
+```
+
+<h2><a id="constructors">Constructors</a></h2>
+
+<p>Kotlin provides a primary constructor, defined in the class header, and optional secondary constructors inside the class body. The primary constructor is the most common and concise way to define and initialize properties, often combined with ```val``` or ```var```, which automatically create class fields. Secondary constructors are useful when we need alternative ways to create an object and must always delegate to the primary constructor using the ```this``` keyword (every object must pass through the primary constructor at least once, so all base initialization happens in one place).</p>
+
+```kotlin
+class User constructor(
+    val name: String,
+    var age: Int
+) {
+    constructor(name: String) : this(name, 18) // a secondary constructor providing a default age
+    fun introduce() {
+        println("My name is $name and I am $age years old")
+    }
+}
+
+fun main() {
+    val user1 = User("Alice", 25)
+    val user2 = User("Bob")
+    user1.introduce()
+    user2.introduce()
+}
+```
+
+<h2><a id="companion-objects">Companion objects (```static``` equivalent)</a></h2>
+
+```kotlin
+class MusicPlayer {
+    companion object {
+        val defaultVolume: Int = 50 // a static variable
+        var maxPlayers: Int = 5 // a mutable static variable
+
+        fun createDefaultPlayer(): MusicPlayer { // a static method
+            return MusicPlayer()
+        }
+    }
+
+}
+
+fun main() {
+    val player = MusicPlayer.createDefaultPlayer()
+    
+    println("Default volume: ${MusicPlayer.defaultVolume}")
+    println("Max players: ${MusicPlayer.maxPlayers}")
+
+    MusicPlayer.maxPlayers = 10 // updating a mutable companion object variable
+    println("Updated max players: ${MusicPlayer.maxPlayers}")
+}
+```
+
+<h2><a id="null-safety">Null safety</a></h2>
+
+```kotlin
+fun main() {
+    var name: String? = "Kotlin" // a nullable String
+    println(name?.length) // the safe call operator ?. returns null if the object is null instead of throwing an exception
+
+    name = null
+    println(name?.length ?: 0) // the Elvis operator ?: provides a default value if the expression on the left is null
+
+    name = "Kotlin"
+    println(name!!.length) // the not-null assertion operator !! throws NullPointerException if the value is null
+    
+    // A safe call with let{} executes a block only if the value is not null
+    name = null
+    name?.let {
+        println("Length of $it is ${it.length}")
+    } // nothing is printed, because name is null
+}
+```
+
+<h2><a id="try-catch">Try/catch</a></h2>
+
+```kotlin
+fun safeDivide(a: Int, b: Int) : Int {
+    return try {
+        a / b
+    } catch (e: ArithmeticException) {
+        println("Cannot divide by zero")
+        0
+    }
+}
+
+fun main() {
+    safeDivide(3, 0)
+}
+```
+
+<h2><a id="an-example-for-android-development-a-button-click-listener">An example for Android development: a button click listener</a></h2>
+
+```kotlin
+package com.example.example
+
+import android.os.Bundle
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val button: Button = findViewById(R.id.myButton)
+        button.setOnClickListener {
+            Functions.print()
+        }
+    }
+}
+```
+
+```java
+package com.example.example;
+
+// An interoperable Java class
+public class Functions {
+    public static void print() {
+        System.out.println("Button clicked!");
+    }
+}
+```
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/myButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click me!"/>
+
+</LinearLayout>
+```
+
+<h2><a id="jetpack-compose">Jetpack Compose</a></h2>
+
+<p>Jetpack Compose is Android’s modern declarative UI toolkit, allowing developers to build native interfaces using Kotlin code rather than XML layouts. Instead of defining views and layouts in separate XML files and referencing them with ```findViewById()```, we define composable functions that describe the UI hierarchy. The framework automatically updates the screen when data changes, making UI development more concise, readable, and reactive.</p>
+
+<p>To work, Jetpack Compose must be added to Gradle, as shown in the official, up-to-date documentation pages: <a href="https://developer.android.com/develop/ui/compose/setup?hl=en#kotlin" target="_blank" className="link">Compose Quick Start</a>, <a href="https://developer.android.com/develop/ui/compose/compiler?hl=en" target="_blank" className="link">Compose Compiler Gradle plugin</a>.</p>
+
+<p>In the example below, ```MainActivity``` extends ```ComponentActivity``` and uses ```setContent { MyButtonScreen() }``` to define the app’s user interface using Jetpack Compose instead of XML layouts. This means the entire UI is built using Kotlin code and composable functions.</p>
+
+<p>The ```MyButtonScreen``` composable contains a ```Button```, which accepts an ```onClick``` lambda that is executed when the user taps the button. Inside the button, the ```Text``` composable is used to display the label ```"Click me!"```. The modifier ```Modifier.fillMaxSize().wrapContentSize(Alignment.Center)``` first makes the layout take up the full screen and then centers the button both vertically and horizontally.</p>
+
+<p>The ```@Preview``` annotation allows the ```MyButtonScreenPreview``` function to display a live preview. This helps to quickly see how the UI looks without installing or running the app on a physical device or emulator, similar to previewing an XML layout.</p>
+
+
+```kotlin
+package com.example.example
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MyButtonScreen()
+        }
+    }
+}
+
+@Composable
+fun MyButtonScreen() {
+    Button(
+        onClick = { println("Button clicked!") },
+        modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.Center)
+    ) {
+        Text("Click me!")
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MyButtonScreenPreview() {
+    MyButtonScreen()
+}
+```

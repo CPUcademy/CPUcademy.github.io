@@ -1,0 +1,44 @@
+---
+title: "Enum type"
+order: 9
+---
+
+<p>An ```Enum``` (short for enumeration) is a custom data type that allows us to define a fixed set of named values. In other words, it specifies exactly which values a variable of that type can take. When defining an ```Enum```, we list all possible values inside braces. This is similar to how built-in types like ```int``` have a defined range of allowed values, but in this case, we explicitly decide what those values are.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+enum dayOfTheWeek { Mo = 1, Tu, We, Th, Fr, Sa, Su };
+
+string getDay(dayOfTheWeek x) {
+    switch (x) {
+    case Mo:
+        return "Monday"; break;
+    case Tu:
+        return "Tuesday"; break;
+    case We:
+        return "Wednesday"; break;
+    case Th:
+        return "Thursday"; break;
+    case Fr:
+        return "Friday"; break;
+    case Sa:
+        return "Saturday"; break;
+    case Su:
+        return "Sunday"; break;
+    }
+}
+
+int main() {    
+    cout << dayOfTheWeek(Tu) << endl; // works like using a predefined constant instead of a raw value
+    int x;
+    cout << "Choose the number of a day of the week: " ;
+    cin >> x;
+    cout << getDay(dayOfTheWeek(x)) << endl;
+
+    return 0;
+}
+```
+
+<p>The elements given in the braces are numbered. If we want to change the numeration, we can assign, for example, one to "Monday" instead of the default zero, and then all subsequent numbers will follow, i.e., "Wednesday" will be the third, etc. We cannot write, e.g., ```dayOfTheWeek x = 25;``` because 25 isn't in the range of possible values. We also cannot use the ```cin``` statement with variables of this type because it isn't specified for them.</p>

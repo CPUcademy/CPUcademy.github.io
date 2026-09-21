@@ -1,0 +1,84 @@
+---
+title: "Exercises"
+order: 5
+---
+
+<h3>Table of contents</h3>
+
+<ul type="disc">
+    <li><a href="#roman-numerals" className="link" style={{ textDecoration: "none" }}>Roman numerals</a></li>
+    <li><a href="#reversing-a-string" className="link" style={{ textDecoration: "none" }}>Reversing a string</a></li>
+    <li><a href="#checking-whether-a-word-is-a-palindrome" className="link" style={{ textDecoration: "none" }}>Checking whether a word is a palindrome</a></li>
+    <li><a href="#searching-for-an-element-inside-of-an-array" className="link" style={{ textDecoration: "none" }}>Searching for an element inside of an array</a></li>
+</ul>
+
+<h2><a id="roman-numerals">Roman numerals</a></h2>
+
+```cpp
+int w[] = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+char *s[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+
+int n, r;
+cout << "Enter an integer: ";
+cin >> n;
+if (n <= 0)
+    return 0;
+
+for (r = 0; n > 0;) {
+    if (n >= w[r]) {
+        cout << s[r];
+        n -= w[r];
+    }
+    else
+        r++;
+}
+```
+
+<h2><a id="reversing-a-string">Reversing a string</a></h2>
+
+```cpp
+string word = "abcdefgh";
+for (int i = word.length() - 1; i >= 0; i--) // "length - 1" so that we don't see a space at the beginning (in was at the end)
+    cout << word[i];
+```
+
+<h2><a id="checking-whether-a-word-is-a-palindrome">Checking whether a word is a palindrome</a></h2>
+
+<p>A palindrome is a word, sentence, verse, or even number that reads the same backward or forward.</p>
+
+```cpp
+bool palindrome = true;
+string word = "abba";
+
+for (int i = 0; i < word.length() / 2; i++) {
+    if (word[i] != word[word.length() - 1 - i]) {
+        palindrome = false;
+        break;
+    }
+}
+
+if (palindrome)
+    cout << word << " is a palindrome." << endl;
+else
+    cout << word << " is not a palindrome." << endl;
+```
+
+<h2><a id="searching-for-an-element-inside-of-an-array"></a>Searching for an element inside an array</h2>
+
+```cpp
+int a[5] = {4, -2, 8, 40, -20};
+int x = -1, y;
+
+cout << "Enter the number you are searching for: ";
+cin >> y;
+
+for (int i = 0; i < 5; i++) {
+    if (y == a[i])
+        x = i;
+}
+
+if (x != -1)
+    cout << "Your number was found under this index: " << x << endl;
+else
+    cout << "This element doesn't exist." << endl;
+```

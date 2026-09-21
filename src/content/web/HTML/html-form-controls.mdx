@@ -1,0 +1,207 @@
+---
+title: "Form controls"
+order: 4
+---
+
+<p>The ```<form>``` tag creates interactive controls that allow users to enter data and submit it to a web server for processing. It is a fundamental part of web development, enabling user interaction with a website, such as filling out contact forms, login forms, and surveys. A basic form structure looks like this:</p>
+
+```html
+<form action="submit_form.php" method="POST">
+    <!-- Form elements go here -->
+</form>
+```
+
+<p>The ```action``` attribute specifies the URL where the form data will be sent. The ```method``` attribute defines how the data is transmitted. Common values include ```post``` (sends data in the request's body) and ```get``` (appends data to the URL).</p>
+
+<p>Form controls, such as input fields, checkboxes, and buttons, can also be managed using JavaScript. When handled with JavaScript, these controls do not necessarily need to be enclosed within a ```<form>``` tag. However, if the data needs to be submitted to a server, using the ```<form>``` tag is recommended for proper structure and functionality. Each control can have an ```id``` and a ```name```: ```id``` uniquely identifies the element for JavaScript or CSS, while ```name``` is used as the key when sending data to the server. Often, both are used together for interactive and functional forms.</p>
+
+<p>The ```<label>``` tag can be used to provide a caption or text inside a form without necessarily being linked to a form control. While it often uses the ```for``` attribute to associate with an input, it can also exist standalone, serving purely as descriptive text.</p>
+
+<ul>
+    <li>
+        ```text```
+        <ul>
+            <li>Defines a single-line text input field for user input.</li>
+            <li>```<input type="text" name="username" placeholder="Enter your username">```</li>
+            <li style={{ listStyleType: "none", marginTop: 5, marginBottom: 10 }}><input type="text" name="username" placeholder="Enter your username"/></li>
+            <li>Instead of ```placeholder```, we can use ```value```. Check the difference by entering some text.</li>
+            <li style={{ listStyleType: "none", marginTop: 5, marginBottom: 25 }}><input type="text" name="username" value="Enter your username"/></li>
+        </ul>
+    </li>
+    <li>
+        ```password```
+        <ul>
+            <li>Defines a password input field. The characters typed are hidden.</li>
+            <li>```<input type="password" name="password" placeholder="Enter your password">```</li>
+            <li style={{ listStyleType: "none", marginTop: 5, marginBottom: 25 }}><input type="password" name="password" placeholder="Enter your password"/></li>
+        </ul>
+    </li>
+    <li>
+        ```email```
+        <ul>
+            <li>Defines a field for entering an email address. This field validates the format automatically (e.g., it checks for ```@```).</li>
+            <li>```<input type="email" name="email" placeholder="Enter your email">```</li>
+            <li style={{ listStyleType: "none", marginTop: 5, marginBottom: 25 }}><input type="email" name="email" placeholder="Enter your email"/></li>
+        </ul>
+    </li>
+    <li>
+        ```number```
+        <ul>
+            <li>Defines a field for numeric input. We can set a range using ```min``` and ```max``` attributes. Use ```step``` to define increments (e.g., ```step="0.1"``` for decimal values).</li>
+            <li>```<input type="number" name="age" min="18" max="100" placeholder="Enter your age">```</li>
+            <li style={{ listStyleType: "none", marginTop: 5, marginBottom: 25 }}><input type="number" name="age" min="18" max="100" placeholder="Enter your age"/></li>
+        </ul>
+    </li>
+    <li>
+        ```checkbox```
+        <ul>
+            <li>Defines a checkbox. Users can select one or more options.</li>
+            <li>```<input type="checkbox" name="subscribe" value="yes"> Subscribe to newsletter```</li>
+            <li style={{ listStyleType: "none", marginTop: 5, marginBottom: 25 }}><input type="checkbox" name="subscribe" value="yes"/> Subscribe to newsletter</li>
+        </ul>
+    </li>
+    <li>
+        ```radio```
+        <ul>
+            <li>Defines a radio button. Users can select one option from a group. The ```name``` attribute groups radio buttons together.</li>
+            <li>```<input type="radio" name="gender" value="male" id="male"><label for="male">Male</label>```<br/>```<input type="radio" name="gender" value="female" id="female"><label for="female">Female</label>```</li>
+            <li style={{ listStyleType: "none", marginTop: 5 }}><input type="radio" name="gender" value="male" id="male"/><label for="male">Male</label></li>
+            <li style={{ listStyleType: "none", marginBottom: 25 }}><input type="radio" name="gender" value="female" id="female"/><label for="female">Female</label></li>
+        </ul>
+    </li>
+    <li>
+        ```file```
+        <ul>
+            <li>Defines a file upload button (in this case, accepting only images).</li>
+            <li>```<input type="file" name="profile_pic" accept="image/*">``` (to restrict to specific types, use the following syntax: ```accept="image/jpeg,image/png"```)</li>
+            <li style={{ listStyleType: "none", marginTop: 5, marginBottom: 25 }}><input type="file" name="profile_pic" accept=".jpg,.png"/></li>
+        </ul>
+    </li>
+    <li>
+        ```submit```
+        <ul>
+            <li>Defines a button that submits the form data.</li>
+            <li>```<input type="submit" value="Submit">```</li>
+            <li style={{ listStyleType: "none", marginTop: 5, marginBottom: 25 }}><input type="submit" value="Submit"/></li>
+        </ul>
+    </li>
+    <li>
+        ```reset```
+        <ul>
+            <li>Defines a button that resets all form fields to their default values.</li>
+            <li>```<input type="reset" value="Reset">```</li>
+            <li style={{ listStyleType: "none", marginTop: 5, marginBottom: 25 }}><input type="reset" value="Reset"/></li>
+        </ul>
+    </li>
+    <li>
+        ```color```
+        <ul>
+            <li>Defines an input field for selecting a color. We can set a default value using the ```value``` attribute.</li>
+            <li>```<input type="color" name="color" value="#fff000">```</li>
+            <li style={{ listStyleType: "none", marginTop: 5, marginBottom: 25 }}>
+                <input type="color" name="color" value="#fff000"/>
+            </li>
+        </ul>
+    </li>
+    <li>
+        ```date```
+        <ul>
+            <li>Defines an input field for selecting a date. We can set a validation range using ```min``` and ```max``` attributes, and a default value using ```value```.</li>
+            <li>```<input type="date" min="2024-01-01" max="2026-12-31" value="2025-06-01">```</li>
+            <li style={{ listStyleType: "none", marginTop: 5, marginBottom: 25 }}>
+                <input type="date" min="2024-01-01" max="2026-12-31" value="2025-06-01"/>
+            </li>
+        </ul>
+    </li>
+    <li>
+        ```time```
+        <ul>
+            <li>Defines an input field for selecting a time. We can set a validation range using ```min``` and ```max``` attributes.</li>
+            <li>```<input type="time" min="09:00" max="18:00">```</li>
+            <li style={{ listStyleType: "none", marginTop: 5, marginBottom: 25 }}>
+                <input type="time" min="09:00" max="18:00"/>
+            </li>
+        </ul>
+    </li>
+    <li>
+        ```button```
+        <ul>
+            <li>Defines a generic button, often used with JavaScript for custom actions.</li>
+            <li>```<input type="button" value="Click me" onclick="alert('Button clicked!')">```</li>
+            <li style={{ listStyleType: "none", marginTop: 5 }}>
+                <input type="button" value="Click Me" onclick="alert('Button clicked!')"/>
+            </li>
+            <li>The button below, without ```type="button"```, would behave like a submit button (if inside a ```<form>```). We can also explicitly state ```type="submit"```.</li>
+            <li>```<button type="button" onclick="alert('Button clicked!')">Click me</button>```</li>
+            <li style={{ listStyleType: "none", marginTop: 5, marginBottom: 25 }}>
+                <button type="button" onclick="alert('Button clicked!')">Click me</button>
+            </li>
+        </ul>
+    </li>
+    <li>
+        ```<progress>```
+        <ul>
+            <li>Represents the progress of a task. We can use the ```value``` attribute to indicate progress and the ```max``` attribute to set the maximum value.</li>
+            <li>```<progress value="75" max="100"></progress>```</li>
+            <li style={{ listStyleType: "none", marginTop: 5, marginBottom: 25 }}>
+                <progress value="75" max="100"></progress>
+            </li>
+        </ul>
+    </li>    
+    <li>
+        ```textarea```
+        <ul>
+            <li>Defines a multi-line text input field, often used for comments or messages. To block resizing it, use (in CSS): ```resize: none;```.</li>
+            <li>```<textarea name="message" rows="4" cols="10" placeholder="Enter your message"></textarea>```</li>
+            <li style={{ listStyleType: "none", marginTop: 5, marginBottom: 25 }}><textarea name="message" rows="4" cols="10" placeholder="Enter your message"></textarea></li>
+        </ul>
+    </li>
+    <li>
+        ```<select>```
+        <ul>
+            <li>Defines a drop-down menu for selecting one or more options.</li>
+            <li>
+```html
+<select name="country">
+    <option value="USA">USA</option>
+    <option value="Canada">Canada</option>
+    <option value="UK">UK</option>
+</select>
+```
+            </li>
+            <li style={{ listStyleType: "none", marginTop: 5, marginBottom: 25 }}><select name="country">
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="UK">UK</option>
+            </select></li>
+        </ul>
+    </li>
+</ul>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```required```</td>
+        <td>The field must be filled or checked before submitting.</td>
+    </tr>
+    <tr>
+        <td>```disabled```</td>
+        <td>Prevents the user from interacting with the field in any way.</td>
+    </tr>
+    <tr>
+        <td>```readonly```</td>
+        <td>Prevents the user from modifying the field's value, but they can still interact with the field in ways like copying its content.</td>
+    </tr>
+    <tr>
+        <td>```multiple```</td>
+        <td>Allows selecting multiple values (e.g., in a dropdown). Add ```[]``` to the field ```name``` to save values as a list (```name="n[]"```).</td>
+    </tr>
+    <tr>
+        <td>```checked```</td>
+        <td>Marks a checkbox or radio button as selected by default.</td>
+    </tr>
+</table></div>
+
+<p>Example: ```<input type="radio" name="gender" value="male" id="male" disabled checked>```.</p>
+
+<p>The ```type``` attribute in the ```<input>``` tag also supports other values like ```url```, ```tel```, ```range```, and ```hidden```.</p>
+                                

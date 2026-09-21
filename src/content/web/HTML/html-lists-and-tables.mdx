@@ -1,0 +1,244 @@
+---
+title: "Lists and tables"
+order: 3
+---
+
+<h2>Lists</h2>
+
+<h4>Ordered lists (```<ol>```)</h4>
+                
+<p>The numbering of an ordered list consists of numbers or letters and not, e.g., dots or circles.</p>
+
+```html    
+<ol>
+    <li>First</li>
+    <li>Second</li>
+</ol>
+```
+
+<h4>Unordered lists (```<ul>```)</h4>
+
+<p>The numbering of an unordered list consists of, e.g., dots or circles.</p>
+
+```html
+<ul>
+    <li>First</li>
+    <li>Second</li>
+</ul>
+```
+
+<h4>Similarities</h4>
+
+<p>We can't put any other tags between the ```<li>``` list item tags (meaning between pairs of these tags, not between the opening and closing tags). We can style both lists (change the look of their numbers, dots, etc.) using the HTML ```type``` argument. The possible types for ```<ol>``` are: ```1```, ```a```, ```A```, ```i```, and ```I```. The default one is ```1```. The possible styles for ```<ul>``` are: ```circle```, ```disc```, and ```square```. The default one is ```disc```.</p>
+
+<p>The ordered list can also take the ```start``` argument which states from what number will the numeration count. Example:</p>
+
+```html
+<ol start="3" type="I">
+    <li>First</li>
+    <li>Second</li>
+    <li>Third</li>
+    <li>Fourth</li>
+    <li>Fifth</li>
+    <li>Sixth</li>
+</ol>
+```
+
+<ol start="3" type="I">
+    <li>First</li>
+    <li>Second</li>
+    <li>Third</li>
+    <li>Fourth</li>
+    <li>Fifth</li>
+    <li>Sixth</li>
+</ol>
+
+<h4>Nested lists</h4>
+
+```html
+<ol>
+    <li>First</li>
+    <li>Second
+        <ul> <!-- the default type of this list is circle because it is nested -->
+            <li>Third</li>
+            <li>Fourth
+                <ol type="I">
+                    <li>Fifth</li>
+                    <li>Sixth</li>
+                </ol>
+            </li>
+        </ul>
+    </li>
+    <li>Seventh</li>
+</ol>
+```
+
+<ol>
+    <li>
+        First
+    </li>
+    <li>
+        Second
+        <ul>
+            <li>
+                Third
+            </li>
+            <li>
+                Fourth
+                <ol type="I">
+                    <li>
+                        Fifth
+                    </li>
+                    <li>
+                        Sixth
+                    </li>
+                </ol>
+            </li>
+        </ul>
+    </li>
+    <li>
+        Seventh
+    </li>
+</ol>      
+
+<h2>Tables</h2>
+
+<p>We use three tags to create tables: ```<table>``` (the whole table), ```<tr>``` (row), ```<td>``` (cell). You will learn how to display the border of a table in the first lesson about CSS.</p>
+
+```html
+<table>
+    <tr>
+        <td>Title</td>
+        <td>Value</td>
+    </tr>
+    <tr>
+        <td>title1</td>
+        <td>value1</td>
+    </tr>
+    <tr>
+        <td>title2</td>
+        <td>value2</td>
+    </tr>
+</table>
+```
+
+<table>
+    <tr>
+        <td>Title</td>
+        <td>Value</td>
+    </tr>
+    <tr>
+        <td>title1</td>
+        <td>value1</td>
+    </tr>
+    <tr>
+        <td>title2</td>
+        <td>value2</td>
+    </tr>
+</table>
+
+<p style={{ marginTop: 15 }}>The ```colspan``` and ```rowspan``` arguments determine how many columns/rows get merged.</p>
+
+```html
+<table>
+    <tr>
+        <td>Title</td>
+        <td>Value</td>
+    </tr>
+    <tr>
+        <td colspan="2">title1</td>
+    </tr>
+    <tr>
+        <td rowspan="2">title2</td>
+        <td>value2</td>
+    </tr>
+    <tr>
+        <td>value3</td>
+    </tr>
+</table>
+```
+
+<table>
+    <tr>
+        <td>Title</td>
+        <td>Value</td>
+    </tr>
+    <tr>
+        <td colspan="2">title1</td>
+    </tr>
+    <tr>
+        <td rowspan="2">title2</td>
+        <td>value2</td>
+    </tr>
+    <tr>
+        <td>value3</td>
+    </tr>
+</table>
+
+<p style={{ marginTop: 20 }}>We can use semantic tags in tables to aid browsers and assistive technologies.</p>
+
+```html
+<table>
+    <thead> <!-- used to group the header content of the table -->
+        <tr>
+            <th>Name</th> <!-- represents a header cell in the table -->
+            <th>Age</th>
+            <th>City</th>
+        </tr>
+    </thead>
+    <tbody> <!-- used to group the main content of the table -->
+        <tr>
+            <td>John</td>
+            <td>28</td>
+            <td>New York</td>
+        </tr>
+        <tr>
+            <td>Jane</td>
+            <td>32</td>
+            <td>Los Angeles</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>City</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>John</td>
+            <td>28</td>
+            <td>New York</td>
+        </tr>
+        <tr>
+            <td>Jane</td>
+            <td>32</td>
+            <td>Los Angeles</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 style={{ marginTop: 20 }}>Addition - definition lists</h2>
+
+<p>Definition lists are created using the ```<dl>``` tag. Each term is wrapped in a ```<dt>``` tag, and its definition is wrapped in a ```<dd>``` tag.</p>
+
+```html
+<dl>
+    <dt>Term 1</dt>
+    <dd>Definition of term 1</dd>
+    <dt>Term 2</dt>
+    <dd>Definition of term 2</dd>
+</dl>
+```
+
+<dl>
+    <dt>Term 1</dt>
+    <dd>Definition of term 1</dd>
+    <dt>Term 2</dt>
+    <dd>Definition of term 2</dd>   
+</dl>

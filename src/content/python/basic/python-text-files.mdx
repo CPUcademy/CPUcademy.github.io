@@ -1,0 +1,116 @@
+---
+title: "Text files"
+order: 10
+---
+
+```python
+x = open("file.txt", "r", encoding="utf8")
+x.close()
+```
+
+<p>We can open a file like this: ```open("file.txt", "r", encoding="utf8")```. The second argument determines what operations can be performed. ```r``` means reading, ```w``` - overriding the content, ```a``` - modifying the content, and ```r+``` - reading and modifying the content. ```x``` is the name of the variable to which we assign the file object (basically its content). ```utf8``` is the most common encoding for a file because it can handle text that includes special or non-ASCII characters. When we finish the operations on a file, we have to close it (using the ```close()``` method). The ```open()``` method returns an iterable object (we can go with a loop through it). Of course, we can handle files with extensions other than ```.txt``` using ```open()```, but this won't be covered in this lesson.</p>
+
+<p>A file can be opened in a mode just for reading, just for writing, or for reading and writing. There is also an append mode, which adds new content at the end of the file, in contrast to the write mode, which overrides the existing content with new data.</p>
+
+<h2>```r``` (read)</h2>
+
+<p>If the file doesn't exist, the program will throw an error. I will explain how to prevent such failures in the section on the ```os``` module in the lesson about basic modules and ```pip```.</p>
+
+```python
+# Reading everything from a file
+x = open("file.txt", "r", encoding="utf8")
+print(x.read())
+x.close()
+```
+
+```python
+# Reading only the first line from a file
+x = open("file.txt", "r", encoding="utf8")
+print(x.readline())
+x.close()
+```
+
+```python
+# Reading the entire file as a list
+x = open("file.txt", "r", encoding="utf8")
+print(x.readlines())
+x.close()
+```
+
+```python
+# Reading the entire file as a list but without the enter signs
+x = open("file.txt", "r", encoding="utf8")
+print(x.read().splitlines())
+x.close()
+```
+
+```python
+# Reading a particular line (here, we count from 1)
+import linecache
+print(linecache.getline("file.txt", 2))
+```
+
+<h2>```w``` (write)</h2>
+
+<p>The ```write()``` method overrides the contents of a file. If the file doesn’t exist, it creates a new one.</p>
+
+```python
+x = open("file.txt", "w", encoding="utf8")
+y = input()
+x.write(y)
+x.close()
+```
+
+<h2>```a``` (append)</h2>
+
+<p>In this mode, we also use the ```write()``` method, but here, it adds (appends) content to a file (without overriding).</p>
+
+```python
+# Adding a string in the last line (no spaces)
+x = open("file.txt", "a", encoding="utf8")
+y = input()
+x.write(y)
+x.close()
+```
+
+<p>We can add a space or write in a new line like this: ```" " + y``` or ```"\n" + y```.</p>
+
+<h2>```r+``` (read+)</h2>
+
+<p>In this mode, we can use all the methods from the read mode and the ```write()``` method from the append mode. If the file doesn't exist, the program will throw an error.</p>
+
+```python
+x = open("file.txt", "r+", encoding="utf8")
+print(x.read())
+y = input()
+x.write("\n" + y)
+x.close()
+```
+
+<h2>The ```seek()``` method</h2>
+
+<p>The ```seek()``` method is used to change the current position of the file pointer within a file. The file pointer is an internal marker that keeps track of the current location in the file where the next read or write operation will occur.</p>
+
+```python
+f = open("file.txt", "w+")
+f.write("Hello")
+f.seek(0) # move pointer to start (character nr. 0)
+f.write("abc") # overwriting the first three letters
+f.seek(0) # move pointer back to start to read everything
+print(f.read()) # "abclo"
+f.close()
+```
+
+<h2>Other modes</h2>
+
+<ul>
+    <li>```w+``` - write and read. Overwrites the file if it exists or creates a new one and allows reading and writing.</li>
+    <li>```a+``` - append and read. Opens the file for reading and appending at the end and creates the file if it doesn’t exist.</li>
+    <li>```x``` - exclusive creation. Creates a new file and fails if the file already exists.</li>
+    <li>```rb``` - read binary. Opens a file for reading in binary mode.</li>
+    <li>```wb``` - write binary. Opens a file for writing in binary mode and overwrites existing content.</li>
+    <li>```ab``` - append binary. Opens a file for appending in binary mode.</li>
+    <li>```r+b``` - read and write binary. Opens a binary file for both reading and writing.</li>
+    <li>```w+b``` - write and read binary. Overwrites a binary file or creates a new one and allows reading and writing.</li>
+    <li>```a+b``` - append and read binary. Opens a binary file for reading and appending and creates the file if it doesn’t exist.</li>
+</ul>

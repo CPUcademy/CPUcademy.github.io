@@ -1,0 +1,121 @@
+---
+title: "Metaclasses"
+order: 5
+---
+
+<p>If you do not mind, please read this article on <a href="https://medium.com/@cpucademy/metaclasses-in-python-no-bs-guide-b8fcf7fb10d0" target="_blank" class="link">Medium</a>.</p>
+
+<p>We can do something like the example below because classes are also objects.</p>
+
+```python
+def fun():
+    class C:
+        pass
+    return C
+```
+
+<p>Every object needs a higher-level object (such as a class or metaclass) to define its structure and behavior. A class is that object for its instances (it defines its attributes), and a metaclass is that object for a class itself. An instance of a metaclass is a class. They are always working automatically in the background, and today, we will learn how to leverage them for our purposes.</p>
+
+<p>The type of a class is ```<class 'type'>```. ```type``` is what defines the rules and creates the class. It is a metaclass. Whenever we write a class, we call the ```type``` constructor that creates the class object.</p>
+
+```python
+class C:
+    def method(self):
+        print("Method")
+
+print(C()) # <__main__.C object at ...> (an instance of a class)
+print(type(C())) # <class '__main__.C'> (type of a class instance)
+print(type(C)) # <class 'type'> (type of a class itself)
+```
+
+<p>This means that we can create a class using the ```type()``` function directly, as shown below. The parameters of the ```type()``` function are: the class name, a tuple of classes it inherits from (its bases), and a dictionary of attributes.</p>
+
+```python
+def method(self):
+    self.y = 3
+
+C = type("C", (), {"x": 3, "method": method}) # we write the function name without parentheses because we want to get a callable function object and not call it right away
+cc = C()
+print(cc.x)
+
+cc.method()
+print(cc.y)
+
+print(C()) # <__main__.C object at ...>
+```
+
+<h4>Creating a metaclass</h4>
+
+<p>All metaclasses have to inherit from ```type```. Inside them, we use the ```__new__()``` dunder method. It is called before the ```__init__()``` method and defines how the object itself is constructed (```__init__()``` initializes it, defines its attributes, etc.) This method has to return a ```type``` object so the class is created. When used inside a metaclass, we can utilize it to change the structure of the classes using this metaclass. In the example below, we change nothing but only print the attributes of the ```C``` class.</p>
+
+```python
+class Meta(type):
+    def __new__(self, class_name, bases, attributes):
+        print(attributes)
+        return type(class_name, bases, attributes)
+
+class C(metaclass=Meta):
+    x = 5
+    y = 8
+    def method(self):
+        print("Method")
+
+c = C() # even without an instance, the attributes would still be printed out because the class object itself was created
+print(c.x) # 5
+```
+
+<p>Below, we can see an example of how we can modify the class structure from the metaclass. We swap the ```x``` and ```y``` attributes, and even though the ```x``` is defined as 5 in the class, when we print it, the result will be 8. We could also, e.g., change all attributes to uppercase (except dunder methods like ```__qualname__()``` which represents the class name). This is just an example useless in real-world applications, but it effectively shows how metaclasses work.</p>
+
+```python
+class Meta(type):
+    def __new__(self, class_name, bases, attributes):
+        print(attributes)
+        attrs = {}
+        for name, value in attributes.items():
+            if name == "x":
+                attrs["y"] = value # assigning the value of "x" to "y"
+            elif name == "y":
+                attrs["x"] = value # assigning the value of "y" to "x"
+            else:
+                attrs[name] = value
+
+        print(attrs)
+        return type(class_name, bases, attrs)
+
+class C(metaclass=Meta):
+    x = 5
+    y = 8
+    def method(self):
+        print("Method")
+
+c = C()
+print(c.x) # 8
+```
+
+<h4>Real-world applications</h4>
+
+<p>Metaclasses are not commonly used in everyday programming, but they become necessary in certain situations, such as when we have to add mandatory attributes (variables or methods) to every class or enforce specific rules across multiple classes. They are primarily used in the development of libraries or frameworks. The example below shows how we can add a default method to every class using our metaclass.</p>
+
+```python
+class Meta(type):
+    def __new__(self, class_name, bases, attributes):
+        def getX(self):
+            return getattr(self, f"_{class_name}__x") # accessing the private attribute
+
+        attributes["getX"] = getX
+        return type(class_name, bases, attributes)
+
+class C(metaclass=Meta):
+    def __init__(self):
+        self.__x = 5
+
+class D(metaclass=Meta):
+    def __init__(self):
+        self.__x = 4
+
+c = C()
+print(c.getX())
+
+d = D()
+print(d.getX())
+```

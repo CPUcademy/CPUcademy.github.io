@@ -1,0 +1,100 @@
+---
+title: "MySQL database access in PHP"
+order: 15
+---
+
+```php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PHP basics">
+    <title>MySQL database access in PHP</title>
+</head>
+<body>
+    <?php function form($firstName = "", $lastName = "", $profession = "", $email = "", $mailingChecked = false, $gender = "", $education = "") 
+    { ?>
+        <form action="" method="POST">
+            <div>
+                <p>First name:</p>
+                <input type="text" id="firstName" name="firstName" value="<?= $firstName; ?>"><br>
+                <p>Last name:</p>
+                <input type="text" id="lastName" name="lastName" value="<?= $lastName; ?>"><br>
+                <p>Profession:</p>
+                <input type="text" id="profession" name="profession" value="<?= $profession; ?>"><br>
+                <p>Email address:</p>
+                <input type="email" id="email" name="email" value="<?= $email; ?>"><br>
+ 
+                <p>Gender:</p>
+                <input type="radio" name="gender" id="male" value="Male" <?php if ($gender === "Male") echo "checked"; ?>><label for="male">Male</label><br>
+                <input type="radio" name="gender" id="female" value="Female" <?php if ($gender === "Female") echo "checked"; ?>><label for="female">Female</label><br>
+ 
+                <p>Education:</p>
+                <select id="education" name="education">
+                    <option value="">-- Select --</option>
+                    <option value="High School" <?php if ($education === "High School") echo "selected"; ?>>High School</option>
+                    <option value="Bachelor's" <?php if ($education === "Bachelor's") echo "selected"; ?>>Bachelor's</option>
+                    <option value="Master's" <?php if ($education === "Master's") echo "selected"; ?>>Master's</option>
+                    <option value="PhD" <?php if ($education === "PhD") echo "selected"; ?>>PhD</option>
+                </select><br><br>
+ 
+                <input type="checkbox" id="mailing" name="mailing" <?php if ($mailingChecked) echo "checked"; ?>>I want to receive commercial information<br><br>
+                <input type="submit" value="Submit" id="submit" name="submit">
+            </div>
+        </form>
+    <?php } ?>
+    
+    <?php
+        $connection = mysqli_connect("localhost", "root", "", "dbtest"); // creating a connection
+ 
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $firstName = $_POST["firstName"] ?? "";
+            $lastName = $_POST["lastName"] ?? "";
+            $profession = $_POST["profession"] ?? "";
+            $email = $_POST["email"] ?? "";
+            $mailing = isset($_POST["mailing"]);
+            $gender = $_POST["gender"] ?? "";
+            $education = $_POST["education"] ?? "";
+ 
+            if (empty($firstName) || empty($lastName) || empty($profession) || empty($email) || empty($gender) || empty($education)) {
+                echo "<p style='color: red;'>You must fill in all fields!</p>";
+                form($firstName, $lastName, $profession, $email, $mailing, $gender, $education);
+            } else {
+                $sql = "INSERT INTO users (firstName, lastName, profession, email, gender, education, mailing)
+                VALUES ('{$_POST["firstName"]}', '{$_POST["lastName"]}', '{$_POST["profession"]}', '{$_POST["email"]}', '$gender', '$education', $mailing)";
+                mysqli_query($connection, $sql); // executing the query
+                echo "<p>Saved to database!</p>";
+            }
+        } else
+            form();
+ 
+        mysqli_close($connection); // closing the connection
+    ?>
+</body>
+</html>
+```
+
+<h2>Fetching data from database</h2>
+
+<p>The ```mysqli_fetch_row()``` function fetches one row at a time as a numeric array (indexed from 0). The ```mysqli_fetch_array()``` function works the same way but also allows accessing columns by name.</p>
+ 
+```php
+<?php
+    $connection = mysqli_connect("localhost", "root", "", "dbtest"); // creating a connection
+    
+    $result = mysqli_query($connection, "SELECT id, firstName, lastName FROM users;");
+    while ($row = mysqli_fetch_row($result)) // $row[0] = id, $row[1] = firstName, $row[2] = lastName
+        echo "<p>" . $row[0] . " - " . $row[1] . " " . $row[2] . "</p>";
+ 
+    mysqli_data_seek($result, 0); // reset the result pointer back to the first row
+    while ($row = mysqli_fetch_array($result)) // accessible by column name or index
+        echo "<p>" . $row["id"] . " - " . $row["firstName"] . " " . $row["lastName"] . "</p>";
+ 
+    $result = mysqli_query($connection, "SELECT id, firstName, lastName FROM users WHERE id = 1;");
+    $row = mysqli_fetch_array($result); // no loop needed when one row is returned
+    echo "<p>" . $row["id"] . " - " . $row["firstName"] . " " . $row["lastName"] . "</p>";
+ 
+    mysqli_close($connection); // closing the connection
+?>
+```

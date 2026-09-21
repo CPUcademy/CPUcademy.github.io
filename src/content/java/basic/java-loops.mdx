@@ -1,0 +1,84 @@
+---
+title: "Loops"
+order: 5
+---
+
+<h2>The ```for``` loop</h2>
+            
+<p>The ```for``` loop is a repetition loop. It repeats given instructions a certain number of times (of course, this number can be typed in as a variable). We create ```for``` loops using this pattern: "for (initializing a variable (an iterator); condition; instruction that executes after each iteration)." In the example below, the loop will work until ```i``` is less than three (it will increment every iteration).</p>
+
+```java
+for (int i = 0; i < 3; i++)
+    System.out.println(i);
+```
+
+<p>We don't have to initialize the iterator in the loop - we can only give the name of a variable <b>created earlier</b>: ```for (i; i < 3; i++)```. We usually write the  contents of a loop in braces, but we don't have to if there is only one instruction (this rule applies to all loops, conditional statements, functions, etc.) As long as we don't use nested loops (a loop in a loop), we can use the same iterator name in every loop because its value resets during reinitialization (```int i = 0;```).</p>
+
+<p>In the following example, the first loop will execute the other four times (and the second one will execute two times). That will give us eight repetitions overall. We can also nest a ```while``` loop in a ```for``` loop, etc.</p>
+
+```java
+for (int x = 1; x <= 4; x++) {
+    for (int y = 1; y <= 2; y++) {
+        System.out.println("Hello World!");
+    }
+}
+```
+
+<h2>The ```while``` loop</h2>
+
+<p>The ```while``` loop repeats instructions as long as the condition is met. The "Finish" string from the example below will display after the loop stops executing.</p>
+
+```java
+int i = 0;
+while (i < 5) {
+    System.out.println(i);
+    i++;
+}
+System.out.println("Finish");
+```
+
+<p>In the following example, the loop will execute endlessly. We would gain the same effect as below using this condition: ```while (1+1==2)```.</p>
+
+```java
+while (true) // equivalent to for (;;)
+    System.out.println("This is an infinite loop.");
+```
+
+<p>The two loops below will increment a variable in two different ways. Run them in your compiler and analyse the differences between these notations.</p>
+
+```java
+int x = 0;
+while (x++ < 10)
+    System.out.println("x equals: " + x);
+
+int y = 0;
+while (y < 10)
+    System.out.println("y equals: " + y++);
+    
+System.out.println(x + " " + y);
+```
+
+<p>The two loops below will decrement a variable in two different ways. Run them in your compiler and analyse the differences between these notations.</p>
+
+```java
+int x = 10;
+while (x-- > 0)
+    System.out.println("x equals: " + x);
+
+int y = 10;
+while (y > 0)
+    System.out.println("y equals: " + y--);
+    
+System.out.println(x + " " + y);
+```
+
+<h2>The ```do while``` loop</h2>
+
+<p>The only difference between ```while``` and ```do while``` loops is that the ```do while``` loop will, no matter what, run the first iteration. It executes the code first and checks the condition afterwards.</p>
+
+```java
+int x = 1;
+do {
+    System.out.println("Hello World!");
+} while (x < 1);
+```

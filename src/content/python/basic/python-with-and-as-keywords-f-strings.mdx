@@ -1,0 +1,41 @@
+---
+title: "With and as keywords, F strings"
+order: 14
+---
+
+<h2>The ```as``` keyword</h2>
+
+<p>The ```as``` keyword allows for easier handling of imported modules by giving aliases, e.g., ```import random as rand```. In this example, ```rand``` is an alias for ```random```, and we can reference all methods from the ```random``` module using this word. ```as``` is also necessary when using the ```with``` keyword.</p>
+
+<h2>The ```with``` keyword</h2>
+
+<p>Thanks to the ```with``` keyword, we can easily operate on files. Except for the simplified syntax, we don't have to use the ```close()``` method (it works automatically). For this reason, it is superior to just writing it manually, because if an error occurs during the writing process, the ```close()``` method won't be reached.</p>
+
+```python
+with open("file.txt", "w") as file:
+    file.write("text")
+```    
+
+<p>This keyword is also useful in unit testing, which I will explain in a separate lesson.</p>
+
+```python
+with open("file.txt", "w") as file:
+    next(file) # moving the file "pointer" to the next line, skipping the first line
+    file.write("text")
+```    
+
+<h2>F strings</h2>
+
+<p>F strings make it easier to combine strings and variables (remember that data structures like lists are also variables). We use them by putting the letter "f" before a string. Then, we can enter the names of the variables in curly brackets inside the string, and their values will be automatically incorporated.</p>
+
+```python
+list1 = ["a", "b", "c"]
+print(f"{list1[0]}, {list1[1]}, {list1[2]}")
+```
+
+<p>When using F strings, we can easily round a ```float``` number to a selected number of decimal places.</p>
+
+```python
+number = 5.42284712349824149000741293
+print(f"{number:.2f}")
+```

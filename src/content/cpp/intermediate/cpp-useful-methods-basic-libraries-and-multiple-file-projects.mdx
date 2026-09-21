@@ -1,0 +1,136 @@
+---
+title: "Useful methods, basic libraries, and multiple file projects"
+order: 6
+---
+
+<p>A library is a collection of related modules that provides reusable functionality to simplify development. To add a library to our program, we use the ```#include``` command, e.g., ```#include <iostream>```.</p>
+
+<h2>Files</h2>
+
+<p>In a project, we can create multiple files to separate functionalities, improving code organization. Header files (```.h```) are used to declare variables, functions, and classes that can be shared across multiple files.</p>
+
+<h4>```library.h```</h4>
+
+<p>The ```#include "library.h"``` line imports everything from ```library.h``` into the current file. If ```<iostream>``` is included in ```library.h```, there is no need to include it again, as it will be carried over automatically. To prevent errors caused by multiple inclusions of the same file, we use preprocessor directives such as ```#ifndef LIBRARY```. These safeguards ensure that the file is included only once, a feature that built-in libraries already handle internally.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+#ifndef _LIBRARY // this name has to match the file name
+#define _LIBRARY 1
+
+int x = 10;
+
+void display() {
+    cout << x << endl;
+}
+
+#endif
+```
+
+<h4>```main.cpp```</h4>
+
+```cpp
+#include "library.h"
+
+int main(int argc, char *argv[]) {
+    cout << x << endl;
+    display();
+
+    x = 1;
+
+    cout << x << endl;
+    display();
+
+    return 0;
+}
+```
+
+<h2>Useful methods</h2>
+
+<h4>```stoi()```</h4>
+
+```cpp
+// String to integer
+string x = "1";
+int y = stoi(x);
+cout << y << endl;
+```   
+
+<h4>```length()```</h4>
+
+```cpp
+// A number of characters in a string (its length)
+string x = "abcd";
+cout << x.length() << endl;
+``` 
+
+<h4>```substring()```</h4>
+
+```cpp
+// Extracting a substring from a string
+string str = "Hello World!";
+string sub = str.substr(6, 5); // (starting index, length)
+cout << sub << endl;
+```
+
+<h4>```find()```</h4>
+
+```cpp
+// Finding the position of the first occurrence of a substring in a string (the index of the substring's first letter). If there are more than one - the index of the first one encountered.
+string str = "Hello World!";
+int pos = str.find("World");
+if (pos != string::npos) // checking if the substring was found (find() returns string::npos if not found)
+    cout << "Found at position: " << pos << endl;
+else
+    cout << "Not found" << endl; 
+```
+
+<h4>```abs()``` - the ```<cmath>``` library</h4>
+
+```cpp
+// An absolute value of a number
+int x = -4;
+cout << abs(x) << endl;
+``` 
+
+<h4>```sqrt()``` - the ```<cmath>``` library</h4>
+
+```cpp
+// The square root of a number
+int x = 4;
+cout << sqrt(x) << endl;
+``` 
+
+<h4>```exit()``` - the ```<cstdlib>``` library</h4>
+
+```cpp
+// Ending the program
+exit(0);
+cout << "This won't be displayed." << endl;
+```
+
+<h4>```Sleep()``` - the ```<windows.h>``` library</h4>
+
+```cpp
+// Stopping the program for a time specified in miliseconds
+Sleep(1000);
+``` 
+
+
+<h4>```system("cls")``` - the ```<cstdlib>``` library</h4>
+
+```cpp
+// Clearing the console
+cout << "This won't be displayed." << endl;
+system("cls");
+```
+
+<h4>Reversing a string - the ```<algorithm>``` library</h4>
+
+```cpp
+string str = "CPUcademy";
+reverse(str.begin(), str.end());
+cout << str << endl;
+```

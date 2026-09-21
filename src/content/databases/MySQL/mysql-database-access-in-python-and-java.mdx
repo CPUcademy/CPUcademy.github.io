@@ -1,0 +1,84 @@
+---
+title: "Database access in Python and Java"
+order: 14
+---
+
+<h3>Python implementation</h3>
+
+<p>MySQL can be used in Python via the ```mysql``` module. A MySQL server must be running locally or remotely before connecting.</p>
+
+```python
+import mysql.connector
+
+# Connecting to the database (make sure database "dbtest" exists)
+conn = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="dbtest"
+)
+cursor = conn.cursor() # creating a cursor object to execute SQL statements
+
+# Creating a table
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT
+)
+""")
+
+# Inserting data
+cursor.execute("INSERT INTO users (name, age) VALUES (%s, %s)", ("Alice", 30))
+cursor.execute("INSERT INTO users (name, age) VALUES (%s, %s)", ("Bob", 25))
+
+conn.commit() # committing changes
+
+# Querying data
+cursor.execute("SELECT * FROM users")
+data_rows = cursor.fetchall()
+for data_row in data_rows:
+    print(data_row)
+
+# Closing connections
+cursor.close()
+conn.close()
+```
+
+<h3>Java implementation</h3>
+
+<p>In Java, PostgreSQL is accessed using JDBC (Java Database Connectivity). We need to <a href="https://dev.mysql.com/downloads/connector/j/" target="_blank" className="link">download the JDBC driver for MySQL</a> and add it to the project's dependencies (in IntelliJ, enter ```File/Project Structure/Libraries/+``` and select the downloaded JAR file). A MySQL server must be running locally or remotely before connecting.</p>
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class Main {
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/dbtest";
+        String user = "root";
+        String password = "";
+
+        try {
+            Connection conn = DriverManager.getConnection(url, user, password); // connecting to the database (make sure database "dbtest" exists)
+            Statement stmt = conn.createStatement(); // creating a statement object to execute SQL queries
+            stmt.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50), age INT)"); // creating a table
+
+            // Inserting data
+            stmt.executeUpdate("INSERT INTO users (name, age) VALUES ('Alice', 30)");
+            stmt.executeUpdate("INSERT INTO users (name, age) VALUES ('Bob', 25)");
+
+            // Querying data
+            ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+            while (rs.next())
+                System.out.println(rs.getInt("id") + " " + rs.getString("name") + " " + rs.getInt("age"));
+
+            conn.close(); // closing the connection
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+``` 

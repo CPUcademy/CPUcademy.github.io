@@ -1,0 +1,171 @@
+---
+title: "Pointers"
+order: 2
+---
+
+<p>Using an asterisk, we can get to the value under an address.</p>
+
+```cpp
+int x = 10;
+cout << *&x << endl;
+cout << &x << endl;
+```
+
+<p>A pointer is a variable containing an address (it is pointing to it). We create pointers by adding an asterisk before a variable's name. A variable ```int *pointer;``` points to an address of an ```int``` variable.</p>
+
+```cpp
+int x = 10;
+int *pointer;
+
+pointer = &x;
+cout << pointer << endl; // the address
+cout << *pointer << endl; // the value
+
+x = 5;
+cout << x << " " << *pointer << endl; // they are the same
+
+*pointer = 7;
+cout << x << " " << *pointer << endl; // they are the same
+
+int y = 6;
+pointer = &y; // reassigning the pointer
+cout << x << endl;
+cout << *pointer << " " << y << endl; // they are the same, but "x" is different
+```
+
+<p>A reference variable gives another name to a variable that already exists. It doesn't require the ```*``` operator to access the value it refers to. In contrast, a pointer variable holds an address itself, and we can gain access to the address's value only using the ```*``` operator. A pointer has its memory address and size, while a reference variable shares the same memory address with the original variable.</p>
+
+<p>Unlike reference variables, pointers can change their value, pointing to different memory locations.</p>
+
+<p>We can create a constant pointer. However as you can see in the example below, we can still change its value using an asterisk.</p>
+
+```cpp
+int x = 10;
+int y = 6;
+int * const const_pointer = &x;
+*const_pointer = 20;
+```
+
+<p>To create a "real" constant pointer, we can type: ```const int * const_pointer = &x;```. Now, we can change its value only by editing the variable whose address it is pointing to. Also, we can still switch the address the pointer is pointing to (```const_pointer = &y;```). If we want to block also this possibility, we can write: ```const int * const const_pointer = &x;```.</p>
+
+<p>Keep in mind that ```int* const``` is different from ```const int*```. The former is used to declare a constant pointer pointing to an integer. The value of the pointer itself cannot be changed, but the value at the address to which it is pointing can. The latter is used to declare a pointer pointing to a constant integer. The value of the pointer itself can be changed to point to a different memory address, but the value under that address cannot.</p>
+
+<p>Pointers have their addresses, and because of that, a pointer can point on another pointer.</p>
+
+```cpp
+int *pointer;
+cout << &pointer << endl;
+
+int **pointer_pointing_on_a_pointer = &pointer;
+cout << pointer_pointing_on_a_pointer << endl;
+```
+
+<h2>Pointers and arrays</h2>
+
+<p>A name of an array is a pointer itself. In the example below, ```a``` and ```pointer``` have the same value (they contain the same address) because ```a``` is also a pointer that is pointing to the address of its first value (```a[0]```). All the values of an array are "in a row" which means their addresses are physically next to each other. If we know the first address and the size, we can access all array elements.</p>
+
+```cpp
+int a[3];
+int * const pointer = &a[0];
+
+cout << a << endl;
+cout << pointer << endl;
+cout << &a[0] << endl;
+cout << &a[1] << endl;
+cout << &a[2] << endl;
+```
+
+```cpp
+int a[3];
+
+cout << a << endl;
+cout << a + 1 << endl;
+cout << a + 2 << endl;
+cout << a + 3 << endl; // this address is outside the array, and editing it would violate the rules and result in an error
+
+a[2] = 7;
+cout << *(a + 2) << endl; // it will show the value under "a[2]"
+```
+
+<p>The example below shows different combinations of an incrementation operator and an asterisk. analyse how each of them works.</p>
+
+```cpp
+int a[3];
+a[0] = 10;
+a[1] = 20;
+a[2] = 30;    
+
+int *pointer = &a[0];
+cout << *pointer << endl; // 10
+cout << ++*pointer << endl; // 11
+cout << *++pointer << endl; // 20
+cout << *pointer++ << endl; // 20
+```
+
+<p>Remember that operations on pointers are much faster than on references.</p>
+
+<h2>Functions</h2>
+
+<p>The main advantage of using references and pointers as function arguments is that we don't have to return anything. It is because a pointer argument already references a variable outside the function, and we change its value directly. The difference between these two is that while passing a reference, we pass the variable directly, which we then edit normally. On the other hand, while passing a pointer, we pass the address of the variable, whose value we have to access using the asterisk.</p>
+
+<p>Arrays are, by default, passed to functions by pointer. This means that the function receives the address of the first element of the array, not a copy of it.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+void multiply1(int &x, int n) {
+    x *= n;
+}
+
+void multiply2(int *x, int n) {
+    *x *= n;
+}
+
+int main() {
+    int a = 10;
+    int b = 10;
+    multiply1(a, 5);
+    multiply2(&b, 5);
+
+    cout << a << endl;
+    cout << b << endl;
+
+    return 0;
+}
+```
+
+<p>In the example below, you can see the difference between a function that returns a pointer and the one that is a pointer. I will now consider the example below, where both functions are assigned to a variable and given a different variable as an argument. When we change the value of the variable to which the former function is assigned, the value of the variable we gave to it as an argument doesn't change. The pointer function, under the same circumstances, does change the value of this variable.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int multiply(int *x, int n) {
+    *x *= n;
+    return *x;
+}
+
+int *multiply2(int *x, int n) {
+    *x *= n;
+    return x;
+}
+
+int main() {
+    int c = 10;
+    int d = multiply(&c, 5);
+    cout << c << endl;
+    d = 20;
+    cout << c << endl;
+    cout << d << endl;
+
+    int e = 10;
+    int *f = multiply2(&e, 5);
+    cout << e << endl;
+    *f = 20; // it also changes the "e" variable
+    cout << e << endl;
+    cout << *f << endl;
+
+    return 0;
+}
+```
