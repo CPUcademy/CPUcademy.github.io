@@ -1,0 +1,44 @@
+---
+title: "Public key cipher"
+order: 12
+---
+
+ <p>Public-key cryptography (asymmetric cryptography) uses a mathematically linked key pair: a <b>public key</b> that anyone may use to encrypt data, and a <b>private key</b> that must remain secret and is required for decryption. This allows secure communication without a pre‑shared secret. Its security relies on one‑way mathematical problems that are easy to compute but extremely hard to reverse, such as integer factorization (RSA), discrete logarithms (Diffie-Hellman), and elliptic‑curve discrete logarithms (ECC). Because the private key is never transmitted, intercepted ciphertexts cannot be decrypted with the public key alone.</p>
+
+<p>The public key is derived from the private key in a way that is easy to compute but infeasible to invert. For example, a 2048‑bit RSA key corresponds to an astronomically large key space (the full set of all keys that could theoretically be generated), making brute‑force attacks unrealistic. This structure enables encryption, digital signatures, and key‑exchange protocols without requiring shared secrets.</p>
+
+<p>Although slower than symmetric encryption and dependent on the continued hardness of its mathematical assumptions, public‑key cryptography is widely used and foundational to modern security technologies such as HTTPS, digital certificates, secure email, and many authentication systems.</p>
+
+<p>Man‑in‑the‑middle attacks (MITM) remain a practical risk: if an attacker can intercept and replace public keys during exchange, they can decrypt or alter messages while appearing legitimate. This is why authenticated key distribution (via certificates, trusted authorities, or verified fingerprints) is essential, since public‑key cryptography alone cannot prevent key substitution.</p>
+
+<p>The ```cryptography``` module provides robust tools for implementing this cipher.</p>
+
+```python
+from cryptography.hazmat.primitives.asymmetric import rsa, padding
+from cryptography.hazmat.primitives import serialization, hashes
+
+#### Generating the public and private keys ####
+
+private_key = rsa.generate_private_key(public_exponent = 65537, key_size = 2048) # generating a 2048-bit RSA private key using a secure RNG (Random Number Generator)
+public_key = private_key.public_key() # deriving the public key from the private key
+
+#### Serializing keys (converting the state of an object into a format that can be easily stored and reused) ####
+
+# Converting the private key to the PEM (Privacy-Enhanced Mail) format (encrypted storage is recommended in real systems - NoEncryption used for demonstration)
+private_pem = private_key.private_bytes(encoding = serialization.Encoding.PEM, format = serialization.PrivateFormat.PKCS8, encryption_algorithm = serialization.NoEncryption())
+public_pem = public_key.public_bytes(encoding = serialization.Encoding.PEM, format = serialization.PublicFormat.SubjectPublicKeyInfo) # converting public key to PEM format (safe to share)
+
+#### Deserializing keys ####
+
+loaded_public_key = serialization.load_pem_public_key(public_pem)
+loaded_private_key = serialization.load_pem_private_key(private_pem, password = None)
+
+#### Encrypting and decrypting a message using the public key ####
+
+message = "Hello asymmetric world!"
+ciphertext = public_key.encrypt(message.encode(), padding.OAEP(mgf = padding.MGF1(algorithm = hashes.SHA256()), algorithm = hashes.SHA256(), label = None)) # OAEP = secure padding scheme, .encode() converts string to bytes
+plaintext = private_key.decrypt(ciphertext, padding.OAEP(mgf = padding.MGF1(algorithm = hashes.SHA256()), algorithm = hashes.SHA256(), label = None)).decode()
+
+print("Original message:", message)
+print("Decrypted message:", plaintext)
+```

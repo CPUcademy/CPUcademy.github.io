@@ -1,0 +1,109 @@
+---
+title: "MoviePy"
+order: 4
+---
+
+<p>The ```moviepy``` module is used to edit video and audio. If we also want to play them, we have to install the ```pygame``` module (as shown <a href="python-popular-problems-no-module-named-pygame.html" class="link">here</a>).</p>
+        
+<p>Write the ```from moviepy.editor import *``` statement at the beginning of every example.</p>
+
+<h2>Video</h2>
+                                
+<h4>Playing a video</h4>
+        
+<p>A video played using ```preview()``` displays in full-screen mode and can't be stopped.</p>
+        
+```python
+clip = VideoFileClip("video.mp4") # the video object
+clip.preview() # this method comes from the pygame module
+```
+
+<h4>Rotating a video</h4>
+                                
+```python
+clip = VideoFileClip("video.mp4")
+flipped = clip.rotate(35) # rotating the video by 35 degrees
+flipped.write_videofile("video-flipped.mp4") # exporting the video
+```
+
+<h4>Trimming a video</h4>
+
+```python
+clip = VideoFileClip("video.mp4")
+duration = clip.duration
+shortened = clip.subclip(0, duration / 2) # trimming the video by half
+shortened.write_videofile("video-shortened.mp4")
+```
+
+<h4>Speeding up a video</h4>
+
+```python
+clip = VideoFileClip("video.mp4").fx(vfx.speedx, 2) # speeding up the video two times
+clip.write_videofile("video-accelerated.mp4")
+```
+
+<h4>Merging video files</h4>
+
+```python
+clip1 = VideoFileClip("video.mp4")
+clip2 = VideoFileClip("video2.mp4")
+mix = concatenate_videoclips([clip1, clip2]) # merging two video files
+mix.write_videofile("mix.mp4")
+```
+
+<h4>Creating a video collage</h4>
+        
+<p>The example below will create four copies of a video, transform each of them differently, and join them into a collage.</p>
+
+```python
+clip1 = VideoFileClip("video.mp4").margin(10)
+clip2 = clip1.fx(vfx.mirror_x)
+clip3 = clip1.fx(vfx.mirror_y)
+clip4 = clip1.resize(0.60)
+clip = clips_array([[clip1, clip2], [clip3, clip4]])
+clip.resize(width=480).write_videofile("video-collage.mp4")
+```
+
+<h4>```.mp4``` to ```.gif```</h4>
+
+```python
+clip = VideoFileClip("video.mp4")
+clip.write_gif ("video-gif.gif")
+```    
+
+<h2>Audio</h2>
+                                
+<p>An audio played using ```preview()``` can't be stopped.</p>
+
+```python
+clip = AudioFileClip("audio.mp3") # the audio object
+clip.preview()
+```
+
+<h4>Changing the soundtrack in a video</h4>
+                            
+```python
+videoclip = VideoFileClip("video.mp4")
+audioclip = AudioFileClip("audio.mp3")
+videoclip2 = videoclip.set_audio(audioclip) # changing the soundtrack
+videoclip2.write_videofile("video2.mp4") # exporting the video
+```
+
+<h4>Speeding up an audio</h4>
+
+```python
+clip = AudioFileClip("audio.mp3").fx(vfx.speedx, 2) # speeding up the audio two times
+clip.write_audiofile("audio-accelerated.mp3") # exporting the audio
+```
+
+<h4>Merging audio files</h4>
+
+<p>The example below will merge three audio files into one (one soundtrack after another).</p>
+
+```python
+clip1 = AudioFileClip("audio1.mp3")
+clip2 = AudioFileClip("audio2.mp3")
+clip3 = AudioFileClip("audio3.mp3")
+mix = concatenate_audioclips([clip1, clip2, clip3])
+mix.write_audiofile("mix.mp3")
+```

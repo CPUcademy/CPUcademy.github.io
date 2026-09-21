@@ -1,0 +1,22 @@
+---
+title: "Record classes"
+order: 2
+---
+
+<p>Record classes are especially convenient in situations where we need simple data carriers. They can be declared in a single line, and the compiler automatically generates the constructor as well as implementations of the ```equals()```, ```hashCode()```, and ```toString()``` methods. To define a record class, we simply use the ```record``` keyword before the class name.</p>
+            
+```java
+public class Main {
+    public static void main(String[] args) {
+        Person p1 = new Person("John", 32);
+        Person p2 = new Person("John", 32);
+        System.out.println(p1);
+
+        if (p1.equals(p2)) {
+            System.out.println("Equal");
+        }
+    }
+}
+
+record Person(String name, int age) {}
+```

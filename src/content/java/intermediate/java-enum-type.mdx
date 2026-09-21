@@ -1,0 +1,79 @@
+---
+title: "Enum type"
+order: 11
+---
+
+<p>An ```Enum``` (short for enumeration) is a custom data type that allows us to define a fixed set of named values. In other words, it specifies exactly which values a variable of that type can take. When defining an ```Enum```, we list all possible values inside braces. This is similar to how built-in types like ```int``` have a defined range of allowed values, but in this case, we explicitly decide what those values are.</p>
+
+```java
+public enum Day {
+    Mo, Tu, We, Th, Fr, Sa, Su
+} 
+```
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(Day.Tu); // works like using a predefined constant instead of a raw value
+
+        Day numberOfDayOfTheWeek = Day.Mo;
+        System.out.println(getDay(numberOfDayOfTheWeek));
+    }
+
+    private static String getDay(Day x) {
+        return switch (x) {
+            case Mo -> "Monday";
+            case Tu -> "Tuesday";
+            case We -> "Wednesday";
+            case Th -> "Thursday";
+            case Fr -> "Friday";
+            case Sa -> "Saturday";
+            case Su -> "Sunday";
+        };
+    }
+}
+```
+
+<h4>Advanced Enums</h4>
+
+<p>Enums can contain fields, constructors, and methods. It is useful when each enum constant needs to store additional information or provide related behavior. For example, an enum can represent HTTP status codes, where each constant stores both the numeric status code and its description.</p>
+
+```java
+public enum HttpStatus {
+    OK(200, "Success"), // calling the constructor
+    NOT_FOUND(404, "Not Found"),
+    INTERNAL_SERVER_ERROR(500, "Internal Server Error");
+
+    private final int code;
+    private final String description;
+
+    HttpStatus(int code, String description) {
+        this.code = code;
+        this.description = description;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isError() {
+        return code >= 400;
+    }
+}
+```
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+
+        System.out.println(status.getCode()); // 404
+        System.out.println(status.getDescription()); // Not Found
+        System.out.println(status.isError()); // true
+    }
+}
+```

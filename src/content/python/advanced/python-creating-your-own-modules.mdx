@@ -1,0 +1,18 @@
+---
+title: "Creating your own modules"
+order: 3
+---
+
+<p>If you do not mind, please read this article on <a href="https://medium.com/@cpucademy/publish-a-python-module-in-7-simple-steps-9f1cea3bf918" target="_blank" className="link">Medium</a>.</p>
+
+<p className="noBottomMargin">In this lesson, you will learn how to create your own module and deploy it on PyPi so anyone can install and use it. First, make sure you have the ```pip``` command added to ```PATH``` as shown <a href="python-popular-problems-no-module-named-pygame.html" className="link">here</a>.</p>
+
+<ol>
+    <li>Create an account at <a href="https://pypi.org/" target="_blank" className="link">PyPi</a>.</li>
+    <li>In the account settings, generate an API token and save it for later.</li>
+    <li>Download all the necessary files from <a href="https://drive.google.com/drive/folders/1q1r3Xxxa6N1ucbnA54rmZionkQDASitg?usp=sharing" target="_blank" className="link">here</a>. Customize the ```setup.py```, ```README.rst```, ```MANIFEST.in```, and ```LICENSE.txt``` files. Your classes go in the ```__init__.py``` file.</li>
+    <li>Install the ```setuptools``` and ```twine``` modules using the ```pip install``` command.</li>
+    <li>Go to the folder with customized files in CMD using the ```cd``` command.</li>
+    <li>Execute the following commands: ```python setup.py sdist```, ```python -m twine upload dist/*```. The second command will ask you for authorization using the API token. After these commands finished executing, your module will be ready.</li>
+    <li>Install your module using the ```pip install``` command and enjoy! Its documentation (the ```README.rst``` content) will be available on the PyPi website.</li>
+</ol>

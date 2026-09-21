@@ -1,0 +1,81 @@
+---
+title: "Nested classes"
+order: 10
+---
+
+<p>We can put classes in each other. This solution is used for logically grouping related classes, enhancing encapsulation by restricting visibility (as the inner class is only accessible within the outer class), and improving code organization. Inner classes have access to the outer class's objects. The example below perfectly represents all three applications of nested classes.</p>
+            
+```java
+public class Main {
+    public static void main(String[] args) {
+        BankAccount bankacc = new BankAccount(1000);
+        System.out.println(bankacc.getBalance());
+        bankacc.startAction(5);
+        System.out.println(bankacc.getBalance());
+    }
+}
+
+class BankAccount {
+    private double balance; // private attribute
+    public BankAccount(double balance) { this.balance = balance; }
+    
+    double getBalance() { return this.balance; }
+    public void updateBalance(double amount) { this.balance += amount; }
+    void startAction(double interestRate) { Interest interest = new Interest(interestRate, this); }
+
+    class Interest { // nested / inner class
+        private double interestRate; // private attribute
+        public Interest(double interestRate, BankAccount account) {
+            this.interestRate = interestRate;
+            account.updateBalance((account.getBalance() * this.interestRate) / 100);
+        }
+    }
+}
+```
+
+<p>The class from above could also be nested like this:</p>
+
+```java
+void startAction(double interestRate) {
+    class Interest {
+        private double interestRate;
+        public Interest(double interestRate) {
+            this.interestRate = interestRate;
+            balance += (balance * interestRate) / 100;
+        }
+    }
+    Interest interest = new Interest(interestRate);
+}
+```
+
+<h2>Static nested classes</h2>
+
+<p>We can create a new instance of a static inner class without needing to have an instance of the class that it is in. We can create static objects in a static inner class but not in a non-static inner class because Java is not sure if it will exist (an inner static class will exist even without an instance of the class it is in, so the objects within it, too).</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        A a = new A();
+        A.B b = a.new B();
+        A.C c = new A.C();
+    }
+}
+
+class A {
+    A() { System.out.println("A"); }
+
+    class B {
+        B() { System.out.println("B"); }
+        int method() { return 0; }
+    }
+
+    static class C { // we can't access the objects of the A class from this class
+        C() { System.out.println("C"); }
+    }
+
+    void method2() {
+        B obj = new B();
+        obj.method();
+    }
+}
+```

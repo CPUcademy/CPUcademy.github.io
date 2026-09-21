@@ -1,0 +1,221 @@
+---
+title: "Web (frameworks, scraping, automation, and more)"
+order: 4
+---
+
+<h3>Table of contents</h3>
+
+<ol>
+    <li><a href="#flask" className="linkh" style={{textDecoration: "none"}}>The Flask framework</a></li>
+    <li><a href="#celery" className="linkh" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>celery</code> module</a></li>
+    <li><a href="#webbrowser" className="linkh" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>webbrowser</code> module</a></li>
+    <li><a href="#requests" className="linkh" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>requests</code> module</a></li>
+    <li><a href="#beautifulsoup" className="linkh" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>BeautifulSoup</code> module</a></li>
+    <li><a href="#googlesearch" className="linkh" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>googlesearch</code> module</a></li>
+    <li><a href="#scrapy" className="linkh" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>scrapy</code> module</a></li>
+    <li><a href="#selenium" className="linkh" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>selenium</code> module</a></li>
+    <li><a href="#socket" className="linkh" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>socket</code> module</a></li>
+</ol>
+
+<h2><a id="flask">The Flask framework</a></h2>
+
+<p>Flask is a lightweight Python web framework used for creating websites, APIs, dashboards, and web applications. It provides routing, request handling, template rendering, and many extensions for authentication, databases, and forms.</p>
+
+<p>A Flask application consists of routes. A route defines what happens when a user visits a given URL.</p>
+
+```python
+# Creating a basic Flask application
+from flask import Flask
+
+app = Flask(__name__)
+@app.route("/")
+def home():
+    return "Hello World!"
+app.run() # starting the web server
+```
+
+<p>The ```render_template()``` function allows us to display HTML templates stored in the ```templates``` directory. Templates are regular HTML files that define the structure and appearance of web pages.</p>
+
+```python
+from flask import Flask, render_template
+
+app = Flask(__name__)
+@app.route("/")
+def home():
+    return render_template("index.html")
+app.run()
+```
+
+<p>Flask also supports handling URL parameters and form data.</p>
+
+```python
+from flask import Flask
+
+app = Flask(__name__)
+@app.route("/user/<name>")
+def user(name):
+    return f"Hello {name}!"
+app.run()
+```
+
+                                <p>Flask also supports handling form data sent using POST requests.</p>
+
+```python
+from flask import Flask, request
+
+app = Flask(__name__)
+@app.route("/login", methods=["POST"])
+def login():
+    username = request.form["username"] # getting form data
+    password = request.form["password"]
+    return f"Logged in as {username}"
+app.run()
+```    
+
+<h2><a id="celery">The <code style={{color: "#157267"}}>celery</code> module</a></h2>
+
+                                   <p>The ```celery``` module is used for running background tasks asynchronously. It works with a message broker (such as Redis) to queue tasks and send them to worker processes that execute them outside the main program. It is commonly used to send emails, process files, handle queues, and run scheduled tasks without blocking the application.</p>
+
+```python
+from celery import Celery
+
+app = Celery("tasks", broker="redis://localhost:6379/0")
+@app.task
+def addition(x, y):
+    return x + y
+result = addition.delay(5, 3) # running the task asynchronously (arguments passed to the task function)
+```
+
+<h2><a id="webbrowser">The <code style={{color: "#157267"}}>webbrowser</code> module</a></h2>
+
+<p>The ```webbrowser``` module allows us to open websites directly in the default web browser, which is useful for quickly launching web pages, automating simple navigation tasks, and integrating Python scripts with online resources.</p>
+
+```python
+import webbrowser
+
+webbrowser.open("https://google.com") # opening a website
+
+query_text = "Python tutorials"
+webbrowser.open(f"https://google.com/search?q={query_text}") # performing a Google search
+```
+
+<h2><a id="requests">The <code style={{color: "#157267"}}>requests</code> module</a></h2>
+
+<p>The ```requests``` module is used for sending HTTP requests. It allows us to communicate with websites and APIs.</p>
+
+```python
+import requests
+
+# Sending a GET request
+response = requests.get("https://api.github.com")
+print(response.status_code)
+print(response.text)
+
+# Sending a POST request
+data = {"name": "Tom", "age": 25}
+response = requests.post("https://httpbin.org/post", json=data)
+print(response.json())
+```
+
+<h2><a id="beautifulsoup">The <code style={{color: "#157267"}}>BeautifulSoup</code> module</a></h2>
+
+<p>The ```BeautifulSoup``` module is used for parsing HTML and XML documents. It is commonly used in web scraping.</p>
+
+<p>Write the ```from bs4 import BeautifulSoup``` statement at the beginning of every example.</p>
+
+```python
+# Parsing HTML content
+html = "<h1>Hello</h1>"
+soup = BeautifulSoup(html, "html.parser")
+print(soup.h1.text)
+```
+
+```python
+# Extracting links from HTML
+html = "<a href='https://google.com'>Google</a>"
+soup = BeautifulSoup(html, "html.parser")
+link = soup.a["href"] # getting the href attribute
+print(link)
+```
+
+<h2><a id="googlesearch">The <code style={{color: "#157267"}}>googlesearch</code> module</a></h2>
+
+<p>The ```googlesearch``` module allows us to perform Google searches and extract search results.</p>
+
+```python
+from googlesearch import search
+for result in search("Python programming", num_results=5):
+    print(result)
+```
+
+<h2><a id="scrapy">The <code style={{color: "#157267"}}>scrapy</code> module</a></h2>
+
+<p>The ```scrapy``` module is a powerful web scraping framework used for extracting data from websites.</p>
+
+```python
+# Creating a Scrapy spider that extracts the page title from a website
+import scrapy
+
+class ExampleSpider(scrapy.Spider):
+    name = "example"
+    start_urls = ["https://example.com"]
+    def parse(self, response):
+        yield {
+            "title": response.css("title::text").get()
+        }
+```
+
+<h2><a id="selenium">The <code style={{color: "#157267"}}>selenium</code> module</a></h2>
+
+<p>The ```selenium``` module is used for browser automation and testing web applications. It allows us to open websites, click buttons, fill forms, and interact with webpage elements automatically. Selenium requires a browser driver such as ChromeDriver for Google Chrome.</p>
+
+```python
+from selenium import webdriver
+
+driver = webdriver.Chrome() # opening the Chrome browser
+driver.get("https://google.com") # opening a webpage
+print(driver.title) # displaying the page title
+driver.quit() # closing the browser
+```
+
+```python
+# Filling a text field and clicking a button
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+driver.get("https://google.com")
+
+search = driver.find_element(By.NAME, "q") # finding the search field
+search.send_keys("Python Selenium") # typing text into the field
+
+button = driver.find_element(By.NAME, "btnK") # finding the search button
+button.click() # clicking the button
+
+driver.quit()
+```
+
+<h2><a id="socket">The <code style={{color: "#157267"}}>socket</code> module</a></h2>
+
+<p>The ```socket``` module allows us to create network connections and communicate over TCP or UDP protocols.</p>
+
+```python
+import socket
+
+# Creating a client socket
+client = socket.socket()
+client.connect(("google.com", 80)) # connecting to a server
+client.send(b"Hello") # sending bytes
+client.close() # closing the connection
+
+# Receiving data from a server
+client = socket.socket()
+client.connect(("example.com", 80))
+client.send(b"GET / HTTP/1.1\r\nHost: example.com\r\n\r\n") # sending an HTTP request
+data = client.recv(1024) # receiving up to 1024 bytes
+print(data.decode()) # converting bytes to text
+client.close()
+```
+
+<p>To choose TCP or UDP in the ```socket``` module, we set the socket type: TCP uses ```SOCK_STREAM``` for reliable connections like ```socket.socket(socket.AF_INET, socket.SOCK_STREAM)```, while UDP uses ```SOCK_DGRAM``` for fast, connectionless communication like ```socket.socket(socket.AF_INET, socket.SOCK_DGRAM)```. ```AF_INET``` defines the IPv4 address family used for internet communication.</p>
+                                

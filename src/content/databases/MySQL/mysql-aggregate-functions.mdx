@@ -1,0 +1,91 @@
+---
+title: "Aggregate functions"
+order: 5
+---
+
+<h4>```LIMIT``` clause</h4>
+```sql
+-- Specifying a limit on the number of records that will be displayed
+SELECT column_name 
+FROM table_name 
+LIMIT 5;
+```
+
+<h4>```COUNT``` function</h4>
+```sql
+-- Counting records in a table
+SELECT COUNT(*)
+FROM table_name; 
+```
+                      
+<h4>```SUM``` function</h4>
+```sql
+-- Adding up values
+SELECT SUM(column_name)
+FROM table_name; 
+``` 
+
+<h4>```AVG``` function</h4>
+```sql
+-- Calculating the average value
+SELECT AVG(column_name)
+FROM table_name; 
+```
+
+<h4>```MAX``` function</h4>
+```sql
+-- Finding the highest value
+SELECT MAX(column_name)
+FROM table_name; 
+```    
+
+<h4>```MIN``` function</h4>
+```sql
+-- Finding the lowest value
+SELECT MIN(column_name)
+FROM table_name; 
+```
+
+<h4>```ROUND``` function</h4>
+```sql
+-- Rounding a given value to the specified number of decimal places
+SELECT column2_name, ROUND(column2_name, 2)
+FROM table_name; 
+```
+
+<h4>```FLOOR``` function</h4>
+```sql
+-- Rounding a given value down to the nearest integer
+SELECT column2_name, FLOOR(column2_name)
+FROM table_name; 
+```
+
+<h4>```GROUP BY``` clause</h4>
+```sql
+-- Grouping records by the values of a specified column
+SELECT column_name, COUNT(*)
+FROM table_name
+GROUP BY column_name;
+```
+
+<h4>Column references</h4>
+<p className="noBottomMargin">Referring to columns by their order in the ```SELECT``` clause.</p> 
+<p className="noBottomMargin">1 - ```column1_name```</p>
+<p>2 - ```column2_name```</p>
+```sql
+SELECT column1_name, column2_name
+FROM table_name
+GROUP BY 2
+ORDER BY 1;
+```
+
+<h4>```HAVING``` clause</h4>
+```sql
+-- Adding a condition to the GROUP BY clause
+SELECT column_name, COUNT(*)
+FROM table_name
+GROUP BY column_name
+HAVING COUNT(*) < 3;
+```
+
+<p>The ```HAVING``` clause is used to filter groups based on aggregate values after grouping, while the ```WHERE``` clause is used to filter individual rows before any grouping takes place. The ```WHERE``` clause works with non-aggregated data, whereas ```HAVING``` is specifically used with aggregated values such as ```SUM()```, ```COUNT()```, or ```AVG()```.</p>

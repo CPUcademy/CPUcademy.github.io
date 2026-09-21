@@ -1,0 +1,209 @@
+---
+title: "NumPy"
+order: 1
+---
+
+<p>```NumPy``` is a core library designed for fast and efficient numerical computing. It provides powerful multidimensional arrays and a wide collection of mathematical functions implemented in optimized C code. ```NumPy``` is widely used in data science, machine learning, scientific computing, and image processing as a foundation for higher-level libraries.</p>
+
+<p>While a Python list is an object and stores other objects, a NumPy array is a low-level array that deals with primitive types in C, such as int and float, which makes it faster.</p>
+
+<p><b>Mean</b> is the average value of a dataset, calculated by adding up all values and dividing by the number of elements. <b>Median</b> is the middle value when the data is ordered from smallest to largest. <b>Mode</b> is the value that occurs most frequently in a dataset.</p>
+
+<p><b>Standard deviation</b> measures how spread out the values are from the mean of a dataset. A low standard deviation means the values are close to the average, while a high standard deviation indicates greater variability. <b>Variance</b> measures the average of the squared differences from the mean. It emphasizes larger deviations and is the square of the standard deviation, which is why it is expressed in squared units.</p>
+
+<p>Write the ```import numpy as np``` statement at the beginning of every example.</p>
+
+```python
+n = np.array([1, 2, 3, 4])
+
+print(n.sum()) # sum of all elements
+print(n.mean()) # average of elements
+print(n.std()) # standard deviation (spread of elements)
+print(n.var()) # variance (square of std, measure of spread)
+```
+
+```python
+matrix = np.array([[1, 2, 3],
+                   [4, 5, 6]])
+print(matrix.shape) # shape of the array (2, 3)
+print(matrix.ndim) # the number of axes (2, because it's 2D)
+print(matrix.size) # the number of elements in all sub-arrays
+print(matrix.sum(axis=0), matrix.sum(axis=1)) # sum along columns and rows
+
+array_3d = np.array([
+    [[1, 2], [3, 4]],
+    [[5, 6], [7, 8]]
+])
+print(array_3d.ndim) # 3, because it's 3D (2×2×2)
+```
+
+```python
+# Creating arrays using ranges
+
+print(np.arange(4)) # like range() but returns a NumPy array: array([0, 1, 2, 3])
+print(np.arange(1, 4)) # start = 1, stop = 4 (exclusive), array([1, 2, 3])
+print(np.arange(0, 1, 0.1)) # array([0. , 0.1, 0.2, ..., 0.9]), start = 0, stop = 1, step = 0.1 (step = 1 by default)
+print(np.arange(10).reshape(2, 5)) # a 1D array [0..9] reshaped to a 2x5 matrix
+```
+
+```python
+# Operations on matrices
+
+A = np.array([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+])
+
+B = np.array([
+    [1, 4],
+    [2, 5],
+    [3, 6]
+])
+
+print(A.dot(B)) # matrix multiplication of A (3x3) and B (3x2), result is 3x2
+print(A @ B) # matrix multiplication, same as A.dot(B)
+print(B.T) # transpose of B (rows become columns)
+print(B.T @ A) # matrix multiplication of B.T (2x3) and A (3x3), result is 2x3
+```
+
+```python
+# Logical (boolean) indexing
+
+matrix1 = np.array([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+])
+
+matrix2 = np.array([
+    [False, False, True],
+    [False, True, False],
+    [True, False, False]
+])
+
+print(matrix1[matrix2]) # prints elements of matrix1 where matrix2 is True: [3 5 7]
+```
+
+```python
+# linspace() and zeros()
+
+print(np.linspace(0, 1, 5)) # 5 evenly spaced numbers between 0 and 1 (start, stop, num)
+print(np.linspace(0, 1, 5, False)) # 5 evenly spaced numbers between 0 and 1, stop excluded
+
+print(np.zeros(5)) # a 1D array of 5 zeros (could be also ones() or empty())
+print(np.zeros((3, 3))) # a 3x3 matrix filled with zeros
+print(np.zeros((3, 3), dtype=int)) # a 3x3 matrix filled with zeros as integers (without the decimal point)
+```
+
+<p>An identity matrix acts as the multiplicative identity in linear algebra, meaning that multiplying any compatible matrix by it leaves the original matrix unchanged. It is commonly used in solving linear systems, computing matrix inverses, and performing transformations.</p>
+
+```python
+# identity() and eye()
+    
+print(np.identity(3)) # a 3x3 identity matrix (1s on main diagonal, 0s elsewhere)
+print(np.eye(3, 3)) # same as identity(), explicitly specifying rows and columns
+print(np.eye(8, 4, k=1)) # a 8x4 matrix with 1s on the first upper diagonal (k = 0 - main diagonal, k > 0 - above main diagonal, k < 0 - below main diagonal)
+print(np.eye(8, 4, k = -3))
+```
+
+```python
+# Indexing matrices
+
+matrix = np.arange(9).reshape(3, 3)
+print(matrix[1, 2]) # element at 2nd row, 3rd column
+print(matrix[:, 1]) # all rows, 2nd column
+print(matrix[1, :]) # 2nd row, all columns
+
+# Boolean indexing
+arr = np.array([1, 2, 3, 4, 5])
+print(arr[arr > 3]) # array([4, 5]) - only elements > 3
+print(arr[(arr > 2) & (arr < 5)]) # array([3, 4])
+```
+
+```python
+# Element-wise operations
+
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+print(a + b) # array([5, 7, 9])
+print(a * b) # array([ 4, 10, 18])
+print(a ** 2) # array([1, 4, 9])
+print(np.sqrt(a)) # array([1., 1.414, 1.732])
+```
+
+```python
+# Reshaping and flattening
+
+arr = np.arange(6)
+print(arr.reshape(2, 3)) # reshaping to 2x3
+print(arr.flatten()) # flattening the array to 1D
+print(arr.ravel()) # similar to flatten(), but returns a view (same data in memory, no copy) if possible, so modifying the result may also modify the original array   
+
+# Reshaping with -1 (automatic dimension calculation)
+arr2 = np.arange(18)
+print(arr2.reshape(-1, 3)) # -1 automatically calculates rows: 18 / 3 = 6, giving shape = (6, 3). reshape(3, -1) would give the shape = (3, 6) - it would calculate columns.
+print(arr2.reshape(-1, 3, 3)) # -1 automatically calculates the first dimension: 18 / (3*3) = 2, giving shape = (2, 3, 3). 
+# This means the array is treated as 2 separate 3×3 “blocks” (matrices) stacked along a new outer axis.
+```
+
+```python
+# Aggregate functions
+
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+print(np.min(arr), np.max(arr)) # min and max
+print(np.argmin(arr), np.argmax(arr)) # index of min/max in a flattened array
+print(np.cumsum(arr)) # cumulative sum
+print(np.cumprod(arr)) # cumulative product
+```
+
+```python
+# Random number generation (these methods are faster than Python's built-in random module for large arrays)
+
+print(np.random.rand(3)) # 3 random floats between 0 and 1 (uniform distribution)
+print(np.random.randint(0, 10)) # 1 random integer from 0 (inclusive) to 10 (exclusive)
+print(np.random.randint(0, 10, 5)) # 5 random integers from 0 (inclusive) to 10 (exclusive)
+print(np.random.randn(3,3)) # generating a 3x3 array of random numbers from a standard normal distribution (mean = 0, std = 1), useful for simulations, testing, or initializing values in algorithms
+
+arr = np.array([10, 20, 30, 40, 50])
+print(np.random.choice(arr)) # randomly picking a single element from the array
+random_matrix = np.random.choice(arr, (2, 4)) # creating a 2D array of shape (2, 4) by randomly choosing elements from arr
+print(random_matrix)
+```
+
+```python
+# Stacking arrays
+
+a = np.array([1,2,3])
+b = np.array([4,5,6])
+print(np.vstack([a,b])) # vertical stack
+print(np.hstack([a,b])) # horizontal stack
+```
+
+<p>The ```sort()``` method directly sorts the elements of an array along a specified axis and returns the sorted array. The ```argsort()``` method, on the other hand, returns the indices that would sort the array. This is especially useful when we need to reorder other arrays or keep track of the original positions of elements after sorting. The example below shows both approaches: first sorting the columns directly, then obtaining the indices that would sort each column, and finally using those indices to manually reorder the array. These methods are faster than Python's built-in sorting functions for large arrays.</p>
+
+```python
+matrix = np.array([
+    [3, 1, 2],
+    [6, 5, 4],
+    [9, 8, 7]
+])
+
+# sort() along axis = 0 (sort each column)
+sorted_matrix = np.sort(matrix, axis=0)
+print("Sorted along axis=0:\n", sorted_matrix)
+
+# argsort() along axis = 0 (get row indices that would sort each column)
+indices = np.argsort(matrix, axis=0)
+print("Argsort along axis=0:\n", indices)
+
+# using argsort() indices to reorder elements manually (useful for reordering related arrays)
+sorted_matrix_using_indices = np.take_along_axis(matrix, indices, axis=0)
+print("Sorted using argsort indices:\n", sorted_matrix_using_indices)
+```
+
+```python
+arr = np.array([1, 3, 5, 7])
+idx = np.searchsorted(arr, 4) # finding insertion indices to maintain order in a sorted array
+print(idx) # returns 2, the index to insert 4 while keeping the array sorted
+```

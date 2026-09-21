@@ -1,0 +1,203 @@
+---
+title: "Vigenère cipher"
+order: 8
+---
+
+<p>The Vigenère cipher is a method of encrypting alphabetic text by using a simple form of polyalphabetic substitution. It employs a keyword, where each letter of the keyword corresponds to a shift in the alphabet for the plaintext letter. To encrypt a message, the plaintext is aligned with the repeated keyword, and each letter is shifted according to the position of the corresponding keyword letter in the alphabet (similar to the Caesar cipher but with a different key for each character). For example, if the keyword letter is "B", the plaintext letter is shifted by one position; if it's "C", the shift is by two positions, and so on. The resulting ciphertext is a combination of these shifted letters.</p>
+    
+<div className="table-container"><table>
+    <tr>
+        <td><b>Plaintext letter</b></td>
+        <td><b>Keyword letter</b></td>
+        <td><b>Ciphertext letter</b></td>
+    </tr>
+    <tr><td>I (8)</td><td>B (1)</td><td>J (9)</td></tr>
+    <tr><td>L (11)</td><td>E (4)</td><td>P (15)</td></tr>
+    <tr><td>O (14)</td><td>A (0)</td><td>O (14)</td></tr>
+    <tr><td>V (21)</td><td>R (17)</td><td>M (12)</td></tr>
+    <tr><td>E (4)</td><td>B (1)</td><td>F (5)</td></tr>
+    <tr><td>C (2)</td><td>E (4)</td><td>G (6)</td></tr>
+    <tr><td>O (14)</td><td>A (0)</td><td>O (14)</td></tr>
+    <tr><td>D (3)</td><td>R (17)</td><td>U (20)</td></tr>
+    <tr><td>I (8)</td><td>B (1)</td><td>J (9)</td></tr>
+    <tr><td>N (13)</td><td>E (4)</td><td>R (17)</td></tr>
+    <tr><td>G (6)</td><td>A (0)</td><td>G (6)</td></tr>
+</table></div>
+
+<p>The total number of possible keys in the Vigenère cipher is calculated as 26 raised to the power of the keyword length (n), resulting in 26<sup>n</sup> possible combinations. For a 12-letter <b>random</b> keyword, the total number of possible combinations is 26<sup>12</sup>, which equals approximately 95 quadrillion combinations. In contrast, if the keyword is a <b>real word</b>, the number of combinations is limited to the number of valid words in the language, typically around 1 million, significantly reducing its security. This vulnerability is amplified by the risk of dictionary attacks, where attackers can systematically test common words or phrases, making it easier to guess the keyword and compromise the encryption.</p>
+```python
+CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+def translate_message(key, message, cipher_mode):
+    translated = [] # list used to collect processed characters before forming the final string
+    key = key.upper()
+    key_length = len(key)
+    key_index = 0 # tracking which character of the key should be applied to the current symbol
+
+    for symbol in message:
+        if symbol.upper() in CHARACTERS:
+            num = CHARACTERS.find(symbol.upper()) # converting the message character to its alphabet index
+            shift = CHARACTERS.find(key[key_index]) # determining how far to shift based on the current key character
+            if cipher_mode == "encrypt":
+                num = (num + shift) % len(CHARACTERS) # forward shift with wrap-around to stay inside alphabet bounds
+            elif cipher_mode == "decrypt":
+                num = (num - shift) % len(CHARACTERS) # reverse shift using modular arithmetic to avoid negative indices
+
+            translated_symbol = CHARACTERS[num] # converting the shifted index back into a character
+            if symbol.islower():
+                translated_symbol = translated_symbol.lower() # restoring original case so output matches input formatting
+
+            translated.append(translated_symbol)
+            key_index = (key_index + 1) % key_length # advancing through the key and loop back to the start when needed
+        else:
+            translated.append(symbol) # characters outside the alphabet (spaces, punctuation) are copied unchanged
+
+    return "".join(translated)
+
+message = """In cryptography, the Vigenère cipher is a method of encrypting alphabetic text by using a simple form of polyalphabetic substitution. 
+A Vigenère cipher uses a keyword, where each letter of the keyword refers to a shift in the alphabet. 
+This method is more secure than a simple Caesar cipher, as it uses multiple shifts based on the keyword."""
+
+translated = translate_message("KEYWORD", message, "encrypt")
+print(translated)
+```
+<h2>Cracking the Vigenère Cipher</h2>
+
+<h4>Frequency analysis</h4>
+<p>Frequency analysis is a powerful technique used to break the Vigenère cipher by leveraging predictable patterns in letter usage. In English, certain letters-such as <b>E, T, A, O, I, N</b> - appear more frequently, while others like <b>Q, Z, X</b> are less common. The cracking process begins by isolating segments of the ciphertext based on assumed key lengths. Each segment is treated as if it were encrypted using a Caesar cipher, and its letter frequency is compared against the standard English frequency order (<b>ETAOINSHRDLCUMWFGYPBVKJXQZ</b>). By scoring how closely each segment matches expected English patterns, the algorithm identifies the most likely key characters. These candidates are then combined and tested to find a key that produces readable English text. This method dramatically reduces the number of possible keys and helps reveal the original message.</p>
+
+<h4>Kasiski examination</h4>
+<p>Kasiski examination is a classical cryptanalysis method used to estimate the key length of a Vigenère cipher. It works by identifying repeated sequences of letters in the ciphertext and measuring the spacing between their occurrences. These spacings often share common factors that correspond to the actual key length. The algorithm extracts repeated sequences of 3 to 5 letters and calculates the distances between their appearances. It then analyses the factors of these distances to determine which key lengths are most probable. This narrows down the search space and improves the efficiency of frequency analysis.</p>
+
+<h4>Brute-force fallback</h4>
+<p>If frequency analysis and Kasiski examination fail to produce a valid decryption, the algorithm falls back to brute-force testing. It systematically tries all key lengths up to a defined maximum and evaluates each possible key combination using English language detection. Though computationally intensive, this ensures that even obscure or irregular keys can be cracked.</p>
+
+```python
+import itertools, re
+from vigenere_cipher import translate_message
+from is_english import *
+
+ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+ENGLISH_FREQ_ORDER = "ETAOINSHRDLCUMWFGYPBVKJXQZ" # ranked by typical English frequency
+MAX_KEY_LENGTH = 16
+TOP_CANDIDATES = 4
+NON_LETTER_REGEX = re.compile(r"[^A-Z]") # used to strip punctuation/spaces for analysis
+
+### Frequency analysis ###
+
+def count_letters(textS):
+    counts = {char: 0 for char in ALPHABET} # initializing frequency table
+    for char in textS.upper():
+        if char in ALPHABET:
+            counts[char] += 1 # counting only A-Z characters
+    return counts
+
+def sort_by_frequency(textS):
+    freq_map = count_letters(textS)
+    freq_to_letters = {} # grouping letters by how often they appear
+    for letter, freq in freq_map.items():
+        freq_to_letters.setdefault(freq, []).append(letter)
+
+    for freq in freq_to_letters:
+        freq_to_letters[freq].sort(key = ENGLISH_FREQ_ORDER.find, reverse = True) # breaking ties using English frequency
+
+    sorted_freqs = sorted(freq_to_letters.items(), key = lambda x: x[0], reverse = True) # highest frequency first
+    return "".join("".join(pair[1]) for pair in sorted_freqs) # flattening into a ranked string
+
+def match_english_profile(textS):
+    freq_order = sort_by_frequency(textS) # getting ranked letters from ciphertext segment
+    score = sum(1 for c in ENGLISH_FREQ_ORDER[:6] if c in freq_order[:6]) # comparing most common letters
+    score += sum(1 for c in ENGLISH_FREQ_ORDER[-6:] if c in freq_order[-6:]) # comparing rare letters
+    return score # higher score = more English-like
+
+### Kasiski examination ###
+
+def find_repeated_sequences(textS):
+    cleaned = NON_LETTER_REGEX.sub("", textS.upper()) # stripping non‑letters so repeated patterns align cleanly
+    spacings = {}
+    for lengthh in range(3, 6): # typical repeated substring lengths for Kasiski
+        for i in range(len(cleaned) - lengthh):
+            seq = cleaned[i:i + lengthh] # candidate repeated sequence
+            for j in range(i + lengthh, len(cleaned) - lengthh):
+                if cleaned[j:j + lengthh] == seq:
+                    spacings.setdefault(seq, []).append(j - i) # record distance between occurrences
+    return spacings
+
+def get_factors(n):
+    return [i for i in range(2, MAX_KEY_LENGTH + 1) if n % i == 0] + \
+           [n // i for i in range(2, MAX_KEY_LENGTH + 1)
+            if n % i == 0 and n // i <= MAX_KEY_LENGTH and n // i != 1] # including complementary divisors that fit within key length
+
+def tally_factors(spacing_dict):
+    factor_counts = {} # counting how often each factor appears across all spacings
+    for spacings in spacing_dict.values():
+        for spacing in spacings:
+            for factor in get_factors(spacing):
+                factor_counts[factor] = factor_counts.get(factor, 0) + 1 # incrementing count for each valid factor
+    return sorted(factor_counts.items(), key = lambda x: x[1], reverse = True) # most frequent factors first
+
+def kasiski_analysis(ciphertext):
+    repeats = find_repeated_sequences(ciphertext) # locating repeated substrings and their spacings
+    factor_data = tally_factors(repeats) # determining which key lengths appear most plausible
+    return [factor for factor, _ in factor_data] # returning ranked list of likely key lengths
+
+### Decryption attempt ###
+
+def extract_nth_letters(n, key_len, textS):
+    cleaned = NON_LETTER_REGEX.sub("", textS.upper()) # removing punctuation so indexing aligns with key positions
+    return "".join(cleaned[i] for i in range(n - 1, len(cleaned), key_len)) # taking every n-th letter for frequency testing
+
+# Trying to decrypt the ciphertext using a given key length and frequency analysis
+def try_key_length(ciphertext, key_len):
+    candidates = [] # storing top-scoring shift guesses for each key position
+    for i in range(1, key_len + 1):
+        segment = extract_nth_letters(i, key_len, ciphertext) # letters encrypted using the same key character
+        scores = sorted(
+            [(char, match_english_profile(translate_message(char, segment, "decrypt")))
+            for char in ALPHABET], # testing all 26 possible shifts
+            key = lambda x: x[1],
+            reverse = True # highest English-likeness first
+        )
+        candidates.append(scores[:TOP_CANDIDATES]) # keeping only the best few shifts
+        print(f"Top candidates for key position {i}: {' '.join(c[0] for c in scores[:TOP_CANDIDATES])}")
+
+    for combo in itertools.product(range(TOP_CANDIDATES), repeat = key_len): # brute-force combinations of top candidates
+        key = "".join(candidates[i][combo[i]][0] for i in range(key_len)) # building a candidate key
+        decrypted = translate_message(key, ciphertext.upper(), "decrypt") # attempting full decryption
+
+        if is_english(decrypted): # checking if output resembles English text
+            restored = "".join(
+                decrypted[i].upper() if ciphertext[i].isupper() else decrypted[i].lower() # restoring original capitalization pattern
+                for i in range(len(decrypted))
+            )
+            print(f"\nPossible key found: {key}")
+            print(restored)
+            if input("Enter Q to quit, anything else to continue: ").strip().upper().startswith("Q"):
+                return restored
+    return None
+
+def crack_vigenere(ciphertext):
+    likely_lengths = kasiski_analysis(ciphertext) # starting with statistically likely key lengths
+    for length in likely_lengths:
+        result = try_key_length(ciphertext, length)
+        if result:
+            return result
+
+    print("No match found with likely lengths. Trying all possibilities...")
+    for length in range(1, MAX_KEY_LENGTH + 1):
+        if length not in likely_lengths: # avoiding re-testing lengths already tried
+            print(f"Trying key length {length} ({TOP_CANDIDATES ** length} combinations)...")
+            result = try_key_length(ciphertext, length)
+            if result:
+                return result
+    return None
+
+ciphertext = """Sr anmgwykpwdyb, dlc Rwxhxèvc ywgkov go o dhdlmz cw hxgpudklxk yhdydlireq khhx zu ijlxk y owdsvi dkfd rp tmhmrozlyxsklm wsxgkldyrece. 
+D Fmeabèih mmndsi xciq w yvbgspz, kyhbi cwqy ooxraf fi dlc gspzyvb nswhbw rk o jksjr eb kko ejlvreox. 
+Rdwj poxfkr zv wspa gvfevc pvrq k wgidch Mecooi fstfaf, rv sx sosj pepredch clgbhj ekwcz ce wri iamnrbh."""
+
+result = crack_vigenere(ciphertext)
+print("\nFinal result:" if result else "\nFailed to crack the cipher.")
+if result:
+    print(result)
+```

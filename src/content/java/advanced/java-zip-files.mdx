@@ -1,0 +1,67 @@
+---
+title: "Zip files"
+order: 10
+---
+
+<h2>Zipping files</h2>
+
+```java
+import java.io.*;
+import java.util.zip.*;
+
+public class Main {
+    public static final int BUFFER = 1024;
+    public static void main(String[] args) throws IOException {
+        String[] filesToZip = new String[] { "file.txt", "file2.txt" };
+
+        byte tData[] = new byte[BUFFER];
+        ZipOutputStream x = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream("myZip.zip"), BUFFER));
+
+        for (int i = 0; i < filesToZip.length; i++) {
+            BufferedInputStream y = new BufferedInputStream(new FileInputStream(filesToZip[i]), BUFFER);
+            x.putNextEntry(new ZipEntry(filesToZip[i]));
+
+            int counter;
+            while ((counter = y.read(tData, 0, BUFFER)) != -1)
+                x.write(tData, 0, counter);
+
+            x.closeEntry();
+            y.close();
+        }
+        x.close();
+    }
+}
+```
+
+<h2>Unzipping files</h2>
+
+```java
+import java.io.*;
+import java.util.zip.*;
+
+public class Main {
+    public static final int BUFFER = 1024;
+    public static void main(String[] args) throws IOException {
+        ZipEntry z = null;
+        byte tData[] = new byte[BUFFER];
+        File catalogue = new File(System.getProperty("user.dir") + File.separator + "myZip"); // setting a path for the output directory
+
+        if (!catalogue.exists()) // ensuring the output directory exists
+            catalogue.mkdir();
+
+        ZipInputStream x = new ZipInputStream(new BufferedInputStream(new FileInputStream("myZip.zip"), BUFFER));
+
+        while ((z = x.getNextEntry()) != null) {
+            BufferedOutputStream y = new BufferedOutputStream(new FileOutputStream(catalogue + File.separator + z.getName()), BUFFER);
+
+            int counter;
+            while ((counter = x.read(tData, 0, BUFFER)) != -1)
+                y.write(tData, 0, counter);
+
+            x.closeEntry();
+            y.close();
+        }
+        x.close();
+    }
+}
+```

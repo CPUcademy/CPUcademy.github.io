@@ -1,0 +1,174 @@
+---
+title: "Lambda expressions and closures"
+order: 10
+---
+
+<h2>Lambda expressions</h2>
+
+<p>Lambda expressions are anonymous functions (they have no name). They are defined using the ```lambda``` keyword. They are generally discouraged because they make debugging hard and code less readable, but sometimes they are necessary, so it is worth knowing how to create them.</p>
+
+<p>Lambda expressions allow shortening simple functions that only return a value (the ```return``` statement is implicit in lambdas).</p>
+
+```python
+l = lambda a, b: a + b
+print(l(5, 5))    
+```
+
+<p>We can also use them directly in the ```print()``` method.</p>
+
+```python
+print((lambda a, b: a * 2 + b * 2)(5, 6))
+```
+
+
+```python
+# Checking the squares of numbers in a given range and sorting them ​​from smallest to largest
+list1 = sorted(range(-3, 12), key = lambda x: x ** 2)
+print(list1)
+```
+
+```python
+# Sorting a list by the second element of each tuple inside it
+data = [(1, 3), (2, 1), (3, 2)]
+data.sort(key = lambda x: x[1])
+print(data)
+
+# Sorting by first element, then by second element
+data2 = [(1, 3), (2, 1), (3, 2), (2, 0)]
+data.sort(key = lambda x: (x[0], x[1])) # adding a minus before "x[0]" would cause sorting by first element in descending order, then by second element in ascending order
+print(data)
+
+# Sorting dictionary keys with names first by surname, then by first name
+scores = {"Alice Smith": 88, "Bob Brown": 95, "Charlie Davis": 70, "David Wilson": 88}
+sorted_names = sorted(scores.keys(), key=lambda name: (name.split()[-1], name.split()[0]))
+print(sorted_names)
+
+# Sorting a dictionary by its values in descending order
+city_populations = {"Suma": 5000, "Krasnystaw": 3000, "Chelm": 10000}
+
+sorted_city_populations = {
+    key: value for key, value in sorted(
+        city_populations.items(),
+        key=lambda item: item[1],
+        reverse=True
+    )
+}
+
+print(sorted_city_populations)
+```
+
+<p>Using lambdas, we can easily sort objects of our classes inside a list.</p>
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def __repr__(self):
+        return f"{self.name}, {self.age}"
+
+people = [Person("Alice", 30), Person("Bob", 25), Person("Charlie", 35)]
+
+sorted_people = sorted(people, key = lambda p: p.age) # sorting by ages
+names = [p.name for p in sorted_people] # getting only the names
+
+print(sorted_people)
+print(names)
+```
+
+<h2>Closures</h2>
+
+<p>A closure is a function inside a function that retains access to variables from its enclosing scope, even after the outer function has finished executing. This behavior occurs because the inner function "remembers" the environment in which it was created. Closures allow for the creation of functions with private variables and can be used to preserve variable states across multiple function calls. They are also used for creating function factories, memoization, and function composition.</p>
+
+<p>```inner_function()``` from the example below is a closure because it uses the ```x``` variable from the enclosing scope of  ```outer_function()```. Even after ```outer_function()``` has finished executing, ```inner_function()``` retains access to ```x```.</p>
+
+```python
+def outer_function(x): # the enclosing function
+    def inner_function(y): # the closure function
+        return x + y
+    return inner_function
+
+add_five = outer_function(5) # creating a closure
+print(add_five(3)) # calling the closure (output: 8)
+```
+
+<h4>Creating functions with private variables</h4>
+
+<p>The private variable below can be accessed only through the inner method (encapsulation like in OOP).</p>
+
+```python
+def outer():
+    private = "Private"
+    def inner():
+        return private
+    return inner
+
+private_function = outer()
+print(private_function())
+```
+
+<h4>Preserving variable states across multiple function calls</h4>
+
+```python
+def counter():
+    countt = 0 # this variable is preserved across all calls
+    def increment():
+        nonlocal countt # referring to the "countt" variable in the enclosing scope
+        countt += 1
+        return countt
+    return increment
+
+counter_func = counter() # creating a closure
+
+# Calling the closure multiple times
+print(counter_func()) # 1
+print(counter_func()) # 2
+print(counter_func()) # 3
+```
+
+<h4>Using lambdas as closure functions</h4>
+
+<p>The lambda expression below remembers the ```n``` variable from the enclosing ```function()``` even after it has finished executing.</p>
+
+```python
+def function(n):
+    return lambda x: x + n      
+f = function(10)
+print(f(11))
+```
+
+<h4>Function factories</h4>
+
+<p>A function factory is a higher-order function that creates and returns other functions, customized based on the input parameters provided to the factory.</p>
+
+```python
+def power_of(exponent):
+    return lambda base: base ** exponent
+
+square = power_of(2)
+cube = power_of(3)
+
+print(square(5))
+print(cube(3))
+```
+
+<h4>Function composition</h4>
+
+<p>Function compositions are used to compose multiple functions together, where the output of one function becomes the input of another.</p>
+
+```python
+def compose(f, g):
+    return lambda x: f(g(x))
+
+def double(x):
+    return x * 2
+
+def add_three(x):
+    return x + 3
+
+composed_function = compose(double, add_three)
+print(composed_function(5)) # 16 (5 + 3 = 8, 8 * 2 = 16)
+```
+
+<p>Memoization will be discussed in a lesson about writing clean code.</p>

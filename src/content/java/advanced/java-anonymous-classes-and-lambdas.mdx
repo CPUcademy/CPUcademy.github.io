@@ -1,0 +1,98 @@
+---
+title: "Anonymous classes and Lambdas"
+order: 1
+---
+
+<h2>Anonymous classes</h2>
+
+<p>Anonymous classes allow us to declare and instantiate a class at the same time, in a single expression, without giving it a name. They are typically used to provide a one-off implementation of an interface or abstract class inline, eliminating the need to define a separate named class. Anonymous classes can access variables from their enclosing scope, provided those variables are ```final``` or effectively ```final``` (a variable that is never reassigned after its initial assignment).</p>
+
+<h4>Variable scopes</h4>
+
+<p>Not every variable is accessible in every part of the program. Variables created inside a class but outside any method (without the ```static``` keyword) are called instance variables. They are accessible within an instance across all methods of the class. Variables marked with ```static``` are called static variables and are shared across all class instances. Local variables are variables created inside a block (a loop, conditional statement, function, etc.) and are accessible only inside this block.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Example x = new Example() {
+            @Override
+            public void action() { System.out.println("Anonymous class"); }
+        };
+        x.action();
+    }
+}
+
+interface Example {
+    void action();
+}
+```
+
+<h2>Lambda expressions</h2>
+
+<p>Lambda expressions are primarily used to provide a concise way to implement functional interfaces, which are interfaces that contain a single abstract method (they can't have more, which wasn't the case with anonymous classes). Lambdas are short blocks of code that accept input as parameters and (not necessarily) return a resultant value. Remember that methods in an interface are ```abstract``` by default. If the body of the lambda consists of a single expression, the return type is inferred, and we don't need to use the ```return``` keyword. When lambdas contain more than one instruction, they are called lambda statements.</p>
+
+<p>A lambda expression has three parts: parameters, an arrow (```->```), and the body. For example, instead of using an anonymous class to implement a ```Comparator```, we can use a lambda expression (there is no explicit interface in the example below, but this lambda still relies on one):</p>
+
+```java
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("bc", "def", "a");
+        names.sort((s1, s2) -> Integer.compare(s1.length(), s2.length()));
+
+        for (String name: names)
+        System.out.println(name);
+    }
+}
+```
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Example x = () -> {
+            System.out.println("Lambda expression");
+        };
+        x.action();
+
+        Example2 y = (int a) -> a + 2; // returns "a"
+        System.out.println(y.action2(2));
+
+        callAction(x);
+    }
+    static void callAction(Example x) {
+        x.action();
+    }
+}
+
+interface Example {
+    void action();
+}
+interface Example2 {
+    int action2(int a);
+}
+```
+
+<p>As mentioned before, a Lambda expression can only be used with a functional interface - an interface that has exactly one abstract method. However, an interface can have multiple methods if the extra methods are default or static because these do not count towards the functional interface rule.</p>
+
+<h2>Lambda statements</h2>
+
+```java
+import java.util.function.Function;
+
+public class Main {
+    public static void main(String[] args) {
+        Function<Integer, Integer> square = (number) -> {
+            int result = number * number;
+            System.out.println("Calculating square of " + number);
+            return result;
+        };
+        
+        int number = 5;
+        int squareResult = square.apply(number);
+        System.out.println("Square of " + number + " is: " + squareResult);
+    }
+}
+```
+
+<p>Anonymous classes are often used to add event listeners or threading. They are preferred over lambda expressions when needing more complex behavior (e.g., multiple methods are required) or accessing local variables in specific ways. Anonymous classes can override methods from an abstract or concrete (non-abstract) superclass, which lambdas cannot.</p>

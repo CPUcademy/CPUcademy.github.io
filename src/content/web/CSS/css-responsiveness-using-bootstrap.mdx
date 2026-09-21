@@ -1,0 +1,182 @@
+---
+title: "Responsiveness using Bootstrap"
+order: 7
+---
+
+import Dropdown from 'react-bootstrap/Dropdown'
+
+<p>Bootstrap is a popular, open-source front-end framework designed to help create responsive websites quickly. It includes a collection of pre-designed HTML, CSS, and JavaScript components. By using Bootstrap, we can save time and effort by leveraging its built-in styles and components, ensuring consistent design and responsive behavior across various devices.</p>
+
+<h2>Linking Bootstrap to HTML</h2>
+
+<p>To use Bootstrap in a project, we can either download it or link it via a CDN (Content Delivery Network).</p>
+
+<h4>By download</h4>
+
+<p>Download <a href="https://drive.google.com/file/d/12NFrTEu5-autmW31eaNPI1-azBReVHCK/view?usp=sharing" target="_blank" className="link">these files</a> and add them to your website's folder.</p>
+
+<h6>The ```<head>``` section</h6>
+
+```html
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+```
+
+<h6>Bottom of the body section</h6>
+
+```html
+<script src="jquery/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+```
+
+<h4>CDN</h4>
+
+<h6>The ```<head>``` section</h6>
+
+```html
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+```
+
+<h6>Bottom of the body section</h6>
+
+```html
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+```
+
+<h2>Responsive grid system</h2>
+
+<p>One of the core features of Bootstrap is its responsive grid system. It allows us to create layouts that adjust to different screen sizes. The grid system uses a 12-column layout, which is divided into different breakpoints based on the screen size. The whole grid has to be enclosed in a ```<div>``` with the ```.container``` or ```.container-fluid``` class assigned (the latter takes the entire available viewport width).</p>
+
+<h4>Breakpoints</h4>
+
+<p>Breakpoints are custom classes that define how many columns a container takes in a given screen size (```col-[breakpoint]-[number]```). The numbers can be from 1 to 12 (unit: columns).</p>
+
+<ul>
+    <li>```col-xs-*``` - For extra small screens (phones, less than 576px)</li>
+    <li>```col-sm-*``` - For small screens (tablets, 576px and up)</li>
+    <li>```col-md-*``` - For medium screens (desktops, 768px and up)</li>
+    <li>```col-lg-*``` - For large screens (large desktops, 992px and up)</li>
+    <li>```col-xl-*``` - For extra large screens (large desktops, 1200px and up)</li>
+</ul>
+
+<p>Rows are fundamental components of the grid system, used to create <b>horizontal</b> groups of columns. A row is created with the ```.row``` class and serves as a wrapper for column elements (```.col-*```). Columns within a row are aligned based on the defined breakpoints and their respective widths. Rows use negative margins to counterbalance the padding of the container, ensuring the layout stays aligned.</p>
+
+<p>In the extra small size, the columns stack on each other, taking the whole screen by default (```col-xs-12```). Because Bootstrap 4 and later versions no longer include the ```xs``` breakpoint, we can just use ```col-12``` instead.</p>
+
+```css
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">Column 1</div>
+        <div class="col-md-4">Column 2</div>
+        <div class="col-md-4">Column 3</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">Column 4</div>
+        <div class="col-md-4">Column 5</div>
+    </div>
+</div>
+```
+
+<p>Here, the ```col-md-4``` class means that each column takes up 4 out of 12 available columns on medium-sized screens <b>and larger</b>. The grid system automatically adjusts for smaller screen sizes, stacking the columns vertically.</p>
+
+<p>We can create a layout that adjusts based on screen size by adding multiple breakpoint classes:</p>
+
+```css
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4">Column 1</div>
+        <div class="col-xs-12 col-sm-6 col-md-4">Column 2</div>
+        <div class="col-xs-12 col-sm-12 col-md-4">Column 3</div>
+    </div>
+</div>
+```
+
+<p>This layout will display one column on extra-small screens, two columns on small screens, and three columns on medium and larger screens.</p>
+
+<h2>Basic built-in classes (replacing CSS)</h2>
+
+<p>Bootstrap offers many classes that replace CSS attributes. Of course, there are much more.</p>
+
+<p>Bootstrap predefined colors: ```primary```, ```secondary```, ```success```, ```danger```, ```warning```, ```info```, ```light```, ```dark```, ```white```.</p>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```bg-[bootstrap-predefined-color]```</td>
+        <td>Applying background color to an element.</td>
+    </tr>
+    <tr>
+        <td>```text-[bootstrap-predefined-color]```</td>
+        <td>Applying a text color to an element.</td>
+    </tr>
+    <tr>
+        <td>```text-center```</td>
+        <td>Centering the text horizontally within its container (also: ```left```, ```right```, ```justify```).</td>
+    </tr>
+    <tr>
+        <td>```text-uppercase```</td>
+        <td>Transforming the text to uppercase (also: ```lowercase```, ```capitalize```).</td>
+    </tr>
+    <tr>
+        <td>```text-muted```</td>
+        <td>Applying a muted (lighter) color to text, often used for less important information.</td>
+    </tr>
+    <tr>
+        <td>```p-[size]```</td>
+        <td>Applying padding to an element (e.g., ```p-3``` for padding of 1rem on all sides).</td>
+    </tr>
+    <tr>
+        <td>```m-[size]```</td>
+        <td>Applying margin to an element (e.g., ```m-3``` for margin of 1rem on all sides).</td>
+    </tr>
+    <tr>
+        <td>```.h1-.h6```</td>
+        <td>Changing the font size to the one of the specified header type.</td>
+    </tr>
+    <tr>
+        <td>```img-fluid```</td>
+        <td>Ensuring an image is responsive, scaling it to fit within its container while maintaining its aspect ratio (```width: 100%;``` and ```height: auto;```).</td>
+    </tr>
+</table></div>
+
+<h2>Components</h2>
+
+<p>Bootstrap includes a variety of pre-styled components. It would be pointless to list them all here because Bootstrap has a very <a href="https://getbootstrap.com/docs/4.1/getting-started/introduction/" target="_blank" className="link">developed documentation</a>, so I will name only a few:</p>
+
+<h4>Button</h4>
+
+<p>```<button class="btn btn-primary">Primary Button</button>```</p>
+
+<button className="btn btn-primary">Primary Button</button>
+
+<h4 style={{ marginTop: 15 }}>Alert</h4>
+
+<p>```<div class="alert alert-warning">Warning message</div>```</p>
+
+<div className="alert alert-warning">
+    Warning message
+</div>
+
+<h4 style={{ marginTop: 15 }}>Dropdown</h4>
+
+```css
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Dropdown button
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+    </div>
+</div>
+```
+
+<Dropdown>
+    <Dropdown.Toggle variant="secondary" id="dropdownMenuButton">Dropdown button</Dropdown.Toggle>
+    <Dropdown.Menu>
+        <Dropdown.Item>Action</Dropdown.Item>
+        <Dropdown.Item>Another action</Dropdown.Item>
+        <Dropdown.Item>Something else here</Dropdown.Item>
+    </Dropdown.Menu>
+</Dropdown>

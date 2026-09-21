@@ -1,0 +1,87 @@
+---
+title: "List comprehensions"
+order: 1
+---
+
+<p>List comprehensions provide a concise and readable way to create new lists, sets, or dictionaries by iterating over sequences (like lists, strings, or ranges) and optionally applying transformations or conditions.</p>
+
+<h2>List comprehensions</h2>
+
+<p>List comprehensions allow building new lists from existing iterables with optional transformations and filtering.</p>
+
+```python
+list1 = [letter for letter in "abcd"] # dividing a string into a list of characters
+print(list1)
+
+list2 = [int(character) for character in "0123456"] # converting each character in a string to an integer
+print(list2)
+
+x, y, z = [int(i) for i in input("Enter three numbers separated by spaces: ").split()] # using split() with a list comprehension to get three input values in one line
+print(x + y + z)
+
+list3 = [["a", "b"] for i in range(10)] # creating a two-dimensional list
+print(list3)
+
+list4 = [i.lower() for i in "ABCDE"] # converting every character in a string to lowercase
+print(list4)
+
+l = [{"name": "x", "value": 1}, {"name": "y", "value": 2}]
+list5 = [i["name"] for i in l] # extracting the "name" value from each dictionary
+print(list5)
+
+text = "one: 1, two: 2, three: 3, four: 4"
+list6 = [int(character) for character in text if character.isdigit()] # extracting numbers from a string
+print(list6)
+```
+
+```python
+squares = [i * i for i in range(5)] # creating a list of squares of numbers from 0 to 4
+print(squares)
+
+div_by_7 = [i for i in range(1, 1001) if i % 7 == 0] # creating a list of numbers divisible by 7 from 1 to 1000
+print(div_by_7)
+
+contain_3 = [i for i in range(1, 1001) if "3" in str(i)] # creating a list of numbers from 1 to 1000 containing the digit 3
+print(contain_3)
+
+text = "This is an example string"
+
+spaces_count = [1 for char in text if char == " "] # counting spaces in a string
+print(sum(spaces_count))
+
+no_vowels = [char for char in text if char.lower() not in "aeiou"] # removing vowels from a string
+print("".join(no_vowels))
+
+words = text.split()
+short_words = [word for word in words if len(word) < 4] # finding words with less than 4 letters
+print(short_words)
+```
+
+<h2>Filling a list with zeros</h2>
+
+```python
+list1 = [0] * 10
+list2 = [0 for _ in range(10)]
+list3 = list(0 for _ in range(10))
+```
+
+<h2>Set comprehensions</h2>
+
+```python
+set1 = {i * i for i in range(10)} # creating a set of squares of numbers from 0 to 9
+print(set1)
+```
+
+<h2>Dictionary comprehensions</h2>
+
+```python
+dict1 = {i: i * i for i in range(10)} # creating a dictionary with numbers as keys and their squares as values
+print(dict1)
+
+dict2 = {i: i**3 for i in range(10) if i % 2 == 0} # creating a dictionary with even numbers as keys and their cubes as values
+print(dict2)
+
+letters = "abcd"
+dict3 = {char: char.upper() for char in letters} # creating a dictionary mapping lowercase letters to uppercase letters
+print(dict3)
+```

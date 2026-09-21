@@ -1,0 +1,100 @@
+---
+title: "Error handling"
+order: 13
+---
+
+<p>An exception is an error-caused event that disrupts the normal flow of a program. It can be handled to maintain program stability.</p>
+
+<h2>```try``` and ```except``` blocks</h2>
+            
+<p>If we want to prevent errors, we can use the ```try``` and ```except``` blocks. If inside the ```try``` block, an exception is thrown, meaning an error occurs (e.g., the user divides by 0), the rest of the instructions inside this block are skipped, and the ```except``` block executes (it will catch this exception).</p>
+
+```python
+try:
+    x = int(input("Enter a number: "))
+except:
+    print("Error")
+    x = int(input("Try again: "))
+```
+
+<p>We can add a third block - ```finally```. It executes at the end regardless of what happens in ```try``` or ```except```. It is usually used to perform close-up actions, like closing files or connections. It can also exist without the ```except``` block (only ```try``` and ```finally```).</p>
+
+```python
+try:
+    x = open("file.txt", "r", encoding="utf8")
+    file.write("text")
+except:
+    print("Error")
+finally:
+    x.close()
+```
+
+<p>The ```except``` instruction reacts to every error the same, unless we specify what type of error a given instruction may expect (as shown below). This way, we can program different approaches for different errors. We should always specify the error type, and when we want to generalize, we can use the ```Exception``` error type. We can use multiple ```except``` statements relating to one ```try``` block, and if we do, the one without a specified error type (the plain one) has to be the last block.</p>
+
+```python
+try:
+    x = open("file.txt", "r", encoding="utf8")
+    file.write("text")
+    x.close()
+except IOError: # input-output error
+    print("Could not create the file.")
+except:
+    print("Other exception.")
+```
+
+<h2>The ```raise``` keyword</h2>
+
+<p>The ```raise``` keyword is used to trigger a specific type of error. It can be used, e.g., inside the ```try``` block, to trigger a specific ```except``` case, but also outside of try-except to deliberately stop program execution when a critical error occurs. A common use case is validating user input when the provided data does not meet the required format.</p>
+
+```python
+x = 0
+if x == 0:
+    raise ZeroDivisionError("You can't divide by 0.") # it could be also: Exception, SyntaxError, OSError, etc.
+```
+
+<h4>Error examples</h4>
+
+<ul>
+    <li>An ```IndexError``` occurs when we try to access an index outside the bounds of, e.g., a list.</li>
+    <li>A ```KeyError``` occurs when we try to access a dictionary with a key that does not exist.</li>
+    <li>A ```TypeError``` occurs when we perform an invalid operation between incompatible data types.</li>
+    <li>A ```ValueError``` occurs when a function receives an argument of the correct type but with an invalid value.</li>
+    <li>A ```ZeroDivisionError``` occurs when we attempt to divide a number by zero.</li>
+    <li>A ```SyntaxError``` occurs when the Python interpreter encounters code that violates the syntax rules.</li>
+</ul>
+                                
+<h2>The ```assert``` keyword</h2>
+
+<p>The ```assert``` keyword checks whether a given condition is ```True```, and if not, throws an ```AssertionError``` with an optional user-written comment. A common use case is debugging complex functions by asserting that input values or intermediate results meet expected conditions before continuing execution.</p>
+
+```python
+number = 5
+assert number < 0, "The number should be smaller than 0."
+```
+
+
+<h2>Breakpoints - debugging</h2>
+
+<p>If we get an error and we can't fix it, instead of ```Run```, we click ```Debug```. After starting the debugger, we set breakpoints in the "key" moments that we want to analyse. We do that by clicking the margin next to the selected line (a breakpoint is a red dot). The debugger will pause the code on breakpoints so that we can analyse the error (it shows the contents of variables at the moment, etc.) To advance to the next breakpoint, we click F8 on the keyboard or press the "Step Over" button on the screen (in PyCharm). Breakpoints exist in various editors but not in Python IDLE. </p>        
+
+<h2>The ```logging``` module</h2>
+
+<p>The ```logging``` module allows us to display messages that help us with the debugging process while the program is running. By looking at them, we can figure out what is wrong and fix it. It is different from using ```print()``` because after we're done, we can disable these messages (```logging.disable()```) so we don't have to go through the code and delete them.</p>
+
+```python
+import logging
+logging.basicConfig(level = logging.DEBUG, format = " %(asctime)s - %(levelname)s - %(message)s")
+logging.debug("Start")
+
+def factorial(n):
+    logging.debug("Start of factorial(%s%%)" % (n))
+    total = 1
+    for i in range(n + 1): # for the program to work, this line should look like this: "for i in range(1, n+1):"
+        total *= i
+        logging.debug("i: " + str(i) + ", the total value: " + str(total))
+    logging.debug("End of factorial(%s%%)" % (n))
+    return total
+
+print(factorial(5))
+logging.debug("End")
+```

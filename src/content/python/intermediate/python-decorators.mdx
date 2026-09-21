@@ -1,0 +1,176 @@
+---
+title: "Decorators"
+order: 7
+---
+
+<p>A decorator is a higher-order function that takes another function as its argument, enhances or modifies its behavior, and returns the modified function (it "wraps around" the other function). One function can have multiple decorators assigned. They are used to add reusable code and improve its readability and maintainability.</p>
+
+```python
+def decorator_function(func):
+    def wrapper(x):
+        print("Before the function call")
+        func(x)
+        print("After the function call")
+    return wrapper
+
+@decorator_function
+def f(x):
+    print(x)
+
+f("Function")                             
+```
+
+<p>There are a lot of default decorators that allow us to enhance our classes.</p>
+            
+<h2><a id="class-methods">Class methods</a></h2>
+
+<p>Class methods are bound to the class, not to individual class objects (instances) like regular methods. We create them by writing a ```@classmethod``` decorator before them. They take the ```cls``` argument (not ```self```). It works the same as ```self```, except that ```self``` refers to an object of a class (its instance), and ```cls``` refers to the class itself. Class methods don't have access to fields, but they can refer to class attributes (via ```cls``` or the class name). Class attributes are, in other words, static variables.</p>
+
+<p>Class methods are used to modify the value of static variables inside the class and create Factory Methods. A Factory Method is an alternate constructor. It provides an additional way to create class instances, often with a more descriptive name or specialized logic, while keeping the main ```__init__()``` constructor simple. Factory Method allows subclasses to define the type of object to be created, enabling customization of object creation without modifying the core logic. For example, instead of the user's age, we can take his date of birth and then calculate the age. A class can have multiple alternate constructors. The Factory Method is a design pattern, which you can learn more about <a href="python-creational-patterns.html#factories" class="link">here</a>. We call class methods using the class directly without creating its instance (```Example.classMethod()```).</p>
+
+```python
+# Overall example
+class Example:
+    x = 2 # a static variable
+    def method(self):
+        self.y = 3
+        print(self.y)
+
+    @classmethod
+    def classMethod(cls):
+        print(Example.x)
+        print(cls.x)
+
+e = Example()
+e.method()
+Example.classMethod()    
+
+print(e.x, Example.x)
+del e
+print(Example.x)
+
+# e.classMethod() - this shouldn't be used (we should call class methods using the class directly: Example.classMethod())
+# Example.method() - this won't work ("normal" methods can be called only through a class instance)
+```
+
+```python
+# Factory Method
+class Person:
+    def __init__(self, name, age):
+        self.__name = name
+        self.__age = age
+
+    def __str__(self):
+        return f"{self.__name}, {self.__age}"
+
+    @classmethod
+    def from_birth_year(cls, name, birth_year): # the alternate constructor
+        return cls(name, 2024 - birth_year) # invoking (calling) the class constructor
+
+e = Person("Josh", 25)
+e2 = Person.from_birth_year("John", 1980) # using the alternate constructor
+
+print(e)
+print(e2)
+```
+
+```python
+# Accessing the value of a static variable
+class Example:
+    y = 0
+    def __init__(self):
+        Example.y += 1
+
+    @classmethod
+    def class_method(cls):
+        return cls.y
+
+print(Example.class_method()) # 0, because no instances have been created yet
+e = Example()
+print(Example.class_method()) # 1
+```
+
+<h2>Static methods</h2>
+
+<p>The same rule as with static variables applies to methods. We can call static methods using the class directly without creating its instance (like class methods). They take neither a ```self``` nor a ```cls``` argument, so they don't have access to class fields, which makes them essentially ordinary functions within the class. They have no access to the class's objects. Static methods differ from outside functions because we can override them later in a child class.</p>
+
+<p>In summary: class methods are bound to the class and take ```cls``` as their first parameter, allowing them to access and modify class-level attributes (static variables) or create alternate constructors. Static methods, on the other hand, act as utility functions within the class that cannot access or modify class or instance attributes.</p>
+
+```python
+class Example:
+    def method(self):
+        print("Method")
+
+    @staticmethod
+    def staticMethod():
+        print("Static method")
+
+e = Example()
+e.method()
+Example.staticMethod()
+
+del e
+Example.staticMethod()
+
+# e.staticMethod() - this shouldn't be used
+```
+
+<h2>Abstract classes</h2>
+
+<p>An abstract class is a class that is designed specifically to be used as a base class (e.g., creating an instance of a generic ```Vehicle``` wouldn’t make sense unless it’s a specific type like a ```Car``` or ```Truck```). It can't call out its own objects or have instances, so we can only use them in its child classes. An abstract class provides an API that we are expected to implement in its child classes (acting as a blueprint for the functionality). An abstract method is a method that is inside an abstract class and has the ```@abstractmethod``` decorator in front of it. We create abstract classes by inheriting the ```ABC``` object from an imported module. An abstract class forces all its child classes to override all its abstract methods. It isn't mandatory to overwrite a non-abstract method from an abstract class. Non-abstract methods can contain implementations to be inherited in the child classes (abstract methods have to be overridden, so it wouldn't make sense for them to contain implementations). If an abstract class contains a constructor, it will be executed when its subclass is instantiated.</p>
+
+```python        
+from abc import ABC, abstractmethod
+
+class Animal(ABC):
+    @abstractmethod
+    def voice(self):
+        pass
+
+    def voice2(self):
+        print("Voice!")  
+                    
+class Cat(Animal):
+    def voice(self):
+        print("Meow!")
+        
+cat = Cat()
+cat.voice()
+cat.voice2()
+```        
+
+<p>The term "interface" in Python refers to an abstract class in which all methods are abstract and do not contain any implementation, providing only method signatures that must be implemented by subclasses.</p>
+
+<p>An abstraction defines the general structure or interface without specifying details, while a concrete implementation provides the actual functionality based on that abstraction.</p>
+
+<h2>```@property```, ```@setter```, ```@deleter```</h2>
+
+<p>```@property``` is a decorator that encapsulates instance attributes and provides a property. Notice that, in the example below, I didn't write any parentheses while calling the method marked with ```@property``` because it truly becomes a property (an attribute).</p>
+
+<p>A getter is a method that returns values outside of a class, and a setter is a method that edits an object belonging to a class. We should use them instead of directly editing objects because, using those methods, we can add validation rules. ```@property``` is the getter decorator (it returns the "property"), and ```@setter``` is the setter decorator. For example, the setter is called automatically when the "property" is edited. We can also create deleters (```@deleter```), which work like destructors but only for the "property."</p>
+        
+```python
+class Example:
+    def __init__(self, x):
+        self._x = x
+
+    @property
+    def x(self): # a getter
+        return self._x
+
+    @x.setter
+    def x(self, x): # a setter
+        self._x = x
+
+    @x.deleter
+    def x(self): # a deleter
+        del self._x
+
+example = Example(5)
+print(example.x) # using the getter
+
+example.x = 10 # using the setter
+print(example.x)
+
+del example.x # using the deleter
+```

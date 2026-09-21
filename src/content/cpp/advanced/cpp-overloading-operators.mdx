@@ -1,0 +1,36 @@
+---
+title: "Overloading operators"
+order: 5
+---
+
+<p>Overloading an operator means overriding its functionalities so it can work with, e.g., our class's objects. Remember that we cannot simply display class instances with ```cout``` because the ```<<``` operator is not defined for them. To display them, we would have to overload this operator. The example below shows how to overload the ```==``` operator so it can compare class instances.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Comparison {
+    int x, y;
+    public:
+        Comparison(int x, int y) {
+            this -> x = x;
+            this -> y = y;
+        }
+        ~Comparison() {}
+
+        int operator==(Comparison obj) {
+            if (this -> x == obj.x && this -> y == obj.y)
+                return 1;
+            return 0;
+        }
+};
+
+int main() {
+    Comparison x(10, 20);
+    Comparison y(10, 20);
+    if (x == y)
+        cout << "x and y are the same" << endl;
+
+    return 0;
+}
+```

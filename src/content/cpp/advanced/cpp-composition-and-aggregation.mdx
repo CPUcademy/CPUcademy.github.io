@@ -1,0 +1,110 @@
+---
+title: "Composition and aggregation"
+order: 11
+---
+
+<h2>Composition</h2>
+
+<p>Inheritance is used for ```is a``` relationships (e.g., a cat is an animal), and composition is used for ```has a``` relationships (e.g., a house has rooms). It involves attaching objects to a class instead of inheriting a whole class of these objects.</p>
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Room {
+    string name;
+    int area;
+    public:
+        Room(string name, int area) {
+            this -> name = name;
+            this -> area = area;
+        }
+        ~Room() {}
+
+        friend ostream& operator<<(ostream& os, const Room& room) { // overriding the << operator to be able to display this object
+            os << room.name << " - area: " << room.area;
+            return os;
+        }
+};
+
+class House {
+    public:
+        House() {}
+        ~House() {}
+        vector<Room> rooms;
+
+        void add_room(string name, int area) {
+            Room room(name, area); // the same as "Room room = Room(name, area);"
+            rooms.push_back(room);
+        }
+};
+
+int main() {
+    House house;
+    house.add_room("Bedroom", 30);
+    house.add_room("Kitchen", 20);
+    house.add_room("Bathroom", 10);
+
+    for (Room r: house.rooms)
+        cout << r << endl;
+
+    return 0;
+}
+```
+
+<p>In summary, we use inheritance when we want a class to inherit methods from a parent class and then modify or extend its functionalities. Inheritance allows us to override methods, but in the case of composition, we can only use them. When we need to use a class without any modifications, composition is recommended, and when we need to change the behavior of a method in another class, we use inheritance.</p>
+
+<h2>Aggregation</h2>
+
+<p>The difference between aggregation and composition is the degree of ownership of the existing class. Aggregation implies a relationship where the child class can exist independently of the parent class (cars are not a part of a car park). Example: school and students. Delete the school, and the students will still exist. Composition implies a relationship where the child cannot exist independently of the parent (e.g., wheels are a part of a car).</p>
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Student {
+    string name, surname;
+    public:
+        Student(string name, string surname) {
+            this -> name = name;
+            this -> surname = surname;
+        }
+        ~Student() {}
+
+        friend ostream& operator<<(ostream& os, const Student& student) {
+            os << student.name << " " << student.surname;
+            return os;
+        }
+};
+
+class School {
+    string name;
+    public:
+        School(string name) { this -> name = name; }
+        ~School() {}
+        vector<Student> students;
+
+        void add_student(Student student) {
+            students.push_back(student);
+        }
+};
+
+int main() {
+    School school("XYZ High School");
+    Student student1("John", "Smith");
+    Student student2("Kate", "Johnson");
+    Student student3("Jack", "Williams");
+
+    school.add_student(student1);
+    school.add_student(student2);
+    school.add_student(student3);
+
+    for (Student s: school.students)
+        cout << s << endl;
+    cout << student1 << endl; // the students exist independently
+
+    return 0;
+}
+```

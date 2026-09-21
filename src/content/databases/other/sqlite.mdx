@@ -1,0 +1,134 @@
+---
+title: "SQLite"
+order: 1
+---
+
+<h3>What is SQLite?</h3>
+
+<p>SQLite is a lightweight, <b>serverless</b>, self-contained relational database engine. It stores the entire database in a <b>single file</b>, making it easy to use for embedded applications, small projects, and testing. Unlike MySQL or PostgreSQL, it does not require a separate server process.</p>
+
+<p>SQLite is useful when we need a simple, reliable database without the overhead of setting up and maintaining a database server. Common use cases include desktop applications, small tools, mobile apps, prototyping, and testing.</p>
+
+<h3>Syntax</h3>
+
+<p className="noBottomMargin">If you already know MySQL, SQLite will feel familiar (most statements work similarly). Key differences include:</p>
+
+<ul>
+    <li>No strict data types: SQLite uses dynamic typing, which means we can store any type of data in any column, though we can declare types for clarity.</li>
+    <li>Auto-increment columns use ```INTEGER PRIMARY KEY AUTOINCREMENT```.</li>
+    <li>No user management or privileges - everything is handled by file permissions.</li>
+    <li>Limited ALTER TABLE support: adding columns is easy, but dropping or renaming them is restricted.</li>
+</ul>
+
+<h3>Python implementation</h3>
+
+<p>SQLite comes built into Python as the ```sqlite3``` module, so no additional installation is required.</p>
+
+```python
+import sqlite3
+
+conn = sqlite3.connect("dbtest.db") # connecting to the database (creating the file if it doesn't exist)
+cursor = conn.cursor() # creating a cursor object to execute SQL statements
+
+# Creating a table
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    age INTEGER
+)
+""")
+
+# Inserting data
+cursor.execute("INSERT INTO users (name, age) VALUES (?, ?)", ("Alice", 30))
+cursor.execute("INSERT INTO users (name, age) VALUES (?, ?)", ("Bob", 25))
+
+conn.commit() # committing changes
+
+# Querying data
+cursor.execute("SELECT * FROM users")
+data_rows = cursor.fetchall()
+for data_row in data_rows:
+    print(data_row)
+    
+# Closing connections
+cursor.close()
+conn.close()
+```
+
+<p>We can also interact with SQLite directly from the terminal without writing Python code. SQLite provides a command-line shell that allows us to open a database file, execute SQL statements, create tables, insert data, and run queries in real time. To start, open the terminal and run ```sqlite3 dbtest.db``` (creating the file if it doesn’t exist). Once inside the shell, we can type SQL statements directly. The shell also supports helpful commands like ```.tables``` to list tables and ```.schema``` to see table structures.</p>
+
+<h3>What is an ORM?</h3>
+
+<p>An <b>ORM (Object-Relational Mapping)</b> is a programming technique that allows us to interact with a database using objects and classes, rather than writing raw SQL queries. In simple terms, an ORM maps database tables to classes and table rows to objects. Instead of manually writing ```SELECT```, ```INSERT```, or ```UPDATE``` statements, we interact with the database using normal Python code. The ORM automatically translates our Python instructions into SQL.</p>
+
+<p className="noBottomMargin">For example, instead of writing SQL like this:</p>
+
+```sql
+SELECT * FROM users WHERE age > 25;
+```
+
+<p className="noBottomMargin">We can write Python code like this:</p>
+
+```python
+users = session.query(User).filter(User.age > 25).all()
+```
+
+<h4>Why use an ORM?</h4>
+
+<ul>
+    <li>Cleaner and more readable code - no large SQL strings scattered across the project.</li>
+    <li>Less error-prone - ORMs help prevent SQL injection attacks.</li>
+    <li>Database independence - switching from SQLite to MySQL or PostgreSQL often requires minimal changes.</li>
+    <li>Easier maintenance - changes to the database structure can be handled through models.</li>
+</ul>
+
+<h4>Popular Python ORMs</h4>
+
+<ul>
+    <li><b>SQLAlchemy</b> - the most powerful and flexible ORM for Python.</li>
+    <li><b>Django ORM</b> - built into the Django framework.</li>
+    <li><b>Peewee</b> - lightweight and beginner-friendly.</li>
+</ul>
+
+<h4>SQLAlchemy + SQLite example</h4>
+
+<p>Below is a simple example showing how to use SQLite with SQLAlchemy.</p>
+
+```python
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import sessionmaker, declarative_base
+
+engine = create_engine("sqlite:///dbtest.db")
+Base = declarative_base()
+
+# Defining a table as a class
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    age = Column(Integer)
+
+Base.metadata.create_all(engine)
+
+Session = sessionmaker(bind=engine)
+session = Session()
+
+# Inserting data using objects
+session.add(User(name="Alice", age=30))
+session.add(User(name="Bob", age=25))
+session.commit()
+
+# Querying data
+users = session.query(User).all()
+for user in users:
+    print(user.name, user.age)
+```
+
+<h4>SQLite VS ORM - when to use what?</h4>
+
+<ul>
+    <li>Use <b>raw SQLite</b> when learning SQL, writing small scripts, or when full control over queries is needed.</li>
+    <li>Use an <b>ORM</b> for larger applications, long-term projects, and when working with complex data models.</li>
+</ul>

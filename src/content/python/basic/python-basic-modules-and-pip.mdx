@@ -1,0 +1,298 @@
+---
+title: "Basic modules and pip"
+order: 12
+---
+
+<p>A library is a collection of related modules that provides reusable functionality to simplify development. A module is a single file containing Python code that defines functions, classes, or variables, and can be imported into other Python programs to reuse its functionality. To add a module to our program, we use the ```import``` statement, e.g., ```import random```. However, we would have to write the module's name before every method that comes from it. If we don't want to do this, instead of ```import ...```, we can use the ```from ... import *``` statement to directly import the functions, classes, or variables.</p>
+
+<p>A package is a collection of related modules, which may also contain sub-packages. A library, on the other hand, is a broader term that refers to any collection of pre-written code that can include one or more packages, and helps developers perform common tasks.</p>
+
+<h3>Table of contents</h3>
+
+<ul type="disc">
+    <li><a href="#random" class="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>random</code> module</a></li>
+    <li><a href="#math" class="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>math</code> module</a></li>
+    <li><a href="#time" class="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>time</code> and <code style={{color: "#157267"}}>datetime</code> modules</a></li>
+    <li><a href="#sys-os" class="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>sys</code> and <code style={{color: "#157267"}}>os</code> modules</a></li>
+    <li><a href="#string" class="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>string</code> module</a></li>
+    <li><a href="#__name__" class="link" style={{textDecoration: "none"}}><code style={{color: "#157267"}}>__name__()</code></a></li>
+    <li><a href="#pip" class="link" style={{textDecoration: "none"}}><code style={{color: "#157267"}}>pip</code></a></li>
+    <li><a href="#executing-programs-from-a-terminal" class="link" style={{textDecoration: "none"}}>Executing programs from a terminal</a></li>
+</ul>
+
+<h2><a id="random">The <code style={{color: "#157267"}}>random</code> module</a></h2>
+
+<p>The ```random``` module is used to generate random numbers. The numbers generated using this module are pseudorandom, which means they are drawn according to a certain pattern. The initial value used by the generator is called a seed. If we know the value of the seed, we can predict the rest of the numbers produced by the generator because, for a given seed, the same numbers will always be generated (in the same order). The seed can be set with the ```random.seed(value)``` method.</p>
+
+<p>Write the ```import random``` statement at the beginning of every example.</p>
+
+```python
+# Drawing an integer (we determine the range in the arguments - start, stop)
+x = random.randint(1, 1000) # (first value - inclusive, last value - inclusive)
+print(x)
+```
+
+```python
+# Drawing an integer but with a third argument - step (like with loops)
+x = random.randrange(1, 10, 2) # it can draw these numbers: 1, 3, 5, 7, 9 (first value - inclusive, last value - exclusive)
+print(x) 
+```
+
+```python
+# Shuffling a list
+x = ["abc", "def", "ghi", 1, 2, 3, 1.1, 2.2, 3.3]
+random.shuffle(x)
+print(x)
+```
+
+```python
+# Drawing elements from a list or a string
+x = ["abc", "def", "ghi", 1, 2, 3, 1.1, 2.2, 3.3]
+print(random.choice(x))
+```
+
+```python
+# Drawing float numbers (we determine the range in the arguments - start, stop)
+x = random.uniform(20, 60)
+print(x)
+```
+
+<div className="alert alert-warning">
+    <b>Warning:</b> People starting to learn Python often get this error: ```'random' has no attribute 'randint'```. What to do in that case? Find out from <a href="python-popular-problems-random-has-no-attribute-randint.html" class="link alert-warning alert-link">here</a>.
+</div>
+
+<h2><a id="math">The <code style={{color: "#157267"}}>math</code> module</a></h2>
+
+<p>The ```math``` module provides more complex mathematical operations.</p>
+
+```python
+import math
+x = 16
+y = [1, 2, 3, 4]
+
+print(math.ceil(x)) # rounding up a number
+print(math.floor(x)) # rounding down a number
+print(math.fsum(y)) # adding up all the list's elements
+print(math.gcd(4, 8)) # calculating the Greatest Common Divisor
+print(math.sqrt(x)) # calculating the square root of a number
+print(math.pow(x, 2)) # raising a number to a given power
+print(math.isclose(2, 4)) # checking whether the given numbers are close to each other (in hundredths)
+print(math.log(9, 3)) # calculating the logarithm of 9 with base 3
+print(math.log2(64)) # calculating the logarithm of 64 with base 2
+print(math.pi) # displaying the PI number
+print(math.e) # displaying the E number
+```
+
+<p>We can check the complete list of methods a module contains by typing ```print(dir([moduleName]))```.</p>
+
+<h2><a id="time">The <code style={{color: "#157267"}}>time</code> and <code style={{color: "#157267"}}>datetime</code> modules</a></h2>
+
+<p>These modules are used to handle time.</p>
+
+<p>Write the ```import datetime, time``` statement at the beginning of every example.</p>
+
+```python
+# Getting the current local date
+today = datetime.datetime.now() # a datetime object representing the current date and time
+print(today) # time and date
+print(today.second)
+print(today.minute)
+print(today.hour)
+print(today.day)
+print(today.month)
+print(today.year)
+
+# Displaying the current day of the week
+print(today.weekday())
+```
+
+```python
+# Stopping the program for a time specified in seconds
+time.sleep(0.5)
+```
+
+```python
+# Creating a date object for a specific date
+d = datetime.date(2019, 11, 4)
+print(d)
+
+# Displaying the day of the week (from a specific date)
+print(d.weekday()) # 0 is Monday
+print(d.isoweekday()) # 1 is Monday
+```
+
+```python
+# Creating a date object from a timestamp (Unix epoch)
+timestamp = time.time() # a timestamp
+print("Timestamp:", timestamp)
+
+# For measuring time intervals, perf_counter() is more accurate than time()
+t1 = time.perf_counter()
+time.sleep(1)
+t2 = time.perf_counter()
+print(t2 - t1)
+
+d = datetime.date.fromtimestamp(timestamp) # a date object
+print("Date:", d)
+```
+
+```python
+# Creating a timestamp from a datetime object
+d = datetime.datetime(2020, 10, 4, 14, 55)
+print("Timestamp:", d.timestamp())
+```
+
+```python
+# Converting a timestamp into a string representation of the date
+timestamp = 1572879180
+print(time.ctime(timestamp))
+```
+
+```python
+# Creating a date object from a string (YYYY-MM-DD)
+d = datetime.date.fromisoformat("2020-12-13")
+print(d)
+
+# Modifying a date object
+d2 = d.replace(year = 2021) # we can also change the "month" and "day"
+print(d2)
+```
+
+```python
+# Subtracting dates
+date_1 = datetime.date(2020, 11, 4) # a date object
+date_2 = datetime.date(2019, 11, 4)
+print(date_1 - date_2)
+datetime_1 = datetime.datetime(2019, 11, 27, 11, 27, 22) # a datetime object
+datetime_2 = datetime.datetime(2019, 11, 27, 0, 0, 0)
+print(datetime_1 - datetime_2)
+```
+
+```python
+# Formatting dates
+print(time.strftime("%H:%M:%S")) # displaying the current date / time
+# %Y - year, %B - month (a string), %m - month (a number), %d - day, %H - hour, %M - minute, %S - second
+
+date_object = datetime.date(2020, 1, 4)
+print(date_object.strftime("%Y/%m/%d"))
+
+datetime_object = datetime.datetime(2020, 11, 4, 14, 53)
+print(datetime_object.strftime("%y/%B/%d %H:%M:%S"))
+
+print(datetime.datetime.strptime("2019/11/04 14:53:00", "%Y/%m/%d %H:%M:%S")) # parsing a string into a datetime object
+```
+
+<p>```datetime.now()``` works the same as ```datetime.today()```, except it can take a timezone as an argument.</p>
+
+<h2><a id="sys-os">The <code style={{color: "#157267"}}>sys</code> and <code style={{color: "#157267"}}>os</code> modules</a></h2>
+
+<p>The ```sys``` and ```os``` modules are used to handle system operations.</p>
+
+```python
+import sys
+for i in range(4):
+    print("Python")
+    sys.exit() # shutting down the program
+```
+
+```python
+import os
+
+os.mkdir("dir") # creating a directory
+os.chdir("dir") # moving to a directory
+print(os.listdir()) # displaying the files and directories in the current directory
+print(os.getcwd()) # displaying the current working directory
+os.chdir("..")  # moving back to the parent directory to delete 'dir' safely
+os.rmdir("dir") # deleting a directory (only works if it's empty)
+
+os.makedirs("dir/dir2") # creating a directory and its subdirectories
+os.removedirs("dir/dir2") # deleting a directory and its subdirectories
+
+# We can create a file using the open() method (refer to the lesson about text files)
+if os.path.exists("[the_path]/file.txt"): # checking whether a given file or directory exists
+    print("The file exists")
+    os.remove("[the_path]/file.txt") # deleting a given file
+
+m = os.system("mkdir dir") # executing a command passed as a string
+print(m)
+```
+
+<h2><a id="string">The <code style={{color: "#157267"}}>string</code> module</a></h2>
+
+<p>The ```string``` module provides constants (letters, digits, punctuation), helper functions for text processing, and templates for advanced string formatting.</p>
+
+```python
+import string
+
+print(string.ascii_lowercase) # all lowercase letters
+print(string.ascii_uppercase) # all uppercase letters
+print(string.digits) # all digits
+
+# Removing punctuation from a string
+textS = "Hello, World!"
+clean_text = textS.translate(str.maketrans("", "", string.punctuation))
+print(clean_text)
+
+# Generating a random string using string constants
+import random
+random_string = "".join(random.choices(string.ascii_letters + string.digits, k = 8)) # choices() draws multiple elements from a list or a string (in this case - eight)
+print(random_string)
+```
+
+<div className="alert alert-warning">
+    <b>Warning:</b> When importing some modules (e.g., ```pygame```), the following error appears: ```ModuleNotFoundError: No module named 'pygame'```. What to do in that case? Find out from <a href="python-popular-problems-no-module-named-pygame.html" class="link alert-warning alert-link">here</a>.
+</div>
+
+<h2><a id="__name__"><code style={{color: "#157267"}}>__name__()</code></a></h2>
+
+<p>The conditional statement below checks if the Python script is being run directly (not imported as a module). If it is, the code inside the block is executed. This is a common practice in the main file of a program.</p>
+
+```python
+if __name__ == "__main__":
+    pass
+```
+
+<p>```__name__()``` can also be used to get the name of any object.</p>
+
+```python
+def func():
+    pass
+
+def function(f):
+    print(f.__name__)
+
+function(func)
+```
+
+<h2><a id="pip"><code style={{color: "#157267"}}>pip</code></a></h2>
+
+<p>```pip``` is the official and default package management system for the Python language environment, using a dedicated repository called Python Package Index or other remote and local repositories. We can install external Python modules using the ```pip``` command (the list of those modules is available at the <a href="https://pypi.org/" target="_blank" class="link">pypi.org</a> website). To use it, we have to add it to the ```PATH```, as shown <a href="python-popular-problems-no-module-named-pygame.html" class="link">here</a>. After that, we can install the required module using ```pip install moduleName``` in CMD. To update a module, we have to add the ```--upgrade``` flag: ```pip install --upgrade moduleName```. To update ```pip``` itself, write: ```python -m pip install --upgrade pip``` (or ```python.exe``` if needed).</p>
+
+<p>```pip install``` directly calls the ```pip``` executable, while ```python -m pip install``` runs ```pip``` as a module within a specific Python interpreter, ensuring the package is installed in the correct Python environment (the specific Python version). We can specify the version like this: ```python3.9 -m pip install```. When using ```python -m pip install```, the ```pip``` module is invoked directly through the Python interpreter, so ```pip``` itself does not need to be added to the ```PATH```. Instead, it relies on the Python installation, which is already configured in the ```PATH``` (if selected during installation). On Windows systems, we can use ```py``` instead of ```python``` (```py``` is a Python launcher).</p>
+
+<p>The ```pip install -r requirements.txt``` command allows us to install all the Python packages listed in the ```requirements.txt``` file at once, ensuring that the project has the exact dependencies it needs. This is especially useful for sharing projects or setting up a development environment consistently across different machines. The modules have to be listed one per line, optionally with a version number.</p>
+
+<p>```pip``` and ```pip3``` are both package managers for Python, but ```pip3``` explicitly refers to the version of ```pip``` used for Python 3, while ```pip``` may default to either Python 2 or Python 3, depending on the system's configuration.</p>
+
+<p>In addition to regular package files, Python packages are often distributed in formats like ```.tar.gz``` (tarball) and ```.whl``` (wheel). A ```.tar.gz``` file is a compressed archive that contains the source code for a Python package, which needs to be compiled and installed. On the other hand, ```.whl``` files are pre-compiled binary distributions, which make installation faster since they don't require compiling the code. Wheel files are the preferred installation method when available because they simplify the installation process, especially for packages with complex dependencies.</p>
+
+<h2><a id="executing-programs-from-a-terminal">Executing programs from a terminal</a></h2>
+
+<p>```python file.py``` (remember that you have to be in the same folder as the file in CMD)</p>
+
+<h4>Executing programs that take arguments</h4>
+
+```python
+import sys
+
+if len(sys.argv) > 1:
+    script_name = sys.argv[0]
+    print("Script Name:", script_name)
+    print("Arguments:")
+    for i in sys.argv[1:]:
+        print(i)
+else:
+    print("No arguments passed.")
+```
+
+<p>Example calling: ```python file.py 3 3.5 "f"```.</p>

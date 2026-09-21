@@ -1,0 +1,253 @@
+---
+title: "A simple game (intervals, listeners, arrow functions)"
+order: 12
+---
+
+import InputFieldExample from "../../../components/examples/InputFieldExample"
+import ParagraphExample from "../../../components/examples/ParagraphExample"
+import CodeClickExample from "../../../components/examples/CodeClickExample"
+
+<p>Click on the sub-window below. Move with the Arrow keys. Avoid the blue squares. Points increase each time an opponent is generated. <a href="/js-game.html" target="_blank" class="link">Open the game in a new window</a> if you'd like.</p>
+
+<iframe src="/js-game.html" title="Example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="v1"></iframe>
+
+<p>Intervals are used to repeatedly execute a function at specified time intervals, allowing us to schedule actions to be performed after a certain delay. The ```setInterval()``` function sets up an interval to repeatedly call a function after a delay specified in milliseconds, while ```clearInterval()``` is used to stop the interval from running further.</p>
+
+<p>Event listeners are used to monitor and respond to specific events, such as clicks or key presses, e.g., on DOM elements. The ```addEventListener()``` method attaches an event listener to an element, while ```removeEventListener()``` is used to remove an event listener when it is no longer needed. Event listeners are asynchronous because they respond to events like clicks or inputs without blocking the execution of other code. When an event occurs, its associated callback function is queued in the event loop, which manages the event execution.</p>
+
+<p>Arrow functions provide a concise syntax for writing functions. They are defined using the ```=>``` sign and differ from regular functions by not having their own ```this``` context, instead inheriting ```this``` from the surrounding scope. The are similar to Lambda functions from other languages.</p>
+
+<p>You can find all these concepts in the game code and the additional examples provided below.</p>
+
+```javascript
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+</head>
+<body>
+    <p id="pkt">Points: 0</p>
+    <div id="dino" class="obj"></div>
+    
+    <script>
+        var pkt = 0 // score counter
+        const level = 10 // difficulty level, influences enemy speed
+        let gameActive = true // flag to control game state
+        const pressed = {} // tracking keys pressed by the player
+
+        // Player class, handling player object and actions
+        class Player {
+            constructor(element) {
+                this.element = element
+                this.positionn = {x: 200, y: 200} // initial position of the player
+                this.speed = 5 // movement speed
+                this.updatePosition() // setting the player's initial position
+                this.addEventListeners() // listening for key events to control movement
+                
+                // Player's appearance
+                this.element.style.backgroundColor="red"
+                this.element.style.width="50px"
+                this.element.style.height="50px"
+                this.element.style.position="absolute"
+            }
+
+            // Updating the player's position based on x and y coordinates
+            updatePosition() {
+                this.element.style.left=this.positionn.x + "px"
+                this.element.style.top=this.positionn.y + "px"
+            }
+
+            // Moving the player based on key inputs (Arrow keys)
+            move() {
+                if (!gameActive) return // if the game is over, stop movement (empty return - it will work like the break instruction but for a function)
+
+                // Adjusting the player's position based on key inputs and prohibiting him from exiting the screen
+                if (pressed["ArrowUp"] && this.positionn.y > 0) // moving the player up if a key is pressed, its name is "ArrowUp," and the y coordinate is greater than 0
+                    this.positionn.y -= this.speed
+                if (pressed["ArrowDown"] && this.positionn.y < window.innerHeight - 50) // the second condition specifies that the player can't be at the bottom "border" of the screen
+                    this.positionn.y += this.speed
+                if (pressed["ArrowLeft"] && this.positionn.x > 0) // the (0,0) point is at the top-left corner of the screen, so when checking the top and left border, we address 0
+                    this.positionn.x -= this.speed
+                if (pressed["ArrowRight"] && this.positionn.x < window.innerWidth - 50) // the second condition specifies that the player can't be at the right "border" of the screen
+                    this.positionn.x += this.speed
+                this.updatePosition() // recalculating and updating the position on the screen
+            }
+
+            // Attaching key event listeners to detect when keys are pressed/released
+            addEventListeners() {
+                window.addEventListener("keydown", (event) => {
+                    pressed[event.key] = true // indicating that a key is pressed
+                })
+
+                window.addEventListener("keyup", (event) => {
+                    pressed[event.key] = false
+                })
+            }
+
+            // Checking for collisions with opponents using bounding box logic
+            checkCollision(opponent) {
+                const element1 = this.element.getBoundingClientRect()
+                const element2 = opponent.element.getBoundingClientRect()
+
+                // If the player's and opponent's bounding boxes intersect, it's a collision
+                return !(
+                    element1.top > element2.bottom ||
+                    element1.bottom < element2.top ||
+                    element1.left > element2.right ||
+                    element1.right < element2.left
+                )
+            }
+        }
+
+        // Opponent class, controlling the enemy's behavior and movement
+        class Opponent {
+            constructor(element) {
+                this.element = element
+                this.positionn = {x: Math.random() * (window.innerWidth - 50), y: Math.random() * (window.innerHeight - 50) }
+                this.speed = level // using the defined level to set speed
+                this.direction = {x: 1, y: 1} // direction of movement (initially set to move diagonally)
+                this.updatePosition() // setting the initial position
+                this.move() // starting movement towards the opponent
+
+                // Opponent's appearance
+                this.element.style.backgroundColor="blue"
+                this.element.style.width="50px"
+                this.element.style.height="50px"
+                this.element.style.position="absolute"
+            }
+
+            // Updating the opponent's position on the screen
+            updatePosition() {
+                this.element.style.left=this.positionn.x + "px"
+                this.element.style.top=this.positionn.y + "px"
+            }
+
+            // Moving the opponent around the screen, bouncing when hitting boundaries
+            move() {
+                setInterval(() => {
+                    if (!gameActive) return // if the game is over, stop movement
+
+                    // Adjusting the opponent's position based on its speed and direction
+                    this.positionn.x += this.speed * this.direction.x
+                    this.positionn.y += this.speed * this.direction.y
+
+                    // Reversing direction when the opponent hits a screen boundary
+                    if (this.positionn.x <= 0 || this.positionn.x >= window.innerWidth - 50) {
+                        this.direction.x *= -1
+                    }
+                    if (this.positionn.y <= 0 || this.positionn.y >= window.innerHeight - 50) {
+                        this.direction.y *= -1
+                    }
+
+                    this.updatePosition() // updating the opponent's position on screen
+                }, 1000 / 60) // moving at 60 FPS
+            }
+        }
+
+        // Geting the HTML player element and initializing it
+        const playerElement = document.getElementById("dino")
+        const player = new Player(playerElement)
+        const opponentList = [] // an array to keep track of opponents
+
+        // Function to create a new opponent
+        const createOpponent = () => {
+            if (!gameActive) return // don't create enemies if the game is over
+
+            const opponentElement = document.createElement("div") // Creating a new opponent element
+            opponentElement.class="obj"
+            document.body.appendChild(opponentElement) // appending to body
+            const opponent = new Opponent(opponentElement) // initializing the opponent
+            opponentList.push(opponent) // adding to the array of opponents
+            pkt++ // incrementing points
+            document.getElementById("pkt").textContent="Points: " + pkt // updating points display
+        }
+
+        // Calling the createOpponent() function every 3 seconds
+        setInterval(createOpponent, 3000)
+
+        // Checking for collisions between the player and all opponents every 100ms
+        setInterval(() => {
+            if (!gameActive) return // stop checking collisions if the game is over
+
+            opponentList.forEach(opponent => { // iterating over each opponent in the "opponentList" array
+                if (player.checkCollision(opponent)) { // checking if the player collides with the currently considered opponent
+                    gameActive = false // ending the game if a collision occurs
+                }
+            })
+        }, 100)
+
+        // Moving the player every 1/60th of a second (60 FPS)
+        setInterval(() => {
+            player.move()
+        }, 1000 / 60)
+	</script>
+</body>
+</html>
+```
+
+<h2>Additional examples</h2>
+
+<p>The ```setTimeout()``` function executes a function once after a delay specified in milliseconds (```setTimeout(() => {console.log("Timeout")}, 1000)```).</p>
+
+<h4>Event listeners</h4>
+
+<h5>Input event listener</h5>
+
+<p>Open the console and write something in the ```<input>``` form control below. The updated value of the input field will be displayed in the console whenever the user types.</p>
+
+```javascript
+<input type="text" id="inputField" placeholder="Write something...">
+<script>
+    const inputField = document.getElementById("inputField")
+    inputField.addEventListener("input", (event) => {
+        console.log("Current value:", event.target.value)
+    })
+</script>
+```
+
+<InputFieldExample/>
+
+<h5 style={{ marginTop: 20 }}>Mouse event listeners</h5>
+
+<p>Open the console and hover over the paragraph below. While the mouse moves over the paragraph, its coordinates will be displayed in the console.</p>
+
+```javascript
+<p id="paragraph">Hover over this paragraph and move your mouse!</p>
+<script>
+    const paragraph = document.getElementById("paragraph")
+
+    paragraph.addEventListener("mousemove", (event) => {
+        console.log(`Mouse moved to X: ${event.clientX}, Y: ${event.clientY}`)
+    })
+
+    paragraph.addEventListener("mouseenter", () => { // event listeners can be attached to individual HTML elements, not just the entire webpage
+        paragraph.textContent="Mouse entered the paragraph!"
+    })
+
+    paragraph.addEventListener("mouseleave", () => {
+        paragraph.textContent="Mouse left the paragraph!"
+    })
+</script>
+```
+
+<ParagraphExample/>
+
+<h5>Click listener</h5>
+
+<p>Open the console and click on any code snippet or example on this page. Its value will be displayed in the console.</p>
+
+```javascript
+<script>
+    document.addEventListener("click", (event) => {console.log("click") })
+    const codeElements = document.querySelectorAll("code")
+    codeElements.forEach((codeElement) => {
+        codeElement.addEventListener("click", (event) => {
+            console.log("Clicked on:", event.target)
+        })
+    })
+</script>
+```
+
+<CodeClickExample />

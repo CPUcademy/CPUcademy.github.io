@@ -1,0 +1,21 @@
+---
+title: ".py to .exe"
+order: 1
+---
+
+<ol>
+    <li>Install the ```auto-py-to-exe``` module using ```pip``` (<a href="python-popular-problems-no-module-named-pygame.html" className="link">it doesn't work?</a>).</li>  
+    <li>Run ```python -m auto_py_to_exe``` in CMD (a graphic window shown below will open).</li>
+
+    <img className="img-fluid img-article img-f" src="/data/courses/auto-py-to-exe.PNG" alt="Img" style={{border: "1px solid black", marginTop: "10px"}}/>
+
+    <li>Enter the ```.py``` file path. Select ```One File``` for the app to be standalone and ```Window Based (hide the console)``` if the app has a GUI. Choose an icon, if you have one.</li>
+
+    <li>Click "Convert .py to .exe," wait, and press "Open output folder" to copy your app file(s).</li>
+</ol>
+
+<div className="alert alert-warning">
+    <p><b>Troubleshooting:</b> External modules your app uses may contain "hidden imports," meaning they can depend on different modules that are not explicitly imported in your code. If your program does not open, compile it once again but without hiding the console, and when trying to run it, hold the CMD window with your mouse (so that it doesn't disappear) to see the error, which will probably be ```'No module named ...'```. Then, head back to the auto-py-to-exe GUI, add the missing module name in the ```--hidden-import``` field in the "Advanced" section, and try again.</p>
+
+    <p style={{marginBottom: "0px"}}>For example, to convert an app using CustomTkinter to an ```.exe``` file, we need to include ```tkinter```, ```distutils```, ```ctypes.wintypes```, and ```tkinter.ttk``` to ```--hidden-imports```. We also have to add the ```customtkinter/``` and ```darkdetect/``` module folders from the directory with installed Python modules to ```Additional Files```.</p>
+</div>

@@ -1,0 +1,63 @@
+---
+title: "Caesar cipher"
+order: 2
+---
+
+<p>The Caesar cipher is a form of substitution cipher where each letter in the plaintext is shifted a certain number of places (the value of the key) to the right down the character set. For example, with a key of 3, the letter A would be substituted with D (A=0 | 0+3=3 | 3=D), B would become E, and so forth. This technique is named after Julius Caesar, who used it in his personal communications. The possible key values are limited by the number of available characters. If the result of the addition exceeds the number of available characters, it must be reduced by taking the result modulo the size of the character set. This ensures that the resulting index wraps around and corresponds to a valid character within the defined character set. The same applies to keys, e.g., if the number of all characters is 26, and the key is 27, it will yield the same result as key 1.</p>
+							
+<div className="table-container"><table>
+	<tr>
+		<td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td>
+	</tr>
+	<tr>
+		<td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td>
+	</tr>
+</table></div>
+
+                                    <h2 id="caesar">Implementation</h2>
+								
+```python
+CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" # this string can contain other characters like !, @, etc.
+
+def caesar(message, key, mcipher_ode):
+    textS = message.upper()
+    encrypted_text = ""
+    if mcipher_ode == "decrypt":
+        key = -key # negating the key value to reverse the encryption
+
+    for char in textS: # iterating over each character in the input text
+        if char in CHARACTERS:
+            indexx = CHARACTERS.index(char)
+            new_index = (indexx + key) % len(CHARACTERS) # calculating the new index by applying the key and wrapping around using modulo 
+            # "wrapping around" must be used when the new index exceeds the bounds of the CHARACTERS string
+            encrypted_text += CHARACTERS[new_index] # appending the character at the new index to the encrypted_text variable
+        else:
+            encrypted_text += char # if the character is not in CHARACTERS, keep it unchanged
+    return encrypted_text
+
+message = "Secret message"
+key = 13
+
+message = caesar(message, key, "encrypt")
+print(message)
+message = caesar(message, key, "decrypt")
+print(message)
+```
+
+<h2>A brute-force attack</h2>
+
+<p>A brute-force attack is a method of cracking encryption by systematically trying every possible combination of keys or passwords until the correct one is found. Despite its effectiveness against weak ciphers, like Caesar's, the method becomes impractical against modern encryption techniques, where the complexity and length of keys exponentially increase the time required to succeed.</p>
+
+```python
+from caesar import caesar
+CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" # this string can contain other characters like !, @, etc.
+
+def brute_force_caesar(ciphertext):
+    for key in range(1, len(CHARACTERS)):
+        decrypted_message = caesar(ciphertext, key, "decrypt")
+        print(f"Key {key}: {decrypted_message}")
+
+message = "FRPERG ZRFFNTR"
+result = brute_force_caesar(message)
+print(result)
+```

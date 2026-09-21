@@ -1,0 +1,390 @@
+---
+title: "SOLID design patterns"
+order: 1
+---
+
+ <p>If you do not mind, please read this article on <a href="https://medium.com/@cpucademy/how-to-be-a-good-programmer-solid-design-principles-c7a0c7eb047a" target="_blank" class="link">Medium</a>.</p>
+
+<p>Design patterns are proven solutions to common software design problems. They provide reusable architectural approaches that improve code structure, maintainability, and scalability. Design patterns are language-independent and categorized into three main types (Gamma classification): creational, structural, and behavioral.</p>
+
+<p>Most of the design patterns, except for the "concrete" implementations, should feature an abstraction that defines an interface for the implementations to adhere to. However, I will not create them for every example because it’s unnecessary for simple use cases or when the purpose of the example is to illustrate a specific behavior or concept rather than flood you with two-page extended code examples.</p>
+    
+<p class="noBottomMargin">The SOLID design principles are five principles aimed at improving software design and making it more understandable, flexible, and maintainable. They are frequently mentioned along design patterns but are <b>not a part of that group</b>. The acronym SOLID stands for:</p>
+<ul>
+    <li>S - <a href="#single-responsibility-principle" class="link">Single Responsibility Principle (SRP) / Separation Of Concerns (SOC)</a></li>
+    <li>O - <a href="#open-closed-principle" class="link">Open/Closed Principle (OCP)</a></li>
+    <li>L - <a href="#liskov-substitution-principle" class="link">Liskov Substitution Principle (LSP)</a></li>
+    <li>I - <a href="#interface-segregation-principle" class="link">Interface Segregation Principle (ISP)</a></li>
+    <li>D - <a href="#dependency-inversion-principle" class="link">Dependency Inversion Principle (DIP)</a></li>
+</ul>
+  
+<h2><a id="single-responsibility-principle">Single Responsibility Principle (SRP) / Separation Of Concerns (SOC)</a></h2>
+
+<p>A class should have only one primary responsibility, and it mustn't have more. It should not be overloaded with "things" it can do. Different classes should handle different tasks so they can be, e.g., changed independently. A God object is a class with too many responsibilities, and it is considered an antipattern.</p>
+
+<h4>Issue</h4>
+
+```python
+class Book:
+    def __init__(self, titlee, author):
+        self.titlee = titlee
+        self.author = author
+
+    def print_details(self):
+        print(f"Title: {self.titlee}, Author: {self.author}")
+
+    def save_to_file(self, filename):
+        with open(filename, "w") as file:
+            file.write(f"Title: {self.titlee}, Author: {self.author}")
+
+book = Book("1984", "George Orwell")
+book.print_details()
+book.save_to_file("book.txt")
+```
+
+<p>The ```Book``` class has multiple responsibilities: managing book data, printing details, and saving data to a file. For example, the method that handles saving to a file should be placed in another class so it can be modified once for all objects using it when switching to a database. Each concern should be separated into a different class.</p>
+
+<h4>Solution</h4>
+
+```python
+class Book:
+    def __init__(self, titlee, author):
+        self.titlee = titlee
+        self.author = author
+
+class BookPrinter:
+    @staticmethod
+    def print_details(book):
+        print(f"Title: {book.titlee}, Author: {book.author}")
+
+class BookSaver:
+    @staticmethod
+    def save_to_file(book, filename):
+        with open(filename, "w") as file:
+            file.write(f"Title: {book.titlee}, Author: {book.author}")
+
+book = Book("1984", "George Orwell")
+BookPrinter.print_details(book)
+BookSaver.save_to_file(book, "book.txt")
+```
+
+<h2><a id="open-closed-principle">Open/Closed Principle (OCP)</a></h2>
+
+<p>Software entities (classes, modules, functions) should be open for extension but closed for modification meaning we should be able to add a new functionality without changing the existing code. Functionalities should be added through extension, not modification.</p>
+
+<h4>Issue</h4>
+
+```python
+class DiscountCalculator:
+    def calculate(self, customer_type, price):
+        if customer_type == "regular":
+            return price * 0.9 # 10% discount
+        elif customer_type == "premium":
+            return price * 0.8 # 20% discount
+        else:
+            return price
+
+calculator = DiscountCalculator()
+print(calculator.calculate("regular", 100))
+print(calculator.calculate("premium", 100))
+print(calculator.calculate("new", 100))
+```
+
+<p>Adding a new discount would require modifying the existing class, and modifications can introduce bugs and require retesting.</p>
+
+<h4>Solution</h4>
+
+```python
+from abc import ABC, abstractmethod
+
+class DiscountStrategy(ABC):
+    @abstractmethod
+    def apply_discount(self, price):
+        pass
+
+class RegularCustomerDiscount(DiscountStrategy):
+    def apply_discount(self, price):
+        return price * 0.9 # 10% discount
+
+class PremiumCustomerDiscount(DiscountStrategy):
+    def apply_discount(self, price):
+        return price * 0.8 # 20% discount
+
+class NoDiscount(DiscountStrategy):
+    def apply_discount(self, price):
+        return price # no discount
+
+class DiscountCalculator:
+    def __init__(self, discount_strategy: DiscountStrategy):
+        self.discount_strategy = discount_strategy
+
+    def calculate(self, price):
+        return self.discount_strategy.apply_discount(price)
+
+regular_discount = DiscountCalculator(RegularCustomerDiscount())
+print(regular_discount.calculate(100))
+
+premium_discount = DiscountCalculator(PremiumCustomerDiscount())
+print(premium_discount.calculate(100))
+
+no_discount = DiscountCalculator(NoDiscount())
+print(no_discount.calculate(100))
+```
+
+<h2><a id="liskov-substitution-principle">Liskov Substitution Principle (LSP)</a></h2>
+
+<p>Objects of a superclass should be replaceable with objects of its subclass without affecting the correctness of the program. We should always be able to substitute a base type for a subtype.</p>
+
+<h4>Issue</h4>
+
+```python
+class Rectangle:
+    def __init__(self, widthh, heightt):
+        self._heightt = heightt
+        self._widthh = widthh
+
+    @property
+    def area(self):
+        return self._widthh * self._heightt
+
+    @property
+    def widthh(self):
+        return self._widthh
+
+    @widthh.setter
+    def widthh(self, value):
+        self._widthh = value
+
+    @property
+    def heightt(self):
+        return self._heightt
+
+    @heightt.setter
+    def heightt(self, value):
+        self._heightt = value
+
+class Square(Rectangle):
+    def __init__(self, size):
+        super().__init__(size, size)
+
+    @Rectangle.widthh.setter
+    def widthh(self, value):
+        self._widthh = self._heightt = value
+
+    @Rectangle.heightt.setter
+    def heightt(self, value):
+        self._heightt = self._widthh = value
+
+def calculate(obj):
+    w = obj.widthh
+    obj.heightt = 10
+    print(f"Expected: {w*10}, got: {obj.area}")
+
+rectangle = Rectangle(2, 3)
+calculate(rectangle)
+
+square = Square(5)
+calculate(square)
+```
+
+<p>The setters overriden in the ```Square``` class break the LSP because they modify the behavior of the ```Rectangle``` class in unexpected ways. Specifically, while the ```Rectangle``` class allows independent manipulation of width and height, the ```Square``` class forces both the width and height to be the same when either is set. This means that substituting a ```Square``` for a ```Rectangle``` in the code leads to inconsistent and unpredictable behavior. The ```calculate()``` function works only for ```Rectangle``` (a superclass) and not for ```Square``` (a subclass) when substituted.</p>
+
+<h4>Solution</h4>
+
+```python
+class Rectangle:
+    def __init__(self, widthh, heightt, is_square = False):
+        self._heightt = heightt
+        self._widthh = widthh
+        self._is_square = is_square
+
+    @property
+    def area(self):
+        return self._widthh * self._heightt
+
+    @property
+    def widthh(self):
+        return self._widthh
+
+    @widthh.setter
+    def widthh(self, value):
+        if self._is_square:
+            self._heightt = value # if it's a square, adjust height as well
+        self._widthh = value
+
+    @property
+    def heightt(self):
+        return self._heightt
+
+    @heightt.setter
+    def heightt(self, value):
+        if self._is_square:
+            self._widthh = value # if it's a square, adjust width as well
+        self._heightt = value
+
+def calculate(obj):
+    obj.heightt = 10
+    print(f"Area: {obj.area}") # the output is the same as in the previous example, but the code works predictably
+
+rectangle = Rectangle(2, 3)
+calculate(rectangle)
+
+square = Rectangle(5, 5, True)
+calculate(square)
+```
+
+<h2><a id="interface-segregation-principle">Interface Segregation Principle (ISP)</a></h2>
+
+<p>Clients should not be forced to implement interface methods they do not need, meaning we should use smaller, more specific interfaces over larger, more general ones. In compliance with the YAGNI rule (You Ain't Going To Need It), why would we force users to implement something they aren't going to need?</p>
+
+<h4>Issue</h4>
+
+```python
+from abc import ABC, abstractmethod
+
+class Printer(ABC):
+    @abstractmethod
+    def print_document(self, document):
+        pass
+
+    @abstractmethod
+    def scan_document(self, document):
+        pass
+
+    @abstractmethod
+    def fax_document(self, document):
+        pass
+
+class BasicPrinter(Printer):
+    def print_document(self, document):
+        print(f"Printing document: {document}")
+
+    def scan_document(self, document):
+        raise NotImplementedError("BasicPrinter does not support scanning.")
+
+    def fax_document(self, document):
+        raise NotImplementedError("BasicPrinter does not support faxing.")
+
+basic_printer = BasicPrinter()
+basic_printer.print_document("report.pdf")
+basic_printer.scan_document("report.pdf")
+```
+
+<p>Why would we even suggest using scan and fax for the basic printer if it can't perform these actions?</p>
+
+<h4>Solution</h4>
+
+```python
+from abc import ABC, abstractmethod
+
+class Printable(ABC):
+    @abstractmethod
+    def print_document(self, document):
+        pass
+
+class Scannable(ABC):
+    @abstractmethod
+    def scan_document(self, document):
+        pass
+
+class Faxable(ABC):
+    @abstractmethod
+    def fax_document(self, document):
+        pass
+
+class BasicPrinter(Printable):
+    def print_document(self, document):
+        print(f"Printing document: {document}")
+
+class AdvancedPrinter(Printable, Scannable, Faxable):
+    def print_document(self, document):
+        print(f"Printing document: {document}")
+
+    def scan_document(self, document):
+        print(f"Scanning document: {document}")
+
+    def fax_document(self, document):
+        print(f"Faxing document: {document}")
+
+basic_printer = BasicPrinter()
+basic_printer.print_document("report.pdf")
+
+advanced_printer = AdvancedPrinter()
+advanced_printer.print_document("report.pdf")
+advanced_printer.scan_document("report.pdf")
+advanced_printer.fax_document("report.pdf")
+```
+
+<h2><a id="dependency-inversion-principle">Dependency Inversion Principle (DIP)</a></h2>
+
+<p>High-level modules should not depend on low-level modules (e.g., dealing with storage is a low-level concern), but on abstractions (abstract classes). We want to depend on interfaces rather than concrete implementations because that way we can swap one for the other.</p>
+
+<h4>Issue</h4>
+
+```python
+class MySQLDatabase:
+    def connect_db(self):
+        print("Connecting to MySQL database...")
+
+    def save_data(self, data):
+        print(f"Saving {data} to MySQL database.")
+
+class DataHandler:
+    def __init__(self):
+        self.db = MySQLDatabase() # a direct dependency on a low-level module
+
+    def save_data(self, data):
+        self.db.connect_db()
+        self.db.save_data(data)
+
+data_handler = DataHandler()
+data_handler.save_data("user data")
+```
+
+<p>```DataHandler``` should not depend directly on ```MySQLDatabase```, a low-level module. This tight coupling means that if the database changes (e.g., to ```PostgreSQLDatabase```), ```DataHandler``` must also be modified. This violates both the DIP and the OCP.</p>
+
+<h4>Solution</h4>
+
+```python
+from abc import ABC, abstractmethod
+
+class Database(ABC): # an abstraction of a database
+    @abstractmethod
+    def connect_db(self):
+        pass
+
+    @abstractmethod
+    def save_data(self, data):
+        pass
+
+class MySQLDatabase(Database): # a low-level module: MySQL implementation
+    def connect_db(self):
+        print("Connecting to MySQL database...")
+
+    def save_data(self, data):
+        print(f"Saving {data} to MySQL database.")
+
+class PostgreSQLDatabase(Database): # a low-level module: PostgreSQL implementation
+    def connect_db(self):
+        print("Connecting to PostgreSQL database...")
+
+    def save_data(self, data):
+        print(f"Saving {data} to PostgreSQL database.")
+
+class DataHandler: # a high-level module depending on the abstraction
+    def __init__(self, db: Database):
+        self.db = db
+
+    def save_data(self, data):
+        self.db.connect_db()
+        self.db.save_data(data)
+
+mysql_db = MySQLDatabase()
+postgres_db = PostgreSQLDatabase()
+
+data_handler_mysql = DataHandler(mysql_db)
+data_handler_postgres = DataHandler(postgres_db)
+
+data_handler_mysql.save_data("user data")
+data_handler_postgres.save_data("user data")
+```

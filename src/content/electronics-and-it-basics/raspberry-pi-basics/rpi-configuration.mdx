@@ -1,0 +1,36 @@
+---
+title: "Configuration"
+order: 1
+---
+
+<p className="noBottomMargin">The Raspberry Pi configuration process: </p>
+<ol>
+    <li className="noBottomMargin">Download the Raspberry Pi Imager.</li>
+    <li className="noBottomMargin">Choose OS (Legacy <b>Bullseye</b>), a Raspberry Pi device that you have, and a storage device (an SD card).</li>
+    <li className="noBottomMargin">Click next and change the settings: enable <b>SSH</b>, set username and password, configure wireless LAN, and set locale settings. Wait till the installation on the SD card is finished.</li>
+    <li className="noBottomMargin">Put the SD card into the Raspberry Pi and power it on.</li>
+    <li className="noBottomMargin">Find the Raspberry Pi's IP address with <b>Angry IP Scanner</b>. Click on the “IP” button and try all ranges until you find ```raspberrypi.local```. A blue dot means that something is under that address. To search for all blue dots, sort by ping.</li>
+    <li className="noBottomMargin">Type these commands into the CMD:</li>
+    <ul type="disc">
+        <li className="noBottomMargin">```ssh``` (if there is an error - download PuTTy)</li>
+        <li className="noBottomMargin">```ssh [username]@[ip_of_the_pi]``` (confirm by yes)</li>
+        <li className="noBottomMargin">Enter the password (it will not be displayed). Once you've entered it, you will be inside the Raspberry Pi (you can exit by typing ```exit```).</li>
+        <li className="noBottomMargin">```sudo raspi-config``` (opening configuration on the Raspberry Pi with admin privileges)</li>
+        <li className="noBottomMargin">Go to ```Interface Options``` and enable ```VNC``` (you can move with arrows and the enter key).</li>
+        <li className="noBottomMargin">Go to ```Systems Options / Auto Login``` and choose ```B4 Autologin Desktop```.</li>
+        <li className="noBottomMargin">Go to ```Display Options``` and select ```D5 VNC Resolution``` (choose the resolution of your monitor). Click ```Finish``` and reboot.</li>
+    </ul>
+</ol>
+
+<p>Download RealVNC Viewer for Windows (not for Raspberry Pi because the client is Windows) and sign up. Click ```File / New Connection```. Input the IP of the Raspberry Pi and enter a name for it. Click on the new icon on the dashboard and log into the Raspberry Pi.</p>
+
+<div className="alert alert-warning">
+    <b>Warning:</b> You can't just unplug the Raspberry Pi. You have to shut it down from the menu, wait half a minute, and then unplug it.
+</div>
+
+<p className="noBottomMargin">If you want to change the WIFI network connected to your Raspberry Pi:</p>
+<ol>
+    <li className="noBottomMargin">Disconnect the SD card and plug it into your computer.</li>
+    <li className="noBottomMargin">Add <a href="https://drive.google.com/file/d/1tIP-5_3xNDr08i00fAUSG90vlt-9p0Dp/view?usp=sharing" target="_blank" className="link">this</a> file onto it (change the name of the network and its password inside this file).</li>
+    <li className="noBottomMargin">Power on the RPi, check the IP again, and change it in the VNC Raspberry Pi Properties.</li>
+</ol>

@@ -1,0 +1,108 @@
+---
+title: "Conditional statements"
+order: 5
+---
+
+<h2>```if``` conditional statement</h2>
+            
+<p>The ```if``` conditional statement allows us to check if a given condition is fulfilled. We commonly use logical operators in conditional statements.</p>
+
+```javascript
+let x = parseInt(prompt("Enter a number:"))
+if (x === 5)
+    console.log("The user entered the number 5.")
+```
+
+<p>We use the modulo operator very often in conditional statements. In the example below, the condition checks if the ```x``` variable is divisible by 2 (whether it is even).</p>
+
+```javascript
+let x = parseInt(prompt("Enter a number:"))
+if (x % 2 === 0)
+    console.log("The user entered an even number.")
+```
+
+<p>We can simplify the ```if``` statement by using boolean conditions. We can just write ```if (x)```, and if ```x``` is ```true```, the instruction will be executed. ```true``` means any value other than 0.</p>
+
+<h2>```else``` and ```else if``` conditional statements</h2>
+
+<p>```else``` is a statement that allows us to simplify our code by avoiding the need for another ```if``` statement, replacing it with an alternative action when the original condition is ```false```.</p>
+
+```javascript
+let x = parseInt(prompt("Enter a number:"))
+if (x > 0)
+    console.log("The user entered a positive number.")
+else
+    console.log("The user entered a negative number.")
+```
+
+<p>The code above doesn't handle the case where the user enters 0. To do that, we need ```else if```. It works similarly to ```else```, but allows us to specify an additional condition (like in an ```if``` statement). We can use as many ```else if``` instructions as we want, relating to a single ```if```.</p>
+
+```javascript
+let x = parseInt(prompt("Enter a number:"))
+if (x > 0)
+    console.log("The user entered a positive number.")
+else if (x < 0)
+    console.log("The user entered a negative number.")
+else
+    console.log("The user entered 0.")
+```
+
+<p>We use this instruction instead of writing multiple ```if``` statements because if any of the conditions relating to a single ```if``` statement have been met, the rest will not be considered.</p>
+
+<h2>```break``` and ```continue``` keywords</h2>
+
+<p>The ```break``` keyword is used to break the continuity of a loop, and ```continue``` can skip particular iterations within it.</p>
+
+```javascript
+let x
+while (true) {
+    x = parseInt(prompt("Enter a number:"))
+    if (x > 0)
+        break
+}
+
+for (let y = 1; y <= 10; y++) {
+    if (y === 4 || y === 8) 
+        continue
+    console.log(y)
+}
+```
+
+<h2>```switch``` conditional statement</h2>
+
+<p>```switch``` is a statement that simplifies complex conditions by replacing multiple ```if``` and ```else if``` statements with a more concise structure.</p>
+
+```javascript
+let x = parseInt(prompt("Enter a number:"))
+
+switch (x) {
+    case 0:
+        console.log("x equals 0")
+        break
+    case 25:
+        console.log("x equals 25")
+        break
+    case 50:
+        console.log("x equals 50")
+        break
+    default:
+        console.log("x doesn't equal 0, 25, or 50")
+}
+```
+
+<p>A parameter of the ```switch``` statement is usually an integer or a string (but it could be something else).</p> 
+
+<p>If we want several ```cases``` to be called upon in a given ```case```, we do not put the ```break``` statement at the end of it (they will execute until a ```break``` is encountered or the ```switch``` instruction ends).</p>
+
+<h2>The ternary operator (```?```)</h2>
+
+<p>The ternary operator allows us to create a simplifed one-line version of the ```if-else``` statement. If the condition is ```true```, the instruction on the left side of the colon will execute, and if not - the one on the right side. Check the results in your editor.</p>
+
+```javascript
+console.log(7 > 4 ? 4 : 7)
+
+let a = 7, b = 10
+let x = a >= b ? "a >= b" : "a <= b"
+
+console.log(x)
+```

@@ -1,0 +1,763 @@
+---
+title: "Behavioral patterns"
+order: 4
+---
+
+<h3>Table of contents</h3>
+
+<ul>
+    <li><a href="#observer" class="link" style={{textDecoration: "none"}}>Observer</a></li>
+    <li><a href="#chain-of-responsibility" class="link" style={{textDecoration: "none"}}>Chain of Responsibility</a></li>
+    <li><a href="#command" class="link" style={{textDecoration: "none"}}>Command</a></li>
+    <li><a href="#interpreter" class="link" style={{textDecoration: "none"}}>Interpreter</a></li>
+    <li><a href="#iterator" class="link" style={{textDecoration: "none"}}>Iterator</a></li>
+    <li><a href="#mediator" class="link" style={{textDecoration: "none"}}>Mediator</a></li>
+    <li><a href="#memento" class="link" style={{textDecoration: "none"}}>Memento</a></li>
+    <li><a href="#state" class="link" style={{textDecoration: "none"}}>State</a></li>
+    <li><a href="#strategy" class="link" style={{textDecoration: "none"}}>Strategy</a></li>
+    <li><a href="#template-method" class="link" style={{textDecoration: "none"}}>Template Method</a></li>
+    <li><a href="#visitor" class="link" style={{textDecoration: "none"}}>Visitor</a></li>
+</ul>
+
+<p>Behavioral design patterns focus on the interaction and communication between objects. They aim to define how objects collaborate, ensuring efficient and flexible communication without tightly coupling components.</p>
+
+<h2><a id="observer">Observer</a></h2>
+
+<p>Observer allows a subject (publisher) to maintain a list of its dependents (observers) and automatically notify them of any state changes, usually by calling one of their methods. This pattern is typically used when changing one object requires changing others, and we want to avoid tight coupling between the objects.</p>
+
+<h4>Event-based observer</h4>
+
+<p>An event-based observer notifies subscribers when a specific event occurs, allowing dynamic reactions without directly monitoring a property change.</p>
+
+```python
+from abc import ABC, abstractmethod
+
+class SubscriberInterface(ABC):
+    @abstractmethod
+    def receive_email(self, newsletter):
+        pass
+
+class Event(list): # inheriting from list to store subscribed observers
+    def __call__(self, *args, **kwargs): # making the Event instance callable to trigger notifications
+        for item in self: # looping through all subscribed observer functions
+            item(*args, **kwargs) # calling each observer with the given arguments
+
+class Subscriber(SubscriberInterface):
+    def __init__(self, name):
+        self.name = name
+
+    def receive_email(self, newsletter):
+        print(f"{self.name} received: {newsletter}")
+
+class Newsletter:
+    def __init__(self):
+        self.new_issue_released = Event()
+
+    def release_new_issue(self, issue_title):
+        print(f"Releasing new issue: {issue_title}")
+        self.new_issue_released(issue_title)
+
+john = Subscriber("John")
+newsletter = Newsletter()
+newsletter.new_issue_released.append(john.receive_email) # adding John to the subscription list
+
+newsletter.release_new_issue("Design Patterns Vol. 1") # releasing a new issue
+newsletter.new_issue_released.remove(john.receive_email) # removing John from the subscription list
+newsletter.release_new_issue("Design Patterns Vol. 2") # releasing a new issue
+```
+
+<h4>Property observer</h4>
+
+<p>A property observer ties event handling to a property change (using ```@property``` and ```@setter```). It is just a different approach to the Observer pattern. Both are good, and we just have to choose the one that suits our needs.</p>
+
+```python
+class Event(list):
+    def __call__(self, *args, **kwargs):
+        for item in self:
+            item(*args, **kwargs)
+
+class Subscriber:
+    def __init__(self, name):
+        self.name = name
+
+    def receive_email(self, newsletter):
+        print(f"{self.name} received: {newsletter}")
+
+class Newsletter:
+    def __init__(self):
+        self._new_issue = None
+        self.new_issue_released = Event() # the event fires when issue updates
+
+    @property
+    def new_issue(self):
+        return self._new_issue
+
+    @new_issue.setter
+    def new_issue(self, issue_title):
+        if self._new_issue != issue_title: # ensuring it's actually changing
+            self._new_issue = issue_title
+            print(f"New issue set: {issue_title}")
+            self.new_issue_released(issue_title) # notifying subscribers
+
+john = Subscriber("John")
+newsletter = Newsletter()
+newsletter.new_issue_released.append(john.receive_email)
+
+newsletter.new_issue = "Design Patterns Vol. 1" # automatically notifying John
+newsletter.new_issue_released.remove(john.receive_email)
+newsletter.new_issue = "Design Patterns Vol. 2" # no notification sent
+```
+
+<h4>Property dependencies</h4>
+
+<p>Property dependencies ensure that one property automatically updates when another changes.</p>
+
+```python
+class Person:
+    def __init__(self, name, birth_year, current_year):
+        self.name = name
+        self.birth_year = birth_year
+        self.current_year = current_year
+
+    @property
+    def age(self):
+        return self.current_year - self.birth_year # age depends on birth_year and current_year
+
+p = Person("Bob", 2000, 2025)
+print(p.age)
+p.current_year = 2030
+print(p.age) # age has been automatically updated
+```
+
+<h2><a id="chain-of-responsibility">Chain of Responsibility</a></h2>
+
+<p>Chain of Responsibility allows multiple handlers to process a request without the sender needing to know which handler will handle it. The request is passed along a chain of handlers until one of them processes it (or it reaches the end of the chain). This pattern promotes loose coupling and makes it easy to add or modify handlers dynamically. All componenets of a chain get a chance to process a command or a query, and have the ability to terminate the processing chain.</p>
+
+<h4>Method chain (classic approach)</h4>
+
+<p>In this approach, each handler explicitly calls the next one. It is good for request approval flows.</p>
+
+```python
+class Request:
+    def __init__(self, amount):
+        self.amount = amount
+
+class Handler:
+    def __init__(self, successor = None):
+        self.successor = successor
+
+    def handle(self, request):
+        if self.successor:
+            self.successor.handle(request)
+
+class Manager(Handler):
+    def handle(self, request):
+        if request.amount <= 1000:
+            print(f"Manager approves ${request.amount}")
+        else:
+            super().handle(request)
+
+class Director(Handler):
+    def handle(self, request):
+        if request.amount <= 5000:
+            print(f"Director approves ${request.amount}")
+        else:
+            super().handle(request)
+
+class CEO(Handler):
+    def handle(self, request):
+        if request.amount > 5000:
+            print(f"CEO approves ${request.amount}")
+
+# Creating the chain: Manager → Director → CEO
+manager = Manager(Director(CEO()))
+
+# Requests go through the chain until handled
+manager.handle(Request(500)) # handled by Manager
+manager.handle(Request(3000)) # handled by Director
+manager.handle(Request(10000)) # handled by CEO
+```
+
+<h4>Broker chain (event-based approach)</h4>
+
+<p>Broker chain uses an event-driven system where multiple handlers process a request independently without forming a strict chain. It is useful in scenarios where multiple components modify a value dynamically, such as game stat modifiers or discount systems in e-commerce. Even though handlers are not explicitly linked, they act on the request in sequence when the event is triggered. It is a more flexible and decentralized version of the Chain of Responsibility pattern.</p>
+
+```python
+class Event(list):
+    def __call__(self, *args, **kwargs):
+        for item in self:
+            item(*args, **kwargs)
+
+class Query:
+    def __init__(self, product_name, query_type, valuee):
+        self.product_name = product_name
+        self.query_type = query_type
+        self.valuee = valuee
+
+class ECommercePlatform:
+    def __init__(self):
+        self.discount_handlers = Event()
+
+    def apply_discounts(self, queryy):
+        self.discount_handlers(queryy) # calling all registered discount handlers
+
+class Product:
+    def __init__(self, platformm, name, base_price):
+        self.platformm = platformm
+        self.name = name
+        self.base_price = base_price
+
+    @property
+    def price(self):
+        queryy = Query(self.name, "price", self.base_price)
+        self.platformm.apply_discounts(queryy) # applying registered discounts
+        return queryy.valuee
+
+class DiscountModifier:
+    def __init__(self, platformm, productt):
+        self.platformm = platformm
+        self.productt = productt
+        self.platformm.discount_handlers.append(self.handle) # registering handler
+
+    def handle(self, queryy):
+        pass # to be implemented by subclasses
+
+class BlackFridayDiscount(DiscountModifier):
+    def handle(self, queryy):
+        if queryy.product_name == self.productt.name and queryy.query_type == "price":
+            queryy.valuee *= 0.8 # 20% discount
+
+class LoyaltyDiscount(DiscountModifier):
+    def handle(self, queryy):
+        if queryy.product_name == self.productt.name and queryy.query_type == "price":
+            queryy.valuee *= 0.9 # additional 10% discount for loyal customers
+
+platformm = ECommercePlatform()
+laptop = Product(platformm, "Laptop", 1000)
+
+print("Original price:", laptop.price)
+
+black_friday = BlackFridayDiscount(platformm, laptop)
+print("After Black Friday discount:", laptop.price)
+
+loyalty = LoyaltyDiscount(platformm, laptop)
+print("After loyalty discount:", laptop.price)
+```
+
+<h2><a id="command">Command</a></h2>
+
+<p>Command is used to turn a request (an action) into a stand-alone object. This object encapsulates all details of the request, allowing parameterization of objects. It is also useful for implementing the undo functionality.</p>
+
+<p>In the example below, the ```TransferMoneyCommand``` class encapsulates the action and its associated details (it takes the ```BankAccount``` objects as parameters) and can be executed by ```TransactionHistory``` (the invoker) when triggered.</p>
+
+
+```python
+from abc import ABC, abstractmethod
+
+class Command(ABC):
+    @abstractmethod
+    def execute_action(self):
+        pass
+
+    @abstractmethod
+    def undo(self):
+        pass
+
+class BankAccount: # a receiver class (the object that performs the action when requested)
+    def __init__(self, balance = 0):
+        self.balance = balance
+
+    def deposit(self, amount):
+        self.balance += amount
+
+    def withdraw(self, amount):
+        if self.balance >= amount:
+            self.balance -= amount
+            return True
+        return False
+
+    def __str__(self):
+        return f"Balance = {self.balance}"
+
+class TransferMoneyCommand(Command): # a concrete Command classes
+    def __init__(self, source_account, target_account, amount):
+        self.source_account = source_account
+        self.target_account = target_account
+        self.amount = amount
+        self.executed = False
+
+    def execute(self):
+        if not self.executed:
+            if self.source_account.withdraw(self.amount):
+                self.target_account.deposit(self.amount)
+                self.executed = True
+                print(f"Transferred {self.amount} from source to target.")
+            else:
+                print("Insufficient funds for transfer.")
+        else:
+            print("Transfer already executed.")
+
+    def undo(self):
+        if self.executed:
+            self.target_account.withdraw(self.amount)
+            self.source_account.deposit(self.amount)
+            print(f"Undo transfer of {self.amount} from target back to source.")
+            self.executed = False
+        else:
+            print("No transfer to undo.")
+
+class TransactionHistory: # an invoker class (the object that calls the command)
+    def __init__(self):
+        self.history = []
+
+    def execute_command(self, command):
+        command.execute_action() # invoking the Command's execute method
+        self.history.append(command)
+
+    def undo(self):
+        if self.history:
+            last_command = self.history.pop()
+            last_command.undo()
+
+source = BankAccount(500)
+target = BankAccount(200)
+history = TransactionHistory()
+
+print(f"Source account before transfer: {source}")
+print(f"Target account before transfer: {target}")
+
+transfer1 = TransferMoneyCommand(source, target, 100)
+history.execute_command(transfer1)
+
+print(f"Source account after first transfer: {source}")
+print(f"Target account after first transfer: {target}")
+
+transfer2 = TransferMoneyCommand(source, target, 1000) # trying to transfer more than available funds
+history.execute_command(transfer2)
+
+print(f"Source account after second transfer attempt: {source}")
+print(f"Target account after second transfer attempt: {target}")
+history.undo()
+
+print(f"Source account after undo: {source}")
+print(f"Target account after undo: {target}")
+```
+
+<h2><a id="interpreter">Interpreter</a></h2>
+
+<p>Interpreter is used for designing a system that needs to process and evaluate language expressions. It provides a way to define the grammar of a language and interpret statements in that language. It is commonly used in mathematical expression evaluators, rule-based engines, and parsers. It turns text data into separate lexical tokens (lexing) and interprets sequences of these tokens (parsing).</p>
+
+<p>The example below implements a simple interpreter for arithmetic expressions that includes addition and subtraction. It tokenizes an expression like "10 + 5 - 3", parses it into an abstract syntax tree (AST), and evaluates the result.</p>
+
+```python
+from abc import ABC, abstractmethod
+
+# Lexing
+class Token:
+    NUMBER, PLUS, MINUS = "NUMBER", "PLUS", "MINUS"
+
+    def __init__(self, typee, valuee = None):
+        self.typee = typee
+        self.valuee = valuee
+
+    def __repr__(self):
+        return f"Token({self.typee}, {self.valuee})"
+
+class Lexer:
+    def __init__(self, textS):
+        self.textS = textS.replace(" ", "") # removing spaces for easier processing
+        self.indexx = 0
+
+    def get_next_token(self):
+        if self.indexx >= len(self.textS):
+            return None
+
+        char = self.textS[self.indexx]
+        if char.isdigit():
+            num = 0
+            # Extracting multi-digit numbers
+            while self.indexx < len(self.textS) and self.textS[self.indexx].isdigit():
+                num = num * 10 + int(self.textS[self.indexx])
+                self.indexx += 1
+            return Token(Token.NUMBER, num)
+        elif char == "+":
+            self.indexx += 1
+            return Token(Token.PLUS)
+        elif char == "-":
+            self.indexx += 1
+            return Token(Token.MINUS)
+
+    def tokenize(self):
+        tokens = []
+        while self.indexx < len(self.textS):
+            tokens.append(self.get_next_token()) # generating a token list
+        return tokens
+
+# Parsing
+class Parser:
+    def __init__(self, tokens):
+        self.tokens = tokens
+        self.current_token = self.tokens.pop(0) if self.tokens else None # fetching the first token
+
+    def eat(self, token_type):
+        if self.current_token and self.current_token.typee == token_type:
+            self.current_token = self.tokens.pop(0) if self.tokens else None # moving to the next token
+
+    def parse(self):
+        result = self.current_token.valuee # starting with the first number
+        self.eat(Token.NUMBER)
+
+        while self.current_token:
+            if self.current_token.typee == Token.PLUS:
+                self.eat(Token.PLUS)
+                result += self.current_token.valuee # adding the next number to result
+                self.eat(Token.NUMBER)
+            elif self.current_token.typee == Token.MINUS:
+                self.eat(Token.MINUS)
+                result -= self.current_token.valuee # subtracting the next number from result
+                self.eat(Token.NUMBER)
+
+        return result # directly returning the result
+
+expression = "10 + 5 - 3"
+lexer = Lexer(expression)
+tokens = lexer.tokenize()
+print(tokens)
+parser = Parser(tokens)
+number = parser.parse()
+print(number)
+```
+
+<h2><a id="iterator">Iterator</a></h2>
+
+<p>Iterator provides a way to access elements of a collection sequentially without exposing its underlying structure. Instead of manually managing iteration, the pattern encapsulates it within an iterator object that keeps track of the current position and provides a standard way to retrieve the next element. You can find a basic example of this pattern featuring a custom iterable in the <a href="python-generators.html#iterator" class="link">lesson about generators</a>. The example below shows how to use list-backed properties while implementing the Iterator pattern to allow iteration over stored data.</p>
+
+```python
+class Inventory:
+    def __init__(self, item_list = None):
+        self._item_list = item_list if item_list else []
+
+    @property
+    def item_list(self):
+        return self._item_list
+
+    @item_list.setter
+    def item_list(self, new_items):
+        if isinstance(new_items, list):
+            self._item_list = new_items
+        else:
+            raise ValueError("Items must be a list.")
+
+    def __iter__(self):
+        return iter(self._item_list) # returning an iterator for the list
+
+inventory = Inventory(["Sword", "Shield", "Potion"])
+for item in inventory:
+    print(item)
+
+inventory.item_list = ["Bow", "Arrow", "Helmet"] # using the property setter
+for item in inventory:
+    print(item)
+```
+
+<h2><a id="mediator">Mediator</a></h2>
+
+<p>Mediator defines an object that encapsulates how a set of objects interact. Instead of having multiple objects communicate directly, they communicate through a mediator, which handles the communication and coordination between them. This reduces the dependencies between objects, making the system easier to maintain and scale (the objects do not have to be aware of the other objects).</p>
+
+```python
+class Mediator:
+    def send_data(self, message, userr):
+        pass
+
+class User:
+    def __init__(self, name):
+        self.name = name
+        self.mediator = None
+
+    def send_message(self, message):
+        print(f"{self.name} sends: {message}")
+        self.mediator.send_data(message, self)
+
+    def receive_message(self, message):
+        print(f"{self.name} receives: {message}")
+
+class ChatRoom(Mediator):
+    def __init__(self):
+        self.users = []
+
+    def add_user(self, userr):
+        self.users.append(userr)
+        userr.mediator = self # setting the chat room as the mediator for each user when they join it
+
+    def send_data(self, message, userr):
+        for u in self.users:
+            if u != userr:
+                u.receive_message(message)
+
+chat_room = ChatRoom()
+
+alice = User("Alice")
+bob = User("Bob")
+charlie = User("Charlie")
+
+chat_room.add_user(alice)
+chat_room.add_user(bob)
+chat_room.add_user(charlie)
+
+alice.send_message("Hi everyone!")
+bob.send_message("Hello Alice!")
+charlie.send_message("Hey all!")
+```
+
+<h2><a id="memento">Memento</a></h2>
+
+<p>Memento allows capturing and restoring an object's state without exposing its internal details. It is useful for implementing undo/redo functionality or saving checkpoints in an application.</p>
+
+```python
+class Memento: # storing the state of the text document
+    def __init__(self, content):
+        self.content = content
+
+class TextEditor:
+    def __init__(self):
+        self.content = ""
+        self.history = [Memento(self.content)]
+        self.current_state = 0
+
+    def write(self, textS):
+        self.content += textS
+        m = Memento(self.content)
+        self.history.append(m)
+        self.current_state += 1
+
+    def undo(self):
+        if self.current_state > 0:
+            self.current_state -= 1
+            m = self.history[self.current_state]
+            self.content = m.content
+            return m
+        return None
+
+    def redo(self):
+        if self.current_state + 1 < len(self.history):
+            self.current_state += 1
+            m = self.history[self.current_state]
+            self.content = m.content
+            return m
+        return None
+
+    def show_content(self):
+        print(f"Document content: {self.content}")
+
+editor = TextEditor()
+editor.write("Hello, ")
+editor.show_content()
+editor.write("world!")
+editor.show_content()
+
+editor.undo()
+editor.show_content()
+editor.redo()
+editor.show_content()
+```
+
+<h2><a id="state">State</a></h2>
+
+<p>State allows an object to change its behavior when its internal state changes. It encapsulates different behaviors within separate state classes, making the system more maintainable and flexible.</p>
+
+<p>In the example below, the behavior that changes is how the ```TrafficLight``` object responds to the ```change()``` method, depending on its current state. This method changes the state, and depending on whether the current state is ```RedState```, ```YellowState```, or ```GreenState```, a different transition logic contained in the ```switch ()``` method of each state class is applied.</p>
+
+```python
+from abc import ABC, abstractmethod
+
+class TrafficLightState(ABC): # a State interface
+    @abstractmethod
+    def switch (self, light):
+        pass
+
+# Concrete State classes
+class RedState(TrafficLightState):
+    def switch (self, light):
+        print("Red -> Switching to Green")
+        light.state = GreenState()
+
+class YellowState(TrafficLightState):
+    def switch (self, light):
+        print("Yellow -> Switching to Red")
+        light.state = RedState()
+
+class GreenState(TrafficLightState):
+    def switch (self, light):
+        print("Green -> Switching to Yellow")
+        light.state = YellowState()
+
+class TrafficLight: # a context class (the object that maintains the current state and triggers state transitions)
+    def __init__(self):
+        self.state = RedState() # an initial State
+
+    def change(self):
+        self.state.switch (self) # switching the State by executing the switch () method from the current State class
+
+traffic_light = TrafficLight()
+traffic_light.change()
+traffic_light.change()
+traffic_light.change()
+```
+
+<h2><a id="strategy">Strategy</a></h2>
+
+<p>Strategy defines a family of algorithms, encapsulates each one in a separate class, and allows them to be interchangeable without modifying the client code. This enables selecting an algorithm dynamically at runtime, promoting flexibility and maintainability.</p>
+
+```python
+from abc import ABC, abstractmethod
+
+class SortStrategy(ABC): # a Strategy interface
+    @abstractmethod
+    def sort_items(self, data):
+        pass
+
+# Concrete Strategy classes
+class QuickSort(SortStrategy):
+    def sort_items(self, data):
+        print("Sorting using QuickSort")
+        return sorted(data) # a placeholder for actual implementation
+
+class MergeSort(SortStrategy):
+    def sort_items(self, data):
+        print("Sorting using MergeSort")
+        return sorted(data) # a placeholder for actual implementation
+    
+class BubbleSort(SortStrategy):
+    def sort_items(self, data):
+        print("Sorting using BubbleSort")
+        return sorted(data) # a placeholder for actual implementation
+
+class Sorter: # a context class
+    def __init__(self, strategy: SortStrategy):
+        self.strategy = strategy
+
+    def set_strategy(self, strategy: SortStrategy):
+        self.strategy = strategy # changing Strategies dynamically
+
+    def sort_list(self, data):
+        return self.strategy.sort_items(data)
+
+numbers = [5, 2, 9, 1, 5, 6]
+
+sorter = Sorter(QuickSort())
+print(sorter.sort_list(numbers))
+
+sorter.set_strategy(MergeSort())
+print(sorter.sort_list(numbers))
+
+sorter.set_strategy(BubbleSort())
+print(sorter.sort_list(numbers))
+```
+
+<h2><a id="template-method">Template Method</a></h2>
+
+<p>Template Method defines the skeleton of an algorithm in a base class while allowing subclasses to fill in specific steps. This promotes code reuse and ensures that the core logic remains unchanged while allowing flexibility in certain steps.</p>
+
+```python
+from abc import ABC, abstractmethod
+
+class ReportTemplate(ABC):
+    def generate_report(self): # a Template Method defining the steps for generating a report
+        self.collect_data()
+        self.analyse_data()
+        print("Done.")
+        
+    @abstractmethod
+    def collect_data(self):
+        pass
+
+    @abstractmethod
+    def analyse_data(self):
+        pass
+
+class SalesReport(ReportTemplate):
+    def collect_data(self):
+        print("Collecting sales data...")
+
+    def analyse_data(self):
+        print("Analyzing sales trends...")
+
+class InventoryReport(ReportTemplate):
+    def collect_data(self):
+        print("Collecting inventory data...")
+
+    def analyse_data(self):
+        print("Checking stock levels...")
+
+sales = SalesReport()
+sales.generate_report()
+
+inventory = InventoryReport()
+inventory.generate_report()
+```
+
+<h2><a id="visitor">Visitor</a></h2>
+
+<p>Visitor allows us to add new operations to existing object structures without modifying them (in compliance with the OCP). Instead of adding behavior inside the already existing objects, we create a Visitor that implements the behavior and visits those objects. This keeps the document structure unchanged while allowing new operations.</p>
+
+```python
+from abc import ABC, abstractmethod
+
+class DocumentElement(ABC): # an element interface
+    @abstractmethod
+    def accept_data(self, visitor):
+        pass
+
+# Concrete elements
+class Text(DocumentElement):
+    def accept_data(self, visitor):
+        visitor.visit_text(self)
+
+class Image(DocumentElement):
+    def accept_data(self, visitor):
+        visitor.visit_image(self)
+
+class Visitor(ABC): # a Visitor interface
+    @abstractmethod
+    def visit_text(self, textS):
+        pass
+
+    @abstractmethod
+    def visit_image(self, image):
+        pass
+
+# Concrete Visitors
+class Renderer(Visitor):
+    def visit_text(self, textS):
+        print("Rendering text")
+
+    def visit_image(self, image):
+        print("Rendering image")
+
+class WordCounter(Visitor):
+    def visit_text(self, textS):
+        print("Counting words in text")
+
+    def visit_image(self, image):
+        print("Skipping word count for image")
+
+elements = [Text(), Image()]
+renderer = Renderer()
+word_counter = WordCounter()
+for element in elements:
+    element.accept_data(renderer)
+    element.accept_data(word_counter)
+```
+
+<p class="noBottomMargin">Instead of adding new methods to ```Text``` and ```Image``` every time we need a new operation, we simply create a new Visitor class that implements those operations without modifying the element classes. This pattern relies on double dispatch, where both the element type (```Text``` or ```Image```) and the visitor type (```Renderer``` or ```WordCounter```) determine the behavior, meaning:</p>
+
+<ol>
+    <li>The element calls its ```accept(visitor)``` method, passing the visitor as an argument.</li>
+    <li>Inside ```accept(visitor)```, the element calls the visitor’s corresponding method (```visit_text()``` or ```visit_image()```), passing itself (```self```) as an argument.</li>
+    <li>The visitor determines what to do based on the element type.</li>
+</ol>
+
+<h5>Visitor VS Decorator</h5>
+
+<p>A Visitor allows <b>new operations</b> to be added to existing object structures without modifying them by separating the new behavior from the objects it operates on. Decorator allows behavior to be dynamically added to an object at runtime by wrapping it with <b>additional functionality and extending behavior</b>.</p>
+                                

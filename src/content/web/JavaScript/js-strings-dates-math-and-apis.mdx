@@ -1,0 +1,183 @@
+---
+title: "Strings, dates, math, and APIs"
+order: 8
+---
+
+import ApiExample from '../../../components/examples/ApiExample'
+
+<h2>Strings</h2>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```length```</td>
+        <td>Returning the number of characters in a string (its length). Example: ```"Hello".length``` (returns: ```5```).</td>
+    </tr>
+    <tr>
+        <td>```toLowerCase()```, ```toUpperCase()```</td>
+        <td>Converting a string to lowercase / uppercase. Example: ```"Hello".toLowerCase()``` (returns: ```"hello"```).</td>
+    </tr>
+    <tr>
+        <td>```split()```</td>
+        <td>Breaking a string into an array by dividing it every time a given delimiter is encountered. Example: ```"apple banana cherry".split(" ")``` (returns: ```["apple", "banana", "cherry"]```).</td>
+    </tr>
+    <tr>
+        <td>```join()```</td>
+        <td>Joining the elements of an array into a single string by inserting a delimiter between each element. Example: ```["apple", "banana", "cherry"].join(" ")``` (returns: ```"apple banana cherry"```).</td>
+      </tr>
+    <tr>
+        <td>```trim()```</td>
+        <td>Removing whitespace characters from both ends of a string. Example: ```"  hello  ".trim()``` (returns: ```"hello"```).</td>
+    </tr>
+    <tr>
+        <td>```replace()```</td>
+        <td>Replacing all occurrences of a substring with another substring. Example: ```"I like apples".replace("apples", "oranges")``` (returns: ```"I like oranges"```).</td>
+    </tr>
+    <tr>
+        <td>```includes()```</td>
+        <td>Checking if a string contains a specified substring. Example: ```"Hello World!".includes("World")``` (returns: ```true```).</td>
+    </tr>
+    <tr>
+        <td>```substring()```</td>
+        <td>Returning a part of a string. Example: ```"Hello World!".substring(6, 11)``` (returns: ```"World"```). Starting index - inclusive, stopping index - exclusive.</td>
+    </tr>
+    <tr>
+        <td>```indexOf()```</td>
+        <td>Finding the position of the first occurrence of a substring in a string (the index of the substring's first letter). If there are more than one - the index of the first one encountered. Example: ```"Hello World!".indexOf("World")``` (returns: ```6```).</td>
+    </tr>
+    <tr>
+        <td>```concat()```</td>
+        <td>Joining two or more strings into one. Example: ```"Hello".concat(" ", "World", "!")``` (returns: ```"Hello World!"```).</td>
+    </tr>
+    <tr>
+        <td>```str.split("").reverse().join("")```</td>
+        <td>Reversing a string (converting to an array, reversing, and joining into a string).</td>
+    </tr>
+</table></div>
+
+<h2>Dates</h2>
+
+```javascript
+let d = new Date()
+a = d.getDay()
+```
+
+<div className="table-container"><table>
+    <tr>
+      <td>```getDate()```</td>
+      <td>Day as a number (1-31)</td>
+    </tr>
+    <tr>
+      <td>```getDay()```</td>
+      <td>Weekday as a number (0-6)</td>
+    </tr>
+    <tr>
+      <td>```getFullYear()```</td>
+      <td>Four-digit year (yyyy)</td>
+    </tr>
+    <tr>
+      <td>```getMonth()```</td>
+      <td>Month (0-11)</td>
+    </tr>
+    <tr>
+      <td>```getHours()```</td>
+      <td>Hour (0-23)</td>
+    </tr>
+    <tr>
+      <td>```getMinutes()```</td>
+      <td>Minutes (0-59)</td>
+    </tr>
+    <tr>
+      <td>```getSeconds()```</td>
+      <td>Seconds (0-59)</td>
+    </tr>
+    <tr>
+      <td>```getMilliseconds()```</td>
+      <td>Milliseconds (0-999)</td>
+    </tr>
+    <tr>
+      <td>```getTime()```</td>
+      <td>Milliseconds since January 1, 1970</td>
+    </tr>
+</table></div>
+
+<h2>Math</h2>
+
+<p>The functions with no parameters listed take only one or none.</p>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```Math.round()```</td>
+        <td>Rounding a number to the nearest integer.</td>
+    </tr>
+    <tr>
+        <td>```Math.floor()```</td>
+        <td>Rounding a number down to the nearest integer.</td>
+    </tr>
+    <tr>
+        <td>```Math.ceil()```</td>
+        <td>Rounding a number up to the nearest integer.</td>
+    </tr>
+    <tr>
+        <td>```Math.random()```</td>
+        <td>Returning a random floating-point number between 0 (inclusive) and 1 (exclusive).</td>
+    </tr>
+    <tr>
+        <td>```Math.floor(Math.random() * 10)```</td>
+        <td>Returning a random integer between 0 (inclusive) and 10 (exclusive).</td>
+    </tr>
+    <tr>
+        <td>```Math.abs()```</td>
+        <td>Returning the absolute value of a number.</td>
+    </tr>
+    <tr>
+        <td>```Math.sqrt()```</td>
+        <td>Returning the square root of a number.</td>
+    </tr>
+    <tr>
+        <td>```Math.pow(base, exponent)```</td>
+        <td>Raising the base to the power of the exponent.</td>
+    </tr>
+    <tr>
+        <td>```Math.min(0, 3, 1)```, ```Math.max(0, 3, 1)```</td>
+        <td>Returning the smallest / largest of the given numbers.</td>
+    </tr>
+</table></div>
+
+<p>```NaN``` (Not a Number) in JavaScript is a special value that represents an invalid or undefined numerical result. For example, an expression like ```0 / 0``` produces ```NaN```. A comparison ```NaN === NaN``` returns ```false```, because ```NaN``` is not equal to any value, including itself. To check if a value is ```NaN```, we can use ```Number.isNaN()```. ```NaN``` often appears in cases such as invalid mathematical operations, parsing errors, or when computations result in undefined or impossible numbers.</p>
+
+<h2>APIs</h2>
+
+<p>An API (Application Programming Interface) is a set of rules and tools that allows different software applications to communicate and interact with each other. Fetching data from an API means requesting information from a remote server or service and receiving the response to use in our application. APIs often provide endpoints (URLs) that return data in a structured format like JSON. When we "fetch" data, we make an HTTP request to these endpoints, asking for specific information. The server processes the request and sends back a response, which we can use to, e.g., display content. APIs enable interactive web applications that rely on real-time or external data.</p>
+
+<p>An exception is an error-caused event that disrupts the normal flow of a program. It can be handled to maintain program stability. We can "throw" exceptions if we know an error will occur (e.g., the user divides by zero), so they are handled in the ```catch``` block.</p>
+
+```javascript
+<div id="dataContainer">Fetching data...</div>
+<script>
+    const apiURL = "https://jsonplaceholder.typicode.com/posts" // an example URL
+
+    fetch(apiURL)
+        .then((response) => {
+            if (!response.ok)
+                throw new Error(`HTTP error! Status: ${response.status}`) // throwing an error if the response is not OK
+            return response.json() // parsing the response to JSON
+        })
+        .then((data) => {
+            const dataContainer = document.getElementById("dataContainer")
+            dataContainer.innerHTML = data
+                .slice(0, 1) // limiting to 1 item
+                .map((post) => `
+                <div>
+                    <h5>${post.title}</h5>
+                    <p>${post.body}</p>
+                </div>
+                `).join("") // combining the HTML strings
+        })
+        .catch((error) => { // catching an error
+            document.getElementById("dataContainer").textContent="Failed to fetch data."
+        })
+</script>
+```
+
+<div id="dataContainer">Fetching data...</div>
+<ApiExample/>

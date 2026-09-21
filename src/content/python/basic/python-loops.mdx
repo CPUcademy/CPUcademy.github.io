@@ -1,0 +1,57 @@
+---
+title: "Loops"
+order: 5
+---
+
+<h2>The ```for``` loop</h2>
+
+<p>The ```for``` loop is a repetition loop. It repeats given instructions a certain number of times (of course, this number can be typed in as a variable). In the example below, the loop will work from 0 to 6 (6 times because the "start" value is inclusive, and the "stop" value is exclusive) for the ```i``` variable (this variable doesn't have to be created earlier). This variable is called an iterator (it will increment every iteration). A standard name for an iterator variable is ```i```.</p>
+
+```python
+for i in range(0, 6):
+    print(i)
+```
+
+<p>We don't have to add the range "start" argument if it equals <b>zero</b> because it is the default value. Instead of from (0, 6), we could write, e.g., (1, 7), and the number of executions would be the same. As long as we don't use nested loops (a loop in a loop), we can use the same iterator name in every loop because its value resets during reinitialization (```for i in ...```).</p>
+
+```python
+for i in range(6):
+    print("Hello World!")
+    
+i = 6
+for y in range(i):
+    print("Hello World!")
+```
+
+<p>We can add a "step" argument to a loop. It defines the increments between valid values. If the range is from zero to ten, and this argument equals two, the loop will execute five times because it will "jump" every two increments (0, 2, 4, 6, 8).</p>
+
+```python
+for i in range(0, 10, 2):
+    print("Hello World!")
+```
+
+<p>In the following example, the first loop will execute the other four times (and the second one will execute two times). That will give us eight repetitions overall. We can also nest a ```while``` loop in a ```for``` loop, etc.</p>
+
+```python
+for i in range(4):
+    for j in range(2):
+        print("Hello World!")
+```
+
+<h2>The ```while``` loop</h2>
+
+<p>The ```while``` loop repeats instructions as long as the condition is met. The "The user entered a negative number." string from the example below will display after the loop stops executing.</p>
+
+```python
+x = int(input("Enter a negative number: "))
+while x > 0:
+    x = int(input("Try again: "))
+print("The user entered a negative number.")
+```
+
+<p>In the following example, the loop will execute endlessly. We would gain the same effect as below using this condition: ```while 1+1==2:```.</p>
+
+```python
+while True:
+    print("This is an infinite loop.")
+```

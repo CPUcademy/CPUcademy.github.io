@@ -1,0 +1,124 @@
+---
+title: "Transactions"
+order: 13
+---
+
+<p className="noBottomMargin">Transactions guarantee that either all of the operations that make up its body will be successful or none of them will be applied (they ensure data integrity). They follow the ACID principles:</p>
+<ul>
+    <li>Atomicity - either all or no operations are performed.</li>
+    <li>Consistency - a transaction moves the database from one consistent state to another.</li>
+    <li>Isolation - the operations of a transaction are isolated from the outside.</li>
+    <li>Durability - once a transaction is committed, its changes are permanent, even during a system failure.</li>
+</ul>
+
+<h4>Basic statements</h4>
+
+```sql
+-- Starting a transaction
+START TRANSACTION;
+
+-- Confirming a transaction
+COMMIT;
+
+-- Canceling a transaction
+ROLLBACK;
+
+-- Creating a savepoint (checkpoint) inside a transaction
+SAVEPOINT savepoint_name;
+
+-- Going back to the state from the selected savepoint
+ROLLBACK TO SAVEPOINT savepoint_name;
+```
+
+<h4>An example series of events</h4>
+
+```sql
+START TRANSACTION; -- Current balance: $500
+UPDATE account SET balance = balance - 100.00 WHERE id = 1; -- Current balance: $400
+SAVEPOINT four_hundred; -- Current balance: $400
+UPDATE account SET balance = balance - 500.00 WHERE id = 1; -- Current balance: -$100 (WRONG)
+ROLLBACK TO SAVEPOINT four_hundred; -- Current balance: $400
+COMMIT; -- Current balance: $400 (SAVED TO DATABASE)
+```
+
+<h4>Locking</h4>
+
+<p>Locking is a mechanism that controls access to data during a transaction. It allows us to manage concurrency in a multi-user environment. Locks can be applied to specific rows (e.g., ```FOR UPDATE```), or entire tables (```LOCK TABLES```). If inside a transaction, we write something like this: ```SELECT column_name FROM table_name WHERE id = 1 FOR UPDATE;```, other users in different terminals will be blocked from updating this row (```UPDATE table_name SET column_name = column_name - 100.00 WHERE id = 1;```) until we commit our transaction. In our transaction, everything will work as it's supposed to. We can do the same thing for whole tables like this: ```LOCK TABLE table_name WRITE;```. We can unlock tables with this statement: ```UNLOCK TABLES;```.</p>
+
+<h4>Deadlocks</h4>
+
+<p>Deadlocks occur when two or more transactions block each other, waiting for resources that are already locked by other transactions.</p>
+
+<p>Step 1.</p>
+```sql
+-- Transaction A
+START TRANSACTION;
+UPDATE table_name SET coulmn_name = coulmn_name - 100.00 WHERE id = 1;
+
+-- Transaction B
+START TRANSACTION;
+UPDATE table_name SET coulmn_name = coulmn_name - 100.00 WHERE id = 2;
+```
+
+<p>Step 2.</p>
+```sql
+-- Transaction A
+UPDATE table_name SET coulmn_name = coulmn_name + 100.00 WHERE id = 2;
+
+-- Transaction B
+UPDATE table_name SET coulmn_name = coulmn_name + 100.00 WHERE id = 1;
+```
+
+<p>The first transaction transaction locked ```ID1``` and tried to access ```ID2```, while the other transaction first locked ```ID2``` and tried to access ```ID1```, resulting in a deadlock. Both transactions are waiting for each other, and neither can continue. When a deadlock is detected, one of the transactions will be aborted, and the other will be able to continue and complete successfully.</p>
+
+<h4>Validation through transactions - transferring money between two accounts</h4>
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE make_transfer(
+    IN p_source_account_id INT,
+    IN p_target_account_id INT,
+    IN p_amount DECIMAL(10,2)
+)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION -- This handler will not be triggered until an error occurs after the transaction has already started. 
+    -- Therefore, it's not an issue that the ROLLBACK inside it, is placed before START TRANSACTION in the code.
+    BEGIN
+        -- Rollback the transaction in case of an error
+        ROLLBACK;
+        SELECT 'An error occurred while performing the transfer.' AS message;
+    END;
+
+    DECLARE source_balance DECIMAL(10,2);
+
+    START TRANSACTION;
+
+    -- Checking if the accounts exist
+    IF (SELECT COUNT(*) FROM accounts WHERE id = p_source_account_id) = 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Source account does not exist.';
+    END IF;
+
+    IF (SELECT COUNT(*) FROM accounts WHERE id = p_target_account_id) = 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Target account does not exist.';
+    END IF;
+
+    -- Checking the balance on the source account
+    SELECT balance INTO source_balance FROM accounts WHERE id = p_source_account_id FOR UPDATE;
+
+    IF source_balance >= p_amount THEN
+        -- Perform the transfer
+        UPDATE accounts SET balance = balance - p_amount WHERE id = p_source_account_id;
+        UPDATE accounts SET balance = balance + p_amount WHERE id = p_target_account_id;
+        INSERT INTO transfers (source_account_id, target_account_id, amount, transfer_date)
+        VALUES (p_source_account_id, p_target_account_id, p_amount, NOW());
+        COMMIT;
+        SELECT 'Transfer completed successfully.' AS message;
+    ELSE
+        ROLLBACK;
+        SELECT 'Insufficient balance in the source account.' AS message;
+    END IF;
+END//
+
+DELIMITER ;
+```

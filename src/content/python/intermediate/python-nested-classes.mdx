@@ -1,0 +1,31 @@
+---
+title: "Nested classes"
+order: 9
+---
+
+<p>We can put classes in each other. This solution is used for logically grouping related classes, enhancing encapsulation by restricting visibility (as the inner class is only accessible within the outer class), and improving code organization. Inner classes have access to the outer class's objects. The example below perfectly represents all three applications of nested classes.</p>
+
+```python
+class BankAccount:
+    def __init__(self, balance):
+        self.__balance = balance # private attribute
+
+    def getBalance(self):
+        return self.__balance
+
+    def updateBalance(self, amount):
+        self.__balance += amount
+
+    def start(self, interestRate):
+        self.__interest = self.Interest(interestRate, self)
+
+    class Interest: # nested / inner class
+        def __init__(self, interestRate, bankacc):
+            self.__interestRate = interestRate # private attribute
+            bankacc.updateBalance((bankacc.getBalance() * self.__interestRate) / 100)
+
+bankacc = BankAccount(1000)
+print(bankacc.getBalance())
+bankacc.start(5)
+print(bankacc.getBalance())
+```

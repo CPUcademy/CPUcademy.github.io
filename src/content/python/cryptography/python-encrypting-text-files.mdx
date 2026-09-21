@@ -1,0 +1,30 @@
+---
+title: "Encrypting text files"
+order: 4
+---
+
+<p>Using simple file handling, we can easily use any cipher to encrypt and decrypt text files. The script below encrypts the contents of <b><i>plaintext.txt</i></b> and writes them to <b><i>encrypted.txt</i></b>, and then it decrypts the contents of <b><i>encrypted.txt</i></b> and writes the output to <b><i>decrypted.txt</i></b>.</p>
+
+```python
+from caesar import caesar # this file was created in a lesson about the Caesar cipher
+CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" # this string can contain other characters like !, @, etc.
+
+def process_file(input_file, output_file, key, cipher_mode):
+    with open(input_file, "r") as file:
+        textS = file.read()
+
+    message = ""
+    if cipher_mode == "encrypt":
+        processed_text = caesar(textS, key, "encrypt")
+        message = f"File '{input_file}' encrypted to '{output_file}' with key {key}."
+    elif cipher_mode == "decrypt":
+        processed_text = caesar(textS, key, "decrypt")
+        message = f"File '{input_file}' decrypted to '{output_file}' with key {key}."
+
+    with open(output_file, "w") as file:
+        file.write(processed_text)
+
+key = 13
+process_file("plaintext.txt", "encrypted.txt", key, "encrypt")
+process_file("encrypted.txt", "decrypted.txt", key, "decrypt")
+									```

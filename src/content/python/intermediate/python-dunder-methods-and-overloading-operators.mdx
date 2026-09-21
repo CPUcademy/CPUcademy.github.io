@@ -1,0 +1,226 @@
+---
+title: "Dunder methods and overloading operators"
+order: 6
+---
+
+<p>```__init__()``` (initialization) is an example of a special method. These methods are called dunder (double underscore). Some overload operators and others allow us to use Python's built-in methods.</p>
+
+<h2>The most important dunder methods</h2>
+
+<h4>```__call__()``` (callable)</h4>
+
+<p>It allows a class instance to be called like a function.</p>
+
+```python
+class Addition:
+    def __init__(self, x):
+        self.x = x
+
+    def __call__(self, y):
+        return self.x + y
+
+addition = Addition(5)
+result = addition(10)
+print(result)
+```
+
+<h4>```__str__()``` (string) and ```__repr__()``` (representation)</h4>
+
+<p>The ```__str__()``` method defines how a class object will be displayed when printed or converted to a string (using ```str()```). If the ```__str__()``` method is not defined, Python will use the default ```__repr__()``` method, which returns the object's memory address. Of course, it can be overridden and used to display the object’s technical details. If both ```__repr__()``` and ```__str__()``` are defined, ```__str__()``` will be called by default, and ```__repr__()``` through the ```repr()``` method.</p>
+
+```python
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return f"{self.x} {self.y}"
+
+    def __repr__(self):
+        return f"Point({self.x}, {self.y})"
+
+point = Point(1, 2)
+print(point)
+print(repr(point))
+```
+
+<h4>```__import__()```</h4>
+
+<p>It imports a module based on a string, allowing for dynamic module loading at runtime, which is useful for situations like plugin systems or when the module to be imported depends on user input or configuration files.</p>
+
+```python
+names = ["random"]
+for i in names:
+    globals()[i] = __import__(i)
+x = random.randint(3, 30)
+print(x)
+```
+
+<h4>```__dict__()```</h4>
+
+<p>It is a dictionary that stores an object's instance attributes and allows dynamic modification.</p>
+
+```python
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+p = Point(1, 2)
+print(p.__dict__)
+```
+
+<h4>```__getitem__()``` and ```__setitem__()```</h4>
+
+<p>```__getitem__()``` allows class instances to support accessing items using square brackets, like ```obj[key]```. ```__setitem__()``` allows class instances to support assigning values to items using square brackets, like ```obj[key] = value```.</p>
+
+```python
+class DataStore:
+    def __init__(self):
+        self.data = {"name": "Alice", "age": 30}
+
+    def __getitem__(self, key):
+        return self.data.get(key, "Key not found")
+
+    def __setitem__(self, key, value):
+        self.data[key] = value
+
+store = DataStore()
+print(store["name"])
+print(store["age"])
+print(store["address"])
+
+store["address"] = "123 Main St"
+store["age"] = 31
+
+print(store["address"])
+print(store["age"])  
+```
+
+<h4>```getattr()```, ```setattr()```, and ```delattr()```</h4>
+
+<p>```getattr()``` takes an object, the name of an attribute, and a default value (optional). It returns the value of the specified attribute if it is present and accessible in the object. If the attribute does not exist, it returns the default value, if provided, or raises an ```AttributeError```. ```setattr()``` takes an object, the name of an attribute, and the value to be assigned. It sets the attribute to the given value, creating it if it does not exist. ```delattr()``` takes an object and the name of an attribute, removing it from the object. If the attribute does not exist, it raises an ```AttributeError```.</p>
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+person = Person("Alice", 30)
+
+name = getattr(person, "name", "unknown")
+address = getattr(person, "address", "unknown")
+print(name, address)
+
+setattr(person, "address", "123 Main St")
+print(person.address)
+
+delattr(person, "age")
+
+# Trying to access the deleted attribute (raises AttributeError)
+try:
+    print(person.age)
+except AttributeError:
+    print("Attribute 'age' has been deleted.") 
+```
+
+<p>These statements have their corresponding dunder methods. In the example below, ```__getattr__()``` forwards method calls (```append(4)```) to the wrapped list, ```__setattr__()``` assigns the wrapped object (```obj```) properly, and ```__delattr__()``` would delete attributes from the wrapped object if used.</p>
+
+```python
+class Wrapper:
+    def __init__(self, obj):
+        self.obj = obj # calling __setattr__()
+
+    def __getattr__(self, name):
+        return getattr(self.obj, name) # redirecting attribute access
+
+    def __setattr__(self, name, value):
+        if name == "obj":
+            super().__setattr__(name, value) # avoiding recursion
+        else:
+            setattr(self.obj, name, value) # setting attribute on wrapped object
+
+    def __delattr__(self, name):
+        delattr(self.obj, name) # deleting attribute from wrapped object
+
+wrapped_list = Wrapper([1, 2, 3])
+wrapped_list.append(4) # calling __getattr__() to get append()
+print(wrapped_list.obj)
+```
+
+<h2>Overloading operators</h2>
+
+<p>Overloading an operator means overriding its functionalities so it can work with, e.g., our class's objects. In Python, we cannot overload operators directly as we do in languages like C++ (e.g., ```==```, ```<<```). Here, we override methods corresponding to the operators (e.g., ```__eq__()``` equals ```==```). We can overload operators thanks to the dunder methods listed below:</p>
+
+<p class="noBottomMargin">```__add__()``` - addition</p>
+<p class="noBottomMargin">```__sub__()``` - subtraction</p>
+<p class="noBottomMargin">```__mul__()``` - multiplication</p>
+<p class="noBottomMargin">```__truediv__()``` - division</p>
+<p class="noBottomMargin">```__floordiv__()``` - floor division (integer division)</p>
+<p class="noBottomMargin">```__mod__()``` - modulo division</p>
+<p class="noBottomMargin">```__pow__()``` - exponentiation</p>
+<p class="noBottomMargin">```__eq__()``` - equal to (```==```)</p>
+<p class="noBottomMargin">```__ne__()``` - not equal to (```!=```)</p>
+<p class="noBottomMargin">```__gt__()``` - greater than (```>```)</p>
+<p class="noBottomMargin">```__lt__()``` - lesser than (```<```)</p>
+<p class="noBottomMargin">```__ge__()``` - greater than or equal to (```>=```)</p>
+<p class="noBottomMargin">```__le__()``` - lesser than or equal to (```<=```)</p>
+<p class="noBottomMargin">```__and__()``` - bitwise ```and``` (```&```)</p>
+<p>```__or__()``` - bitwise ```or``` (```|```)</p>
+
+<h4>```__eq__()``` (equal to)</h4>
+
+<p>It defines what happens when we use the equality operator on class instances (thanks to this dunder method, we can compare them by chosen values and not ID addresses).</p>
+
+```python
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+point1 = Point(1, 2)
+point2 = Point(1, 2)
+
+print(point1 == point2) 
+```
+
+<h4>```__add__()``` (addition)</h4>
+
+```python
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __add__(self, other):
+        return Point(self.x + other.x, self.y + other.y)
+
+point1 = Point(1, 2)
+point2 = Point(3, 4)
+result = point1 + point2
+print(result.x, result.y) 
+```
+
+<h4>```__lt__()``` (lesser than)</h4>
+
+```python
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __lt__(self, other):
+        return self.x < other.x and self.y < other.y
+
+point1 = Point(1, 2)
+point2 = Point(3, 4)
+if point1 < point2:
+    print("Yes")
+```
+
+<p>In Python, we cannot overload methods because method arguments and return values do not have types, so the interpreter cannot distinguish them by signature.</p>

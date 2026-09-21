@@ -1,0 +1,76 @@
+---
+title: "Context managers"
+order: 6
+---
+
+<p>If you do not mind, please read this article on <a href="https://medium.com/@cpucademy/context-managers-enhance-your-knowledge-of-the-with-keyword-5821f4ff636e" target="_blank" className="link">Medium</a>.</p>
+
+<p>Context managers are a powerful feature for managing resources such as files, database connections, and network sockets.</p>
+
+<p>A problem that can be solved with a context manager arises if, while reading a file, the program crashes and doesn't reach the ```close()``` method. This could lead to file corruption. Of course, we could solve it with ```try```, ```except```, and ```finally```, but a better way would be to use the ```with``` keyword. It uses a context manager under the hood, which means it already has the "```try```, ```except```, ```finally```" structure implemented (a file will be properly closed even if when reading from it, the program crashes). We can customize this context manager with the ```__enter__()``` and ```__exit__()``` dunder methods if we want to fully control what happens while entering the file and during its closeup.</p>
+
+```python
+class File:
+    def __init__(self, file_name, method):
+        self.file = open(file_name, method)
+
+    def __enter__(self): # the first thing that happens (entering the "with" block)
+        print("Enter")
+        return self.file
+
+    def __exit__(self, exc_type, exc_value, exc_tb): # the last thing that happens (handling the exception - closing the file)
+        print("Exit")
+        self.file.close()
+        if exc_type is Exception:
+            return True # telling Python that we handled the exception ("return True" suppresses it so no exception will arise)
+
+with File("file.txt", "w") as f:
+    f.write("File")
+    raise Exception()
+```
+
+<p>The ```@contextmanager``` decorator from the ```contextlib``` module provides an easier and cleaner way to create a context manager using a generator.</p>
+
+```python
+from contextlib import contextmanager
+
+@contextmanager
+def file(file_name, method):
+    file = open(file_name, method)
+    yield file
+    file.close()
+
+with file("file.txt", "w") as f:
+    f.write("File")
+```
+    
+<p>The example below shows how context managers can be leveraged while working with our classes (the ```with``` keyword also works with objects other than files).</p>
+
+```python
+class Counter:
+    def __init__(self, countt = 0):
+        self.countt = countt
+
+class IncrementModifier:
+    def __init__(self, counter, amount):
+        self.counter = counter
+        self.amount = amount
+
+    def __enter__(self):
+        self.counter.countt += self.amount # incrementing the count
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        pass # no action needed on exit
+
+counter = Counter()
+
+print("Initial count:", counter.countt)
+
+with IncrementModifier(counter, 5): # using IncrementModifier to increase the count
+    print("Count after increment:", counter.countt)
+    
+with IncrementModifier(counter, 3):
+    print("Count after second increment:", counter.countt)
+```
+
+<p>Context managers are also used to make sure a thread unlocks a thread lock.</p>

@@ -1,0 +1,162 @@
+---
+title: "Simple substitution cipher"
+order: 7
+---
+
+<p>The key in a simple substitution cipher is a string that represents the specific mapping of letters used for substitution, where each letter in the plaintext is replaced by a corresponding letter from the key. For example, if the key is "DCEFGHIJKLMNOPQRSTUVWXYZAB", then "A" would be replaced with "D", "B" with "C", and so on, creating a one-to-one mapping between the original and substituted letters. The key can be created by randomly shuffling the alphabet or by using a predetermined pattern.</p>
+
+<table style={{marginBottom: "12px"}}>
+    <tr><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td></tr>
+    <tr><td>D</td><td>C</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td> <td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>A</td><td>B</td></tr>
+</table>
+
+<p>In this cipher, the number of possible keys is determined by the number of permutations of the alphabet. Since there are 26 letters in the English alphabet, the total number of possible keys is 26! (factorial), which equals approximately 4.03 x 10<sup>26</sup> different combinations.</p>
+
+```python
+import random
+CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+def substitution_translate(key, message, cipher_mode):
+    original_chars = CHARACTERS
+    mapped_chars = key
+
+    if cipher_mode == "decrypt":
+        original_chars, mapped_chars = mapped_chars, original_chars # swapping the original and mapped characters, if the cipher_mode is "decrypt"
+    
+    # Creating a mapping dictionary that pairs each original character with its corresponding mapped character
+    mapping_dict = dict(zip(original_chars, mapped_chars))
+
+    # Translating the message while preserving the case of each character
+    translated_message = [
+        mapping_dict[char.upper()].upper() if char.isupper() 
+        else mapping_dict[char.upper()].lower() if char.upper() in mapping_dict 
+        else char for char in message
+    ]
+    
+    return "".join(translated_message)
+
+def getRandomKey():
+    key = list(CHARACTERS)
+    random.shuffle(key)
+    return "".join(key)
+
+SUBSTITUTION_KEY = getRandomKey()
+plaintext = "HELLO WORLD!"
+ciphertext = substitution_translate(SUBSTITUTION_KEY, plaintext, "encrypt")
+print(f"Encrypted: {ciphertext}")
+
+decrypted_text = substitution_translate(SUBSTITUTION_KEY, ciphertext, "decrypt")
+print(f"Decrypted: {decrypted_text}")
+```
+
+<h2>Cracking</h2>
+
+<p>This cipher can be cracked using word pattern analysis, which identifies the structure of repeated letters in a word. For example, the word ```HELLO``` has the pattern ```0.1.2.2.3```, meaning ```H``` is the first unique letter (0), ```E``` is the second (1), ```L``` appears twice (2), and ```O``` is the fifth unique letter (3). When an encrypted word shares this same pattern, it’s likely to be a substitution of ```HELLO``` or another word with an identical repetition structure. We can compare the patterns derived from the ciphertext with those in a dictionary containing patterns for each word in the English language, identifying which words align and fit the established patterns. By doing so, we can assign potential plaintext letters to each cipher letter, gradually constructing a key that decodes the entire message. As we analyse more words and their corresponding patterns, we refine this mapping, allowing us to decode the message step by step until the entire text is revealed. The longer the message is, the more data we have to work with, which increases the chances of identifying consistent patterns and making accurate substitutions.</p>
+
+```python
+import re
+import copy
+from collections import defaultdict
+from is_english import * # this file was created in a lesson about detecting English
+
+CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+NON_CHARACTERS_SPACE_PATTERN = re.compile(r"[^A-Z\s]") # pattern to remove any non-letter characters
+
+# Returning a pattern string for a word, e.g. HELLO -> 0.1.2.2.3
+def getWordPattern(word):
+    word = word.upper()
+    letterNums = {}
+    wordPattern = [str(letterNums.setdefault(letter, len(letterNums))) for letter in word] # mapping letters to numbers
+    return ".".join(wordPattern)
+
+# Generating a dictionary mapping word patterns to a list of words that match them
+def generate_word_pattern_dict(word_list):
+    word_pattern_dict = {}
+    for word in word_list:
+        pattern = getWordPattern(word)
+        if pattern not in word_pattern_dict: # checking if this pattern is already a key in the dictionary
+            word_pattern_dict[pattern] = []
+        word_pattern_dict[pattern].append(word.upper()) # adding the current word to the list for this pattern
+    return word_pattern_dict
+
+allPatterns = generate_word_pattern_dict(ENGLISH_WORDS) # precomputing patterns for all English words
+
+# Creating a blank mapping of cipher letters to possible decoded letters
+def get_blank_cipherletter_mapping():
+    return {letter: [] for letter in CHARACTERS}
+
+# Adding candidate letters for a cipher word to a letter mapping
+def add_characters_to_mapping(letterMapping, cipherword, candidate):
+    for cipher_char, candidate_char in zip(cipherword, candidate): # pairing each cipher letter with the corresponding candidate letter
+        letterMapping[cipher_char] = list(set(letterMapping[cipher_char] + [candidate_char])) # updating the mapping for the cipher letter by adding the candidate letter (using a set to ensure no duplicates)
+
+# Intersecting two mappings to keep only letters that appear in both
+def intersect_mappings(mapA, mapB):
+    intersectedMapping = defaultdict(list)
+    for letter in CHARACTERS:
+        if not mapA[letter]:
+            intersectedMapping[letter] = copy.deepcopy(mapB[letter])
+        elif not mapB[letter]:
+            intersectedMapping[letter] = copy.deepcopy(mapA[letter])
+        else:
+            intersectedMapping[letter] = list(set(mapA[letter]) & set(mapB[letter])) # intersecting both lists (keeping only letters existing in both sets)
+    return intersectedMapping
+
+# Removing solved letters from other entries to reduce ambiguity
+def remove_solved_characters_from_mapping(letter_mapping):
+    loop_again = True
+    while loop_again: # looping until no further reductions
+        loop_again = False
+        # A list of letters with only one candidate
+        solved_characters = [
+            letter_mapping[cipherletter][0]
+            for cipherletter in CHARACTERS if len(letter_mapping[cipherletter]) == 1
+        ]
+
+        for cipherletter in CHARACTERS:
+            for solved_letter in solved_characters:
+                if len(letter_mapping[cipherletter]) > 1 and solved_letter in letter_mapping[cipherletter]: # checking if this cipher letter has multiple candidates and includes a solved letter
+                    letter_mapping[cipherletter].remove(solved_letter) # remove solved letters from other entries
+                    if len(letter_mapping[cipherletter]) == 1: # if this removal leaves only one candidate
+                        loop_again = True # if a new letter is solved, loop again
+
+    return letter_mapping
+
+# Decrypting a message using a letter mapping
+def decrypt_with_cipherletter_mapping(ciphertext, letter_mapping):
+    decrypted = ""
+    for char in ciphertext:
+        if char.upper() in CHARACTERS:
+            mapped_letters = letter_mapping[char.upper()] # the possible decoded letters for this cipher letter
+            if len(mapped_letters) == 1: # if we know the letter
+                decrypted += mapped_letters[0].lower() if char.islower() else mapped_letters[0].upper()
+            else:
+                decrypted += "_" # replacing an unknown character with this one
+        else:
+            decrypted += char
+    return decrypted
+
+def hack_substitution(message):
+    intersected_map = get_blank_cipherletter_mapping()
+    cipherword_list = NON_CHARACTERS_SPACE_PATTERN.sub("", message.upper()).split()
+
+    for cipherword in cipherword_list:
+        candidate_map = get_blank_cipherletter_mapping()
+        word_pattern = getWordPattern(cipherword)
+        if word_pattern not in allPatterns: # skip words with no English match
+            continue
+        for candidate in allPatterns[word_pattern]: # iterating over all candidate words that match the pattern
+            add_characters_to_mapping(candidate_map, cipherword, candidate) # adding candidate letters to the map
+        intersected_map = intersect_mappings(intersected_map, candidate_map)
+
+    return remove_solved_characters_from_mapping(intersected_map)
+
+message = "Uj ylo qmhy ymxohyrv bz oauhyojio, bjo bzyoj ibjyofxgmyoh ylo jmykro bz romguyv mjd ylo ohhojio bz touje. Mro so foro bthorqorh uj m ermjd ibhfui xgmv, br db so xbhhohh ylo meojiv yb hlmxo bkr dohyujuoh? Ylo ujyorxgmv toysooj zmyo mjd zroo sugg rmuhoh xrbzbkjd wkohyubjh mtbky bkr xkrxbho. Mh so jmquemyo ylo gmtvrujyl bz guzo, omil ilbuio so fmco oilboh ylrbkel ylo ibrrudbrh bz yufo, ujzgkojiuje jby bjgv bkr xmylh tky mghb ylo guqoh bz bylorh. Kgyufmyogv, ylo xkrhkuy bz cjbsgodeo mjd kjdorhymjduje toibfoh m nbkrjov bz hogz-duhibqorv, roqomguje ylo ujyoribjjoiyodjohh bz mgg ylujeh mjd ylo xrbzbkjd tomkyv ylmy guoh suyluj ylo ilmbh bz oauhyojio."
+letterMapping = hack_substitution(message)
+print(letterMapping)
+print()
+print(message)
+print()
+hackedMessage = decrypt_with_cipherletter_mapping(message, letterMapping)
+print(hackedMessage)
+```

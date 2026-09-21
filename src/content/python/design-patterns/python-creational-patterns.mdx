@@ -1,0 +1,538 @@
+---
+title: "Creational patterns"
+order: 2
+---
+
+<h3>Table of contents</h3>
+
+<ul>
+    <li><a href="#builder" className="link" style={{textDecoration: "none"}}>Builder</a></li>
+    <li><a href="#factories" className="link" style={{textDecoration: "none"}}>Factories</a></li>
+    <li><a href="#prototype" className="link" style={{textDecoration: "none"}}>Prototype</a></li>
+    <li><a href="#singleton" className="link" style={{textDecoration: "none"}}>Singleton</a></li>
+    <li><a href="#monostate" className="link" style={{textDecoration: "none"}}>Monostate (Singleton variation)</a></li>
+    <li><a href="#lazy-initialization" className="link" style={{textDecoration: "none"}}>Lazy Initialization</a></li>
+    <li><a href="#dependency-injection" className="link" style={{textDecoration: "none"}}>Dependency Injection</a></li>
+</ul>
+
+<p>Creational patterns deal with the construction of objects. An object can be created wholesale (in a single statement) or piecewise (step by step).</p>
+
+<h2><a id="builder">Builder</a></h2>
+
+<p>When an object takes long to initialize, provide an API for constructing it succinctly. Separate the construction of a complex object from its representation, allowing the same construction process to create various representations. A Builder is a separate component for building an object.</p>
+
+```python
+class Pizza:
+    def __init__(self):
+        self.sizee = None
+        self.cheese = None
+        self.pepperoni = False
+        self.mushrooms = False
+        self.extra_toppings = []
+
+    def __str__(self):
+        return f"Pizza(Size: {self.sizee}, Cheese: {self.cheese}, Pepperoni: {self.pepperoni}, Mushrooms: {self.mushrooms}, Extra Toppings: {self.extra_toppings})"
+
+class PizzaBuilder:
+    def __init__(self):
+        self.pizza = Pizza()
+
+    def set_size(self, sizee):
+        self.pizza.sizee = sizee
+        return self # returning the class object itself to perform chaining (see the explanation below)
+
+    def add_cheese(self, cheese_type):
+        self.pizza.cheese = cheese_type
+        return self
+
+    def add_pepperoni(self):
+        self.pizza.pepperoni = True
+        return self
+
+    def add_mushrooms(self):
+        self.pizza.mushrooms = True
+        return self
+
+    def add_topping(self, topping):
+        self.pizza.extra_toppings.append(topping)
+        return self
+
+    def build(self):
+        return self.pizza
+
+builder = PizzaBuilder()
+custom_pizza = builder.set_size("Large").add_cheese("Cheddar").add_pepperoni().add_topping("Olives").build()
+print(custom_pizza)
+
+veggie_pizza = builder.set_size("Medium").add_cheese("Mozzarella").add_mushrooms().add_topping("Bell Peppers").add_topping("Onions").build()
+print(veggie_pizza)
+```
+
+<h5>Chaining</h5>
+
+<p>Because of chaining, methods can be executed one after another in the same statement, as the class object is returned, and then be used to call the next method or modify attributes directly.</p>
+
+```python
+class Box:
+    def __init__(self, lengthh, widthh):
+        self.lengthh = lengthh
+        self.widthh = widthh
+
+    def set_dimensions(self, lengthh, widthh):
+        self.lengthh = lengthh
+        self.widthh = widthh
+        return self # returning the class object itself
+
+box = Box(5, 10)
+box.set_dimensions(7, 14).lengthh = 8
+print(box.lengthh, box.widthh)
+```
+
+<h4>Builder facets</h4>
+
+<p>A Builder facet is a specialized component of a Builder (a separate class) that focuses on constructing a specific aspect or "facet" of an object, e.g., personal details, job details, or address details. These facets work together to build the complete object, e.g., a user, while maintaining a fluent interface (an interface supporting method chaining).</p>
+
+```python
+class Person:
+    def __init__(self):
+        self.name = None
+        self.age = None
+        
+        # Job details
+        self.job_title = None
+        self.company = None
+        self.salary = None
+        
+        # Address details
+        self.street = None
+        self.city = None
+        self.postal_code = None
+
+    def __str__(self):
+        return f"Person(Name: {self.name}, Age: {self.age}, Job: {self.job_title} at {self.company} (${self.salary}))"
+
+# The main Builder class to manage all facets
+class PersonBuilder:
+    def __init__(self, person = None):
+        if person is None:
+            self.person = Person()
+        else:
+            self.person = person
+
+    @property
+    def personal(self):
+        return PersonPersonalBuilder(self.person)
+
+    @property
+    def job(self):
+        return PersonJobBuilder(self.person)
+
+    def build(self):
+        return self.person
+
+# Builder facet for personal details
+class PersonPersonalBuilder(PersonBuilder):
+    def __init__(self, parent_builder):
+        super().__init__(parent_builder)
+
+    def set_name(self, name):
+        self.person.name = name
+        return self
+
+    def set_age(self, age):
+        self.person.age = age
+        return self
+
+# Builder facet for job details
+class PersonJobBuilder(PersonBuilder):
+    def __init__(self, parent_builder):
+        super().__init__(parent_builder)
+
+    def set_job_title(self, job_title):
+        self.person.job_title = job_title
+        return self
+
+    def set_company(self, company):
+        self.person.company = company
+        return self
+
+    def set_salary(self, salary):
+        self.person.salary = salary
+        return self
+
+builder = PersonBuilder()
+person = builder.personal.set_name("John Doe").set_age(30).job.set_job_title("Software Engineer").set_company("Tech Corp").set_salary(120000).build()
+
+print(person)
+```
+
+<h4>Builder inheritance</h4>
+
+<p>Builder facets violate the Open/Closed Principle because every time we create a new sub-builder, we have to add it to the main Builder. Thanks to inheritance, every Builder in the example below is open for extension but closed for modification.</p>
+
+```python
+class Person:
+    def __init__(self):
+        self.name = None
+        self.job_title = None
+        self.salary = None
+
+    def __str__(self):
+        return f"{self.name} works as {self.job_title}, earns {self.salary}"
+
+    @staticmethod
+    def new():
+        return PersonBuilder()
+
+class PersonBuilder:
+    def __init__(self):
+        self.person = Person()
+
+    def build(self):
+        return self.person
+
+class PersonPersonalBuilder(PersonBuilder):
+    def called(self, name):
+        self.person.name = name
+        return self
+
+class PersonJobBuilder(PersonPersonalBuilder):
+    def job(self, job_title):
+        self.person.job_title = job_title
+        return self
+
+class PersonSalaryBuilder(PersonJobBuilder):
+    def earns(self, salary):
+        self.person.salary = salary
+        return self
+
+builder = PersonSalaryBuilder()
+person = builder.called("Josh").job("Engineer").earns("100000").build()
+print(person)
+```
+
+<h2><a id="factories">Factories</a></h2>
+
+<h3>Factory Method</h3>
+
+<p>A Factory Method is an alternate constructor. It provides an additional way to create class instances, often with a more descriptive name or specialized logic, while keeping the main ```__init__()``` constructor simple. Factory Method allows subclasses to define the type of object to be created, enabling customization of object creation without modifying the core logic. For example, instead of the user's age, we can take his date of birth and then calculate the age. They can be created using the ```@classmethod``` (like shown <a href="python-decorators.html#class-methods" className="link">here</a>) or ```@staticmethod``` decorator. A class can have multiple alternate constructors.</p>
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.__name = name
+        self.__age = age
+
+    def __str__(self):
+        return f"{self.__name}, {self.__age}"
+
+    @staticmethod
+    def from_age(name, age):
+        return Person(name, age)
+
+    @staticmethod
+    def from_birth_year(name, birth_year):
+        return Person(name, 2024 - birth_year)
+
+e = Person.from_age("Josh", 25)
+e2 = Person.from_birth_year("John", 1980)
+
+print(e)
+print(e2)
+```
+
+<p>The example above doesn't adhere to the SRP. We should separate the Factory Methods into a different class and use them from there.</p>
+
+```python
+class PersonFactory:
+    @staticmethod
+    def from_age(name, age):
+        return Person(name, age)
+
+    @staticmethod
+    def from_birth_year(name, birth_year):
+        return Person(name, 2024 - birth_year)
+
+class Person:
+    factory = PersonFactory() # this is optional (for convenience)
+    
+    def __init__(self, name, age):
+        self.__name = name
+        self.__age = age
+
+    def __str__(self):
+        return f"{self.__name}, {self.__age}"
+
+e = Person.factory.from_age("Josh", 25)
+e2 = Person.factory.from_birth_year("John", 1980)
+
+print(e)
+print(e2)
+```
+
+<h3>Abstract Factory</h3>
+
+<p>An Abstract Factory defines how Factories should be implemented (like an abstract class defines how classes should be implemented). Hierarchies of Factories can be used to create related objects.</p>
+
+```python
+from abc import ABC, abstractmethod
+
+class Vehicle(ABC):
+    @abstractmethod
+    def drive(self):
+        pass
+
+class Car(Vehicle):
+    def drive(self):
+        return "Driving a car"
+
+class Bike(Vehicle):
+    def drive(self):
+        return "Riding a bike"
+
+class VehicleFactory(ABC): # an Abstract Factory
+    @abstractmethod
+    def create_vehicle(self):
+        pass
+
+class CarFactory(VehicleFactory): # a concrete Factory
+    def create_vehicle(self):
+        return Car()
+
+class BikeFactory(VehicleFactory):
+    def create_vehicle(self):
+        return Bike()
+
+def vehicle_client(factory: VehicleFactory):
+    vehicle = factory.create_vehicle()
+    print(vehicle.drive())
+
+vehicle_client(CarFactory())
+vehicle_client(BikeFactory())
+```
+
+<h2><a id="prototype">Prototype</a></h2>
+
+<p>Prototype allows object cloning instead of creating new instances from scratch, improving efficiency and flexibility. Sometimes it is more efficient to clone an object and modify it, instead of initializing a new one. A Prototype is a partially or fully initialized object that we can copy (clone) and modify.</p>
+
+```python
+import copy
+
+class Car:
+    def __init__(self, model, colorr, engine):
+        self.model = model
+        self.colorr = colorr
+        self.engine = engine
+
+    def clone(self):
+        return copy.deepcopy(self) # creating a deep copy of the class object
+
+    def __str__(self):
+        return f"{self.colorr} {self.model} with {self.engine} engine"
+
+car1 = Car("Tesla Model S", "Red", "Electric") # creating an original object
+
+car2 = car1.clone() # cloning the object
+car2.colorr = "Blue" # modifying the cloned object
+
+print(car1)
+print(car2)
+```
+
+<h4>Prototype Factory</h4>
+
+<p>Factories can provide a convenient API for using Prototypes.</p>
+
+```python
+import copy
+
+class Car:
+    def __init__(self, model, colorr, engine):
+        self.model = model
+        self.colorr = colorr
+        self.engine = engine
+
+    def clone(self):
+        return copy.deepcopy(self) # creating a deep copy of the class object
+
+    def __str__(self):
+        return f"{self.colorr} {self.model} with {self.engine} engine"
+
+class CarFactory:
+    prototypes = {}
+
+    @classmethod
+    def register_prototype(cls, key, engine):
+        cls.prototypes[key] = Car("", "", engine)
+
+    @classmethod
+    def new_car(cls, key, model, colorr):
+        prototype = cls.prototypes.get(key)
+        if prototype:
+            car = prototype.clone()
+            car.model = model
+            car.colorr = colorr
+            return car
+        raise ValueError("Prototype not found!")
+
+CarFactory.register_prototype("electric", "Electric")
+CarFactory.register_prototype("combustion", "V8")
+
+car1 = CarFactory.new_car("electric", "Tesla Model S", "Blue")
+car2 = CarFactory.new_car("combustion", "Ford Mustang", "White")
+
+print(car1)
+print(car2)
+```
+
+<h2><a id="singleton">Singleton</a></h2>
+
+<p>Singleton ensures a class has only one instance and provides a global point of access to it. Sometimes, it doesn't make sense to have more than one object in the system, e.g., a database or an object Factory, because the initializer is expensive or is just unnecessary. A Singleton is a component that is instantiated only once (we want to prevent anyone from creating additional copies).</p>
+
+```python
+class Database:
+    _instance = None # a class-level attribute to store the single instance
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None: # checking if an instance already exists
+            cls._instance = super().__new__(cls) # creating and storing the single instance
+        return cls._instance
+
+    def get_data(self):
+        print("Loading data")
+
+s1 = Database()
+s2 = Database()
+s1.get_data()
+s2.get_data()
+
+print(s1 is s2) # these two instances are really the same instance
+```
+
+<p>The class in the example above can only have one instance, but if we add an ```__init__()``` method to it, it will execute two times. This can be fixed with a decorator or a metaclass (they can be used to enforce a true Singleton).</p>
+
+```python
+def singleton(cls):
+    instances = {}
+
+    def get_instance(*args, **kwargs):
+        if cls not in instances:
+            instances[cls] = cls(*args, **kwargs) # creating and storing the instance
+        return instances[cls] # returning the existing instance
+
+    return get_instance # returning the wrapper function
+
+@singleton
+class Database:
+    def __init__(self):
+        print("Loading database")
+
+s1 = Database()
+s2 = Database()
+print(s1 is s2)
+```
+
+```python
+class SingletonMeta(type):
+    _instances = {}
+    
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super().__call__(*args, **kwargs) # creating and storing the instance
+        return cls._instances[cls] # returning the existing instance
+
+class Database(metaclass=SingletonMeta):
+    def __init__(self):
+        print("Loading database")
+
+s1 = Database()
+s2 = Database()
+print(s1 is s2)
+```
+
+<p>Singletons ensure a single instance of a class, which is useful for managing shared resources like database connections or logging systems, preventing redundant object creation. However, they can introduce hidden dependencies and make unit testing difficult due to the global state, leading to unexpected side effects (such as unintended data modifications, stale state across tests, and difficulties in resetting the state for different parts of an application). Additionally, they violate the Single Responsibility Principle (SRP) by controlling both their lifecycle and primary functionality, making the code harder to maintain and extend.</p>
+
+<h2><a id="monostate">Monostate (Singleton variation)</a></h2>
+
+<p>Monostate allows multiple instances of a class to share the same state by making all instances point to a common dictionary (```__dict__()```). Unlike the Singleton pattern (which ensures only one instance exists), Monostate allows multiple instances but guarantees they behave as if they are the same object in terms of state.</p>
+
+```python
+class Monostate:
+    _state = {}
+
+    def __new__(cls, *args, **kwargs):
+        instance = super().__new__(cls)
+        instance.__dict__ = cls._state # all instances share the same state
+        return instance
+
+    def __init__(self, valuee):
+        self.valuee = valuee # all instances share the same "valuee" attribute
+
+a = Monostate("Value A")
+b = Monostate("Value B")
+
+print(a.valuee)
+print(b.valuee)
+```
+
+<h2><a id="lazy-initialization">Lazy Initialization</a></h2>
+
+<p>Lazy Initialization delays the creation of an object or a resource until it is actually needed, rather than when the object is first created. This is useful for optimizing resource usage, especially when the initialization of an object is resource-intensive or unnecessary if the object is never used. The example below adheres to this design pattern because it ensures that the database connection and any associated resources are only initialized when the ```get_data()``` method is first called, i.e., when the data is needed for the first time.</p>
+
+```python
+class LazyDatabase:
+    def __init__(self):
+        self._db_connection = None
+
+    def _initialize(self):
+        print("Initializing database connection...")
+        self._db_connection = "Database connection established"
+
+    def get_data(self):
+        if self._db_connection is None:
+            self._initialize() # initializing only when data is requested
+        print("Fetching data from database")
+
+db = LazyDatabase()
+db.get_data() # the database is initialized only when we call get_data()
+db.get_data() # accessing the data again, no re-initialization occurs
+```
+
+<h2><a id="dependency-injection">Dependency Injection</a></h2>
+
+<p>Dependency Injection allows us to inject dependencies (such as services, objects, or configurations) into a class rather than having the class create them itself. This promotes loose coupling (meaning the class has less direct knowledge or control over the specific implementation details of its dependencies), making the code more modular, flexible, and easier to test. With DI, the class doesn't need to worry about how its dependencies are created or managed. Instead, they are provided externally (often by a framework or a container), which simplifies testing and maintenance.</p>
+
+```python
+from abc import ABC, abstractmethod
+
+class DatabaseInterface(ABC):
+    @abstractmethod
+    def connect_db(self):
+        pass
+
+class MySQLDatabase(DatabaseInterface):
+    def connect_db(self):
+        print("Connecting to MySQL database...") # MySQL implementation
+
+class SQLiteDatabase(DatabaseInterface):
+    def connect_db(self):
+        print("Connecting to SQLite database...") # SQLite implementation
+
+class Service:
+    def __init__(self, db: DatabaseInterface):
+        self.db = db # injecting the dependency through the constructor
+
+    def execute_action(self):
+        print("Service is running...")
+        self.db.connect_db() # using the injected dependency
+
+# Creating database instances
+mysql_db = MySQLDatabase()
+sqlite_db = SQLiteDatabase()
+
+# Injecting the DatabaseInterface instances into the Service
+service1 = Service(mysql_db) # using MySQL
+service1.execute_action()
+service2 = Service(sqlite_db) # using SQLite
+service2.execute_action()
+```

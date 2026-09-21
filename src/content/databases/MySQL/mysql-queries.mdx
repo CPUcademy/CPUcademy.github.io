@@ -1,0 +1,147 @@
+---
+title: "Queries"
+order: 4
+---
+
+<h4>```SELECT``` statement</h4>
+```sql
+-- Displaying selected columns from a given table
+SELECT * 
+FROM table_name;
+```     
+
+<p>We can use arithmetic operators in the ```SELECT``` statement to perform calculations, such as ```SELECT price, quantity, price * quantity FROM products;```.</p>
+ 
+<h4>```AS``` clause</h4>
+```sql
+-- Giving an alias to a column in the result set (useful for readability and in ORDER BY or GROUP BY clauses)
+SELECT column_name AS 'c_name'
+FROM table_name;
+```
+
+<h4>```DISTINCT``` clause</h4>
+```sql
+-- Displaying every value from a given column only once
+SELECT DISTINCT column_name 
+FROM table_name;
+```
+
+<h4>```WHERE``` clause</h4>
+```sql
+-- Displaying values from records in which a specified condition is met
+SELECT column_name 
+FROM table_name 
+WHERE column_name = 2;
+```
+
+<h4>```LIKE``` operator</h4>
+<p>A ```WHERE``` statement criterion used to search for a specific pattern.</p>
+```sql
+SELECT column_name 
+FROM table_name 
+WHERE column_name LIKE 'ABC';
+```
+
+<h4>```_``` wildcard</h4>
+<p>One unspecified character in the “pattern” that the ```LIKE``` statement is looking for.</p>
+```sql
+SELECT column_name 
+FROM table_name 
+WHERE column_name LIKE '_QL';
+```
+
+<h4>```%``` wildcard</h4>
+<p>An unspecified number of characters in the “pattern” that the ```LIKE``` statement is looking for (could be 0 characters).</p>
+```sql
+SELECT column_name 
+FROM table_name 
+WHERE column_name LIKE 'S%';
+```
+
+<h4>```NULL``` values</h4>
+<p>Checking if a field contains a value (```NULL``` means no value).</p>
+```sql
+SELECT column_name 
+FROM table_name 
+WHERE column_name IS NULL; 
+```
+
+```sql
+SELECT column_name 
+FROM table_name 
+WHERE column_name IS NOT NULL;   
+```
+
+<h4>```AND``` operator</h4>
+<p>An operator used to combine conditions in a ```WHERE``` statement. If all of them are true, the record is displayed.</p>
+```sql
+SELECT column_name 
+FROM table_name 
+WHERE column1_name = 1 AND column2_name = 2; 
+```
+
+<h4>```OR``` operator</h4>
+<p>An operator used to combine conditions in a ```WHERE``` statement. If any of them is true, the record is displayed.</p>
+```sql
+SELECT column_name 
+FROM table_name 
+WHERE column1_name = 1 OR column2_name = 2; 
+```
+
+<h4>```BETWEEN``` operator</h4>
+```sql
+-- Filtering values ​​according to the numerical range specified in the WHERE statement (we can also use ranges with letters)
+SELECT column_name 
+FROM table_name 
+WHERE column_name BETWEEN 2 AND 7; -- same as: column_name >= 2 AND column_name <= 7
+```
+
+<h4>```IN``` operator</h4>
+```sql
+-- Filtering values ​​according to a list of individual values
+SELECT column_name 
+FROM table_name 
+WHERE column_name IN (2, 5, 7);
+```
+
+<h4>```ORDER BY``` clause</h4>
+<p>Sorting a table descending (```DESC```) or ascending (```ASC```) by the values of a specified column. Ascending sorting also means alphabetically. ```ASC``` is the default option.</p>
+```sql
+SELECT column_name 
+FROM table_name 
+ORDER BY column_name DESC;   
+```    
+
+```sql
+-- Sorting by multiple columns
+SELECT column_name 
+FROM table_name 
+ORDER BY column_name DESC, column2_name ASC, column3_name;   
+```  
+
+<h4>```CASE``` statement</h4>
+
+<p>The ```CASE``` statement is a conditional expression that allows us to evaluate a set of conditions and return specific values based on which condition is met.</p>
+
+```sql
+SELECT column1_name, column2_name,
+CASE
+    WHEN column1_name > 10 THEN 'It is 10.'
+    WHEN column1_name = 20 THEN 'It is 20.'
+    ELSE 'It is 30.'
+END AS case_example
+FROM table_name;
+```
+
+<h4>```IF``` statement</h4>
+
+<p>The ```IF``` statement is similar to the ```CASE``` statement but is used for executing specific SQL statements based on a condition. In contrast, the ```CASE``` statement evaluates multiple conditions within a single expression.</p>
+
+```sql
+IF column1_name > 10
+    THEN
+        SELECT 'Value is greater than 10';
+    ELSE
+        SELECT 'Value is 10 or less';
+END IF;
+```

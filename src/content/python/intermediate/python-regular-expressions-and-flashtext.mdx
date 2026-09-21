@@ -1,0 +1,248 @@
+---
+title: "Regular expressions and FlashText"
+order: 2
+---
+
+<p>Regular expressions (regex) are a powerful tool for pattern matching and text manipulation. They allow us to define search patterns for strings, enabling complex string operations such as validation, searching, and replacing. Python provides the ```re``` module for this purpose.</p>
+    
+<p>Write the ```import re``` statement at the beginning of every example.</p>
+
+<h4>```search()``` - finding a match in a string</h4>  
+
+<p>The ```search()``` function locates the first occurrence of a pattern in a string and returns a match object. If no match is found, it returns ```None```.</p>  
+
+```python
+pattern = "Python"
+textS = "I am learning Python programming"
+if_matches = re.search(pattern, textS)
+
+if if_matches:  
+    print("Match found!")  
+else:  
+    print("No match")  
+```
+
+<h4>```match()``` - matching from the beginning of a string</h4>  
+
+<p>The ```match()``` function checks if the pattern matches the beginning of the string.</p>  
+
+```python
+pattern = "I am"
+textS = "I am learning Python programming"
+if_matches = re.match(pattern, textS)
+
+if if_matches:  
+    print("Match found at the beginning")  
+else:  
+    print("No match at the start")  
+```
+
+<h4>```findall()``` - retrieving all matches</h4>  
+
+<p>The ```findall()``` function returns all occurrences of a pattern in a string as a list.</p>  
+
+```python
+pattern = r"\d+"
+textS = "There are 3 apples and 5 oranges."
+matches = re.findall(pattern, textS)
+print(matches) # ["3", "5"]
+```
+
+<h4>```sub()``` - replacing patterns</h4>  
+
+<p>The ```sub()``` function replaces all occurrences of a pattern with a specified string.</p>  
+
+```python
+pattern = r"\d"
+textS = "Contact me at 123-456-7890."
+result = re.sub(pattern, "X", textS) # replacing digits with "X"
+print(result) # Contact me at XXX-XXX-XXXX.
+```
+
+<h4>```compile()``` - creating reusable regex patterns</h4>  
+
+<p>The ```compile()``` function compiles a regex pattern into a regex object, allowing us to reuse the same pattern multiple times.</p>  
+
+```python
+pattern = re.compile(r"\d{3}-\d{2}-\d{4}") # pattern for a Social Security Number (SSN)
+
+# Using the compiled pattern
+text1 = "My SSN is 123-45-6789."
+text2 = "Your SSN is 987-65-4321."
+
+match1 = pattern.search(text1)
+match2 = pattern.search(text2)
+
+if match1:  
+    print("Match found in text1:", match1.group()) # 123-45-6789
+
+if match2:  
+    print("Match found in text2:", match2.group()) # 987-65-4321
+```
+
+<h4>```group()``` - extracting specific parts of a match</h4>  
+
+<p>The ```group()``` method of the match object retrieves specific matched groups in the pattern. Groups are defined using parentheses in the regex.</p>  
+
+```python
+pattern = r"(\d{3})-(\d{2})-(\d{4})" # grouping digits
+textS = "My SSN is 123-45-6789."
+match = re.search(pattern, textS)
+
+if match:  
+    print("Entire match:", match.group()) # 123-45-6789
+    print("Group 1:", match.group(1)) # 123
+    print("Group 2:", match.group(2)) # 45
+    print("Group 3:", match.group(3)) # 6789
+```
+
+<h2>Special sequences</h2>  
+
+<p style={{marginBottom: "5px"}}>Regex supports special sequences that simplify pattern creation:</p>  
+<div className="table-container"><table>
+    <tr>
+        <td>```\d```</td>
+        <td>Matching any digit (equivalent to ```[0-9]```).</td>
+    </tr>
+    <tr>
+        <td>```\D```</td>
+        <td>Matching any non-digit character.</td>
+    </tr>
+    <tr>
+        <td>```\w```</td>
+        <td>Matching any word character (alphanumeric + underscore).</td>
+    </tr>
+    <tr>
+        <td>```\W```</td>
+        <td>Matching any non-word character.</td>
+    </tr>
+    <tr>
+        <td>```\s```</td>
+        <td>Matching any whitespace character.</td>
+    </tr>
+    <tr>
+        <td>```\S```</td>
+        <td>Matching any non-whitespace character.</td>
+    </tr>
+</table></div>
+
+```python
+pattern = r"\d+"
+textS = "There are 12 cats and 34 dogs."
+matches = re.findall(pattern, textS)
+print(matches) # ["12", "34"]
+```
+
+<h2>Special characters</h2>  
+
+<p style={{marginBottom: "5px"}}>Regex supports special characters for advanced pattern matching:</p>  
+<div className="table-container"><table>
+    <tr>
+        <td>```.```</td>
+        <td>Matching any character except a newline.</td>
+    </tr>
+    <tr>
+        <td>```*```</td>
+        <td>Matches zero or more occurrences of the preceding element.</td>
+    </tr>
+    <tr>
+        <td>```+```</td>
+        <td>Matches one or more occurrences of the preceding element.</td>
+    </tr>
+    <tr>
+        <td>```?```</td>
+        <td>Matches zero or one occurrence of the preceding element.</td>
+    </tr>
+    <tr>
+        <td>```^```</td>
+        <td>Matches the start of a string.</td>
+    </tr>
+    <tr>
+        <td>```$```</td>
+        <td>Matches the end of a string.</td>
+    </tr>
+    <tr>
+        <td>```[]```</td>
+        <td>Matching any character within the brackets.</td>
+    </tr>
+    <tr>
+        <td>```&#92;```</td>
+        <td>Escaping special characters or signals a special sequence.</td>
+    </tr>
+</table></div>
+
+```python
+# Matching any character
+pattern = r"a.b"
+textS = "acb aab adb"
+matches = re.findall(pattern, textS)
+print(matches) # ["acb", "aab", "adb"]
+
+# Matching zero or more occurrences
+pattern = r"ab*"
+textS = "abb ab abbb a"
+matches = re.findall(pattern, textS)
+print(matches) # ["abb", "ab", "abbb", "a"]
+```
+
+<h2>Regex options (flags)</h2>  
+
+<p style={{marginBottom: "5px"}}>The ```re``` module provides several options to modify regex behavior:</p>  
+<div className="table-container"><table>
+    <tr>
+        <td>```re.IGNORECASE```</td>
+        <td>Making the regex case-insensitive.</td>
+    </tr>
+    <tr>
+        <td>```re.DOTALL```</td>
+        <td>Allowing the ```.``` character to match newline characters.</td>
+    </tr>
+    <tr>
+        <td>```re.VERBOSE```</td>
+        <td>Allowing the use of whitespace and comments in regex patterns for better readability.</td>
+    </tr>
+</table></div>
+
+```python
+# Using re.IGNORECASE
+pattern = re.compile(r"python", re.IGNORECASE)
+if_matches = pattern.search("I love PYTHON programming.")
+if if_matches:  
+    print("Case-insensitive match found!")
+
+# Using re.DOTALL
+pattern = re.compile(r"Hello.*World", re.DOTALL)
+textS = "Hello\nWorld"
+if_matches = pattern.search(textS)
+if if_matches:  
+    print("Match found with DOTALL!")
+
+# Using re.VERBOSE
+pattern = re.compile(r"""
+    \d{3}   # area code
+    -       # separator
+    \d{2}   # middle part
+    -       # separator
+    \d{4}   # last part
+""", re.VERBOSE)
+
+if_matches = pattern.search("123-45-6789")
+if if_matches:  
+    print("Verbose match found!")
+```
+
+<h2>The ```FlashText``` module</h2>
+
+<p>The flashtext module is used for fast keyword searching and replacing text. It is much faster than regular expressions, especially when handling large amounts of text or numerous keywords. This module has to be installed (```pip install flashtext```).</p>
+
+```python
+from flashtext import KeywordProcessor
+
+keyword_processor = KeywordProcessor()
+keyword_processor.add_keyword("Python")
+keyword_processor.add_keyword("programming")
+
+textS = "Python is a popular programming language."
+found_keywords = keyword_processor.extract_keywords(textS)
+print("Found keywords:", found_keywords)
+```

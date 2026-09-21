@@ -1,0 +1,202 @@
+---
+title: "OOP concept"
+order: 9
+---
+
+<ul>
+    <li>OOP (Object-Oriented Programming) is a programming paradigm that organizes code into reusable objects, making it modular, easier to maintain, and more scalable.</li>
+    <li>In OOP, we define classes, which serve as blueprints for creating objects. Objects represent real-world entities or concepts.</li>
+    <li>A class defines the structure and behavior of these objects, serving as a template.</li>
+    <li>An instance of a class is simply an object created from that class that represents it (a variable the class object, ```new ClassName()```, is assigned to). A class can have many instances (e.g., a ```User``` class can have many real user instances filled with personal data). Their names do not matter.</li>
+    <li>Attributes (also called fields or properties) are variables associated with an object, representing the state or characteristics of the object. Their values ​​differ between instances (e.g., the age varies by user but is still the same type of numerical value).</li>
+    <li>Inside classes, we define methods, which are functions that determine the behavior of objects. Methods are invoked using an object of the class they belong to.</li>
+    <li>Once an instance is created, we can access and modify the class's attributes and call its methods through it. Classes use the ```PascalCase``` naming convention.</li>
+</ul>
+
+<h2>Abstraction</h2>
+
+<p>Abstraction is a process that deals with complexity by hiding unnecessary information from the user. It simplifies reality by creating a version of an object that consists only of essential information. Data is visible only to semantically related functions to prevent misuse. Example: We can do many things on a computer, but it doesn't show us how it's doing them because we don't need that information. The implementation parts are hidden. It is the first concept of object-oriented programming.</p>
+
+<p>A constructor (```constructor()```) is a method called by the compiler when an object of the class is created. A destructor is called by the compiler when the object is destroyed. In JavaScript, constructors are not mandatory (the default constructor is executed anyway), and destructors DON'T EXIST. The constructor is commonly used for setting the initial values of variables. It never features the ```return``` instruction. Methods can take arguments. If a constructor takes them, we give them while assigning the class to a variable, and in other words - creating its instance (e.g., ```Human h = new Human(20)```).</p>
+
+<p>A field is a variable of any type that is declared inside the class. In a class, the order of methods and other objects is irrelevant because all objects have access to the whole class the whole time. Each class should be placed in a separate file.</p>
+
+<p>A getter is a method that returns values outside of a class, and a setter is a method that edits an object belonging to a class. We should use them because, inside them, we can add, e.g., validation rules.</p>
+
+<p>The ```this``` keyword represents the class it is used in and allows to address all objects of the class at any point in the class. ```this.x``` and ```x``` are different variables. The former is an object belonging to a class (a field), and the latter is just a variable.</p>
+
+```javascript
+class Human {
+    constructor() {
+        this.age = 0 // a field (an instance variable - its value differs by instance)
+        console.log("Constructor")
+    }
+
+    getAge() { return this.age }
+    setAge(age) { this.age = age }
+}
+
+const h = new Human() // an instance of a class
+h.age = 20
+h.setAge(10)
+console.log(h.getAge())
+```
+
+<h2>Encapsulation</h2>
+
+<p>Encapsulation prevents external code from being concerned with the internal workings of an object. It involves hiding the fields and methods of a class so that they are not accessible from the outside but only inside the class. The difference between abstraction and encapsulation is that abstraction hides objects and processes to show only the result at the end because it is the only thing that matters, while encapsulation hides them and blocks access to them, e.g., because some data should not be changed directly without a setter with validation rules inside. Encapsulation also promotes the creation of small, specialized methods and classes to keep them easy to understand, maintain, and reuse. It is the second concept of object-oriented programming. We should always identify the part of the code that changes and, when possible, encapsulate it.</p>
+
+<p>If there is a ```#``` before a field or a method name, it is a private attribute that cannot be called outside its class. Encapsulation blocks the possibility of bypassing certain instructions by, for example, editing the output variable outside the class. Most objects should be private, and outside of the class, they should be edited only through methods of this class (setters). If we try to access or change the value of a private object outside the class, we will get an error (when working with newer JS environments).</p>
+
+```javascript
+class Bank {
+    #balance // a private field with no initialization (it can be initialized immediately)
+    constructor() { this.#balance = 1000 }
+    getBalance() {return this.#balance }
+
+    #setBalance(balance) { // a private method
+        this.#balance = balance
+    }
+
+    withdraw(howMuch) {
+        if (this.#balance < howMuch)
+            return false
+        else
+            this.#setBalance(this.#balance - howMuch)
+        return true
+    }
+}
+
+const b = new Bank()
+console.log(b.getBalance())
+b.withdraw(400)
+console.log(b.getBalance())
+```
+
+<h2>Static objects</h2>
+
+<p>A static variable is a variable that retains its value between method calls. Its memory address is allocated once, and it exists for the duration of the program. A variable of this type will still exist even if an instance of the class does not. It is shared by all objects and not tied to any class instance (shared across all instances of the class). It can be accessed through the class name (```ClassName.field```). We create static variables outside methods.</p>
+
+<p>The same rule applies to methods - we can call them using the class directly without creating its instance. They have no access to the class's objects. Static methods differ from outside functions because we can override them later in a child class.</p>
+
+<p>We create all static objects by adding the ```static``` keyword before their definition.</p>
+
+```javascript
+class Example {
+    static static_variable = 0
+    static method() { this.static_variable++ }
+}
+
+const x = new Example()
+x.constructor.method() // accessing a static method via the instance's constructor (in this case - the default one)
+Example.method() // accessing a static method directly through the class
+
+console.log(x.constructor.static_variable + " " + Example.static_variable)
+```
+
+<h2>Inheritance</h2>
+
+<p>Classes can inherit objects (methods) from each other. The class that is being inherited from is called a parent class (also a base class or a superclass). The class that inherits from another class is called a child class (also a derived class or a subclass). It is the third concept of object-oriented programming.</p>
+            
+```javascript
+class Animal {
+    voice() { console.log("Voice!") }
+}
+
+class Cat extends Animal  {
+    breed() { console.log("I am a Bengal cat!") }
+}
+
+const cat = new Cat()
+cat.voice()
+cat.breed()
+```
+
+<h2>The ```super``` keyword</h2>
+
+<p>The ```super``` keyword allows us to call the original method from the parent class when overriding it in a subclass. Overriding means providing a new method implementation in the subclass that replaces the method defined in the parent class (e.g., defining a ```speak()``` method in a ```Cat``` subclass to replace the general ```speak()``` method from an ```Animal``` parent class).</p>
+
+```javascript
+class Animal {
+    voice() { console.log("Voice!") }
+}
+
+class Cat extends Animal {
+    voice() {
+        super.voice()
+        console.log("Meow!")
+    }
+}
+
+const cat = new Cat()
+cat.voice()
+```
+
+<h2>Polymorphism</h2>
+
+<p>Polymorphism means operating in the same way on objects of different types. It refers to an object's ability to take on many forms. For example, the ```+``` operator behaves polymorphically because it can add numbers and concatenate strings (it works with various data types in a very similar way). It is the fourth concept of object-oriented programming. Example: A man can be a father, a husband, a student, etc. One person can have different roles.</p>
+
+```javascript
+class Person {
+    role() {} // a placeholder method to be implemented by the subclasses
+}
+
+class Father extends Person {
+    role() { console.log("I am a father!") }
+}
+
+class Husband extends Person {
+    role() { console.log("I am a husband!") }
+}
+
+class Student extends Person {
+    role() { console.log("I am a student!") }
+}
+
+const father = new Father()
+const husband = new Husband()
+const student = new Student()
+
+const people = [father, husband, student]
+people.forEach(person => person.role()) // polymorphism: calling the same method "role()" on different objects
+```
+
+<div className="alert alert-info">
+    <b>Info:</b> Primitive variables (e.g., numbers) are passed to functions by value (as a copy). On the other hand, objects are passed by reference, meaning the function receives a reference to the original object (any changes made to the object within the function will affect the object in the outer scope without the need for returning it).
+</div>
+
+<div className="alert alert-warning">
+    <b>Warning:</b> The equality operators, when checking objects, only check whether the two objects have the same address in memory.
+</div>
+
+<h2>Object literals</h2>
+
+<p>Object literals are the simplest way to create objects in JavaScript. They use key-value pairs to define properties and methods.</p>
+
+```javascript
+let person = {
+    firstName: "John", // a property
+    lastName: "Doe",
+    age: 30,
+    isEmployed: true,
+    hobbies: ["reading", "traveling", "cycling"],
+    address: { // a nested object
+        street: "123 Main St",
+        city: "New York",
+        zipCode: 10001
+    },
+    greet: function() { // a method
+        console.log(`Hello, my name is ${this.firstName} ${this.lastName}.`) // we can incorporate variables into a string created using backticks instead of apostrophes
+    }
+}
+
+console.log(person.firstName)
+console.log(person.hobbies[1])
+console.log(person.address.city)
+
+person.greet()  
+delete person.firstName // deleting a property
+```
+
+<p>In object literals, ```"name": value``` defines the key as a string, which allows characters or spaces not valid in identifiers, while ```name: value``` uses an identifier as the key and follows standard variable naming rules.</p>
+                                

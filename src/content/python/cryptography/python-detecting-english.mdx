@@ -1,0 +1,42 @@
+---
+title: "Detecting English"
+order: 5
+---
+
+<p>To detect the English language in a string, we need a list of all English words (a dictionary). You can download it <a href="/data/courses/dictionary.txt" download="dictionary.txt" target="_blank" class="link">here</a>. Then we must check the percentage of English words in the message. If it is greater than 20%, and the percentage of letters (not special characters) in the message is at least 85%, we can say the message is in English.</p>
+
+```python
+CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" # this string can contain other characters like !, @, etc.
+LETTERS_AND_SPACE = CHARACTERS + CHARACTERS.lower() + " \t\n" # valid letters (uppercase and lowercase) and whitespace characters
+
+def load_dictionary(file_path): # loading a dictionary from a file and returning a set of words
+    with open(file_path, "r") as dictionary_file:
+        return set(word.strip() for word in dictionary_file if word.strip()) # creating the set of words, stripping whitespace characters and ignoring empty lines
+
+ENGLISH_WORDS = load_dictionary("dictionary.txt")
+
+def remove_non_letters(message): # removing non-letter characters from the message
+    return "".join(symbol for symbol in message if symbol in LETTERS_AND_SPACE)
+
+def get_english_count(message): # returning the percentage of English words in the message
+    message = message.upper()
+    cleaned_message = remove_non_letters(message)
+    possible_words = cleaned_message.split() # splitting the cleaned message into individual words
+
+    if not possible_words: # checking whether the list is empty (there are no words at all)
+        return 0.0
+
+    matches = sum(1 for word in possible_words if word in ENGLISH_WORDS) # counting how many of the found words are valid English words
+    return matches / len(possible_words) # return the ratio of valid words to total words
+
+def is_english(message, word_percentage = 20.0, letter_percentage = 70.0):
+    words_match = get_english_count(message) * 100 >= word_percentage # calculating if the percentage of English words meets the required threshold
+    num_letters = len(remove_non_letters(message)) # counting letters in the cleaned message
+    message_letters_percentage = (num_letters / len(message)) * 100 if message else 0 # calculating the percentage of letters in the original message
+    letters_match = message_letters_percentage >= letter_percentage # calculating if the percentage of letters meets the required threshold
+    return words_match and letters_match
+
+print(is_english("This is my secret message."))
+```
+
+<p>Detecting a language in a string can be useful, e.g., when using a brute-force attack. Then, we would not have to go through each possible answer and only select the most probable ones.</p>

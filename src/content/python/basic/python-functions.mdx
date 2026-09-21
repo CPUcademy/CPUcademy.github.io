@@ -1,0 +1,182 @@
+---
+title: "Functions"
+order: 9
+---
+
+<p>A function is a sequence of program instructions that performs a specific task, packaged as a unit. When we create a function, we can name the arguments it takes (but we don't have to). Arguments are variables that we give to the function so that it can operate on them (generally, a function cannot access objects created outside it due to variable scopes, which I will discuss in a moment). Functions follow the same naming rules as variables.</p>
+            
+<p>A function can return objects to the outside (variables, numbers, arithmetic operations, etc.) When it does, the function's return value is the result of its "calling." To see this value, we have to display this "calling" in the console using ```print()``` directly or assign it to a variable and then display it. The ```return``` instruction also ends the function's execution. To call a function (run it), we write its name and a parenthesis. If it takes any arguments, we write them inside the parenthesis. The names of the arguments don't have to be the same as the passed variables.</p>
+
+```python
+def function():
+    print("Function")
+
+def addition(x, y):
+    return x + y
+
+function()
+x = 2
+y = 4
+print(addition(x, y))
+```
+
+<p>If we want to leave a function empty for a while, we can write ```pass``` as its content to prevent a syntax error. This keyword also works with loops, conditional statements, etc.</p>
+
+<p>Function parameters are "placeholders" defined in a function declaration (```def addition(x, y)```), while arguments are the actual values passed to the function during its call (```addition(2, 4)```).</p>
+
+<h2>Variable scopes</h2>
+
+<p>Not every variable is accessible in every part of the program. Variables created in the main block (outside of any functions) are called ```global``` variables. They are accessible in all functions and instructions (under one condition, which I will discuss in a moment). ```local``` variables are variables created inside a block (a loop, conditional statement, function, etc.) and are accessible only inside this block.</p>
+
+<p>To get access to a ```global``` variable inside a function, we "import" this variable to the function scope with the ```global``` keyword. In Python, we also have a ```nonlocal``` variable scope. ```Nonlocal``` variables are variables that are declared within nested functions. We can "import" a ```nonlocal``` variable the same way as the ```global``` variable (using the ```nonlocal``` keyword).</p>
+
+<p>In the example below, if we didn't "import" these variables to the ```func2()``` scope, Python would create new ```local``` variables instead, and our changes would not affect the outer scopes.</p>
+
+```python
+x = 3
+
+def func1():
+    y = 4
+    def func2():
+        global x
+        nonlocal y
+        x = 5
+        y = 6
+    func2()
+    print(x, y)
+
+func1()
+print(x)
+```
+
+<p>Remember that nesting variables in the context of variable scopes is only relevant for functions, not for loops and conditional statements.</p>
+
+```python
+global_variable = 5
+
+def func(): 
+    global global_variable # the "global" keyword is only required if we modify the global variable within the function
+    global_variable += 1
+    print("Global:", global_variable) 
+
+def func2(local_variable):
+    local_variable += 1
+    print("Local:", local_variable)
+
+def func3(local_variable):
+    local_variable += 1
+    print("Local:", local_variable)
+    return local_variable # to see the changes made to a local variable in the outer block, we have to return its value            
+
+func()
+global_variable = 6
+func()
+
+local_variable = 7
+func2(local_variable)
+print(global_variable, local_variable) # 7 7
+
+local_variable = func3(local_variable)
+print(local_variable) # 8
+```
+
+<h2>Arguments</h2>
+
+```python
+# Returning a value multiplicated by a given number of times    
+list1 = [1, 2]
+def function(x):
+    return list1 * x
+print(function(3))
+        
+# setting a default argument value, which means if we don’t pass it, it will be substituted
+def func1(x, y = 1):
+    return x + y
+print(func1(1))
+print(func1(1, 2))
+
+# Setting hints of what types the arguments should be
+def func2(x: int, y: int):
+    return x + y
+print(func2(1, 2))
+
+# Setting a hint of what type the returned value should be
+def func3(x, y) -> str:
+    return str(x + y)
+print(func3(1, 2))
+```
+
+<p>Remember to watch out for default arguments. As we can see in the example below, the default parameter’s value is shared among function calls.</p>
+
+```python
+def add(n, x = []):
+    x.append(n)
+    return x
+
+list1 = add(1)
+list2 = add(2)
+print(list1, list2)
+```
+
+<p>We can also set type hints for lists, etc.</p>
+
+```python
+# Method nr. 1
+l: list[int] = []
+l.append(2)
+print(l)
+
+# Method nr. 2
+l2 = list[int]()
+l2.append(4)
+print(l2)
+```
+
+<h2>Recursive functions</h2>
+
+<p>A recursive function is a function that calls itself. Recursion is often used in various algorithms.</p>
+
+```python
+def function():
+    print("x")
+    function()
+function()
+```
+
+<h2>Functions as first-class objects</h2>
+
+<p>In Python, a function is a first-class object, meaning it can be defined, passed as an argument, returned from another function, and assigned to a variable.</p>
+
+```python
+def apply_operation(numbers, operation):
+    # Applying the given function operation to each element in the list
+    result = []
+    for i in numbers:
+        result.append(operation(i))
+    return result
+
+def square(x):
+    return x * x
+
+def cube(x):
+    return x ** 3
+
+nums = [1, 2, 3, 4]
+squared = apply_operation(nums, square) # passing the square() function as an argument
+cubed = apply_operation(nums, cube)
+
+print(squared)
+print(cubed)
+```
+
+<h2>Important clarification about ```range()```</h2>
+
+<p>The ```for i in range(5)``` loop iterates over a sequence (a list) of integers generated by the ```range(5)``` method. The ```in``` keyword indicates that ```i``` will take on each value in this sequence. This means we could also write, e.g., ```for i in [1, 2]:```.</p>      
+
+<p>We can use the ```range()``` method to create a sequence of numbers of a given size, which can be converted to a list if needed.</p>
+
+```python
+x = range(1, 3)
+print(x) # range(1, 3) - a range object representing numbers 1 and 2
+print(list(x)) # [1, 2] - a list
+```

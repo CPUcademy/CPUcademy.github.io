@@ -1,0 +1,130 @@
+---
+title: "Basics"
+order: 3
+---
+
+<h2>Fundamental rules</h2>
+<p>We count from zero, not from one.</p>
+<p>Quotation marks and apostrophes mean something slightly different, and I will explain it in a moment.</p>
+<p>In C++, a semicolon is placed after each statement. We must indicate which instructions belong to, e.g., a loop, by putting them in braces (unless it's only one line).</p>
+<p>We can create comments by using the ```//``` symbols. Things that we write after these signs don't count as code. Comments are often used to describe the code. Multiline comments can be written between ```/*``` and ```*/``` signs.</p>
+
+<h2>Variables</h2>
+
+<p className="noBottomMargin">A variable is a "drawer" for data in the RAM. We can store every sort of data in it. We have a lot of basic variable types:</p>
+<p className="noBottomMargin">```short``` (2 bytes) - integers in this range: [-32768, 32767]</p>
+<p className="noBottomMargin">```int``` (4 bytes) - integers in this range: [-2147483648, 2147483647]</p>
+<p className="noBottomMargin">```long``` (4 bytes) - integers in this range: [-2147483648, 2147483647]</p>
+<p className="noBottomMargin">```long long``` (8 bytes) - integers in this range: [-9223372036854775808, 9223372036854775807]</p>
+<p className="noBottomMargin">```float``` (4 bytes) - decimals (up to 6-7 digits after the decimal point)</p>
+<p className="noBottomMargin">```double``` (8 bytes) - decimals with double precision (up to 15-16 digits after the decimal point)</p>
+<p className="noBottomMargin">```long double``` (12 bytes) - decimals with vast precision (up to 19-20 digits after the decimal point)</p>
+<p className="noBottomMargin">```string``` - texts (a number can also be a part of it, e.g., "abc123")</p>    
+<p className="noBottomMargin">```char``` (1 byte) - one character. When using this type, we have to use apostrophes and not quotation marks. This rule goes both ways, and we can't use apostrophes with strings. A character can be converted to an integer (ASCII).</p>    
+<p className="noBottomMargin">```bool``` (1 byte) - ```true``` and ```false``` values. Its full name is boolean.</p>  
+<p>```NULL``` - a value used to indicate the absence of a value.</p>
+
+<p>We have to define the type when creating a variable.</p>
+
+<p>Everything on the left side of the ```=``` sign is a variable's name (it cannot contain spaces), and on the right is a value.</p>
+
+<p>Be cautious because, e.g., variables ```x``` and ```X``` are not the same!</p>
+
+<p>```int number = 4;``` will initialize an ```int``` variable called "number" and immediately assign it the value 4. C++ will reserve 4 bytes for it. ```number = 5;``` will change the value of this variable to 5. To access the memory address of a variable, we put an ampersand in front of it (```&number```). Memory addresses are the fastest way to refer to an object.</p>
+
+<p>If we don't immediately have any value to assign to the variable, we can simply declare it, e.g., ```int number2;```. We say that we declare a variable if it is empty at the beginning, and we initialize it when we give it a value. We can assign a value to the declared variable the same way as if we were changing the value of a variable that has already been initialized (```number2 = 6;```).</p>
+
+```cpp
+int number = 4; 
+number = 5;
+int number2;
+number2 = 6;
+cout << &number << endl;
+```
+<p>*In the examples I provide, I will not always give the entire code but fragments of it.</p>
+
+<p>While naming variables, we cannot add any numbers or spaces at the beginning. The first letter should not be in uppercase. C++ uses the ```snake_case``` and ```camelCase``` naming conventions.</p>
+
+<p>We can define a variable as a constant, whose value cannot be changed, by adding ```const``` before the variable definition (e.g., ```const string NAME = "text";```). We can also define constants this way: ```#define PI 3.14``` (this statement should be placed under ```#include <iostream>```). There is a convention that the names of constants should be in uppercase, with words separated by underscores.</p>
+
+<p>A variable named ```_``` is, by convention, treated as a placeholder and intentionally ignored.</p>
+
+<p>Variables can be declared in bulk, e.g., ```int a, b, c;```. They can also be defined in the same way: ```int a = 1, b, c = 2;``` (we can define only some of them if we want). In this case, the ```b``` variable is not empty, although it has no value assigned. It contains a value previously stored at its address in the computer memory. It is always safer to assign a value to a variable at the beginning to avoid errors (even if this value would be 0).</p>
+
+<p>If, for example, the number 4 is assigned to a ```float``` variable, it will be written as 4.0. If we divide 4.5 by 2, we get 2.25, but if we divide 5 by 2, we get 2 because when we divide an ```int``` by an ```int```, we get an ```int```. When dividing an ```int``` by an ```int```, we should write, e.g., 5.0 / 2, to get the exact result.</p>
+
+<p>Before the variable type, we can add the word ```unsigned```, which increases the variable's range, at the expense of not being able to assign a negative number (e.g., the range was 2 thousand for plus and 2 thousand for minus, and now it's 4 thousand for plus).</p>
+
+<p>If we assign a ```char``` character to an ```int```, it will be converted to the ASCII number corresponding to that character. A ```float``` number assigned to an ```int``` would be abbreviated without rounding (e.g., 2.6 would equal 2), and an ```int``` assigned to a ```float``` would be extended (e.g., 2 would equal 2.0).</p>
+
+<p>We can concatenate (join) strings with the ```+``` operator, e.g., ```string a = b + c;```, where ```b``` and ```c``` are ```string``` variables.</p>
+
+<p>If we divide 1234 by 10, the result will be 123 because we are dividing by 10, not 10.0 (numbers after the decimal point will not be included).</p>
+
+<p>Money should not be stored as a ```float``` because floating-point numbers cannot represent many decimal values exactly, which can cause rounding errors. Instead, we can store monetary amounts as an ```int``` representing the smallest currency unit, such as cents ($10.99 -> 1099).</p>
+
+<p>For example, ```1.``` is a floating-point number, treated the same as ```1.0```.</p>
+
+<p>A “falsy” number is a number that evaluates to ```false``` when converted to a boolean (only 0), while all other numbers are “truthy” and evaluate to ```true```.</p>
+
+<p>```\n``` symbolizes the enter key and can be used inside of strings. It will work like ```endl```.</p>
+
+<p>For now, a method is a special statement that performs a specific task, often related to something in our program, like printing text or calculating a result (I will talk more about methods later).</p>
+
+<h2>Hello World program</h2>
+
+<p>Do not worry if you won't understand everything from the description below because I will <b>explain it all in-depth later</b>, and for now, let's say it's just a template for all code.</p>
+
+<p>The ```<iostream>``` (input-output stream) library provides basic methods. We import different libraries with the ```#include``` instruction (a library is a set of connected modules that serve a related purpose). ```namespace std;``` sets ```std``` as a standard (without this, we would have to write ```std::``` every time before a lot of instructions). ```main()``` is the primary function that executes at the beginning. ```int``` before this function defines its type (```int``` is an integer, and the entire function returns 0 with the ```return 0;``` statement at the end). ```cout``` displays data of all types on the screen (C + OUT). The ```endl``` (end line) manipulator acts like an enter in the console. The ```<<``` characters symbolize the output stream, and we can connect different elements with them, e.g., when we want to display a text and a variable at once (in the example below, we connect a text with the ```endl``` manipulator). Joining strings (e.g., using these signs) is called concatenation.</p>    
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "Hello World!" << endl;
+    return 0;
+}
+```
+
+<p>We can compile a C++ file from the terminal using the ```g++ -o program main.cpp``` command, and then run it using ```./program```.</p>
+
+<h2>The ```cin``` statement</h2>
+
+<p>The ```cin``` statement retrieves data from the user and saves it to a variable.</p>
+
+```cpp
+int x, y, z;
+cin >> x; // the stream signs are in the opposite direction to the ones used with cout
+cin >> y >> z; // reading data to two variables at once
+```
+
+<h2>Type casting</h2>
+
+<p>Type casting, also known as type conversion, is the process of converting one data type to another (e.g., ```double``` to ```int```).</p>
+
+```cpp
+double x = 5.5;
+int y = (int)x; // C language style - the type written inside the parenthesis is the one that we are converting to
+// an equivalent: int y = int(x);
+cout << y << endl;
+
+cout << static_cast<double>(4) / 7 << endl; // C++ language style
+char a;
+cin >> a;
+cout << (int)a << endl; // ASCII
+```
+
+<p>It is better to use the conversion in the C++ language style because it also checks if this operation can be performed.</p>
+
+<p>Type casting can be implicit, where a type is automatically converted to another (e.g., when dividing an integer by another integer, resulting in a floating-point number), or explicit, as shown above.</p>
+
+<h2>The ```printf()``` method</h2>
+
+<p>The ```printf()``` statement is an alternative for ```cout``` that makes incorporating variables into the output string easier. It is characteristic of the C language, so if possible, it is better to use ```cout```.</p>
+
+```cpp
+char str[] = "abc"; // an array of chars (I will talk about arrays later)
+int num = 5;
+printf("str = %s \nnum = %d", str, num); // %s - an array of chars, %n - a number
+```

@@ -1,0 +1,57 @@
+---
+title: "Arrays"
+order: 6
+---
+
+<p>We use arrays to store many objects of all types. We create them using square brackets or an ```Array``` object. Arrays in JavaScript are more like dynamic lists than classic arrays. They do not have a size set from the beginning and can store objects of different types. We can immediately fill the array with objects after commas or leave it empty. An array index is the position number used to access or reference a specific element within an array, starting from 0.</p>
+
+```javascript
+let a = [1, 2]
+a.push(3) // adding an element at the end
+a.pop() // deleting the last element (if we assign this method to a variable, it will equal this deleted value)
+a.shift() // deleting the first element (if we assign this method to a variable, it will equal this deleted value)
+a.unshift(5) // adding an element at the beginning
+a.push(4)
+a.splice(2, 1) // deleting one element at a given index (the first argument is the index, and the second one is the number of elements to delete)
+a.sort() // sorting an array (alphabetically by default)
+console.log(a.indexOf(4)) // finding the index of a given character (if there are more than one - the index of the first one encountered)
+console.log(a)
+console.log(a.length) // the length of an array (or a string)
+a.reverse() // reversing the order of elements in an array
+console.log(a)
+
+console.log("a[0] equals " + a[0])
+console.log("a[1] equals " + a[1])
+console.log("a[2] equals " + a[2])
+
+let x = new Array(1, 2, 3, 4) // the second method to create an array
+
+for (let i = 0; i < x.length; i++) // iterating over an array (accessing every single array element independently)
+    console.log(x[i])
+```
+
+<p>We can create multidimensional arrays (an array in an array, etc.) A two-dimensional array is called a matrix.</p> 
+
+```javascript
+let a = [[1, 2, 3], [4, 5, 6]]
+console.log(a[1])
+```
+
+<p>To access an element from the internal array, we do as in the example below. The first index means which array we are entering (in this case, the second one), and the second index means which element of the internal array we want to access (in this case, the first one).</p>
+
+```javascript
+let a = [[1, 2, 3], [4, 5, 6]]
+console.log(a[1][0])
+```
+
+```javascript
+// Defining the array's elements in a loop
+let a = new Array(100) // creating an array with 100 slots, all initially 'undefined' because a single numeric argument of an Array object sets the array's length, not its contents
+
+for (let i = 0; i < 100; i++) {
+    a[i] = i
+    console.log("a[" + i + "] = " + a[i])
+}
+
+console.log(a.length)
+```

@@ -1,0 +1,150 @@
+---
+title: "Inheritance and polymorphism"
+order: 4
+---
+
+<p>Classes can inherit objects (methods) from each other. The class that is being inherited from is called a parent class (also a base class or a superclass). The class that inherits from another class is called a child class (also a derived class or a subclass). It is the third concept of object-oriented programming.</p>
+
+```python
+class Animal:
+    def voice(self):
+        print("Voice!")
+
+class Cat(Animal):
+    def breed(self):
+        print("I am a Bengal cat!")
+
+cat = Cat()
+cat.voice()
+cat.breed() 
+```
+
+<p>The superclass's constructor is automatically called before the subclass's constructor if it isn't overridden. Overriding means providing a new method implementation in the subclass that replaces the method defined in the parent class (e.g., defining a ```speak()``` method in a ```Cat``` subclass to replace the general ```speak()``` method from an ```Animal``` parent class).</p>
+
+```python
+class Animal:
+    def speak(self):
+        print("Voice!")
+
+class Cat(Animal):
+    def speak(self):
+        print("Meow!")
+
+c = Cat()
+c.speak()
+```
+
+<p>In the example below, ```self.x``` is assigned in the ```Example```'s constructor, making it an instance variable, which ```printX()``` (inherited from ```Functions```) can access through ```self``` because instance attributes are shared across methods in an object-oriented hierarchy.</p>
+
+```python
+class Functions:
+    def printX(self):
+        print(self.x) 
+
+class Example(Functions):
+    def __init__(self):
+        self.x = 2
+
+e = Example()
+e.printX()
+```
+
+<p>Using the two methods below, we can check if a class is a subclass of another class or an object is an instance of a given class.</p>
+
+```python
+print(issubclass(Cat, Animal))
+print(isinstance(cat, Cat))
+print(isinstance(cat, Animal))
+```
+
+<p>We can also use the ```isinstance()``` method to check if a variable is of a specific type: ```isinstance(x, tuple)```.</p>
+
+<h2>Multiple inheritance</h2>
+
+<p>A class can inherit features from more than one parent class.</p>
+
+```python
+class Animal:
+    def voice(self):
+        print("Voice!")
+
+class Mammal:
+    def appearance(self):
+        print("I have fur!")
+
+class Tiger(Animal, Mammal):
+    def sound(self):
+        print("Raah!")
+
+class Cat(Tiger):
+    def breed(self):
+        print("I am a Bengal cat!")
+
+cat = Cat()
+cat.voice()
+cat.appearance()
+cat.sound()
+cat.breed()
+```
+
+<h2>The ```super()``` method</h2>
+
+<p>The ```super()``` method allows us to call the original method from the parent class when overriding it in a subclass.</p>
+
+```python
+class Animal:
+    def voice(self):
+        print("Voice!")
+
+class Cat(Animal):
+    def voice(self):
+        super().voice()
+        print("Meow!")
+
+cat = Cat()
+cat.voice()
+```
+
+<h2>Polymorphism</h2>
+
+<p>Polymorphism means operating in the same way on objects of different types. It refers to an object's ability to take on many forms. For example, the ```+``` operator behaves polymorphically because it can add numbers and concatenate strings (it works with various data types in a very similar way). It is the fourth concept of object-oriented programming. Example: A man can be a father, a husband, a student, etc. One person can have different roles.</p>
+
+```python
+class Person:
+    def role(self):
+        pass # a placeholder method to be implemented by the subclasses
+
+class Father(Person):
+    def role(self):
+        print("I am a father!")
+
+class Husband(Person):
+    def role(self):
+        print("I am a husband!")
+
+class Student(Person):
+    def role(self):
+        print("I am a student!")
+
+father = Father()
+husband = Husband()
+student = Student()
+
+for person in [father, husband, student]:
+    person.role() # polymorphism: calling the same method "role()" on different objects
+```
+            
+<p>This mechanism can also be used in structural programming.</p>
+            
+```python
+list1 = ["a", "b", "c"]
+string = "abc"
+number = 5
+
+def read(parameter): # this function works polymorphically
+    print(parameter)
+                
+read(list1)
+read(string)
+read(number)
+```

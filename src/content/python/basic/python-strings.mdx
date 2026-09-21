@@ -1,0 +1,149 @@
+---
+title: "Strings"
+order: 7
+---
+
+<h4>Concatenation</h4>
+            
+<p>Concatenation means joining strings. ```print(x + y)``` will concatenate ```x``` and ```y``` together and print the resulting string, e.g., "Hello" + "World" = "HelloWorld". ```print(x, y)``` will print ```x``` and ```y``` as separate values with a space in between, e.g., "Hello", "World" = "Hello World". The former wouldn't work with a string and an integer, but the latter would. However, we could convert an integer to a string and then concatenate: ```print(x + str(y))```.</p>
+
+```python
+# Checking if a string contains a specified substring
+print("y" in "Python")
+print("y" not in "Python")    
+```
+
+<h4>```len()```</h4>
+
+```python
+# A number of characters in a string (its length)
+x = "Python"
+print(len(x))
+```
+
+<h4>String indexing</h4>
+
+<p>A string index is the position number used to access or reference a specific substring within a string, starting from 0.</p>
+
+```python
+x = "Python"
+print(x[0]) # the first character - "P"
+print(x[2]) # the third character - "t"
+print(x[-1]) # the last character - "n"
+print(x[1:3]) # from the 2nd character (included) to the 4th (excluded) - "yt"
+print(x[::-1]) # reversed order - "nohtyP"
+print(x[::2]) # every 2nd character - "Pto"
+print(x[-3:]) # the last 3 characters - "hon"
+print(x[1::2]) # from the 2nd character to the end, every 2nd character - "yhn"
+print(x[::-2]) # every 2nd character counting from the back - "nhy"
+print(x[2:]) # from the 3rd character (included) to the end - "thon"
+print(x[:2]) # from the start to the 3rd character (excluded) - "Py"
+print(x[-3:-1]) # from the 3rd last (included) to the last character (excluded) - "ho"
+```
+
+<h4>Iterating a string</h4>
+
+```python
+# Getting access to every single string character independently
+x = "Python"
+for y in x:
+    print(y)
+```
+
+<h4>```replace()```</h4>
+
+```python
+# Replacing a fragment of a string
+x = "Python"
+print(x.replace("Py", "AA"))
+```
+
+<h4>```startswith()``` and ```endswith()```</h4>
+
+```python
+textS = "Python"
+# Checking if a string is at the beginning of a text
+if textS.startswith("Py"):
+    print("True")
+# Checking if a string is at the end of a text
+if textS.endswith("on"):
+    print("True")
+```
+
+<h4>```find()``` / ```index()```</h4>
+
+```python
+# Finding the position of the first occurrence of a substring in a string (the index of the substring's first letter). If there are more than one - the index of the first one encountered.
+x = "Python"
+print(x.find("n"))
+print(x.index("n"))
+```
+
+<h4>```count()```</h4>
+
+```python
+# Counting the number of times a substring occurs in a string
+x = "Python"
+print(x.count("n"))
+```
+
+<h4>Lowercase and uppercase</h4>
+
+```python
+x = "Python"
+# Lowercase to uppercase
+print(x.upper())
+# Uppercase to lowercase
+print(x.lower())
+# Lowercase to uppercase, uppercase to lowercase
+print(x.swapcase())
+```
+
+```python
+x = "PYTHON"
+y = "python"
+# Checking if a string is in uppercase
+if x.isupper():
+    print("True")
+# Checking if a string is in lowercase
+if y.islower():
+    print("True")
+```
+
+<p>A few more methods with the ```is``` prefix:</p>
+<ul type="disc">
+    <li>The ```isdecimal()``` method returns ```True``` if the string consists only of numeric characters (0-9) and is not empty.</li>
+    <li>The ```isdigit()``` method returns ```True``` if the string consists of numeric characters or other numeric symbols (e.g., subscripts) and is not empty.</li>
+    <li>The ```isalpha()``` method returns ```True``` if the string consists only of letters and is not empty.</li>
+    <li>The ```isalnum()``` method returns ```True``` if the string consists only of letters and numbers and is not empty.</li>
+    <li>The ```isspace()``` method returns ```True``` if the string consists only of spaces, tabs, and new lines and is not empty.</li>
+    <li>The ```istitle()``` method returns ```True``` if the string consists only of words beginning with an uppercase letter followed by lowercase letters.</li>
+</ul>
+
+<h4>Margins</h4>
+
+```python
+x = "Python"
+print(x.center(20)) # margins from both sides
+print(x.rjust(20)) # margin from the left
+print(x.ljust(20)) # margin from the right
+```
+
+<h4>Whitespace characters</h4>
+
+```python
+x = "    Python    "
+print(x.strip()) # deleting whitespace characters
+print(x.rstrip()) # deleting whitespace characters from the right
+print(x.lstrip()) # deleting whitespace characters from the left
+```
+                                
+<h4>Unicode</h4>
+
+```python
+print(ord("A")) # coding Unicode characters
+print(chr(65)) # decoding Unicode characters
+```
+
+<p>In Python, we can compare two strings using the same signs as with numbers. A string can be "lesser" or "greater" than another string based on two factors: its length and the alphabetical order of compared characters. Check out how this works in your editor.</p>
+                                

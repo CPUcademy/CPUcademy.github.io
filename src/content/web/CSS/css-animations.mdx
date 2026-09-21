@@ -1,0 +1,195 @@
+---
+title: "Animations"
+order: 4
+---
+
+<p>Animations in CSS can be done through various techniques, such as ```transition```, ```transform```, and ```keyframes```. Each of these CSS properties has its own set of options and can be combined to create seamless, interactive, and dynamic web designs.</p>
+                                
+<h2>```transition``` & ```transform```</h2>
+<p>```transition``` allows an element to change from one style to another over a specific period of time. It is primarily used for animating changes in an element's state. The key aspect of transitions is that they smoothly interpolate between initial and final styles. ```transform``` allows us to change the position, size, and orientation of an element without affecting its surrounding content. It is often used in combination with transitions to create more complex animations.</p>
+
+<p>In summary, ```transform``` is about the immediate change in the element's appearance, while ```transition``` is about how those changes are animated over time. </p>
+
+<h3>Transition options</h3>
+<div className="table-container"><table>
+    <tr>
+      <td>```ease```</td>
+      <td>Starts slowly, speeds up, then slows down again (default).</td>
+    </tr>
+    <tr>
+      <td>```linear```</td>
+      <td>Same speed throughout.</td>
+    </tr>
+    <tr>
+      <td>```ease-in```</td>
+      <td>Starts slow, then speeds up.</td>
+    </tr>
+    <tr>
+      <td>```ease-out```</td>
+      <td>Starts fast, then slows down.</td>
+    </tr>
+    <tr>
+      <td>```ease-in-out```</td>
+      <td>Starts slow, speeds up, and then slows down again.</td>
+    </tr>
+    <tr>
+      <td>```cubic-bezier()```</td>
+      <td>Defines a custom easing function using four numeric parameters.</td>
+    </tr>
+</table></div>
+                           
+<h3>Common transform functions</h3>
+<div className="table-container"><table>
+    <tr>
+      <td>```rotate(deg)```</td>
+      <td>Rotates an element by a specified number of degrees.</td>
+    </tr>
+    <tr>
+      <td>```scale(x, y)```</td>
+      <td>Scales an element horizontally (x) and vertically (y).</td>
+    </tr>
+    <tr>
+      <td>```translate(x, y)```</td>
+      <td>Moves an element by a specified distance along the x and y axes.</td>
+    </tr>
+    <tr>
+      <td>```skew(x, y)```</td>
+      <td>Skews an element along the x and y axes.</td>
+    </tr>
+    <tr>
+      <td>```matrix(a, b, c, d, e, f)```</td>
+      <td>A 2D transformation function that defines a transformation using a matrix.</td>
+    </tr>
+</table></div>
+                                
+```css
+/* The button, when hovered, will smoothly change its background color from blue to red and scale up 1.2 times (20% larger). */
+button {
+    background-color: blue;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: red;
+    transform: scale(1.2);
+}
+```
+
+<button type="button" onclick="alert('Button clicked!')" className="buttonn">Click me</button>
+
+```css
+/* The .box element will rotate by 45 degrees and scale up 1.5 times when hovered. */
+.box {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    transition: transform 0.5s ease;
+}
+
+.box:hover {
+    transform: rotate(45deg) scale(1.5);
+}
+```
+
+<div className="box"></div>
+                                
+<h2>```keyframes```</h2>
+<p>```@keyframes``` provides a way to create more complex, multi-step animations. They allow us to define various points (or "keyframes") during an animation, specifying the style at each point.</p>
+                                
+<h3>Keyframe options</h3>
+<div className="table-container"><table>
+    <tr>
+      <td>```animation-name```</td>
+      <td>The name of the animation (defined with ```@keyframes```).</td>
+    </tr>
+    <tr>
+      <td>```animation-duration```</td>
+      <td>The total duration of the animation (e.g., ```3s```).</td>
+    </tr>
+    <tr>
+      <td>```animation-timing-function```</td>
+      <td>The speed curve of the animation (e.g., ```linear```, ```ease-in-out```).</td>
+    </tr>
+    <tr>
+      <td>```animation-delay```</td>
+      <td>The time to wait before starting the animation (e.g., ```3s```).</td>
+    </tr>
+    <tr>
+      <td>```animation-iteration-count```</td>
+      <td>The number of times the animation should run (e.g., ```infinite```, ```3```).</td>
+    </tr>
+    <tr>
+      <td>```animation-direction```</td>
+      <td>Defines the direction of the animation cycle (e.g., ```normal```, ```reverse```, ```alternate```). Alternate means alternating between forward and reverse.</td>
+    </tr>
+    <tr>
+      <td>```animation-fill-mode```</td>
+      <td>Defines how the styles should be applied before or after the animation (e.g., ```forwards```, ```backwards```).</td>
+    </tr>
+</table></div>   
+
+```css
+/* The .box element will move from left to right while changing color from blue to green and finally to red. 
+The animation will take 3 seconds, repeat infinitely, and use an ease-in-out timing function. */
+@keyframes move {
+    0% {
+        left: 0; /* this requires setting the element to position absolute or relative. */
+        background-color: blue;
+    }
+    50% {
+        left: 50%;
+        background-color: green;
+    }
+    100% {
+        left: 100%;
+        background-color: red;
+    }
+}
+
+.box {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    animation: move 3s ease-in-out infinite;
+}
+```
+
+<div className="box2"></div>
+
+<h2 style={{ marginTop: 125 }}>Combining transitions, transforms, and keyframes</h2>
+                                
+```css
+/* The button bounces up and down using a keyframe animation while also scaling up and changing colors when hovered. */
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+        background-color: blue;
+    }
+    50% {
+        transform: translateY(-20px);
+        background-color: green;
+    }
+    100% {
+        transform: translateY(0);
+        background-color: red;
+    }
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    animation: bounce 2s infinite;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.1);
+    background-color: purple;
+}
+```
+
+<button type="button" onclick="alert('Button clicked!')" className="button2 buttonn">Click me</button>

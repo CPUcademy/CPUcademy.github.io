@@ -1,0 +1,153 @@
+---
+title: "Basics"
+order: 2
+---
+
+<p>HTML stands for HyperText Markup Language. It is not a programming language. It allows us to create the structure of a website. The extension of an HTML file is ```.html```.</p>
+
+<p>We can also create websites in WYSIWYG editors (What You See Is What You Get). Such an editor is, e.g., WIX. A good website has to be optimized in terms of SEO (Search Engine Optimization) so that it can be found by users. A good practice is to add keywords, descriptions, etc.</p>
+
+<p>The main website page has to be called ```index.html```. The code written between ```<``` and ```>``` is called a tag. They define the file structure. Tags can have "arguments," e.g., a link tag consists of a link and an optional attribute that determines whether the link will open in a new browser tab. Tags can be self-closing or paired. The paired ones are used when something needs to be enclosed, e.g., a paragraph, and the self-closing ones when, e.g., a hard enter needs to be placed. The paired tags have an opening (```<tag>```) and a closing (```</tag>```) version. Since HTML5, we <b>don't</b> close self-closing tags (```<tag/>```), although we can encounter it on older websites and when using frameworks such as React. We write self-closing tags as a <b>single opening tag</b>. We can create comments between ```<!--``` and ```-->``` signs. Things that we write between these signs don't count as code. Comments are often used to describe the code.</p>
+
+<h2>Website template</h2>
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Google description">
+    <meta name="keywords" content="different, keywords, after, commas">
+    <meta name="author" content="CPUcademy">
+    <meta name="creation-date" content="20.10.2024"> 
+    <meta name="last-modified" content="22.10.2024">
+    <meta name="generator" content="Visual Studio Code">
+    <title>Title</title>
+</head>
+<body>
+    
+</body>
+</html>
+```
+
+<p>The ```<html>``` tag contains the whole website. The ```<head>``` tag contains everything that isn't directly visible on the webpage but provides essential information to the browser, such as the title, links to CSS stylesheets, JS scripts, and other information that supports the page functionality. The ```<body>``` tag contains everything visible as the website's content. The ```<meta>``` tags contain the website's metadata, meaning the information that the browser uses when searching for a website (they are single tags). Of course, ```<meta>``` tags are optional. ```<!DOCTYPE html>``` forces a standards-compliant rendering mode.</p>
+
+<p>A semantic tag is an HTML element that conveys meaning about the content it contains, not just how it looks. </p>
+
+<h2>Basic tags</h2>
+                            
+<div className="table-container"><table>
+    <tr>
+        <td>```<p>```</td>
+        <td>A paragraph</td>
+    </tr>
+    <tr>
+        <td>```<img>``` (a single tag)</td>
+        <td>An image / a gif - arguments: ```src``` (a file path), ```alt``` (alternative text - if file not found),  ```title``` (additional information displayed as a tooltip on hover)</td>
+    </tr>
+    <tr>
+        <td>```<a>```</td>
+        <td>A link - arguments: ```href``` (the link), ```target="_blank"``` (optional, for opening in a new tab). For opening a mail client, use ```href="mailto:example@example.com"```.</td>
+    </tr>
+    <tr>
+        <td>```<h1>```-```<h6>```</td>
+        <td>A header (```<h1>``` - the biggest, ```<h6>``` - the smallest). They also differ in importance (referring to the level of emphasis and relevance each header has in organizing content for both users and search engines).</td>
+    </tr>
+    <tr>
+        <td>```<b>``` or ```<strong>```</td>
+        <td>Bold text. ```<strong>``` also indicates greater importance (semantic).</td>
+    </tr>
+    <tr>
+        <td>```<i>``` or ```<em>```</td>
+        <td>Italic text. ```<em>``` also emphasizes the meaning (semantic).</td>
+    </tr>
+    <tr>
+        <td>```<u>```</td>
+        <td>Underline text</td>
+    </tr>
+    <tr>
+        <td>```<s>```</td>
+        <td>Strikethrough text</td>
+    </tr>
+    <tr>
+        <td>```<q>```</td>
+        <td>Quote</td>
+    </tr>
+    <tr>
+        <td>```<sup>```</td>
+        <td>Superscript text (remember: <b>sup</b>erman flies <b>high</b>)</td>
+    </tr>
+    <tr>
+        <td>```<sub>```</td>
+        <td>Subscript text (remember: <b>sub</b>way drives <b>deep</b>)</td>
+    </tr>
+    <tr>
+        <td>```<br>``` (a single tag)</td>
+        <td>A hard enter</td>
+    </tr>
+    <tr>
+        <td>```<hr>``` (a single tag)</td>
+        <td>A line - arguments: ```size```, ```color```, ```width``` (it is better to use their CSS versions)</td>
+    </tr>
+    <tr>
+        <td>```<pre>```</td>
+        <td>Preformatted text (preserving whitespace and line breaks exactly as written)</td>
+    </tr>
+    <tr>
+        <td>```<code>```</td>
+        <td>A code snippet</td>
+    </tr>
+    <tr>
+        <td>```<span>```</td>
+        <td>A container used to apply CSS styles (it does nothing by itself)</td>
+    </tr>
+</table></div>
+
+<p>Heading and paragraph tags are block-level tags (strong tags) because they create a new line before and after the content. If we wanted to make a header italic, we would have to put the ```<i>``` tag inside the ```<h1>``` because it is weaker (it is an inline element). The weaker tags should always be placed inside the stronger ones.</p>
+
+<p>When we do not have a link ready for the ```<a>``` tag, we can write ```href="#"``` as a placeholder, which makes the link clickable but doesn’t lead anywhere. An example of the ```<a>``` tag: ```<a href="#" target="_blank">link</a>```. We can also create internal website links using this tag (to a subpage, etc.) by writing the path to the HTML file in the ```href``` attribute. With this tag, we can also download files from the website (using the ```download``` attribute): ```<a href="file.jpg" download="file.jpg">link</a>```, and create a link map, e.g., a table of contents:</p>
+
+```html
+<h3>Table of contents</h3>
+
+<p><a href="#first">First</a></p>
+<p><a href="#second">Second</a></p>
+
+<h3><a id="first">First</a></h3>
+<p>Lorem ipsum.</p>
+
+<h3><a id="second">Second</a></h3>
+<p>Lorem ipsum.</p>     
+```
+
+<p>*Of course, the page has to be long enough (the header cannot be, e.g., in the last line because it is not possible to scroll to it). For the code to work, add a lot of text at the end.</p>
+
+<p>To create an image that is a link, just enclose the ```<img>``` tag in the ```<a>``` tag.</p>
+
+<p>In Visual Studio, we can generate the basic website template by pressing ```SHIFT + 1 + ENTER```. To add a website favicon, we place this line in the ```<head>``` section: ```<link rel="icon" type="image/x-icon" href="img/favicon.ico">```.</p>
+
+<h2>Basic attributes</h2>
+
+<p>For elements like images and tables, we can specify the ```width``` and ```height``` arguments (attributes). Of course, there are a lot of other common arguments, but most are deprecated since CSS is better. Although these two are still encountered in their HTML version, it is still better to use CSS. An example of an image tag: ```<img src="image.jpg" alt="Img" width="100" height="100">```. The default unit is ```px```, but it could be also, e.g., ```%```.</p>
+
+<h2>Character entities</h2>
+
+<p>Character entities are special codes used in HTML to represent characters that have a reserved meaning in HTML or cannot be typed directly, such as ```&lt;``` for the less-than symbol (```<```) and ```&gt;``` for greater-than (```>```). If we typed these symbols directly, the browser would think we were using a tag. One more commonly used entity is ```&nbsp;```, which represents a non-breaking space. We can find a full list of those entities on the <a href="https://www.freeformatter.com/html-entities.html" target="_blank" className="link">Free Formatter</a> website.</p>
+
+<h2>The ```<div>``` tag</h2>
+
+<p>The ```<div>``` tag is a generic block-level container used to group content or other elements, usually for styling with CSS or organizing the layout of a webpage. Being a block tag, it starts on a new line and stretches the full width of its container. We can use ```<div>``` to wrap sections such as headers, footers, articles, or forms, and then apply classes or IDs (we will learn about those later) to style or manipulate them with CSS and JavaScript. It is the primary structural tag.</p>
+
+```html
+<div>
+    <h3>Section 1</h3>
+    <p>This is the first section content inside a &lt;div&gt; block.</p>
+</div>
+
+<div>
+    <h3>Section 2</h3>
+    <p>This is the second section content inside a &lt;div&gt; block.</p>
+</div>
+```

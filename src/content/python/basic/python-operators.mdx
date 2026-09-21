@@ -1,0 +1,161 @@
+---
+title: "Operators"
+order: 4
+---
+
+<h2>Arithmetic operators</h2>
+
+```python
++ # addition
+- # subtraction
+* # multiplication
+/ # division
+% # modulo division (the rest from division)
+** # exponentiation
+// # floor division (integer division)
+```
+
+<p>Remember that the decimal separator is a dot and not a comma.</p>
+
+<h2>Assignment operators</h2>
+
+```python
+x = 5
+x += 5 # equal to x = x + 5
+x -= 5 # equal to x = x - 5
+x *= 5 # equal to x = x * 5
+x /= 5 # equal to x = x / 5
+x %= 5 # equal to x = x % 5
+x **= 5 # equal to x = x ** 5
+x //= 5 # equal to x = x // 5
+```
+
+<h2>Relational operators</h2>
+
+<p>Relational operators are used to compare different variables and values, e.g., in conditional statements, which I will discuss later.</p>
+
+```python
+print(10 == 2) # equal to
+print(10 != 2) # not equal to
+print(10 > 2) # greater than
+print(10 < 2) # lesser than
+print(10 >= 2) # greater than or equal to
+print(10 <= 2) # lesser than or equal to
+```
+
+<h2>Logical operators</h2>
+
+<p>Logical operators are used to create various conditions. The ```and``` keyword checks if two values are simultaneously ```True```, and the ```or``` operator inspects if one of two values is ```True```. In both cases, if the answer is yes, they return ```True```, and if not - ```False```. The ```not``` operator is a negation operator (it changes ```True``` to ```False``` and vice versa).</p>
+
+```python
+print((5 < 7) and (8 > 3)) # True
+print((5 < 7) and (8 < 3)) # False
+
+print((5 < 7) or (8 > 3)) # True
+print((5 < 7) or (8 < 3)) # True
+
+print(not ((5 < 7) and (8 > 3))) # False
+print(not ((5 < 7) and (8 < 3))) # True
+```
+
+<p>Logical operators are based on logic gates. If you want to know more about them, click <a href="boolean-algebra-and-logic-gates.html" target="_blank" className="link">here</a>.</p>
+
+<h2>Bitwise operators</h2>
+
+<p>This knowledge is not mandatory at this level. If it is too complicated, move on and come back later.</p>
+
+<p>Bitwise operators operate on binary representations of numbers, not on the numbers themselves. To understand what's going on here, you'll need some basic knowledge about number systems conversion, which you can find <a href="number-systems-conversion.html" target="_blank" className="link">here</a>. There are 6 types of bitwise operators:</p>
+
+<p>```&``` - bitwise ```and``` - results bit 1 if both operand bits are 1. Otherwise, results bit 0.</p>
+```python
+print(10 & 2)
+"""
+1 0 1 0
+0 0 1 0
+-------
+0 0 1 0 (this number in decimal is 2, and that's the result)
+"""
+```
+
+<p>```|``` - bitwise ```or``` - results bit 1 if any of the operand bits is 1. Otherwise, results bit 0.</p>
+```python
+print(10 | 2)
+"""
+1 0 1 0
+0 0 1 0
+-------
+1 0 1 0 (this number in decimal is 10, and that's the result)
+"""
+```
+
+<p>```~``` - bitwise ```not``` - inverts individual bits. This operator will convert all 0s to 1s and vice versa, but since integers are stored in 4 bytes, i.e., 32 bits, there will be 28 zeros in front of our number (0010 in this case), which will be converted to 1s (the result in decimal is number -3).</p>
+```python
+print(~2)
+"""
+0 0 1 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+-------
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1
+"""
+```
+
+<p>```^``` - bitwise ```xor``` - results bit 1 if any of the operand bits is 1 but not both. Otherwise, results bit 0.</p>
+```python
+print(10 ^ 2)
+"""
+1 0 1 0
+0 0 1 0
+-------
+1 0 0 0 (this number in decimal is 8, and that's the result)
+"""
+```
+
+<p>```>>``` - bitwise right shift - each bit shifts one place to the right (if it runs out of space on the right, the particular bit disappears). The value on the left side of the operator is the one we are moving (1010 in binary is ten), and the one on the right tells us by how many places the bits will move.</p>
+```python
+print(10 >> 1)
+"""
+1 0 1 0
+-------
+0 1 0 1 (this number in decimal is 5, and that's the result)
+"""
+
+print(10 >> 2)
+"""
+1 0 1 0
+-------
+0 0 1 0 (this number in decimal is 2, and that's the result)
+"""
+
+print(10 >> 3)
+"""
+1 0 1 0
+-------
+0 0 0 1 (this number in decimal is 1, and that's the result)
+"""
+```
+
+<p>```<<``` - bitwise left shift - each bit shifts one place to the left (if it runs out of space on the right, the particular bit disappears). In this case, bits have more space to move (the number is written on 32 bits, which aren't shown because they are zeros). The value on the left side of the operator is the one we are moving, and the one on the right tells us by how many places the bits will move.</p>
+```python
+print(10 << 1)
+"""
+0 1 0 1 0
+-------
+1 0 1 0 0 (this number in decimal is 20, and that's the result)
+"""  
+
+print(10 << 2)
+"""
+0 0 1 0 1 0
+-------
+1 0 1 0 0 0 (this number in decimal is 40, and that's the result)
+"""  
+
+print(10 << 3)
+"""
+0 0 0 1 0 1 0
+-------
+1 0 1 0 0 0 0 (this number in decimal is 80, and that's the result)
+"""    
+```
+
+<p>Bitwise operators can also be used inside assignment operators, e.g., ```|=```.</p>

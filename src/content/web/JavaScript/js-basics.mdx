@@ -1,0 +1,89 @@
+---
+title: "Basics"
+order: 2
+---
+
+<p>JavaScript is a versatile, cross-platform programming language widely used for web development. It allows developers to create interactive, dynamic web pages and applications. JavaScript is primarily used for client-side scripting, but it can also be used on the server side with environments like Node.js. JavaScript is an interpreted, high-level, dynamically typed, and general-purpose language. It supports procedural, object-oriented, and functional programming. It is primarily used for building websites, web applications, mobile applications, and server-side tools. The extension of a JavaScript file is ```.js```.</p>
+
+<p>We can write JavaScript code inside the ```<script>``` tags placed within the ```<body>``` section of an HTML document or in an external ```.js``` file. We can connect the external file in the ```<head>``` section or at the bottom of the ```<body>``` section like this: ```<script src="script.js"></script>```. If we just want to test some simple scripts, we can run them in the browser console by opening the "Console" tab from the developer tools. It's a quick way to run and debug scripts without needing an HTML file.</p>
+
+<h2>Fundamental rules</h2>
+<p>We count from zero, not from one.</p>
+<p>Quotation marks and apostrophes mean the same, although we can't close one string between a quotation mark and an apostrophe.</p>
+<p>In JavaScript, a semicolon can but doesn't have to be placed after each statement. We must indicate which instructions belong to, e.g., a loop, by putting them in braces (unless it's only one line).</p>
+<p>We can create comments by using the ```//``` symbols. Things that we write after these signs don't count as code. Comments are often used to describe the code. Multiline comments can be written between ```/*``` and ```*/``` signs.</p>
+
+<h2>Variables</h2>
+
+<p className="noBottomMargin">A variable is a "drawer" for data in the RAM. We can store every sort of data in them. We have five basic variable types:</p>
+<p className="noBottomMargin">```number``` - integers and decimals (```int``` and ```float```)</p>
+<p className="noBottomMargin">```string``` - texts (a number can also be a part of it, e.g., "abc123")</p>            
+<p className="noBottomMargin">```bool``` (boolean) - ```true``` and ```false``` values</p>     
+<p className="noBottomMargin">```null``` - a value used to indicate the absence of a value</p>     
+<p>```undefined``` - the default value of uninitialized variables</p>     
+
+<p>In JavaScript (unlike in, e.g., C++), we do not have to define the type when creating a variable. It is assigned automatically based on the value. Here, integers and floating-point numbers are all handled by the "number" type, however keep in mind that ```int``` and ```float``` operate "below." There is also a type called ```BigInt```, and it is used for really long integers. We indicate its usage by adding an ```n``` at the end of the number, e.g., ```1234567890123456789012345678901234567890n```.</p>
+
+<p>We can check the variable's type using the ```typeof x``` method.</p>
+
+<p>Everything on the left side of the ```=``` sign is a variable's name (it cannot contain spaces), and on the right is a value.</p>
+
+<p>Be cautious because, e.g., variables ```x``` and ```X``` are not the same!</p>
+
+<p>```let number = 4``` will initialize an ```int``` variable called "number" and immediately assign it the value 4. ```number = 5``` will change the value of this variable to 5. Instead of ```let```, we can use ```var```. A variable initialized with the former is a local variable and with the latter - a global variable (I will talk about it in the upcoming lessons).</p>
+
+<p>If we don't immediately have any value to assign to the variable, we can simply declare it, e.g., ```let number2```. We say that we declare a variable if it is empty at the beginning, and we initialize it when we give it a value. We can assign a value to the declared variable the same way as if we were changing the value of a variable that has already been initialized (```number2 = 6```).</p>
+
+<p>While naming variables, we cannot add any numbers or spaces at the beginning. The first letter should not be in uppercase. JavaScript uses the ```camelCase``` naming convention.</p>
+
+<p>Variables can be declared in bulk, e.g., ```let a, b, c```. They can also be defined in the same way: ```let a = 1, b, c = 2``` (we can define only some of them if we want).</p>
+
+<p>We can define a variable as a constant, whose value cannot be changed, by adding ```const``` before the variable definition (e.g., ```const NAME = "text"```). There is a convention that the names of constants should be in uppercase, with words separated by underscores. However, in JavaScript, ```const``` only prevents reassignment but does not prevent modification of the value it holds (e.g., a ```const``` array can still have elements added or removed). The uppercase convention is typically reserved for fixed configuration values or logical constants, while regular runtime values declared with ```const``` (e.g., DOM elements or objects) are written in Camel case.</p>
+
+<p>A variable named ```_``` is, by convention, treated as a placeholder and intentionally ignored.</p>
+
+<p>Variables in JavaScript can change their type during the program runtime (they are dynamically typed).</p>
+
+<p>A “falsy” number is a number that evaluates to ```false``` when converted to a boolean (only 0), while all other numbers are “truthy” and evaluate to ```true```.</p>
+
+<p>```\n``` symbolizes the enter key and can be used inside of strings.</p>
+
+<p>*In the examples I provide, I will not always give the entire code but fragments of it.</p>
+
+<p>For now, a method is a special statement that performs a specific task, often related to something in our program, like printing text or calculating a result (I will talk more about methods later).</p>
+
+<h2>Displaying data</h2>
+
+```javascript
+// Displaying text in the console
+console.log("Hello World!")
+
+// Displaying text in the HTML document
+document.write("Hello World!")
+
+// Displaying text in a pop-up window
+alert("Hello World!")
+```
+
+<h2>User input</h2>        
+            
+```javascript
+// Displaying text in a OK / Cancel pop-up window and saving the boolean value in a variable
+let value1 = confirm("Are you sure?")
+
+// Displaying text in a pop-up window with a textbox and saving the string value in a variable
+let value2 = prompt("What is your name?")
+```
+
+<h2>Type casting</h2>
+
+<p>Type casting, also known as type conversion, is the process of converting one data type to another (e.g., ```float``` to ```int```).</p>
+
+```javascript
+let x = 5.5
+let y = parseInt(x) // there is also parseFloat(), etc.
+console.log(y)
+```
+
+<p>Type casting can be implicit, where a type is automatically converted to another (e.g., when dividing an integer by another integer, resulting in a floating-point number), or explicit, as shown above.</p>
+                               

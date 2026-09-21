@@ -1,0 +1,177 @@
+---
+title: "Operators"
+order: 4
+---
+
+<h2>Arithmetic operators</h2>
+
+```cpp
++ // addition
+- // subtraction
+* // multiplication
+/ // division
+% // modulo division (the rest from division)
+```
+
+<p>Remember that the decimal separator is a dot and not a comma.</p>
+
+<h2>Assignment operators</h2>
+
+```cpp
+int x = 5;
+x += 5; // equal to x = x + 5;
+x -= 5; // equal to x = x - 5;
+x *= 5; // equal to x = x * 5;
+x /= 5; // equal to x = x / 5;
+x %= 5; // equal to x = x % 5;
+```
+
+<h2>Incrementation and decrementation operators</h2>
+
+<p className="noBottomMargin">Incrementation means increasing by 1 (the operator is ```++```).</p>  
+<p className="noBottomMargin">Post-incrementation - the value is first written and then incremented in the memory (```i++```).</p>
+<p className="noBottomMargin">Pre-incrementation - the value is first incremented in the memory and then written (```++i```).</p>
+<p>Decrementation means reducing by 1. Post-decrementation and pre-decrementation also exist and work on the same principles (their operator is ```--```).</p>
+
+```cpp
+int i = 2;
+cout << i++ << endl;
+cout << i << endl;
+cout << ++i << endl;
+
+int i2 = 2;
+cout << i2-- << endl;
+cout << i2 << endl;
+cout << --i2 << endl;
+cout << i2 << endl;
+```
+
+<h2>Relational operators</h2>
+
+<p>Relational operators are used to compare different variables and values, e.g., in conditional statements, which I will discuss later.</p>
+
+```cpp
+cout << (10 == 2) << endl; // equal to
+cout << (10 != 2) << endl; // not equal to
+cout << (10 > 2) << endl; // greater than
+cout << (10 < 2) << endl; // lesser than
+cout << (10 >= 2) << endl; // greater than or equal to
+cout << (10 <= 2) << endl; // lesser than or equal to
+```
+
+<h2>Logical operators</h2>
+
+<p>Logical operators are used to create various conditions. The ```&&``` (and) checks if two values are simultaneously ```true```, and the ```||``` (or) inspects if one of two values is ```true```. In both cases, if the answer is yes, they return ```true```, and if not - ```false```. The ```!``` operator is a negation operator (it changes ```true``` to ```false``` and vice versa).</p>
+
+```cpp
+cout << ((5 < 7) && (8 > 3)) << endl; // true
+cout << ((5 < 7) && (8 < 3)) << endl; // false
+
+cout << ((5 < 7) || (8 > 3)) << endl; // true
+cout << ((5 < 7) || (8 < 3)) << endl; // true
+
+cout << !((5 < 7) && (8 > 3)) << endl; // false
+cout << !((5 < 7) && (8 < 3)) << endl; // true
+```
+
+<p>Logical operators are based on logic gates. If you want to know more about them, click <a href="boolean-algebra-and-logic-gates.html" className="link">here</a>.</p>
+
+<p>Instead of the symbols shown above, we can use the names of the operators and write: ```and```, ```or```, and ```not```, but it is less common.</p>
+
+<h2>Bitwise operators</h2>
+
+<p>This knowledge is not mandatory at this level. If it is too complicated, move on and come back later.</p>
+
+<p>Bitwise operators operate on binary representations of numbers, not on the numbers themselves. To understand what's going on here, you'll need some basic knowledge about number systems conversion, which you can find <a href="number-systems-conversion.html" className="link">here</a>. There are 6 types of bitwise operators:</p>
+
+<p>```&``` - bitwise ```and``` - results bit 1 if both operand bits are 1. Otherwise, results bit 0.</p>
+```cpp
+cout << (10 & 2) << endl;
+/*
+1 0 1 0
+0 0 1 0
+-------
+0 0 1 0 (this number in decimal is 2, and that's the result)
+*/
+```
+
+<p>```|``` - bitwise ```or``` - results bit 1 if any of the operand bits is 1. Otherwise, results bit 0.</p>
+```cpp
+cout << (10 | 2) << endl;
+/*
+1 0 1 0
+0 0 1 0
+-------
+1 0 1 0 (this number in decimal is 10, and that's the result)
+*/
+```
+
+<p>```~``` - bitwise ```not``` - inverts individual bits. This operator will convert all 0s to 1s and vice versa, but since integers are stored in 4 bytes, i.e., 32 bits, there will be 28 zeros in front of our number (0010 in this case), which will be converted to 1s (the result in decimal is number -3).</p>
+```cpp
+cout << ~2 << endl;
+/*
+0 0 1 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+-------
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1
+*/
+```
+
+<p>```^``` - bitwise ```xor``` - results bit 1 if any of the operand bits is 1 but not both. Otherwise, results bit 0.</p>
+```cpp
+cout << (10 ^ 2) << endl;
+/*
+1 0 1 0
+0 0 1 0
+-------
+1 0 0 0 (this number in decimal is 8, and that's the result)
+*/
+```
+
+<p>```>>``` - bitwise right shift - each bit shifts one place to the right (if it runs out of space on the right, the particular bit disappears). The value on the left side of the operator is the one we are moving (1010 in binary is ten), and the one on the right tells us by how many places the bits will move.</p>
+```cpp
+cout << (10 >> 1) << endl;
+/*
+1 0 1 0
+-------
+0 1 0 1 (this number in decimal is 5, and that's the result)
+*/
+
+cout << (10 >> 2) << endl;
+/*
+1 0 1 0
+-------
+0 0 1 0 (this number in decimal is 2, and that's the result)
+*/
+
+cout << (10 >> 3) << endl;
+/*
+1 0 1 0
+-------
+0 0 0 1 (this number in decimal is 1, and that's the result)
+*/
+```
+
+<p>```<<``` - bitwise left shift - each bit shifts one place to the left (if it runs out of space on the right, the particular bit disappears). In this case, bits have more space to move (the number is written on 32 bits, which aren't shown because they are zeros). The value on the left side of the operator is the one we are moving, and the one on the right tells us by how many places the bits will move.</p>
+```cpp
+cout << (10 << 1) << endl;
+/*
+0 1 0 1 0
+-------
+1 0 1 0 0 (this number in decimal is 20, and that's the result)
+*/  
+
+cout << (10 << 2) << endl;
+/*
+0 0 1 0 1 0
+-------
+1 0 1 0 0 0 (this number in decimal is 40, and that's the result)
+*/  
+
+cout << (10 << 3) << endl;
+/*
+0 0 0 1 0 1 0
+-------
+1 0 1 0 0 0 0 (this number in decimal is 80, and that's the result)
+*/  
+```

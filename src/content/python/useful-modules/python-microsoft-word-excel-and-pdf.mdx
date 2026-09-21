@@ -1,0 +1,138 @@
+---
+title: "Microsoft Word, Excel & PDF"
+order: 9
+---
+
+<h3>Table of contents</h3>
+
+<ul type="disc">
+    <li><a href="#word" className="link" style={{textDecoration: "none"}}>Microsoft Word</a></li>
+    <li><a href="#excel" className="link" style={{textDecoration: "none"}}>Microsoft Excel</a></li>
+    <li><a href="#pdf" className="link" style={{textDecoration: "none"}}>Microsoft PDF</a></li>
+</ul>
+
+<h2><a id="word">Microsoft Word</a></h2>
+
+    <p>Python allows us to create and edit Microsoft Word documents using the ```python-docx``` library. It can be used to generate reports, modify existing documents, add tables, format text, and work with headings.</p>
+
+    <p>Write the ```from docx import Document``` statement at the beginning of every example.</p>
+
+```python
+# Creating and saving a Word document
+doc = Document() # creating a document object
+doc.add_heading("Example document", level=1) # adding a heading
+doc.add_paragraph("This is a paragraph.") # adding a paragraph
+doc.save("document.docx") # saving the document
+```
+
+```python
+# Opening and reading a Word document
+doc = Document("document.docx") # opening a document
+for paragraph in doc.paragraphs:
+    print(paragraph.text) # displaying paragraph text
+```
+
+```python
+# Adding formatted text
+doc = Document()
+paragraph = doc.add_paragraph() # creating a paragraph
+addition = paragraph.add_run("Bold text") # adding text to the paragraph
+addition.bold = True # making the text bold
+doc.save("formatted.docx")
+```
+
+```python
+# Adding a table to a document
+doc = Document()
+table = doc.add_table(rows=2, cols=2) # creating a table
+table.cell(0, 0).text = "Name"
+table.cell(0, 1).text = "Age"
+table.cell(1, 0).text = "Tom"
+table.cell(1, 1).text = "25"
+
+doc.save("table.docx")
+```
+
+<h2><a id="excel">Microsoft Excel</a></h2>
+
+<p>Python allows us to create and edit Microsoft Excel files using the ```openpyxl``` library. It allows us to create spreadsheets, read cell values, edit worksheets, and save Excel files in the ```.xlsx``` format.</p>
+
+<p>Write the ```from openpyxl import Workbook``` or ```from openpyxl import load_workbook``` statements at the beginning of every example.</p>
+
+```python
+# Creating and saving an Excel workbook
+workbook = Workbook() # creating a workbook object
+sheet = workbook.active # getting the active worksheet
+
+sheet["A1"] = "Name" # writing data to a cell
+sheet["B1"] = "Age"
+sheet["A2"] = "Tom"
+sheet["B2"] = 25
+
+workbook.save("example.xlsx") # saving the workbook
+```
+
+```python
+# Opening and reading an Excel workbook
+workbook = load_workbook("example.xlsx") # opening a workbook
+sheet = workbook.active
+print(sheet["A2"].value) # displaying the value from cell A2
+print(sheet["B2"].value)
+```
+
+```python
+# Looping through rows in a worksheet
+workbook = load_workbook("example.xlsx")
+sheet = workbook.active
+for i in sheet.iter_rows(values_only=True):
+    print(i) # displaying each row
+```
+
+```python
+# Appending rows to a worksheet
+workbook = Workbook()
+sheet = workbook.active
+sheet.append(["Name", "Age"]) # adding a row
+sheet.append(["Anna", 30])
+workbook.save("rows.xlsx")
+```
+
+```python
+# Getting worksheet names
+workbook = load_workbook("example.xlsx")
+print(workbook.sheetnames) # displaying all worksheet names
+```
+
+<h2><a id="pdf">Microsoft PDF</a></h2>
+
+<p>Python allows us to create and edit PDF files using the ```PyPDF2``` library. It allows us to read documents, extract text, merge files, and split pages.</p>
+
+```python
+# Reading a PDF file
+from PyPDF2 import PdfReader
+
+reader = PdfReader("document.pdf") # opening a PDF file
+print(len(reader.pages)) # displaying the number of pages
+page = reader.pages[0] # getting the first page
+print(page.extract_text()) # extracting text from the page
+```
+
+```python
+# Merging PDF files
+from PyPDF2 import PdfMerger
+
+merger = PdfMerger() # creating a merger object
+merger.append("file1.pdf") # adding the first PDF file
+merger.append("file2.pdf") # adding the second PDF file
+merger.write("merged.pdf") # saving the merged PDF file
+merger.close()
+```
+
+```python
+# Creating a new PDF file
+from reportlab.pdfgen import canvas
+
+pdf = canvas.Canvas("example.pdf") # creating a PDF file
+pdf.drawString(100, 750, "Hello PDF") # drawing text on the page
+pdf.save() # saving the PDF file
+```

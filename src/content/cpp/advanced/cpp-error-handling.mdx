@@ -1,0 +1,58 @@
+---
+title: "Error handling"
+order: 8
+---
+
+<p>An exception is an error-caused event that disrupts the normal flow of a program. It can be handled to maintain program stability.</p>
+
+<p>If we want to prevent errors, we can use the ```try``` and ```catch``` blocks. If inside the ```try``` block, an exception is thrown (a variable or an object is returned through the ```throw``` statement) or it occurs unforeseen (e.g., a file fails to open), the rest of the instructions inside this block are skipped, and the ```catch``` block for a given variable type executes (it will catch this exception). If inside of ```catch```, instead of the specific exception type the ```catch``` block is supposed to look for (e.g., ```runtime_error```), we type ```...```, it will execute for the exception types that don't have their own specified ```catch``` block. We can trigger a specific type of error by "throwing" an exception (e.g., when the user divides by 0).</p>
+
+<p>In the example below, the ```division()``` function throws a ```runtime_error``` exception when someone tries to divide by zero. This exception will be caught, and its error message will be displayed.</p>
+
+```cpp
+#include <iostream>
+#include <stdexcept>
+using namespace std;
+
+double division(double x, double y) {
+    if (y == 0) throw runtime_error("Don't divide by zero");
+    return x / y;
+}
+
+int main() {
+    int x = 10;
+
+    try {
+        if (x == 10)
+            throw x;
+        cout << "x";
+    } catch (int exception) { // catching an int exception (we can catch exceptions of primitive types)
+        cout << "Exception for int type" << endl;
+    } catch (...) {
+        cout << "Exception for all types (not specialized)" << endl;
+    }
+
+    cout << endl;
+
+    try {
+        double result = division(5, 0);
+    } catch (runtime_error &exception) { // catching a runtime_error exception
+        cout << exception.what() << endl;
+    } catch (...) {
+        cout << "Exception for all types (not specialized)" << endl;
+    }
+
+    return 0;
+}
+```
+
+<h4>Error examples</h4>
+
+<ul>
+    <li>An ```out_of_range``` exception occurs when we try to access an element outside the bounds of a container.</li>
+    <li>An ```invalid_argument``` exception occurs when a function receives an argument that is invalid.</li>
+    <li>A ```length_error``` exception occurs when an attempt is made to create a container larger than its maximum size.</li>
+    <li>An ```overflow_error``` occurs when a mathematical operation exceeds the range of representable values.</li>
+    <li>An ```underflow_error``` occurs when a floating-point operation results in a value too small to be represented.</li>
+    <li>A ```bad_alloc``` occurs when the ```new``` operator fails to allocate the requested memory.</li>
+</ul>

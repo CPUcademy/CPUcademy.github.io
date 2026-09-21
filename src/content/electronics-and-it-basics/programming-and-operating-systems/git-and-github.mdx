@@ -1,0 +1,596 @@
+---
+title: "Git & GitHub cheat sheet"
+order: 2
+---
+
+<h3>Table of contents</h3>
+
+<ul type="disc">
+    <li><a href="#basics" className="link" style={{ textDecoration: "none" }}>Basics</a></li>
+    <li><a href="#configuration" className="link" style={{ textDecoration: "none" }}>Configuration</a></li>
+    <li><a href="#repository-initialization-and-cloning" className="link" style={{ textDecoration: "none" }}>Repository initialization and cloning</a></li>
+    <li><a href="#checking-status-and-history" className="link" style={{ textDecoration: "none" }}>Checking status and history</a></li>
+    <li><a href="#staging-and-committing-changes" className="link" style={{ textDecoration: "none" }}>Staging and committing changes</a></li>
+    <li><a href="#synchronizing-with-the-remote-repository" className="link" style={{ textDecoration: "none" }}>Synchronizing with the remote repository</a></li>
+    <li><a href="#branching-basics" className="link" style={{ textDecoration: "none" }}>Branching basics</a>, <a href="#merging-branches" className="link" style={{ textDecoration: "none" }}>Merging branches</a>, <a href="#merge-conflicts" className="link" style={{ textDecoration: "none" }}>Merge conflicts</a></li>
+    <li><a href="#switching-to-a-specific-commit" className="link" style={{ textDecoration: "none" }}>Switching to a specific commit</a></li>
+    <li><a href="#pull-requests-on-github" className="link" style={{ textDecoration: "none" }}>Pull requests on GitHub</a></li>
+    <li><a href="#reset" className="link" style={{ textDecoration: "none" }}>Reset</a>, <a href="#revert" className="link" style={{ textDecoration: "none" }}>Revert</a>, <a href="#stash" className="link" style={{ textDecoration: "none" }}>Stash</a>, <a href="#tags" className="link" style={{ textDecoration: "none" }}>Tags</a>, <a href="#flags" className="link" style={{ textDecoration: "none" }}>Flags</a></li>
+    <li>```<a href="#gitignore" className="link" style={{ color: "#157267", textDecoration: "none" }}>.gitignore</a>```</li>
+    <li><a href="#forks" className="link" style={{ textDecoration: "none" }}>Forks</a></li>
+    <li><a href="#rebasing" className="link" style={{ textDecoration: "none" }}>Rebasing</a></li>
+    <li><a href="#interactive-rebasing" className="link" style={{ textDecoration: "none" }}>Interactive rebasing</a></li>
+    <li><a href="#advanced-git-commands" className="link" style={{ textDecoration: "none" }}>Advanced Git commands</a></li>
+    <li><a href="#branch-naming" className="link" style={{ textDecoration: "none" }}>Branch naming</a>, <a href="#aliases" className="link" style={{ textDecoration: "none" }}>Aliases, <a href="#hooks" className="link" style={{ textDecoration: "none" }}>Hooks</a></a></li>
+    <li><a href="#github-pages" className="link" style={{ textDecoration: "none" }}>GitHub pages</a>, <a href="#conclusion" className="link" style={{ textDecoration: "none" }}>Conclusion</a></li>
+</ul>
+
+<p>Git is a distributed Version Control System (VCS) that allows us to track code changes, manage collaboration, and improve the development process. This article covers essential Git commands and explains how to leverage GitHub's pull request (PR) functionality for collaborative workflows. You don't need to memorize all the commands from this article. Treat it more like a cheat sheet because you have to learn Git through practice and real-world experience, and not only by reading.</p>
+
+<h3><a id="basics">Basics</a></h3>
+
+<p>A <b>repository</b> is a storage space for a project, including its full version history. A local repository resides on our computer, and a remote repository is hosted on a server (e.g., GitHub), allowing for collaboration and version control across multiple users. A <b>commit</b> is a snapshot of the project's changes at a specific point in time, capturing the modifications made to files and providing a unique identifier for tracking the history of those changes. <b>Branches</b> are parallel versions of the project that allow us to work on different features or fixes independently, enabling us to merge changes back into the main codebase without disrupting the primary workflow.</p>
+
+<p>When we're ready to commit certain changes, we add ("<b>stage</b>") them to Git's <b>staging area</b> using ```git add```. The staging area holds a snapshot of these changes, preparing them for the commit. This allows us to control which changes go into each commit. The <b>working directory</b> is the local folder where we edit and save files. Any changes made here are untracked by Git until they are staged (into the staging area).</p>
+
+<p>```HEAD``` is a pointer that references your current checked-out commit (usually through the current branch). ```HEAD^``` refers to the parent of ```HEAD```, and ```HEAD^n``` refers to the <em>n</em>th parent of a merge commit (e.g., ```HEAD^2``` is the second parent). ```HEAD^``` refers to the parent commit of ```HEAD``` (the commit directly before it). ```HEAD~n``` refers to the commit that is <em>n</em> commits before ```HEAD``` by following the main history (first parent). For example, ```HEAD~2``` is two commits before ```HEAD```.</p>
+
+<img src="/data/courses/git-architecture.png" alt="Git architecture" className="img-fluid"/>
+
+<h3><a id="configuration">Configuration</a></h3>
+<div className="table-container"><table>
+    <tr>
+        <td>```git config --global user.name "Your Name"```</td>
+        <td>Setting your username for commit attribution.</td>
+    </tr>
+    <tr>
+        <td>```git config --global user.email "you@example.com"```</td>
+        <td>Setting your email for commit attribution.</td>
+    </tr>
+</table></div>
+
+<h3><a id="repository-initialization-and-cloning">Repository initialization and cloning</a></h3>
+<div className="table-container"><table>
+    <tr>
+        <td>```git init```</td>
+        <td>Initializing a new Git repository in the current directory.</td>
+    </tr>
+    <tr>
+        <td>```git clone [repository URL]```</td>
+        <td>Cloning an existing repository, including all history and files.</td>
+    </tr>
+    <tr>
+        <td>```git remote add origin [repository URL]```</td>
+        <td>Linking the local repository to a remote one ("origin" refers to the default name of the remote repository, usually the one we cloned from).</td>
+    </tr>
+    <tr>
+        <td>```git remote -v```</td>
+        <td>Viewing all remote repositories and their URLs.</td>
+    </tr>
+</table></div>
+
+<h3><a id="checking-status-and-history">Checking status and history</a></h3>
+<div className="table-container"><table>
+    <tr>
+        <td>```git status```</td>
+        <td>Showing the current state of the working directory and staging area.</td>
+    </tr>
+    <tr>
+        <td>```git log```</td>
+        <td>Displaying commit history with full details.</td>
+    </tr>
+    <tr>
+        <td>```git log --oneline```</td>
+        <td>Showing condensed commit history.</td>
+    </tr>
+    <tr>
+        <td>```git log -2```</td>
+        <td>Showing the last two commits from history.</td>
+    </tr>
+    <tr>
+        <td>```git diff```</td>
+        <td>Showing unstaged changes in the working directory.</td>
+    </tr>
+    <tr>
+        <td>```git diff --staged```</td>
+        <td>Showing changes that have been staged (added with ```git add```).</td>
+    </tr>
+    <tr>
+        <td>```git diff HEAD```</td>
+        <td>Comparing the working directory and staging area with the latest commit.</td>
+    </tr>
+    <tr>
+        <td>```git diff --name-only```</td>
+        <td>Listing only the names of files that have changed.</td>
+    </tr>
+    <tr>
+        <td>```git diff commit1Id commit2Id```</td>
+        <td>Showing changes between two specific commits.</td>
+    </tr>                                        
+</table></div>
+
+<p>A diff file in Git represents the differences between two sets of files or commits. It shows which lines have been added, removed, or modified in the codebase. This output is commonly used in code reviews and patch generation, helping developers understand exactly what has changed and why. The symbols in a diff file provide clear context for each change, as listed below.</p>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```+```</td>
+        <td>Line added in the new version.</td>
+    </tr>
+    <tr>
+        <td>```-```</td>
+        <td>Line removed from the previous version.</td>
+    </tr>
+    <tr>
+        <td>```@@```</td>
+        <td>Hunk header showing line numbers and context of the change.</td>
+    </tr>
+    <tr>
+        <td>```diff --git```</td>
+        <td>Start of a new diff section showing the compared files.</td>
+    </tr>
+    <tr>
+        <td>```index```</td>
+        <td>Shows blob object IDs and file mode (hashes) before and after the change.</td>
+    </tr>
+    <tr>
+        <td>```---```</td>
+        <td>Indicates the original file path.</td>
+    </tr>
+    <tr>
+        <td>```+++```</td>
+        <td>Indicates the new file path.</td>
+    </tr>
+</table></div>
+
+<h3><a id="staging-and-committing-changes">Staging and committing changes</a></h3>
+<div className="table-container"><table>
+    <tr>
+        <td>```git add [file or directory]```</td>
+        <td>Staging specific /data/directories.</td>
+    </tr>
+    <tr>
+        <td>```git add .```</td>
+        <td>Staging all changes.</td>
+    </tr>
+    <tr>
+        <td>```git add -p```</td>
+        <td>Interactively choosing portions of files to stage.</td>
+    </tr>
+    <tr>
+        <td>```git commit -m "[message]"```</td>
+        <td>Creating a commit with a message.</td>
+    </tr>
+    <tr>
+        <td>```git commit```</td>
+        <td>Opening editor for a detailed commit message.</td>
+    </tr>
+    <tr>
+        <td>```git commit --amend```</td>
+        <td>Modifying the most recent commit by adding staged changes and/or changing its commit message.</td>
+    </tr>
+</table></div>
+<p>Commit messages should answer the prompt: "If applied, this commit will …" to provide clear descriptions of code changes.</p>
+
+<h3><a id="synchronizing-with-the-remote-repository">Synchronizing with the remote repository</a></h3>
+<div className="table-container"><table>
+    <tr>
+        <td>```git fetch```</td>
+        <td>Downloading changes from the default remote without merging. A remote origin and branch name can be specified like this: ```git fetch [remote] [branch-name]```.</td>
+    </tr>
+    <tr>
+        <td>```git pull```</td>
+        <td>Fetching and merging remote changes for the current branch. A remote origin and branch name can be specified like this: ```git pull [remote] [branch-name]```.</td>
+    </tr>
+    <tr>
+        <td>```git push```</td>
+        <td>Uploading local commits from the current branch to the remote. A remote origin and branch name can be specified like this: ```git push [remote] [branch-name]```.</td>
+    </tr>
+    <tr>
+        <td>```git push origin main```</td>
+        <td>Pushing local changes to the main branch on the remote, ensuring only fast-forward updates and avoiding overriding existing changes.</td>
+    </tr>                                        
+    <tr>
+        <td>```git push origin main --force```</td>
+        <td>Force pushing local changes to the main branch, overriding any conflicts on the remote (use with caution).</td>
+    </tr>
+    <tr>
+        <td>```git push -u origin [branch_name]```</td>
+        <td>Pushing and setting an upstream branch.</td>
+    </tr>
+</table></div>
+<p>An upstream branch is a remote branch linked to a local branch. Once set, Git knows where to push and pull by default, so we can use ```git push``` and ```git pull``` without specifying the remote or branch name each time.</p>
+        
+<h3><a id="branching-basics">Branching basics</a></h3>
+<div className="table-container"><table>
+    <tr>
+        <td>```git branch```</td>
+        <td>Listing local branches.</td>
+    </tr>
+    <tr>
+        <td>```git branch -a```</td>
+        <td>Listing all branches (local and remote).</td>
+    </tr>
+    <tr>
+        <td>```git branch [branch-name]```</td>
+        <td>Creating a new branch.</td>
+    </tr>
+    <tr>
+        <td>```git branch -d [branch-name]```</td>
+        <td>Deleting a branch (if it has been merged - use ```-D``` to force deletion).</td>
+    </tr>
+    <tr>
+        <td>```git branch [new-branch-name] [source-branch]```</td>
+        <td>Creating a new branch from a specified source branch.</td>
+    </tr>
+    <tr>
+        <td>```git checkout [branch-name]```</td>
+        <td>Switching branches.</td>
+    </tr>
+    <tr>
+        <td>```git checkout -b [new-branch]```</td>
+        <td>Creating and switching to a new branch.</td>
+    </tr>
+    <tr>
+        <td>```git switch [branch-name]```</td>
+        <td>Modern command for switching branches (Git 2.23+).</td>
+    </tr>
+    <tr>
+        <td>```git switch -c [new-branch]```</td>
+        <td>Modern command for creating and switching to a new branch (Git 2.23+).</td>
+    </tr>
+    <tr>
+        <td>```git restore [file]```</td>
+        <td>Discarding working directory changes (Git 2.23+).</td>
+    </tr>
+    <tr>
+        <td>```git restore --staged [file]```</td>
+        <td>Unstaging changes while preserving modifications (Git 2.23+).</td>
+    </tr>
+</table></div>
+
+<h3><a id="merging-branches">Merging branches</a></h3>
+<div className="table-container"><table>
+    <tr>
+        <td>```git merge [branch-name]```</td>
+        <td>Merging a specified branch into the current branch.</td>
+    </tr>
+    <tr>
+        <td>```git merge --no-ff [branch-name]```</td>
+        <td>Creating a merge commit even for fast-forward merges.</td>
+    </tr>
+    <tr>
+        <td>```git merge --abort```</td>
+        <td>Aborting an ongoing merge.</td>
+    </tr>
+    <tr>
+        <td>```git pull origin main```</td>
+        <td>Pulling the latest changes from main after a pull request merge.</td>
+    </tr>
+</table></div>
+                                    
+
+<h3><a id="merge-conflicts">Merge conflicts</a></h3>
+<p>A merge conflict occurs when two branches have competing changes to the same line of code or file, preventing automatic merging and requiring manual resolution.</p>
+
+<p>If they arise, Git will mark the affected files. We can resolve these by editing the files, identifying conflict markers (```<<<<<<<```, ```=======```, ```>>>>>>>```), and deciding which changes to keep. Conflict markers are special annotations added to a file by Git to indicate the sections of code that are in conflict during a merge, typically showing the differing changes from each branch.</p>
+
+```text
+# Fetch updates from the main branch
+git fetch origin main
+
+# Switch to the main branch and merge with the feature branch
+git switch main
+git merge feature_branch
+
+# Resolve conflicts manually in the files, then stage and commit the resolved files
+git add [resolved_file]
+git commit -m "Resolve merge conflicts in feature_branch"
+```
+
+<h3><a id="switching-to-a-specific-commit">Switching to a specific commit</a></h3>
+
+<p>Sometimes we want to inspect or test the state of the repository at a specific commit. Each commit in Git has a unique hash (identifier), which allows us to move the repository to that exact point in the project history.</p>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```git checkout [commit-hash]```</td>
+        <td>Switching to a specific commit using its unique identifier.</td>
+    </tr>
+    <tr>
+        <td>```git switch --detach [commit-hash]```</td>
+        <td>Switching to a specific commit in a detached HEAD state (modern Git command).</td>
+    </tr>
+    <tr>
+        <td>```git switch -c [new-branch] [commit-hash]```</td>
+        <td>Creating a new branch starting from a specific commit.</td>
+    </tr>
+</table></div>
+
+<p>When we switch directly to a commit, Git enters a <b>detached HEAD state</b>. This means we are no longer on a branch but instead viewing the repository at that specific commit. This is useful for inspecting previous versions or testing older states of the project.</p>
+
+<p>If we want to continue development from that commit, it is recommended to create a new branch from it using ```git switch -c```. Otherwise, any commits made in the detached state may become difficult to track.</p>
+
+<h3><a id="pull-requests-on-github">Pull requests on GitHub</a></h3>
+<p>A pull request (PR) is a GitHub feature that allows developers to propose, review, and discuss code changes before merging them into the main branch. It helps facilitate collaboration, enables code reviews, and improves overall code quality.</p>
+
+<h5>Creating a pull request</h5>
+<ol> <li>Create and switch to the feature branch: ```git switch -b feature-branch```.</li> <li>Make changes and commit them.</li> <li>Push the changes to the remote repository.</li> <li>On GitHub: <ul> <li>Navigate to the repository.</li> <li>Click "New Pull Request".</li> <li>Select branches.</li> <li>Fill the PR description using a template (if available).</li> <li>Add reviewers and labels.</li> </ul> </li> </ol>
+
+<h5>PR best practices</h5>
+<ul>
+    <li>Keep PRs focused and reasonably sized.</li>
+    <li>Write clear descriptions explaining: <ul> <li>What changes were made?</li> <li>Why changes were needed?</li> <li>How to test the changes?</li> <li>Any related issues or dependencies?</li> </ul> </li>
+    <li>Respond to review comments promptly.</li>
+    <li>Update PR with requested changes.</li>
+    <li>Resolve conflicts when they arise.</li>
+</ul>
+
+<p>Reviewers can annotate lines and approve or request changes. This review process ensures code quality and promotes team collaboration. As changes are requested, additional commits can be made to the branch and pushed to the PR.</p>
+
+<h3><a id="reset">Reset</a></h3>
+<div className="table-container"><table>
+    <tr>
+        <td>```git reset [file]```</td>
+        <td>Unstaging a file from the staging area without deleting changes from the working directory (the local file system).</td>
+    </tr>
+    <tr>
+        <td>```git reset --soft [commit]```</td>
+        <td>Moving the current branch back to a specific commit, retaining changes in the staging area for further modifications.</td>
+    </tr>
+    <tr>
+        <td>```git reset --hard [commit]```</td>
+        <td>Moving the current branch back to a specific commit and discarding all changes in the working directory and staging area, effectively resetting the state of the repository to that commit.</td>
+    </tr>
+</table></div>
+
+<h3><a id="revert">Revert</a></h3>
+<div className="table-container"><table>
+    <tr>
+        <td>```git revert [commit]```</td>
+        <td>Creating a new commit that undoes the changes from a specified commit.</td>
+    </tr>
+    <tr>
+        <td>```git revert --continue```</td>
+        <td>Continuing the revert process when multiple commits are being reverted, used in cases like undoing merges.</td>
+    </tr>
+</table></div>
+<p>```git reset``` moves the current branch to a specified commit. Any commits after the selected commit are removed from the branch's history, making ```git reset``` best suited for undoing local commits that have not been pushed. ```git revert``` undoes the changes introduced by a specific commit by creating a new commit, which preserves the existing commit history and is safe for shared branches.</p>
+
+<h3><a id="stash">Stash</a></h3>
+<div className="table-container"><table>
+    <tr>
+        <td>```git stash```</td>
+        <td>Temporarily storing uncommitted changes in the local repository (they won't be pushed to the remote repository).</td>
+    </tr>
+    <tr>
+        <td>```git stash push -m "message"```</td>
+        <td>Stashing with a description.</td>
+    </tr>
+    <tr>
+        <td>```git stash list```</td>
+        <td>Viewing all stashes.</td>
+    </tr>
+    <tr>
+        <td>```git stash apply```</td>
+        <td>Applying the most recent stash while keeping it on the stash list.</td>
+    </tr>
+    <tr>
+        <td>```git stash pop```</td>
+        <td>Applying the most recent stash and removing it from the stash list afterwards.</td>
+    </tr>
+</table></div>
+
+<h3><a id="tags">Tags</a></h3>
+<p>Tags are a powerful feature that allows us to mark specific points in the project history, such as releases or significant milestones. We can create a tag using the ```git tag -a v1.0 -m "Version 1.0"``` command, which creates an annotated tag with a message. Tags are useful for versioning software, making it easy to reference and retrieve specific versions of the codebase in the future.</p>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```git tag```</td>
+        <td>Listing all tags.</td>
+    </tr>
+    <tr>
+        <td>```git tag -a v1.0 -m "Version 1.0"```</td>
+        <td>Creating an annotated tag.</td>
+    </tr>
+    <tr>
+        <td>```git push origin --tags```</td>
+        <td>Pushing tags to remote.</td>
+    </tr>
+    <tr>
+        <td>```git tag -d [tag-name]```</td>
+        <td>Deleting a local tag.</td>
+    </tr>
+</table></div>                                    
+
+<h3><a id="flags">Flags</a></h3>
+<p>Flags modify command behavior or add extra functionality, customizing commands with options starting with a dash (```-```) or double dash (```--```).</p>
+<ul>
+    <li>```-m```: specifying a commit message directly in the command line.</li>
+    <li>```-u```: staging changes only to the tracked files when using ```git add``` (ignoring untracked files).</li>
+</ul>
+
+<h3>```<a id="gitignore">.gitignore</a>```</h3>
+<p>The ```.gitignore``` file is crucial for managing which files and directories Git should ignore in our repository. By specifying patterns for files that should not be tracked, such as build artifacts, temporary files, or sensitive information, we can keep the repository clean and focused on the essential code. This helps prevent unnecessary files from cluttering the version history and ensures that sensitive data does not get accidentally shared.</p>
+
+<h3><a id="forks">Forks</a></h3>
+<p>A fork is a copy of a repository that allows us to freely experiment with changes without affecting the original project. This workflow is particularly useful in open-source development, where contributors don't have direct write access to the main repository. When we want to contribute to an open-source project, we have to fork the repository, which means creating a copy of the original repository under our GitHub account. This allows us to make changes, add features, or fix bugs independently without impacting the original codebase. After making our desired changes in our forked repository, we can submit a pull request to the original repository, proposing that our changes be reviewed and potentially merged into the main project. This process encourages collaboration and helps maintain the integrity of the original project while allowing contributors to experiment and innovate freely. To fork a repository on GitHub, log in to GitHub and navigate to the repository you want to fork, click the Fork button in the upper right corner, select your account if prompted, wait for the forking process to complete, access your forked repository under your GitHub account, and optionally clone your fork locally using ```git clone https://github.com/your-username/repository-name.git```.</p>
+
+<h3><a id="rebasing">Rebasing</a> (```git rebase```)</h3>
+<p>Rebasing is used to move or replay a sequence of commits from one base to another. This is commonly done to update a feature branch with the latest changes from the main branch while keeping a linear history. The flow is as follows:</p>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```git switch feature```</td>
+        <td>Switching to the feature branch.</td>
+    </tr>
+    <tr>
+        <td>```git fetch origin```</td>
+        <td>Fetching the latest changes from the remote repository.</td>
+    </tr>
+    <tr>
+        <td>```git rebase origin/main```</td>
+        <td>Reapplying the feature branch commits on top of the latest main branch.</td>
+    </tr>
+</table></div>
+
+<p>This rebased the current ```feature``` branch onto the latest ```origin/main``` by replaying its commits on top of it. This created a clean, linear commit history. The argument ```origin/main``` specifies the new base for the rebase. It is <b>not</b> the branch being modified. The branch that changes is the one we are currently on.</p>
+
+<p>Rebasing is commonly used to update a local feature branch with the latest changes from the main branch before merging. It keeps the commit history clean and linear. Avoid rebasing branches that have already been shared with others because rebasing rewrites commit history. If merge conflicts occur during the rebase, resolve them and continue the process with ```git rebase --continue```.</p>
+
+<h3><a id="interactive-rebasing">Interactive rebasing</a> (```git rebase -i```)</h3>
+<p>Interactive rebasing is a powerful tool for cleaning up our commit history before sharing our code. It allows us to modify commits in various ways, including combining, editing, or removing them.</p>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```git rebase -i --root```</td>
+        <td>Starting interactive rebase from the very first (root) commit of the repository.</td>
+    </tr>
+    <tr>
+        <td>```git rebase -i HEAD~n```</td>
+        <td>Starting interactive rebase for the last n commits.</td>
+    </tr>
+    <tr>
+        <td>```git rebase -i [commit-hash]```</td>
+        <td>Rebasing interactively from a specific commit.</td>
+    </tr>
+</table></div>
+
+<p>```HEAD~n``` refers to a specific commit in Git's history, where ```HEAD``` represents the current commit and ```n``` is how many commits to go back. When used with ```git rebase -i```, the specified commit acts as the <strong>base</strong> - meaning it won't be edited itself, but all commits between it and ```HEAD``` will appear in the rebase editor. For example, ```HEAD~1``` rebases the last commit, ```HEAD~2``` rebases the last 2 commits, and so on.</p>
+
+<h5>Examples</h5>
+<h6>Interactive rebase session</h6>
+```text
+# Start interactive rebase
+git rebase -i HEAD~5
+
+# You'll see something like this in your editor:
+pick 2231360 Add the initial login form
+squash 3d4d2d1 Fix login form styling
+fixup 2b504be Update login form padding
+reword f7f3f6d Add form validation
+edit cdd94dc Implement password reset
+```
+
+<p>When we run an interactive rebase, Git opens a text file in the default editor listing the selected commits, each prefixed with a command (defaulting to ```pick```). We edit this file by replacing the command word next to each commit to control what happens to it, then save and close the editor to start the rebase.</p>
+
+<p className="noBottomMargin">The ```pick``` command indicates that the commit with the specified hash should be included in the final history as is.</p>
+<p className="noBottomMargin">The ```squash``` command combines the specified commit with the previous one, allowing us to merge their changes and edit the commit message.</p>
+<p className="noBottomMargin">The ```fixup``` command also combines the specified commit with the previous one, but it does so without prompting to edit the commit message.</p>
+<p className="noBottomMargin">The ```reword``` command allows us to modify the commit message of the specified commit while keeping its changes intact.</p>
+<p>The ```edit``` command pauses the rebase process at the specified commit, allowing us to make changes before continuing the rebase.</p>
+
+<h6>Splitting a commit</h6>
+```text
+# During rebase, when stopped at 'edit'
+git reset HEAD^
+git add file1
+git commit -m "First part of the split"
+git add file2
+git commit -m "Second part of the split"
+git rebase --continue
+```
+
+<p className="noBottomMargin">Never rebase commits that have been pushed to public branches.</p>
+<p className="noBottomMargin">Create a backup branch before complex rebases using ```git branch backup-branch```.</p>
+<p className="noBottomMargin">Keep commits logically grouped.</p>
+<p className="noBottomMargin">Write clear commit messages that explain the "why" not just the "what".</p>
+<p>Test your code after completing the rebase.</p>
+
+<h5>Troubleshooting</h5>
+<div className="table-container"><table>
+    <tr>
+        <td>```git rebase --abort```</td>
+        <td>Canceling the rebase and returning to the previous state.</td>
+    </tr>
+    <tr>
+        <td>```git rebase --continue```</td>
+        <td>Continuing the rebase after resolving conflicts.</td>
+    </tr>
+    <tr>
+        <td>```git reflog```</td>
+        <td>Viewing history to recover from mistakes.</td>
+    </tr>
+</table></div>
+
+<div className="alert alert-info">
+    <b>Warning:</b> Force pushing (```git push --force```) after rebasing can cause issues for other developers. Use ```git push --force-with-lease``` instead as a safer alternative.
+</div>   
+
+<h5>A real-world problem</h5>
+<p>Suppose you are working on a branch and have made three commits: 1, 2, and 3. After testing, you realize that commits 2 and 3 introduced bugs and should not be included in the final branch. Instead of keeping the buggy changes, you want to go back to commit 1, make the correct changes, and create a new commit 4 that represents the fixed work. Using interactive rebase, you can drop commits 2 and 3, effectively removing them from the branch history. Then, apply your corrected changes and commit them as commit 4. This results in a clean history: 1 → 4, with the buggy commits completely skipped.</p>
+
+<h3><a id="advanced-git-commands">Advanced Git commands</a></h3>
+<div className="table-container"><table>
+    <tr>
+        <td>```git cherry-pick [commit]```</td>
+        <td>Selectively applying a specific commit to the current branch, useful for incorporating a fix without merging the entire branch (<b>merging only a selected commit</b>). We can use this command on multiple commits simultaneously.</td>
+    </tr>
+    <tr>
+        <td>```git bisect```</td>
+        <td>Performing a binary search through commits to identify where a bug was introduced by marking commits as "good" or "bad."</td>
+    </tr>
+    <tr>
+        <td>```git blame [file]```</td>
+        <td>Viewing who last modified each line of a file, useful for tracking changes and understanding code history.</td>
+    </tr>
+    <tr>
+        <td>```git reflog```</td>
+        <td>Viewing the log of all changes made to Git references, allowing recovery of commits even if they aren’t in the current history.</td>
+    </tr>
+    <tr>
+        <td>```git worktree```</td>
+        <td>Working on multiple branches simultaneously in separate directories, enabling parallel development without losing changes.</td>
+    </tr>
+    <tr>
+        <td>```git filter-branch```</td>
+        <td>Rewriting commit history by applying filters to branches, useful for removing sensitive data or cleaning up the history.</td>
+    </tr>
+    <tr>
+        <td>```git merge --squash [branch]```</td>
+        <td>Merging changes from another branch as a single commit, ideal for maintaining a clean history before merging to the main branch.</td>
+    </tr>
+    <tr>
+        <td>```git submodule```</td>
+        <td>Including one Git repository within another, helping manage dependencies like shared libraries or components in projects.</td>
+    </tr>
+    <tr>
+        <td>```git submodule foreach [command]```</td>
+        <td>Running a Git command in each submodule, streamlining updates or operations across all submodules.</td>
+    </tr>
+</table></div>
+
+<h3><a id="branch-naming">Branch naming</a></h3>
+<p className="noBottomMargin">Use consistent prefixes:</p>
+<ul>
+    <li>```feature/``` - for new features.</li>
+    <li>```bugfix/``` - for bug fixes.</li>
+    <li>```hotfix/``` - for critical fixes.</li>
+    <li>```release/``` - for release branches.</li>
+    <li>```support/``` - for maintenance branches.</li>
+</ul>
+
+<h3><a id="aliases">Aliases</a></h3>
+<p>Creating Git aliases can significantly improve our workflow by allowing us to shorten frequently used commands. For example, we can set an alias for the checkout command with ```git config --global alias.co checkout```. This means we can simply type ```git co``` instead of ```git checkout```. Using aliases can save time and reduce the likelihood of errors when typing long commands.</p>
+<p>We can set up useful aliases in ```.gitconfig```:</p>
+```text
+[alias]
+co = checkout
+br = branch
+ci = commit
+st = status
+unstage = reset HEAD --
+last = log -1 HEAD
+```
+
+<p>*```reset HEAD --``` - the two dashes indicate that what comes after is a file path.</p>
+
+<h3><a id="hooks">Hooks</a></h3>
+
+<p>Git hooks are scripts that Git runs before or after specific events in the workflow, enabling automation and policy enforcement within repositories. Located in the ```.git/hooks``` directory, these customizable scripts can validate commit messages, run tests before pushes, or trigger deployments after merges, helping teams maintain code quality and improve their development processes.</p>
+
+<h3><a id="github-pages">GitHub pages</a></h3>
+
+<p>GitHub Pages is a service provided by GitHub that allows us to host websites directly from our GitHub repositories. It is an easy and free way to publish static websites, such as personal portfolios, blogs, or project documentation. It supports HTML, CSS, and JavaScript, and it integrates seamlessly with GitHub repositories, meaning that any changes made to the repository automatically update the live website. We can choose to host our site from the root of the repository or a specific branch. Additionally, GitHub Pages provides custom domain support, allowing us to link our domains to our hosted websites.</p>
+
+<h3><a id="conclusion">Conclusion</a></h3>
+<p>Understanding these Git commands and workflows is crucial for effective collaboration in software development. Regular practice and consistent use of Git will help maintain a clean repository history and smooth team collaboration. Always remember to pull before pushing, keep commits focused, and write clear commit messages for better maintainability.</p>

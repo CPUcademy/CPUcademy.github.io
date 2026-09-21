@@ -1,0 +1,110 @@
+---
+title: "Triggers"
+order: 10
+---
+
+<p>Triggers are blocks of SQL statements that run automatically in response to events, such as adding (```INSERT```), updating (```UPDATE```), or deleting (```DELETE```) records from a table. They can run ```BEFORE``` or ```AFTER``` an event. Triggers are used for process automation, data validation, tracking changes, and maintaining referential integrity.</p>
+
+<p>The ```DELIMITER $$``` statement changes the end-of-line delimiter from the default ```;``` to ```$$```. This is necessary because, inside the trigger, there are multiple SQL statements that each require a semicolon to end that particular statement. However, the semicolon is also the default delimiter for SQL queries, so using it within the trigger would end the ```CREATE TRIGGER``` statement too early. By setting the delimiter to ```$$```, we can safely use semicolons inside the trigger without confusing the SQL parser. Once the trigger creation is complete, the ```DELIMITER ;``` statement restores the default semicolon delimiter for subsequent queries. This ensures that other SQL statements can be executed normally outside the trigger definition.</p>
+
+<h4>```AFTER INSERT``` trigger</h4>
+
+```sql
+DELIMITER $$
+CREATE TRIGGER after_adding_a_client
+AFTER INSERT ON clients
+FOR EACH ROW
+BEGIN
+    INSERT INTO logs (description, date)
+    VALUES (CONCAT('A client has been added: ', NEW.name, ' ', NEW.surname), NOW()); -- concatenating string values with a built-in function returning the current date and time (NOW())
+     -- The NEW keyword references the newly inserted or updated row in a table. The OLD keyword references the existing row in a table before it is updated or deleted.
+END$$
+DELIMITER ;
+```
+
+<p>SQL also has ```YEAR(dateAsText)```, ```MONTH(dateAsText)```, and ```DAY(dateAsText)``` functions to extract the year, month, and day from a date, respectively.</p>
+
+<h4>```BEFORE INSERT``` trigger</h4>
+
+```sql
+DELIMITER $$
+CREATE TRIGGER validate_phone_number
+BEFORE INSERT ON clients
+FOR EACH ROW
+BEGIN
+    IF NOT NEW.phone_number REGEXP '^\\+48[0-9]{9}$' THEN -- checking whether the new phone number is written correctly and according to the regex (for more information, check my tutorials about Python or Java)
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Incorrect phone number'; -- returning an error
+    END IF;
+END$$
+DELIMITER ;
+```
+
+<h4>```AFTER UPDATE``` trigger</h4>
+
+```sql
+DELIMITER $$
+CREATE TRIGGER after_updating_a_client
+AFTER UPDATE ON clients
+FOR EACH ROW
+BEGIN
+    INSERT INTO logs (description, date)
+    VALUES (CONCAT('A client has been updated: ', NEW.name, ' ', NEW.surname), NOW());
+END$$
+DELIMITER ;
+```
+
+<h4>```BEFORE UPDATE``` trigger</h4>
+
+```sql
+DELIMITER $$
+CREATE TRIGGER block_client_id_change
+BEFORE UPDATE ON clients
+FOR EACH ROW
+BEGIN
+    IF OLD.id <> NEW.id THEN -- <> means "not equal"
+        SET NEW.id = OLD.id;
+    END IF;
+END$$
+DELIMITER ;
+```
+
+<h4>```AFTER DELETE``` trigger</h4>
+
+```sql
+DELIMITER $$
+CREATE TRIGGER after_deleting_a_client
+AFTER DELETE ON clients
+FOR EACH ROW
+BEGIN
+    INSERT INTO logs (description, date)
+    VALUES (CONCAT('A client has been deleted: ', NEW.name, ' ', NEW.surname), NOW());
+END$$
+DELIMITER ;
+```
+
+<h4>```BEFORE DELETE``` trigger</h4>
+
+```sql
+DELIMITER $$
+CREATE TRIGGER delete_related_records
+BEFORE DELETE ON clients
+FOR EACH ROW
+BEGIN
+    DELETE FROM orders WHERE id = OLD.id;
+    DELETE FROM invoices WHERE id = OLD.id;
+    DELETE FROM payments WHERE id = OLD.id;
+END$$
+DELIMITER ;
+```
+
+<p>*It is impossible to delete a table that another table depends on through relationships. We have to delete related records from the database like a cascade.</p>
+
+<h4>Basic statements</h4>
+
+```sql
+-- Displaying the code of a trigger
+SHOW CREATE TRIGGER trigger_name;
+
+-- Deleting a trigger
+DROP TRIGGER trigger_name;
+```

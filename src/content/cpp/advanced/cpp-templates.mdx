@@ -1,0 +1,106 @@
+---
+title: "Templates"
+order: 7
+---
+
+<h2>Function templates</h2>
+
+<p>We create function templates when we do not want to define many different functions for every possible type of argument. Inside the ```<>``` signs after the ```template``` keyword, we name the types of the individual function arguments (we create custom names). Inside the template, we replace every data type with the one or ones specified earlier (they will substitute themselves with the arguments, which are, of course, data types).</p>
+
+<p>If we still want to use the same method but add, e.g., the possibility of adding classes, we can create a specialized function template with predetermined argument types (e.g., the class's objects). We have to write ```template<>``` before that function. C++ will decide on its own which function to call. If the argument types match the ones from any specialized function, it will call it, and if not, it will call the overall function template.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Obj {
+    int x, y;
+    public:
+        Obj(int x = 0, int y = 0) {
+            this -> x = x;
+            this -> y = y;
+        }
+        ~Obj() {}
+
+        void setX(int x) { this -> x = x; }
+        void setY(int y) { this -> y = y; }
+        int getX() { return x; }
+        int getY() { return y; }
+};
+
+template<typename T, typename T2>
+    T add(T x, T2 y) {
+    return x + y;
+}
+
+template<> // a specialized version of the function above that allows us to add our own objects
+Obj add(Obj a, Obj b) {
+    Obj z;
+    z.setX(a.getX() + b.getX());
+    z.setY(a.getY() + b.getY());
+    return z;
+}
+
+int main() {
+    cout << add(5, 10) << endl; // 15
+    cout << add(5.5, 10.5) << endl; // 16
+    cout << add(5.5, 10) << endl; // 15.5
+    cout << add(5, 10.5) << endl; // 15 ("int" was returned)
+
+    Obj p1(10, 20);
+    Obj p2(40, 60);
+    Obj p3 = add(p1, p2);
+    cout << p3.getX() << endl; // 50
+    cout << p3.getY() << endl; // 80
+
+    return 0;
+}
+```
+
+<h2>Class templates</h2>
+
+<p>We can also create templates for classes. The rules are like with the functions.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+template<typename T>
+class Coordinates {
+    T x, y;
+    public:
+        Coordinates() {}
+        ~Coordinates() {}
+
+        void set(T x, T y) {
+            this -> x = x;
+            this -> y = y;
+        }
+
+        T get(); // declaration of the get() method
+};
+
+template<typename T> // definition of the get() method
+T Coordinates<T>::get() {
+    cout << x << " " << y << endl;
+}
+
+template<>
+double Coordinates<double>::get() { // specialized get() method for the "double" type
+    cout << "Special: " << x << " " << y << endl;
+}
+
+int main() {
+    typedef Coordinates<int> IntC; // a custom data type (we can make objects of this type using "IntC")
+
+    IntC c;
+    c.set(5, 6);
+    c.get();
+
+    Coordinates<double> c2;
+    c2.set(5.5, 6.6);
+    c2.get();
+
+    return 0;
+}
+```

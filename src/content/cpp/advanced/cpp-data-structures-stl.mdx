@@ -1,0 +1,231 @@
+---
+title: "Data structures - STL"
+order: 10
+---
+
+<p>A data structure organizes and stores data in memory for efficient access and modification. A collection is a group of data items treated as a single unit, focusing on operations like adding, removing, and iterating over elements. While collections rely on data structures, they offer a more abstract way to manage groups of objects. All collections are based on data structures, but not all data structures are collections.</p>
+
+<p>STL stands for Standard Template Library. It provides several types of containers (data structures), such as vectors, deques, stacks, queues, sets, and maps.</p>
+
+<h2>Vectors</h2>
+
+<p>Vectors are dynamic arrays, meaning we do not have to know their size at the beginning (but we have to determine the type of its elements). It works because the memory is reserved in advance based on how many elements we added in the past. That reserved in advance memory is the vector's capacity, and its size is how much of this memory is used. We must include the ```<vector>``` library for all of this to work.</p>
+
+<p>The ```push_back()``` method will add an element at the end of a vector. If we want to use all of the vector's features, e.g., assigning values at declaration (```vector<int> numbers {1, 2, 3, 4, 5};```), we have to enable C++ 11 in the editor. In Dev C++, we can do that here: ```Tools / Compiler Options / Settings / Code Generation / Language Standard (-std) - GNU C++11```. Vector's elements can be accessed by index (like with arrays).</p>
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {    
+    vector<int> integers;
+
+    integers.push_back(2); // adding an element at the end
+    integers.push_back(4);
+
+    cout << integers[0] << endl;
+    cout << integers.at(0) << endl; // the same as integers[0]
+    cout << integers.front() << endl; // the first value
+    cout << integers.back() << endl; // the last value
+    integers.at(0) = 3;  // changing the value under the given index
+    cout << integers.at(0) << endl;
+    cout << integers.size() << endl; // the length of the vector
+    integers.pop_back(); // deleting the last element
+
+    return 0;
+}
+```
+
+<p>If we want to make a vector of arrays, we have to import the ```<array>``` library and write, e.g., ```vector<array<string, 5>> data;```. In this example, each array in the vector has five string elements. Of course, we can also nest vectors.</p>
+
+<h4>Iterators</h4>
+
+<p>An iterator is an object pointing at a particular position inside a container (e.g., a vector). We use it to get to certain elements inside the container. We create iterators using this pattern: "type_of_the_container::iterator_name;". Not all elements inside a container are in a row inside the memory (this was the case with arrays). An iterator is basically an object that contains a countable number of values. The ```++``` operator is used to advance the iterator to the next item, and the dereference operator (```*```) is used to retrieve the value at the current position.</p>
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {    
+    vector<int> v = {1, 2, 3};
+    vector<int>::iterator iter = v.begin(); // it points at the first element of the vector 
+
+    // Iterating through the vector
+    while (iter != v.end()) {
+        cout << *iter << endl; // dereferencing the iterator to get the value
+        ++iter; // moving to the next element
+    }
+
+    // Restarting the iterator
+    iter = v.begin();
+
+    // Removing the first element returned by the iterator
+    if (iter != v.end())
+        iter = v.erase(iter); // moving to the first element and removing it (the iterator is now pointing to the next valid element - "2")
+
+    // Displaying the vector after removal
+    iter = v.begin();
+    while (iter != v.end()) {
+        cout << *iter << endl;
+        ++iter;
+    }
+
+    return 0;
+}                                   
+```
+
+<h4>```auto``` type</h4>
+
+<p>```auto``` is a data type that decides which type a variable is based on its value. We can check the variable's type using the ```typeid(x).name()``` expression from the ```<typeinfo>``` library.</p>
+
+```cpp
+auto x = 5;
+auto y = 5.5;
+auto z = "z";
+
+for (auto i = numbers.begin(); i != numbers.end(); i++)
+    cout << *i << endl;
+```
+
+<h4>Enhanced ```for```</h4>
+
+<p>Enhanced ```for``` is a type of the ```for``` loop with the syntax shown below.</p>
+
+```cpp
+for (auto x : numbers) // where to save the values : from where to read the values
+    cout << x << endl;
+
+for (auto& x : numbers) {
+    x *= 10;
+    cout << x << endl;
+}
+```
+
+<p>*Adding an ampersand after the ```auto``` keyword allows us to edit the values of a vector inside the loop.</p>
+
+<h4>The ```<sstream>``` library</h4>
+
+<p>Dividing a string with delimiters using the ```<sstream>``` library.</p>
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <sstream>
+using namespace std;
+
+int main() {
+    string str = "abc;de;f;ghij";
+    stringstream ss(str); // a stringstream object used to process the input string
+    string t; // a variable used to temporarily store each substring extracted from the input
+    vector<string> values;
+    // This loop will execute until getline() cannot extract any more substrings.
+    while (getline(ss, t, ';')) // getline() extracts a substring from the stringstream 'ss' until it encounters the specified delimiter (';') and stores the result in 't'
+        values.push_back(t); // adding the extracted value to the vector
+
+    for (int i = 0; i < values.size(); i++)
+        cout << values.at(i) << endl;
+    return 0;
+}
+```
+
+<h2>Stacks & queues</h2>
+
+<p>Stacks and Queues are data structures for storing data in specific orders. Their elements can't be accessed by index. Stacks operate in a Last-In-First-Out (LIFO) order, where elements can only be added and deleted from the top of the stack. Queues operate in a First-In-First-Out (FIFO) order, where elements can be added at the end of the queue and removed from the front.</p>
+
+```cpp
+#include <iostream>
+#include <stack>
+#include <queue>
+using namespace std;
+
+int main() {    
+    stack<int> integers;
+    integers.push(1);
+    integers.push(2);
+    integers.pop(); // deleting an element
+    cout << integers.top() << endl; // the value from the top of the stack (1)
+
+    queue<int> integers2;
+    integers2.push(1);
+    integers2.push(2);
+    integers2.push(3);
+    integers2.pop();
+    cout << integers2.front() << endl; // the value from the front of the queue (2)
+
+    return 0;
+}                                           
+```
+
+<h2>Deques</h2>
+
+<p>Deque stands for Double-Ended Queue. With it, we can easily add and remove elements not only at the end (like with vectors) but also at the beginning. They share the same methods with vectors and can be handled the same way. Its elements also can be accessed by index.</p>
+
+```cpp
+#include <iostream>
+#include <deque>
+using namespace std;
+
+int main() {    
+    deque<int> integers;
+
+    integers.push_back(2); // adding an element at the end
+    integers.push_back(4);
+    integers.pop_back(); // deleting an element at the end
+    integers.push_front(1); // adding an element at the beginning
+    integers.pop_front(); // deleting an element at the beginning
+    cout << integers.front() << endl; // integers.back() would return the same number as there is only one
+
+    for (int i = 0; i < integers.size(); i++)
+        cout << integers[i] << endl;
+    return 0;
+}
+```
+
+<h2>Sets</h2>
+
+<p>Sets store unique elements (even if we add, e.g., the number 4 twice, it will keep only one) that are not accessible by index. An unordered set (```unordered_set```) stores elements without an order (you could enter them like this: 1, 2, 3, and then receive 3, 1, 2).</p>
+
+```cpp
+#include <iostream>
+#include <set>
+using namespace std;
+
+int main() {    
+    set<int> integers {1, 2, 3, 4};
+    integers.insert(1); // adding an element
+    integers.insert(5);
+    integers.erase(2); // deleting an element
+
+    for (int i : integers)
+        cout << i << endl;
+
+    return 0;
+}                                          
+```
+
+<h2>Maps</h2>
+
+<p>Maps work on the key-value coding rule, which states that searching for the key will give us the value. Using the map keys, we can fetch the assigned values. In the example below, "C++" and "map" are keys, and "programming language" and "data structure" are values.</p>
+
+```cpp
+#include <iostream>
+#include <map>
+using namespace std;
+
+int main() {    
+    map<string, string> x;
+    x.insert( { "C++", "programming language" });
+    x.insert( { "map", "data structure" });
+    x.erase("map");
+
+    for (auto i : x) // accessing all elements of a map in a loop
+        cout << i.first << " - " << i.second << endl;
+
+    x["C++"] = "language";  // editing the value under a given key
+    cout << x.at("C++") << endl; // displaying the value under a given key
+
+    return 0;
+}                                         
+```

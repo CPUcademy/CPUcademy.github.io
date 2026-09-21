@@ -1,0 +1,40 @@
+---
+title: "Nested classes"
+order: 6
+---
+
+<p>We can put classes in each other. This solution is used for logically grouping related classes, enhancing encapsulation by restricting visibility (as the inner class is only accessible within the outer class), and improving code organization. Inner classes have access to the outer class's objects. The example below perfectly represents all three applications of nested classes.</p>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class BankAccount {
+    double balance; // private attribute
+    public:
+        BankAccount(double balance) {this -> balance = balance; }
+        ~BankAccount() {}
+
+        double getBalance() { return balance; }
+        void updateBalance(double amount) {balance += amount; }
+        void start(double interestRate) { Interest interest(interestRate, *this); }
+
+        class Interest { // nested / inner class
+            double interestRate; // private attribute
+            public:
+                Interest(double interestRate, BankAccount& account) { // we have to give a reference to the class as an argument to be able to edit its objects
+                    this -> interestRate = interestRate;
+                    account.updateBalance((account.getBalance() * interestRate) / 100);
+                }
+            ~Interest() {}
+        };
+};
+
+int main() {
+    BankAccount bankacc(1000);
+    cout << bankacc.getBalance() << endl;
+    bankacc.start(5);
+    cout << bankacc.getBalance() << endl;
+    return 0;
+}
+```

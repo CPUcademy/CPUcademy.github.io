@@ -1,0 +1,65 @@
+---
+title: "Comparisons and the Object class"
+order: 9
+---
+
+<h2>Comparisons</h2>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        int a = 50;
+        int b = a;
+        b = 30;
+        System.out.println(a + " " + b); // 50 30
+
+        TestClass t = new TestClass(); // there isn't any value in x - there is an address
+        TestClass t2 = t;
+        t2.x = 20;
+        System.out.println(t.x + " " + t2.x); // 20 20
+
+        String y = "John";
+        String z = y; // the same as "String z = new String(y)", so the value of y won't change
+        z = "George";
+        System.out.println(y + " " + z); // John George
+
+        // Comparing strings
+        String s1 = "John";
+        String s2 = "John";
+        if (Objects.equals(s1, s2)) // while == compares memory addresses, equals() compares content
+            System.out.println("Equal");
+        // s1.equals(s2) would work the same, however if s1 is null, it would throw a NullPointerException (an error)
+    }
+}
+
+class TestClass {
+    int x = 10;
+}
+```
+
+<h2>Object class</h2>
+
+<p>With the ```Object``` class, we can create instances of different classes (polymorphism), but to use the methods of these classes, we have to use downcasting (as shown in the example below). <b>All classes in Java inherit from the</b> ```Object``` <b>class directly or indirectly</b>.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Object x = new Coordinates(2, 3);
+        System.out.println(((Coordinates)x).getX());
+        System.out.println(x.getClass()); // getting the name of the class the object belongs to
+    }
+}
+
+class Coordinates {
+    private int x;
+    private int y;
+
+    Coordinates(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    int getX() { return x; }
+    int getY() { return y; }
+}
+```

@@ -1,0 +1,344 @@
+---
+title: "Basics"
+order: 1
+---
+
+<p>CSS stands for Cascading Style Sheets. It is not a programming language. It allows us to style HTML documents. The extension of a CSS file is ```.css```. In CSS, a semicolon is placed after each statement. The term "cascade" refers to how styles are applied to elements in a structured and predictable manner. When multiple styles are defined for the same element, CSS follows a set of rules to determine which style takes precedence. The hierarchy of styles can be omitted with ```!important``` (added after a statement, e.g., ```color: blue !important;```). We can create comments between ```/*``` and ```*/``` signs. Things that we write between these signs don't count as code. Comments are often used to describe the code.</p>
+
+<p>We can style the HTML tags, IDs (indicated with ```#```), and classes (marked with ```.```). An ID has to be unique to a subpage. It is assigned to an element like this: ```<p id="p"></p>```, and then styled in CSS: ```#p {...}```. A class is used to style many objects on a website. An element can have many classes. They are assigned to an element like this: ```<p class="p p2"></p>```, and then styled in CSS: ```.p {...} .p2 {...}```. An object can have both classes and an ID.</p>
+
+<p>The ```*``` selector applies styles to all document elements, while the ```body``` selector specifically targets the ```<body>``` element and its children.</p>
+
+<p>A container is typically used to wrap and structure the content on a web page, providing a centralized area to manage the layout and appearance of elements. Containers are often defined using the ```<div>``` element, which acts as a block-level element that holds other content. The primary purpose of a container is to create a defined space in which content is organized, usually for better alignment, padding, or width control. By setting specific width, margin, and padding properties, a container ensures that its child elements are consistently styled and positioned.</p>
+
+<p>We can write CSS code inside the ```<style>``` tags in the head of an HTML document, inline (in the ```style``` attribute of a selected element), or in an external ```.css``` file (recommended because of style integrity). We can connect the external file (stylesheet) in the ```<head>``` section like this: ```<link rel="stylesheet" href="style.css" type="text/css">```. All the examples will be written in a <b>shortened</b> version to avoid redundancy and improve readability (the ```<style>``` tags will be right next to the HTML content).</p>
+
+<p className="noBottomMargin">CSS hierarchy:</p>
+<ol>
+<li>Inline styles - ```style="color: blue;"```.</li>
+<li>Styles from the ```<style>``` tag - ```<style>p{color: blue;}</style>```.</li>
+<li>Styles from a file - ```p{color: blue;}```.</li>
+<li>The default value.</li>
+</ol>
+
+<p>The object's ID is higher in the hierarchy than its class.</p>
+
+<p className="noBottomMargin"><span style={{ color: "red" }}>p&#123;</span><span style={{ color: "green" }}>color: </span><span style={{ color: "blue" }}>blue;&#125;</span></p>
+<p className="noBottomMargin"><span style={{ color: "red" }}>p - a selector</span></p>
+<p className="noBottomMargin"><span style={{ color: "green" }}>color - a property (attribute)</span></p>
+<p><span style={{ color: "blue" }}>blue - a value</span></p>
+
+<h2>Basic statements</h2>
+
+<h4>Font</h4>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```font-style```</td>
+        <td>Setting the font style (```normal```, ```italic```, ```oblique```).</td>
+    </tr>
+    <tr>
+        <td>```font-variant```</td>
+        <td>Setting the font variant (```normal```, ```small-caps```).</td>
+    </tr>
+    <tr>
+        <td>```font-weight```</td>
+        <td>Setting the font thickness (```lighter```, ```normal```, ```bold```, ```bolder```, ```100-900```).</td>
+    </tr>
+    <tr>
+        <td>```font-size```</td>
+        <td>Setting the size of the text (e.g., ```20px``` or ```120%```). When using percentages, the value is calculated based on the font size of the parent element.</td>
+    </tr>
+    <tr>
+        <td>```font-family```</td>
+        <td>Setting the font family (```Arial```, ```Verdana```, etc.). Example: ```font-family: Arial, Helvetica, sans-serif;``` (the first available font will be chosen).</td>
+    </tr>
+    <tr>
+        <td>```font```</td>
+        <td>All-in-one in this order (separated by commas): ```style```, ```variant```, ```weight```, ```size```, ```family```. Example: ```font: italic small-caps bold 16px Arial;```.</td>
+    </tr>
+</table></div>
+
+<p>The all-in-one statements do not require us to provide all values but just the ones we need.</p>
+
+<h4>Text</h4>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```color```</td>
+        <td>Setting the color of the text. It can be defined using hex values (e.g., ```#303030```), color names (e.g., ```white```), or RGB/RGBA values (e.g., ```rgb(48, 48, 48)```, ```rgba(48, 48, 48, 0.5)``` where the last value controls transparency).</td>
+    </tr>
+    <tr>
+      <td>```text-align```</td>
+      <td>Aligning text (```center```, ```left```, ```right```, ```justify```).</td>
+    </tr>
+    <tr>
+        <td>```text-decoration```</td>
+        <td>Decorating text (```none```, ```underline```, ```overline```, ```line-through```, ```blink```).</td>
+    </tr>
+    <tr>
+        <td>```text-indent```</td>
+        <td>Setting the first line indentation (e.g., ```5px```).</td>
+    </tr>
+    <tr>
+        <td>```text-transform```</td>
+        <td>Converting all text to uppercase or lowercase (```uppercase```, ```lowercase```).</td>
+    </tr>
+    <tr>
+        <td>```letter-spacing```</td>
+        <td>Setting the spacing between letters (e.g., ```5px```).</td>
+    </tr>
+    <tr>
+        <td>```word-spacing```</td>
+        <td>Setting the spacing between words (e.g., ```5px```).</td>
+    </tr>
+    <tr>
+        <td>```line-height```</td>
+        <td>Setting the spacing between lines of text (e.g., ```5px```).</td>
+    </tr>
+</table></div>
+
+<h4>Background</h4>
+  
+<div className="table-container"><table>
+    <tr>
+      <td>```background-color```</td>
+        <td>Setting the background color. It can be defined using hex values (e.g., ```#303030```), color names (e.g., ```white```), or RGB/RGBA values (e.g., ```rgb(48, 48, 48)```, ```rgba(48, 48, 48, 0.5)``` where the last value controls transparency).</td>
+    </tr>
+    <tr>
+        <td>```background-image```</td>
+        <td>Setting the background image (```url("image.jpg")```).</td>
+    </tr>
+    <tr>
+        <td>```background-repeat```</td>
+        <td>Setting on which axis will the background image repeat if it is too small (```repeat```, ```repeat-x```, ```repeat-y```, ```no-repeat```).</td>
+    </tr>
+    <tr>
+        <td>```background-attachment```</td>
+        <td>Controlling whether the background image scrolls with the page (```fixed```, ```scroll```).</td>
+    </tr>
+    <tr>
+        <td>```background-position```</td>
+        <td>Setting the background image position by two coordinates ```x, y``` (```center```, ```top```, ```left```, ```right```, ```bottom```, and numerical values, e.g., ```20px```). The two coordinates are separated with a space. If we provide only one value, it will apply to both axes.</td>
+    </tr>
+    <tr>
+      <td>```background```</td>
+      <td>All-in-one in this order (separated by commas): ```color```, ```image```, ```repeat```, ```attachment```, ```position```. Example: ```background: #303030 url("image.jpg") no-repeat fixed left top;```.</td>
+    </tr>
+    <tr>
+        <td>```background-size```</td>
+        <td>Controlling how the background image is scaled inside the element (```auto```, ```cover```, ```contain```, or specific values like ```100px 200px```). ```cover``` scales the image to fully cover the element, possibly cropping it, while ```contain``` ensures the whole image is visible within the element.</td>
+    </tr>
+</table></div>
+
+<h4>Sizes</h4>
+  
+<div className="table-container"><table>
+    <tr>
+      <td>```width```</td>
+      <td>Setting the width of an element.</td>
+    </tr>
+    <tr>
+      <td>```height```</td>
+      <td>Setting the height of an element.</td>
+    </tr>
+    <tr>
+      <td>```min-width```</td>
+      <td>Setting the minimum width of an element. It can increase based on content, and ```min-height``` also exists.</td>
+    </tr>
+    <tr>
+      <td>```max-width```</td>
+      <td>Setting the maximum width of an element. It can decrease based on content, and ```max-height``` also exists.</td>
+    </tr>
+</table></div>
+
+<h4>Border</h4>
+  
+<div className="table-container"><table>
+    <tr>
+        <td>```border-width```</td>
+        <td>Setting the width of all / chosen borders (```thin```, ```medium```, ```thick```). We can choose specific borders for all of these statements like this: ```border-top-width```.</td>
+    </tr>
+    <tr>
+        <td>```border-style```</td>
+        <td>Setting the style of all / chosen borders (```none```, ```hidden```, ```dotted```, ```dashed```, ```solid```, ```double```, ```groove```, ```ridge```, ```inset```, ```outset```).</td>
+    </tr>
+    <tr>
+        <td>```border-color```</td>
+        <td>Setting the color of all / chosen borders (```#303030``` (hex) or ```white``` (color name)).</td>
+    </tr>
+    <tr>
+      <td>```border```</td>
+      <td>All-in-one in this order (separated by commas): ```width```, ```style```, ```color```. Example: ```border: 2px solid #303030;```.</td>
+    </tr>
+    <tr>
+        <td>```border-radius```</td>
+        <td>Setting how much a corner is rounded (e.g., ```5px```).</td>
+    </tr>
+</table></div>
+
+<h4>Lists</h4>
+  
+<div className="table-container"><table>
+    <tr>
+        <td>```list-style-type```</td>
+        <td>Setting the look of list's numbers, dots, etc. For ```<ol>```: ```decimal```, ```decimal-leading-zero```, ```lower-alpha```, ```lower-greek```, ```lower-latin```, ```lower-roman```, ```upper-alpha```, ```upper-latin```, ```upper-roman```, and so on. For ```<ul>```: ```circle```, ```disc```, ```square```. The only style used for both lists is ```none```.</td>
+    </tr>
+    <tr>
+        <td>```list-style-position```</td>
+        <td>Setting the position of the list's markers (```outside```, ```inside```).</td>
+    </tr>
+    <tr>
+        <td>```list-style-image```</td>
+        <td>Setting an image as the list's markers (```url("image.jpg")```).</td>
+    </tr>
+    <tr>
+        <td>```list-style```</td>
+        <td>All-in-one in this order (separated by commas): ```type```, ```position```, ```image```.</td>
+    </tr>
+</table></div>   
+
+<h4>Margins</h4>
+  
+<div className="table-container"><table>
+    <tr>
+      <td>```margin```</td>
+      <td>Setting the outer spacing around an element (e.g., ```margin: 20px```). We can set individual side values using ```margin-top```, ```margin-right```, ```margin-bottom```, and ```margin-left```. All values can also be provided in a single shorthand declaration in this order: top, right, bottom, left (e.g., ```margin: 10px 15px 10px 15px```). ```auto``` lets the browser calculate margins automatically to center the element. When used on left and right, it distributes space evenly to center the element. In two-value shorthand like ```margin: 0 auto```, the first value is top/bottom and the second is left/right.</td>
+    </tr>
+    <tr>
+      <td>```padding```</td>
+      <td>Setting the inner spacing inside an element (e.g., ```padding: 20px```). We can set individual side values using ```padding-top```, ```padding-right```, ```padding-bottom```, and ```padding-left```. All values can also be provided in a single shorthand declaration in this order: top, right, bottom, left (e.g., ```padding: 10px 15px 10px 15px```). In two-value shorthand like ```padding: 10px 20px```, the first value is top/bottom and the second is left/right.</td>
+    </tr>
+</table></div>   
+
+<h4>Other</h4>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```cursor```</td>
+        <td>Setting the cursor style (```auto```, ```crosshair```, ```default```, ```pointer```, ```move```, ```text```, ```wait```, ```help```, ```e-resize```, ```ne-resize```, ```nw-resize```, ```n-resize```, ```se-resize```, ```sw-resize```, ```s-resize```, ```w-resize```).</td>
+    </tr>
+    <tr>
+      <td>```opacity```</td>
+      <td>Setting the transparency of an object (```0.1```, ```0.2```, etc.) ```0``` is fully invisible, and ```1``` is fully visible.</td>
+    </tr>
+    <tr>
+        <td>```outline```</td>
+        <td>Setting the outline of an element, which is a line drawn outside the border. It does not affect the layout of the page and does not take up space. Commonly used for accessibility (like focus indication of the ```<input>``` tag). We can define its ```width```, ```style```, and ```color```. Example: ```outline: 2px solid red;```</td>
+      </tr>      
+    <tr>
+        <td>```box-sizing```</td>
+        <td>Controlling how the total size of an element is calculated (```content-box```, ```border-box```). Use ```border-box``` to include padding and border in the total width and height of a container.</td>
+    </tr>
+    <tr>
+        <td>```box-shadow```</td>
+        <td>Adding shadow to an element. Specify horizontal offset, vertical offset, blur radius, spread radius, and color (e.g., ```box-shadow: 2px 2px 5px 0 #000;```). To place the shadow inside the element, use the ```inset``` keyword at the beginning: ```box-shadow: inset 2px 2px 5px 0 #000;```.</td>
+    </tr>
+    <tr>
+        <td>```border-collapse```</td>
+        <td>Specifying whether table borders are collapsed into a single border or separated (```separate```, ```collapse```). Apply to the ```<table>``` element.</td>
+    </tr>
+  </table></div>
+
+<h2>The ```<div>``` tag</h2>
+
+<p>The ```<div>``` tag is a block-level container used to group content and elements for organizational and styling purposes. It does not inherently have any visual representation or semantic meaning but serves as a versatile tool for structuring web pages. Developers often use ```<div>``` to apply CSS styles or JavaScript functionality to a specific section of the page by assigning it a unique ID or class. It allows designers to layout content effectively.</p>
+
+<h2>Combining and grouping selectors</h2>
+
+<p>Selectors can target elements in different ways. Writing ```div p``` selects all ```<p>``` elements that are descendants of a ```<div>``` (are placed inside a ```<div>```). On the other hand, writing ```div, p``` selects all ```<div>``` and all ```<p>``` elements independently, regardless of hierarchy. We can use descendant selectors to style nested elements and commas to group multiple independent selectors. Writing ```div.className``` targets only ```<div>``` elements with the class ```className```, leaving other elements unaffected.</p>
+
+<h2>Overflow</h2>
+              
+<p>```overflow-x``` controls the horizontal scrollbar, and ```overflow-y``` the vertical one. Possible values: ```visible``` (content overflows), ```hidden``` (overflowing content is hidden), ```scroll``` (scrollbar always shown), ```auto``` (scrollbar appears when needed). The ```overflow``` attribute controls both scrollbars at once.</p>
+                
+```css
+<style>
+    .overflow {
+        background-color: #eee;
+        color: black;
+        padding: 15px;
+        width: 100%;
+        height: 200px;
+        overflow: scroll;
+        border: 1px solid #ccc;
+    }
+</style>
+
+<div class="overflow">
+    <p>Lorem ipsum...</p>
+</div>
+```
+
+<div className="overflow" style={{ marginTop: 20, marginBottom: 20 }}>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non turpis lobortis, mollis purus in, luctus neque. Cras sed justo sem. Sed fermentum velit dolor, ut tincidunt ex bibendum eu. Vivamus at sagittis nunc. Morbi consequat feugiat quam vitae porta. Donec consectetur diam et vehicula facilisis. Nam vulputate purus tortor, vel varius eros imperdiet id. Ut interdum enim purus, vel hendrerit leo convallis tincidunt. Fusce et orci eget ipsum tincidunt vestibulum. Nullam sit amet suscipit est, at semper augue. In nibh est, gravida ac massa eu, mattis egestas arcu. Sed urna metus, vehicula sit amet purus a, ultricies iaculis dolor. Aliquam erat volutpat. Fusce vitae varius sapien. Suspendisse fringilla ornare neque ac mattis. Sed placerat risus eget est bibendum, sed tempor tortor ultricies. Integer vitae ornare arcu. Ut laoreet ligula ex, non porta elit pretium sed. Sed vel nunc mauris. Suspendisse ex lorem, vulputate eget ex sit amet, pellentesque lobortis est. Pellentesque sollicitudin sagittis eros et facilisis. Duis commodo est at purus aliquam laoreet. Nam facilisis consectetur nisl nec finibus. Aliquam vehicula enim eros, vitae sagittis urna egestas quis. Etiam nec turpis laoreet tortor eleifend bibendum. Nam id eros eros. Vestibulum suscipit dapibus sem, id sagittis justo malesuada non. Donec porttitor dapibus velit, eu convallis magna sodales laoreet. Proin ut consectetur quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque ut mi et odio convallis luctus. Sed ut scelerisque ipsum. Maecenas tempor varius dui, consequat efficitur diam vulputate ut. Maecenas vel ipsum vel elit fermentum vulputate vel et arcu. Nam dictum mi eu nisi egestas, vel posuere nisi commodo. Pellentesque sed felis sit amet mauris lobortis tincidunt a ut ex. Phasellus sit amet sollicitudin felis. Fusce nec ante at mauris dignissim auctor quis ut urna. Quisque bibendum purus sit amet semper vulputate. Quisque commodo diam nunc, non tempor neque sodales a. Proin vitae accumsan ipsum. Vivamus eu risus lacus. Etiam ullamcorper augue nisi, vitae ultrices lorem tempor eu. Vestibulum quam arcu, vestibulum eleifend egestas vitae, semper ut turpis. Sed non tempus odio, id viverra mi. Sed sed ultrices lorem. Curabitur vel laoreet sem. Ut euismod, massa quis convallis egestas, purus ligula feugiat ante, ac dignissim quam odio id lorem. Pellentesque tincidunt arcu id fringilla vehicula. Nunc turpis nibh, iaculis quis ex a, ullamcorper dignissim ex. Quisque condimentum, dui in lobortis mattis, ligula massa facilisis diam, ac condimentum augue purus eu justo.</p>
+</div>
+
+<h2>Browser prefixes</h2>
+
+<p className="noBottomMargin">When defining properties that do not work across all browsers, we need to add prefixes:</p>
+<ul>
+    <li>```-webkit``` - for Safari and Chrome.</li>
+    <li>```-moz``` - for Mozilla Firefox.</li>
+    <li>```-ms``` - for Internet Explorer.</li>
+    <li>```-o``` - for Opera.</li>
+</ul>
+
+<p>Example: ```-webkit-filter: brightness(100%);```.</p>
+                                
+<h2>Attribute selectors and custom attributes</h2>
+
+<p>An attribute selector is a type of selector that allows us to select and style HTML elements based on the presence or value of specific attributes. This includes both standard HTML attributes and custom attributes (also known as data attributes) that we can define for our purposes. Custom attributes are prefixed with ```data-```. Attribute selectors are defined with square brackets. </p>
+
+```css
+<style>
+    [data-blue] {background-color: blue; } /* all elements that have this attribute */                           
+    p[data-red] {background-color: red; } /* paragraphs that have this attribute */
+    [data-d="blue"] {background-color: blue; } /* all elements that have this attribute with "blue" assigned */
+    [data-d="red"] {background-color: red; } /* all elements that have this attribute with "red" assigned */
+    div[class*="a"] {background-color: red; } /* divs that have a class assigned, whose name has "a" in it */
+</style>
+
+<div data-blue>Lorem ipsum</div>
+<p data-red>Lorem ipsum</p>
+<div data-d="blue">Lorem ipsum</div>
+<div data-d="red">Lorem ipsum</div>
+<div class="aoo">Lorem ipsum</div>
+```
+
+<div data-blue>Lorem ipsum</div>
+<p data-red>Lorem ipsum</p>
+<div data-d="blue">Lorem ipsum</div>
+<div data-d="red">Lorem ipsum</div>
+<div className="aoo d">Lorem ipsum</div>
+<br/>
+
+<p>Using attribute selectors, we can style specific form controls, e.g., ```input[type="text"]```.</p>
+
+<h2>Units</h2>
+
+<p>A viewport is the area of ​​the browser window. It is defined as the area in which we view the website but without the window border and possible sliders. On the other hand, the canvas can be larger than the viewport. The canvas is the entire website area, even the one that does not fit in the viewport (on the screen).</p>
+
+<h4>Relative units</h4>
+<ul>
+    <li>```em``` - Relative to the font size of the <b>parent</b> element (e.g., ```1.5em```).</li>
+    <li>```rem``` - Relative to the font size of the <b>root</b> element (```html```) (e.g., ```2rem``` - 2x the root font size).</li>
+    <li>```%``` - Relative to the parent element's width or height (e.g., ```50%```).</li>
+    <li>```vw``` - 1% of the viewport's width (e.g., ```10vw```).</li>
+    <li>```vh``` - 1% of the viewport's height (e.g., ```20vh```).</li>
+    <li>```vmax``` - Relative to the larger of the viewport's width or height.</li>
+    <li>```vmin``` - Relative to the smaller of the viewport's width or height.</li>
+</ul>
+
+<h4>Absolute units</h4>
+<ul>
+    <li>```px``` - Pixels, an absolute unit based on screen resolution (e.g., ```16px```).</li>
+    <li>```in``` - Inches, an absolute physical measurement (e.g., ```1in```).</li>
+    <li>```cm``` - Centimeters, an absolute physical measurement (e.g., ```2cm```).</li>
+    <li>```mm``` - Millimeters, an absolute physical measurement (e.g., ```5mm```).</li>
+</ul>
+
+<p>Usually pixels are the default unit.</p>
+
+<p>The ```calc()``` function allows us to perform calculations to determine property values dynamically. It can be used to combine different units and to create more flexible layouts and designs. We can use ```calc()``` to calculate widths, margins, padding, or font sizes based on a combination of fixed and relative units. Example: ```width: calc(100% - 20px);```. We can use these arithmetic operators: ```+```, ```-```, ```*```, ```/```.</p>
+                               

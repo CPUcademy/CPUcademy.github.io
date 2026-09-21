@@ -1,0 +1,97 @@
+---
+title: "Composition and aggregation"
+order: 8
+---
+
+<h2>Composition</h2>	
+
+<p>Inheritance is used for ```is a``` relationships (e.g., a cat is an animal), and composition is used for ```has a``` relationships (e.g., a house has rooms). It involves attaching objects to a class instead of inheriting a whole class of these objects.</p>
+
+```java
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        House house = new House();
+        house.add_room("Bedroom", 30);
+        house.add_room("Kitchen", 20);
+        house.add_room("Bathroom", 10);
+
+        for (Room r: house.rooms) {
+            System.out.println(r);
+        }
+    }
+}
+
+class Room {
+    String name;
+    int area;
+    Room(String name, int area) {
+        this.name = name;
+        this.area = area;
+    }
+    @Override
+    public String toString() {
+        return name + " - area: " + area;
+    }
+}
+
+class House {
+    ArrayList<Room> rooms = new ArrayList<>();
+    void add_room(String name, int area) {
+        Room room = new Room(name, area);
+        rooms.add(room);
+    }
+}
+```
+			
+<p>In summary, we use inheritance when we want a class to inherit methods from a parent class and then modify or extend its functionalities. Inheritance allows us to override methods, but in the case of composition, we can only use them. When we need to use a class without any modifications, composition is recommended, and when we need to change the behavior of a method in another class, we use inheritance.</p>
+
+<h2>Aggregation</h2>
+
+<p>The difference between aggregation and composition is the degree of ownership of the existing class. Aggregation implies a relationship where the child class can exist independently of the parent class (cars are not a part of a car park). Example: school and students. Delete the school, and the students will still exist. Composition implies a relationship where the child cannot exist independently of the parent (e.g., wheels are a part of a car).</p>
+
+```java
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        School school = new School("XYZ High School");
+        Student student1 = new Student("John", "Smith");
+        Student student2 = new Student("Kate", "Johnson");
+        Student student3 = new Student("Jack", "Williams");
+
+        school.add_student(student1);
+        school.add_student(student2);
+        school.add_student(student3);
+
+        for (Student s: school.students) {
+            System.out.println(s);
+        }
+        System.out.println(student1); // the students exist independently
+    }
+}
+
+class Student {
+    String name;
+    String surname;
+    Student(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+    @Override
+    public String toString() {
+        return name + " " + surname;
+    }
+}
+
+class School {
+    String name;
+    School(String name) { this.name = name; }
+    ArrayList<Student> students = new ArrayList<>();
+
+    void add_student(Student student) {
+        students.add(student);
+    }
+}
+```

@@ -1,0 +1,165 @@
+---
+title: "Conditional statements"
+order: 6
+---
+
+<h2>```if``` conditional statement</h2>
+
+<p>The ```if``` conditional statement allows us to check if a given condition is fulfilled. We commonly use logical operators in conditional statements.</p>
+
+```python
+x = int(input())
+if x == 5:
+    print("The user entered the number 5.")
+```
+
+<p>We use the modulo operator very often in conditional statements. In the example below, the condition checks if the ```x``` variable is divisible by 2 (whether it is even).</p>
+
+```python
+x = int(input())
+if x % 2 == 0:
+    print("The user entered an even number.")
+```
+
+<p>We can simplify the ```if``` statement by using boolean conditions. We can just write ```if x:```, and if ```x``` is ```True```, the instruction will be executed. ```True``` means any value other than 0.</p>
+                                
+<h2>```else``` and ```elif``` conditional statements</h2>
+                                
+<p>```else``` is a statement that allows us to simplify our code by avoiding the need for another ```if``` statement, replacing it with an alternative action when the original condition is ```False```.</p>
+
+```python
+x = int(input())
+if x > 0:
+    print("The user entered a positive number.")
+else:
+    print("The user entered a negative number.")
+```
+
+<p>The code above doesn't handle the case where the user enters 0. To do that, we need ```elif``` (```else``` + ```if```). It works similarly to ```else```, but allows us to specify an additional condition (like in an ```if``` statement). We can use as many ```elif``` instructions as we want, relating to a single ```if```.</p>
+
+```python
+x = int(input())
+if x > 0:
+    print("The user entered a positive number.")
+elif x < 0:
+    print("The user entered a negative number.")
+else:
+    print("The user entered 0.")
+```
+
+<p>We use this instruction instead of writing multiple ```if``` statements because if any of the conditions relating to a single ```if``` statement have been met, the rest will not be considered.</p>
+
+<h2>```break``` and ```continue``` keywords</h2>
+                            
+<p>The ```break``` keyword is used to break the continuity of a loop, and ```continue``` can skip particular iterations within it.</p>
+
+```python
+while True:
+    x = int(input())
+    if x > 0:
+        break
+        
+for i in range(10):
+    if i == 4 or i == 8:
+        continue
+    print(i)
+```
+
+<h2>```else``` in loops</h2>
+
+<p>```else``` also works with loops, but on different principles. The ```else``` block that follows the loop won't be executed only if there is a ```break``` statement inside the loop. This structure is unique to Python, and we shouldn't use it very often because it can be confusing.</p>
+
+```python
+x = 3
+while x > 4:
+    x -= 1
+    print("Loop")
+else:
+    print("Else")
+print("Outside")
+```
+
+```python
+x = 6
+while x > 4:
+    x -= 1
+    print("Loop")
+else:
+    print("Else")
+print("Outside")
+```
+
+```python
+x = 10
+while x > 4:
+    x -= 1
+    print("Loop")
+    if x == 7:
+        break
+else:
+    print("Else")
+print("Outside")
+```
+
+```python
+for i in range(5):
+    print("Loop")
+else:
+    print("Else")
+print("Outside")
+```
+
+```python
+for i in range(5):
+    print("Loop")
+    if i == 2:
+        break
+else:
+    print("Else")
+print("Outside")
+```
+
+<h2>```match``` conditional statement (```switch```)</h2>
+
+<p>```match``` is a statement that simplifies complex conditions by replacing multiple ```if``` and ```elif``` statements with a more concise structure.</p>
+
+```python
+x = int(input())
+
+match x:
+    case 0:
+        print("x equals 0")
+    case 25:
+        print("x equals 25")
+    case 50:
+        print("x equals 50")
+    case _: # the default case
+        print("x doesn't equal 0, 25, or 50")
+```
+
+<p>A parameter of the ```match``` statement is usually an integer or a string (but it could be something else).</p> 
+
+<h2>Ternary operations</h2>
+
+<p>A ternary operation is a simplifed one-line version of the ```if-else``` statement.</p>
+
+```python
+x, y = 1, 2 # defining variables in bulk
+z = x if x < y else y
+print("The smaller numer is:", z)
+```
+
+<h2>The walrus operator</h2>
+
+<p>The walrus operator ```:=``` allows us to assign a value to a variable as part of an expression. It can make code more concise by combining assignment and condition checks in a single line.</p>
+
+```python
+numbers = [1, 2, 3, 4, 5]
+total = 0
+
+while (n := len(numbers)) > 0:
+    total += numbers.pop()
+    print("Popped number, remaining count:", n)
+
+print("Total sum:", total)
+```

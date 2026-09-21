@@ -1,0 +1,195 @@
+---
+title: "Regular expressions"
+order: 5
+---
+
+<p>Regular expressions (regex) are a powerful tool for pattern matching and text manipulation. They allow us to define search patterns for strings, enabling complex string operations such as validation, searching, and replacing. Java provides the ```java.util.regex``` package, which includes the ```Pattern``` and ```Matcher``` classes to work with regular expressions. The ```Pattern``` class is used to compile a ```regex``` into a pattern, while the ```Matcher``` class is used to perform operations on the text based on that pattern.</p>
+<p>Write the ```import java.util.regex.*;``` statement at the beginning of every example.</p>
+
+<h4>```Pattern.compile()``` and ```Matcher.find()``` - finding a match in a string</h4>  
+<p>The ```Pattern.compile()``` method compiles a regex pattern, and the ```Matcher.find()``` method locates the first occurrence of the pattern in a string. If no match is found, it returns ```false```.</p>  
+```java
+String pattern = "Java";
+String input = "I am learning Java programming.";
+Pattern compiledPattern = Pattern.compile(pattern); // compiling the regex into a pattern
+Matcher matcher = compiledPattern.matcher(input); // creating a matcher for the input text
+
+// Checking if the pattern matches
+if (matcher.find())  
+    System.out.println("Match found!");  
+else
+    System.out.println("No match");  
+```
+
+<h4>```Matcher.matches()``` - matching the entire string</h4>  
+<p>The ```Matcher.matches()``` method checks if the entire string matches the pattern.</p>  
+```java
+String pattern = "I am learning Java programming.";
+String input = "I am learning Java programming.";
+Pattern compiledPattern = Pattern.compile(pattern);
+Matcher matcher = compiledPattern.matcher(input);
+
+if (matcher.matches())
+    System.out.println("Exact match found!");  
+else
+    System.out.println("No exact match");  
+```
+
+<h4>```Pattern.split()``` - splitting strings</h4>  
+<p>The ```Pattern.split()``` method splits a string based on a given regex pattern and returns an array of strings.</p>  
+```java
+String input = "apple,banana,orange";
+String pattern = ",";
+Pattern compiledPattern = Pattern.compile(pattern);
+String[] result = compiledPattern.split(input);
+
+for (String s: result)
+    System.out.println(s); 
+```
+
+<h4>```Matcher.group()``` - extracting specific parts of a match</h4>  
+<p>The ```Matcher.group()``` method retrieves specific matched groups in the pattern. Groups are defined using parentheses in the regex.</p>  
+```java
+String pattern = "(\\d{3})-(\\d{2})-(\\d{4})"; // grouping digits
+String input = "My SSN is 123-45-6789.";
+Pattern compiledPattern = Pattern.compile(pattern);
+Matcher matcher = compiledPattern.matcher(input);
+
+if (matcher.find()) {
+    System.out.println("Entire match: " + matcher.group()); // 123-45-6789
+    System.out.println("Group 1: " + matcher.group(1)); // 123
+    System.out.println("Group 2: " + matcher.group(2)); // 45
+    System.out.println("Group 3: " + matcher.group(3)); // 6789
+}           
+```
+
+<h4>Special sequences</h4>  
+<p style={{marginBottom: "5px"}}>Java regex supports special sequences that simplify pattern creation:</p>  
+<div className="table-container"><table>
+    <tr>
+        <td>```\\d```</td>
+        <td>Matching any digit (equivalent to ```[0-9]```).</td>
+    </tr>
+    <tr>
+        <td>```\\D```</td>
+        <td>Matching any non-digit character.</td>
+    </tr>
+    <tr>
+        <td>```\\w```</td>
+        <td>Matching any word character (alphanumeric + underscore).</td>
+    </tr>
+    <tr>
+        <td>```\\W```</td>
+        <td>Matching any non-word character.</td>
+    </tr>
+    <tr>
+        <td>```\\s```</td>
+        <td>Matching any whitespace character.</td>
+    </tr>
+    <tr>
+        <td>```\\S```</td>
+        <td>Matching any non-whitespace character.</td>
+    </tr>
+</table></div>
+```java
+String pattern = "\\d+";
+String input = "There are 12 cats and 34 dogs.";
+Pattern compiledPattern = Pattern.compile(pattern);
+Matcher matcher = compiledPattern.matcher(input);
+
+while (matcher.find()) 
+    System.out.println(matcher.group()); // 12 and 34
+```
+
+<h4>Regex options (flags)</h4>  
+<p style={{marginBottom: "5px"}}>The ```Pattern``` class provides several flags to modify regex behavior:</p>  
+<div className="table-container"><table>
+    <tr>
+        <td>```Pattern.CASE_INSENSITIVE```</td>
+        <td>Making the regex case-insensitive.</td>
+    </tr>
+    <tr>
+        <td>```Pattern.DOTALL```</td>
+        <td>Allowing the ```.``` character to match newline characters.</td>
+    </tr>
+    <tr>
+        <td>```Pattern.COMMENTS```</td>
+        <td>Allowing the use of whitespace and comments in regex patterns for better readability.</td>
+    </tr>
+</table></div>
+
+```java
+// Using CASE_INSENSITIVE
+Pattern pattern = Pattern.compile("java", Pattern.CASE_INSENSITIVE);
+Matcher matcher = pattern.matcher("I love JAVA programming.");
+if (matcher.find())
+    System.out.println("Case-insensitive match found!");  
+
+// Using DOTALL
+pattern = Pattern.compile("Hello.*World", Pattern.DOTALL);
+matcher = pattern.matcher("Hello\nWorld");
+if (matcher.find())
+    System.out.println("Match found with DOTALL!");  
+
+// Using COMMENTS
+pattern = Pattern.compile(
+    "\\d{3}-\\d{2}-\\d{4}", 
+    Pattern.COMMENTS
+);
+matcher = pattern.matcher("123-45-6789");
+if (matcher.find()) 
+    System.out.println("Match found with comments enabled!");  
+```
+
+<h4>All useful methods</h4>
+
+<div className="table-container"><table>
+    <tr>
+        <td>```Pattern.compile(pattern flags)```</td>
+        <td>Compiling the given regex pattern with optional flags.</td>
+    </tr>
+    <tr>
+        <td>```Pattern.matcher(input)```</td>
+        <td>Returning a ```Matcher``` instance for the specified input text.</td>
+    </tr>
+    <tr>
+        <td>```Pattern.pattern()```</td>
+        <td>Returning the string pattern used to create the instance.</td>
+    </tr>
+    <tr>
+        <td>```Pattern.flags()```</td>
+        <td>Returning the flags bit mask used to compile the pattern.</td>
+    </tr>
+    <tr>
+        <td>```Pattern.split(input, limit)```</td>
+        <td>Splitting the input around matches found by the pattern.</td>
+    </tr>
+    <tr>
+        <td>```Matcher.find(start)```</td>
+        <td>Finding the next match in the input, starting from the specified index.</td>
+    </tr>
+    <tr>
+        <td>```Matcher.matches()```</td>
+        <td>Checking if the entire input matches the pattern.</td>
+    </tr>
+    <tr>
+        <td>```Matcher.group(group)```</td>
+        <td>Returning the matched subsequence for the specified group.</td>
+    </tr>
+    <tr>
+        <td>```Matcher.start(group)```</td>
+        <td>Returning the start index of the match for the specified group.</td>
+    </tr>
+    <tr>
+        <td>```Matcher.end(group)```</td>
+        <td>Returning the end index of the match for the specified group.</td>
+    </tr>
+    <tr>
+        <td>```Matcher.replaceAll(replacement)```</td>
+        <td>Replacing all matches with the given replacement string.</td>
+    </tr>
+    <tr>
+        <td>```Matcher.reset(input)```</td>
+        <td>Resetting the matcher with new input text.</td>
+    </tr>
+</table></div>         

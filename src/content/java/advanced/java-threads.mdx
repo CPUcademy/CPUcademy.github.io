@@ -1,0 +1,301 @@
+---
+title: "Threads"
+order: 6
+---
+
+<p>Threads are a fundamental part of the Java concurrency model, allowing multiple tasks to run simultaneously within a single program. By utilizing threads, we can create more responsive and efficient applications, particularly in scenarios where tasks can be performed in parallel. Java provides built-in support for multithreading through the ```Thread``` class or the ```Runnable``` interface, where ```Runnable``` is used to define the task that a ```Thread``` executes.</p>
+
+<p>To create a thread, we extend the ```Thread``` class and override its ```run()``` method, which contains the code to be executed by the thread. Once the thread is created, it can be started using the ```start()``` method. The ```join()``` method ensures the program waits until the chosen thread completes execution before proceeding further. It is useful because some resources may be necessary for the rest of the program. Threads can be also put to sleep using the ```Thread.sleep(milliseconds)``` method, allowing for controlled pauses in execution.</p>
+
+<p>Java also provides higher-level concurrency utilities in the ```java.util.concurrent``` package, which includes features like thread pools, futures, and concurrent collections, making it easier to manage complex multithreaded applications.</p>
+
+```java
+class Task1 extends Thread {
+    @Override
+    public void run() {
+        for (int i = 1; i <= 10000; i++) {
+            if (i == 10000)
+                System.out.println("Task1: Counted to " + i);
+        }
+    }
+}
+
+class Task2 extends Thread {
+    @Override
+    public void run() {
+        int sum = 0;
+        for (int i = 1; i <= 10000; i++)
+            sum += i;
+        System.out.println("Task2: Sum = " + sum);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Creating threads
+        Task1 task1 = new Task1();
+        Task2 task2 = new Task2();
+
+        // Starting threads
+        task1.start();
+        task2.start();
+
+        try {
+            // Waiting for both threads to finish
+            task1.join();
+            task2.join();
+        }
+        catch (InterruptedException e) { // if another thread interrupts the current thread
+            System.out.println("Main thread interrupted.");
+        }
+        System.out.println("Both tasks completed.");
+    }
+}
+```   
+
+<h4>```Runnable``` VS ```Thread```</h4>
+
+```java
+// Using Runnable: the class represents a task
+class Task implements Runnable {
+    @Override
+    public void run() {
+        System.out.println("Running task");
+    }
+}
+
+Thread thread1 = new Thread(new Task()); // the task is given to a thread
+thread1.start();
+
+
+// Using Thread: the class represents a thread
+class MyThread extends Thread {
+    @Override
+    public void run() {
+        System.out.println("Running thread");
+    }
+}
+
+MyThread thread2 = new MyThread();
+thread2.start();
+```
+
+<p>Of course, using ```join()``` is not necessary. We do not use it if we want to start two separate threads that have absolutely nothing to do with each other. However, if we deleted these methods from the example above, the "Both tasks completed." string would display weirdly (check it in your editor) because the compiler would not wait for both threads to display their results before printing it.</p>
+
+```java
+// Creating a thread using a lambda statement
+int n = 20;
+Thread th = new Thread(() -> {
+    System.out.println("Square of " + n + " is: " + square(n)); // you have to define the square() method
+});
+th.start();
+```
+
+<p>A race condition occurs when multiple threads access shared resources without proper synchronization, leading to unpredictable behavior. A deadlock happens when two or more threads are waiting indefinitely for resources held by each other, preventing further execution. In contrast, a livelock occurs when threads keep changing state in response to each other but make no real progress, as they continuously attempt to resolve the conflict without success. While race conditions lead to incorrect results, deadlocks halt execution, and livelocks keep the system active but unproductive.</p>
+
+<p>Threads can be synchronized to prevent concurrent access to shared resources, ensuring data consistency. Synchronization is applied using the ```synchronized``` keyword. It ensures that only one thread accesses shared resources at a time. Synchronization ensures data consistency but can reduce performance if overused.</p>
+
+<p>In the example below, ```synchronized``` prevents multiple threads from modifying the ```sharedResource``` variable simultaneously, which could lead to inconsistencies due to race conditions. Without the "lock," threads can interfere with each other while accessing the shared resource, causing the final result to be unpredictable. For example, two threads might read the same value of ```sharedResource```, increment it, and write it back, effectively skipping one increment. This may result in a final value being lower than expected. When a thread enters the ```synchronized(Main.class)``` block, it first tries to acquire the lock. If another thread already holds the lock, the current thread will wait until the lock is released. Inside the locked block, the shared resource is modified. Once the other thread finishes modifying ```sharedResource```, the lock is automatically released. ```Main.class``` is the ```Class``` object representing the ```Main``` type and is passed to methods or frameworks to refer to the class itself (for reflection, instantiation, or configuration) rather than an instance.</p>
+
+```java
+public class Main {
+    private static int sharedResource = 0;
+    
+    public static void main(String[] args) {
+        // Creating multiple threads
+        Thread[] threads = new Thread[10];
+        for (int i = 0; i < 10; i++) {
+            threads[i] = new Thread(Main::increment); // the :: operator symbolizes affiliation to the class
+            threads[i].start();
+        }
+
+        // Waiting for all threads to finish
+        for (int i = 0; i < 10; i++) {
+            try {
+                threads[i].join();
+            } 
+            catch (InterruptedException e) {
+                Thread.currentThread().interrupt(); // setting the interrupted status of the current thread
+            }
+        }
+
+        System.out.println("Final value of sharedResource: " + sharedResource);
+    }
+
+    public static void increment() {
+        for (int i = 0; i < 1000; i++) {
+            // Ensuring only one thread modifies the shared resource at a time (acquiring the lock before accessing the data) - synchronization
+            synchronized(Main.class) {
+                sharedResource++;
+            }
+        }
+    }
+}
+```
+
+<p>```synchronized``` is a Java mechanism that provides <b>mutex</b> (mutual exclusion), ensuring that only one thread can execute the synchronized block at a time. The same result can be achieved with ```ReentrantLock```. It gives us more control than synchronized, for example, the ability to try to acquire a lock without waiting indefinitely.</p>
+
+```java
+import java.util.concurrent.locks.ReentrantLock;
+
+public class Main {
+    private static int sharedResource = 0;
+    private static final ReentrantLock rLock = new ReentrantLock();
+
+    public static void main(String[] args) {
+        // Creating multiple threads
+        Thread[] threads = new Thread[10];
+        for (int i = 0; i < 10; i++) {
+            threads[i] = new Thread(Main::increment);
+            threads[i].start();
+        }
+
+        // Waiting for all threads to finish
+        for (int i = 0; i < 10; i++) {
+            try {
+                threads[i].join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+
+        System.out.println("Final value of sharedResource: " + sharedResource);
+    }
+
+    public static void increment() {
+        for (int i = 0; i < 1000; i++) {
+            rLock.lock(); // acquiring the lock
+            try {
+                sharedResource++;
+            } finally {
+                rLock.unlock(); // always release the lock
+            }
+        }
+    }
+}
+```
+
+<h4>Atomic operations</h4>
+
+<p>An atomic operation is an operation that happens in a single indivisible step. Other threads cannot observe it halfway through. For example, ```counter++;``` is not atomic because it is effectively: read counter, add 1, write counter. Two threads can interfere with each other, causing a race condition. An atomic increment can instead be performed with ```AtomicInteger``` from ```java.util.concurrent.atomic```:</p>
+
+```java
+AtomicInteger counter = new AtomicInteger(0);
+counter.incrementAndGet();
+```
+
+<p>Interlocked operations are atomic operations used to safely modify shared data between threads without using a traditional lock.</p>
+
+```java
+AtomicInteger counter = new AtomicInteger(0);
+counter.incrementAndGet();
+counter.decrementAndGet();
+counter.addAndGet(5);
+```
+
+<p>The ```java.util.concurrent``` package provides additional thread-safe and atomic types, such as ```ConcurrentHashMap```, which allows multiple threads to safely access and modify a map concurrently (the syntax is the same as when using the "classic" ```HashMap```).</p>
+
+<h4>```this::function``` VS ```v -> function(v)```</h4>
+
+<p>```this::function``` is a method reference that directly refers to an existing instance method, making the code more concise and readable. ```v -> function(v)``` is a lambda expression that creates an inline function calling the method, offering more flexibility to add extra logic if needed. Although slightly different, these essentially work the same.</p>
+
+<h4>Thread pools</h4>
+
+<p>A thread pool is a collection of worker threads that efficiently execute multiple tasks in parallel, reusing threads to avoid the overhead of thread creation.</p>
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class Main {
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newFixedThreadPool(3); // creating a thread pool with 3 worker threads
+        
+        // Submitting 5 tasks to the thread pool
+        for (int i = 1; i <= 5; i++) 
+            executor.submit(new Task(i)); // executing the task with argument "i"
+
+        executor.shutdown(); // shutting down the executor to stop accepting new tasks
+    }
+}
+
+class Task implements Runnable { // the task can be executed by any available thread in the pool
+    private final int taskNum;
+    public Task(int taskNum) { this.taskNum = taskNum; }
+
+    @Override
+    public void run() {
+        System.out.println("Task " + taskNum + " running in " + Thread.currentThread().getName());
+    }
+}
+```
+
+<h4>Semaphore</h4>
+
+<p>Unlike a lock, a semaphore allows a specified number of threads to access a resource at the same time. It ensures mutual exclusion based on the defined limit. The example below demonstrates controlled access to the resource. When setting the semaphore limit to 2, exactly two threads can access the resource simultaneously.</p>
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
+
+public class Main {
+    public static void main(String[] args) {
+        Semaphore semaphore = new Semaphore(2); // only 2 threads can access the resource at a time
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+        for (int i = 1; i <= 5; i++) {
+            final int taskId = i;
+            executor.submit(() -> {
+                try {
+                    semaphore.acquire(); // acquiring a permit
+                    System.out.println("Task " + taskId + " is accessing the resource.");
+                    Thread.sleep(1000); // simulating work
+                    System.out.println("Task " + taskId + " finished.");
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } finally {
+                    semaphore.release(); // releasing the permit
+                }
+            });
+        }
+        executor.shutdown();
+    }
+}
+```
+
+<h4>CountDownLatch</h4>
+
+<p>A ```CountDownLatch``` is a synchronization tool that allows one or more threads to wait until a set of operations in other threads completes. It is initialized with a count, and each call to ```countDown()``` decrements it. The thread calling ```await()``` blocks until the count reaches zero. Unlike ```join()```, it does not require a direct reference to the threads being waited on.</p>
+
+```java
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class Main {
+    public static void main(String[] args) {
+        CountDownLatch latch = new CountDownLatch(3); // waiting for 3 threads
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+        for (int i = 1; i <= 3; i++) {
+            final int taskId = i;
+            executor.submit(() -> {
+                try {
+                    Thread.sleep(1000); // simulating work
+                    System.out.println("Task " + taskId + " completed.");
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } finally {
+                    latch.countDown(); // decrementing the latch count
+                }
+            });
+        }
+        try {
+            latch.await(); // main thread waits until count reaches 0
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        System.out.println("All tasks finished.");
+        executor.shutdown();
+    }
+}
+```

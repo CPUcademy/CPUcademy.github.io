@@ -1,0 +1,239 @@
+---
+title: "Networking basics (theory)"
+order: 6
+---
+
+<h2>Basic terms</h2>
+
+<ul>
+    <li><b>HTTP</b> - Hypertext Transfer Protocol, a protocol used for transmitting hypertext via the Internet. It is the foundation of data communication on the web and allows browsers and web servers to exchange information.</li>
+
+    <li><b>HTTPS</b> - Hypertext Transfer Protocol Secure, an extension of HTTP that uses encryption through SSL/TLS to provide secure communication over a computer network. It ensures the integrity and privacy of data between the web browser and server.</li>
+
+    <li><b>SSID</b> - Service Set Identifier, a unique name assigned to a Wi-Fi network to distinguish it from other networks. Devices use the SSID to connect to the correct wireless network. It contains up to 32 alphanumerical characters and is case-sensitive. A <b>guest SSID</b> is a separate network identifier (SSID) created on a wireless router to provide internet access for guests. It is isolated from the main network to enhance security, preventing access to internal resources while allowing visitors to connect to the internet. It typically includes its own password and settings for limited access.</li>
+
+    <li><b>SSL</b> - Secure Sockets Layer, a cryptographic protocol designed to secure communication over a computer network. SSL encrypts data transmitted between the client and server, protecting it from interception and tampering.</li>
+    
+    <li><b>SSH (Secure Shell)</b> - a cryptographic network protocol used to securely access and manage devices over an unsecured network. SSH provides a secure channel for remote login and command execution by encrypting the communication between the client and server. It is widely used for managing servers, transferring files, and automating tasks securely.</li>  
+    
+    <li><b>Tethering</b> - the process of sharing a device's internet connection with other devices, typically through a wired connection (e.g., USB) or wirelessly (e.g., Wi-Fi or Bluetooth).</li> 
+    
+    <li><b>Ethernet</b> - a widely used networking technology that defines the standards for communication over wired local area networks (LANs). It specifies the physical and data link layer protocols for transmitting data between devices using cables, typically twisted pair cables, and networking hardware like switches and hubs.</li>
+    
+    <li><b>DSL (Digital Subscriber Line)</b> - a high-speed internet connection technology that transmits digital data over standard telephone lines. DSL allows simultaneous use of the internet and telephone service by dividing the available frequency spectrum into separate channels for voice and data, often requiring a DSL modem to decode signals.</li>
+    
+    <li><b>ISP</b> - Internet Service Provider, a company or organization that offers internet access and related services to individuals and businesses. ISPs provide connectivity through various technologies such as DSL, cable, fiber-optic, or satellite, and often bundle additional services like email hosting and security.</li>
+
+    <li><b>IP address</b> - a unique identifier assigned to devices on a network that use the Internet Protocol for communication. IP addresses can be either IPv4 (e.g., 192.168.1.1) or IPv6 (e.g., 2001:0db8:85a3:0000:0000:8a2e:0370:7334), and they help in routing data packets to the correct destination.</li>
+
+    <li><b>IPv4 (Internet Protocol version 4)</b> - the fourth version of the Internet Protocol, providing an addressing scheme to identify devices on a network and enabling data routing across networks, using 32-bit addresses.</li>
+
+    <li><b>IPv6 (Internet Protocol version 6)</b> - the successor to IPv4, designed to provide a larger addressing space with 128-bit addresses, improved security, and better performance for modern networking needs.</li>
+
+    <li><b>MAC address</b> - a hardware-based address assigned to network interfaces by the manufacturer. A MAC address, typically a 48-bit hexadecimal (e.g., 00:1A:2B:3C:4D:5E), ensures device-level identification on local area networks (LAN).</li>
+
+    <li><b>DNS (Domain Name System)</b> - a system that translates human-readable domain names (e.g., www.example.com) into IP addresses, enabling users to access resources using easily remembered names rather than numeric addresses.</li>
+
+    <li><b>DNS Server</b> - a server that stores and manages DNS records, responding to client requests by translating domain names into corresponding IP addresses, allowing devices to locate and access websites or resources on the internet.</li>
+
+    <li><b>ARP (Address Resolution Protocol)</b> - a protocol used to map an IP address to the corresponding MAC address on a local network.</li>
+
+    <li><b>WPA2 (Wi-Fi Protected Access 2)</b> - a security protocol designed to secure wireless networks, based on the IEEE 802.11i standard. WPA2 uses advanced encryption methods, such as AES (Advanced Encryption Standard), to provide strong data protection and network security. It replaces the older WPA and WEP protocols, offering improved resistance to unauthorized access and eavesdropping.</li>
+
+    <li><b>Standard</b> - a defined set of rules or guidelines established by a recognized authority to ensure consistency and interoperability across devices, systems, or processes.</li>
+
+    <li><b>Protocol</b> - a set of rules or conventions that define how data is transmitted and received between devices over a network, ensuring proper communication and data exchange.</li>
+
+    <li><b>TCP (Transmission Control Protocol)</b> - a connection-oriented protocol in the transport layer of the Internet Protocol Suite that ensures reliable, ordered, and error-checked delivery of data between devices over a network.</li>
+
+    <li><b>UDP (User Datagram Protocol)</b> - a connectionless protocol in the transport layer that provides fast, but unreliable, data transmission without guaranteeing delivery, order, or error-checking.</li>
+
+    <li><b>DHCP (Dynamic Host Configuration Protocol)</b> - a network management protocol that automatically assigns IP addresses and other network configuration parameters to devices, enabling them to communicate on a network.</li>
+
+    <li><b>Subnet</b> - a logical subdivision of an IP network that divides a larger network into smaller networks to improve organization, routing, and address management.</li>
+
+    <li><b>Subnet mask</b> - a value used to determine which part of an IP address identifies the network and which part identifies the host within that network. For example, in ```192.168.1.10``` with the subnet mask ```255.255.255.0```, ```192.168.1``` identifies the network, and ```10``` identifies the host. ```255.255.255.0``` is also written as ```/24```.</li>
+
+    <li><b>CIDR (Classless Inter-Domain Routing) notation</b> - a method of representing an IP address together with the number of bits used for the network portion. For example, ```192.168.1.0/24``` means the first 24 bits identify the network, equivalent to the subnet mask ```255.255.255.0```.</li>
+
+    <li><b>Diffie-Hellman key exchange</b> - a method that allows two parties to establish a shared secret key over an insecure network without directly sending the secret key. Both parties use the same public parameters, and each privately generates their own private key. They use their private key with the public parameters to generate a public key, which they exchange with each other. Each party then combines the received public key with their own private key to independently calculate the same shared secret key. An attacker can see the public parameters and exchanged public keys, but cannot easily determine the private keys or the shared secret because reversing the mathematical operation used to generate the public keys is computationally infeasible with sufficiently large key sizes.</li>
+
+    <li><b>X3DH (Extended Triple Diffie-Hellman)</b> - a key agreement protocol designed for secure messaging that allows two parties to establish a shared secret even when one or both parties are offline. It uses multiple public keys and Diffie-Hellman exchanges to provide properties such as forward secrecy and mutual authentication.</li>
+
+    <li><b>CORS (Cross-Origin Resource Sharing)</b> - a browser security mechanism used to control which websites can make requests to a server. It helps protect a server's resources from unauthorized access while allowing trusted origins to communicate with it.</li>
+
+    <li><b>Proxy</b> - a server that acts as an intermediary between a client and another server. Instead of communicating directly with the destination server, the client sends its request to the proxy, which forwards the request and returns the response. A proxy can be used to hide the client's IP address from the destination server, filter or monitor traffic, control access to resources, or cache frequently requested content.</li>
+</ul>
+
+<h2>Types of networks</h2>
+
+<ul>
+    <li><b>LAN</b> - Local Area Network, a network that connects devices in a limited geographical area, such as a home, office, or building, enabling communication and resource sharing between connected devices.</li>
+    
+    <li><b>WLAN</b> - Wireless Local Area Network, a type of LAN that uses wireless technology (e.g., Wi-Fi) to connect devices within a limited area without physical cables.</li>
+
+    <li><b>WAN</b> - Wide Area Network, a network that spans a large geographical area and connects smaller networks (e.g., LANs), enabling communication and data exchange over long distances, typically via the internet or private connections.</li>      
+
+    <li><b>VPN</b> - Virtual Private Network, a secure connection that encrypts data and masks the user's IP address, ensuring privacy and security online.</li>
+
+    <li><b>VLAN (Virtual Local Area Network)</b> - a technology that creates logically segmented networks within a physical network infrastructure. VLANs enable devices on separate VLANs to act as though they are on different physical networks, even when they share the same physical switches and cabling.</li>
+
+    <li><b>P2P</b> - Peer-to-peer network, a type of decentralized network architecture where all devices, or "peers," are equal participants. Unlike traditional client-server models, peers in a peer-to-peer network share resources directly with each other, such as files, processing power, or bandwidth, without relying on a central server. This model is commonly used for file sharing, cryptocurrency networks, and collaborative applications.</li>
+
+    <li><b>Internetwork</b> - a collection of interconnected networks that function as a single large network. Internetworking allows communication and data exchange between different networks, often using routing devices and protocols like TCP/IP to bridge various local and wide area networks.</li>
+</ul>
+
+<h2>Types of connections</h2>
+
+<ul>
+    <li><b>Bluetooth</b> - a short-range wireless communication technology that allows devices to exchange data over distances of up to 10 meters. It is widely used for connecting peripherals like headphones, keyboards, and smartwatches to smartphones and computers.</li>
+    <li><b>Wi-Fi</b> - a wireless networking technology based on the IEEE 802.11 standards (Institute of Electrical and Electronics Engineers). Wi-Fi enables devices to connect to a network and the internet without cables, offering high-speed communication over medium distances (up to several hundred meters). It operates on the 2.4 GHz and 5 GHz frequency bands, with newer standards also utilizing the 6 GHz band for enhanced performance and reduced interference.</li>
+    <li><b>NFC (Near Field Communication)</b> - a short-range wireless technology that enables devices to exchange data when brought within proximity (typically less than 4 cm). NFC is commonly used for contactless payments, secure authentication, and quick data sharing.</li>
+    <li><b>GPS (Global Positioning System)</b> - a satellite-based navigation system that provides location, velocity, and time information to GPS receivers. It is widely used in navigation systems, smartphones, and applications like mapping, tracking, and geofencing.</li>
+</ul>
+
+<h2>Network devices</h2>
+
+<ul>
+    <li><b>Router</b> - a device that connects the home network to the internet and manages traffic between devices. Routers determine the best path for data packets, assign IP addresses via DHCP, and often include NAT (Network Address Translation) and Wi-Fi functionality. For security, use strong encryption like WPA2/WPA3 and enable firewall protection.</li>
+
+    <li><b>Switch</b> - a device that connects multiple wired devices within a local network (LAN), such as computers, printers, and hubs. Unlike a hub, a switch sends data only to the intended device, improving speed and reducing network congestion. Security can be enhanced by segmenting the network into VLANs to isolate devices.</li>
+
+    <li><b>Modem</b> - a device that translates signals between the home network and the ISP (Internet Service Provider), enabling internet connectivity. Modems modulate and demodulate signals over cables, phone lines, or fiber optics. For extra security and functionality, modems are usually connected to a router. Modem-router combos simplify setup but may limit advanced network configuration.</li>
+
+    <li><b>Access point</b> - a device that extends the Wi-Fi coverage by creating additional wireless access points connected to the router via Ethernet. Access points provide seamless connectivity in areas with weak signals. For security, match the router’s encryption standard, use separate SSIDs for guests, and keep firmware updated.</li>
+</ul>            
+
+<p>A secure home network should connect from the end devices, through an integrated router (firewall, NAT, encryption, guest network), to the modem, and through the ISP to the internetwork.</p>
+
+<h2>Types of media</h2>
+
+<ul>
+    <li><b>Wireless media</b> - Communication technologies that use electromagnetic waves (e.g., radio, infrared, microwave) to transmit data without physical cables. Examples include Wi-Fi (WLAN), cellular networks, and satellite communication, allowing devices to communicate over short and long distances.</li>
+    <li><b>LAN media</b> - the physical and data transmission methods used in Local Area Networks (LANs). Examples include twisted-pair cables (Ethernet), coaxial cables, and fiber-optic cables for wired communication. LAN media enable fast and reliable data transmission within a small area, such as homes or offices. <ul><li><b>Category 5e cable</b> - a twisted-pair cable used in networking, supporting high-speed data transmission for LANs. The twist in the pairs reduces electromagnetic interference, ensuring reliable and stable data communication.</li> <li><b>Coaxial cable</b> - a cable with an inner conductor surrounded by insulation, a metallic shield, and an outer jacket, used for cable TV and internet connections.</li> <li><b>Fiber-optic cable</b> - a cable that transmits data as light pulses through thin strands of glass or plastic, offering high-speed and long-distance communication with minimal signal loss.</li> </ul> </li>
+    <li><b>WLAN media</b> - the wireless communication technologies used in Wireless Local Area Networks (WLANs). WLAN media primarily rely on radio frequency (RF) waves, such as those used in Wi-Fi (802.11 standards), enabling high-speed, cable-free communication within a limited area.</li>
+</ul>
+
+<h2>Throughput VS Bandwidth</h2>
+
+<p>Bandwidth refers to the maximum theoretical capacity of a network link to transmit data, often expressed in bits per second (bps). It represents the upper limit of data transfer speed that a network can handle. Throughput, on the other hand, is the actual rate at which data is successfully transmitted over the network. While bandwidth is the potential capacity, throughput reflects real-world performance, which can be influenced by factors such as network congestion, signal interference, and protocol overhead. Therefore, while a network may have high bandwidth, its throughput may be lower due to these limiting factors.</p>
+
+<h2>Intermediary VS end devices</h2>
+
+<p>End devices are the final recipients or senders of data in a network. These devices, such as smartphones, computers, and printers, interact directly with users or applications. Intermediary devices, on the other hand, help route, manage, or secure data as it travels through the network. These include routers, switches, firewalls, and gateways, which ensure that data is correctly directed and securely transmitted between end devices. While end devices facilitate user interaction, intermediary devices ensure data reaches its destination efficiently and securely.</p>
+
+<h2>Cellular VS Wi-Fi</h2>
+
+<p>Cellular and Wi-Fi are two different methods for providing wireless internet connectivity. Cellular networks use mobile towers and base stations to provide internet access over long distances, often through data plans provided by telecom companies. Cellular networks support mobility and allow devices to stay connected while moving. Wi-Fi, on the other hand, is a short-range wireless network typically set up in homes, offices, and public places using routers and access points. It provides high-speed internet within a local area but requires the device to be within the coverage area of a Wi-Fi access point. While cellular is more mobile, Wi-Fi tends to offer higher speeds and lower latency in stationary setups.</p>
+
+<h2>Localhost VS ```127.0.0.1```</h2>
+
+<p>Both localhost and ```127.0.0.1``` refer to the loopback address used for testing network services on the local machine. The key difference lies in their resolution: localhost is a hostname that resolves to the loopback address (typically ```127.0.0.1```) via the system's DNS or host's file, while ```127.0.0.1``` is the numeric IP address directly associated with the loopback interface. Though functionally similar, localhost depends on the correct hostname resolution, whereas ```127.0.0.1``` directly bypasses this, making it more reliable in certain misconfigured environments.</p>
+
+<h2>```0.0.0.0```</h2>
+
+<p>It is a special IPv4 address that represents all available network interfaces or all IPv4 addresses on a host, depending on the context. For example, a server listening on ```0.0.0.0``` accepts connections on all network interfaces.</p>
+
+<h2>Standards organizations</h2>
+
+<ul>
+    <li><b>IEEE (Institute of Electrical and Electronics Engineers)</b> - Develops global standards for technologies such as networking, telecommunications, and electronics, including the widely used IEEE 802 standards for LANs and wireless networks.</li>
+    <li><b>IETF (Internet Engineering Task Force)</b> - Focuses on the development and promotion of voluntary Internet standards, including protocols like HTTP, TCP/IP, and DNS, to ensure interoperability across the Internet.</li>
+    <li><b>ISO (International Organization for Standardization)</b> - Establishes international standards across various industries to ensure quality, safety, efficiency, and interoperability, including the OSI model for networking.</li>
+</ul>
+
+<h2>OSI model</h2>
+
+<p>The OSI model is a conceptual framework that divides network communication into seven layers, each responsible for a specific part of the communication process.</p>
+
+<ol reversed>
+  <li><b>Application</b> - provides network services directly to applications, such as HTTP and DNS.</li>
+  <li><b>Presentation</b> - handles data formatting, encryption, and compression.</li>
+  <li><b>Session</b> - establishes, manages, and terminates communication sessions.</li>
+  <li><b>Transport</b> - provides end-to-end data delivery using protocols such as TCP and UDP.</li>
+  <li><b>Network</b> - handles IP addressing and routing between networks.</li>
+  <li><b>Data Link</b> - handles frames and MAC addresses within a local network.</li>
+  <li><b>Physical</b> - transmits raw bits over physical media.</li>
+</ol>
+
+<h2>Common HTTP codes</h2>
+
+<p>An HTTP code is a three-digit code sent by a web server to a web client to indicate the result of an HTTP request.</p>
+
+<div className="table-container"><table>
+  <tr>
+    <td><b>Code</b></td>
+    <td><b>Name</b></td>
+    <td><b>Description</b></td>
+  </tr>
+  <tr>
+    <td>200</td>
+    <td>OK</td>
+    <td>The request was successful.</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>Bad Request</td>
+    <td>The server could not understand or process the request because it was invalid.</td>
+  </tr>
+  <tr>
+    <td>401</td>
+    <td>Unauthorized</td>
+    <td>Authentication is required or the provided authentication credentials are invalid.</td>
+  </tr>
+  <tr>
+    <td>403</td>
+    <td>Forbidden</td>
+    <td>The server understood the request but refuses to allow access to the requested resource.</td>
+  </tr>
+  <tr>
+    <td>404</td>
+    <td>Not Found</td>
+    <td>The requested resource could not be found on the server.</td>
+  </tr>
+  <tr>
+    <td>405</td>
+    <td>Method Not Allowed</td>
+    <td>The HTTP method used in the request is not allowed for the requested resource.</td>
+  </tr>
+  <tr>
+    <td>408</td>
+    <td>Request Timeout</td>
+    <td>The server timed out while waiting for the request from the client.</td>
+  </tr>
+  <tr>
+    <td>409</td>
+    <td>Conflict</td>
+    <td>The request conflicts with the current state of the target resource.</td>
+  </tr>
+  <tr>
+    <td>429</td>
+    <td>Too Many Requests</td>
+    <td>The client has sent too many requests within a given period of time.</td>
+  </tr>
+  <tr>
+    <td>500</td>
+    <td>Internal Server Error</td>
+    <td>The server encountered an unexpected condition that prevented it from fulfilling the request.</td>
+  </tr>
+  <tr>
+    <td>501</td>
+    <td>Not Implemented</td>
+    <td>The server does not support the functionality required to fulfill the request.</td>
+  </tr>
+  <tr>
+    <td>502</td>
+    <td>Bad Gateway</td>
+    <td>A server acting as a gateway or proxy received an invalid response from an upstream server.</td>
+  </tr>
+  <tr>
+    <td>503</td>
+    <td>Service Unavailable</td>
+    <td>The server is currently unable to handle the request, often because it is overloaded or undergoing maintenance.</td>
+  </tr>
+  <tr>
+    <td>504</td>
+    <td>Gateway Timeout</td>
+    <td>A server acting as a gateway or proxy did not receive a timely response from an upstream server.</td>
+  </tr>
+</table></div>

@@ -1,0 +1,37 @@
+---
+title: "The RPi camera"
+order: 4
+---
+
+
+<p className="noBottomMargin">```sudo raspi-config / Interface Options / Legacy Camera``` - enabling the camera in the Raspberry Pi terminal.</p>
+<p className="noBottomMargin">Type these commands into the CMD:</p>
+<ol>
+    <li className="noBottomMargin">```ssh [username]@[ip_of_the_pi]``` + enter your password.</li>
+    <li className="noBottomMargin">```sudo nano /boot/config.txt``` - uncomment in this file by deleting the ```#``` sign:</li>
+    <ul type="disc">
+        <li className="noBottomMargin">```#hdmi_force_hotplug=1```</li>
+        <li className="noBottomMargin">```#hdmi_group=1```</li>
+        <li className="noBottomMargin">```#hdmi_mode=1``` (change it to ```hdmi_mode=16```)</li>
+    </ul>
+    <li className="noBottomMargin">```dtoverlay=vc4-fkms-v3d``` - comment this line by adding the ```#``` sign.</li>
+    <li className="noBottomMargin">Save and exit the file.</li>
+    <li>```sudo reboot```</li>
+</ol>
+
+<p>When you are back in the VNC, type ```raspistill``` into the terminal. If there is no error, it means that you have successfully installed the camera module. It should show you the "help" list of this command.</p>
+
+<p>When connecting the Raspberry Pi camera, lift the plastic latch on the CSI (Camera Serial Interface) port, insert the ribbon cable with the shiny contacts facing the port's contacts (usually with the blue side facing away from the HDMI port, toward the Ethernet port), and then push the latch back down to secure the cable.</p>
+
+<h2 style={{ marginTop: "20px" }}>Using the camera from the Raspberry Pi terminal</h2>
+<p>```mkdir camera``` (creating a "camera" folder)</p>
+
+<h3>Images</h3>
+<p className="noBottomMargin">```raspistill -o camera/img.jpg``` (o - output) - taking a picture</p>
+<p className="noBottomMargin">```raspistill``` arguments (we add them after the path):</p>
+<p className="noBottomMargin">```rot 180``` - rotating the image by 180 degrees (you could have the camera upside down).</p>
+<p>```-w 1280 -h 720``` - setting a lower resolution to save memory.</p>
+
+<h3>Videos</h3>
+<p className="noBottomMargin">```raspivid -o camera/video.h264 -rot 180 -w 720 -h 480``` (```.h264``` is a video format).</p>
+<p>```raspivid```, by default, will record for 5 seconds. To change that time, we can use this argument: ```-t 7000``` (the time is in milliseconds).</p>
