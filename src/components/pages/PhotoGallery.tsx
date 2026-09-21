@@ -20,7 +20,7 @@ function PhotoGallery() {
                 </div>
                 <div className="card-body">
                     {photoNumbers.map((number) => (
-                        <img key={number} src={`/data/my_photography/${number}.jpg`} alt="Photo" className="my-photo" />
+                        <img key={number} src={`/data/my_photography/${number}.jpg`} alt="Photo" className="my-photo" loading="lazy" decoding="async" />
                     ))}
 
                     <div className="copyright text-left" style={{ marginTop: "20px", marginBottom: "8px", fontSize: "13px" }}>

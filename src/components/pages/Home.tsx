@@ -40,7 +40,7 @@ function Home() {
                             <Link className="collapse-item" to={`/tutorials/${course.slug}`} style={{ textDecoration: "none" }} key={course.slug}>
                                 <div className="tutorial-div">
                                     <h5 className="m-0 font-weight-bold tut" style={{ textDecoration: "none" }} dangerouslySetInnerHTML={{ __html: course.title }} />
-                                    <img src={`${course.folder}/${course.slug}-icon.png`} alt="Icon" className={`st ${course.iconClass}`} />
+                                    <img src={`/${course.folder}/${course.slug}-icon.png`} alt="Icon" className={`st ${course.iconClass}`} />
                                 </div>
                             </Link>
                         ))}
