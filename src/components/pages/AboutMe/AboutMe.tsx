@@ -128,7 +128,7 @@ function AboutMe() {
           <div className="card-header py-3">
             <h5 className="m-0 font-weight-bold">Languages</h5>
           </div>
-          <div className="card-body" style={{ padding: "12px", paddingTop: "16px", paddingBottom: "7px", display: "flex", flexWrap: "wrap", gap: "28px", justifyContent: "center", marginTop: "0.1rem" }}>
+          <div className="card-body" style={{ padding: "12px", paddingTop: "16px", paddingBottom: "7px", display: "flex", flexWrap: "wrap", gap: "0 28px", justifyContent: "center", marginTop: "0.1rem" }}>
             {profileTyped.languages.map((lang) => (
               <div className="language-item" key={lang.name}>{lang.name}<img src={`/icons/flags/${lang.flag}`} alt="Icon" /></div>
             ))}
