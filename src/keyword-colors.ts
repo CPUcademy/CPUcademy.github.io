@@ -27,7 +27,7 @@ export const languageCategoryTransformer: ShikiTransformer = {
     const signPattern = /(?<!\w)_(?!\w)|[!#$%&*+/:;<=>?@[\]\\^`{|}~-]/
     const isSql = language === 'sql' || language === 'mysql'
     const sqlFlagPattern = /(?<![\w-])--?[A-Za-z][\w-]*/
-    const spreadPattern = ['java', 'javascript', 'typescript', 'cpp', 'php'].includes(language) ? `\\.{3}|${language === 'php' ? '&#?\\w+;|' : ''}` : isSql ? `${sqlFlagPattern.source}|` : language === 'html' ? '&#?\\w+;|' : ''
+    const spreadPattern = ['java', 'javascript', 'typescript', 'cpp', 'php', 'python'].includes(language) ? `\\.{3}|${language === 'php' ? '&#?\\w+;|' : ''}` : language === 'kotlin' ? '\\.\\.|' : isSql ? `${sqlFlagPattern.source}|` : language === 'html' ? '&#?\\w+;|' : ''
     const pattern = new RegExp(`${words.length ? `(?<![-\\w])(?:${words.join('|')})\\b` : '(?!x)x'}|${spreadPattern}${signPattern.source}`, 'g')
     let activeQuote: string | null = null
     let activeTripleQuote: string | null = null
