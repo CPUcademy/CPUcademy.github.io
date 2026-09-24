@@ -134,12 +134,10 @@ import CodeClickExample from "../../../components/examples/CodeClickExample"
                     this.positionn.y += this.speed * this.direction.y
 
                     // Reversing direction when the opponent hits a screen boundary
-                    if (this.positionn.x <= 0 || this.positionn.x >= window.innerWidth - 50) {
+                    if (this.positionn.x <= 0 || this.positionn.x >= window.innerWidth - 50)
                         this.direction.x *= -1
-                    }
-                    if (this.positionn.y <= 0 || this.positionn.y >= window.innerHeight - 50) {
+                    if (this.positionn.y <= 0 || this.positionn.y >= window.innerHeight - 50)
                         this.direction.y *= -1
-                    }
 
                     this.updatePosition() // updating the opponent's position on screen
                 }, 1000 / 60) // moving at 60 FPS
@@ -156,12 +154,12 @@ import CodeClickExample from "../../../components/examples/CodeClickExample"
             if (!gameActive) return // don't create enemies if the game is over
 
             const opponentElement = document.createElement("div") // Creating a new opponent element
-            opponentElement.class="obj"
+            opponentElement.class = "obj"
             document.body.appendChild(opponentElement) // appending to body
             const opponent = new Opponent(opponentElement) // initializing the opponent
             opponentList.push(opponent) // adding to the array of opponents
             pkt++ // incrementing points
-            document.getElementById("pkt").textContent="Points: " + pkt // updating points display
+            document.getElementById("pkt").textContent = "Points: " + pkt // updating points display
         }
 
         // Calling the createOpponent() function every 3 seconds
