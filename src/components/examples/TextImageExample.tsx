@@ -22,12 +22,7 @@ export default function TextImageExample() {
         <>
             <p ref={textRef}>Text</p>
 
-            <img
-                ref={imageRef}
-                src=""
-                alt="Img"
-                style={{ marginBottom: 20 }}
-            />
+            <img ref={imageRef} src="" alt="Img" style={{ marginBottom: 20 }} />
         </>
     )
 }

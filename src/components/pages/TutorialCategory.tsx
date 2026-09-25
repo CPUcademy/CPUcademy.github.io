@@ -28,16 +28,12 @@ function TutorialCategory() {
         return (
           <div className="col-md-6 col-lg-4 mb-4" key={section}>
             <div className="card shadow mb-4">
-              <div className="card-header py-3">
-                <h5 className="m-0 font-weight-bold">{sectionTitle(section)}</h5>
-              </div>
+              <div className="card-header py-3"><h5 className="m-0 font-weight-bold">{sectionTitle(section)}</h5></div>
               <div className="card-body">
                 <ol className="tutorial-list">
                   {items.map(item => (
                     <li key={item.slug}>
-                      <Link to={`/tutorials/${category}/${item.slug}`} className="linkh" onClick={scrollToTop}>
-                        {item.title}
-                      </Link>
+                      <Link to={`/tutorials/${category}/${item.slug}`} className="linkh" onClick={scrollToTop}>{item.title}</Link>
                     </li>
                   ))}
                 </ol>

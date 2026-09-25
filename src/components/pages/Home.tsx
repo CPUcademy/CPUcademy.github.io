@@ -32,9 +32,7 @@ function Home() {
         <>
             <div className="col-lg-6 mb-4 noBottomMargin">
                 <div className="card shadow mb-4">
-                    <div className="card-header py-3">
-                        <h5 className="m-0 font-weight-bold">Tutorials</h5>
-                    </div>
+                    <div className="card-header py-3"><h5 className="m-0 font-weight-bold">Tutorials</h5></div>
                     <div className="card-body">
                         {coursesTyped.map((course) => (
                             <Link className="collapse-item" to={`/tutorials/${course.slug}`} style={{ textDecoration: "none" }} key={course.slug}>
@@ -52,9 +50,7 @@ function Home() {
                 <div className="card shadow mb-4">
                     <div className="card-header py-3">
                         <h5 className="m-0 font-weight-bold">Portfolio Projects</h5>
-                        <div className="w-100 d-flex justify-content-start" style={{ padding: "8px 0", paddingBottom: "0px" }}>
-                            <Link to="/about-me" className="small-button">Read More About Me</Link>
-                        </div>
+                        <div className="w-100 d-flex justify-content-start" style={{ padding: "8px 0", paddingBottom: "0px" }}><Link to="/about-me" className="small-button">Read More About Me</Link></div>
                     </div>
                     <div className="card-body row">
                         {featuredProjects.map((project) => (
@@ -62,17 +58,13 @@ function Home() {
                                 <a href={project.url} className="a-project" target="_blank" rel="noreferrer">
                                     <div className="project-card card shadow mb-4">
                                         <img src={project.logo} alt="Icon" className="i-project i-project2" style={{ marginTop: "5px" }} />
-                                        <span className="p-project">
-                                            <p><b>{project.title}:</b> <span dangerouslySetInnerHTML={{ __html: project.description }} /></p>
-                                        </span>
+                                        <span className="p-project"><p><b>{project.title}:</b> <span dangerouslySetInnerHTML={{ __html: project.description }} /></p></span>
                                     </div>
                                 </a>
                             </div>
                         ))}
                     </div>
-                    <div className="w-100 d-flex justify-content-end" style={{ padding: "12px 13px" }}>
-                        <Link to="/portfolio-projects" className="small-button">See All</Link>
-                    </div>
+                    <div className="w-100 d-flex justify-content-end" style={{ padding: "12px 13px" }}><Link to="/portfolio-projects" className="small-button">See All</Link></div>
                 </div>
 
                 <div className="row">
@@ -90,14 +82,10 @@ function Home() {
                                     <div className="modal-content">
                                         <div className="modal-header">
                                             <h5 className="modal-title" id="exampleModalLabel">E-mail address</h5>
-                                            <button type="button" className="close" aria-label="Close" onClick={closeEmailModal}>
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                                            <button type="button" className="close" aria-label="Close" onClick={closeEmailModal}><span aria-hidden="true">&times;</span></button>
                                         </div>
                                         <div className="modal-body">If you have any suggestions, requests, corrections, ideas, or business matters, please contact me at <b>cpucademy@gmail.com</b></div>
-                                        <div className="modal-footer">
-                                            <button type="button" className="btn btn-secondary" onClick={closeEmailModal}>Close</button>
-                                        </div>
+                                        <div className="modal-footer"><button type="button" className="btn btn-secondary" onClick={closeEmailModal}>Close</button></div>
                                     </div>
                                 </div>
                             </div>

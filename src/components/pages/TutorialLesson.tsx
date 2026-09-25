@@ -26,17 +26,13 @@ function TutorialLesson() {
     return (
       <div className="col-lg-12 mb-4">
         <div className="card shadow mb-4">
-          <div className="card-header py-3">
-            <h5 className="m-0 font-weight-bold">{page.title}</h5>
-          </div>
+          <div className="card-header py-3"><h5 className="m-0 font-weight-bold">{page.title}</h5></div>
           <div className="card-body">
             <Content />
             <ol className="tutorial-list">
               {subLessons.map(sub => (
                 <li key={sub.slug}>
-                  <Link to={`/tutorials/${category}/${page.slug}/${sub.slug}`} className="linkh" onClick={scrollToTop}>
-                    {sub.title}
-                  </Link>
+                  <Link to={`/tutorials/${category}/${page.slug}/${sub.slug}`} className="linkh" onClick={scrollToTop}>{sub.title}</Link>
                 </li>
               ))}
             </ol>
@@ -56,9 +52,7 @@ function TutorialLesson() {
   return (
     <div className="col-lg-12 mb-4">
         <div className="card shadow mb-4">
-            <div className="card-header py-3">
-                <h5 className="m-0 font-weight-bold">{page.title}</h5>
-            </div>
+            <div className="card-header py-3"><h5 className="m-0 font-weight-bold">{page.title}</h5></div>
             <div className="card-body">
                 <LessonNavButtons current={page} previous={previous} next={next} topic={topic} top />
                 <Content />

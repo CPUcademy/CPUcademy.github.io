@@ -30,9 +30,7 @@ function AboutMe() {
     <>
       <div className="col-lg-8 mb-4 noBottomMargin">
         <div className="card shadow mb-4">
-          <div className="card-header py-3">
-            <h5 className="m-0 font-weight-bold">About Me</h5>
-          </div>
+          <div className="card-header py-3"><h5 className="m-0 font-weight-bold">About Me</h5></div>
           <div className="card-body">
             <div className="foto2" id="profilepic">
               <img src="/icons/main/profile-picture.jpg" className="img-fluid" style={{ minWidth: "100px" }} alt="Profile" />
@@ -48,9 +46,7 @@ function AboutMe() {
         </div>
 
         <div className="card shadow mb-4">
-          <div className="card-header py-3">
-            <h5 className="m-0 font-weight-bold">Experience</h5>
-          </div>
+          <div className="card-header py-3"><h5 className="m-0 font-weight-bold">Experience</h5></div>
           <div className="card-body">
             {profileTyped.experience.map((entry) => (
               <div className="experience-card noBottomMargin" key={entry.company + entry.dates}>
@@ -89,9 +85,7 @@ function AboutMe() {
         </div>
 
         <div className="card shadow mb-4">
-          <div className="card-header py-3">
-            <h5 className="m-0 font-weight-bold">Education</h5>
-          </div>
+          <div className="card-header py-3"><h5 className="m-0 font-weight-bold">Education</h5></div>
           <div className="card-body">
             {profileTyped.education.map((entry) => (
               <div className="education-card noBottomMargin" key={entry.school}>
@@ -108,9 +102,7 @@ function AboutMe() {
 
       <div className="col-lg-4 mb-4">
         <div className="card shadow mb-4">
-          <div className="card-header py-3">
-            <h5 className="m-0 font-weight-bold">Technologies &amp; Tools</h5>
-          </div>
+          <div className="card-header py-3"><h5 className="m-0 font-weight-bold">Technologies &amp; Tools</h5></div>
           <div className="card-body" style={{ paddingTop: "15px" }}>
             {skillCategoriesTyped.map((category, i) => (
               <span key={category.name}>
@@ -125,9 +117,7 @@ function AboutMe() {
         </div>
 
         <div className="card shadow mb-4">
-          <div className="card-header py-3">
-            <h5 className="m-0 font-weight-bold">Languages</h5>
-          </div>
+          <div className="card-header py-3"><h5 className="m-0 font-weight-bold">Languages</h5></div>
           <div className="card-body" style={{ padding: "12px", paddingTop: "16px", paddingBottom: "7px", display: "flex", flexWrap: "wrap", gap: "0 28px", justifyContent: "center", marginTop: "0.1rem" }}>
             {profileTyped.languages.map((lang) => (
               <div className="language-item" key={lang.name}>{lang.name}<img src={`/icons/flags/${lang.flag}`} alt="Icon" /></div>

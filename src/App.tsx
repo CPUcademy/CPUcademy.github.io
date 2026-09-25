@@ -30,13 +30,9 @@ function App() {
                 <Navbar sidebarToggled={sidebarToggled} tutorialsOpen={tutorialsOpen} setTutorialsOpen={setTutorialsOpen} contentRef={contentRef} height={height} />
                 <div id="content-wrapper" className="d-flex flex-column">
                     <div id="content">
-                        <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3" onClick={() => setSidebarToggled(!sidebarToggled)}>
-                            <i className="fa fa-bars colorAppPrimary"></i>
-                        </button>
+                        <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3" onClick={() => setSidebarToggled(!sidebarToggled)}><i className="fa fa-bars colorAppPrimary"></i></button>
                         <div className="container-fluid">
-                                <div className="row">
-                                    <Outlet />
-                                </div>
+                                <div className="row"><Outlet /></div>
                             </div>  
                         </div>
                     <Footer/>

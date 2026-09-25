@@ -15,17 +15,13 @@ function PhotoGallery() {
     <>
         <div className="col-lg-12 mb-4">
             <div className="card shadow mb-4">
-                <div className="card-header py-3">
-                    <h5 className="m-0 font-weight-bold">Photo Gallery</h5>
-                </div>
+                <div className="card-header py-3"><h5 className="m-0 font-weight-bold">Photo Gallery</h5></div>
                 <div className="card-body">
                     {photoNumbers.map((number) => (
                         <img key={number} src={`/data/my_photography/${number}.jpg`} alt="Photo" className="my-photo" loading="lazy" decoding="async" />
                     ))}
 
-                    <div className="copyright text-left" style={{ marginTop: "20px", marginBottom: "8px", fontSize: "13px" }}>
-                        <span>Copyright &copy; Tymoteusz Kołodziejczyk All Rights Reserved. No part of this work may be copied, reproduced, or published without permission.</span>
-                    </div>
+                    <div className="copyright text-left" style={{ marginTop: "20px", marginBottom: "8px", fontSize: "13px" }}><span>Copyright &copy; Tymoteusz Kołodziejczyk All Rights Reserved. No part of this work may be copied, reproduced, or published without permission.</span></div>
                 </div>
             </div>
         </div>

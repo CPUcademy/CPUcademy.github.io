@@ -6,12 +6,7 @@ function InputFieldExample() {
   };
 
   return (
-    <input
-      type="text"
-      id="inputField"
-      placeholder="Write something..."
-      onChange={handleChange}
-    />
+    <input type="text" id="inputField" placeholder="Write something..." onChange={handleChange} />
   );
 }
 

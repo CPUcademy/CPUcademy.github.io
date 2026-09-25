@@ -57,10 +57,7 @@ function removeMarkdownHeadings(text: string): string {
 }
 
 function removeHtmlHeadings(text: string): string {
-  return text.replace(
-    /<h[1-6][^>]*>[\s\S]*?<\/h[1-6]>/gi,
-    ''
-  )
+  return text.replace(/<h[1-6][^>]*>[\s\S]*?<\/h[1-6]>/gi, '')
 }
 
 function removeCodeBlocks(text: string): string {
@@ -68,43 +65,23 @@ function removeCodeBlocks(text: string): string {
 }
 
 function getBodyContent(content: string): string {
-  return removeHtmlHeadings(
-    removeMarkdownHeadings(
-      removeCodeBlocks(
-        removeFrontmatter(content)
-      )
-    )
-  )
+  return removeHtmlHeadings(removeMarkdownHeadings(removeCodeBlocks(removeFrontmatter(content))))
 }
 
-function getExcerpt(
-  text: string,
-  query: string
-): string {
+function getExcerpt(text: string, query: string): string {
   const cleaned = cleanText(text)
 
-  const index = cleaned
-    .toLowerCase()
-    .indexOf(query.toLowerCase())
+  const index = cleaned.toLowerCase().indexOf(query.toLowerCase())
 
   if (index === -1) {
     return cleaned.slice(0, 160)
   }
 
-  const start = Math.max(
-    0,
-    index - 70
-  )
+  const start = Math.max(0, index - 70)
 
-  const end = Math.min(
-    cleaned.length,
-    index + query.length + 90
-  )
+  const end = Math.min(cleaned.length, index + query.length + 90)
 
-  let excerpt = cleaned.slice(
-    start,
-    end
-  )
+  let excerpt = cleaned.slice(start, end)
 
   if (start > 0) {
     excerpt = '…' + excerpt
@@ -117,12 +94,8 @@ function getExcerpt(
   return excerpt
 }
 
-export function searchContent(
-  query: string
-): SearchResult[] {
-  const q = query
-    .trim()
-    .toLowerCase()
+export function searchContent(query: string): SearchResult[] {
+  const q = query.trim().toLowerCase()
 
   if (!q) {
     return []
@@ -135,11 +108,7 @@ export function searchContent(
     /*
      * 1. LESSON TITLE
      */
-    if (
-      document.title
-        .toLowerCase()
-        .includes(q)
-    ) {
+    if (document.title.toLowerCase().includes(q)) {
       results.push({
         path: document.path,
         category: document.category,
@@ -158,11 +127,7 @@ export function searchContent(
      * 2. H1-H6 HEADINGS
      */
     for (const heading of document.headings) {
-      if (
-        heading.text
-          .toLowerCase()
-          .includes(q)
-      ) {
+      if (heading.text.toLowerCase().includes(q)) {
         results.push({
           path: document.path,
           category: document.category,
@@ -182,15 +147,9 @@ export function searchContent(
     /*
      * 3. REST OF THE MDX CONTENT
      */
-    const body = cleanText(
-      getBodyContent(document.content)
-    )
+    const body = cleanText(getBodyContent(document.content))
 
-    if (
-      body
-        .toLowerCase()
-        .includes(q)
-    ) {
+    if (body.toLowerCase().includes(q)) {
       results.push({
         path: document.path,
         category: document.category,
@@ -199,10 +158,7 @@ export function searchContent(
         title: document.title,
         type: 'content',
         text: document.title,
-        excerpt: getExcerpt(
-          body,
-          q
-        ),
+        excerpt: getExcerpt(body, q),
         priority: 2,
         wholeWord: wordRegex.test(body.toLowerCase()),
       })
@@ -218,8 +174,6 @@ export function searchContent(
       return a.priority - b.priority
     }
 
-    return a.title.localeCompare(
-      b.title
-    )
+    return a.title.localeCompare(b.title)
   })
 }
