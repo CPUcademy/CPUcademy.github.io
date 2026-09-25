@@ -113,13 +113,13 @@ imgResized = cv2.resize(img, (300, 280)) # width, height
 imgCropped = imgResized[110:200, 60:230] # height (from 50 to 200), width (from 180 to 320)
 cv2.imshow("Resized and cropped image", imgCropped)
 
-widthh, heightt = 250, 350
+image_width, image_height = 250, 350
 pts1 = np.float32([[275, 633], [366, 578], [615, 764], [700, 699]]) # converting point coordinates to float32 (32-bit floating-point numbers) because OpenCV's transformation functions require floating-point input
 
-pts2 = np.float32([[0 ,0], [widthh, 0], [0, heightt], [widthh, heightt]])
+pts2 = np.float32([[0 ,0], [image_width, 0], [0, image_height], [image_width, image_height]])
 
 matrix = cv2.getPerspectiveTransform(pts1, pts2)
-imgOutput = cv2.warpPerspective(img, matrix, (widthh, heightt)) # top-left, top-right, bottom-left, bottom-right
+imgOutput = cv2.warpPerspective(img, matrix, (image_width, image_height)) # top-left, top-right, bottom-left, bottom-right
 cv2.imshow("Warp perspective", imgOutput)
 
 cv2.waitKey(0)
@@ -269,9 +269,10 @@ upper_color = np.array([179, 255, 255], dtype=np.uint8)
 current_frame = None
 
 # Mouse callback function for picking a color from the frame
-def pick_color(event, x, y):
+def pick_color(mouse_event, x, y):
     global lower_color, upper_color, current_frame
-    if event == cv2.EVENT_LBUTTONDOWN and current_frame is not None:
+    
+    if mouse_event == cv2.EVENT_LBUTTONDOWN and current_frame is not None:
         hsv_frame = cv2.cvtColor(current_frame, cv2.COLOR_BGR2HSV) # converting the current frame to HSV to read color values
         H, S, V = hsv_frame[y, x] # extracting HSV values of the clicked pixel
         print(f"Clicked HSV: H={H}, S={S}, V={V}")
@@ -399,7 +400,7 @@ for question, idx in enumerate(range(0, len(question_contours), 4)):
             marked = (total, cnt_idx)
 
     correct_answer = ANSWER_KEY[question]
-    colorr = (0, 255, 0) if correct_answer == marked[1] else (0, 0, 255)
+    colour = (0, 255, 0) if correct_answer == marked[1] else (0, 0, 255)
     if correct_answer == marked[1]: # check whether the detected answer is correct
         correct += 1
 
@@ -409,7 +410,7 @@ for question, idx in enumerate(range(0, len(question_contours), 4)):
 checked = cv2.copyMakeBorder(img, 50, 0, 0, 0, cv2.BORDER_CONSTANT, value=(255, 255, 255)) # adding top border to make space for the result text
 score = correct / 6
 status = "Passed" if score >= 0.6 else "Failed"
-colorr = (50, 168, 82) if score >= 0.6 else (71, 7, 219)
+colour = (50, 168, 82) if score >= 0.6 else (71, 7, 219)
 cv2.putText(checked, f"{status}: {score * 100:.2f}%", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.9, color, 2)
 
 cv2.imshow("Graded sheet", checked)

@@ -54,9 +54,10 @@ class Meta(type):
         print(attributes)
         return type(class_name, bases, attributes)
 
-class C(metaclass=Meta):
+class C(metaclass = Meta):
     x = 5
     y = 8
+    
     def method(self):
         print("Method")
 
@@ -82,9 +83,10 @@ class Meta(type):
         print(attrs)
         return type(class_name, bases, attrs)
 
-class C(metaclass=Meta):
+class C(metaclass = Meta):
     x = 5
     y = 8
+
     def method(self):
         print("Method")
 
@@ -105,11 +107,11 @@ class Meta(type):
         attributes["getX"] = getX
         return type(class_name, bases, attributes)
 
-class C(metaclass=Meta):
+class C(metaclass = Meta):
     def __init__(self):
         self.__x = 5
 
-class D(metaclass=Meta):
+class D(metaclass = Meta):
     def __init__(self):
         self.__x = 4
 

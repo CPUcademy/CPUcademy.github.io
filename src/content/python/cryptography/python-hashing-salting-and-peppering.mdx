@@ -15,8 +15,8 @@ salt = token_bytes(16) # generating a random salt for each password
 pepper = os.environ.get("PEPPER_SECRET", "default_pepper").encode() # a secret pepper stored securely (e.g., an environment variable)
 
 # Hashing a password with SHA-256 + salt + pepper
-password = "my_secure_password".encode()
-combined = salt + password + pepper
+passwd = "my_secure_password".encode()
+combined = salt + passwd + pepper
 hash_value = hashlib.sha256(combined).hexdigest()
 print(hash_value)
 

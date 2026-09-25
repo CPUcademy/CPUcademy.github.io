@@ -10,22 +10,22 @@ class BankAccount:
     def __init__(self, balance):
         self.__balance = balance # private attribute
 
-    def getBalance(self):
+    def get_balance(self):
         return self.__balance
 
-    def updateBalance(self, amount):
+    def update_balance(self, amount):
         self.__balance += amount
 
-    def start(self, interestRate):
-        self.__interest = self.Interest(interestRate, self)
+    def apply_interest(self, interest_rate):
+        self.__interest = self.Interest(interest_rate, self)
 
     class Interest: # nested / inner class
-        def __init__(self, interestRate, bankacc):
-            self.__interestRate = interestRate # private attribute
-            bankacc.updateBalance((bankacc.getBalance() * self.__interestRate) / 100)
+        def __init__(self, interest_rate, bankacc):
+            self.__interest_rate = interest_rate # private attribute
+            bankacc.update_balance((bankacc.get_balance() * self.__interest_rate) / 100)
 
 bankacc = BankAccount(1000)
-print(bankacc.getBalance())
-bankacc.start(5)
-print(bankacc.getBalance())
+print(bankacc.get_balance())
+bankacc.apply_interest(5)
+print(bankacc.get_balance())
 ```

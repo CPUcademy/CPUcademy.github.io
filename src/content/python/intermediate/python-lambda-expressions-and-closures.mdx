@@ -40,17 +40,17 @@ print(data)
 
 # Sorting dictionary keys with names first by surname, then by first name
 scores = {"Alice Smith": 88, "Bob Brown": 95, "Charlie Davis": 70, "David Wilson": 88}
-sorted_names = sorted(scores.keys(), key=lambda name: (name.split()[-1], name.split()[0]))
+sorted_names = sorted(scores.keys(), key = lambda name: (name.split()[-1], name.split()[0]))
 print(sorted_names)
 
 # Sorting a dictionary by its values in descending order
-city_populations = {"Suma": 5000, "Krasnystaw": 3000, "Chelm": 10000}
+city_populations = {"Suma": 5000, "Chicago": 3000, "New York": 10000}
 
 sorted_city_populations = {
     key: value for key, value in sorted(
         city_populations.items(),
-        key=lambda item: item[1],
-        reverse=True
+        key = lambda item: item[1],
+        reverse = True
     )
 }
 
@@ -61,17 +61,17 @@ print(sorted_city_populations)
 
 ```python
 class Person:
-    def __init__(self, name, age):
-        self.name = name
+    def __init__(self, first_name, age):
+        self.first_name = first_name
         self.age = age
 
     def __repr__(self):
-        return f"{self.name}, {self.age}"
+        return f"{self.first_name}, {self.age}"
 
 people = [Person("Alice", 30), Person("Bob", 25), Person("Charlie", 35)]
 
 sorted_people = sorted(people, key = lambda p: p.age) # sorting by ages
-names = [p.name for p in sorted_people] # getting only the names
+names = [p.first_name for p in sorted_people] # getting only the names
 
 print(sorted_people)
 print(names)
@@ -112,11 +112,11 @@ print(private_function())
 
 ```python
 def counter():
-    countt = 0 # this variable is preserved across all calls
+    counter = 0 # this variable is preserved across all calls
     def increment():
-        nonlocal countt # referring to the "countt" variable in the enclosing scope
-        countt += 1
-        return countt
+        nonlocal counter # referring to the "counter" variable in the enclosing scope
+        counter += 1
+        return counter
     return increment
 
 counter_func = counter() # creating a closure
@@ -134,6 +134,7 @@ print(counter_func()) # 3
 ```python
 def function(n):
     return lambda x: x + n      
+    
 f = function(10)
 print(f(11))
 ```

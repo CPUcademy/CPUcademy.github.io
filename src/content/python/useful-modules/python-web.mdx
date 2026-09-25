@@ -31,6 +31,7 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     return "Hello World!"
+
 app.run() # starting the web server
 ```
 
@@ -43,6 +44,7 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     return render_template("index.html")
+
 app.run()
 ```
 
@@ -55,6 +57,7 @@ app = Flask(__name__)
 @app.route("/user/<name>")
 def user(name):
     return f"Hello {name}!"
+
 app.run()
 ```
 
@@ -67,14 +70,15 @@ app = Flask(__name__)
 @app.route("/login", methods=["POST"])
 def login():
     username = request.form["username"] # getting form data
-    password = request.form["password"]
+    passwd = request.form["password"]
     return f"Logged in as {username}"
+
 app.run()
 ```    
 
 <h2><a id="celery">The <code style={{color: "#157267"}}>celery</code> module</a></h2>
 
-                                   <p>The ```celery``` module is used for running background tasks asynchronously. It works with a message broker (such as Redis) to queue tasks and send them to worker processes that execute them outside the main program. It is commonly used to send emails, process files, handle queues, and run scheduled tasks without blocking the application.</p>
+<p>The ```celery``` module is used for running background tasks asynchronously. It works with a message broker (such as Redis) to queue tasks and send them to worker processes that execute them outside the main program. It is commonly used to send emails, process files, handle queues, and run scheduled tasks without blocking the application.</p>
 
 ```python
 from celery import Celery
@@ -83,6 +87,7 @@ app = Celery("tasks", broker="redis://localhost:6379/0")
 @app.task
 def addition(x, y):
     return x + y
+    
 result = addition.delay(5, 3) # running the task asynchronously (arguments passed to the task function)
 ```
 

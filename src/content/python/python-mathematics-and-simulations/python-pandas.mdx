@@ -55,15 +55,15 @@ df["E"] = df["A"] + df["B"] # creating a new column as a sum of two columns
 df["F"] = 0 # creating a new column filled with constant value 0
 
 # Dropping rows / columns
-df.drop("F", axis = 1, inplace=True) # dropping a column in place (without creating a new DataFrame)
-print(df.drop(0, axis = 0, inplace=False)) # dropping the first row (returns new DataFrame)
+df.drop("F", axis = 1, inplace = True) # dropping a column in place (without creating a new DataFrame)
+print(df.drop(0, axis = 0, inplace = False)) # dropping the first row (returns new DataFrame)
 
 # Handling missing values (these methods also work for Series, which means also for single rows of DataFrames)
 df.loc[1, "B"] = np.nan # introducing a missing value (NaN) at row 1, column "B"
 print(df.isnull()) # searching for missing values with a boolean mask: True where values are NaN, False elsewhere (isna() returns the same result)
 print(df.dropna()) # dropping rows with NaN values (returns a new DataFrame, df is not modified)
 print(df.fillna(0)) # filling NaN values with 0s (returns a new DataFrame, df is not modified)
-print(df.fillna(0, inplace=True)) # filling NaN values with 0s (directly in the original DataFrame)
+print(df.fillna(0, inplace = True)) # filling NaN values with 0s (directly in the original DataFrame)
 
 # Sorting
 print(df.sort_values("A")) # sorting by a column

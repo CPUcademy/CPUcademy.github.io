@@ -26,16 +26,16 @@ order: 1
 
 ```python
 class Book:
-    def __init__(self, titlee, author):
-        self.titlee = titlee
+    def __init__(self, book_title, author):
+        self.book_title = book_title
         self.author = author
 
     def print_details(self):
-        print(f"Title: {self.titlee}, Author: {self.author}")
+        print(f"Title: {self.book_title}, Author: {self.author}")
 
     def save_to_file(self, filename):
         with open(filename, "w") as file:
-            file.write(f"Title: {self.titlee}, Author: {self.author}")
+            file.write(f"Title: {self.book_title}, Author: {self.author}")
 
 book = Book("1984", "George Orwell")
 book.print_details()
@@ -48,20 +48,20 @@ book.save_to_file("book.txt")
 
 ```python
 class Book:
-    def __init__(self, titlee, author):
-        self.titlee = titlee
+    def __init__(self, book_title, author):
+        self.book_title = book_title
         self.author = author
 
 class BookPrinter:
     @staticmethod
     def print_details(book):
-        print(f"Title: {book.titlee}, Author: {book.author}")
+        print(f"Title: {book.book_title}, Author: {book.author}")
 
 class BookSaver:
     @staticmethod
     def save_to_file(book, filename):
         with open(filename, "w") as file:
-            file.write(f"Title: {book.titlee}, Author: {book.author}")
+            file.write(f"Title: {book.book_title}, Author: {book.author}")
 
 book = Book("1984", "George Orwell")
 BookPrinter.print_details(book)
@@ -139,45 +139,45 @@ print(no_discount.calculate(100))
 
 ```python
 class Rectangle:
-    def __init__(self, widthh, heightt):
-        self._heightt = heightt
-        self._widthh = widthh
+    def __init__(self, shape_width, shape_height):
+        self._shape_height = shape_height
+        self._shape_width = shape_width
 
     @property
     def area(self):
-        return self._widthh * self._heightt
+        return self._shape_width * self._shape_height
 
     @property
-    def widthh(self):
-        return self._widthh
+    def shape_width(self):
+        return self._shape_width
 
-    @widthh.setter
-    def widthh(self, value):
-        self._widthh = value
+    @shape_width.setter
+    def shape_width(self, value):
+        self._shape_width = value
 
     @property
-    def heightt(self):
-        return self._heightt
+    def shape_height(self):
+        return self._shape_height
 
-    @heightt.setter
-    def heightt(self, value):
-        self._heightt = value
+    @shape_height.setter
+    def shape_height(self, value):
+        self._shape_height = value
 
 class Square(Rectangle):
     def __init__(self, size):
         super().__init__(size, size)
 
-    @Rectangle.widthh.setter
-    def widthh(self, value):
-        self._widthh = self._heightt = value
+    @Rectangle.shape_width.setter
+    def shape_width(self, value):
+        self._shape_width = self._shape_height = value
 
-    @Rectangle.heightt.setter
-    def heightt(self, value):
-        self._heightt = self._widthh = value
+    @Rectangle.shape_height.setter
+    def shape_height(self, value):
+        self._shape_height = self._shape_width = value
 
 def calculate(obj):
-    w = obj.widthh
-    obj.heightt = 10
+    w = obj.shape_width
+    obj.shape_height = 10
     print(f"Expected: {w*10}, got: {obj.area}")
 
 rectangle = Rectangle(2, 3)
@@ -193,37 +193,37 @@ calculate(square)
 
 ```python
 class Rectangle:
-    def __init__(self, widthh, heightt, is_square = False):
-        self._heightt = heightt
-        self._widthh = widthh
+    def __init__(self, shape_width, shape_height, is_square = False):
+        self._shape_height = shape_height
+        self._shape_width = shape_width
         self._is_square = is_square
 
     @property
     def area(self):
-        return self._widthh * self._heightt
+        return self._shape_width * self._shape_height
 
     @property
-    def widthh(self):
-        return self._widthh
+    def shape_width(self):
+        return self._shape_width
 
-    @widthh.setter
-    def widthh(self, value):
+    @shape_width.setter
+    def shape_width(self, value):
         if self._is_square:
-            self._heightt = value # if it's a square, adjust height as well
-        self._widthh = value
+            self._shape_height = value # if it's a square, adjust height as well
+        self._shape_width = value
 
     @property
-    def heightt(self):
-        return self._heightt
+    def shape_height(self):
+        return self._shape_height
 
-    @heightt.setter
-    def heightt(self, value):
+    @shape_height.setter
+    def shape_height(self, value):
         if self._is_square:
-            self._widthh = value # if it's a square, adjust width as well
-        self._heightt = value
+            self._shape_width = value # if it's a square, adjust width as well
+        self._shape_height = value
 
 def calculate(obj):
-    obj.heightt = 10
+    obj.shape_height = 10
     print(f"Area: {obj.area}") # the output is the same as in the previous example, but the code works predictably
 
 rectangle = Rectangle(2, 3)

@@ -108,9 +108,9 @@ print("The video is done.")
 import yagmail
 
 with open("/home/pi/.local/share/.email_password", "r") as file:
-    password = file.read().strip() # this ensures no extra spaces
+    passwd = file.read().strip() # this ensures no extra spaces
 
-yag = yagmail.SMTP("cpucademy.sender@gmail.com", password)
+yag = yagmail.SMTP("cpucademy.sender@gmail.com", passwd)
 yag.send(to = "youremail@gmail.com", subject = "Raspberry Pi Email", contents = "Hello World!", attachments = "/home/pi/file.txt")
 print("Email sent")                                    
 ```

@@ -6,7 +6,7 @@ type LanguageConfig = { comments: Category; text: Category; signs: Category; key
 
 export const languageColors = keywordColors as Record<string, LanguageConfig>
 
-const pythonContextWords = new Map([['e', /\bmath\.$/], ['gcd', /\bmath\.$/], ['key', /\bsort(?:ed)?\b/], ['encrypt', /\b(?:cipher|public_key)\.$/], ['decrypt', /\b(?:cipher|private_key)\.$/], ['public_key', /\bprivate_key\.$/], ['name', /(?:\bp\.|\.filter_by\()\s*$|\bUser\(/], ['age', /\bUser\(/]])
+const pythonContextWords = new Map([['e', /\bmath\.$/], ['gcd', /\bmath\.$/], ['key', /\bsort(?:ed)?\b/], ['encrypt', /\b(?:cipher|public_key)\.$/], ['decrypt', /\b(?:cipher|private_key)\.$/], ['public_key', /\bprivate_key\.$/], ['name', /(?:\bp\.|\.filter_by\()\s*$|\bUser\(/], ['age', /\bUser\(/], ['rectangle', /\b(?:cv2|draw)\.$/], ['product', /\bitertools\.$/], ['state', /, $/], ['image', /\broot, $/], ['create', /\bg\.$/], ['args', /\bAverage, $/], ['h1', /\bsoup\.$/], ['a', /\bsoup\.$/], ['common', /\bwebdriver\.$/], ['by', /\bcommon\.$/], ['func', /\bcreate_engine, $/], ['bold', /\baddition\.$/]])
 const pythonAttributeWords = new Set(['method', 'value', 'text'])
 
 const defaultCodeColor = '#E1E4E8'
@@ -176,7 +176,7 @@ export const languageCategoryTransformer: ShikiTransformer = {
           const isMarkupText = embeddedTags.size > 0 && keywordColors.has(match[0]) && /(?:<(?!script\b|style\b)[A-Za-z][^<>]*>|\?>)[^<>{}]*$/i.test(lineBefore) && /^[^<>{}]*<[/?]/.test(lineAfter)
           const isCssOutOfContext = language === 'css' &&!tagAtMatch && !isEmbeddedOnly && !isCssProperty && keywordColors.has(match[0]) && !match[0].startsWith('@') && !/:$/.test(lineBefore) && !(cssBraceDepth > 0 && /:[^;{}]*$/.test(lineBefore))
           const contextPrefix = language === 'python' ? pythonContextWords.get(match[0]) : undefined
-          const isOutOfContext = (contextPrefix !== undefined && !contextPrefix.test(lineBefore)) || (language === 'python' && pythonAttributeWords.has(match[0]) && !lineAfter.startsWith('="')) || (language === 'python' && match[0] === 'string' && !/\bimport\s+$/.test(lineBefore) && !lineAfter.startsWith('.'))
+          const isOutOfContext = (contextPrefix !== undefined && !contextPrefix.test(lineBefore)) || (language === 'python' && pythonAttributeWords.has(match[0]) && !lineAfter.startsWith('="') && !(match[0] === 'value' && /\b(?:Day\.Tu|Color\.(?:RED|GREEN|BLUE)|product_query)\.$/.test(lineBefore)) && !(match[0] === 'text' && /(?:\b(?:response|soup\.h1|paragraph)|\b[01]\))\.$/.test(lineBefore))) || (language === 'python' && match[0] === 'user' && !/^=(?!=)/.test(lineAfter)) || (language === 'python' && match[0] === 'string' && !/\bimport\s+$/.test(lineBefore) && !lineAfter.startsWith('.'))
           const color = isCssProperty ? config.keywords.color : language === 'python' && match[0] === 'match' && /\bre\.$/.test(lineBefore) ? config.commands.color : isSql && new RegExp(`^${sqlFlagPattern.source}$`).test(match[0]) ? config.commands.color : keywordColors.get(match[0]) ?? config.signs.color
           result.push({ ...normalSource, content: match[0], offset: normalSource.offset + start, color: (isEmbeddedOnly && !tagAtMatch) || isOutOfContext || isCssOutOfContext || isCssPercent || isMarkupText ? defaultCodeColor : color })
           normalPosition = start + match[0].length

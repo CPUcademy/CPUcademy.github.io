@@ -48,8 +48,8 @@ with file("file.txt", "w") as f:
 
 ```python
 class Counter:
-    def __init__(self, countt = 0):
-        self.countt = countt
+    def __init__(self, counter = 0):
+        self.counter = counter
 
 class IncrementModifier:
     def __init__(self, counter, amount):
@@ -57,20 +57,20 @@ class IncrementModifier:
         self.amount = amount
 
     def __enter__(self):
-        self.counter.countt += self.amount # incrementing the count
+        self.counter.counter += self.amount # incrementing the count
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass # no action needed on exit
 
 counter = Counter()
 
-print("Initial count:", counter.countt)
+print("Initial count:", counter.counter)
 
 with IncrementModifier(counter, 5): # using IncrementModifier to increase the count
-    print("Count after increment:", counter.countt)
+    print("Count after increment:", counter.counter)
     
 with IncrementModifier(counter, 3):
-    print("Count after second increment:", counter.countt)
+    print("Count after second increment:", counter.counter)
 ```
 
 <p>Context managers are also used to make sure a thread unlocks a thread lock.</p>

@@ -115,11 +115,11 @@ def match_english_profile(text):
 def find_repeated_sequences(text):
     cleaned = NON_LETTER_REGEX.sub("", text.upper()) # stripping non‑letters so repeated patterns align cleanly
     spacings = {}
-    for lengthh in range(3, 6): # typical repeated substring lengths for Kasiski
-        for i in range(len(cleaned) - lengthh):
-            seq = cleaned[i:i + lengthh] # candidate repeated sequence
-            for j in range(i + lengthh, len(cleaned) - lengthh):
-                if cleaned[j:j + lengthh] == seq:
+    for sequence_length in range(3, 6): # typical repeated substring lengths for Kasiski
+        for i in range(len(cleaned) - sequence_length):
+            seq = cleaned[i:i + sequence_length] # candidate repeated sequence
+            for j in range(i + sequence_length, len(cleaned) - sequence_length):
+                if cleaned[j:j + sequence_length] == seq:
                     spacings.setdefault(seq, []).append(j - i) # record distance between occurrences
     return spacings
 

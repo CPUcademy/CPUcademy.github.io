@@ -198,49 +198,49 @@ class ECommercePlatform:
     def __init__(self):
         self.discount_handlers = Event()
 
-    def apply_discounts(self, queryy):
-        self.discount_handlers(queryy) # calling all registered discount handlers
+    def apply_discounts(self, product_query):
+        self.discount_handlers(product_query) # calling all registered discount handlers
 
 class Product:
-    def __init__(self, platformm, name, base_price):
-        self.platformm = platformm
+    def __init__(self, product_platform, name, base_price):
+        self.product_platform = product_platform
         self.name = name
         self.base_price = base_price
 
     @property
     def price(self):
-        queryy = Query(self.name, "price", self.base_price)
-        self.platformm.apply_discounts(queryy) # applying registered discounts
-        return queryy.value
+        product_query = Query(self.name, "price", self.base_price)
+        self.product_platform.apply_discounts(product_query) # applying registered discounts
+        return product_query.value
 
 class DiscountModifier:
-    def __init__(self, platformm, productt):
-        self.platformm = platformm
-        self.productt = productt
-        self.platformm.discount_handlers.append(self.handle) # registering handler
+    def __init__(self, product_platform, product):
+        self.product_platform = product_platform
+        self.product = product
+        self.product_platform.discount_handlers.append(self.handle) # registering handler
 
-    def handle(self, queryy):
+    def handle(self, product_query):
         pass # to be implemented by subclasses
 
 class BlackFridayDiscount(DiscountModifier):
-    def handle(self, queryy):
-        if queryy.product_name == self.productt.name and queryy.query_type == "price":
-            queryy.value *= 0.8 # 20% discount
+    def handle(self, product_query):
+        if product_query.product_name == self.product.name and product_query.query_type == "price":
+            product_query.value *= 0.8 # 20% discount
 
 class LoyaltyDiscount(DiscountModifier):
-    def handle(self, queryy):
-        if queryy.product_name == self.productt.name and queryy.query_type == "price":
-            queryy.value *= 0.9 # additional 10% discount for loyal customers
+    def handle(self, product_query):
+        if product_query.product_name == self.product.name and product_query.query_type == "price":
+            product_query.value *= 0.9 # additional 10% discount for loyal customers
 
-platformm = ECommercePlatform()
-laptop = Product(platformm, "Laptop", 1000)
+product_platform = ECommercePlatform()
+laptop = Product(product_platform, "Laptop", 1000)
 
 print("Original price:", laptop.price)
 
-black_friday = BlackFridayDiscount(platformm, laptop)
+black_friday = BlackFridayDiscount(product_platform, laptop)
 print("After Black Friday discount:", laptop.price)
 
-loyalty = LoyaltyDiscount(platformm, laptop)
+loyalty = LoyaltyDiscount(product_platform, laptop)
 print("After loyalty discount:", laptop.price)
 ```
 
@@ -260,7 +260,7 @@ class Command(ABC):
         pass
 
     @abstractmethod
-    def undo(self):
+    def undo_operation(self):
         pass
 
 class BankAccount: # a receiver class (the object that performs the action when requested)
@@ -297,7 +297,7 @@ class TransferMoneyCommand(Command): # a concrete Command classes
         else:
             print("Transfer already executed.")
 
-    def undo(self):
+    def undo_operation(self):
         if self.executed:
             self.target_account.withdraw(self.amount)
             self.source_account.deposit(self.amount)
@@ -314,33 +314,33 @@ class TransactionHistory: # an invoker class (the object that calls the command)
         command.execute_action() # invoking the Command's execute method
         self.history.append(command)
 
-    def undo(self):
+    def undo_operation(self):
         if self.history:
             last_command = self.history.pop()
-            last_command.undo()
+            last_command.undo_operation()
 
-source = BankAccount(500)
-target = BankAccount(200)
+source_account = BankAccount(500)
+target_account = BankAccount(200)
 history = TransactionHistory()
 
-print(f"Source account before transfer: {source}")
-print(f"Target account before transfer: {target}")
+print(f"Source account before transfer: {source_account}")
+print(f"Target account before transfer: {target_account}")
 
-transfer1 = TransferMoneyCommand(source, target, 100)
+transfer1 = TransferMoneyCommand(sousource_accountrce, target_account, 100)
 history.execute_command(transfer1)
 
-print(f"Source account after first transfer: {source}")
-print(f"Target account after first transfer: {target}")
+print(f"Source account after first transfer: {source_account}")
+print(f"Target account after first transfer: {target_account}")
 
-transfer2 = TransferMoneyCommand(source, target, 1000) # trying to transfer more than available funds
+transfer2 = TransferMoneyCommand(source_account, target_account, 1000) # trying to transfer more than available funds
 history.execute_command(transfer2)
 
-print(f"Source account after second transfer attempt: {source}")
-print(f"Target account after second transfer attempt: {target}")
-history.undo()
+print(f"Source account after second transfer attempt: {source_account}")
+print(f"Target account after second transfer attempt: {target_account}")
+history.undo_operation()
 
-print(f"Source account after undo: {source}")
-print(f"Target account after undo: {target}")
+print(f"Source account after undo: {source_account}")
+print(f"Target account after undo: {target_account}")
 ```
 
 <h2><a id="interpreter">Interpreter</a></h2>
@@ -530,7 +530,7 @@ class TextEditor:
         self.history.append(m)
         self.current_state += 1
 
-    def undo(self):
+    def undo_operation(self):
         if self.current_state > 0:
             self.current_state -= 1
             m = self.history[self.current_state]
@@ -555,7 +555,7 @@ editor.show_content()
 editor.write("world!")
 editor.show_content()
 
-editor.undo()
+editor.undo_operation()
 editor.show_content()
 editor.redo()
 editor.show_content()
@@ -709,11 +709,11 @@ class DocumentElement(ABC): # an element interface
         pass
 
 # Concrete elements
-class Text(DocumentElement):
+class TextElement(DocumentElement):
     def accept_data(self, visitor):
         visitor.visit_text(self)
 
-class Image(DocumentElement):
+class ImageElement(DocumentElement):
     def accept_data(self, visitor):
         visitor.visit_image(self)
 
@@ -741,7 +741,7 @@ class WordCounter(Visitor):
     def visit_image(self, image):
         print("Skipping word count for image")
 
-elements = [Text(), Image()]
+elements = [TextElement(), ImageElement()]
 renderer = Renderer()
 word_counter = WordCounter()
 for element in elements:

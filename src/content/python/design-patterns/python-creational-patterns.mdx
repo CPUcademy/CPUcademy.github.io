@@ -24,21 +24,21 @@ order: 2
 ```python
 class Pizza:
     def __init__(self):
-        self.sizee = None
+        self.pizza_size = None
         self.cheese = None
         self.pepperoni = False
         self.mushrooms = False
         self.extra_toppings = []
 
     def __str__(self):
-        return f"Pizza(Size: {self.sizee}, Cheese: {self.cheese}, Pepperoni: {self.pepperoni}, Mushrooms: {self.mushrooms}, Extra Toppings: {self.extra_toppings})"
+        return f"Pizza(Size: {self.pizza_size}, Cheese: {self.cheese}, Pepperoni: {self.pepperoni}, Mushrooms: {self.mushrooms}, Extra Toppings: {self.extra_toppings})"
 
 class PizzaBuilder:
     def __init__(self):
         self.pizza = Pizza()
 
-    def set_size(self, sizee):
-        self.pizza.sizee = sizee
+    def set_size(self, pizza_size):
+        self.pizza.pizza_size = pizza_size
         return self # returning the class object itself to perform chaining (see the explanation below)
 
     def add_cheese(self, cheese_type):
@@ -74,18 +74,18 @@ print(veggie_pizza)
 
 ```python
 class Box:
-    def __init__(self, lengthh, widthh):
-        self.lengthh = lengthh
-        self.widthh = widthh
+    def __init__(self, box_length, box_width):
+        self.box_length = box_length
+        self.box_width = box_width
 
-    def set_dimensions(self, lengthh, widthh):
-        self.lengthh = lengthh
-        self.widthh = widthh
+    def set_dimensions(self, box_length, box_width):
+        self.box_length = box_length
+        self.box_width = box_width
         return self # returning the class object itself
 
 box = Box(5, 10)
-box.set_dimensions(7, 14).lengthh = 8
-print(box.lengthh, box.widthh)
+box.set_dimensions(7, 14).box_length = 8
+print(box.box_length, box.box_width)
 ```
 
 <h4>Builder facets</h4>
@@ -234,11 +234,11 @@ class Person:
     def from_birth_year(name, birth_year):
         return Person(name, 2024 - birth_year)
 
-e = Person.from_age("Josh", 25)
-e2 = Person.from_birth_year("John", 1980)
+person1 = Person.from_age("Josh", 25)
+person2 = Person.from_birth_year("John", 1980)
 
-print(e)
-print(e2)
+print(person1)
+print(person2)
 ```
 
 <p>The example above doesn't adhere to the SRP. We should separate the Factory Methods into a different class and use them from there.</p>
@@ -263,11 +263,11 @@ class Person:
     def __str__(self):
         return f"{self.__name}, {self.__age}"
 
-e = Person.factory.from_age("Josh", 25)
-e2 = Person.factory.from_birth_year("John", 1980)
+person1 = Person.factory.from_age("Josh", 25)
+person2 = Person.factory.from_birth_year("John", 1980)
 
-print(e)
-print(e2)
+print(person1)
+print(person2)
 ```
 
 <h3>Abstract Factory</h3>
@@ -319,21 +319,21 @@ vehicle_client(BikeFactory())
 import copy
 
 class Car:
-    def __init__(self, model, colorr, engine):
+    def __init__(self, model, colour, engine):
         self.model = model
-        self.colorr = colorr
+        self.colour = colour
         self.engine = engine
 
     def clone(self):
         return copy.deepcopy(self) # creating a deep copy of the class object
 
     def __str__(self):
-        return f"{self.colorr} {self.model} with {self.engine} engine"
+        return f"{self.colour} {self.model} with {self.engine} engine"
 
 car1 = Car("Tesla Model S", "Red", "Electric") # creating an original object
 
 car2 = car1.clone() # cloning the object
-car2.colorr = "Blue" # modifying the cloned object
+car2.colour = "Blue" # modifying the cloned object
 
 print(car1)
 print(car2)
@@ -347,16 +347,16 @@ print(car2)
 import copy
 
 class Car:
-    def __init__(self, model, colorr, engine):
+    def __init__(self, model, colour, engine):
         self.model = model
-        self.colorr = colorr
+        self.colour = colour
         self.engine = engine
 
     def clone(self):
         return copy.deepcopy(self) # creating a deep copy of the class object
 
     def __str__(self):
-        return f"{self.colorr} {self.model} with {self.engine} engine"
+        return f"{self.colour} {self.model} with {self.engine} engine"
 
 class CarFactory:
     prototypes = {}
@@ -366,12 +366,12 @@ class CarFactory:
         cls.prototypes[key] = Car("", "", engine)
 
     @classmethod
-    def new_car(cls, key, model, colorr):
+    def new_car(cls, key, model, colour):
         prototype = cls.prototypes.get(key)
         if prototype:
             car = prototype.clone()
             car.model = model
-            car.colorr = colorr
+            car.colour = colour
             return car
         raise ValueError("Prototype not found!")
 
@@ -441,7 +441,7 @@ class SingletonMeta(type):
             cls._instances[cls] = super().__call__(*args, **kwargs) # creating and storing the instance
         return cls._instances[cls] # returning the existing instance
 
-class Database(metaclass=SingletonMeta):
+class Database(metaclass = SingletonMeta):
     def __init__(self):
         print("Loading database")
 

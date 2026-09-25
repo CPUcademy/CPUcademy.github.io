@@ -88,17 +88,18 @@ root.mainloop()
 
 ```python
 root = tk.Tk()
+if_selected = 0
 
 def buttonClicked(text):
+    global if_selected
     l = [0, 1]
+
     if text in l:
-        global ifSelected
         text = l[1] if text == l[0] else l[0]
-        ifSelected = text
+        if_selected = text
     print(text)
 
-ifSelected = 0
-myCheckbutton = tk.Checkbutton(root, text="Checkbutton", command=lambda: buttonClicked(ifSelected))
+myCheckbutton = tk.Checkbutton(root, text="Checkbutton", command=lambda: buttonClicked(if_selected))
 myCheckbutton.pack(padx=20, pady=20) # padx - padding on the x-axis, pady - padding on the y-axis (from both sides)
 
 v = tk.IntVar() # a variable to store the value of the selected radiobutton
@@ -141,11 +142,11 @@ root.mainloop()
 ```python
 root = tk.Tk()
 
-def on_focus_in(event):
+def on_focus_in(focus_event):
     if defaultText.get() == "Write something...":
         defaultText.set("")
         
-def on_focus_out(event):
+def on_focus_out(focus_event):
     if defaultText.get() == "":
         defaultText.set("Write something...")
 
@@ -358,7 +359,7 @@ root.mainloop()
 from tkinter import ttk
 root = tk.Tk()
 
-def on_select(event):
+def on_select(select_event):
     selected_item = treeview.selection()[0] # getting the selected item
     print(f"Selected item: {treeview.item(selected_item)['text']}")
 
@@ -489,9 +490,9 @@ root = tk.Tk()
 def buttonClicked():
     print("CPUcademy")
 
-menu = tk.Menu(root, tearoff=0)
-root.config(menu=menu)
-filemenu = tk.Menu(menu)
+menu_obj = tk.Menu(root, tearoff=0)
+root.config(menu=menu_obj)
+filemenu = tk.Menu(menu_obj)
 
 menu.add_cascade(label="File", menu=filemenu)
 filemenu.add_command(label="Open", command=buttonClicked)
@@ -513,8 +514,8 @@ root = tk.Tk()
 def buttonClicked():
     print("CPUcademy")
 
-def show_menu(event):
-    menu.post(event.x_root, event.y_root) # displaying the menu on right-click
+def show_menu(click_event):
+    menu.post(click_event.x_root, click_event.y_root) # displaying the menu on right-click
 
 menu = tk.Menu(root, tearoff=0)
 

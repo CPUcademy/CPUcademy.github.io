@@ -9,51 +9,51 @@ order: 2
 
 ```python
 # Opening and displaying an image
-imagee = Image.open("photo.jpg")
-imagee.show()
+image_file = Image.open("photo.jpg")
+image_file.show()
 ```
 
 ```python
 # Getting image information
-imagee = Image.open("photo.jpg")
-print(imagee.size) # displaying image dimensions
-print(imagee.format) # displaying image format
-print(imagee.mode) # displaying image color mode
+image_file = Image.open("photo.jpg")
+print(image_file.size) # displaying image dimensions
+print(image_file.format) # displaying image format
+print(image_file.mode) # displaying image color mode
 ```
 
 ```python
 # Resizing an image
-imagee = Image.open("photo.jpg")
-resized = imagee.resize((300, 300)) # resizing the image
+image_file = Image.open("photo.jpg")
+resized = image_file.resize((300, 300)) # resizing the image
 resized.save("resized.jpg") # saving the resized image
 ```
 
 ```python
 # Cropping an image
-imagee = Image.open("photo.jpg")
-cropped = imagee.crop((50, 50, 200, 200)) # cropping the image
+image_file = Image.open("photo.jpg")
+cropped = image_file.crop((50, 50, 200, 200)) # cropping the image
 cropped.save("cropped.jpg")
 ```
 
 ```python
 # Rotating an image
-imagee = Image.open("photo.jpg")
-rotated = imagee.rotate(90) # rotating the image by 90 degrees
+image_file = Image.open("photo.jpg")
+rotated = image_file.rotate(90) # rotating the image by 90 degrees
 rotated.save("rotated.jpg")
 ```
 
 ```python
 # Converting an image format
-imagee = Image.open("photo.png")
-imagee.save("photo.jpg") # converting PNG to JPG
+image_file = Image.open("photo.png")
+image_file.save("photo.jpg") # converting PNG to JPG
 ```
 
 ```python
 # Drawing on an image
 from PIL import ImageDraw
 
-imagee = Image.open("photo.jpg")
-draw = ImageDraw.Draw(imagee) # creating a drawing object
+image_file = Image.open("photo.jpg")
+draw = ImageDraw.Draw(image_file) # creating a drawing object
 draw.rectangle((50, 50, 200, 200), outline="red", width=3) # drawing a rectangle
-imagee.save("drawn.jpg")
+image_file.save("drawn.jpg")
 ```
