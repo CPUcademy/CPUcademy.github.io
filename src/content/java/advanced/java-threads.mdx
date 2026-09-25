@@ -5,6 +5,8 @@ order: 6
 
 <p>Threads are a fundamental part of the Java concurrency model, allowing multiple tasks to run simultaneously within a single program. By utilizing threads, we can create more responsive and efficient applications, particularly in scenarios where tasks can be performed in parallel. Java provides built-in support for multithreading through the ```Thread``` class or the ```Runnable``` interface, where ```Runnable``` is used to define the task that a ```Thread``` executes.</p>
 
+<p>A process is a running program with its own resources and memory space. A process can contain multiple threads. A context switch occurs when the CPU switches from one thread to another. A time slice (or quantum) is a limited amount of CPU time given to a thread before another thread may be scheduled. Preemption occurs when the operating system interrupts a running thread and gives the CPU to another thread. CPU-bound tasks mainly perform calculations, while I/O-bound tasks spend much of their time waiting for input or output.</p>
+
 <p>To create a thread, we extend the ```Thread``` class and override its ```run()``` method, which contains the code to be executed by the thread. Once the thread is created, it can be started using the ```start()``` method. The ```join()``` method ensures the program waits until the chosen thread completes execution before proceeding further. It is useful because some resources may be necessary for the rest of the program. Threads can be also put to sleep using the ```Thread.sleep(milliseconds)``` method, allowing for controlled pauses in execution.</p>
 
 <p>Java also provides higher-level concurrency utilities in the ```java.util.concurrent``` package, which includes features like thread pools, futures, and concurrent collections, making it easier to manage complex multithreaded applications.</p>
@@ -92,6 +94,8 @@ th.start();
 
 <p>A race condition occurs when multiple threads access shared resources without proper synchronization, leading to unpredictable behavior. A deadlock happens when two or more threads are waiting indefinitely for resources held by each other, preventing further execution. In contrast, a livelock occurs when threads keep changing state in response to each other but make no real progress, as they continuously attempt to resolve the conflict without success. While race conditions lead to incorrect results, deadlocks halt execution, and livelocks keep the system active but unproductive.</p>
 
+<p>Starvation occurs when a thread cannot get the CPU or a required resource for an excessively long time. It can be caused by unfair scheduling, lock contention, or thread priorities. Aging is a technique that gradually increases a waiting thread's priority to reduce starvation.</p>
+
 <p>Threads can be synchronized to prevent concurrent access to shared resources, ensuring data consistency. Synchronization is applied using the ```synchronized``` keyword. It ensures that only one thread accesses shared resources at a time. Synchronization ensures data consistency but can reduce performance if overused.</p>
 
 <p>In the example below, ```synchronized``` prevents multiple threads from modifying the ```sharedResource``` variable simultaneously, which could lead to inconsistencies due to race conditions. Without the "lock," threads can interfere with each other while accessing the shared resource, causing the final result to be unpredictable. For example, two threads might read the same value of ```sharedResource```, increment it, and write it back, effectively skipping one increment. This may result in a final value being lower than expected. When a thread enters the ```synchronized(Main.class)``` block, it first tries to acquire the lock. If another thread already holds the lock, the current thread will wait until the lock is released. Inside the locked block, the shared resource is modified. Once the other thread finishes modifying ```sharedResource```, the lock is automatically released. ```Main.class``` is the ```Class``` object representing the ```Main``` type and is passed to methods or frameworks to refer to the class itself (for reflection, instantiation, or configuration) rather than an instance.</p>
@@ -173,6 +177,8 @@ public class Main {
     }
 }
 ```
+
+<p>A spinlock is a lock where a waiting thread repeatedly checks whether the lock has become available instead of being suspended. This is called busy waiting and consumes CPU resources, so it is mainly useful when the expected waiting time is very short. A read-write lock allows multiple threads to read a resource simultaneously, but writing requires exclusive access. Java provides ```ReentrantReadWriteLock``` for this purpose.</p>
 
 <h4>Atomic operations</h4>
 

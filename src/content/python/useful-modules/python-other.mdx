@@ -12,6 +12,7 @@ order: 7
     <li><a href="#shelve" className="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>shelve</code> module</a></li>
     <li><a href="#pyinputplus" className="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>pyinputplus</code> module</a></li>
     <li><a href="#pprint" className="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>pprint</code> module</a></li>
+    <li><a href="#dis" className="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>dis</code> module</a></li>
     <li><a href="#turtle" className="link" style={{textDecoration: "none"}}>The <code style={{color: "#157267"}}>turtle</code> module</a></li>
 </ul>
 
@@ -177,6 +178,47 @@ data = {
 }
 
 pprint.pprint(data)
+```
+
+<h2><a id="dis">The <code style={{color: "#157267"}}>dis</code> module</a></h2>
+
+<p>The <code>dis</code> module is used to disassemble Python bytecode. For example, we can use it to see how ```if``` statements are executed using low-level ```jump``` statements under the hood.</p>
+
+```python
+import dis
+
+def test_if_statement(x, y):
+    if x == 3 and y == 5:
+        print("1")
+    else:
+        print("2")
+
+dis.dis(test_if_statement)
+```
+
+```json
+3           RESUME                   0
+
+4           LOAD_FAST                0 (x)
+            LOAD_CONST               1 (3)
+            COMPARE_OP              88 (bool(==))
+            POP_JUMP_IF_FALSE       18 (to L1)
+            LOAD_FAST                1 (y)
+            LOAD_CONST               2 (5)
+            COMPARE_OP              88 (bool(==))
+            POP_JUMP_IF_FALSE       12 (to L1)
+
+5           LOAD_GLOBAL              1 (print + NULL)
+            LOAD_CONST               3 ('1')
+            CALL                     1
+            POP_TOP
+            RETURN_CONST             0 (None)
+
+7   L1:     LOAD_GLOBAL              1 (print + NULL)
+            LOAD_CONST               4 ('2')
+            CALL                     1
+            POP_TOP
+            RETURN_CONST             0 (None)
 ```
 
 <h2><a id="turtle">The <code style={{color: "#157267"}}>turtle</code> module</a></h2>

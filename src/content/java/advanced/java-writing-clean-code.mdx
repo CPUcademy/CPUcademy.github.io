@@ -30,6 +30,8 @@ order: 7
 
 <p>DRY (Don't Repeat Yourself) is a programming principle that states that the same logic or information should not be unnecessarily repeated in multiple places. Instead, reusable functions, classes, or modules should be used to reduce duplication and make code easier to maintain.</p>
 
+<p>When working with floating-point numbers, avoid conditions like ```while (x != 1.0)``` because floating-point calculations can produce small rounding errors, so ```x``` may never be exactly 1.0 (e.g., it might be 1.0000000000000002). Instead, use a tolerance, such as ```while (x < 1.0)```, when the algorithm allows it, or compare the difference with a small epsilon.</p>
+
 <p>Magic numbers are hardcoded values in a program that are used directly without explanation or context, making the code harder to understand and maintain. These numbers typically represent constants or values with specific meaning, but their purpose is unclear without additional context. To improve code readability and maintainability, such numbers should be replaced with named constants or variables that explain their meaning.</p>
 
 <p>Each function should be responsible for its own actions. A “master” object should not control or manage all functions. Instead, each function should handle obtaining the information it needs and implementing any changes itself. The control program can communicate with different categories of functions, but it does not need to know how they are implemented. Functions manage themselves, while the control program only coordinates them. Code should be organized into self-contained, independent units, each handling a specific task.</p>

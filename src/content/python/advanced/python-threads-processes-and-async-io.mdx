@@ -13,6 +13,8 @@ order: 2
 
 <p>Threads, processes, and Async IO (```async``` and ```await```) are all part of the asynchronous programming model. In this model, different functions can execute simultaneously or in a different order than usual. Threads are used for parallel tasks that share data with minimal CPU usage (e.g., handling multiple user requests in a web server). Processes are better suited for maximizing performance on CPU-bound tasks (e.g., mathematical computations or image processing). Async IO is perfect for handling many tasks that involve much waiting (e.g., network requests or file operations). To understand the examples in this lesson, you have to run them all in your editor.</p>
 
+<p>A context switch occurs when the CPU switches from one thread to another. A time slice (or quantum) is a limited amount of CPU time allocated to a thread. Preemption occurs when the operating system interrupts a running thread and gives the CPU to another thread.</p>
+
 <div className="table-container"><table>
     <tr>
         <td><b>Feature</b></td>
@@ -82,7 +84,11 @@ print("Both tasks completed.")
 
 <p>A race condition occurs when multiple threads access shared resources without proper synchronization, leading to unpredictable behavior. A deadlock happens when two or more threads are waiting indefinitely for resources held by each other, preventing further execution. In contrast, a livelock occurs when threads keep changing state in response to each other but make no real progress, as they continuously attempt to resolve the conflict without success. While race conditions lead to incorrect results, deadlocks halt execution, and livelocks keep the system active but unproductive.</p>
 
+<p>Starvation occurs when a thread cannot obtain the CPU or a required resource for a sufficiently long time. It can be caused by unfair scheduling, lock contention, or thread priorities. Aging is a technique of gradually increasing a waiting thread's priority to reduce starvation.</p>
+
 <p>Threads can be synchronized to prevent concurrent access to shared resources, ensuring data consistency. Synchronization is applied using the ```Lock``` object. It ensures that only one thread accesses shared resources at a time. Synchronization ensures data consistency but can reduce performance if overused.</p>
+
+<p>A spinlock is a lock where a waiting thread repeatedly checks whether the lock has become available instead of being suspended. This is called <b>busy waiting</b> and consumes CPU resources, so it is mainly useful when the expected waiting time is very short.</p>
 
 <p>In the example below, the ```Lock``` object prevents multiple threads from modifying the ```shared_resource``` variable simultaneously, which could lead to inconsistencies due to race conditions. Without the lock, threads can interfere with each other while accessing the shared resource, causing the final result to be unpredictable. For example, two threads might read the same value of ```shared_resource```, increment it, and write it back, effectively skipping one increment. This may result in a final value being lower than expected. When a thread enters the ```with lock``` block, it first tries to acquire the lock. If another thread already holds the lock, the current thread will wait until the lock is released. Inside the locked block, the shared resource is modified. Once the other thread finishes modifying ```shared_resource```, the lock is automatically released.</p>
 
