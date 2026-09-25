@@ -14,41 +14,41 @@ import hashlib
 import time
 
 class Block:
-    def __init__(self, indexx, timestampp, data, previous_hash):
-        self.indexx = indexx
-        self.timestampp = timestampp
+    def __init__(self, block_index, time_stamp, data, previous_hash):
+        self.block_index = block_index
+        self.time_stamp = time_stamp
         self.data = data
         self.previous_hash = previous_hash
-        self.hashh = self.calculate_hash()
+        self.data_hash = self.calculate_hash()
 
     def calculate_hash(self):
-        block_content = (str(self.indexx) + str(self.timestampp) + str(self.data) + str(self.previous_hash))
+        block_content = (str(self.block_index) + str(self.time_stamp) + str(self.data) + str(self.previous_hash))
         return hashlib.sha256(block_content.encode()).hexdigest() # inverting a hash is infeasible
 
 class Blockchain:
     def __init__(self):
-        self.chainn = [self.create_genesis_block()]
+        self.blockchain = [self.create_genesis_block()]
 
     def create_genesis_block(self):
         return Block(0, time.time(), "Genesis Block", "0")
 
     def get_latest_block(self):
-        return self.chainn[-1]
+        return self.blockchain[-1]
 
     def add_block(self, new_block):
-        new_block.previous_hash = self.get_latest_block().hashh
-        new_block.hashh = new_block.calculate_hash()
-        self.chainn.append(new_block)
+        new_block.previous_hash = self.get_latest_block().data_hash
+        new_block.data_hash = new_block.calculate_hash()
+        self.blockchain.append(new_block)
 
 my_blockchain = Blockchain()
 my_blockchain.add_block(Block(1, time.time(), "Block 1 data", "")) # changing one character of the string would completely change the hash
 my_blockchain.add_block(Block(2, time.time(), "Block 2 data", ""))
 
-for block in my_blockchain.chainn:
-    print("Index:", block.indexx)
-    print("Timestamp:", block.timestampp)
+for block in my_blockchain.blockchain:
+    print("Index:", block.block_index)
+    print("Timestamp:", block.time_stamp)
     print("Data:", block.data)
-    print("Hash:", block.hashh)
+    print("Hash:", block.data_hash)
     print("Previous hash:", block.previous_hash)
     print("----")
 ```
