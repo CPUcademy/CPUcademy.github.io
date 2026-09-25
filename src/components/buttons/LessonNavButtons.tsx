@@ -25,8 +25,8 @@ function LessonNavButtons({ current, previous, next, topic, top }: LessonNavButt
 
   return (
     <div className="d-flex justify-content-between" style={{ marginTop: top ? 0 : '2rem', marginBottom: top ? '1.5rem' : '0.7rem', gap: '0.75rem' }}>
-      <div>{previous && ( <Link to={`${base}/${previous.slug}`} className="small-button lessonNavButtons" onClick={scrollToTop}>← {previous.title}</Link> )}</div>
-      <div>{next && ( <Link to={`${base}/${next.slug}`} className="small-button lessonNavButtons" onClick={scrollToTop}>{next.title} →</Link> )}</div>
+      <div className="lessonNavCell">{previous && ( <Link to={`${base}/${previous.slug}`} className="small-button lessonNavButtons" onClick={scrollToTop}>←&nbsp;<span>{previous.title}</span></Link> )}</div>
+      <div className="lessonNavCell">{next && ( <Link to={`${base}/${next.slug}`} className="small-button lessonNavButtons" onClick={scrollToTop}><span>{next.title}</span>&nbsp;→</Link> )}</div>
     </div>
   )
 }

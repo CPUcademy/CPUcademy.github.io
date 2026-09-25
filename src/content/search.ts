@@ -11,6 +11,7 @@ export type SearchResult = {
   text: string
   excerpt: string
   priority: number
+  wholeWord: boolean
 }
 
 type SearchDocument = {
@@ -127,6 +128,7 @@ export function searchContent(
     return []
   }
 
+  const wordRegex = new RegExp(`(?<!\\w)${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?!\\w)`)
   const results: SearchResult[] = []
 
   for (const document of documents) {
@@ -148,6 +150,7 @@ export function searchContent(
         text: document.title,
         excerpt: document.title,
         priority: 0,
+        wholeWord: wordRegex.test(document.title.toLowerCase()),
       })
     }
 
@@ -171,6 +174,7 @@ export function searchContent(
           text: heading.text,
           excerpt: heading.text,
           priority: 1,
+          wholeWord: wordRegex.test(heading.text.toLowerCase()),
         })
       }
     }
@@ -200,11 +204,16 @@ export function searchContent(
           q
         ),
         priority: 2,
+        wholeWord: wordRegex.test(body.toLowerCase()),
       })
     }
   }
 
   return results.sort((a, b) => {
+    if (a.wholeWord !== b.wholeWord) {
+      return a.wholeWord ? -1 : 1
+    }
+
     if (a.priority !== b.priority) {
       return a.priority - b.priority
     }

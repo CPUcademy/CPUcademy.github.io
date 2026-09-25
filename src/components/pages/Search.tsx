@@ -151,7 +151,7 @@ export default function Search() {
                 >
                     <div className="search-result-pills">
                       <div className="search-result-type">
-                        {result.type === 'title' ? 'LESSON' : result.type === 'heading' ? 'HEADING' : 'CONTENT'}
+                        {result.type === 'title' ? 'LESSON' : result.type === 'heading' ? 'HEADER' : 'CONTENT'}
                       </div>
                       <div className={`search-result-category search-result-category-${result.category}`}>
                         {categoryLabels[result.category]}
