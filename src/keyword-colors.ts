@@ -7,6 +7,7 @@ type LanguageConfig = { comments: Category; text: Category; signs: Category; key
 export const languageColors = keywordColors as Record<string, LanguageConfig>
 
 const pythonContextWords = new Map([['e', /\bmath\.$/], ['gcd', /\bmath\.$/], ['key', /\bsort(?:ed)?\b/], ['encrypt', /\b(?:cipher|public_key)\.$/], ['decrypt', /\b(?:cipher|private_key)\.$/], ['public_key', /\bprivate_key\.$/], ['name', /(?:\bp\.|\.filter_by\()\s*$|\bUser\(/], ['age', /\bUser\(/]])
+const pythonAttributeWords = new Set(['method', 'value', 'text'])
 
 const defaultCodeColor = '#E1E4E8'
 function escapeRegExp(value: string): string { return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') }
@@ -24,7 +25,7 @@ export const languageCategoryTransformer: ShikiTransformer = {
     for (const tag of embeddedTags) if (!keywordColors.has(tag)) keywordColors.set(tag, config.commands.color)
     const cssProperties = new Set(language === 'css' ? config.keywords.words : [])
     const words = [...keywordColors.keys()].sort((a, b) => b.length - a.length).map(escapeRegExp)
-    const signPattern = /(?<!\w)_(?!\w)|[!#$%&*+/:;<=>?@[\]\\^`{|}~-]/
+    const signPattern = language === 'python' ? /[!#$%&*+/:;<=>?@[\]\\^`{|}~-]/ : /(?<!\w)_(?!\w)|[!#$%&*+/:;<=>?@[\]\\^`{|}~-]/
     const isSql = language === 'sql' || language === 'mysql'
     const sqlFlagPattern = /(?<![\w-])--?[A-Za-z][\w-]*/
     const spreadPattern = ['java', 'javascript', 'typescript', 'cpp', 'php', 'python'].includes(language) ? `\\.{3}|${language === 'php' ? '&#?\\w+;|' : ''}` : language === 'kotlin' ? '\\.\\.|' : isSql ? `${sqlFlagPattern.source}|` : language === 'html' ? '&#?\\w+;|' : ''
@@ -101,6 +102,7 @@ export const languageCategoryTransformer: ShikiTransformer = {
         const end = token.content.lastIndexOf('*/')
         if (end > start) insideBlockComment = false
         else if (start !== -1 && config.comments.signs?.includes('/*')) insideBlockComment = true
+        else if (/^\s*(?:#|\/\/|--)/.test(token.content)) insideLineComment = true
         return [{ ...token, color: config.comments.color }]
       }
       const source = { ...token, color: defaultCodeColor }
@@ -174,8 +176,8 @@ export const languageCategoryTransformer: ShikiTransformer = {
           const isMarkupText = embeddedTags.size > 0 && keywordColors.has(match[0]) && /(?:<(?!script\b|style\b)[A-Za-z][^<>]*>|\?>)[^<>{}]*$/i.test(lineBefore) && /^[^<>{}]*<[/?]/.test(lineAfter)
           const isCssOutOfContext = language === 'css' &&!tagAtMatch && !isEmbeddedOnly && !isCssProperty && keywordColors.has(match[0]) && !match[0].startsWith('@') && !/:$/.test(lineBefore) && !(cssBraceDepth > 0 && /:[^;{}]*$/.test(lineBefore))
           const contextPrefix = language === 'python' ? pythonContextWords.get(match[0]) : undefined
-          const isOutOfContext = contextPrefix !== undefined && !contextPrefix.test(lineBefore)
-          const color = isCssProperty ? config.keywords.color : isSql && new RegExp(`^${sqlFlagPattern.source}$`).test(match[0]) ? config.commands.color : keywordColors.get(match[0]) ?? config.signs.color
+          const isOutOfContext = (contextPrefix !== undefined && !contextPrefix.test(lineBefore)) || (language === 'python' && pythonAttributeWords.has(match[0]) && !lineAfter.startsWith('="')) || (language === 'python' && match[0] === 'string' && !/\bimport\s+$/.test(lineBefore) && !lineAfter.startsWith('.'))
+          const color = isCssProperty ? config.keywords.color : language === 'python' && match[0] === 'match' && /\bre\.$/.test(lineBefore) ? config.commands.color : isSql && new RegExp(`^${sqlFlagPattern.source}$`).test(match[0]) ? config.commands.color : keywordColors.get(match[0]) ?? config.signs.color
           result.push({ ...normalSource, content: match[0], offset: normalSource.offset + start, color: (isEmbeddedOnly && !tagAtMatch) || isOutOfContext || isCssOutOfContext || isCssPercent || isMarkupText ? defaultCodeColor : color })
           normalPosition = start + match[0].length
           updateTagState(match[0], lineAfter)

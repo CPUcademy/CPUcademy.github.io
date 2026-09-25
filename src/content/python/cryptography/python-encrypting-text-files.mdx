@@ -11,14 +11,14 @@ CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" # this string can contain other charac
 
 def process_file(input_file, output_file, key, cipher_mode):
     with open(input_file, "r") as file:
-        textS = file.read()
+        text = file.read()
 
     message = ""
     if cipher_mode == "encrypt":
-        processed_text = caesar(textS, key, "encrypt")
+        processed_text = caesar(text, key, "encrypt")
         message = f"File '{input_file}' encrypted to '{output_file}' with key {key}."
     elif cipher_mode == "decrypt":
-        processed_text = caesar(textS, key, "decrypt")
+        processed_text = caesar(text, key, "decrypt")
         message = f"File '{input_file}' decrypted to '{output_file}' with key {key}."
 
     with open(output_file, "w") as file:

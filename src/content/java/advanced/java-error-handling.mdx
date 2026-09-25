@@ -14,17 +14,16 @@ order: 3
 ```java
 public class Main {
     static double division(double x, double y) throws DivisionException { // "throws" says what exception this function may (but doesn't have to) return
-        if (y == 0) {
+        if (y == 0)
             throw new DivisionException("Don't divide by 0!");
-        }
         return x / y;
     }
     public static void main(String[] args) {
         int x = 10;
+        
         try {
-            if (x == 10) {
+            if (x == 10)
                 throw new Exception("x equals 10");
-            }
             System.out.println("x");
         }
         catch (Exception e) {
@@ -49,6 +48,7 @@ class DivisionException extends Exception {
     public DivisionException(String string) {
         super(string);
     }
+
     public void getErrorMessage() {
         System.out.println("Don't divide by 0!");
     }

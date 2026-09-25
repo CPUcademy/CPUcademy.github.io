@@ -85,15 +85,15 @@ NON_LETTER_REGEX = re.compile(r"[^A-Z]") # used to strip punctuation/spaces for 
 
 ### Frequency analysis ###
 
-def count_letters(textS):
+def count_letters(text):
     counts = {char: 0 for char in ALPHABET} # initializing frequency table
-    for char in textS.upper():
+    for char in text.upper():
         if char in ALPHABET:
             counts[char] += 1 # counting only A-Z characters
     return counts
 
-def sort_by_frequency(textS):
-    freq_map = count_letters(textS)
+def sort_by_frequency(text):
+    freq_map = count_letters(text)
     freq_to_letters = {} # grouping letters by how often they appear
     for letter, freq in freq_map.items():
         freq_to_letters.setdefault(freq, []).append(letter)
@@ -104,16 +104,16 @@ def sort_by_frequency(textS):
     sorted_freqs = sorted(freq_to_letters.items(), key = lambda x: x[0], reverse = True) # highest frequency first
     return "".join("".join(pair[1]) for pair in sorted_freqs) # flattening into a ranked string
 
-def match_english_profile(textS):
-    freq_order = sort_by_frequency(textS) # getting ranked letters from ciphertext segment
+def match_english_profile(text):
+    freq_order = sort_by_frequency(text) # getting ranked letters from ciphertext segment
     score = sum(1 for c in ENGLISH_FREQ_ORDER[:6] if c in freq_order[:6]) # comparing most common letters
     score += sum(1 for c in ENGLISH_FREQ_ORDER[-6:] if c in freq_order[-6:]) # comparing rare letters
     return score # higher score = more English-like
 
 ### Kasiski examination ###
 
-def find_repeated_sequences(textS):
-    cleaned = NON_LETTER_REGEX.sub("", textS.upper()) # stripping non‑letters so repeated patterns align cleanly
+def find_repeated_sequences(text):
+    cleaned = NON_LETTER_REGEX.sub("", text.upper()) # stripping non‑letters so repeated patterns align cleanly
     spacings = {}
     for lengthh in range(3, 6): # typical repeated substring lengths for Kasiski
         for i in range(len(cleaned) - lengthh):
@@ -143,8 +143,8 @@ def kasiski_analysis(ciphertext):
 
 ### Decryption attempt ###
 
-def extract_nth_letters(n, key_len, textS):
-    cleaned = NON_LETTER_REGEX.sub("", textS.upper()) # removing punctuation so indexing aligns with key positions
+def extract_nth_letters(n, key_len, text):
+    cleaned = NON_LETTER_REGEX.sub("", text.upper()) # removing punctuation so indexing aligns with key positions
     return "".join(cleaned[i] for i in range(n - 1, len(cleaned), key_len)) # taking every n-th letter for frequency testing
 
 # Trying to decrypt the ciphertext using a given key length and frequency analysis

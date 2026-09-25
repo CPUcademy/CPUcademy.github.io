@@ -85,6 +85,7 @@ public class Main {
     static void displayPaths(File pathName) {
         String[] fileAndFolderNames = pathName.list();
         System.out.println(pathName.getPath());
+
         for (int i = 0; i < fileAndFolderNames.length; i++) {
             File f = new File(pathName.getPath(), fileAndFolderNames[i]);
             if (f.isFile())
@@ -213,6 +214,7 @@ class Example {
     static Example[] readFromFile(BufferedReader z) throws IOException {
         int t = Integer.parseInt(z.readLine());
         Example[] example = new Example[t];
+        
         for (int i = 0; i < t; i++) {
             String line = z.readLine();
             StringTokenizer tokens = new StringTokenizer(line, "|");

@@ -23,19 +23,19 @@ order: 3
 
 ```python
 class OldPrinter: # an existing class (incompatible interface)
-    def print_text(self, textS):
-        print(f"Old Printer: {textS}")
+    def print_text(self, text):
+        print(f"Old Printer: {text}")
 
 class NewPrinter: # a new expected interface
-    def print(self, textS):
+    def print(self, text):
         raise NotImplementedError
 
 class PrinterAdapter(NewPrinter):
     def __init__(self, old_printer):
         self.old_printer = old_printer
 
-    def print(self, textS):
-        self.old_printer.print_text(textS) # adapting the old method
+    def print(self, text):
+        self.old_printer.print_text(text) # adapting the old method
 
 old_printer = OldPrinter()
 adapter = PrinterAdapter(old_printer)

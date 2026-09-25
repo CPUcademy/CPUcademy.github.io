@@ -35,13 +35,13 @@ print(listt)
 ```
             
 ```python
-stringg = "string" # string is immutable
-x = stringg
+string = "string" # string is immutable
+x = string
 print(x)
-print(stringg)
+print(string)
 x += "s"
 print(x)
-print(stringg)
+print(string)
 ```
 
 <p>All mutable types, like lists, when passed as arguments to a function and modified inside it, will change their value in the outer scope (the parameter holds a reference to the original object). Meanwhile, all immutable types, like strings, must be returned from a function for the changes made inside to take effect.</p>
@@ -50,16 +50,16 @@ print(stringg)
 def modify_list(numbers):
     numbers.append(4)
 
-def modify_string(textS):
-    textS = textS + " world"
+def modify_string(text):
+    text = text + " world"
 
 numbers = [1, 2, 3]
 modify_list(numbers)
 print(numbers) # [1, 2, 3, 4]
 
-textS = "hello"
-modify_string(textS)
-print(textS) # "hello"
+text = "hello"
+modify_string(text)
+print(text) # "hello"
 ```
 
 <h4>```is```</h4>
@@ -519,8 +519,8 @@ print(x)
             
 ```python
 x = ("a", "b",) # here, the comma at the end is optional because there are many objects inside
-first, second = x
-print(first, "and", second)
+firstt, secondd = x
+print(firstt, "and", secondd)
 ```
             
 <h2><a id="frozenset">Frozenset</a></h2>
@@ -540,8 +540,8 @@ print(fSet)
 <p>Strings have no binary encoding assigned, and bytes has no text encoding assigned as it is used to store raw binary data. We can convert Unicode to binary data using the ```encode()``` method and vice versa using the ```decode()``` method.</p>
 
 ```python
-textS = "CPUcademy"
-x = textS.encode("utf-8")
+text = "CPUcademy"
+x = text.encode("utf-8")
 print(x)
 ```
 
@@ -620,7 +620,7 @@ print(listt)
 ```python
 # Jumping every other element in every list
 numbers = [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20]]
-numbers2 = [line[::2] for line in numbers]
+numbers2 = [x[::2] for x in numbers]
 print(numbers2)
 ```
 
@@ -630,8 +630,8 @@ print(numbers2)
 
 ```python
 # String to list (every character as a separate value)
-stringg = "Python"
-listt = list(stringg)
+string = "Python"
+listt = list(string)
 print(listt)
 ```
 
@@ -645,22 +645,22 @@ print(b)
 ```python
 # List to string (joining the elements of a list into a single string by inserting a delimiter between each element)
 listt = ["Python", "Coding"] # this list cannot contain numbers
-stringg = " ".join(listt) # the space is the delimiter (we can choose a different one)
-print(stringg)
+string = " ".join(listt) # the space is the delimiter (we can choose a different one)
+print(string)
 ```
 
 ```python
 # String to tuple
-stringg = "Python"
-tup = tuple(stringg)
+string = "Python"
+tup = tuple(string)
 print(tup)    
 ```
 
 ```python
 # Tuple to string
 tup = ("Python", "Coding")
-stringg = str(tup)
-print(stringg)
+string = str(tup)
+print(string)
 ```
 
 ```python

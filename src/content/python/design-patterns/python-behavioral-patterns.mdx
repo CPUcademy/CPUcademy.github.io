@@ -189,10 +189,10 @@ class Event(list):
             item(*args, **kwargs)
 
 class Query:
-    def __init__(self, product_name, query_type, valuee):
+    def __init__(self, product_name, query_type, value):
         self.product_name = product_name
         self.query_type = query_type
-        self.valuee = valuee
+        self.value = value
 
 class ECommercePlatform:
     def __init__(self):
@@ -211,7 +211,7 @@ class Product:
     def price(self):
         queryy = Query(self.name, "price", self.base_price)
         self.platformm.apply_discounts(queryy) # applying registered discounts
-        return queryy.valuee
+        return queryy.value
 
 class DiscountModifier:
     def __init__(self, platformm, productt):
@@ -225,12 +225,12 @@ class DiscountModifier:
 class BlackFridayDiscount(DiscountModifier):
     def handle(self, queryy):
         if queryy.product_name == self.productt.name and queryy.query_type == "price":
-            queryy.valuee *= 0.8 # 20% discount
+            queryy.value *= 0.8 # 20% discount
 
 class LoyaltyDiscount(DiscountModifier):
     def handle(self, queryy):
         if queryy.product_name == self.productt.name and queryy.query_type == "price":
-            queryy.valuee *= 0.9 # additional 10% discount for loyal customers
+            queryy.value *= 0.9 # additional 10% discount for loyal customers
 
 platformm = ECommercePlatform()
 laptop = Product(platformm, "Laptop", 1000)
@@ -356,28 +356,28 @@ from abc import ABC, abstractmethod
 class Token:
     NUMBER, PLUS, MINUS = "NUMBER", "PLUS", "MINUS"
 
-    def __init__(self, typee, valuee = None):
+    def __init__(self, typee, value = None):
         self.typee = typee
-        self.valuee = valuee
+        self.value = value
 
     def __repr__(self):
-        return f"Token({self.typee}, {self.valuee})"
+        return f"Token({self.typee}, {self.value})"
 
 class Lexer:
-    def __init__(self, textS):
-        self.textS = textS.replace(" ", "") # removing spaces for easier processing
+    def __init__(self, text):
+        self.text = text.replace(" ", "") # removing spaces for easier processing
         self.indexx = 0
 
     def get_next_token(self):
-        if self.indexx >= len(self.textS):
+        if self.indexx >= len(self.text):
             return None
 
-        char = self.textS[self.indexx]
+        char = self.text[self.indexx]
         if char.isdigit():
             num = 0
             # Extracting multi-digit numbers
-            while self.indexx < len(self.textS) and self.textS[self.indexx].isdigit():
-                num = num * 10 + int(self.textS[self.indexx])
+            while self.indexx < len(self.text) and self.text[self.indexx].isdigit():
+                num = num * 10 + int(self.text[self.indexx])
                 self.indexx += 1
             return Token(Token.NUMBER, num)
         elif char == "+":
@@ -389,7 +389,7 @@ class Lexer:
 
     def tokenize(self):
         tokens = []
-        while self.indexx < len(self.textS):
+        while self.indexx < len(self.text):
             tokens.append(self.get_next_token()) # generating a token list
         return tokens
 
@@ -404,17 +404,17 @@ class Parser:
             self.current_token = self.tokens.pop(0) if self.tokens else None # moving to the next token
 
     def parse(self):
-        result = self.current_token.valuee # starting with the first number
+        result = self.current_token.value # starting with the first number
         self.eat(Token.NUMBER)
 
         while self.current_token:
             if self.current_token.typee == Token.PLUS:
                 self.eat(Token.PLUS)
-                result += self.current_token.valuee # adding the next number to result
+                result += self.current_token.value # adding the next number to result
                 self.eat(Token.NUMBER)
             elif self.current_token.typee == Token.MINUS:
                 self.eat(Token.MINUS)
-                result -= self.current_token.valuee # subtracting the next number from result
+                result -= self.current_token.value # subtracting the next number from result
                 self.eat(Token.NUMBER)
 
         return result # directly returning the result
@@ -524,8 +524,8 @@ class TextEditor:
         self.history = [Memento(self.content)]
         self.current_state = 0
 
-    def write(self, textS):
-        self.content += textS
+    def write(self, text):
+        self.content += text
         m = Memento(self.content)
         self.history.append(m)
         self.current_state += 1
@@ -719,7 +719,7 @@ class Image(DocumentElement):
 
 class Visitor(ABC): # a Visitor interface
     @abstractmethod
-    def visit_text(self, textS):
+    def visit_text(self, text):
         pass
 
     @abstractmethod
@@ -728,14 +728,14 @@ class Visitor(ABC): # a Visitor interface
 
 # Concrete Visitors
 class Renderer(Visitor):
-    def visit_text(self, textS):
+    def visit_text(self, text):
         print("Rendering text")
 
     def visit_image(self, image):
         print("Rendering image")
 
 class WordCounter(Visitor):
-    def visit_text(self, textS):
+    def visit_text(self, text):
         print("Counting words in text")
 
     def visit_image(self, image):

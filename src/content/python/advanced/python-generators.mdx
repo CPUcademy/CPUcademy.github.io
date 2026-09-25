@@ -40,10 +40,10 @@ except StopIteration:
 l = ["1", "2", "3"]
 iter_l = iter(l)
 while True:
-    valuee = next(iter_l, "End")
-    if valuee == "End":
+    value = next(iter_l, "End")
+    if value == "End":
         break
-    print(valuee)
+    print(value)
 ```
 
 <p><a id="iterator">We can create custom iterables by defining a class that implements the <code style={{color: "#157267"}}>__next__()</code> and <code style={{color: "#157267"}}>__iter__()</code> dunder methods, making the class an Iterator. Below, you can see an example of the Iterator design pattern, which you can learn more about <a href="python-behavioral-patterns.html#iterator" className="link">here</a>.</a></p>
@@ -60,9 +60,9 @@ class MyList:
     def __next__(self):
         # Checking if there are still elements left
         if self.indexx < len(self.valuess):
-            valuee = self.valuess[self.indexx]
+            value = self.valuess[self.indexx]
             self.indexx += 1
-            return valuee
+            return value
         else:
             raise StopIteration
 

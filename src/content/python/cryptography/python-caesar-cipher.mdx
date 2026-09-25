@@ -20,12 +20,12 @@ order: 2
 CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" # this string can contain other characters like !, @, etc.
 
 def caesar(message, key, mcipher_ode):
-    textS = message.upper()
+    text = message.upper()
     encrypted_text = ""
     if mcipher_ode == "decrypt":
         key = -key # negating the key value to reverse the encryption
 
-    for char in textS: # iterating over each character in the input text
+    for char in text: # iterating over each character in the input text
         if char in CHARACTERS:
             indexx = CHARACTERS.index(char)
             new_index = (indexx + key) % len(CHARACTERS) # calculating the new index by applying the key and wrapping around using modulo 

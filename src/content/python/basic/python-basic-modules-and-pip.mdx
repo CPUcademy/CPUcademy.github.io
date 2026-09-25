@@ -93,17 +93,17 @@ print(math.e) # displaying the E number
 
 ```python
 # Getting the current local date
-today = datetime.datetime.now() # a datetime object representing the current date and time
-print(today) # time and date
-print(today.second)
-print(today.minute)
-print(today.hour)
-print(today.day)
-print(today.month)
-print(today.year)
+today_date = datetime.datetime.now() # a datetime object representing the current date and time
+print(today_date) # time and date
+print(today_date.second)
+print(today_date.minute)
+print(today_date.hour)
+print(today_date.day)
+print(today_date.month)
+print(today_date.year)
 
 # Displaying the current day of the week
-print(today.weekday())
+print(today_date.weekday())
 ```
 
 ```python
@@ -123,8 +123,8 @@ print(d.isoweekday()) # 1 is Monday
 
 ```python
 # Creating a date object from a timestamp (Unix epoch)
-timestamp = time.time() # a timestamp
-print("Timestamp:", timestamp)
+time_stamp = time.time() # a timestamp
+print("Timestamp:", time_stamp)
 
 # For measuring time intervals, perf_counter() is more accurate than time()
 t1 = time.perf_counter()
@@ -144,8 +144,8 @@ print("Timestamp:", d.timestamp())
 
 ```python
 # Converting a timestamp into a string representation of the date
-timestamp = 1572879180
-print(time.ctime(timestamp))
+time_stamp = 1572879180
+print(time.ctime(time_stamp))
 ```
 
 ```python
@@ -154,7 +154,7 @@ d = datetime.date.fromisoformat("2020-12-13")
 print(d)
 
 # Modifying a date object
-d2 = d.replace(year = 2021) # we can also change the "month" and "day"
+d2 = d.replace(year=2021) # we can also change the "month" and "day"
 print(d2)
 ```
 
@@ -190,6 +190,7 @@ print(datetime.datetime.strptime("2019/11/04 14:53:00", "%Y/%m/%d %H:%M:%S")) # 
 
 ```python
 import sys
+
 for i in range(4):
     print("Python")
     sys.exit() # shutting down the program
@@ -229,8 +230,8 @@ print(string.ascii_uppercase) # all uppercase letters
 print(string.digits) # all digits
 
 # Removing punctuation from a string
-textS = "Hello, World!"
-clean_text = textS.translate(str.maketrans("", "", string.punctuation))
+text = "Hello, World!"
+clean_text = text.translate(str.maketrans("", "", string.punctuation))
 print(clean_text)
 
 # Generating a random string using string constants

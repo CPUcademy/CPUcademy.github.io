@@ -17,19 +17,20 @@ public class Main {
         house.add_room("Kitchen", 20);
         house.add_room("Bathroom", 10);
 
-        for (Room r: house.rooms) {
+        for (Room r: house.rooms)
             System.out.println(r);
-        }
     }
 }
 
 class Room {
     String name;
     int area;
+
     Room(String name, int area) {
         this.name = name;
         this.area = area;
     }
+
     @Override
     public String toString() {
         return name + " - area: " + area;
@@ -38,6 +39,7 @@ class Room {
 
 class House {
     ArrayList<Room> rooms = new ArrayList<>();
+
     void add_room(String name, int area) {
         Room room = new Room(name, area);
         rooms.add(room);
@@ -65,9 +67,9 @@ public class Main {
         school.add_student(student2);
         school.add_student(student3);
 
-        for (Student s: school.students) {
+        for (Student s: school.students)
             System.out.println(s);
-        }
+        
         System.out.println(student1); // the students exist independently
     }
 }
@@ -75,10 +77,12 @@ public class Main {
 class Student {
     String name;
     String surname;
+
     Student(String name, String surname) {
         this.name = name;
         this.surname = surname;
     }
+    
     @Override
     public String toString() {
         return name + " " + surname;

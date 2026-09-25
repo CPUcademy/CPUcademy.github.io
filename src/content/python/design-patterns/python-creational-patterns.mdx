@@ -465,14 +465,14 @@ class Monostate:
         instance.__dict__ = cls._state # all instances share the same state
         return instance
 
-    def __init__(self, valuee):
-        self.valuee = valuee # all instances share the same "valuee" attribute
+    def __init__(self, value):
+        self.value = value # all instances share the same "value" attribute
 
 a = Monostate("Value A")
 b = Monostate("Value B")
 
-print(a.valuee)
-print(b.valuee)
+print(a.value)
+print(b.value)
 ```
 
 <h2><a id="lazy-initialization">Lazy Initialization</a></h2>

@@ -89,13 +89,13 @@ root.mainloop()
 ```python
 root = tk.Tk()
 
-def buttonClicked(textS):
+def buttonClicked(text):
     l = [0, 1]
-    if textS in l:
+    if text in l:
         global ifSelected
-        textS = l[1] if textS == l[0] else l[0]
-        ifSelected = textS
-    print(textS)
+        text = l[1] if text == l[0] else l[0]
+        ifSelected = text
+    print(text)
 
 ifSelected = 0
 myCheckbutton = tk.Checkbutton(root, text="Checkbutton", command=lambda: buttonClicked(ifSelected))
@@ -256,15 +256,15 @@ root = tk.Tk()
 
 def myGet():
     valuess = []
-    textS = str(myText.get(1.0, tk.END))
+    text = str(myText.get(1.0, tk.END))
     latestEnter = 0
-    for x, y in enumerate(textS):
+    for x, y in enumerate(text):
         if y == "\n":
-            toAppend = textS[latestEnter:x]
+            toAppend = text[latestEnter:x]
             if "\n" in toAppend:
                 toAppend = toAppend.replace("\n", "")
             else:
-                toAppend = textS[:x]
+                toAppend = text[:x]
             valuess.append(toAppend)
             latestEnter = x
     print(valuess)

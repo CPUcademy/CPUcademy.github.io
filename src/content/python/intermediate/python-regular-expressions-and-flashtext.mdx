@@ -13,8 +13,8 @@ order: 2
 
 ```python
 pattern = "Python"
-textS = "I am learning Python programming"
-if_matches = re.search(pattern, textS)
+text = "I am learning Python programming"
+if_matches = re.search(pattern, text)
 
 if if_matches:  
     print("Match found!")  
@@ -28,8 +28,8 @@ else:
 
 ```python
 pattern = "I am"
-textS = "I am learning Python programming"
-if_matches = re.match(pattern, textS)
+text = "I am learning Python programming"
+if_matches = re.match(pattern, text)
 
 if if_matches:  
     print("Match found at the beginning")  
@@ -43,9 +43,9 @@ else:
 
 ```python
 pattern = r"\d+"
-textS = "There are 3 apples and 5 oranges."
-matches = re.findall(pattern, textS)
-print(matches) # ["3", "5"]
+text = "There are 3 apples and 5 oranges."
+if_matches = re.findall(pattern, text)
+print(if_matches) # ["3", "5"]
 ```
 
 <h4>```sub()``` - replacing patterns</h4>  
@@ -54,8 +54,8 @@ print(matches) # ["3", "5"]
 
 ```python
 pattern = r"\d"
-textS = "Contact me at 123-456-7890."
-result = re.sub(pattern, "X", textS) # replacing digits with "X"
+text = "Contact me at 123-456-7890."
+result = re.sub(pattern, "X", text) # replacing digits with "X"
 print(result) # Contact me at XXX-XXX-XXXX.
 ```
 
@@ -70,14 +70,14 @@ pattern = re.compile(r"\d{3}-\d{2}-\d{4}") # pattern for a Social Security Numbe
 text1 = "My SSN is 123-45-6789."
 text2 = "Your SSN is 987-65-4321."
 
-match1 = pattern.search(text1)
-match2 = pattern.search(text2)
+if_matches1 = pattern.search(text1)
+if_matches2 = pattern.search(text2)
 
-if match1:  
-    print("Match found in text1:", match1.group()) # 123-45-6789
+if if_matches1:  
+    print("Match found in text1:", if_matches1.group()) # 123-45-6789
 
-if match2:  
-    print("Match found in text2:", match2.group()) # 987-65-4321
+if if_matches2:  
+    print("Match found in text2:", if_matches2.group()) # 987-65-4321
 ```
 
 <h4>```group()``` - extracting specific parts of a match</h4>  
@@ -86,14 +86,14 @@ if match2:
 
 ```python
 pattern = r"(\d{3})-(\d{2})-(\d{4})" # grouping digits
-textS = "My SSN is 123-45-6789."
-match = re.search(pattern, textS)
+text = "My SSN is 123-45-6789."
+if_matches = re.search(pattern, text)
 
 if match:  
-    print("Entire match:", match.group()) # 123-45-6789
-    print("Group 1:", match.group(1)) # 123
-    print("Group 2:", match.group(2)) # 45
-    print("Group 3:", match.group(3)) # 6789
+    print("Entire match:", if_matches.group()) # 123-45-6789
+    print("Group 1:", if_matches.group(1)) # 123
+    print("Group 2:", if_matches.group(2)) # 45
+    print("Group 3:", if_matches.group(3)) # 6789
 ```
 
 <h2>Special sequences</h2>  
@@ -128,9 +128,9 @@ if match:
 
 ```python
 pattern = r"\d+"
-textS = "There are 12 cats and 34 dogs."
-matches = re.findall(pattern, textS)
-print(matches) # ["12", "34"]
+text = "There are 12 cats and 34 dogs."
+if_matches = re.findall(pattern, text)
+print(if_matches) # ["12", "34"]
 ```
 
 <h2>Special characters</h2>  
@@ -173,16 +173,16 @@ print(matches) # ["12", "34"]
 
 ```python
 # Matching any character
-pattern = r"a.b"
-textS = "acb aab adb"
-matches = re.findall(pattern, textS)
-print(matches) # ["acb", "aab", "adb"]
+pattern1 = r"a.b"
+text1 = "acb aab adb"
+if_matches1 = re.findall(pattern1, text1)
+print(if_matches1) # ["acb", "aab", "adb"]
 
 # Matching zero or more occurrences
-pattern = r"ab*"
-textS = "abb ab abbb a"
-matches = re.findall(pattern, textS)
-print(matches) # ["abb", "ab", "abbb", "a"]
+pattern2 = r"ab*"
+text2 = "abb ab abbb a"
+if_matches2 = re.findall(pattern2, text2)
+print(if_matches2) # ["abb", "ab", "abbb", "a"]
 ```
 
 <h2>Regex options (flags)</h2>  
@@ -205,20 +205,19 @@ print(matches) # ["abb", "ab", "abbb", "a"]
 
 ```python
 # Using re.IGNORECASE
-pattern = re.compile(r"python", re.IGNORECASE)
-if_matches = pattern.search("I love PYTHON programming.")
-if if_matches:  
+pattern1 = re.compile(r"python", re.IGNORECASE)
+if_matches1 = pattern1.search("I love PYTHON programming.")
+if if_matches1:  
     print("Case-insensitive match found!")
 
 # Using re.DOTALL
-pattern = re.compile(r"Hello.*World", re.DOTALL)
-textS = "Hello\nWorld"
-if_matches = pattern.search(textS)
-if if_matches:  
+pattern2 = re.compile(r"Hello.*World", re.DOTALL)
+if_matches2 = pattern2.search("Hello\nWorld")
+if if_matches2:  
     print("Match found with DOTALL!")
 
 # Using re.VERBOSE
-pattern = re.compile(r"""
+pattern3 = re.compile(r"""
     \d{3}   # area code
     -       # separator
     \d{2}   # middle part
@@ -226,8 +225,8 @@ pattern = re.compile(r"""
     \d{4}   # last part
 """, re.VERBOSE)
 
-if_matches = pattern.search("123-45-6789")
-if if_matches:  
+if_matches3 = pattern3.search("123-45-6789")
+if if_matches3:  
     print("Verbose match found!")
 ```
 
@@ -242,7 +241,7 @@ keyword_processor = KeywordProcessor()
 keyword_processor.add_keyword("Python")
 keyword_processor.add_keyword("programming")
 
-textS = "Python is a popular programming language."
-found_keywords = keyword_processor.extract_keywords(textS)
+text = "Python is a popular programming language."
+found_keywords = keyword_processor.extract_keywords(text)
 print("Found keywords:", found_keywords)
 ```

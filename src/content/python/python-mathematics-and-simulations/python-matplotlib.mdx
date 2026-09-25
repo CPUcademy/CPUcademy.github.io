@@ -361,14 +361,14 @@ z = x ** 2 + y ** 2 # a simple convex loss function
 lr = 0.1
 num_steps = 20
 point = np.array([2.5, 2.5]) # the starting point
-path = [point.copy()]
+pathh = [point.copy()]
 
 for _ in range(num_steps):
     grad = 2 * point
     point -= lr * grad
     path.append(point.copy())
 
-path = np.array(path)
+pathh = np.array(path)
 z_path = np.sum(path ** 2, axis=1)
 
 fig = plt.figure()
