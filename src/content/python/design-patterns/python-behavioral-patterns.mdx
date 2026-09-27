@@ -749,7 +749,7 @@ for element in elements:
     element.accept_data(word_counter)
 ```
 
-<p class="noBottomMargin">Instead of adding new methods to ```Text``` and ```Image``` every time we need a new operation, we simply create a new Visitor class that implements those operations without modifying the element classes. This pattern relies on double dispatch, where both the element type (```Text``` or ```Image```) and the visitor type (```Renderer``` or ```WordCounter```) determine the behavior, meaning:</p>
+<p className="noBottomMargin">Instead of adding new methods to ```Text``` and ```Image``` every time we need a new operation, we simply create a new Visitor class that implements those operations without modifying the element classes. This pattern relies on double dispatch, where both the element type (```Text``` or ```Image```) and the visitor type (```Renderer``` or ```WordCounter```) determine the behavior, meaning:</p>
 
 <ol>
     <li>The element calls its ```accept(visitor)``` method, passing the visitor as an argument.</li>
