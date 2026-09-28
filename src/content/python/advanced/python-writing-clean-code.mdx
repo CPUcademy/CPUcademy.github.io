@@ -260,9 +260,9 @@ class Report:
 
     def export(self):
         if self.export_format == "csv":
-            return ",".join(self.table_rows)
+            return to_csv(self.table_rows) # joining the rows with commas
         if self.export_format == "html":
-            return "".join(f"<tr><td>{row}</td></tr>" for row in self.table_rows)
+            return to_html_table(self.table_rows) # wrapping every row in a table row
         return ""
 ```
 
@@ -280,14 +280,14 @@ class CsvReport(Report):
         self.table_rows = table_rows
 
     def export(self):
-        return ",".join(self.table_rows)
+        return to_csv(self.table_rows) # joining the rows with commas
 
 class HtmlReport(Report):
     def __init__(self, table_rows):
         self.table_rows = table_rows
 
     def export(self):
-        return "".join(f"<tr><td>{row}</td></tr>" for row in self.table_rows)
+        return to_html_table(self.table_rows) # wrapping every row in a table row
 
 reports = [CsvReport(["Alice", "Bob"]), HtmlReport(["Alice", "Bob"])]
 for report in reports:
@@ -313,8 +313,8 @@ for report in reports:
 <p>It should not call methods on objects returned by any of those methods. In other words, it should not talk to strangers. A module should know only its direct collaborators, not the structure of the whole system.</p>
 
 ```python
-scratch_file_path = build_context.options.scratch_dir.absolute_path # talks to strangers
-scratch_stream = build_context.create_scratch_file_stream(scratch_file_name) # asks for one service
+scratch_file_path = build_context.options.scratch_dir.absolute_path # talking to strangers
+scratch_stream = build_context.create_scratch_file_stream(scratch_file_name) # asking for one service
 ```
 
 <p>Chains like the first one bind the code to the architecture. When one element in the middle changes, many other places in the code have to be changed as well. The goal is to limit how much one module knows about another.</p>

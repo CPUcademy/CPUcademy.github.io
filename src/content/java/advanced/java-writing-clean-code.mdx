@@ -229,7 +229,6 @@ getPercentageFuelRemaining();
 
 ```java
 import java.util.List;
-import java.util.stream.Collectors;
 
 // One method that has to know every export format
 class Report {
@@ -243,9 +242,9 @@ class Report {
 
     public String export() {
         if (exportFormat.equals("csv"))
-            return String.join(",", tableRows);
+            return toCsv(tableRows); // joining the rows with commas
         if (exportFormat.equals("html"))
-            return tableRows.stream().map(row -> "<tr><td>" + row + "</td></tr>").collect(Collectors.joining());
+            return toHtmlTable(tableRows); // wrapping every row in a table row
         return "";
     }
 }
@@ -253,7 +252,6 @@ class Report {
 
 ```java
 import java.util.List;
-import java.util.stream.Collectors;
 
 // Each report knows how to export itself
 interface Report {
@@ -268,7 +266,7 @@ class CsvReport implements Report {
     }
 
     public String export() {
-        return String.join(",", tableRows);
+        return toCsv(tableRows); // joining the rows with commas
     }
 }
 
@@ -280,7 +278,7 @@ class HtmlReport implements Report {
     }
 
     public String export() {
-        return tableRows.stream().map(row -> "<tr><td>" + row + "</td></tr>").collect(Collectors.joining());
+        return toHtmlTable(tableRows); // wrapping every row in a table row
     }
 }
 
@@ -312,8 +310,8 @@ public class Main {
 <p>It should not call methods on objects returned by any of those methods. In other words, it should not talk to strangers. A module should know only its direct collaborators, not the structure of the whole system.</p>
 
 ```java
-String scratchFilePath = buildContext.getOptions().getScratchDir().getAbsolutePath(); // talks to strangers
-OutputStream scratchStream = buildContext.createScratchFileStream(scratchFileName); // asks for one service
+String scratchFilePath = buildContext.getOptions().getScratchDir().getAbsolutePath(); // talking to strangers
+OutputStream scratchStream = buildContext.createScratchFileStream(scratchFileName); // asking for one service
 ```
 
 <p>Chains like the first one bind the code to the architecture. When one element in the middle changes, many other places in the code have to be changed as well. The goal is to limit how much one module knows about another.</p>

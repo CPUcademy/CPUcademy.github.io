@@ -6,7 +6,7 @@ type LanguageConfig = { comments: Category; text: Category; signs: Category; key
 
 export const languageColors = keywordColors as Record<string, LanguageConfig>
 
-const pythonContextWords = new Map([['e', /\bmath\.$/], ['gcd', /\bmath\.$/], ['key', /\bsort(?:ed)?\b/], ['encrypt', /\b(?:cipher|public_key)\.$/], ['decrypt', /\b(?:cipher|private_key)\.$/], ['public_key', /\bprivate_key\.$/], ['name', /(?:\bp\.|\.filter_by\()\s*$|\bUser\(/], ['age', /\bUser\(/], ['rectangle', /\b(?:cv2|draw)\.$/], ['product', /\bitertools\.$/], ['state', /, $/], ['image', /\broot, $/], ['create', /\bg\.$/], ['args', /\bAverage, $/], ['h1', /\bsoup\.$/], ['a', /\bsoup\.$/], ['common', /\bwebdriver\.$/], ['by', /\bcommon\.$/], ['func', /\bcreate_engine, $/], ['bold', /\baddition\.$/]])
+const pythonContextWords = new Map([['e', /\bmath\.$/], ['gcd', /\bmath\.$/], ['key', /\bsort(?:ed)?\b/], ['encrypt', /\b(?:cipher|public_key)\.$/], ['decrypt', /\b(?:cipher|private_key)\.$/], ['public_key', /\bprivate_key\.$/], ['name', /(?:\bp\.|\.filter_by\()\s*$|\bUser\(/], ['age', /\bUser\(/], ['rectangle', /\b(?:cv2|draw)\.$/], ['product', /\bitertools\.$/], ['state', /, $/], ['image', /\broot, $/], ['create', /\bg\.$/], ['args', /\bAverage, $/], ['h1', /\bsoup\.$/], ['a', /\bsoup\.$/], ['common', /\bwebdriver\.$/], ['by', /\bcommon\.$/], ['func', /\bcreate_engine, $/], ['bold', /\baddition\.$/], ['to_csv', /\bdf\.$/]])
 const pythonAttributeWords = new Set(['method', 'value', 'text'])
 
 const defaultCodeColor = '#E1E4E8'
