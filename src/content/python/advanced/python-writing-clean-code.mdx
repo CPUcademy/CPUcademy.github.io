@@ -22,10 +22,10 @@ order: 4
 
 <p className="noBottomMargin">Some <b>PEP8</b> standard guidelines:</p>
 <ul>
-    <li className="noBottomMargin">Two blank lines should separate functions and classes.</li> 
-    <li className="noBottomMargin">In a class, methods should be separated by one blank line.</li> 
+    <li className="noBottomMargin">Functions and classes should be separated by two blank lines.</li> 
+    <li className="noBottomMargin">Methods inside a class should be separated by one blank line.</li> 
     <li className="noBottomMargin">A line should be at most 79 characters long.</li>
-    <li className="noBottomMargin">Stay consistent with style and formatting (spaces, etc.)</li>
+    <li className="noBottomMargin">Stay consistent with style and formatting, e.g., spacing.</li>
     <li>And an extra: Always assume the user of your code is stupid and validate your input in every way possible.</li>
 </ul>
 
@@ -39,7 +39,16 @@ order: 4
 
 <p>When working with floating-point numbers, avoid conditions like ```while x != 1.0:``` because floating-point calculations can produce small rounding errors, so ```x``` may never be exactly 1.0 (e.g., it might be 1.0000000000000002). Instead, use a tolerance, such as ```while x < 1.0:```, when the algorithm allows it, or compare the difference with a small epsilon.</p>
 
-<p>PEP8 file import guidelines recommend placing imports at the top of the file, putting each import on a separate line, importing only what is needed, grouping standard library imports before third-party imports and local imports, separating these groups with a blank line, preferring explicit imports over wildcard imports, and avoiding ```from module import *``` (using absolute imports).</p>
+<p className="noBottomMargin">Some <b>PEP8</b> import guidelines:</p>
+<ul>
+    <li className="noBottomMargin">Imports should be placed at the top of the file.</li>
+    <li className="noBottomMargin">Each import should be on a separate line.</li>
+    <li className="noBottomMargin">Only what is needed should be imported.</li>
+    <li className="noBottomMargin">Standard library imports should come first, followed by third-party imports and then local imports.</li>
+    <li className="noBottomMargin">These groups should be separated by one blank line.</li>
+    <li className="noBottomMargin">Absolute imports should be preferred over relative imports.</li>
+    <li>Explicit imports should be preferred over wildcard imports, so ```from module import *``` should be avoided.</li>
+</ul>
 
 <p>Magic numbers are hardcoded values in a program that are used directly without explanation or context, making the code harder to understand and maintain. These numbers typically represent constants or values with specific meaning, but their purpose is unclear without additional context. To improve code readability and maintainability, such numbers should be replaced with named constants or variables that explain their meaning.</p>
 
@@ -169,7 +178,7 @@ if attribute_exists("username"):
 
 <h4>Returning default values instead of ```None```</h4>
 
-<p>Do not return ```None``` if the code is yours. A ```None``` leads to ```AttributeError```s and forces every caller to write a check, which breaks the structure of the calling code. If a sensible default value exists, the function should return it on its own.</p>
+<p>Do not return ```None``` if the code is yours. A ```None``` leads to ```AttributeError```s and forces every caller to write a ```None``` check, which breaks the structure of the calling code. If a sensible default value exists, the function should return it on its own.</p>
 
 ```python
 # Every caller has to repair the result
@@ -177,7 +186,7 @@ per_diem = employee.get_per_diem() # None when the employee did not work
 salary += per_diem if per_diem is not None else 0
 
 # The special case is handled where it belongs
-salary += employee.get_per_diem() # returns 0 for a day not worked
+salary += employee.get_per_diem() # returning 0 for a day not worked
 ```
 
 <h4>Extracting conditions and exception handling</h4>
@@ -201,7 +210,7 @@ if can_edit(page, user):
 <p className="noBottomMargin">Classes should be small, and their size is measured in responsibilities, not in lines:</p>
 <ul>
     <li className="noBottomMargin">The name of a class should describe its responsibilities, and nothing else should be placed in it.</li>
-    <li className="noBottomMargin">We should be able to describe what a class does in about 25 words without using "and", "or," or "but". If we cannot, the class is probably too large. Such a class is called a God class.</li>
+    <li className="noBottomMargin">We should be able to describe what a class does in about 25 words without using "and", "or," or "but". If we cannot, the class is probably too large. A class that has too many responsibilities is called a God class.</li>
     <li className="noBottomMargin">A class should have only one reason to change (Single Responsibility Principle).</li>
     <li>The whole system should still keep a relatively small number of classes and functions. Splitting code is not a reason to create classes nobody needs.</li>
 </ul>
@@ -214,11 +223,11 @@ if can_edit(page, user):
 
 <p className="noBottomMargin">A class should be readable from top to bottom, so its members are placed in a fixed order:</p>
 <ul>
-    <li className="noBottomMargin">Class-level constants first, then the instance attributes set in ```__init__```.</li>
-    <li className="noBottomMargin">Public methods after the attributes.</li>
-    <li className="noBottomMargin">Non-public helper methods, the ones with a single underscore prefix, right after the public method that uses them.</li>
+    <li className="noBottomMargin">Class-level constants come first, followed by the instance attributes set in ```__init__```.</li>
+    <li className="noBottomMargin">Public methods come after the attributes.</li>
+    <li className="noBottomMargin">Non-public helper methods, the ones with a single underscore prefix, come right after the public method that uses them.</li>
     <li className="noBottomMargin">Constants should not be inherited. Do not use a base class as a container of constants for its subclasses.</li>
-    <li>Nest a class in another class only when it is a tool used by that one class alone. Any other class is declared at module level, so that it can be found and imported on its own.</li>
+    <li>Nest a class in another class only when it is a tool used by that one class alone. Any other class should be declared at module level, so that it can be found and imported on its own.</li>
 </ul>
 
 <h4>Meaningful abstraction</h4>
@@ -227,14 +236,14 @@ if can_edit(page, user):
 
 ```python
 # Exposing how the tank is measured
-tank.fuel_remaining
-tank.fuel_capacity
+tank.fuel_remaining()
+tank.fuel_capacity()
 
 # Exposing what the caller wants to know
-tank.percentage_fuel_remaining
+tank.percentage_fuel_remaining()
 ```
 
-<p>Internal structure should not be available to objects on higher levels of abstraction. If a file has to be opened, give the caller a method that opens it instead of chained attributes that lead to its path. A data class with only fields and generated accessors is quasi-encapsulation, because those methods do nothing useful when they contain no validation. Reaching into non-public members is the last possible solution, so look for another one first.</p>
+<p>Internal structure should not be available to objects on higher levels of abstraction. If a file has to be opened, give the caller a method that opens it instead of chained methods that lead to its path. A DTO (Data Transfer Object) with only fields and generated accessors is quasi-encapsulation, because those methods do nothing useful when they contain no validation. Relaxing privacy is the last possible solution, so look for another one first.</p>
 
 <p>The abstractions that matter separate general concepts on a higher level from implementation details on a lower level. Thanks to that separation, the details can change without changing the concepts.</p>
 
@@ -243,22 +252,46 @@ tank.percentage_fuel_remaining
 <p>When different objects have to behave differently, use polymorphism instead of a long ```if-elif``` structure that has to know every case.</p>
 
 ```python
-# One function that has to know every export format
-def export(report):
-    if report.export_format == "csv":
-        return ",".join(report.table_rows)
-    if report.export_format == "html":
-        return to_html_table(report.table_rows)
-    return ""
+# One method that has to know every export format
+class Report:
+    def __init__(self, export_format, table_rows):
+        self.export_format = export_format
+        self.table_rows = table_rows
+
+    def export(self):
+        if self.export_format == "csv":
+            return ",".join(self.table_rows)
+        if self.export_format == "html":
+            return "".join(f"<tr><td>{row}</td></tr>" for row in self.table_rows)
+        return ""
+```
+
+```python
+from abc import ABC, abstractmethod
 
 # Each report knows how to export itself
-class CsvReport:
+class Report(ABC):
+    @abstractmethod
+    def export(self):
+        pass
+
+class CsvReport(Report):
+    def __init__(self, table_rows):
+        self.table_rows = table_rows
+
     def export(self):
         return ",".join(self.table_rows)
 
-class HtmlReport:
+class HtmlReport(Report):
+    def __init__(self, table_rows):
+        self.table_rows = table_rows
+
     def export(self):
-        return to_html_table(self.table_rows)
+        return "".join(f"<tr><td>{row}</td></tr>" for row in self.table_rows)
+
+reports = [CsvReport(["Alice", "Bob"]), HtmlReport(["Alice", "Bob"])]
+for report in reports:
+    print(report.export())
 ```
 
 <div className="alert alert-info">
@@ -269,19 +302,18 @@ class HtmlReport:
 
 <h4>The Law of Demeter</h4>
 
-<p className="noBottomMargin">The Law of Demeter states that a method ```f``` of class ```C``` should only call methods of:</p>
+<p className="noBottomMargin">The Law of Demeter limits which methods a method ```f``` of class ```C``` can call:</p>
 <ul>
-    <li className="noBottomMargin">```C``` itself,</li>
-    <li className="noBottomMargin">an object created by ```f```,</li>
-    <li className="noBottomMargin">an object passed to ```f``` as an argument,</li>
-    <li>an object held in an attribute of ```C```.</li>
+    <li className="noBottomMargin">It can call methods of ```C``` itself.</li>
+    <li className="noBottomMargin">It can call methods of an object created by ```f```.</li>
+    <li className="noBottomMargin">It can call methods of an object passed to ```f``` as an argument.</li>
+    <li>It can call methods of an object held in an attribute of ```C```.</li>
 </ul>
 
 <p>It should not call methods on objects returned by any of those methods. In other words, it should not talk to strangers. A module should know only its direct collaborators, not the structure of the whole system.</p>
 
 ```python
 scratch_file_path = build_context.options.scratch_dir.absolute_path # talks to strangers
-
 scratch_stream = build_context.create_scratch_file_stream(scratch_file_name) # asks for one service
 ```
 
@@ -303,14 +335,18 @@ scratch_stream = build_context.create_scratch_file_stream(scratch_file_name) # a
 class PaymentError(Exception):
     pass
 
-def charge(card, amount):
-    try:
-        provider.charge(card, amount)
-    except (provider.Timeout, provider.Declined, provider.AuthError) as provider_failure:
-        raise PaymentError(str(provider_failure)) from provider_failure
+class PaymentGateway:
+    def __init__(self, provider):
+        self.provider = provider
+
+    def charge(self, card, amount):
+        try:
+            self.provider.charge(card, amount)
+        except (ProviderTimeout, ProviderDeclined, ProviderAuthError) as provider_failure:
+            raise PaymentError(provider_failure) from provider_failure
 ```
 
-<p>To learn how an external API behaves, write learning tests. They are small tests that check our understanding of the library. They can be run again after a version upgrade to see whether the behavior has changed.</p>
+<p>To learn how an external API behaves, we write learning tests. They are small tests that check our understanding of the library. They can be run again after a version upgrade to see whether the behavior has changed.</p>
 
 <p>If another team is still working on an interface we depend on, we can define the interface we would like to use, write our code against it, and connect the other team's implementation later with the Adapter pattern. Both teams can then work in parallel, and nothing has to be rewritten at the end.</p>
 
@@ -319,16 +355,29 @@ def charge(card, amount):
 <p>Depending on an interface instead of a concrete class (Dependency Inversion Principle) is what makes unit tests possible. If production code reads a live value from a stock exchange, the value is different on every run. A test implementation of the same interface returns predictable data instead.</p>
 
 ```python
-class LiveExchange:
-    def price_of(self, symbol):
-        ... # real request to the exchange
+from abc import ABC, abstractmethod
 
-class FixedPrices:
+class StockPriceSource(ABC):
+    @abstractmethod
+    def price_of(self, symbol):
+        pass
+
+class LiveExchange(StockPriceSource):
+    def price_of(self, symbol):
+        # real request to the stock exchange
+        return 0.0
+
+class FakeExchange(StockPriceSource):
     def price_of(self, symbol):
         return 100.0
 
 def portfolio_value(symbols, price_source):
-    return sum(price_source.price_of(symbol) for symbol in symbols)
+    total = 0.0
+    for symbol in symbols:
+        total += price_source.price_of(symbol)
+    return total
+
+print(portfolio_value(["AAPL", "MSFT"], FakeExchange())) # always 200.0
 ```
 
 <p className="noBottomMargin">Two more rules keep coupling low:</p>
@@ -341,23 +390,23 @@ def portfolio_value(symbols, price_source):
 
 <p>Use as few comments as possible. A comment makes sense only when the idea cannot be described better with code, and it should explain why something is done, not what the code does. Comments also get old. The code changes, the comment stays the same, and the reader is misled.</p>
 
-<p className="noBottomMargin">Comments that usually make sense:</p>
+<h4>Useful comments</h4>
 <ul>
-    <li className="noBottomMargin">the intended behavior of a regular expression,</li>
-    <li className="noBottomMargin">why a particular implementation was chosen,</li>
-    <li className="noBottomMargin">a warning about consequences or possible problems,</li>
-    <li>a ```TODO``` for work that still has to be done.</li>
+    <li className="noBottomMargin">A comment can explain the intended behavior of a regular expression.</li>
+    <li className="noBottomMargin">A comment can explain why a particular implementation was chosen.</li>
+    <li className="noBottomMargin">A comment can warn about consequences or possible problems.</li>
+    <li>A ```TODO``` comment can mark work that still has to be done.</li>
 </ul>
 
-<p className="noBottomMargin">Comments that should not be written:</p>
+<h4>Comments to avoid</h4>
 <ul>
-    <li className="noBottomMargin">descriptions of obvious operations, such as assigning ```5``` to ```x```,</li>
-    <li className="noBottomMargin">a line per variable or per parameter, because it creates visual noise and breaks the vertical grouping of related declarations. Parameters should describe themselves and there should be few of them,</li>
-    <li className="noBottomMargin">section headers inside a function, because a function that needs sections should be split,</li>
-    <li>commented-out code.</li>
+    <li className="noBottomMargin">Do not describe obvious operations, such as assigning ```5``` to ```x```.</li>
+    <li className="noBottomMargin">Do not write a comment per variable or per parameter, because it creates visual noise and breaks the vertical grouping of related declarations. Parameters should describe themselves, and there should be few of them.</li>
+    <li className="noBottomMargin">Do not write section headers inside a function, because a function that needs sections should be split.</li>
+    <li>Do not leave commented-out code.</li>
 </ul>
 
-<p className="noBottomMargin">Formatting matters as well:</p>
+<h4>Formatting</h4>
 <ul>
     <li className="noBottomMargin">Group code vertically into logically related fragments and keep related declarations and operations close to each other.</li>
     <li className="noBottomMargin">Put spaces around operators, but logical grouping is allowed in longer equations, e.g., ```2*x + 3*y```.</li>
@@ -513,9 +562,9 @@ print(f"Execution time of the second call (with decorator): {end_time - start_ti
 
 <h2><a id="unit-testing">Unit testing</a></h2>
 
-<p>Unit testing is a software testing technique where individual units or components of a program are tested in isolation. Python provides a module called ```unittest``` that supports test automation, sharing of setup code, aggregation of tests into collections, and independence from the reporting framework.</p>
+<p>Unit testing is a software testing technique where individual units or components of a program are tested in isolation. In Python, a built-in module for this purpose is ```unittest```, which supports automated testing, reusable setup logic, and structured test organization.</p>
                     
-<p>A unit test in Python is a class that inherits from ```unittest.TestCase``` and contains methods starting with ```test_```. These ```test_``` methods get automatically executed when the test suite is run, allowing for verification of expected behavior.</p>
+<p>A unit test in Python is a class that inherits from ```unittest.TestCase``` and contains methods starting with ```test_```. These methods are automatically executed by the test runner to verify expected behavior.</p>
 
 ```python
 import unittest
@@ -572,8 +621,8 @@ if __name__ == "__main__":
     unittest.main()
 ```
   
-<h4>Using ```setUp()``` and ```tearDown()```</h4>
-<p>These methods run before and after each test to prepare and clean up test data.</p>
+<h4>Using setup and cleanup methods</h4>
+<p>The ```setUp()``` method runs before each test, while the ```tearDown()``` method runs after each test. They are used to prepare and clean up test data.</p>
 
 ```python
 import unittest
@@ -629,13 +678,13 @@ def test_zero_division():
     <li>Test names should use the given-when-then convention, e.g., ```test_given_empty_cart_when_total_requested_then_returns_zero()```.</li>
 </ul>
 
-<p className="noBottomMargin">Tests should be:</p>
+<h4>Properties of good tests</h4>
 <ul>
-    <li className="noBottomMargin">fast,</li>
-    <li className="noBottomMargin">independent of one another, so that the order in which they run does not matter,</li>
-    <li className="noBottomMargin">repeatable in every environment,</li>
-    <li className="noBottomMargin">self-validating, with one boolean result instead of output that somebody has to read,</li>
-    <li>written in time, directly before the production code.</li>
+    <li className="noBottomMargin">Tests should be fast.</li>
+    <li className="noBottomMargin">Tests should be independent of one another, so that the order in which they run does not matter.</li>
+    <li className="noBottomMargin">Tests should be repeatable in every environment.</li>
+    <li className="noBottomMargin">Tests should be self-validating, with one boolean result instead of output that somebody has to read.</li>
+    <li>Tests should be written in time, directly before the production code.</li>
 </ul>
 
 <h4>Other types of tests</h4>

@@ -8,7 +8,7 @@ order: 7
 <ul type="disc">
     <li><a href="#basic-conventions-and-pieces-of-advice" className="link" style={{textDecoration: "none"}}>Basic conventions and pieces of advice</a></li>
     <li><a href="#naming" className="link" style={{textDecoration: "none"}}>Naming</a></li>
-    <li><a href="#functions" className="link" style={{textDecoration: "none"}}>Functions</a></li>
+    <li><a href="#methods" className="link" style={{textDecoration: "none"}}>Methods</a></li>
     <li><a href="#classes-and-abstraction" className="link" style={{textDecoration: "none"}}>Classes and abstraction</a></li>
     <li><a href="#coupling-and-dependencies" className="link" style={{textDecoration: "none"}}>Coupling and dependencies</a></li>
     <li><a href="#comments-and-formatting" className="link" style={{textDecoration: "none"}}>Comments and formatting</a></li>
@@ -26,7 +26,7 @@ order: 7
     <li className="noBottomMargin">Use one public class per file, and name the file the same as the class.</li>
     <li className="noBottomMargin">Methods inside a class should be separated by one blank line.</li> 
     <li className="noBottomMargin">A line should be at most 100–120 characters long.</li>
-    <li className="noBottomMargin">Stay consistent with style and formatting (spaces, etc.)</li>
+    <li className="noBottomMargin">Stay consistent with style and formatting, e.g., spacing.</li>
     <li>And an extra: Always assume the user of your code is stupid and validate your input in every way possible.</li>
 </ul>
 
@@ -34,7 +34,7 @@ order: 7
 
 <p>Use ```if``` checks for expected conditions and reserve exceptions for rare or truly unexpected errors, since raising exceptions is more time- and memory-intensive.</p>
 
-<p>DRY (Don't Repeat Yourself) is a programming principle that states that the same logic or information should not be unnecessarily repeated in multiple places. Instead, reusable functions, classes, or modules should be used to reduce duplication and make code easier to maintain.</p>
+<p>DRY (Don't Repeat Yourself) is a programming principle that states that the same logic or information should not be unnecessarily repeated in multiple places. Instead, reusable methods, classes, or modules should be used to reduce duplication and make code easier to maintain.</p>
 
 <p>When working with floating-point numbers, avoid conditions like ```while (x != 1.0)``` because floating-point calculations can produce small rounding errors, so ```x``` may never be exactly 1.0 (e.g., it might be 1.0000000000000002). Instead, use a tolerance, such as ```while (x < 1.0)```, when the algorithm allows it, or compare the difference with a small epsilon.</p>
 
@@ -42,7 +42,7 @@ order: 7
 
 <p>Magic numbers are hardcoded values in a program that are used directly without explanation or context, making the code harder to understand and maintain. These numbers typically represent constants or values with specific meaning, but their purpose is unclear without additional context. To improve code readability and maintainability, such numbers should be replaced with named constants or variables that explain their meaning.</p>
 
-<p>Each function should be responsible for its own actions. A “master” object should not control or manage all functions. Instead, each function should handle obtaining the information it needs and implementing any changes itself. The control program can communicate with different categories of functions, but it does not need to know how they are implemented. Functions manage themselves, while the control program only coordinates them. Code should be organized into self-contained, independent units, each handling a specific task.</p>
+<p>Each method should be responsible for its own actions. A “master” object should not control or manage all methods. Instead, each method should handle obtaining the information it needs and implementing any changes itself. The control program can communicate with different categories of methods, but it does not need to know how they are implemented. Methods manage themselves, while the control program only coordinates them. Code should be organized into self-contained, independent units, each handling a specific task.</p>
 
 <h2><a id="naming">Naming</a></h2>
 
@@ -68,7 +68,7 @@ order: 7
 
 <p>Magic values are not only numbers. Every unexplained literal, e.g., a string or a status code, should be replaced with a named constant.</p>
 
-<h2><a id="functions">Functions</a></h2>
+<h2><a id="methods">Methods</a></h2>
 
 <p className="noBottomMargin">A method is the smallest unit of abstraction, so this is where most of clean coding happens:</p>
 <ul>
@@ -127,8 +127,8 @@ logStream.appendLine(logEntry); // ...or move the method to the stream itself
 <p>Methods with three or more arguments should be avoided. Often some of the arguments form one concept that deserves its own class.</p>
 
 ```java
-makeCircle(double centerX, double centerY, double radius); // three arguments, two describe one point
-makeCircle(Point centerPoint, double radius); // tightly connected values become one argument
+makeCircle(centerX, centerY, radius); // three arguments, two describe one point
+makeCircle(centerPoint, radius); // tightly connected values become one argument
 ```
 
 <p>Boolean flags are the worst kind of argument, because they make one method do two things and the call itself explains nothing. Two separate methods are better.</p>
@@ -148,7 +148,7 @@ renderTest();
 <p>Methods that check something and methods that change something should be separated.</p>
 
 ```java
-if (set("username", "cpucademy")) { } // does it set, check, or both?
+if (setAttribute("username", "cpucademy")) { } // does it set, check, or both?
 
 // A query asks, and a command changes
 if (attributeExists("username"))
@@ -165,7 +165,7 @@ Double perDiem = employee.getPerDiem(); // null when the employee did not work
 salary += (perDiem == null) ? 0 : perDiem;
 
 // The special case is handled where it belongs
-salary += employee.getPerDiem(); // returns 0.0 for a day not worked
+salary += employee.getPerDiem(); // returning 0.0 for a day not worked
 ```
 
 <h4>Extracting conditions and exception handling</h4>
@@ -173,7 +173,7 @@ salary += employee.getPerDiem(); // returns 0.0 for a day not worked
 <p>Long conditions built from several ```&&``` and ```||``` operators should be extracted into a method with a simple name that explains the decision. ```try-catch``` blocks should be extracted too, so that error handling and the actual operation do not share one method.</p>
 
 ```java
-if (page.isLoaded() && !page.isLocked() && user.hasRole(EDITOR) && !page.isArchived()) { }
+if (page.isLoaded() && !page.isLocked() && user.isEditor() && !page.isArchived()) { }
 if (canEdit(page, user)) { }
 ```
 
@@ -186,7 +186,7 @@ if (canEdit(page, user)) { }
 <p className="noBottomMargin">Classes should be small, and their size is measured in responsibilities, not in lines:</p>
 <ul>
     <li className="noBottomMargin">The name of a class should describe its responsibilities, and nothing else should be placed in it.</li>
-    <li className="noBottomMargin">We should be able to describe what a class does in about 25 words without using "and", "or," or "but". If we cannot, the class is probably too large. Such a class is called a God class.</li>
+    <li className="noBottomMargin">We should be able to describe what a class does in about 25 words without using "and", "or," or "but". If we cannot, the class is probably too large. A class that has too many responsibilities is called a God class.</li>
     <li className="noBottomMargin">A class should have only one reason to change (Single Responsibility Principle).</li>
     <li>The whole system should still keep a relatively small number of classes and methods. Splitting code is not a reason to create classes nobody needs.</li>
 </ul>
@@ -199,11 +199,11 @@ if (canEdit(page, user)) { }
 
 <p className="noBottomMargin">A class should be readable from top to bottom, so its members are placed in a fixed order:</p>
 <ul>
-    <li className="noBottomMargin">Public static constants first, then private static variables, then private instance variables. There is rarely a good reason to use public variables.</li>
-    <li className="noBottomMargin">Public methods after the variables.</li>
-    <li className="noBottomMargin">Private utility methods right after the public method that uses them.</li>
+    <li className="noBottomMargin">Public static constants come first, followed by private static variables and then private instance variables. There is rarely a good reason to use public variables.</li>
+    <li className="noBottomMargin">Public methods come after the variables.</li>
+    <li className="noBottomMargin">Private helper methods come right after the public method that uses them.</li>
     <li className="noBottomMargin">Constants should not be inherited. Do not use a base class as a container of constants for its subclasses.</li>
-    <li>Nest a class in another class only when it is a tool used by that one class alone. Any other class is declared as a public class at the package level, so that it can be found and used on its own.</li>
+    <li>Nest a class in another class only when it is a tool used by that one class alone. Any other class should be declared as a public class at the package level, so that it can be found and used on its own.</li>
 </ul>
 
 <h4>Meaningful abstraction</h4>
@@ -219,7 +219,7 @@ getFuelCapacity();
 getPercentageFuelRemaining();
 ```
 
-<p>Internal structure should not be available to objects on higher levels of abstraction. If a file has to be opened, give the caller a method that opens it instead of chained methods that lead to its path. A DTO with only fields and generated accessors is quasi-encapsulation, because those methods do nothing useful when they contain no validation. Relaxing privacy is the last possible solution, so look for another one first.</p>
+<p>Internal structure should not be available to objects on higher levels of abstraction. If a file has to be opened, give the caller a method that opens it instead of chained methods that lead to its path. A DTO (Data Transfer Object) with only fields and generated accessors is quasi-encapsulation, because those methods do nothing useful when they contain no validation. Relaxing privacy is the last possible solution, so look for another one first.</p>
 
 <p>The abstractions that matter separate general concepts on a higher level from implementation details on a lower level. Thanks to that separation, the details can change without changing the concepts.</p>
 
@@ -228,40 +228,91 @@ getPercentageFuelRemaining();
 <p>When different objects have to behave differently, use polymorphism instead of a long ```if-else``` or ```switch``` structure that has to know every case.</p>
 
 ```java
+import java.util.List;
+import java.util.stream.Collectors;
+
 // One method that has to know every export format
-String export(Report report) {
-    if (report.exportFormat == CSV) return String.join(",", report.tableRows);
-    if (report.exportFormat == HTML) return toHtmlTable(report.tableRows);
-    return "";
+class Report {
+    private final String exportFormat;
+    private final List<String> tableRows;
+
+    Report(String exportFormat, List<String> tableRows) {
+        this.exportFormat = exportFormat;
+        this.tableRows = tableRows;
+    }
+
+    public String export() {
+        if (exportFormat.equals("csv"))
+            return String.join(",", tableRows);
+        if (exportFormat.equals("html"))
+            return tableRows.stream().map(row -> "<tr><td>" + row + "</td></tr>").collect(Collectors.joining());
+        return "";
+    }
 }
+```
+
+```java
+import java.util.List;
+import java.util.stream.Collectors;
 
 // Each report knows how to export itself
 interface Report {
     String export();
 }
+
+class CsvReport implements Report {
+    private final List<String> tableRows;
+
+    CsvReport(List<String> tableRows) {
+        this.tableRows = tableRows;
+    }
+
+    public String export() {
+        return String.join(",", tableRows);
+    }
+}
+
+class HtmlReport implements Report {
+    private final List<String> tableRows;
+
+    HtmlReport(List<String> tableRows) {
+        this.tableRows = tableRows;
+    }
+
+    public String export() {
+        return tableRows.stream().map(row -> "<tr><td>" + row + "</td></tr>").collect(Collectors.joining());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        List<Report> reports = List.of(new CsvReport(List.of("Alice", "Bob")), new HtmlReport(List.of("Alice", "Bob")));
+        for (Report report : reports)
+            System.out.println(report.export());
+    }
+}
 ```
 
 <div className="alert alert-info">
-    Procedural code, which uses data structures, makes it easier to add new functions without changing existing data structures. Object-oriented code makes it easier to add new classes without changing existing functions. Neither procedural nor object-oriented programming is inherently cleaner. Each makes certain kinds of changes easier.
+    Procedural code, which uses data structures, makes it easier to add new methods without changing existing data structures. Object-oriented code makes it easier to add new classes without changing existing methods. Neither procedural nor object-oriented programming is inherently cleaner. Each makes certain kinds of changes easier.
 </div>   
 
 <h2><a id="coupling-and-dependencies">Coupling and dependencies</a></h2>
 
 <h4>The Law of Demeter</h4>
 
-<p className="noBottomMargin">The Law of Demeter states that a method ```f``` of class ```C``` should only call methods of:</p>
+<p className="noBottomMargin">The Law of Demeter limits which methods a method ```f``` of class ```C``` can call:</p>
 <ul>
-    <li className="noBottomMargin">```C``` itself,</li>
-    <li className="noBottomMargin">an object created by ```f```,</li>
-    <li className="noBottomMargin">an object passed to ```f``` as an argument,</li>
-    <li>an object held in an instance variable of ```C```.</li>
+    <li className="noBottomMargin">It can call methods of ```C``` itself.</li>
+    <li className="noBottomMargin">It can call methods of an object created by ```f```.</li>
+    <li className="noBottomMargin">It can call methods of an object passed to ```f``` as an argument.</li>
+    <li>It can call methods of an object held in an instance variable of ```C```.</li>
 </ul>
 
 <p>It should not call methods on objects returned by any of those methods. In other words, it should not talk to strangers. A module should know only its direct collaborators, not the structure of the whole system.</p>
 
 ```java
 String scratchFilePath = buildContext.getOptions().getScratchDir().getAbsolutePath(); // talks to strangers
-
 OutputStream scratchStream = buildContext.createScratchFileStream(scratchFileName); // asks for one service
 ```
 
@@ -280,22 +331,30 @@ OutputStream scratchStream = buildContext.createScratchFileStream(scratchFileNam
 <p>External APIs should be wrapped in our own classes instead of being used all over the application. Then changing the provider means changing one place only. If a library throws many different exception types, wrap them in one exception type that means something in our domain.</p>
 
 ```java
-public class PaymentException extends RuntimeException {
-    public PaymentException(Throwable cause) {
+class PaymentException extends RuntimeException {
+    PaymentException(Throwable cause) {
         super(cause);
     }
 }
 
-public void charge(Card card, Money amount) {
-    try {
-        provider.charge(card, amount);
-    } catch (ProviderTimeout | ProviderDeclined | ProviderAuthError providerFailure) {
-        throw new PaymentException(providerFailure);
+class PaymentGateway {
+    private final Provider provider;
+
+    PaymentGateway(Provider provider) {
+        this.provider = provider;
+    }
+
+    public void charge(Card card, double amount) {
+        try {
+            provider.charge(card, amount);
+        } catch (ProviderTimeout | ProviderDeclined | ProviderAuthError providerFailure) {
+            throw new PaymentException(providerFailure);
+        }
     }
 }
 ```
 
-<p>To learn how an external API behaves, write learning tests. They are small tests that check our understanding of the library. They can be run again after a version upgrade to see whether the behavior has changed.</p>
+<p>To learn how an external API behaves, we write learning tests. They are small tests that check our understanding of the library. They can be run again after a version upgrade to see whether the behavior has changed.</p>
 
 <p>If another team is still working on an interface we depend on, we can define the interface we would like to use, write our code against it, and connect the other team's implementation later with the Adapter pattern. Both teams can then work in parallel, and nothing has to be rewritten at the end.</p>
 
@@ -304,16 +363,36 @@ public void charge(Card card, Money amount) {
 <p>Depending on an interface instead of a concrete class (Dependency Inversion Principle) is what makes unit tests possible. If production code reads a live value from a stock exchange, the value is different on every run. A test implementation of the same interface returns predictable data instead.</p>
 
 ```java
+import java.util.List;
+
 interface StockPriceSource {
     double priceOf(String symbol);
 }
 
 class LiveExchange implements StockPriceSource {
-    public double priceOf(String symbol) { /* real request to the exchange */ }
+    public double priceOf(String symbol) {
+        // real request to the stock exchange
+        return 0.0;
+    }
 }
 
-class FixedPrices implements StockPriceSource {
-    public double priceOf(String symbol) { return 100.0; }
+class FakeExchange implements StockPriceSource {
+    public double priceOf(String symbol) {
+        return 100.0;
+    }
+}
+
+public class Main {
+    static double portfolioValue(List<String> symbols, StockPriceSource priceSource) {
+        double total = 0.0;
+        for (String symbol : symbols)
+            total += priceSource.priceOf(symbol);
+        return total;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(portfolioValue(List.of("AAPL", "MSFT"), new FakeExchange())); // always 200.0
+    }
 }
 ```
 
@@ -327,23 +406,23 @@ class FixedPrices implements StockPriceSource {
 
 <p>Use as few comments as possible. A comment makes sense only when the idea cannot be described better with code, and it should explain why something is done, not what the code does. Comments also get old. The code changes, the comment stays the same, and the reader is misled.</p>
 
-<p className="noBottomMargin">Comments that usually make sense:</p>
+<h4>Useful comments</h4>
 <ul>
-    <li className="noBottomMargin">the intended behavior of a regular expression,</li>
-    <li className="noBottomMargin">why a particular implementation was chosen,</li>
-    <li className="noBottomMargin">a warning about consequences or possible problems,</li>
-    <li>a ```TODO``` for work that still has to be done.</li>
+    <li className="noBottomMargin">A comment can explain the intended behavior of a regular expression.</li>
+    <li className="noBottomMargin">A comment can explain why a particular implementation was chosen.</li>
+    <li className="noBottomMargin">A comment can warn about consequences or possible problems.</li>
+    <li>A ```TODO``` comment can mark work that still has to be done.</li>
 </ul>
 
-<p className="noBottomMargin">Comments that should not be written:</p>
+<h4>Comments to avoid</h4>
 <ul>
-    <li className="noBottomMargin">descriptions of obvious operations, such as assigning ```5``` to ```x```,</li>
-    <li className="noBottomMargin">a line per variable or per parameter, because it creates visual noise and breaks the vertical grouping of related declarations. Parameters should describe themselves and there should be few of them,</li>
-    <li className="noBottomMargin">section headers inside a method, because a method that needs sections should be split,</li>
-    <li>commented-out code.</li>
+    <li className="noBottomMargin">Do not describe obvious operations, such as assigning ```5``` to ```x```.</li>
+    <li className="noBottomMargin">Do not write a comment per variable or per parameter, because it creates visual noise and breaks the vertical grouping of related declarations. Parameters should describe themselves, and there should be few of them.</li>
+    <li className="noBottomMargin">Do not write section headers inside a method, because a method that needs sections should be split.</li>
+    <li>Do not leave commented-out code.</li>
 </ul>
 
-<p className="noBottomMargin">Formatting matters as well:</p>
+<h4>Formatting</h4>
 <ul>
     <li className="noBottomMargin">Group code vertically into logically related fragments and keep related declarations and operations close to each other.</li>
     <li className="noBottomMargin">Put spaces around operators, but logical grouping is allowed in longer equations, e.g., ```2*x + 3*y```.</li>
@@ -360,7 +439,7 @@ class FixedPrices implements StockPriceSource {
     <li className="noBottomMargin">Keep concurrency-related code apart from the rest of the application.</li>
     <li className="noBottomMargin">Encapsulate shared data and limit access to it as much as possible.</li>
     <li className="noBottomMargin">It is best to share nothing. Copy the data into each thread and combine the results in one thread afterwards, or split it into independent subsets that different threads process.</li>
-    <li className="noBottomMargin">Keep ```synchronized``` sections as small as possible.</li>
+    <li className="noBottomMargin">Keep the critical sections guarded by ```synchronized``` as small as possible.</li>
     <li className="noBottomMargin">Never treat a system failure as a one-time incident. In concurrent code, it is usually a bug you have not reproduced yet.</li>
     <li className="noBottomMargin">Do not look for bugs in single-threaded and multithreaded code at the same time. First make sure the code works outside the concurrent environment.</li>
     <li>Multithreaded code can behave differently on different platforms, so test it on every supported platform.</li>
@@ -372,7 +451,7 @@ class FixedPrices implements StockPriceSource {
 
 <p><b>API</b> - Application Programming Interface, a set of rules and protocols that allows different software applications to communicate with each other. It defines the methods and data formats that programs can use to request and exchange information.</p>
 
-<p>An API wrapper is a function or set of functions that encapsulate the functionality of a third-party service or module, providing a simpler or more controlled interface to interact with it. This allows developers to call specific functions from a module without dealing directly with the complexity of that module. Wrapping APIs can also help handle errors, manage data formatting, add flexibility for future changes, and adjust requests in a way that suits the application's needs. If the module needs to be replaced, only the wrapper has to change.</p>
+<p>An API wrapper is a method or set of methods that encapsulate the functionality of a third-party service or module, providing a simpler or more controlled interface to interact with it. This allows developers to call specific methods from a module without dealing directly with the complexity of that module. Wrapping APIs can also help handle errors, manage data formatting, add flexibility for future changes, and adjust requests in a way that suits the application's needs. If the module needs to be replaced, only the wrapper has to change.</p>
 
 ```java
 public class Main {
@@ -394,7 +473,7 @@ public class Main {
 
 <h4>Memoization</h4>
 
-<p>Memoization is an optimization technique that stores the results of expensive function calls and reuses the cached result when the same inputs occur again. In the example below, the execution time of the first and second calls of a memoized function with the same argument is counted to demonstrate the performance improvement after the result is cached.</p>
+<p>Memoization is an optimization technique that stores the results of expensive method calls and reuses the cached result when the same inputs occur again. In the example below, the execution time of the first and second calls of a memoized method with the same argument is counted to demonstrate the performance improvement after the result is cached.</p>
 
 ```java
 import java.util.HashMap;
@@ -412,7 +491,7 @@ public class Main {
         startTime = System.nanoTime();
         System.out.println(memoizedCos(1));
         endTime = System.nanoTime();
-        System.out.println("Execution time of the first call: " + (endTime - startTime) + " ns.");
+        System.out.println("Execution time of the second call: " + (endTime - startTime) + " ns.");
     }
 
     public static double memoizedCos(double x) {
@@ -462,6 +541,7 @@ class TestMath {
     <li>```assertNotEquals(a, b)``` - checking if ```a != b```</li>
     <li>```assertTrue(x)``` - checking if ```x == true```</li>
     <li>```assertFalse(x)``` - checking if ```x == false```</li>
+    <li>```assertNull(x)``` - checking if ```x == null```</li>
     <li>```assertThrows(Exception.class, () -> ...)``` - checking if an exception is thrown</li>
 </ul>
 
@@ -492,9 +572,11 @@ class TestDivide {
 
 <h4>Using setup and cleanup methods</h4>
 
-<p>Methods annotated with ```@BeforeEach``` run before every test, while methods annotated with ```@AfterEach``` run after each test. They are used to prepare and clean up test data.</p>
+<p>A method annotated with ```@BeforeEach``` runs before each test, while a method annotated with ```@AfterEach``` runs after each test. They are used to prepare and clean up test data.</p>
 
 ```java
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -527,13 +609,13 @@ class TestExample {
     <li>Test names should use the given-when-then convention, e.g., ```givenEmptyCart_whenTotalRequested_thenReturnsZero()```.</li>
 </ul>
 
-<p className="noBottomMargin">Tests should be:</p>
+<h4>Properties of good tests</h4>
 <ul>
-    <li className="noBottomMargin">fast,</li>
-    <li className="noBottomMargin">independent of one another, so that the order in which they run does not matter,</li>
-    <li className="noBottomMargin">repeatable in every environment,</li>
-    <li className="noBottomMargin">self-validating, with one boolean result instead of output that somebody has to read,</li>
-    <li>written in time, directly before the production code.</li>
+    <li className="noBottomMargin">Tests should be fast.</li>
+    <li className="noBottomMargin">Tests should be independent of one another, so that the order in which they run does not matter.</li>
+    <li className="noBottomMargin">Tests should be repeatable in every environment.</li>
+    <li className="noBottomMargin">Tests should be self-validating, with one boolean result instead of output that somebody has to read.</li>
+    <li>Tests should be written in time, directly before the production code.</li>
 </ul>
 
 <h4>Other types of tests</h4>
@@ -587,7 +669,7 @@ class TestExample {
 
 <h2><a id="creating-documentation">Creating documentation</a></h2>
 
-<p>The comments created using ```/**``` differ from the ones that use ```/*``` because they are interpreted by Javadoc. It is a tool used to generate documentation in HTML format. These special comments are used by Javadoc to create the documentation of our classes. We can add tags with the ```@``` sign. They suggest, e.g., what parameters a method takes or what it returns. We can also use HTML tags. To generate a Javadoc document in IntelliJ Idea, we go to ```Tools / Generate JavaDoc...```. These comments are placed immediately before the definitions of functions, methods, and classes.</p>
+<p>The comments created using ```/**``` differ from the ones that use ```/*``` because they are interpreted by Javadoc. It is a tool used to generate documentation in HTML format. These special comments are used by Javadoc to create the documentation of our classes. We can add tags with the ```@``` sign. They suggest, e.g., what parameters a method takes or what it returns. We can also use HTML tags. To generate a Javadoc document in IntelliJ Idea, we go to ```Tools / Generate JavaDoc...```. These comments are placed immediately before the definitions of methods and classes.</p>
             
 ```java
 /**
