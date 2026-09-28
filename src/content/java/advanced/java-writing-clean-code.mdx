@@ -307,7 +307,7 @@ public class Main {
     <li>It can call methods of an object held in an instance variable of ```C```.</li>
 </ul>
 
-<p>It should not call methods on objects returned by any of those methods. In other words, it should not talk to strangers. A module should know only its direct collaborators, not the structure of the whole system.</p>
+<p>The module should not talk to strangers. It should only know its direct collaborators, not the structure of the whole system.</p>
 
 ```java
 String scratchFilePath = buildContext.getOptions().getScratchDir().getAbsolutePath(); // talking to strangers
@@ -318,7 +318,7 @@ OutputStream scratchStream = buildContext.createScratchFileStream(scratchFileNam
 
 <h4>Feature envy</h4>
 
-<p>When a method uses accessors of another class more than the data of its own class, we say that it envies that class. Feature envy should be removed by moving the behavior next to the data it uses. Sometimes it is justified. A method that generates a salary report belongs to a reporting class even though it uses data from the employee class, because the employee class should not know how reports are generated.</p>
+<p>When a function uses more attributes of another class than its own data, we say it envies that class. We should remove feature envy by moving the behavior next to the data it uses. However, sometimes its use is justified. A function that generates a salary report belongs to a reporting class even though it uses data from the employee class, because the employee class should not know how reports are generated.</p>
 
 <h4>Duplication beyond copy-paste</h4>
 
@@ -326,7 +326,7 @@ OutputStream scratchStream = buildContext.createScratchFileStream(scratchFileNam
 
 <h4>Wrapping external APIs</h4>
 
-<p>External APIs should be wrapped in our own classes instead of being used all over the application. Then changing the provider means changing one place only. If a library throws many different exception types, wrap them in one exception type that means something in our domain.</p>
+<p>External APIs should be wrapped in our own classes instead of being used all over the application. Then changing the provider means changing only one place. If a library throws many different exception types, wrap them in one exception type that means something in our domain.</p>
 
 ```java
 class PaymentException extends RuntimeException {
@@ -358,7 +358,7 @@ class PaymentGateway {
 
 <h4>Dependency inversion and testability</h4>
 
-<p>Depending on an interface instead of a concrete class (Dependency Inversion Principle) is what makes unit tests possible. If production code reads a live value from a stock exchange, the value is different on every run. A test implementation of the same interface returns predictable data instead.</p>
+<p>Depending on an interface instead of a concrete class (Dependency Inversion Principle) makes unit tests possible. If production code reads a live value from a stock exchange, the value is different on every run, but a test implementation of the same interface always returns the same, predictable data.</p>
 
 ```java
 import java.util.List;
@@ -698,4 +698,4 @@ public class Main {
 ```
 
 
-<p>The examples above only show the syntax. They are not a model of how much documentation to write. Javadoc follows the same rule as comments, so describing every parameter and every simple method is usually noise. A ```@param``` line that repeats the name of the parameter adds nothing and gets out of date as soon as the signature changes. Document what the reader cannot work out from the code, e.g., the contract, the units, the accepted range or what happens on failure, and let the names do the rest.</p>
+<p>The examples above only show the syntax. They are not a model of how much documentation to write. Javadoc follows the same rule as comments, so describing every parameter and every simple method is usually noise. A ```@param``` line that repeats the name of the parameter adds nothing and gets out of date as soon as the signature changes. Document what the reader cannot work out from the code, e.g., the contract, the units, the accepted range, or what happens on failure, and let the names do the rest.</p>
