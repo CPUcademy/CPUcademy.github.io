@@ -1,0 +1,707 @@
+---
+title: "Creational patterns"
+order: 2
+---
+
+<h3>Table of contents</h3>
+
+<ul>
+    <li><a href="#builder" className="link" style={{textDecoration: "none"}}>Builder</a></li>
+    <li><a href="#factories" className="link" style={{textDecoration: "none"}}>Factories</a></li>
+    <li><a href="#prototype" className="link" style={{textDecoration: "none"}}>Prototype</a></li>
+    <li><a href="#singleton" className="link" style={{textDecoration: "none"}}>Singleton</a></li>
+    <li><a href="#monostate" className="link" style={{textDecoration: "none"}}>Monostate (Singleton variation)</a></li>
+    <li><a href="#lazy-initialization" className="link" style={{textDecoration: "none"}}>Lazy Initialization</a></li>
+    <li><a href="#dependency-injection" className="link" style={{textDecoration: "none"}}>Dependency Injection</a></li>
+</ul>
+
+<p>Creational patterns deal with the construction of objects. An object can be created wholesale (in a single statement) or piecewise (step by step).</p>
+
+<h2><a id="builder">Builder</a></h2>
+
+<p>When an object takes long to initialize, provide an API for constructing it succinctly. Separate the construction of a complex object from its representation, allowing the same construction process to create various representations. A Builder is a separate component for building an object. In Java, a Builder is usually a ```static``` nested class, and the constructor of the built object is ```private```, so it can only be created through the Builder.</p>
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        Pizza customPizza = new Pizza.Builder().setSize("Large").addCheese("Cheddar").addPepperoni().addTopping("Olives").build();
+        System.out.println(customPizza);
+
+        Pizza veggiePizza = new Pizza.Builder().setSize("Medium").addCheese("Mozzarella").addMushrooms().addTopping("Bell Peppers").addTopping("Onions").build();
+        System.out.println(veggiePizza);
+    }
+}
+
+class Pizza {
+    private final String pizzaSize;
+    private final String cheese;
+    private final boolean pepperoni;
+    private final boolean mushrooms;
+    private final List<String> extraToppings;
+
+    private Pizza(Builder builder) {
+        pizzaSize = builder.pizzaSize;
+        cheese = builder.cheese;
+        pepperoni = builder.pepperoni;
+        mushrooms = builder.mushrooms;
+        extraToppings = List.copyOf(builder.extraToppings);
+    }
+
+    @Override
+    public String toString() {
+        return "Pizza(Size: " + pizzaSize + ", Cheese: " + cheese + ", Pepperoni: " + pepperoni + ", Mushrooms: " + mushrooms + ", Extra Toppings: " + extraToppings + ")";
+    }
+
+    static class Builder {
+        private String pizzaSize;
+        private String cheese;
+        private boolean pepperoni;
+        private boolean mushrooms;
+        private final List<String> extraToppings = new ArrayList<>();
+
+        public Builder setSize(String pizzaSize) {
+            this.pizzaSize = pizzaSize;
+            return this; // returning the object itself to perform chaining (see the explanation below)
+        }
+
+        public Builder addCheese(String cheeseType) {
+            cheese = cheeseType;
+            return this;
+        }
+
+        public Builder addPepperoni() {
+            pepperoni = true;
+            return this;
+        }
+
+        public Builder addMushrooms() {
+            mushrooms = true;
+            return this;
+        }
+
+        public Builder addTopping(String topping) {
+            extraToppings.add(topping);
+            return this;
+        }
+
+        public Pizza build() {
+            return new Pizza(this);
+        }
+    }
+}
+```
+
+<h5>Chaining</h5>
+
+<p>Because of chaining, methods can be executed one after another in the same statement, as the class object is returned, and then be used to call the next method.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Box box = new Box(5, 10);
+        box.setDimensions(7, 14).setBoxLength(8);
+        System.out.println(box.getBoxLength() + " " + box.getBoxWidth());
+    }
+}
+
+class Box {
+    private int boxLength;
+    private int boxWidth;
+
+    Box(int boxLength, int boxWidth) {
+        this.boxLength = boxLength;
+        this.boxWidth = boxWidth;
+    }
+
+    public Box setDimensions(int boxLength, int boxWidth) {
+        this.boxLength = boxLength;
+        this.boxWidth = boxWidth;
+        return this; // returning the object itself
+    }
+
+    public void setBoxLength(int boxLength) { this.boxLength = boxLength; }
+    public int getBoxLength() { return boxLength; }
+    public int getBoxWidth() { return boxWidth; }
+}
+```
+
+<h4>Builder facets</h4>
+
+<p>A Builder facet is a specialized component of a Builder (a separate class) that focuses on constructing a specific aspect or "facet" of an object, e.g., personal details, job details, or address details. These facets work together to build the complete object, e.g., a user, while maintaining a fluent interface (an interface supporting method chaining).</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        PersonBuilder builder = new PersonBuilder();
+        Person person = builder.personal().setName("John Doe").setAge(30).job().setJobTitle("Software Engineer").setCompany("Tech Corp").setSalary(120000).build();
+
+        System.out.println(person);
+    }
+}
+
+class Person {
+    String name;
+    int age;
+
+    // Job details
+    String jobTitle;
+    String company;
+    int salary;
+
+    // Address details
+    String street;
+    String city;
+    String postalCode;
+
+    @Override
+    public String toString() {
+        return "Person(Name: " + name + ", Age: " + age + ", Job: " + jobTitle + " at " + company + " ($" + salary + "))";
+    }
+}
+
+// The main Builder class to manage all facets
+class PersonBuilder {
+    protected final Person person;
+
+    PersonBuilder() {
+        this(new Person());
+    }
+
+    PersonBuilder(Person person) {
+        this.person = person;
+    }
+
+    public PersonPersonalBuilder personal() {
+        return new PersonPersonalBuilder(person);
+    }
+
+    public PersonJobBuilder job() {
+        return new PersonJobBuilder(person);
+    }
+
+    public Person build() {
+        return person;
+    }
+}
+
+// Builder facet for personal details
+class PersonPersonalBuilder extends PersonBuilder {
+    PersonPersonalBuilder(Person person) {
+        super(person);
+    }
+
+    public PersonPersonalBuilder setName(String name) {
+        person.name = name;
+        return this;
+    }
+
+    public PersonPersonalBuilder setAge(int age) {
+        person.age = age;
+        return this;
+    }
+}
+
+// Builder facet for job details
+class PersonJobBuilder extends PersonBuilder {
+    PersonJobBuilder(Person person) {
+        super(person);
+    }
+
+    public PersonJobBuilder setJobTitle(String jobTitle) {
+        person.jobTitle = jobTitle;
+        return this;
+    }
+
+    public PersonJobBuilder setCompany(String company) {
+        person.company = company;
+        return this;
+    }
+
+    public PersonJobBuilder setSalary(int salary) {
+        person.salary = salary;
+        return this;
+    }
+}
+```
+
+<h4>Builder inheritance</h4>
+
+<p>Builder facets violate the Open/Closed Principle because every time we create a new sub-builder, we have to add it to the main Builder. Thanks to inheritance, every Builder in the example below is open for extension but closed for modification.</p>
+
+<p>In Java, a method inherited from a parent Builder returns the parent's type, which would break chaining (we couldn't call ```job()``` after ```called()```). This is solved with recursive generics: every Builder is parameterized with the type of the final Builder (```SELF```) and returns it from its methods.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Person person = Person.builder().called("Josh").job("Engineer").earns(100000).build();
+        System.out.println(person);
+    }
+}
+
+class Person {
+    String name;
+    String jobTitle;
+    int salary;
+
+    @Override
+    public String toString() {
+        return name + " works as " + jobTitle + ", earns " + salary;
+    }
+
+    public static PersonSalaryBuilder builder() {
+        return new PersonSalaryBuilder();
+    }
+}
+
+class PersonBuilder<SELF extends PersonBuilder<SELF>> {
+    protected final Person person = new Person();
+
+    @SuppressWarnings("unchecked")
+    protected SELF self() {
+        return (SELF) this; // returning the object as the type of the final Builder
+    }
+
+    public Person build() {
+        return person;
+    }
+}
+
+class PersonPersonalBuilder<SELF extends PersonPersonalBuilder<SELF>> extends PersonBuilder<SELF> {
+    public SELF called(String name) {
+        person.name = name;
+        return self();
+    }
+}
+
+class PersonJobBuilder<SELF extends PersonJobBuilder<SELF>> extends PersonPersonalBuilder<SELF> {
+    public SELF job(String jobTitle) {
+        person.jobTitle = jobTitle;
+        return self();
+    }
+}
+
+class PersonSalaryBuilder extends PersonJobBuilder<PersonSalaryBuilder> {
+    public PersonSalaryBuilder earns(int salary) {
+        person.salary = salary;
+        return self();
+    }
+}
+```
+
+<h2><a id="factories">Factories</a></h2>
+
+<h3>Factory Method</h3>
+
+<p>A Factory Method is an alternate constructor. It provides an additional way to create class instances, often with a more descriptive name or specialized logic, while keeping the main constructor simple. Factory Method allows subclasses to define the type of object to be created, enabling customization of object creation without modifying the core logic. For example, instead of the user's age, we can take his date of birth and then calculate the age. In Java, they are created as ```static``` methods, and the constructor is often made ```private``` to force their use. A class can have multiple alternate constructors.</p>
+
+```java
+import java.time.LocalDate;
+
+public class Main {
+    public static void main(String[] args) {
+        Person person1 = Person.fromAge("Josh", 25);
+        Person person2 = Person.fromBirthYear("John", 1980);
+
+        System.out.println(person1);
+        System.out.println(person2);
+    }
+}
+
+class Person {
+    private final String name;
+    private final int age;
+
+    private Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public static Person fromAge(String name, int age) {
+        return new Person(name, age);
+    }
+
+    public static Person fromBirthYear(String name, int birthYear) {
+        return new Person(name, LocalDate.now().getYear() - birthYear);
+    }
+
+    @Override
+    public String toString() {
+        return name + ", " + age;
+    }
+}
+```
+
+<p>The example above doesn't adhere to the SRP. We should separate the Factory Methods into a different class and use them from there.</p>
+
+```java
+import java.time.LocalDate;
+
+public class Main {
+    public static void main(String[] args) {
+        Person person1 = PersonFactory.fromAge("Josh", 25);
+        Person person2 = PersonFactory.fromBirthYear("John", 1980);
+
+        System.out.println(person1);
+        System.out.println(person2);
+    }
+}
+
+class PersonFactory {
+    public static Person fromAge(String name, int age) {
+        return new Person(name, age);
+    }
+
+    public static Person fromBirthYear(String name, int birthYear) {
+        return new Person(name, LocalDate.now().getYear() - birthYear);
+    }
+}
+
+class Person {
+    private final String name;
+    private final int age;
+
+    Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return name + ", " + age;
+    }
+}
+```
+
+<h3>Abstract Factory</h3>
+
+<p>An Abstract Factory defines how Factories should be implemented (like an interface defines how classes should be implemented). Hierarchies of Factories can be used to create related objects.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        vehicleClient(new CarFactory());
+        vehicleClient(new BikeFactory());
+    }
+
+    static void vehicleClient(VehicleFactory factory) {
+        Vehicle vehicle = factory.createVehicle();
+        System.out.println(vehicle.drive());
+    }
+}
+
+interface Vehicle {
+    String drive();
+}
+
+class Car implements Vehicle {
+    @Override
+    public String drive() {
+        return "Driving a car";
+    }
+}
+
+class Bike implements Vehicle {
+    @Override
+    public String drive() {
+        return "Riding a bike";
+    }
+}
+
+interface VehicleFactory { // an Abstract Factory
+    Vehicle createVehicle();
+}
+
+class CarFactory implements VehicleFactory { // a concrete Factory
+    @Override
+    public Vehicle createVehicle() {
+        return new Car();
+    }
+}
+
+class BikeFactory implements VehicleFactory {
+    @Override
+    public Vehicle createVehicle() {
+        return new Bike();
+    }
+}
+```
+
+<h2><a id="prototype">Prototype</a></h2>
+
+<p>Prototype allows object cloning instead of creating new instances from scratch, improving efficiency and flexibility. Sometimes it is more efficient to clone an object and modify it, instead of initializing a new one. A Prototype is a partially or fully initialized object that we can copy (clone) and modify. In Java, the recommended way of copying objects is a copy constructor (a constructor that takes an object of the same class) rather than the ```Cloneable``` interface and the ```clone()``` method.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Car car1 = new Car("Tesla Model S", "Red", "Electric"); // creating an original object
+
+        Car car2 = new Car(car1); // cloning the object
+        car2.setColour("Blue"); // modifying the cloned object
+
+        System.out.println(car1);
+        System.out.println(car2);
+    }
+}
+
+class Car {
+    private String model;
+    private String colour;
+    private String engine;
+
+    Car(String model, String colour, String engine) {
+        this.model = model;
+        this.colour = colour;
+        this.engine = engine;
+    }
+
+    Car(Car other) { // a copy constructor (all fields are immutable strings, so this is a deep copy)
+        this(other.model, other.colour, other.engine);
+    }
+
+    public void setModel(String model) { this.model = model; }
+    public void setColour(String colour) { this.colour = colour; }
+
+    @Override
+    public String toString() {
+        return colour + " " + model + " with " + engine + " engine";
+    }
+}
+```
+
+<h4>Prototype Factory</h4>
+
+<p>Factories can provide a convenient API for using Prototypes.</p>
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class Main {
+    public static void main(String[] args) {
+        CarFactory.registerPrototype("electric", "Electric");
+        CarFactory.registerPrototype("combustion", "V8");
+
+        Car car1 = CarFactory.newCar("electric", "Tesla Model S", "Blue");
+        Car car2 = CarFactory.newCar("combustion", "Ford Mustang", "White");
+
+        System.out.println(car1);
+        System.out.println(car2);
+    }
+}
+
+class Car {
+    private String model;
+    private String colour;
+    private String engine;
+
+    Car(String model, String colour, String engine) {
+        this.model = model;
+        this.colour = colour;
+        this.engine = engine;
+    }
+
+    Car(Car other) { // a copy constructor
+        this(other.model, other.colour, other.engine);
+    }
+
+    public void setModel(String model) { this.model = model; }
+    public void setColour(String colour) { this.colour = colour; }
+
+    @Override
+    public String toString() {
+        return colour + " " + model + " with " + engine + " engine";
+    }
+}
+
+class CarFactory {
+    private static final Map<String, Car> prototypes = new HashMap<>();
+
+    public static void registerPrototype(String key, String engine) {
+        prototypes.put(key, new Car("", "", engine));
+    }
+
+    public static Car newCar(String key, String model, String colour) {
+        Car prototype = prototypes.get(key);
+        if (prototype == null)
+            throw new IllegalArgumentException("Prototype not found!");
+        Car car = new Car(prototype);
+        car.setModel(model);
+        car.setColour(colour);
+        return car;
+    }
+}
+```
+
+<h2><a id="singleton">Singleton</a></h2>
+
+<p>Singleton ensures a class has only one instance and provides a global point of access to it. Sometimes, it doesn't make sense to have more than one object in the system, e.g., a database or an object Factory, because the initializer is expensive or is just unnecessary. A Singleton is a component that is instantiated only once (we want to prevent anyone from creating additional copies).</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Database s1 = Database.getInstance();
+        Database s2 = Database.getInstance();
+        s1.getData();
+        s2.getData();
+
+        System.out.println(s1 == s2); // these two instances are really the same instance
+    }
+}
+
+class Database {
+    private static Database instance; // a class-level field to store the single instance
+
+    private Database() { // a private constructor prevents creating instances with "new"
+        System.out.println("Loading database");
+    }
+
+    public static Database getInstance() {
+        if (instance == null) // checking if an instance already exists
+            instance = new Database(); // creating and storing the single instance
+        return instance;
+    }
+
+    public void getData() {
+        System.out.println("Loading data");
+    }
+}
+```
+
+<p>The implementation above is not thread-safe because two threads can check whether ```instance``` is ```null``` at the same time and both create an instance. The simplest way to enforce a true Singleton in Java is an ```enum``` with a single constant. It is thread-safe, and it can't be instantiated again even with reflection or serialization.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Database s1 = Database.INSTANCE;
+        Database s2 = Database.INSTANCE;
+        s1.getData();
+
+        System.out.println(s1 == s2);
+    }
+}
+
+enum Database {
+    INSTANCE; // the only instance (created once, when the enum is first used)
+
+    Database() {
+        System.out.println("Loading database");
+    }
+
+    public void getData() {
+        System.out.println("Loading data");
+    }
+}
+```
+
+<p>Singletons ensure a single instance of a class, which is useful for managing shared resources like database connections or logging systems, preventing redundant object creation. However, they can introduce hidden dependencies and make unit testing difficult due to the global state, leading to unexpected side effects (such as unintended data modifications, stale state across tests, and difficulties in resetting the state for different parts of an application). Additionally, they violate the Single Responsibility Principle (SRP) by controlling both their lifecycle and primary functionality, making the code harder to maintain and extend.</p>
+
+<h2><a id="monostate">Monostate (Singleton variation)</a></h2>
+
+<p>Monostate allows multiple instances of a class to share the same state by storing it in ```static``` fields (they belong to the class, not to its instances). Unlike the Singleton pattern (which ensures only one instance exists), Monostate allows multiple instances but guarantees they behave as if they are the same object in terms of state.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Monostate a = new Monostate("Value A");
+        Monostate b = new Monostate("Value B");
+
+        System.out.println(a.getSharedValue());
+        System.out.println(b.getSharedValue());
+    }
+}
+
+class Monostate {
+    private static String value; // all instances share the same "value" field
+
+    Monostate(String value) {
+        Monostate.value = value;
+    }
+
+    public String getSharedValue() {
+        return value;
+    }
+}
+```
+
+<h2><a id="lazy-initialization">Lazy Initialization</a></h2>
+
+<p>Lazy Initialization delays the creation of an object or a resource until it is actually needed, rather than when the object is first created. This is useful for optimizing resource usage, especially when the initialization of an object is resource-intensive or unnecessary if the object is never used. The example below adheres to this design pattern because it ensures that the database connection and any associated resources are only initialized when the ```getData()``` method is first called, i.e., when the data is needed for the first time.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        LazyDatabase db = new LazyDatabase();
+        db.getData(); // the database is initialized only when we call getData()
+        db.getData(); // accessing the data again, no re-initialization occurs
+    }
+}
+
+class LazyDatabase {
+    private String dbConnection;
+
+    private void initialize() {
+        System.out.println("Initializing database connection...");
+        dbConnection = "Database connection established";
+    }
+
+    public void getData() {
+        if (dbConnection == null)
+            initialize(); // initializing only when data is requested
+        System.out.println("Fetching data from database");
+    }
+}
+```
+
+<h2><a id="dependency-injection">Dependency Injection</a></h2>
+
+<p>Dependency Injection allows us to inject dependencies (such as services, objects, or configurations) into a class rather than having the class create them itself. This promotes loose coupling (meaning the class has less direct knowledge or control over the specific implementation details of its dependencies), making the code more modular, flexible, and easier to test. With DI, the class doesn't need to worry about how its dependencies are created or managed. Instead, they are provided externally (often by a framework or a container, e.g., Spring), which simplifies testing and maintenance.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        // Creating database instances
+        DatabaseInterface mysqlDb = new MySQLDatabase();
+        DatabaseInterface sqliteDb = new SQLiteDatabase();
+
+        // Injecting the DatabaseInterface instances into the DataService
+        DataService service1 = new DataService(mysqlDb); // using MySQL
+        service1.executeAction();
+        DataService service2 = new DataService(sqliteDb); // using SQLite
+        service2.executeAction();
+    }
+}
+
+interface DatabaseInterface {
+    void connectDb();
+}
+
+class MySQLDatabase implements DatabaseInterface {
+    @Override
+    public void connectDb() {
+        System.out.println("Connecting to MySQL database..."); // MySQL implementation
+    }
+}
+
+class SQLiteDatabase implements DatabaseInterface {
+    @Override
+    public void connectDb() {
+        System.out.println("Connecting to SQLite database..."); // SQLite implementation
+    }
+}
+
+class DataService {
+    private final DatabaseInterface db;
+
+    DataService(DatabaseInterface db) {
+        this.db = db; // injecting the dependency through the constructor
+    }
+
+    public void executeAction() {
+        System.out.println("Service is running...");
+        db.connectDb(); // using the injected dependency
+    }
+}
+```

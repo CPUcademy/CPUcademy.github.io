@@ -172,13 +172,14 @@ export const languageCategoryTransformer: ShikiTransformer = {
           const lineAfter = source.content.slice(position + start + match[0].length) + lineTokens.slice(index + 1).map(t => t.content).join('')
           const isCssProperty = language === 'css' && cssProperties.has(match[0]) && /^\s*:/.test(lineAfter) && (cssBraceDepth > 0 || /\(\s*$/.test(lineBefore))
           const isEmbeddedOnly = markupWords.has(match[0]) && (language === 'html' || (!config.commands.words?.includes(match[0]) && !config.keywords.words?.includes(match[0])))
+          const isPartialWord = (/^\w/.test(match[0]) && /[-\w]$/.test(lineBefore)) || (/\w$/.test(match[0]) && /^\w/.test(lineAfter))
           const isCssPercent = language === 'css' && match[0] === '%'
           const isMarkupText = embeddedTags.size > 0 && keywordColors.has(match[0]) && /(?:<(?!script\b|style\b)[A-Za-z][^<>]*>|\?>)[^<>{}]*$/i.test(lineBefore) && /^[^<>{}]*<[/?]/.test(lineAfter)
           const isCssOutOfContext = language === 'css' &&!tagAtMatch && !isEmbeddedOnly && !isCssProperty && keywordColors.has(match[0]) && !match[0].startsWith('@') && !/:$/.test(lineBefore) && !(cssBraceDepth > 0 && /:[^;{}]*$/.test(lineBefore))
           const contextPrefix = language === 'python' ? pythonContextWords.get(match[0]) : undefined
           const isOutOfContext = (contextPrefix !== undefined && !contextPrefix.test(lineBefore)) || (language === 'python' && pythonAttributeWords.has(match[0]) && !lineAfter.startsWith('="') && !(match[0] === 'value' && /\b(?:Day\.Tu|Color\.(?:RED|GREEN|BLUE)|product_query)\.$/.test(lineBefore)) && !(match[0] === 'text' && /(?:\b(?:response|soup\.h1|paragraph)|\b[01]\))\.$/.test(lineBefore))) || (language === 'python' && match[0] === 'user' && !/^=(?!=)/.test(lineAfter)) || (language === 'python' && match[0] === 'string' && !/\bimport\s+$/.test(lineBefore) && !lineAfter.startsWith('.')) || (language === 'java' && match[0] === 'getAbsolutePath' && /\bbuildContext\.getOptions\(\)\.getScratchDir\(\)\.$/.test(lineBefore))
           const color = isCssProperty ? config.keywords.color : language === 'python' && match[0] === 'match' && /\bre\.$/.test(lineBefore) ? config.commands.color : isSql && new RegExp(`^${sqlFlagPattern.source}$`).test(match[0]) ? config.commands.color : keywordColors.get(match[0]) ?? config.signs.color
-          result.push({ ...normalSource, content: match[0], offset: normalSource.offset + start, color: (isEmbeddedOnly && !tagAtMatch) || isOutOfContext || isCssOutOfContext || isCssPercent || isMarkupText ? defaultCodeColor : color })
+          result.push({ ...normalSource, content: match[0], offset: normalSource.offset + start, color: (isEmbeddedOnly && !tagAtMatch) || isOutOfContext || isCssOutOfContext || isCssPercent || isPartialWord || isMarkupText ? defaultCodeColor : color })
           normalPosition = start + match[0].length
           updateTagState(match[0], lineAfter)
         }

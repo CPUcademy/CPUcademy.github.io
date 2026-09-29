@@ -1,0 +1,1036 @@
+---
+title: "Behavioral patterns"
+order: 4
+---
+
+<h3>Table of contents</h3>
+
+<ul>
+    <li><a href="#observer" class="link" style={{textDecoration: "none"}}>Observer</a></li>
+    <li><a href="#chain-of-responsibility" class="link" style={{textDecoration: "none"}}>Chain of Responsibility</a></li>
+    <li><a href="#command" class="link" style={{textDecoration: "none"}}>Command</a></li>
+    <li><a href="#interpreter" class="link" style={{textDecoration: "none"}}>Interpreter</a></li>
+    <li><a href="#iterator" class="link" style={{textDecoration: "none"}}>Iterator</a></li>
+    <li><a href="#mediator" class="link" style={{textDecoration: "none"}}>Mediator</a></li>
+    <li><a href="#memento" class="link" style={{textDecoration: "none"}}>Memento</a></li>
+    <li><a href="#state" class="link" style={{textDecoration: "none"}}>State</a></li>
+    <li><a href="#strategy" class="link" style={{textDecoration: "none"}}>Strategy</a></li>
+    <li><a href="#template-method" class="link" style={{textDecoration: "none"}}>Template Method</a></li>
+    <li><a href="#visitor" class="link" style={{textDecoration: "none"}}>Visitor</a></li>
+</ul>
+
+<p>Behavioral design patterns focus on the interaction and communication between objects. They aim to define how objects collaborate, ensuring efficient and flexible communication without tightly coupling components.</p>
+
+<h2><a id="observer">Observer</a></h2>
+
+<p>Observer allows a subject (publisher) to maintain a list of its dependents (observers) and automatically notify them of any state changes, usually by calling one of their methods. This pattern is typically used when changing one object requires changing others, and we want to avoid tight coupling between the objects.</p>
+
+<h4>Event-based observer</h4>
+
+<p>An event-based observer notifies subscribers when a specific event occurs, allowing dynamic reactions without directly monitoring a property change.</p>
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
+public class Main {
+    public static void main(String[] args) {
+        Subscriber john = new Subscriber("John");
+        Newsletter newsletter = new Newsletter();
+        Consumer<String> johnHandler = john::receiveEmail; // every method reference is a new object, so we store it to be able to unsubscribe later
+        newsletter.newIssueReleased.subscribe(johnHandler); // adding John to the subscription list
+
+        newsletter.releaseNewIssue("Design Patterns Vol. 1"); // releasing a new issue
+        newsletter.newIssueReleased.unsubscribe(johnHandler); // removing John from the subscription list
+        newsletter.releaseNewIssue("Design Patterns Vol. 2"); // releasing a new issue
+    }
+}
+
+interface SubscriberInterface {
+    void receiveEmail(String newsletter);
+}
+
+class Event<T> {
+    private final List<Consumer<T>> observers = new ArrayList<>(); // storing subscribed observers
+
+    public void subscribe(Consumer<T> observer) {
+        observers.add(observer);
+    }
+
+    public void unsubscribe(Consumer<T> observer) {
+        observers.remove(observer);
+    }
+
+    public void fire(T argument) { // triggering notifications
+        for (Consumer<T> observer : observers) // looping through all subscribed observer methods
+            observer.accept(argument); // calling each observer with the given argument
+    }
+}
+
+class Subscriber implements SubscriberInterface {
+    private final String name;
+
+    Subscriber(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void receiveEmail(String newsletter) {
+        System.out.println(name + " received: " + newsletter);
+    }
+}
+
+class Newsletter {
+    public final Event<String> newIssueReleased = new Event<>();
+
+    public void releaseNewIssue(String issueTitle) {
+        System.out.println("Releasing new issue: " + issueTitle);
+        newIssueReleased.fire(issueTitle);
+    }
+}
+```
+
+<h4>Property observer</h4>
+
+<p>A property observer ties event handling to a property change (using a setter method). It is just a different approach to the Observer pattern. Both are good, and we just have to choose the one that suits our needs.</p>
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
+
+public class Main {
+    public static void main(String[] args) {
+        Subscriber john = new Subscriber("John");
+        Newsletter newsletter = new Newsletter();
+        Consumer<String> johnHandler = john::receiveEmail;
+        newsletter.newIssueReleased.subscribe(johnHandler);
+
+        newsletter.setNewIssue("Design Patterns Vol. 1"); // automatically notifying John
+        newsletter.newIssueReleased.unsubscribe(johnHandler);
+        newsletter.setNewIssue("Design Patterns Vol. 2"); // no notification sent
+    }
+}
+
+class Event<T> {
+    private final List<Consumer<T>> observers = new ArrayList<>();
+
+    public void subscribe(Consumer<T> observer) {
+        observers.add(observer);
+    }
+
+    public void unsubscribe(Consumer<T> observer) {
+        observers.remove(observer);
+    }
+
+    public void fire(T argument) {
+        for (Consumer<T> observer : observers)
+            observer.accept(argument);
+    }
+}
+
+class Subscriber {
+    private final String name;
+
+    Subscriber(String name) {
+        this.name = name;
+    }
+
+    public void receiveEmail(String newsletter) {
+        System.out.println(name + " received: " + newsletter);
+    }
+}
+
+class Newsletter {
+    private String newIssue;
+    public final Event<String> newIssueReleased = new Event<>(); // the event fires when issue updates
+
+    public String getNewIssue() {
+        return newIssue;
+    }
+
+    public void setNewIssue(String issueTitle) {
+        if (!Objects.equals(newIssue, issueTitle)) { // ensuring it's actually changing
+            newIssue = issueTitle;
+            System.out.println("New issue set: " + issueTitle);
+            newIssueReleased.fire(issueTitle); // notifying subscribers
+        }
+    }
+}
+```
+
+<h4>Property dependencies</h4>
+
+<p>Property dependencies ensure that one property automatically updates when another changes.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Person p = new Person("Bob", 2000, 2025);
+        System.out.println(p.getAge());
+        p.setCurrentYear(2030);
+        System.out.println(p.getAge()); // age has been automatically updated
+    }
+}
+
+class Person {
+    private final String name;
+    private final int birthYear;
+    private int currentYear;
+
+    Person(String name, int birthYear, int currentYear) {
+        this.name = name;
+        this.birthYear = birthYear;
+        this.currentYear = currentYear;
+    }
+
+    public void setCurrentYear(int currentYear) {
+        this.currentYear = currentYear;
+    }
+
+    public int getAge() {
+        return currentYear - birthYear; // age depends on birthYear and currentYear
+    }
+}
+```
+
+<h2><a id="chain-of-responsibility">Chain of Responsibility</a></h2>
+
+<p>Chain of Responsibility allows multiple handlers to process a request without the sender needing to know which handler will handle it. The request is passed along a chain of handlers until one of them processes it (or it reaches the end of the chain). This pattern promotes loose coupling and makes it easy to add or modify handlers dynamically. All componenets of a chain get a chance to process a command or a query, and have the ability to terminate the processing chain.</p>
+
+<h4>Method chain (classic approach)</h4>
+
+<p>In this approach, each handler explicitly calls the next one. It is good for request approval flows.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        // Creating the chain: Manager -> Director -> CEO
+        Handler manager = new Manager(new Director(new CEO()));
+
+        // Requests go through the chain until handled
+        manager.handle(new Request(500)); // handled by Manager
+        manager.handle(new Request(3000)); // handled by Director
+        manager.handle(new Request(10000)); // handled by CEO
+    }
+}
+
+record Request(int amount) {}
+
+abstract class Handler {
+    private final Handler successor;
+
+    Handler() {
+        this(null);
+    }
+
+    Handler(Handler successor) {
+        this.successor = successor;
+    }
+
+    public void handle(Request request) {
+        if (successor != null)
+            successor.handle(request);
+    }
+}
+
+class Manager extends Handler {
+    Manager(Handler successor) {
+        super(successor);
+    }
+
+    @Override
+    public void handle(Request request) {
+        if (request.amount() <= 1000)
+            System.out.println("Manager approves $" + request.amount());
+        else
+            super.handle(request);
+    }
+}
+
+class Director extends Handler {
+    Director(Handler successor) {
+        super(successor);
+    }
+
+    @Override
+    public void handle(Request request) {
+        if (request.amount() <= 5000)
+            System.out.println("Director approves $" + request.amount());
+        else
+            super.handle(request);
+    }
+}
+
+class CEO extends Handler {
+    @Override
+    public void handle(Request request) {
+        if (request.amount() > 5000)
+            System.out.println("CEO approves $" + request.amount());
+    }
+}
+```
+
+<h4>Broker chain (event-based approach)</h4>
+
+<p>Broker chain uses an event-driven system where multiple handlers process a request independently without forming a strict chain. It is useful in scenarios where multiple components modify a value dynamically, such as game stat modifiers or discount systems in e-commerce. Even though handlers are not explicitly linked, they act on the request in sequence when the event is triggered. It is a more flexible and decentralized version of the Chain of Responsibility pattern.</p>
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
+public class Main {
+    public static void main(String[] args) {
+        ECommercePlatform productPlatform = new ECommercePlatform();
+        Product laptop = new Product(productPlatform, "Laptop", 1000);
+
+        System.out.println("Original price: " + laptop.price());
+
+        new BlackFridayDiscount(productPlatform, laptop);
+        System.out.println("After Black Friday discount: " + laptop.price());
+
+        new LoyaltyDiscount(productPlatform, laptop);
+        System.out.println("After loyalty discount: " + laptop.price());
+    }
+}
+
+class Event<T> {
+    private final List<Consumer<T>> observers = new ArrayList<>();
+
+    public void subscribe(Consumer<T> observer) {
+        observers.add(observer);
+    }
+
+    public void fire(T argument) {
+        for (Consumer<T> observer : observers)
+            observer.accept(argument);
+    }
+}
+
+class Query {
+    final String productName;
+    final String queryType;
+    double value;
+
+    Query(String productName, String queryType, double value) {
+        this.productName = productName;
+        this.queryType = queryType;
+        this.value = value;
+    }
+}
+
+class ECommercePlatform {
+    final Event<Query> discountHandlers = new Event<>();
+
+    public void applyDiscounts(Query productQuery) {
+        discountHandlers.fire(productQuery); // calling all registered discount handlers
+    }
+}
+
+record Product(ECommercePlatform productPlatform, String name, double basePrice) {
+    public double price() {
+        Query productQuery = new Query(name, "price", basePrice);
+        productPlatform.applyDiscounts(productQuery); // applying registered discounts
+        return productQuery.value;
+    }
+}
+
+abstract class DiscountModifier {
+    protected final Product product;
+
+    DiscountModifier(ECommercePlatform productPlatform, Product product) {
+        this.product = product;
+        productPlatform.discountHandlers.subscribe(this::handle); // registering handler
+    }
+
+    protected abstract void handle(Query productQuery);
+}
+
+class BlackFridayDiscount extends DiscountModifier {
+    BlackFridayDiscount(ECommercePlatform productPlatform, Product product) {
+        super(productPlatform, product);
+    }
+
+    @Override
+    protected void handle(Query productQuery) {
+        if (productQuery.productName.equals(product.name()) && productQuery.queryType.equals("price"))
+            productQuery.value *= 0.8; // 20% discount
+    }
+}
+
+class LoyaltyDiscount extends DiscountModifier {
+    LoyaltyDiscount(ECommercePlatform productPlatform, Product product) {
+        super(productPlatform, product);
+    }
+
+    @Override
+    protected void handle(Query productQuery) {
+        if (productQuery.productName.equals(product.name()) && productQuery.queryType.equals("price"))
+            productQuery.value *= 0.9; // additional 10% discount for loyal customers
+    }
+}
+```
+
+<h2><a id="command">Command</a></h2>
+
+<p>Command is used to turn a request (an action) into a stand-alone object. This object encapsulates all details of the request, allowing parameterization of objects. It is also useful for implementing the undo functionality.</p>
+
+<p>In the example below, the ```TransferMoneyCommand``` class encapsulates the action and its associated details (it takes the ```BankAccount``` objects as parameters) and can be executed by ```TransactionHistory``` (the invoker) when triggered.</p>
+
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+public class Main {
+    public static void main(String[] args) {
+        BankAccount sourceAccount = new BankAccount(500);
+        BankAccount targetAccount = new BankAccount(200);
+        TransactionHistory history = new TransactionHistory();
+
+        System.out.println("Source account before transfer: " + sourceAccount);
+        System.out.println("Target account before transfer: " + targetAccount);
+
+        Command transfer1 = new TransferMoneyCommand(sourceAccount, targetAccount, 100);
+        history.executeCommand(transfer1);
+
+        System.out.println("Source account after first transfer: " + sourceAccount);
+        System.out.println("Target account after first transfer: " + targetAccount);
+
+        Command transfer2 = new TransferMoneyCommand(sourceAccount, targetAccount, 1000); // trying to transfer more than available funds
+        history.executeCommand(transfer2);
+
+        System.out.println("Source account after second transfer attempt: " + sourceAccount);
+        System.out.println("Target account after second transfer attempt: " + targetAccount);
+        history.undoOperation();
+
+        System.out.println("Source account after undo: " + sourceAccount);
+        System.out.println("Target account after undo: " + targetAccount);
+    }
+}
+
+interface Command {
+    void executeAction();
+    void undoOperation();
+}
+
+class BankAccount { // a receiver class (the object that performs the action when requested)
+    private int balance;
+
+    BankAccount(int balance) {
+        this.balance = balance;
+    }
+
+    public void deposit(int amount) {
+        balance += amount;
+    }
+
+    public boolean withdraw(int amount) {
+        if (balance >= amount) {
+            balance -= amount;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Balance = " + balance;
+    }
+}
+
+class TransferMoneyCommand implements Command { // a concrete Command class
+    private final BankAccount sourceAccount;
+    private final BankAccount targetAccount;
+    private final int amount;
+    private boolean executed = false;
+
+    TransferMoneyCommand(BankAccount sourceAccount, BankAccount targetAccount, int amount) {
+        this.sourceAccount = sourceAccount;
+        this.targetAccount = targetAccount;
+        this.amount = amount;
+    }
+
+    @Override
+    public void executeAction() {
+        if (!executed) {
+            if (sourceAccount.withdraw(amount)) {
+                targetAccount.deposit(amount);
+                executed = true;
+                System.out.println("Transferred " + amount + " from source to target.");
+            } else
+                System.out.println("Insufficient funds for transfer.");
+        } else
+            System.out.println("Transfer already executed.");
+    }
+
+    @Override
+    public void undoOperation() {
+        if (executed) {
+            targetAccount.withdraw(amount);
+            sourceAccount.deposit(amount);
+            System.out.println("Undo transfer of " + amount + " from target back to source.");
+            executed = false;
+        } else
+            System.out.println("No transfer to undo.");
+    }
+}
+
+class TransactionHistory { // an invoker class (the object that calls the command)
+    private final Deque<Command> history = new ArrayDeque<>();
+
+    public void executeCommand(Command command) {
+        command.executeAction(); // invoking the Command's execute method
+        history.push(command);
+    }
+
+    public void undoOperation() {
+        if (!history.isEmpty())
+            history.pop().undoOperation();
+    }
+}
+```
+
+<h2><a id="interpreter">Interpreter</a></h2>
+
+<p>Interpreter is used for designing a system that needs to process and evaluate language expressions. It provides a way to define the grammar of a language and interpret statements in that language. It is commonly used in mathematical expression evaluators, rule-based engines, and parsers. It turns text data into separate lexical tokens (lexing) and interprets sequences of these tokens (parsing).</p>
+
+<p>The example below implements a simple interpreter for arithmetic expressions that includes addition and subtraction. It tokenizes an expression like "10 + 5 - 3", parses it into an abstract syntax tree (AST), and evaluates the result.</p>
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        String expression = "10 + 5 - 3";
+        Lexer lexer = new Lexer(expression);
+        List<Token> tokens = lexer.tokenize();
+        System.out.println(tokens);
+
+        Parser parser = new Parser(tokens);
+        int number = parser.parseExpression();
+        System.out.println(number);
+    }
+}
+
+// Lexing
+enum TokenType { NUMBER, PLUS, MINUS }
+
+record Token(TokenType tokenType, int value) {
+    Token(TokenType tokenType) {
+        this(tokenType, 0);
+    }
+}
+
+class Lexer {
+    private final String input;
+    private int index = 0;
+
+    Lexer(String input) {
+        this.input = input.replace(" ", ""); // removing spaces for easier processing
+    }
+
+    public Token getNextToken() {
+        char c = input.charAt(index);
+        
+        if (Character.isDigit(c)) {
+            int num = 0;
+            // Extracting multi-digit numbers
+            while (index < input.length() && Character.isDigit(input.charAt(index))) {
+                num = num * 10 + (input.charAt(index) - '0');
+                index++;
+            }
+            return new Token(TokenType.NUMBER, num);
+        } else if (c == '+') {
+            index++;
+            return new Token(TokenType.PLUS);
+        } else if (c == '-') {
+            index++;
+            return new Token(TokenType.MINUS);
+        }
+
+        throw new IllegalArgumentException("Unexpected character: " + c);
+    }
+
+    public List<Token> tokenize() {
+        List<Token> tokens = new ArrayList<>();
+        while (index < input.length())
+            tokens.add(getNextToken()); // generating a token list
+        return tokens;
+    }
+}
+
+// Parsing
+class Parser {
+    private final List<Token> tokens;
+    private int position = 0;
+    private Token currentToken;
+
+    Parser(List<Token> tokens) {
+        this.tokens = tokens;
+        currentToken = tokens.isEmpty() ? null : tokens.get(0); // fetching the first token
+    }
+
+    private void eat(TokenType tokenType) {
+        if (currentToken != null && currentToken.tokenType() == tokenType) {
+            position++;
+            currentToken = position < tokens.size() ? tokens.get(position) : null; // moving to the next token
+        }
+    }
+
+    public int parseExpression() {
+        int result = currentToken.value(); // starting with the first number
+        eat(TokenType.NUMBER);
+
+        while (currentToken != null) {
+            if (currentToken.tokenType() == TokenType.PLUS) {
+                eat(TokenType.PLUS);
+                result += currentToken.value(); // adding the next number to result
+                eat(TokenType.NUMBER);
+            } else if (currentToken.tokenType() == TokenType.MINUS) {
+                eat(TokenType.MINUS);
+                result -= currentToken.value(); // subtracting the next number from result
+                eat(TokenType.NUMBER);
+            }
+        }
+
+        return result; // directly returning the result
+    }
+}
+```
+
+<h2><a id="iterator">Iterator</a></h2>
+
+<p>Iterator provides a way to access elements of a collection sequentially without exposing its underlying structure. Instead of manually managing iteration, the pattern encapsulates it within an iterator object that keeps track of the current position and provides a standard way to retrieve the next element. In Java, every class that implements the ```Iterable``` interface (returns an ```Iterator``` object from its ```iterator()``` method) can be used in a for-each loop. The example below shows how to use a list-backed field with a getter and a setter while implementing the Iterator pattern to allow iteration over stored data.</p>
+
+```java
+import java.util.Iterator;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        Inventory inventory = new Inventory(List.of("Sword", "Shield", "Potion"));
+        for (String item : inventory)
+            System.out.println(item);
+
+        inventory.setItemList(List.of("Bow", "Arrow", "Helmet")); // using the setter
+        for (String item : inventory)
+            System.out.println(item);
+    }
+}
+
+class Inventory implements Iterable<String> {
+    private List<String> itemList;
+
+    Inventory(List<String> itemList) {
+        setItemList(itemList);
+    }
+
+    public List<String> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<String> newItems) {
+        if (newItems == null)
+            throw new IllegalArgumentException("Items can't be null.");
+        itemList = newItems;
+    }
+
+    @Override
+    public Iterator<String> iterator() {
+        return itemList.iterator(); // returning an iterator for the list
+    }
+}
+```
+
+<h2><a id="mediator">Mediator</a></h2>
+
+<p>Mediator defines an object that encapsulates how a set of objects interact. Instead of having multiple objects communicate directly, they communicate through a mediator, which handles the communication and coordination between them. This reduces the dependencies between objects, making the system easier to maintain and scale (the objects do not have to be aware of the other objects).</p>
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        ChatRoom chatRoom = new ChatRoom();
+
+        User alice = new User("Alice");
+        User bob = new User("Bob");
+        User charlie = new User("Charlie");
+
+        chatRoom.addUser(alice);
+        chatRoom.addUser(bob);
+        chatRoom.addUser(charlie);
+
+        alice.sendMessage("Hi everyone!");
+        bob.sendMessage("Hello Alice!");
+        charlie.sendMessage("Hey all!");
+    }
+}
+
+interface Mediator {
+    void sendData(String message, User sender);
+}
+
+class User {
+    private final String name;
+    private Mediator mediator;
+
+    User(String name) {
+        this.name = name;
+    }
+
+    public void setMediator(Mediator mediator) {
+        this.mediator = mediator;
+    }
+
+    public void sendMessage(String message) {
+        System.out.println(name + " sends: " + message);
+        mediator.sendData(message, this);
+    }
+
+    public void receiveMessage(String message) {
+        System.out.println(name + " receives: " + message);
+    }
+}
+
+class ChatRoom implements Mediator {
+    private final List<User> users = new ArrayList<>();
+
+    public void addUser(User user) {
+        users.add(user);
+        user.setMediator(this); // setting the chat room as the mediator for each user when they join it
+    }
+
+    @Override
+    public void sendData(String message, User sender) {
+        for (User u : users)
+            if (u != sender)
+                u.receiveMessage(message);
+    }
+}
+```
+
+<h2><a id="memento">Memento</a></h2>
+
+<p>Memento allows capturing and restoring an object's state without exposing its internal details. It is useful for implementing undo/redo functionality or saving checkpoints in an application.</p>
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        TextEditor editor = new TextEditor();
+        editor.writeText("Hello, ");
+        editor.showContent();
+        editor.writeText("world!");
+        editor.showContent();
+
+        editor.undoOperation();
+        editor.showContent();
+        editor.redo();
+        editor.showContent();
+    }
+}
+
+record Memento(String content) {} // storing the state of the text document
+
+class TextEditor {
+    private String content = "";
+    private final List<Memento> history = new ArrayList<>(List.of(new Memento(content)));
+    private int currentState = 0;
+
+    public void writeText(String addition) {
+        content += addition;
+        history.add(new Memento(content));
+        currentState++;
+    }
+
+    public Memento undoOperation() {
+        if (currentState > 0) {
+            currentState--;
+            Memento m = history.get(currentState);
+            content = m.content();
+            return m;
+        }
+        return null;
+    }
+
+    public Memento redo() {
+        if (currentState + 1 < history.size()) {
+            currentState++;
+            Memento m = history.get(currentState);
+            content = m.content();
+            return m;
+        }
+        return null;
+    }
+
+    public void showContent() {
+        System.out.println("Document content: " + content);
+    }
+}
+```
+
+<h2><a id="state">State</a></h2>
+
+<p>State allows an object to change its behavior when its internal state changes. It encapsulates different behaviors within separate state classes, making the system more maintainable and flexible.</p>
+
+<p>In the example below, the behavior that changes is how the ```TrafficLight``` object responds to the ```change()``` method, depending on its current state. This method changes the state, and depending on whether the current state is ```RedState```, ```YellowState```, or ```GreenState```, a different transition logic contained in the ```switchLight()``` method of each state class is applied.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        TrafficLight trafficLight = new TrafficLight();
+        trafficLight.change();
+        trafficLight.change();
+        trafficLight.change();
+    }
+}
+
+interface TrafficLightState { // a State interface
+    void switchLight(TrafficLight light);
+}
+
+// Concrete State classes
+class RedState implements TrafficLightState {
+    @Override
+    public void switchLight(TrafficLight light) {
+        System.out.println("Red -> Switching to Green");
+        light.setState(new GreenState());
+    }
+}
+
+class YellowState implements TrafficLightState {
+    @Override
+    public void switchLight(TrafficLight light) {
+        System.out.println("Yellow -> Switching to Red");
+        light.setState(new RedState());
+    }
+}
+
+class GreenState implements TrafficLightState {
+    @Override
+    public void switchLight(TrafficLight light) {
+        System.out.println("Green -> Switching to Yellow");
+        light.setState(new YellowState());
+    }
+}
+
+class TrafficLight { // a context class (the object that maintains the current state and triggers state transitions)
+    private TrafficLightState state = new RedState(); // an initial State
+
+    public void setState(TrafficLightState state) {
+        this.state = state;
+    }
+
+    public void change() {
+        state.switchLight(this); // switching the State by executing the switchLight() method from the current State class
+    }
+}
+```
+
+<h2><a id="strategy">Strategy</a></h2>
+
+<p>Strategy defines a family of algorithms, encapsulates each one in a separate class, and allows them to be interchangeable without modifying the client code. This enables selecting an algorithm dynamically at runtime, promoting flexibility and maintainability.</p>
+
+```java
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Integer> numbers = List.of(5, 2, 9, 1, 5, 6);
+
+        Sorter sorter = new Sorter(new QuickSort());
+        System.out.println(sorter.sortList(numbers));
+
+        sorter.setStrategy(new MergeSort());
+        System.out.println(sorter.sortList(numbers));
+
+        sorter.setStrategy(new BubbleSort());
+        System.out.println(sorter.sortList(numbers));
+    }
+}
+
+interface SortStrategy { // a Strategy interface
+    List<Integer> sortItems(List<Integer> data);
+}
+
+// Concrete Strategy classes
+class QuickSort implements SortStrategy {
+    @Override
+    public List<Integer> sortItems(List<Integer> data) {
+        System.out.println("Sorting using QuickSort");
+        return data.stream().sorted().toList(); // a placeholder for actual implementation
+    }
+}
+
+class MergeSort implements SortStrategy {
+    @Override
+    public List<Integer> sortItems(List<Integer> data) {
+        System.out.println("Sorting using MergeSort");
+        return data.stream().sorted().toList(); // a placeholder for actual implementation
+    }
+}
+
+class BubbleSort implements SortStrategy {
+    @Override
+    public List<Integer> sortItems(List<Integer> data) {
+        System.out.println("Sorting using BubbleSort");
+        return data.stream().sorted().toList(); // a placeholder for actual implementation
+    }
+}
+
+class Sorter { // a context class
+    private SortStrategy strategy;
+
+    Sorter(SortStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public void setStrategy(SortStrategy strategy) {
+        this.strategy = strategy; // changing Strategies dynamically
+    }
+
+    public List<Integer> sortList(List<Integer> data) {
+        return strategy.sortItems(data);
+    }
+}
+```
+
+<h2><a id="template-method">Template Method</a></h2>
+
+<p>Template Method defines the skeleton of an algorithm in a base class while allowing subclasses to fill in specific steps. This promotes code reuse and ensures that the core logic remains unchanged while allowing flexibility in certain steps.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        ReportTemplate sales = new SalesReport();
+        sales.generateReport();
+
+        ReportTemplate inventory = new InventoryReport();
+        inventory.generateReport();
+    }
+}
+
+abstract class ReportTemplate {
+    public final void generateReport() { // a Template Method defining the steps for generating a report ("final" prevents subclasses from changing the skeleton)
+        collectData();
+        analyseData();
+        System.out.println("Done.");
+    }
+
+    protected abstract void collectData();
+    protected abstract void analyseData();
+}
+
+class SalesReport extends ReportTemplate {
+    @Override
+    protected void collectData() {
+        System.out.println("Collecting sales data...");
+    }
+
+    @Override
+    protected void analyseData() {
+        System.out.println("Analyzing sales trends...");
+    }
+}
+
+class InventoryReport extends ReportTemplate {
+    @Override
+    protected void collectData() {
+        System.out.println("Collecting inventory data...");
+    }
+
+    @Override
+    protected void analyseData() {
+        System.out.println("Checking stock levels...");
+    }
+}
+```
+
+<h2><a id="visitor">Visitor</a></h2>
+
+<p>Visitor allows us to add new operations to existing object structures without modifying them (in compliance with the OCP). Instead of adding behavior inside the already existing objects, we create a Visitor that implements the behavior and visits those objects. This keeps the document structure unchanged while allowing new operations.</p>
+
+```java
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        List<DocumentElement> elements = List.of(new TextElement(), new ImageElement());
+        Visitor renderer = new Renderer();
+        Visitor wordCounter = new WordCounter();
+        for (DocumentElement element : elements) {
+            element.acceptData(renderer);
+            element.acceptData(wordCounter);
+        }
+    }
+}
+
+interface DocumentElement { // an element interface
+    void acceptData(Visitor visitor);
+}
+
+// Concrete elements
+class TextElement implements DocumentElement {
+    @Override
+    public void acceptData(Visitor visitor) {
+        visitor.visitText(this);
+    }
+}
+
+class ImageElement implements DocumentElement {
+    @Override
+    public void acceptData(Visitor visitor) {
+        visitor.visitImage(this);
+    }
+}
+
+interface Visitor { // a Visitor interface
+    void visitText(TextElement element);
+    void visitImage(ImageElement element);
+}
+
+// Concrete Visitors
+class Renderer implements Visitor {
+    @Override
+    public void visitText(TextElement element) {
+        System.out.println("Rendering text");
+    }
+
+    @Override
+    public void visitImage(ImageElement element) {
+        System.out.println("Rendering image");
+    }
+}
+
+class WordCounter implements Visitor {
+    @Override
+    public void visitText(TextElement element) {
+        System.out.println("Counting words in text");
+    }
+
+    @Override
+    public void visitImage(ImageElement element) {
+        System.out.println("Skipping word count for image");
+    }
+}
+```
+
+<p className="noBottomMargin">Instead of adding new methods to ```TextElement``` and ```ImageElement``` every time we need a new operation, we simply create a new Visitor class that implements those operations without modifying the element classes. This pattern relies on double dispatch, where both the element type (```TextElement``` or ```ImageElement```) and the visitor type (```Renderer``` or ```WordCounter```) determine the behavior, meaning:</p>
+
+<ol>
+    <li>The element calls its ```acceptData(visitor)``` method, passing the visitor as an argument.</li>
+    <li>Inside ```acceptData(visitor)```, the element calls the visitor’s corresponding method (```visitText()``` or ```visitImage()```), passing itself (```this```) as an argument.</li>
+    <li>The visitor determines what to do based on the element type.</li>
+</ol>
+
+<h5>Visitor VS Decorator</h5>
+
+<p>A Visitor allows <b>new operations</b> to be added to existing object structures without modifying them by separating the new behavior from the objects it operates on. Decorator allows behavior to be dynamically added to an object at runtime by wrapping it with <b>additional functionality and extending behavior</b>.</p>

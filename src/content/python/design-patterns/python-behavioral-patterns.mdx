@@ -169,7 +169,7 @@ class CEO(Handler):
         if request.amount > 5000:
             print(f"CEO approves ${request.amount}")
 
-# Creating the chain: Manager → Director → CEO
+# Creating the chain: Manager -> Director -> CEO
 manager = Manager(Director(CEO()))
 
 # Requests go through the chain until handled
@@ -356,12 +356,12 @@ from abc import ABC, abstractmethod
 class Token:
     NUMBER, PLUS, MINUS = "NUMBER", "PLUS", "MINUS"
 
-    def __init__(self, typee, value = None):
-        self.typee = typee
+    def __init__(self, token_type, value = None):
+        self.token_type = token_type
         self.value = value
 
     def __repr__(self):
-        return f"Token({self.typee}, {self.value})"
+        return f"Token({self.token_type}, {self.value})"
 
 class Lexer:
     def __init__(self, text):
@@ -400,7 +400,7 @@ class Parser:
         self.current_token = self.tokens.pop(0) if self.tokens else None # fetching the first token
 
     def eat(self, token_type):
-        if self.current_token and self.current_token.typee == token_type:
+        if self.current_token and self.current_token.token_type == token_type:
             self.current_token = self.tokens.pop(0) if self.tokens else None # moving to the next token
 
     def parse(self):
@@ -408,11 +408,11 @@ class Parser:
         self.eat(Token.NUMBER)
 
         while self.current_token:
-            if self.current_token.typee == Token.PLUS:
+            if self.current_token.token_type == Token.PLUS:
                 self.eat(Token.PLUS)
                 result += self.current_token.value # adding the next number to result
                 self.eat(Token.NUMBER)
-            elif self.current_token.typee == Token.MINUS:
+            elif self.current_token.token_type == Token.MINUS:
                 self.eat(Token.MINUS)
                 result -= self.current_token.value # subtracting the next number from result
                 self.eat(Token.NUMBER)
@@ -423,6 +423,7 @@ expression = "10 + 5 - 3"
 lexer = Lexer(expression)
 tokens = lexer.tokenize()
 print(tokens)
+
 parser = Parser(tokens)
 number = parser.parse()
 print(number)

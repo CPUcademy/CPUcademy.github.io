@@ -1,0 +1,470 @@
+---
+title: "SOLID design patterns"
+order: 1
+---
+
+<p>Design patterns are proven solutions to common software design problems. They provide reusable architectural approaches that improve code structure, maintainability, and scalability. Design patterns are language-independent and categorized into three main types (Gamma classification): creational, structural, and behavioral.</p>
+
+<p>Most of the design patterns, except for the "concrete" implementations, should feature an abstraction that defines an interface for the implementations to adhere to. However, I will not create them for every example because it’s unnecessary for simple use cases or when the purpose of the example is to illustrate a specific behavior or concept rather than flood you with two-page extended code examples.</p>
+    
+<p className="noBottomMargin">The SOLID design principles are five principles aimed at improving software design and making it more understandable, flexible, and maintainable. They are frequently mentioned along design patterns but are <b>not a part of that group</b>. The acronym SOLID stands for:</p>
+<ul>
+    <li>S - <a href="#single-responsibility-principle" class="link">Single Responsibility Principle (SRP) / Separation Of Concerns (SOC)</a></li>
+    <li>O - <a href="#open-closed-principle" class="link">Open/Closed Principle (OCP)</a></li>
+    <li>L - <a href="#liskov-substitution-principle" class="link">Liskov Substitution Principle (LSP)</a></li>
+    <li>I - <a href="#interface-segregation-principle" class="link">Interface Segregation Principle (ISP)</a></li>
+    <li>D - <a href="#dependency-inversion-principle" class="link">Dependency Inversion Principle (DIP)</a></li>
+</ul>
+  
+<h2><a id="single-responsibility-principle">Single Responsibility Principle (SRP) / Separation Of Concerns (SOC)</a></h2>
+
+<p>A class should have only one primary responsibility, and it mustn't have more. It should not be overloaded with "things" it can do. Different classes should handle different tasks so they can be, e.g., changed independently. A God object is a class with too many responsibilities, and it is considered an antipattern.</p>
+
+<h4>Issue</h4>
+
+```java
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        Book book = new Book("1984", "George Orwell");
+        book.printDetails();
+        book.saveToFile("book.txt");
+    }
+}
+
+class Book {
+    private final String title;
+    private final String author;
+
+    Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+    }
+
+    public void printDetails() {
+        System.out.println("Title: " + title + ", Author: " + author);
+    }
+
+    public void saveToFile(String filename) throws IOException {
+        try (FileWriter writer = new FileWriter(filename)) {
+            writer.write("Title: " + title + ", Author: " + author);
+        }
+    }
+}
+```
+
+<p>The ```Book``` class has multiple responsibilities: managing book data, printing details, and saving data to a file. For example, the method that handles saving to a file should be placed in another class so it can be modified once for all objects using it when switching to a database. Each concern should be separated into a different class.</p>
+
+<h4>Solution</h4>
+
+```java
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        Book book = new Book("1984", "George Orwell");
+        BookPrinter.printDetails(book);
+        BookSaver.saveToFile(book, "book.txt");
+    }
+}
+
+record Book(String title, String author) {}
+
+class BookPrinter {
+    public static void printDetails(Book book) {
+        System.out.println("Title: " + book.title() + ", Author: " + book.author());
+    }
+}
+
+class BookSaver {
+    public static void saveToFile(Book book, String filename) throws IOException {
+        try (FileWriter writer = new FileWriter(filename)) {
+            writer.write("Title: " + book.title() + ", Author: " + book.author());
+        }
+    }
+}
+```
+
+<h2><a id="open-closed-principle">Open/Closed Principle (OCP)</a></h2>
+
+<p>Software entities (classes, modules, functions) should be open for extension but closed for modification meaning we should be able to add a new functionality without changing the existing code. Functionalities should be added through extension, not modification.</p>
+
+<h4>Issue</h4>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        DiscountCalculator calculator = new DiscountCalculator();
+        System.out.println(calculator.calculate("regular", 100));
+        System.out.println(calculator.calculate("premium", 100));
+        System.out.println(calculator.calculate("new", 100));
+    }
+}
+
+class DiscountCalculator {
+    public double calculate(String customerType, double price) {
+        if (customerType.equals("regular"))
+            return price * 0.9; // 10% discount
+        else if (customerType.equals("premium"))
+            return price * 0.8; // 20% discount
+        else
+            return price;
+    }
+}
+```
+
+<p>Adding a new discount would require modifying the existing class, and modifications can introduce bugs and require retesting.</p>
+
+<h4>Solution</h4>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        DiscountCalculator regularDiscount = new DiscountCalculator(new RegularCustomerDiscount());
+        System.out.println(regularDiscount.calculate(100));
+
+        DiscountCalculator premiumDiscount = new DiscountCalculator(new PremiumCustomerDiscount());
+        System.out.println(premiumDiscount.calculate(100));
+
+        DiscountCalculator noDiscount = new DiscountCalculator(new NoDiscount());
+        System.out.println(noDiscount.calculate(100));
+    }
+}
+
+interface DiscountStrategy {
+    double applyDiscount(double price);
+}
+
+class RegularCustomerDiscount implements DiscountStrategy {
+    @Override
+    public double applyDiscount(double price) {
+        return price * 0.9; // 10% discount
+    }
+}
+
+class PremiumCustomerDiscount implements DiscountStrategy {
+    @Override
+    public double applyDiscount(double price) {
+        return price * 0.8; // 20% discount
+    }
+}
+
+class NoDiscount implements DiscountStrategy {
+    @Override
+    public double applyDiscount(double price) {
+        return price; // no discount
+    }
+}
+
+class DiscountCalculator {
+    private final DiscountStrategy discountStrategy;
+
+    DiscountCalculator(DiscountStrategy discountStrategy) {
+        this.discountStrategy = discountStrategy;
+    }
+
+    public double calculate(double price) {
+        return discountStrategy.applyDiscount(price);
+    }
+}
+```
+
+<h2><a id="liskov-substitution-principle">Liskov Substitution Principle (LSP)</a></h2>
+
+<p>Objects of a superclass should be replaceable with objects of its subclass without affecting the correctness of the program. We should always be able to substitute a base type for a subtype.</p>
+
+<h4>Issue</h4>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Rectangle rectangle = new Rectangle(2, 3);
+        calculate(rectangle);
+
+        Rectangle square = new Square(5);
+        calculate(square);
+    }
+
+    static void calculate(Rectangle obj) {
+        int w = obj.getWidth();
+        obj.setHeight(10);
+        System.out.println("Expected: " + w * 10 + ", got: " + obj.getArea());
+    }
+}
+
+class Rectangle {
+    protected int width;
+    protected int height;
+
+    Rectangle(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    public int getArea() { return width * height; }
+    public int getWidth() { return width; }
+    public int getHeight() { return height; }
+    public void setWidth(int width) { this.width = width; }
+    public void setHeight(int height) { this.height = height; }
+}
+
+class Square extends Rectangle {
+    Square(int squareSize) {
+        super(squareSize, squareSize);
+    }
+
+    @Override
+    public void setWidth(int width) {
+        this.width = this.height = width;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = this.width = height;
+    }
+}
+```
+
+<p>The setters overriden in the ```Square``` class break the LSP because they modify the behavior of the ```Rectangle``` class in unexpected ways. Specifically, while the ```Rectangle``` class allows independent manipulation of width and height, the ```Square``` class forces both the width and height to be the same when either is set. This means that substituting a ```Square``` for a ```Rectangle``` in the code leads to inconsistent and unpredictable behavior. The ```calculate()``` method works only for ```Rectangle``` (a superclass) and not for ```Square``` (a subclass) when substituted.</p>
+
+<h4>Solution</h4>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Rectangle rectangle = new Rectangle(2, 3);
+        calculate(rectangle);
+
+        Rectangle square = new Rectangle(5, 5, true);
+        calculate(square);
+    }
+
+    static void calculate(Rectangle obj) {
+        obj.setHeight(10);
+        System.out.println("Area: " + obj.getArea()); // the output is the same as in the previous example, but the code works predictably
+    }
+}
+
+class Rectangle {
+    private int width;
+    private int height;
+    private final boolean isSquare;
+
+    Rectangle(int width, int height) {
+        this(width, height, false);
+    }
+
+    Rectangle(int width, int height, boolean isSquare) {
+        this.width = width;
+        this.height = height;
+        this.isSquare = isSquare;
+    }
+
+    public int getArea() { return width * height; }
+    public int getWidth() { return width; }
+    public int getHeight() { return height; }
+
+    public void setWidth(int width) {
+        if (isSquare)
+            this.height = width; // if it's a square, adjust height as well
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        if (isSquare)
+            this.width = height; // if it's a square, adjust width as well
+        this.height = height;
+    }
+}
+```
+
+<h2><a id="interface-segregation-principle">Interface Segregation Principle (ISP)</a></h2>
+
+<p>Clients should not be forced to implement interface methods they do not need, meaning we should use smaller, more specific interfaces over larger, more general ones. In compliance with the YAGNI rule (You Ain't Going To Need It), why would we force users to implement something they aren't going to need?</p>
+
+<h4>Issue</h4>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        BasicPrinter basicPrinter = new BasicPrinter();
+        basicPrinter.printDocument("report.pdf");
+        basicPrinter.scanDocument("report.pdf");
+    }
+}
+
+interface Printer {
+    void printDocument(String document);
+    void scanDocument(String document);
+    void faxDocument(String document);
+}
+
+class BasicPrinter implements Printer {
+    @Override
+    public void printDocument(String document) {
+        System.out.println("Printing document: " + document);
+    }
+
+    @Override
+    public void scanDocument(String document) {
+        throw new UnsupportedOperationException("BasicPrinter does not support scanning.");
+    }
+
+    @Override
+    public void faxDocument(String document) {
+        throw new UnsupportedOperationException("BasicPrinter does not support faxing.");
+    }
+}
+```
+
+<p>Why would we even suggest using scan and fax for the basic printer if it can't perform these actions?</p>
+
+<h4>Solution</h4>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        BasicPrinter basicPrinter = new BasicPrinter();
+        basicPrinter.printDocument("report.pdf");
+
+        AdvancedPrinter advancedPrinter = new AdvancedPrinter();
+        advancedPrinter.printDocument("report.pdf");
+        advancedPrinter.scanDocument("report.pdf");
+        advancedPrinter.faxDocument("report.pdf");
+    }
+}
+
+interface Printable {
+    void printDocument(String document);
+}
+
+interface Scannable {
+    void scanDocument(String document);
+}
+
+interface Faxable {
+    void faxDocument(String document);
+}
+
+class BasicPrinter implements Printable {
+    @Override
+    public void printDocument(String document) {
+        System.out.println("Printing document: " + document);
+    }
+}
+
+class AdvancedPrinter implements Printable, Scannable, Faxable {
+    @Override
+    public void printDocument(String document) {
+        System.out.println("Printing document: " + document);
+    }
+
+    @Override
+    public void scanDocument(String document) {
+        System.out.println("Scanning document: " + document);
+    }
+
+    @Override
+    public void faxDocument(String document) {
+        System.out.println("Faxing document: " + document);
+    }
+}
+```
+
+<h2><a id="dependency-inversion-principle">Dependency Inversion Principle (DIP)</a></h2>
+
+<p>High-level modules should not depend on low-level modules (e.g., dealing with storage is a low-level concern), but on abstractions (interfaces). We want to depend on interfaces rather than concrete implementations because that way we can swap one for the other.</p>
+
+<h4>Issue</h4>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        DataHandler dataHandler = new DataHandler();
+        dataHandler.saveData("user data");
+    }
+}
+
+class MySQLDatabase {
+    public void connectDb() {
+        System.out.println("Connecting to MySQL database...");
+    }
+
+    public void saveData(String data) {
+        System.out.println("Saving " + data + " to MySQL database.");
+    }
+}
+
+class DataHandler {
+    private final MySQLDatabase db = new MySQLDatabase(); // a direct dependency on a low-level module
+
+    public void saveData(String data) {
+        db.connectDb();
+        db.saveData(data);
+    }
+}
+```
+
+<p>```DataHandler``` should not depend directly on ```MySQLDatabase```, a low-level module. This tight coupling means that if the database changes (e.g., to ```PostgreSQLDatabase```), ```DataHandler``` must also be modified. This violates both the DIP and the OCP.</p>
+
+<h4>Solution</h4>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Database mysqlDb = new MySQLDatabase();
+        Database postgresDb = new PostgreSQLDatabase();
+
+        DataHandler dataHandlerMysql = new DataHandler(mysqlDb);
+        DataHandler dataHandlerPostgres = new DataHandler(postgresDb);
+
+        dataHandlerMysql.saveData("user data");
+        dataHandlerPostgres.saveData("user data");
+    }
+}
+
+interface Database { // an abstraction of a database
+    void connectDb();
+    void saveData(String data);
+}
+
+class MySQLDatabase implements Database { // a low-level module: MySQL implementation
+    @Override
+    public void connectDb() {
+        System.out.println("Connecting to MySQL database...");
+    }
+
+    @Override
+    public void saveData(String data) {
+        System.out.println("Saving " + data + " to MySQL database.");
+    }
+}
+
+class PostgreSQLDatabase implements Database { // a low-level module: PostgreSQL implementation
+    @Override
+    public void connectDb() {
+        System.out.println("Connecting to PostgreSQL database...");
+    }
+
+    @Override
+    public void saveData(String data) {
+        System.out.println("Saving " + data + " to PostgreSQL database.");
+    }
+}
+
+class DataHandler { // a high-level module depending on the abstraction
+    private final Database db;
+
+    DataHandler(Database db) {
+        this.db = db;
+    }
+
+    public void saveData(String data) {
+        db.connectDb();
+        db.saveData(data);
+    }
+}
+```
