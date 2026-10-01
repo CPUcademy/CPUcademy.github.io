@@ -20,7 +20,7 @@ order: 1
   
 <h2><a id="single-responsibility-principle">Single Responsibility Principle (SRP) / Separation Of Concerns (SOC)</a></h2>
 
-<p>A class should have only one primary responsibility, and it mustn't have more. It should not be overloaded with "things" it can do. Different classes should handle different tasks so they can be, e.g., changed independently. A God object is a class with too many responsibilities, and it is considered an antipattern.</p>
+<p>A class should have only one primary responsibility, and nothing more. It should not be overloaded with "things" it can do. Different classes should handle different tasks so they can be changed independently. A class that has too many responsibilities is called a God class, and it is considered an antipattern.</p>
 
 <h4>Issue</h4>
 
@@ -90,7 +90,7 @@ print(calculator.calculate("premium", 100))
 print(calculator.calculate("new", 100))
 ```
 
-<p>Adding a new discount would require modifying the existing class, and modifications can introduce bugs and require retesting.</p>
+<p>Adding a new discount would require modifying the existing class. Modifications can introduce bugs and require retesting.</p>
 
 <h4>Solution</h4>
 
@@ -371,7 +371,7 @@ class PostgreSQLDatabase(Database): # a low-level module: PostgreSQL implementat
     def save_data(self, data):
         print(f"Saving {data} to PostgreSQL database.")
 
-class DataHandler: # a high-level module depending on the abstraction
+class DataHandler: # a high-level module depending on an abstraction
     def __init__(self, db: Database):
         self.db = db
 

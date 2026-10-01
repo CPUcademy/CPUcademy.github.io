@@ -96,7 +96,7 @@ class Pizza {
 
 <h5>Chaining</h5>
 
-<p>Because of chaining, methods can be executed one after another in the same statement, as the class object is returned, and then be used to call the next method.</p>
+<p>Because of method chaining, multiple methods can be executed sequentially in a single statement. This is possible because each method returns the class object, allowing the next method to be called immediately.</p>
 
 ```java
 public class Main {
@@ -231,7 +231,7 @@ class PersonJobBuilder extends PersonBuilder {
 
 <p>Builder facets violate the Open/Closed Principle because every time we create a new sub-builder, we have to add it to the main Builder. Thanks to inheritance, every Builder in the example below is open for extension but closed for modification.</p>
 
-<p>In Java, a method inherited from a parent Builder returns the parent's type, which would break chaining (we couldn't call ```job()``` after ```called()```). This is solved with recursive generics: every Builder is parameterized with the type of the final Builder (```SELF```) and returns it from its methods.</p>
+<p>In Java, a method inherited from a parent Builder returns the parent's type, which would break chaining (we couldn't call ```job()``` after ```called()```). This is solved with recursive generics: every Builder is parameterized with the type of the final Builder (```SELF```) and returns it in its methods.</p>
 
 ```java
 public class Main {
@@ -261,7 +261,7 @@ class PersonBuilder<SELF extends PersonBuilder<SELF>> {
 
     @SuppressWarnings("unchecked")
     protected SELF self() {
-        return (SELF) this; // returning the object as the type of the final Builder
+        return (SELF)this; // returning the object as the type of the final Builder
     }
 
     public Person build() {
@@ -293,9 +293,9 @@ class PersonSalaryBuilder extends PersonJobBuilder<PersonSalaryBuilder> {
 
 <h2><a id="factories">Factories</a></h2>
 
-<h3>Factory Method</h3>
+<h3>Static Factory Method</h3>
 
-<p>A Factory Method is an alternate constructor. It provides an additional way to create class instances, often with a more descriptive name or specialized logic, while keeping the main constructor simple. Factory Method allows subclasses to define the type of object to be created, enabling customization of object creation without modifying the core logic. For example, instead of the user's age, we can take his date of birth and then calculate the age. In Java, they are created as ```static``` methods, and the constructor is often made ```private``` to force their use. A class can have multiple alternate constructors.</p>
+<p>A static factory method is an alternate constructor: a ```static``` method that returns an instance of its class. It provides an additional way to create objects, often with a more descriptive name or specialized logic (e.g., validation or conversion), while keeping the main constructor simple. For example, instead of the user's age, we can take his date of birth and then calculate the age. The constructor is often made ```private``` to force their use. A class can have multiple static factory methods. Despite the similar name, this is not the Factory Method design pattern (described below).</p>
 
 ```java
 import java.time.LocalDate;
@@ -334,7 +334,7 @@ class Person {
 }
 ```
 
-<p>The example above doesn't adhere to the SRP. We should separate the Factory Methods into a different class and use them from there.</p>
+<p>Static factory methods can live on the class they create, which is the common choice when the creation logic is closely related to the class (e.g., ```List.of()``` or ```LocalDate.of()```). If the creation logic becomes complex or needs its own dependencies, it can be moved into a separate Factory class.</p>
 
 ```java
 import java.time.LocalDate;
@@ -375,20 +375,15 @@ class Person {
 }
 ```
 
-<h3>Abstract Factory</h3>
+<h3>Factory Method</h3>
 
-<p>An Abstract Factory defines how Factories should be implemented (like an interface defines how classes should be implemented). Hierarchies of Factories can be used to create related objects.</p>
+<p>The Factory Method pattern defines a method for creating an object in a base class but lets subclasses decide which class to instantiate. The base class contains logic that works with the product only through its interface, without knowing its concrete type.</p>
 
 ```java
 public class Main {
     public static void main(String[] args) {
-        vehicleClient(new CarFactory());
-        vehicleClient(new BikeFactory());
-    }
-
-    static void vehicleClient(VehicleFactory factory) {
-        Vehicle vehicle = factory.createVehicle();
-        System.out.println(vehicle.drive());
+        System.out.println(new CarRental().rent());
+        System.out.println(new BikeRental().rent());
     }
 }
 
@@ -410,21 +405,110 @@ class Bike implements Vehicle {
     }
 }
 
-interface VehicleFactory { // an Abstract Factory
-    Vehicle createVehicle();
+abstract class Rental {
+    abstract Vehicle createVehicle(); // the Factory Method
+
+    String rent() {
+        Vehicle vehicle = createVehicle();
+        return "Your rental is ready. " + vehicle.drive();
+    }
 }
 
-class CarFactory implements VehicleFactory { // a concrete Factory
+class CarRental extends Rental {
     @Override
-    public Vehicle createVehicle() {
+    Vehicle createVehicle() {
         return new Car();
     }
 }
 
-class BikeFactory implements VehicleFactory {
+class BikeRental extends Rental {
     @Override
-    public Vehicle createVehicle() {
+    Vehicle createVehicle() {
         return new Bike();
+    }
+}
+```
+
+<h3>Abstract Factory</h3>
+
+<p>An Abstract Factory is an interface for creating families of related objects without specifying their concrete classes. Each concrete Factory produces a set of products designed to work together, so the client can't accidentally mix, e.g., a Windows button with a Mac checkbox.</p>
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        renderForm(new WindowsFactory());
+        renderForm(new MacFactory());
+    }
+
+    static void renderForm(GUIFactory factory) {
+        Button button = factory.createButton();
+        Checkbox checkbox = factory.createCheckbox();
+        System.out.println(button.render() + " and " + checkbox.render());
+    }
+}
+
+interface Button {
+    String render();
+}
+
+interface Checkbox {
+    String render();
+}
+
+class WindowsButton implements Button {
+    @Override
+    public String render() {
+        return "Windows button";
+    }
+}
+
+class WindowsCheckbox implements Checkbox {
+    @Override
+    public String render() {
+        return "Windows checkbox";
+    }
+}
+
+class MacButton implements Button {
+    @Override
+    public String render() {
+        return "Mac button";
+    }
+}
+
+class MacCheckbox implements Checkbox {
+    @Override
+    public String render() {
+        return "Mac checkbox";
+    }
+}
+
+interface GUIFactory { // an Abstract Factory
+    Button createButton();
+    Checkbox createCheckbox();
+}
+
+class WindowsFactory implements GUIFactory { // a concrete Factory
+    @Override
+    public Button createButton() {
+        return new WindowsButton();
+    }
+
+    @Override
+    public Checkbox createCheckbox() {
+        return new WindowsCheckbox();
+    }
+}
+
+class MacFactory implements GUIFactory {
+    @Override
+    public Button createButton() {
+        return new MacButton();
+    }
+
+    @Override
+    public Checkbox createCheckbox() {
+        return new MacCheckbox();
     }
 }
 ```

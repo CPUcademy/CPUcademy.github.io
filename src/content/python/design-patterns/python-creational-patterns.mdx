@@ -70,7 +70,7 @@ print(veggie_pizza)
 
 <h5>Chaining</h5>
 
-<p>Because of chaining, methods can be executed one after another in the same statement, as the class object is returned, and then be used to call the next method or modify attributes directly.</p>
+<p>Because of method chaining, multiple methods can be executed sequentially in a single statement. This is possible because each method returns the class object, allowing the next method to be called immediately.</p>
 
 ```python
 class Box:
@@ -213,9 +213,9 @@ print(person)
 
 <h2><a id="factories">Factories</a></h2>
 
-<h3>Factory Method</h3>
+<h3>Static Factory Method</h3>
 
-<p>A Factory Method is an alternate constructor. It provides an additional way to create class instances, often with a more descriptive name or specialized logic, while keeping the main ```__init__()``` constructor simple. Factory Method allows subclasses to define the type of object to be created, enabling customization of object creation without modifying the core logic. For example, instead of the user's age, we can take his date of birth and then calculate the age. They can be created using the ```@classmethod``` (like shown <a href="python-decorators.html#class-methods" className="link">here</a>) or ```@staticmethod``` decorator. A class can have multiple alternate constructors.</p>
+<p>A static factory method is an alternate constructor: a method that returns an instance of its class. It provides an additional way to create objects, often with a more descriptive name or specialized logic (e.g., validation or conversion), while keeping the main ```__init__()``` constructor simple. For example, instead of the user's age, we can take his date of birth and then calculate the age. They can be created using the ```@classmethod``` (like shown <a href="python-decorators.html#class-methods" className="link">here</a>) or ```@staticmethod``` decorator. A class can have multiple alternate constructors. Despite the similar name, this is not the Factory Method design pattern (described below).</p>
 
 ```python
 class Person:
@@ -241,7 +241,7 @@ print(person1)
 print(person2)
 ```
 
-<p>The example above doesn't adhere to the SRP. We should separate the Factory Methods into a different class and use them from there.</p>
+<p>Static factory methods can live on the class they create, which is the common choice when the creation logic is closely related to the class (e.g., ```dict.fromkeys()``` or ```datetime.fromtimestamp()```). If the creation logic becomes complex or needs its own dependencies, it can be moved into a separate Factory class.</p>
 
 ```python
 class PersonFactory:
@@ -270,9 +270,9 @@ print(person1)
 print(person2)
 ```
 
-<h3>Abstract Factory</h3>
+<h3>Factory Method</h3>
 
-<p>An Abstract Factory defines how Factories should be implemented (like an abstract class defines how classes should be implemented). Hierarchies of Factories can be used to create related objects.</p>
+<p>The Factory Method pattern defines a method for creating an object in a base class but lets subclasses decide which class to instantiate. The base class contains logic that works with the product only through its interface, without knowing its concrete type.</p>
 
 ```python
 from abc import ABC, abstractmethod
@@ -290,25 +290,90 @@ class Bike(Vehicle):
     def drive(self):
         return "Riding a bike"
 
-class VehicleFactory(ABC): # an Abstract Factory
+class Rental(ABC):
     @abstractmethod
-    def create_vehicle(self):
+    def create_vehicle(self): # the Factory Method
         pass
 
-class CarFactory(VehicleFactory): # a concrete Factory
+    def rent(self):
+        vehicle = self.create_vehicle()
+        return f"Your rental is ready. {vehicle.drive()}"
+
+class CarRental(Rental):
     def create_vehicle(self):
         return Car()
 
-class BikeFactory(VehicleFactory):
+class BikeRental(Rental):
     def create_vehicle(self):
         return Bike()
 
-def vehicle_client(factory: VehicleFactory):
-    vehicle = factory.create_vehicle()
-    print(vehicle.drive())
+print(CarRental().rent())
+print(BikeRental().rent())
+```
 
-vehicle_client(CarFactory())
-vehicle_client(BikeFactory())
+<h3>Abstract Factory</h3>
+
+<p>An Abstract Factory is an interface for creating families of related objects without specifying their concrete classes. Each concrete Factory produces a set of products designed to work together, so the client can't accidentally mix, e.g., a Windows button with a Mac checkbox.</p>
+
+```python
+from abc import ABC, abstractmethod
+
+class Button(ABC):
+    @abstractmethod
+    def render(self):
+        pass
+
+class Checkbox(ABC):
+    @abstractmethod
+    def render(self):
+        pass
+
+class WindowsButton(Button):
+    def render(self):
+        return "Windows button"
+
+class WindowsCheckbox(Checkbox):
+    def render(self):
+        return "Windows checkbox"
+
+class MacButton(Button):
+    def render(self):
+        return "Mac button"
+
+class MacCheckbox(Checkbox):
+    def render(self):
+        return "Mac checkbox"
+
+class GUIFactory(ABC): # an Abstract Factory
+    @abstractmethod
+    def create_button(self):
+        pass
+
+    @abstractmethod
+    def create_checkbox(self):
+        pass
+
+class WindowsFactory(GUIFactory): # a concrete Factory
+    def create_button(self):
+        return WindowsButton()
+
+    def create_checkbox(self):
+        return WindowsCheckbox()
+
+class MacFactory(GUIFactory):
+    def create_button(self):
+        return MacButton()
+
+    def create_checkbox(self):
+        return MacCheckbox()
+
+def render_form(factory: GUIFactory):
+    button = factory.create_button()
+    checkbox = factory.create_checkbox()
+    print(f"{button.render()} and {checkbox.render()}")
+
+render_form(WindowsFactory())
+render_form(MacFactory())
 ```
 
 <h2><a id="prototype">Prototype</a></h2>

@@ -44,6 +44,19 @@ order: 7
 
 <p>Each method should be responsible for its own actions. A “master” object should not control or manage all methods. Instead, each method should handle obtaining the information it needs and implementing any changes itself. The control program can communicate with different categories of methods, but it does not need to know how they are implemented. Methods manage themselves, while the control program only coordinates them. Code should be organized into self-contained, independent units, each handling a specific task.</p>
 
+```java
+// Multiple variable assignments can help clean up the code
+int tasksCompleted, emailsSent, messagesRead;
+tasksCompleted = emailsSent = messagesRead = 0;
+emailsSent += 5;
+messagesRead += 12;
+tasksCompleted += emailsSent + messagesRead;
+
+System.out.println("Tasks completed: " + tasksCompleted);
+System.out.println("Emails sent: " + emailsSent);
+System.out.println("Messages read: " + messagesRead);
+```
+
 <h2><a id="naming">Naming</a></h2>
 
 <p className="noBottomMargin">Names take up most of the text in a codebase, so they decide how readable it is:</p>
