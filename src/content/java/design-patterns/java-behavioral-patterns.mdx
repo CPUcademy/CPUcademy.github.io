@@ -404,7 +404,8 @@ public class Main {
 
         System.out.println("Source account after second transfer attempt: " + sourceAccount);
         System.out.println("Target account after second transfer attempt: " + targetAccount);
-        history.undoOperation();
+        history.undoOperation(); // the failed transfer has nothing to undo
+        history.undoOperation(); // undoing the first transfer
 
         System.out.println("Source account after undo: " + sourceAccount);
         System.out.println("Target account after undo: " + targetAccount);
@@ -497,7 +498,7 @@ class TransactionHistory { // an invoker class (the object that calls the comman
 
 <p>Interpreter is used for designing a system that needs to process and evaluate language expressions. It provides a way to define the grammar of a language and interpret statements in that language. It is commonly used in mathematical expression evaluators, rule-based engines, and parsers. It turns text data into separate lexical tokens (lexing) and interprets sequences of these tokens (parsing).</p>
 
-<p>The example below implements a simple interpreter for arithmetic expressions that includes addition and subtraction. It tokenizes an expression like "10 + 5 - 3", parses it into an abstract syntax tree (AST), and evaluates the result.</p>
+<p>The example below implements a simple interpreter for arithmetic expressions that includes addition and subtraction. It tokenizes an expression like "10 + 5 - 3", parses it into an abstract syntax tree (AST), and evaluates the result. Each grammar rule (a number or a binary operation) is represented by a class implementing the ```Expression``` interface, and evaluating the tree means calling ```evaluate()``` on its root, which recursively evaluates its children.</p>
 
 ```java
 import java.util.ArrayList;
@@ -511,8 +512,9 @@ public class Main {
         System.out.println(tokens);
 
         Parser parser = new Parser(tokens);
-        int number = parser.parseExpression();
-        System.out.println(number);
+        Expression ast = parser.parse();
+        System.out.println(ast);
+        System.out.println(ast.evaluate());
     }
 }
 
@@ -563,85 +565,100 @@ class Lexer {
     }
 }
 
+// AST nodes
+interface Expression {
+    int evaluate();
+}
+
+record Num(int value) implements Expression {
+    @Override
+    public int evaluate() {
+        return value;
+    }
+}
+
+record BinaryOperation(Expression left, TokenType operator, Expression right) implements Expression {
+    @Override
+    public int evaluate() {
+        if (operator == TokenType.PLUS)
+            return left.evaluate() + right.evaluate();
+        return left.evaluate() - right.evaluate();
+    }
+}
+
 // Parsing
 class Parser {
     private final List<Token> tokens;
     private int position = 0;
-    private Token currentToken;
 
     Parser(List<Token> tokens) {
         this.tokens = tokens;
-        currentToken = tokens.isEmpty() ? null : tokens.get(0); // fetching the first token
     }
 
-    private void eat(TokenType tokenType) {
-        if (currentToken != null && currentToken.tokenType() == tokenType) {
-            position++;
-            currentToken = position < tokens.size() ? tokens.get(position) : null; // moving to the next token
-        }
+    private Expression parseNumber() {
+        if (position >= tokens.size() || tokens.get(position).tokenType() != TokenType.NUMBER)
+            throw new IllegalArgumentException("Expected a number");
+        return new Num(tokens.get(position++).value());
     }
 
-    public int parseExpression() {
-        int result = currentToken.value(); // starting with the first number
-        eat(TokenType.NUMBER);
-
-        while (currentToken != null) {
-            if (currentToken.tokenType() == TokenType.PLUS) {
-                eat(TokenType.PLUS);
-                result += currentToken.value(); // adding the next number to result
-                eat(TokenType.NUMBER);
-            } else if (currentToken.tokenType() == TokenType.MINUS) {
-                eat(TokenType.MINUS);
-                result -= currentToken.value(); // subtracting the next number from result
-                eat(TokenType.NUMBER);
-            }
+    public Expression parse() {
+        Expression result = parseNumber(); // starting with the first number
+        while (position < tokens.size()) {
+            Token operator = tokens.get(position++);
+            if (operator.tokenType() == TokenType.NUMBER)
+                throw new IllegalArgumentException("Expected an operator");
+            result = new BinaryOperation(result, operator.tokenType(), parseNumber()); // building the tree from left to right: ((10 + 5) - 3)
         }
-
-        return result; // directly returning the result
+        return result; // returning the root of the AST
     }
 }
 ```
 
 <h2><a id="iterator">Iterator</a></h2>
 
-<p>Iterator provides a way to access elements of a collection sequentially without exposing its underlying structure. Instead of manually managing iteration, the pattern encapsulates it within an iterator object that keeps track of the current position and provides a standard way to retrieve the next element. In Java, every class that implements the ```Iterable``` interface (returns an ```Iterator``` object from its ```iterator()``` method) can be used in a for-each loop. The example below shows how to use a list-backed field with a getter and a setter while implementing the Iterator pattern to allow iteration over stored data.</p>
+<p>Iterator provides a way to access elements of a collection sequentially without exposing its underlying structure. Instead of manually managing iteration, the pattern encapsulates it within an iterator object that keeps track of the current position and provides a standard way to retrieve the next element. In Java, every class that implements the ```Iterable``` interface (returns an ```Iterator``` object from its ```iterator()``` method) can be used in a for-each loop. The example below implements a custom Iterator over an array, which the client never accesses directly.</p>
 
 ```java
 import java.util.Iterator;
-import java.util.List;
+import java.util.NoSuchElementException;
 
 public class Main {
     public static void main(String[] args) {
-        Inventory inventory = new Inventory(List.of("Sword", "Shield", "Potion"));
-        for (String item : inventory)
-            System.out.println(item);
+        Inventory inventory = new Inventory("Sword", "Shield", "Potion");
 
-        inventory.setItemList(List.of("Bow", "Arrow", "Helmet")); // using the setter
-        for (String item : inventory)
+        Iterator<String> iterator = inventory.iterator(); // using the Iterator manually
+        while (iterator.hasNext())
+            System.out.println(iterator.next());
+
+        for (String item : inventory) // the for-each loop calls iterator(), hasNext(), and next() under the hood
             System.out.println(item);
     }
 }
 
 class Inventory implements Iterable<String> {
-    private List<String> itemList;
+    private final String[] items;
 
-    Inventory(List<String> itemList) {
-        setItemList(itemList);
-    }
-
-    public List<String> getItemList() {
-        return itemList;
-    }
-
-    public void setItemList(List<String> newItems) {
-        if (newItems == null)
-            throw new IllegalArgumentException("Items can't be null.");
-        itemList = newItems;
+    Inventory(String... items) {
+        this.items = items;
     }
 
     @Override
     public Iterator<String> iterator() {
-        return itemList.iterator(); // returning an iterator for the list
+        return new Iterator<>() { // an Iterator that keeps track of the current position
+            private int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return index < items.length;
+            }
+
+            @Override
+            public String next() {
+                if (!hasNext())
+                    throw new NoSuchElementException();
+                return items[index++];
+            }
+        };
     }
 }
 ```
@@ -747,6 +764,7 @@ class TextEditor {
 
     public void writeText(String addition) {
         content += addition;
+        history.subList(currentState + 1, history.size()).clear(); // discarding the states that could be redone
         history.add(new Memento(content));
         currentState++;
     }
@@ -840,65 +858,58 @@ class TrafficLight { // a context class (the object that maintains the current s
 <p>Strategy defines a family of algorithms, encapsulates each one in a separate class, and allows them to be interchangeable without modifying the client code. This enables selecting an algorithm dynamically at runtime, promoting flexibility and maintainability.</p>
 
 ```java
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
-        List<Integer> numbers = List.of(5, 2, 9, 1, 5, 6);
+        Navigator navigator = new Navigator(new CarRoute());
+        System.out.println(navigator.estimate(30));
 
-        Sorter sorter = new Sorter(new QuickSort());
-        System.out.println(sorter.sortList(numbers));
+        navigator.setStrategy(new BikeRoute());
+        System.out.println(navigator.estimate(30));
 
-        sorter.setStrategy(new MergeSort());
-        System.out.println(sorter.sortList(numbers));
-
-        sorter.setStrategy(new BubbleSort());
-        System.out.println(sorter.sortList(numbers));
+        navigator.setStrategy(new WalkingRoute());
+        System.out.println(navigator.estimate(30));
     }
 }
 
-interface SortStrategy { // a Strategy interface
-    List<Integer> sortItems(List<Integer> data);
+interface RouteStrategy { // a Strategy interface
+    int travelTime(int distanceKm); // in minutes
 }
 
 // Concrete Strategy classes
-class QuickSort implements SortStrategy {
+class CarRoute implements RouteStrategy {
     @Override
-    public List<Integer> sortItems(List<Integer> data) {
-        System.out.println("Sorting using QuickSort");
-        return data.stream().sorted().toList(); // a placeholder for actual implementation
+    public int travelTime(int distanceKm) {
+        return distanceKm * 60 / 50; // 50 km/h
     }
 }
 
-class MergeSort implements SortStrategy {
+class BikeRoute implements RouteStrategy {
     @Override
-    public List<Integer> sortItems(List<Integer> data) {
-        System.out.println("Sorting using MergeSort");
-        return data.stream().sorted().toList(); // a placeholder for actual implementation
+    public int travelTime(int distanceKm) {
+        return distanceKm * 60 / 15; // 15 km/h
     }
 }
 
-class BubbleSort implements SortStrategy {
+class WalkingRoute implements RouteStrategy {
     @Override
-    public List<Integer> sortItems(List<Integer> data) {
-        System.out.println("Sorting using BubbleSort");
-        return data.stream().sorted().toList(); // a placeholder for actual implementation
+    public int travelTime(int distanceKm) {
+        return distanceKm * 60 / 5; // 5 km/h
     }
 }
 
-class Sorter { // a context class
-    private SortStrategy strategy;
+class Navigator { // a context class
+    private RouteStrategy strategy;
 
-    Sorter(SortStrategy strategy) {
+    Navigator(RouteStrategy strategy) {
         this.strategy = strategy;
     }
 
-    public void setStrategy(SortStrategy strategy) {
+    public void setStrategy(RouteStrategy strategy) {
         this.strategy = strategy; // changing Strategies dynamically
     }
 
-    public List<Integer> sortList(List<Integer> data) {
-        return strategy.sortItems(data);
+    public String estimate(int distanceKm) {
+        return distanceKm + " km takes " + strategy.travelTime(distanceKm) + " minutes";
     }
 }
 ```
@@ -963,13 +974,15 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<DocumentElement> elements = List.of(new TextElement(), new ImageElement());
-        Visitor renderer = new Renderer();
-        Visitor wordCounter = new WordCounter();
+        List<DocumentElement> elements = List.of(new TextElement("Design patterns are useful"), new ImageElement("diagram.png"), new TextElement("Hello world"));
+
+        Renderer renderer = new Renderer();
+        WordCounter wordCounter = new WordCounter();
         for (DocumentElement element : elements) {
             element.acceptData(renderer);
             element.acceptData(wordCounter);
         }
+        System.out.println("Total words: " + wordCounter.getTotal());
     }
 }
 
@@ -978,14 +991,14 @@ interface DocumentElement { // an element interface
 }
 
 // Concrete elements
-class TextElement implements DocumentElement {
+record TextElement(String text) implements DocumentElement {
     @Override
     public void acceptData(Visitor visitor) {
         visitor.visitText(this);
     }
 }
 
-class ImageElement implements DocumentElement {
+record ImageElement(String fileName) implements DocumentElement {
     @Override
     public void acceptData(Visitor visitor) {
         visitor.visitImage(this);
@@ -1001,24 +1014,28 @@ interface Visitor { // a Visitor interface
 class Renderer implements Visitor {
     @Override
     public void visitText(TextElement element) {
-        System.out.println("Rendering text");
+        System.out.println("Rendering text: " + element.text());
     }
 
     @Override
     public void visitImage(ImageElement element) {
-        System.out.println("Rendering image");
+        System.out.println("Rendering image: " + element.fileName());
     }
 }
 
 class WordCounter implements Visitor {
+    private int total = 0;
+
     @Override
     public void visitText(TextElement element) {
-        System.out.println("Counting words in text");
+        total += element.text().split(" ").length;
     }
 
     @Override
-    public void visitImage(ImageElement element) {
-        System.out.println("Skipping word count for image");
+    public void visitImage(ImageElement element) {} // images have no words
+
+    public int getTotal() {
+        return total;
     }
 }
 ```

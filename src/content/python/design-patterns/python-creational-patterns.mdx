@@ -60,11 +60,10 @@ class PizzaBuilder:
     def build(self):
         return self.pizza
 
-builder = PizzaBuilder()
-custom_pizza = builder.set_size("Large").add_cheese("Cheddar").add_pepperoni().add_topping("Olives").build()
+custom_pizza = PizzaBuilder().set_size("Large").add_cheese("Cheddar").add_pepperoni().add_topping("Olives").build()
 print(custom_pizza)
 
-veggie_pizza = builder.set_size("Medium").add_cheese("Mozzarella").add_mushrooms().add_topping("Bell Peppers").add_topping("Onions").build()
+veggie_pizza = PizzaBuilder().set_size("Medium").add_cheese("Mozzarella").add_mushrooms().add_topping("Bell Peppers").add_topping("Onions").build()
 print(veggie_pizza)
 ```
 
@@ -182,7 +181,7 @@ class Person:
 
     @staticmethod
     def new():
-        return PersonBuilder()
+        return PersonSalaryBuilder()
 
 class PersonBuilder:
     def __init__(self):
@@ -206,8 +205,7 @@ class PersonSalaryBuilder(PersonJobBuilder):
         self.person.salary = salary
         return self
 
-builder = PersonSalaryBuilder()
-person = builder.called("Josh").job("Engineer").earns("100000").build()
+person = Person.new().called("Josh").job("Engineer").earns(100000).build()
 print(person)
 ```
 
@@ -215,7 +213,7 @@ print(person)
 
 <h3>Static Factory Method</h3>
 
-<p>A static factory method is an alternate constructor: a method that returns an instance of its class. It provides an additional way to create objects, often with a more descriptive name or specialized logic (e.g., validation or conversion), while keeping the main ```__init__()``` constructor simple. For example, instead of the user's age, we can take his date of birth and then calculate the age. They can be created using the ```@classmethod``` (like shown <a href="/tutorials/python/python-decorators#class-methods" className="link">here</a>) or ```@staticmethod``` decorator. A class can have multiple alternate constructors. Despite the similar name, this is not the Factory Method design pattern (described below).</p>
+<p>A static factory method is an alternate constructor: a method that returns an instance of its class. It provides an additional way to create objects, often with a more descriptive name or specialized logic (e.g., validation or conversion), while keeping the main ```__init__()``` constructor simple. For example, instead of the user's age, we can take his date of birth and then calculate the age. They can be created using the ```@classmethod``` (like shown <a href="/tutorials/python/python-decorators#class-methods" className="link">here</a>) or ```@staticmethod``` decorator. A class can have multiple static factory methods. Despite the similar name, this is not the Factory Method design pattern (described below).</p>
 
 ```python
 class Person:
@@ -241,7 +239,7 @@ print(person1)
 print(person2)
 ```
 
-<p>Static factory methods can live on the class they create, which is the common choice when the creation logic is closely related to the class (e.g., ```dict.fromkeys()``` or ```datetime.fromtimestamp()```). If the creation logic becomes complex or needs its own dependencies, it can be moved into a separate Factory class.</p>
+<p>Static factory methods can live in the class they create, which is the common choice when the creation logic is closely related to the class (e.g., ```dict.fromkeys()``` or ```datetime.fromtimestamp()```). If the creation logic becomes complex or needs its own dependencies, it can be moved into a separate Factory class.</p>
 
 ```python
 class PersonFactory:
@@ -272,7 +270,7 @@ print(person2)
 
 <h3>Factory Method</h3>
 
-<p>The Factory Method pattern defines a method for creating an object in a base class but lets subclasses decide which class to instantiate. The base class contains logic that works with the product only through its interface, without knowing its concrete type.</p>
+<p>The Factory Method pattern defines a method in a base class for creating objects, while allowing subclasses to determine which concrete class to instantiate. The base class works with the created object through its interface, so it does not need to know its specific implementation.</p>
 
 ```python
 from abc import ABC, abstractmethod
@@ -378,76 +376,93 @@ render_form(MacFactory())
 
 <h2><a id="prototype">Prototype</a></h2>
 
-<p>Prototype allows object cloning instead of creating new instances from scratch, improving efficiency and flexibility. Sometimes it is more efficient to clone an object and modify it, instead of initializing a new one. A Prototype is a partially or fully initialized object that we can copy (clone) and modify.</p>
+<p>Prototype allows object cloning instead of creating new instances from scratch, improving efficiency and flexibility. Sometimes it is more efficient to clone an object and modify it, instead of initializing a new one. A Prototype is a partially or fully initialized object that we can copy (clone) and modify. A Prototype often contains other objects, so the copy must be deep (```copy.deepcopy()``` copies the nested objects too). Otherwise, the clone would share them with the original, and modifying one would modify the other.</p>
 
 ```python
 import copy
 
-class Car:
-    def __init__(self, model, colour, engine):
-        self.model = model
-        self.colour = colour
-        self.engine = engine
-
-    def clone(self):
-        return copy.deepcopy(self) # creating a deep copy of the class object
+class Address:
+    def __init__(self, street, city, suite):
+        self.street = street
+        self.city = city
+        self.suite = suite
 
     def __str__(self):
-        return f"{self.colour} {self.model} with {self.engine} engine"
+        return f"{self.street}, Suite {self.suite}, {self.city}"
 
-car1 = Car("Tesla Model S", "Red", "Electric") # creating an original object
+class Employee:
+    def __init__(self, name, address):
+        self.name = name
+        self.address = address
 
-car2 = car1.clone() # cloning the object
-car2.colour = "Blue" # modifying the cloned object
+    def clone(self):
+        return copy.deepcopy(self) # creating a deep copy (the Address is copied instead of shared)
 
-print(car1)
-print(car2)
+    def __str__(self):
+        return f"{self.name} works at {self.address}"
+
+john = Employee("John", Address("123 East Dr", "London", 100)) # creating an original object
+
+jane = john.clone() # cloning the object
+jane.name = "Jane" # modifying the cloned object
+jane.address.suite = 200
+
+print(john) # John's suite hasn't changed because the Address was copied too
+print(jane)
 ```
 
 <h4>Prototype Factory</h4>
 
-<p>Factories can provide a convenient API for using Prototypes.</p>
+<p>Factories can provide a convenient API for using Prototypes. The Factory stores preconfigured Prototypes (e.g., employees of different offices) and clones them, so the client only provides the details that differ.</p>
 
 ```python
 import copy
 
-class Car:
-    def __init__(self, model, colour, engine):
-        self.model = model
-        self.colour = colour
-        self.engine = engine
-
-    def clone(self):
-        return copy.deepcopy(self) # creating a deep copy of the class object
+class Address:
+    def __init__(self, street, city, suite):
+        self.street = street
+        self.city = city
+        self.suite = suite
 
     def __str__(self):
-        return f"{self.colour} {self.model} with {self.engine} engine"
+        return f"{self.street}, Suite {self.suite}, {self.city}"
 
-class CarFactory:
-    prototypes = {}
+class Employee:
+    def __init__(self, name, address):
+        self.name = name
+        self.address = address
 
-    @classmethod
-    def register_prototype(cls, key, engine):
-        cls.prototypes[key] = Car("", "", engine)
+    def clone(self):
+        return copy.deepcopy(self)
 
-    @classmethod
-    def new_car(cls, key, model, colour):
-        prototype = cls.prototypes.get(key)
-        if prototype:
-            car = prototype.clone()
-            car.model = model
-            car.colour = colour
-            return car
-        raise ValueError("Prototype not found!")
+    def __str__(self):
+        return f"{self.name} works at {self.address}"
 
-CarFactory.register_prototype("electric", "Electric")
-CarFactory.register_prototype("combustion", "V8")
+class EmployeeFactory:
+    # Preconfigured Prototypes
+    main_office_employee = Employee("", Address("123 East Dr", "London", 0))
+    aux_office_employee = Employee("", Address("123B East Dr", "London", 0))
 
-car1 = CarFactory.new_car("electric", "Tesla Model S", "Blue")
-car2 = CarFactory.new_car("combustion", "Ford Mustang", "White")
+    @staticmethod
+    def _new_employee(prototype, name, suite):
+        employee = prototype.clone() # cloning the Prototype
+        employee.name = name # customizing the clone
+        employee.address.suite = suite
+        return employee
 
-print(car1)
-print(car2)
+    @staticmethod
+    def new_main_office_employee(name, suite):
+        return EmployeeFactory._new_employee(EmployeeFactory.main_office_employee, name, suite)
+
+    @staticmethod
+    def new_aux_office_employee(name, suite):
+        return EmployeeFactory._new_employee(EmployeeFactory.aux_office_employee, name, suite)
+
+john = EmployeeFactory.new_main_office_employee("John", 101)
+jane = EmployeeFactory.new_aux_office_employee("Jane", 500)
+
+print(john)
+print(jane)
 ```
 
 <h2><a id="singleton">Singleton</a></h2>
@@ -519,7 +534,7 @@ print(s1 is s2)
 
 <h2><a id="monostate">Monostate (Singleton variation)</a></h2>
 
-<p>Monostate allows multiple instances of a class to share the same state by making all instances point to a common dictionary (```__dict__()```). Unlike the Singleton pattern (which ensures only one instance exists), Monostate allows multiple instances but guarantees they behave as if they are the same object in terms of state.</p>
+<p>Monostate allows multiple instances of a class to share the same state by making all instances point to a common dictionary (```__dict__```). Unlike the Singleton pattern (which ensures only one instance exists), Monostate allows multiple instances but guarantees they behave as if they are the same object in terms of state.</p>
 
 ```python
 class Monostate:

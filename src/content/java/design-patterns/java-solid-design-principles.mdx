@@ -174,7 +174,7 @@ class DiscountCalculator {
 
 <h2><a id="liskov-substitution-principle">Liskov Substitution Principle (LSP)</a></h2>
 
-<p>Objects of a superclass should be replaceable with objects of its subclass without affecting the correctness of the program. We should always be able to substitute a base type for a subtype.</p>
+<p>Objects of a superclass should be replaceable with objects of its subclass without affecting the correctness of the program. We should always be able to substitute a subtype for its base type.</p>
 
 <h4>Issue</h4>
 
@@ -232,52 +232,31 @@ class Square extends Rectangle {
 
 <h4>Solution</h4>
 
+<p>A square isn't a rectangle whose sides can change independently, so ```Square``` shouldn't inherit from ```Rectangle```. Both should implement a common abstraction that only promises what every shape can keep: calculating its area. Code that depends on ```Shape``` works correctly with any implementation.</p>
+
 ```java
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        Rectangle rectangle = new Rectangle(2, 3);
-        calculate(rectangle);
-
-        Rectangle square = new Rectangle(5, 5, true);
-        calculate(square);
-    }
-
-    static void calculate(Rectangle obj) {
-        obj.setHeight(10);
-        System.out.println("Area: " + obj.getArea()); // the output is the same as in the previous example, but the code works predictably
+        List<Shape> shapes = List.of(new Rectangle(2, 10), new Square(5));
+        for (Shape shape : shapes)
+            System.out.println("Area: " + shape.getArea()); // every Shape fulfills the same contract
     }
 }
 
-class Rectangle {
-    private int width;
-    private int height;
-    private final boolean isSquare;
+interface Shape {
+    int getArea();
+}
 
-    Rectangle(int width, int height) {
-        this(width, height, false);
-    }
-
-    Rectangle(int width, int height, boolean isSquare) {
-        this.width = width;
-        this.height = height;
-        this.isSquare = isSquare;
-    }
-
+record Rectangle(int width, int height) implements Shape {
+    @Override
     public int getArea() { return width * height; }
-    public int getWidth() { return width; }
-    public int getHeight() { return height; }
+}
 
-    public void setWidth(int width) {
-        if (isSquare)
-            this.height = width; // if it's a square, adjust height as well
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        if (isSquare)
-            this.width = height; // if it's a square, adjust width as well
-        this.height = height;
-    }
+record Square(int side) implements Shape {
+    @Override
+    public int getArea() { return side * side; }
 }
 ```
 

@@ -334,7 +334,7 @@ class Person {
 }
 ```
 
-<p>Static factory methods can live on the class they create, which is the common choice when the creation logic is closely related to the class (e.g., ```List.of()``` or ```LocalDate.of()```). If the creation logic becomes complex or needs its own dependencies, it can be moved into a separate Factory class.</p>
+<p>Static factory methods can live in the class they create, which is the common choice when the creation logic is closely related to the class (e.g., ```List.of()``` or ```LocalDate.of()```). If the creation logic becomes complex or needs its own dependencies, it can be moved into a separate Factory class.</p>
 
 ```java
 import java.time.LocalDate;
@@ -377,7 +377,7 @@ class Person {
 
 <h3>Factory Method</h3>
 
-<p>The Factory Method pattern defines a method for creating an object in a base class but lets subclasses decide which class to instantiate. The base class contains logic that works with the product only through its interface, without knowing its concrete type.</p>
+<p>The Factory Method pattern defines a method in a base class for creating objects, while allowing subclasses to determine which concrete class to instantiate. The base class works with the created object through its interface, so it does not need to know its specific implementation.</p>
 
 ```java
 public class Main {
@@ -515,106 +515,146 @@ class MacFactory implements GUIFactory {
 
 <h2><a id="prototype">Prototype</a></h2>
 
-<p>Prototype allows object cloning instead of creating new instances from scratch, improving efficiency and flexibility. Sometimes it is more efficient to clone an object and modify it, instead of initializing a new one. A Prototype is a partially or fully initialized object that we can copy (clone) and modify. In Java, the recommended way of copying objects is a copy constructor (a constructor that takes an object of the same class) rather than the ```Cloneable``` interface and the ```clone()``` method.</p>
+<p>Prototype allows object cloning instead of creating new instances from scratch, improving efficiency and flexibility. Sometimes it is more efficient to clone an object and modify it, instead of initializing a new one. A Prototype is a partially or fully initialized object that we can copy (clone) and modify. In Java, the recommended way of copying objects is a copy constructor (a constructor that takes an object of the same class). A Prototype often contains other objects, so the copy must be deep (the nested objects are copied too). Otherwise, the clone would share them with the original, and modifying one would modify the other.</p>
 
 ```java
 public class Main {
     public static void main(String[] args) {
-        Car car1 = new Car("Tesla Model S", "Red", "Electric"); // creating an original object
+        Employee john = new Employee("John", new Address("123 East Dr", "London", 100)); // creating an original object
 
-        Car car2 = new Car(car1); // cloning the object
-        car2.setColour("Blue"); // modifying the cloned object
+        Employee jane = new Employee(john); // cloning the object
+        jane.setName("Jane"); // modifying the cloned object
+        jane.setSuite(200);
 
-        System.out.println(car1);
-        System.out.println(car2);
+        System.out.println(john); // John's suite hasn't changed because the Address was copied too
+        System.out.println(jane);
     }
 }
 
-class Car {
-    private String model;
-    private String colour;
-    private String engine;
+class Address {
+    private final String street;
+    private final String city;
+    private int suite;
 
-    Car(String model, String colour, String engine) {
-        this.model = model;
-        this.colour = colour;
-        this.engine = engine;
+    Address(String street, String city, int suite) {
+        this.street = street;
+        this.city = city;
+        this.suite = suite;
     }
 
-    Car(Car other) { // a copy constructor (all fields are immutable strings, so this is a deep copy)
-        this(other.model, other.colour, other.engine);
+    Address(Address other) { // a copy constructor
+        this(other.street, other.city, other.suite);
     }
 
-    public void setModel(String model) { this.model = model; }
-    public void setColour(String colour) { this.colour = colour; }
+    public void setSuite(int suite) { this.suite = suite; }
 
     @Override
     public String toString() {
-        return colour + " " + model + " with " + engine + " engine";
+        return street + ", Suite " + suite + ", " + city;
+    }
+}
+
+class Employee {
+    private String name;
+    private final Address address;
+
+    Employee(String name, Address address) {
+        this.name = name;
+        this.address = address;
+    }
+
+    Employee(Employee other) { // a copy constructor (a deep copy, because the Address is copied instead of shared)
+        this(other.name, new Address(other.address));
+    }
+
+    public void setName(String name) { this.name = name; }
+    public void setSuite(int suite) { address.setSuite(suite); }
+
+    @Override
+    public String toString() {
+        return name + " works at " + address;
     }
 }
 ```
 
 <h4>Prototype Factory</h4>
 
-<p>Factories can provide a convenient API for using Prototypes.</p>
+<p>Factories can provide a convenient API for using Prototypes. The Factory stores preconfigured Prototypes (e.g., employees of different offices) and clones them, so the client only provides the details that differ.</p>
 
 ```java
-import java.util.HashMap;
-import java.util.Map;
-
 public class Main {
     public static void main(String[] args) {
-        CarFactory.registerPrototype("electric", "Electric");
-        CarFactory.registerPrototype("combustion", "V8");
+        Employee john = EmployeeFactory.newMainOfficeEmployee("John", 101);
+        Employee jane = EmployeeFactory.newAuxOfficeEmployee("Jane", 500);
 
-        Car car1 = CarFactory.newCar("electric", "Tesla Model S", "Blue");
-        Car car2 = CarFactory.newCar("combustion", "Ford Mustang", "White");
-
-        System.out.println(car1);
-        System.out.println(car2);
+        System.out.println(john);
+        System.out.println(jane);
     }
 }
 
-class Car {
-    private String model;
-    private String colour;
-    private String engine;
+class Address {
+    private final String street;
+    private final String city;
+    private int suite;
 
-    Car(String model, String colour, String engine) {
-        this.model = model;
-        this.colour = colour;
-        this.engine = engine;
+    Address(String street, String city, int suite) {
+        this.street = street;
+        this.city = city;
+        this.suite = suite;
     }
 
-    Car(Car other) { // a copy constructor
-        this(other.model, other.colour, other.engine);
+    Address(Address other) {
+        this(other.street, other.city, other.suite);
     }
 
-    public void setModel(String model) { this.model = model; }
-    public void setColour(String colour) { this.colour = colour; }
+    public void setSuite(int suite) { this.suite = suite; }
 
     @Override
     public String toString() {
-        return colour + " " + model + " with " + engine + " engine";
+        return street + ", Suite " + suite + ", " + city;
     }
 }
 
-class CarFactory {
-    private static final Map<String, Car> prototypes = new HashMap<>();
+class Employee {
+    private String name;
+    private final Address address;
 
-    public static void registerPrototype(String key, String engine) {
-        prototypes.put(key, new Car("", "", engine));
+    Employee(String name, Address address) {
+        this.name = name;
+        this.address = address;
     }
 
-    public static Car newCar(String key, String model, String colour) {
-        Car prototype = prototypes.get(key);
-        if (prototype == null)
-            throw new IllegalArgumentException("Prototype not found!");
-        Car car = new Car(prototype);
-        car.setModel(model);
-        car.setColour(colour);
-        return car;
+    Employee(Employee other) {
+        this(other.name, new Address(other.address));
+    }
+
+    public void setName(String name) { this.name = name; }
+    public void setSuite(int suite) { address.setSuite(suite); }
+
+    @Override
+    public String toString() {
+        return name + " works at " + address;
+    }
+}
+
+class EmployeeFactory {
+    // Preconfigured Prototypes
+    private static final Employee mainOfficeEmployee = new Employee("", new Address("123 East Dr", "London", 0));
+    private static final Employee auxOfficeEmployee = new Employee("", new Address("123B East Dr", "London", 0));
+
+    public static Employee newMainOfficeEmployee(String name, int suite) {
+        return newEmployee(mainOfficeEmployee, name, suite);
+    }
+
+    public static Employee newAuxOfficeEmployee(String name, int suite) {
+        return newEmployee(auxOfficeEmployee, name, suite);
+    }
+
+    private static Employee newEmployee(Employee prototype, String name, int suite) {
+        Employee employee = new Employee(prototype); // cloning the Prototype
+        employee.setName(name); // customizing the clone
+        employee.setSuite(suite);
+        return employee;
     }
 }
 ```

@@ -235,42 +235,46 @@ home_theater.end_movie() # one call shuts everything down
 
 <h2><a id="flyweight">Flyweight</a></h2>
 
-<p>Flyweight optimizes memory usage by sharing common object data, particularly for large numbers of similar objects (e.g., a database of users that can have the same names). It reduces the memory footprint by storing shared data externally and reusing common objects rather than creating new instances for each.</p>
+<p>Flyweight optimizes memory usage by sharing common object data, particularly for large numbers of similar objects (e.g., thousands of trees in a game that differ only in position). It reduces the memory footprint by storing the shared data once and reusing it rather than duplicating it in every object.</p>
 
-<p>The Flyweight pattern typically has two parts: the Flyweight class, holding the shared data (intrinsic state), and the Flyweight Factory (or similar), responsible for creating and managing shared instances, ensuring that identical objects are reused instead of duplicated.</p>
+<p>The Flyweight pattern splits an object's data into two parts: the intrinsic state (shared and immutable, e.g., a tree's type, colour, and texture), stored in the Flyweight class, and the extrinsic state (unique for each object, e.g., a tree's position), stored outside it. The Flyweight Factory (or similar) is responsible for creating and managing shared instances, ensuring that identical objects are reused instead of duplicated.</p>
 
 ```python
-class Name: # a Flyweight class
-    def __init__(self, name):
+class TreeType: # a Flyweight class (intrinsic state)
+    def __init__(self, name, colour):
         self.name = name
+        self.colour = colour
 
-    def display(self, type):
-        print(f"Displaying {self.name} as {type}")
+    def draw(self, x, y): # the extrinsic state is passed in from outside
+        print(f"Drawing {self.colour} {self.name} at ({x}, {y})")
 
-class NameDatabase: # a Flyweight Factory
-    _names = {}
+class Tree: # a context class (extrinsic state + a reference to a shared Flyweight)
+    def __init__(self, x, y, tree_type):
+        self.x = x
+        self.y = y
+        self.tree_type = tree_type
+
+    def draw(self):
+        self.tree_type.draw(self.x, self.y)
+
+class TreeTypeFactory: # a Flyweight Factory
+    _tree_types = {}
 
     @staticmethod
-    def get_name(name):
-        if name not in NameDatabase._names:
-            NameDatabase._names[name] = Name(name)
-        return NameDatabase._names[name]
+    def get_tree_type(name, colour):
+        key = (name, colour)
+        if key not in TreeTypeFactory._tree_types:
+            TreeTypeFactory._tree_types[key] = TreeType(name, colour) # creating a new object only if it doesn't exist yet
+        return TreeTypeFactory._tree_types[key]
 
-john1 = NameDatabase.get_name("John")
-alice1 = NameDatabase.get_name("Alice")
+forest = []
+for i in range(1000):
+    forest.append(Tree(i, i * 2, TreeTypeFactory.get_tree_type("Oak", "Green")))
+    forest.append(Tree(i * 3, i, TreeTypeFactory.get_tree_type("Birch", "White")))
 
-# Reusing "John" and "Alice" from the database instead of creating new objects
-john2 = NameDatabase.get_name("John")
-alice2 = NameDatabase.get_name("Alice")
-
-john1.display("formal")
-john2.display("informal")
-alice1.display("formal")
-alice2.display("informal")
-
-# Checking whether the same instances were reused
-print(john1 is john2)
-print(alice1 is alice2)
+forest[0].draw()
+forest[1].draw()
+print(f"Trees: {len(forest)}, tree types in memory: {len(TreeTypeFactory._tree_types)}")
 ```
 
 <h2><a id="proxy">Proxy</a></h2>
@@ -278,6 +282,8 @@ print(alice1 is alice2)
 <p>Proxy acts as an intermediary or placeholder for another object, controlling access. Proxies are used to add additional functionality or restrictions when interacting with objects, allowing for behaviors like access control, Lazy initialization, and resource optimization. There are different types of proxies, including Protection Proxy, which regulates access based on permissions or roles, and Virtual Proxy, which delays the creation of resource-intensive objects until they are needed, optimizing performance. A Virtual Proxy is one way to implement Lazy initialization, but, of course, Lazy initialization can be applied independently of Proxies.</p>
 
 <h4>Protection Proxy</h4>
+
+<p>The Proxy has the same interface as the real object, so the client can use it without knowing whether it talks to the real object or the Proxy.</p>
 
 ```python
 class Movie:
@@ -289,21 +295,26 @@ class Movie:
         return f"Watching {self.movie_title}"
 
 class AgeRestrictedMovie: # a Proxy
-    def __init__(self, movie):
+    def __init__(self, movie, viewer_age):
         self.movie = movie
+        self.viewer_age = viewer_age
 
-    def watch(self, age):
-        if age >= self.movie.rating:
-            return self.movie.watch()
+    def watch(self):
+        if self.viewer_age >= self.movie.rating:
+            return self.movie.watch() # delegating to the real object
         else:
             return "Age restriction: too young"
 
-movie1 = AgeRestrictedMovie(Movie("Action movie", 18))
-print(movie1.watch(20))
-print(movie1.watch(16))
+action_movie = Movie("Action movie", 18)
 
-movie2 = AgeRestrictedMovie(Movie("Family movie", 0))
-print(movie2.watch(10))
+movie1 = AgeRestrictedMovie(action_movie, 20)
+print(movie1.watch())
+
+movie2 = AgeRestrictedMovie(action_movie, 16)
+print(movie2.watch())
+
+movie3 = AgeRestrictedMovie(Movie("Family movie", 0), 10)
+print(movie3.watch())
 ```
 
 <h4>Virtual Proxy</h4>

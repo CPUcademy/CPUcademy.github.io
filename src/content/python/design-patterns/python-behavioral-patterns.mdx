@@ -279,14 +279,14 @@ class BankAccount: # a receiver class (the object that performs the action when 
     def __str__(self):
         return f"Balance = {self.balance}"
 
-class TransferMoneyCommand(Command): # a concrete Command classes
+class TransferMoneyCommand(Command): # a concrete Command class
     def __init__(self, source_account, target_account, amount):
         self.source_account = source_account
         self.target_account = target_account
         self.amount = amount
         self.executed = False
 
-    def execute(self):
+    def execute_action(self):
         if not self.executed:
             if self.source_account.withdraw(self.amount):
                 self.target_account.deposit(self.amount)
@@ -326,7 +326,7 @@ history = TransactionHistory()
 print(f"Source account before transfer: {source_account}")
 print(f"Target account before transfer: {target_account}")
 
-transfer1 = TransferMoneyCommand(sousource_accountrce, target_account, 100)
+transfer1 = TransferMoneyCommand(source_account, target_account, 100)
 history.execute_command(transfer1)
 
 print(f"Source account after first transfer: {source_account}")
@@ -337,7 +337,8 @@ history.execute_command(transfer2)
 
 print(f"Source account after second transfer attempt: {source_account}")
 print(f"Target account after second transfer attempt: {target_account}")
-history.undo_operation()
+history.undo_operation() # the failed transfer has nothing to undo
+history.undo_operation() # undoing the first transfer
 
 print(f"Source account after undo: {source_account}")
 print(f"Target account after undo: {target_account}")
@@ -347,11 +348,9 @@ print(f"Target account after undo: {target_account}")
 
 <p>Interpreter is used for designing a system that needs to process and evaluate language expressions. It provides a way to define the grammar of a language and interpret statements in that language. It is commonly used in mathematical expression evaluators, rule-based engines, and parsers. It turns text data into separate lexical tokens (lexing) and interprets sequences of these tokens (parsing).</p>
 
-<p>The example below implements a simple interpreter for arithmetic expressions that includes addition and subtraction. It tokenizes an expression like "10 + 5 - 3", parses it into an abstract syntax tree (AST), and evaluates the result.</p>
+<p>The example below implements a simple interpreter for arithmetic expressions that includes addition and subtraction. It tokenizes an expression like "10 + 5 - 3", parses it into an abstract syntax tree (AST), and evaluates the result. Each grammar rule (a number or a binary operation) is represented by a class with an ```evaluate()``` method, and evaluating the tree means calling ```evaluate()``` on its root, which recursively evaluates its children.</p>
 
 ```python
-from abc import ABC, abstractmethod
-
 # Lexing
 class Token:
     NUMBER, PLUS, MINUS = "NUMBER", "PLUS", "MINUS"
@@ -366,58 +365,78 @@ class Token:
 class Lexer:
     def __init__(self, text):
         self.text = text.replace(" ", "") # removing spaces for easier processing
-        self.indexx = 0
+        self.index = 0
 
     def get_next_token(self):
-        if self.indexx >= len(self.text):
-            return None
-
-        char = self.text[self.indexx]
+        char = self.text[self.index]
         if char.isdigit():
             num = 0
             # Extracting multi-digit numbers
-            while self.indexx < len(self.text) and self.text[self.indexx].isdigit():
-                num = num * 10 + int(self.text[self.indexx])
-                self.indexx += 1
+            while self.index < len(self.text) and self.text[self.index].isdigit():
+                num = num * 10 + int(self.text[self.index])
+                self.index += 1
             return Token(Token.NUMBER, num)
         elif char == "+":
-            self.indexx += 1
+            self.index += 1
             return Token(Token.PLUS)
         elif char == "-":
-            self.indexx += 1
+            self.index += 1
             return Token(Token.MINUS)
+        raise ValueError(f"Unexpected character: {char}")
 
     def tokenize(self):
         tokens = []
-        while self.indexx < len(self.text):
+        while self.index < len(self.text):
             tokens.append(self.get_next_token()) # generating a token list
         return tokens
+
+# AST nodes
+class Number:
+    def __init__(self, value):
+        self.value = value
+
+    def evaluate(self):
+        return self.value
+
+    def __repr__(self):
+        return f"Number({self.value})"
+
+class BinaryOperation:
+    def __init__(self, left, operator, right):
+        self.left = left
+        self.operator = operator
+        self.right = right
+
+    def evaluate(self):
+        if self.operator == Token.PLUS:
+            return self.left.evaluate() + self.right.evaluate()
+        return self.left.evaluate() - self.right.evaluate()
+
+    def __repr__(self):
+        return f"BinaryOperation({self.left}, {self.operator}, {self.right})"
 
 # Parsing
 class Parser:
     def __init__(self, tokens):
         self.tokens = tokens
-        self.current_token = self.tokens.pop(0) if self.tokens else None # fetching the first token
+        self.position = 0
 
-    def eat(self, token_type):
-        if self.current_token and self.current_token.token_type == token_type:
-            self.current_token = self.tokens.pop(0) if self.tokens else None # moving to the next token
+    def parse_number(self):
+        if self.position >= len(self.tokens) or self.tokens[self.position].token_type != Token.NUMBER:
+            raise ValueError("Expected a number")
+        token = self.tokens[self.position]
+        self.position += 1
+        return Number(token.value)
 
     def parse(self):
-        result = self.current_token.value # starting with the first number
-        self.eat(Token.NUMBER)
-
-        while self.current_token:
-            if self.current_token.token_type == Token.PLUS:
-                self.eat(Token.PLUS)
-                result += self.current_token.value # adding the next number to result
-                self.eat(Token.NUMBER)
-            elif self.current_token.token_type == Token.MINUS:
-                self.eat(Token.MINUS)
-                result -= self.current_token.value # subtracting the next number from result
-                self.eat(Token.NUMBER)
-
-        return result # directly returning the result
+        result = self.parse_number() # starting with the first number
+        while self.position < len(self.tokens):
+            operator = self.tokens[self.position]
+            if operator.token_type == Token.NUMBER:
+                raise ValueError("Expected an operator")
+            self.position += 1
+            result = BinaryOperation(result, operator.token_type, self.parse_number()) # building the tree from left to right: ((10 + 5) - 3)
+        return result # returning the root of the AST
 
 expression = "10 + 5 - 3"
 lexer = Lexer(expression)
@@ -425,8 +444,9 @@ tokens = lexer.tokenize()
 print(tokens)
 
 parser = Parser(tokens)
-number = parser.parse()
-print(number)
+ast = parser.parse()
+print(ast)
+print(ast.evaluate())
 ```
 
 <h2><a id="iterator">Iterator</a></h2>
@@ -467,7 +487,7 @@ for item in inventory:
 
 ```python
 class Mediator:
-    def send_data(self, message, userr):
+    def send_data(self, message, sender):
         pass
 
 class User:
@@ -486,13 +506,13 @@ class ChatRoom(Mediator):
     def __init__(self):
         self.users = []
 
-    def add_user(self, userr):
-        self.users.append(userr)
-        userr.mediator = self # setting the chat room as the mediator for each user when they join it
+    def add_user(self, user):
+        self.users.append(user)
+        user.mediator = self # setting the chat room as the mediator for each user when they join it
 
-    def send_data(self, message, userr):
+    def send_data(self, message, sender):
         for u in self.users:
-            if u != userr:
+            if u != sender:
                 u.receive_message(message)
 
 chat_room = ChatRoom()
@@ -527,8 +547,8 @@ class TextEditor:
 
     def write(self, text):
         self.content += text
-        m = Memento(self.content)
-        self.history.append(m)
+        del self.history[self.current_state + 1:] # discarding the states that could be redone
+        self.history.append(Memento(self.content))
         self.current_state += 1
 
     def undo_operation(self):
@@ -566,29 +586,29 @@ editor.show_content()
 
 <p>State allows an object to change its behavior when its internal state changes. It encapsulates different behaviors within separate state classes, making the system more maintainable and flexible.</p>
 
-<p>In the example below, the behavior that changes is how the ```TrafficLight``` object responds to the ```change()``` method, depending on its current state. This method changes the state, and depending on whether the current state is ```RedState```, ```YellowState```, or ```GreenState```, a different transition logic contained in the ```switch ()``` method of each state class is applied.</p>
+<p>In the example below, the behavior that changes is how the ```TrafficLight``` object responds to the ```change()``` method, depending on its current state. This method changes the state, and depending on whether the current state is ```RedState```, ```YellowState```, or ```GreenState```, a different transition logic contained in the ```switch_light()``` method of each state class is applied.</p>
 
 ```python
 from abc import ABC, abstractmethod
 
 class TrafficLightState(ABC): # a State interface
     @abstractmethod
-    def switch (self, light):
+    def switch_light(self, light):
         pass
 
 # Concrete State classes
 class RedState(TrafficLightState):
-    def switch (self, light):
+    def switch_light(self, light):
         print("Red -> Switching to Green")
         light.state = GreenState()
 
 class YellowState(TrafficLightState):
-    def switch (self, light):
+    def switch_light(self, light):
         print("Yellow -> Switching to Red")
         light.state = RedState()
 
 class GreenState(TrafficLightState):
-    def switch (self, light):
+    def switch_light(self, light):
         print("Green -> Switching to Yellow")
         light.state = YellowState()
 
@@ -597,7 +617,7 @@ class TrafficLight: # a context class (the object that maintains the current sta
         self.state = RedState() # an initial State
 
     def change(self):
-        self.state.switch (self) # switching the State by executing the switch () method from the current State class
+        self.state.switch_light(self) # switching the State by executing the switch_light() method from the current State class
 
 traffic_light = TrafficLight()
 traffic_light.change()
@@ -612,47 +632,42 @@ traffic_light.change()
 ```python
 from abc import ABC, abstractmethod
 
-class SortStrategy(ABC): # a Strategy interface
+class RouteStrategy(ABC): # a Strategy interface
     @abstractmethod
-    def sort_items(self, data):
+    def travel_time(self, distance_km): # in minutes
         pass
 
 # Concrete Strategy classes
-class QuickSort(SortStrategy):
-    def sort_items(self, data):
-        print("Sorting using QuickSort")
-        return sorted(data) # a placeholder for actual implementation
+class CarRoute(RouteStrategy):
+    def travel_time(self, distance_km):
+        return distance_km * 60 / 50 # 50 km/h
 
-class MergeSort(SortStrategy):
-    def sort_items(self, data):
-        print("Sorting using MergeSort")
-        return sorted(data) # a placeholder for actual implementation
-    
-class BubbleSort(SortStrategy):
-    def sort_items(self, data):
-        print("Sorting using BubbleSort")
-        return sorted(data) # a placeholder for actual implementation
+class BikeRoute(RouteStrategy):
+    def travel_time(self, distance_km):
+        return distance_km * 60 / 15 # 15 km/h
 
-class Sorter: # a context class
-    def __init__(self, strategy: SortStrategy):
+class WalkingRoute(RouteStrategy):
+    def travel_time(self, distance_km):
+        return distance_km * 60 / 5 # 5 km/h
+
+class Navigator: # a context class
+    def __init__(self, strategy: RouteStrategy):
         self.strategy = strategy
 
-    def set_strategy(self, strategy: SortStrategy):
+    def set_strategy(self, strategy: RouteStrategy):
         self.strategy = strategy # changing Strategies dynamically
 
-    def sort_list(self, data):
-        return self.strategy.sort_items(data)
+    def estimate(self, distance_km):
+        return f"{distance_km} km takes {self.strategy.travel_time(distance_km):.0f} minutes"
 
-numbers = [5, 2, 9, 1, 5, 6]
+navigator = Navigator(CarRoute())
+print(navigator.estimate(30))
 
-sorter = Sorter(QuickSort())
-print(sorter.sort_list(numbers))
+navigator.set_strategy(BikeRoute())
+print(navigator.estimate(30))
 
-sorter.set_strategy(MergeSort())
-print(sorter.sort_list(numbers))
-
-sorter.set_strategy(BubbleSort())
-print(sorter.sort_list(numbers))
+navigator.set_strategy(WalkingRoute())
+print(navigator.estimate(30))
 ```
 
 <h2><a id="template-method">Template Method</a></h2>
@@ -711,50 +726,61 @@ class DocumentElement(ABC): # an element interface
 
 # Concrete elements
 class TextElement(DocumentElement):
+    def __init__(self, text):
+        self.text = text
+
     def accept_data(self, visitor):
         visitor.visit_text(self)
 
 class ImageElement(DocumentElement):
+    def __init__(self, file_name):
+        self.file_name = file_name
+
     def accept_data(self, visitor):
         visitor.visit_image(self)
 
 class Visitor(ABC): # a Visitor interface
     @abstractmethod
-    def visit_text(self, text):
+    def visit_text(self, element):
         pass
 
     @abstractmethod
-    def visit_image(self, image):
+    def visit_image(self, element):
         pass
 
 # Concrete Visitors
 class Renderer(Visitor):
-    def visit_text(self, text):
-        print("Rendering text")
+    def visit_text(self, element):
+        print(f"Rendering text: {element.text}")
 
-    def visit_image(self, image):
-        print("Rendering image")
+    def visit_image(self, element):
+        print(f"Rendering image: {element.file_name}")
 
 class WordCounter(Visitor):
-    def visit_text(self, text):
-        print("Counting words in text")
+    def __init__(self):
+        self.total = 0
 
-    def visit_image(self, image):
-        print("Skipping word count for image")
+    def visit_text(self, element):
+        self.total += len(element.text.split())
 
-elements = [TextElement(), ImageElement()]
+    def visit_image(self, element):
+        pass # images have no words
+
+elements = [TextElement("Design patterns are useful"), ImageElement("diagram.png"), TextElement("Hello world")]
+
 renderer = Renderer()
 word_counter = WordCounter()
 for element in elements:
     element.accept_data(renderer)
     element.accept_data(word_counter)
+print(f"Total words: {word_counter.total}")
 ```
 
-<p className="noBottomMargin">Instead of adding new methods to ```Text``` and ```Image``` every time we need a new operation, we simply create a new Visitor class that implements those operations without modifying the element classes. This pattern relies on double dispatch, where both the element type (```Text``` or ```Image```) and the visitor type (```Renderer``` or ```WordCounter```) determine the behavior, meaning:</p>
+<p className="noBottomMargin">Instead of adding new methods to ```TextElement``` and ```ImageElement``` every time we need a new operation, we simply create a new Visitor class that implements those operations without modifying the element classes. This pattern relies on double dispatch, where both the element type (```TextElement``` or ```ImageElement```) and the visitor type (```Renderer``` or ```WordCounter```) determine the behavior, meaning:</p>
 
 <ol>
-    <li>The element calls its ```accept(visitor)``` method, passing the visitor as an argument.</li>
-    <li>Inside ```accept(visitor)```, the element calls the visitor’s corresponding method (```visit_text()``` or ```visit_image()```), passing itself (```self```) as an argument.</li>
+    <li>The element calls its ```accept_data(visitor)``` method, passing the visitor as an argument.</li>
+    <li>Inside ```accept_data(visitor)```, the element calls the visitor’s corresponding method (```visit_text()``` or ```visit_image()```), passing itself (```self```) as an argument.</li>
     <li>The visitor determines what to do based on the element type.</li>
 </ol>
 

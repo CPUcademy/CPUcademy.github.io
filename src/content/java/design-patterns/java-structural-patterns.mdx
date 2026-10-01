@@ -304,51 +304,69 @@ class HomeTheaterFacade { // a Facade
 
 <h2><a id="flyweight">Flyweight</a></h2>
 
-<p>Flyweight optimizes memory usage by sharing common object data, particularly for large numbers of similar objects (e.g., a database of users that can have the same names). It reduces the memory footprint by storing shared data externally and reusing common objects rather than creating new instances for each.</p>
+<p>Flyweight optimizes memory usage by sharing common object data, particularly for large numbers of similar objects (e.g., thousands of trees in a game that differ only in position). It reduces the memory footprint by storing the shared data once and reusing it rather than duplicating it in every object.</p>
 
-<p>The Flyweight pattern typically has two parts: the Flyweight class, holding the shared data (intrinsic state), and the Flyweight Factory (or similar), responsible for creating and managing shared instances, ensuring that identical objects are reused instead of duplicated.</p>
+<p>The Flyweight pattern splits an object's data into two parts: the intrinsic state (shared and immutable, e.g., a tree's type, colour, and texture), stored in the Flyweight class, and the extrinsic state (unique for each object, e.g., a tree's position), stored outside it. The Flyweight Factory (or similar) is responsible for creating and managing shared instances, ensuring that identical objects are reused instead of duplicated.</p>
 
 ```java
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Name john1 = NameDatabase.fetchName("John");
-        Name alice1 = NameDatabase.fetchName("Alice");
+        List<Tree> forest = new ArrayList<>();
+        for (int i = 0; i < 1000; i++) {
+            forest.add(new Tree(i, i * 2, TreeTypeFactory.getTreeType("Oak", "Green")));
+            forest.add(new Tree(i * 3, i, TreeTypeFactory.getTreeType("Birch", "White")));
+        }
 
-        // Reusing "John" and "Alice" from the database instead of creating new objects
-        Name john2 = NameDatabase.fetchName("John");
-        Name alice2 = NameDatabase.fetchName("Alice");
-
-        john1.display("formal");
-        john2.display("informal");
-        alice1.display("formal");
-        alice2.display("informal");
-
-        // Checking whether the same instances were reused
-        System.out.println(john1 == john2);
-        System.out.println(alice1 == alice2);
+        forest.get(0).draw();
+        forest.get(1).draw();
+        System.out.println("Trees: " + forest.size() + ", tree types in memory: " + TreeTypeFactory.count());
     }
 }
 
-class Name { // a Flyweight class
+class TreeType { // a Flyweight class (intrinsic state)
     private final String name;
+    private final String colour;
 
-    Name(String name) {
+    TreeType(String name, String colour) {
         this.name = name;
+        this.colour = colour;
     }
 
-    public void display(String type) {
-        System.out.println("Displaying " + name + " as " + type);
+    public void draw(int x, int y) { // the extrinsic state is passed in from outside
+        System.out.println("Drawing " + colour + " " + name + " at (" + x + ", " + y + ")");
     }
 }
 
-class NameDatabase { // a Flyweight Factory
-    private static final Map<String, Name> names = new HashMap<>();
+class Tree { // a context class (extrinsic state + a reference to a shared Flyweight)
+    private final int x;
+    private final int y;
+    private final TreeType type;
 
-    public static Name fetchName(String name) {
-        return names.computeIfAbsent(name, Name::new); // creating a new object only if it doesn't exist yet
+    Tree(int x, int y, TreeType type) {
+        this.x = x;
+        this.y = y;
+        this.type = type;
+    }
+
+    public void draw() {
+        type.draw(x, y);
+    }
+}
+
+class TreeTypeFactory { // a Flyweight Factory
+    private static final Map<String, TreeType> treeTypes = new HashMap<>();
+
+    public static TreeType getTreeType(String name, String colour) {
+        return treeTypes.computeIfAbsent(name + "_" + colour, key -> new TreeType(name, colour)); // creating a new object only if it doesn't exist yet
+    }
+
+    public static int count() {
+        return treeTypes.size();
     }
 }
 ```
@@ -359,44 +377,58 @@ class NameDatabase { // a Flyweight Factory
 
 <h4>Protection Proxy</h4>
 
+<p>The Proxy implements the same interface as the real object, so the client can use it without knowing whether it talks to the real object or the Proxy.</p>
+
 ```java
 public class Main {
     public static void main(String[] args) {
-        AgeRestrictedMovie movie1 = new AgeRestrictedMovie(new Movie("Action movie", 18));
-        System.out.println(movie1.watch(20));
-        System.out.println(movie1.watch(16));
+        RealMovie actionMovie = new RealMovie("Action movie", 18);
 
-        AgeRestrictedMovie movie2 = new AgeRestrictedMovie(new Movie("Family movie", 0));
-        System.out.println(movie2.watch(10));
+        Movie movie1 = new AgeRestrictedMovie(actionMovie, 20);
+        System.out.println(movie1.watch());
+
+        Movie movie2 = new AgeRestrictedMovie(actionMovie, 16);
+        System.out.println(movie2.watch());
+
+        Movie movie3 = new AgeRestrictedMovie(new RealMovie("Family movie", 0), 10);
+        System.out.println(movie3.watch());
     }
 }
 
-class Movie {
+interface Movie {
+    String watch();
+}
+
+class RealMovie implements Movie {
     private final String movieTitle;
     private final int rating;
 
-    Movie(String movieTitle, int rating) {
+    RealMovie(String movieTitle, int rating) {
         this.movieTitle = movieTitle;
         this.rating = rating;
     }
 
     public int getRating() { return rating; }
 
+    @Override
     public String watch() {
         return "Watching " + movieTitle;
     }
 }
 
-class AgeRestrictedMovie { // a Proxy
-    private final Movie movie;
+class AgeRestrictedMovie implements Movie { // a Proxy
+    private final RealMovie movie;
+    private final int viewerAge;
 
-    AgeRestrictedMovie(Movie movie) {
+    AgeRestrictedMovie(RealMovie movie, int viewerAge) {
         this.movie = movie;
+        this.viewerAge = viewerAge;
     }
 
-    public String watch(int age) {
-        if (age >= movie.getRating())
-            return movie.watch();
+    @Override
+    public String watch() {
+        if (viewerAge >= movie.getRating())
+            return movie.watch(); // delegating to the real object
         else
             return "Age restriction: too young";
     }
@@ -407,40 +439,46 @@ class AgeRestrictedMovie { // a Proxy
 
 ```java
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
-        VirtualProxy proxy = new VirtualProxy();
+    public static void main(String[] args) {
+        Resource resource = new VirtualProxy(); // nothing is loaded yet
 
         System.out.println("Before accessing the resource...");
-        System.out.println(proxy.display()); // heavy resource is loaded now, so it takes time
-        System.out.println(proxy.display()); // resource is already loaded, no delay
+        System.out.println(resource.display()); // heavy resource is loaded now, so it takes time
+        System.out.println(resource.display()); // resource is already loaded, no delay
     }
 }
 
-class HeavyResource {
+interface Resource {
+    String display();
+}
+
+class HeavyResource implements Resource {
     private final String data;
 
-    HeavyResource() throws InterruptedException {
+    HeavyResource() {
         System.out.println("Loading heavy resource...");
-        Thread.sleep(2000);
+        try {
+            Thread.sleep(2000); // simulating expensive loading
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         data = "Heavy resource loaded";
     }
 
+    @Override
     public String display() {
         return data;
     }
 }
 
-class VirtualProxy {
+class VirtualProxy implements Resource {
     private HeavyResource realResource;
 
-    private HeavyResource loadResource() throws InterruptedException {
+    @Override
+    public String display() {
         if (realResource == null)
             realResource = new HeavyResource(); // Lazy initialization
-        return realResource;
-    }
-
-    public String display() throws InterruptedException {
-        return loadResource().display();
+        return realResource.display();
     }
 }
 ```
