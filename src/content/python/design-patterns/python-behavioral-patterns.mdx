@@ -103,23 +103,40 @@ newsletter.new_issue = "Design Patterns Vol. 2" # no notification sent
 
 <h4>Property dependencies</h4>
 
-<p>Property dependencies ensure that one property automatically updates when another changes.</p>
+<p>Property dependencies ensure that when a property changes, the properties that depend on it (e.g., age depends on the current year) notify their observers too, even though they are never set directly.</p>
 
 ```python
+class Event(list):
+    def __call__(self, *args, **kwargs):
+        for item in self:
+            item(*args, **kwargs)
+
 class Person:
-    def __init__(self, name, birth_year, current_year):
-        self.name = name
+    def __init__(self, birth_year, current_year):
         self.birth_year = birth_year
-        self.current_year = current_year
+        self._current_year = current_year
+        self.property_changed = Event()
 
     @property
     def age(self):
-        return self.current_year - self.birth_year # age depends on birth_year and current_year
+        return self._current_year - self.birth_year
 
-p = Person("Bob", 2000, 2025)
-print(p.age)
-p.current_year = 2030
-print(p.age) # age has been automatically updated
+    @property
+    def current_year(self):
+        return self._current_year
+
+    @current_year.setter
+    def current_year(self, value):
+        old_age = self.age
+        self._current_year = value
+        if self.age != old_age:
+            self.property_changed("age", old_age, self.age) # age depends on current_year, so its change is announced too
+
+person = Person(2000, 2025)
+person.property_changed.append(lambda name, old, new: print(f"{name} changed from {old} to {new}"))
+
+person.current_year = 2030 # notifying about the age change
+person.current_year = 2030 # no notification (the age didn't change)
 ```
 
 <h2><a id="chain-of-responsibility">Chain of Responsibility</a></h2>
@@ -175,66 +192,58 @@ manager.handle(Request(10000)) # handled by CEO
 
 <p>Broker chain uses an event-driven system where multiple handlers process a request independently without forming a strict chain. It is useful in scenarios where multiple components modify a value dynamically, such as game stat modifiers or discount systems in e-commerce. Even though handlers are not explicitly linked, they act on the request in sequence when the event is triggered. It is a more flexible and decentralized version of the Chain of Responsibility pattern.</p>
 
+<p>In the example below, ```ECommercePlatform``` is the broker. Handlers subscribe to it, and every price request is passed as a ```Query``` object through all of them.</p>
+
 ```python
-class Event(list):
-    def __call__(self, *args, **kwargs):
-        for item in self:
-            item(*args, **kwargs)
-
-class Query:
-    def __init__(self, product_name, query_type, value):
-        self.product_name = product_name
-        self.query_type = query_type
-        self.value = value
-
-class ECommercePlatform:
-    def __init__(self):
-        self.discount_handlers = Event()
-
-    def apply_discounts(self, product_query):
-        self.discount_handlers(product_query) # calling all registered discount handlers
-
 class Product:
-    def __init__(self, product_platform, name, base_price):
-        self.product_platform = product_platform
+    def __init__(self, name, base_price):
         self.name = name
         self.base_price = base_price
 
-    @property
-    def price(self):
-        product_query = Query(self.name, "price", self.base_price)
-        self.product_platform.apply_discounts(product_query) # applying registered discounts
-        return product_query.value
+class Query:
+    def __init__(self, product_name, value):
+        self.product_name = product_name
+        self.value = value
 
-class DiscountModifier:
-    def __init__(self, product_platform, product):
-        self.product_platform = product_platform
-        self.product = product
-        self.product_platform.discount_handlers.append(self.handle) # registering handler
+class ECommercePlatform: # a broker
+    def __init__(self):
+        self.handlers = []
 
-    def handle(self, product_query):
-        pass # to be implemented by subclasses
+    def subscribe(self, handler):
+        self.handlers.append(handler)
 
-class BlackFridayDiscount(DiscountModifier):
-    def handle(self, product_query):
-        if product_query.product_name == self.product.name and product_query.query_type == "price":
-            product_query.value *= 0.8 # 20% discount
+    def get_price(self, product):
+        query = Query(product.name, product.base_price)
+        for handler in self.handlers: # every registered handler can modify the query
+            handler.handle(query)
+        return query.value
 
-class LoyaltyDiscount(DiscountModifier):
-    def handle(self, product_query):
-        if product_query.product_name == self.product.name and product_query.query_type == "price":
-            product_query.value *= 0.9 # additional 10% discount for loyal customers
+class BlackFridayDiscount:
+    def __init__(self, product_name):
+        self.product_name = product_name
 
-product_platform = ECommercePlatform()
-laptop = Product(product_platform, "Laptop", 1000)
+    def handle(self, query):
+        if query.product_name == self.product_name:
+            query.value *= 0.8 # 20% discount
 
-print("Original price:", laptop.price)
+class LoyaltyDiscount:
+    def __init__(self, product_name):
+        self.product_name = product_name
 
-black_friday = BlackFridayDiscount(product_platform, laptop)
-print("After Black Friday discount:", laptop.price)
+    def handle(self, query):
+        if query.product_name == self.product_name:
+            query.value *= 0.9 # additional 10% discount for loyal customers
 
-loyalty = LoyaltyDiscount(product_platform, laptop)
-print("After loyalty discount:", laptop.price)
+platform = ECommercePlatform()
+laptop = Product("Laptop", 1000)
+
+print("Original price:", platform.get_price(laptop))
+
+platform.subscribe(BlackFridayDiscount("Laptop"))
+print("After Black Friday discount:", platform.get_price(laptop))
+
+platform.subscribe(LoyaltyDiscount("Laptop"))
+print("After loyalty discount:", platform.get_price(laptop))
 ```
 
 <h2><a id="command">Command</a></h2>
@@ -249,11 +258,11 @@ from abc import ABC, abstractmethod
 
 class Command(ABC):
     @abstractmethod
-    def execute_action(self):
+    def execute(self):
         pass
 
     @abstractmethod
-    def undo_operation(self):
+    def undo(self):
         pass
 
 class BankAccount: # a receiver class (the object that performs the action when requested)
@@ -279,7 +288,7 @@ class TransferMoneyCommand(Command): # a concrete Command class
         self.amount = amount
         self.executed = False
 
-    def execute_action(self):
+    def execute(self):
         if not self.executed:
             if self.source_account.withdraw(self.amount):
                 self.target_account.deposit(self.amount)
@@ -290,7 +299,7 @@ class TransferMoneyCommand(Command): # a concrete Command class
         else:
             print("Transfer already executed.")
 
-    def undo_operation(self):
+    def undo(self):
         if self.executed:
             self.target_account.withdraw(self.amount)
             self.source_account.deposit(self.amount)
@@ -303,14 +312,14 @@ class TransactionHistory: # an invoker class (the object that calls the command)
     def __init__(self):
         self.history = []
 
-    def execute_command(self, command):
-        command.execute_action() # invoking the Command's execute method
+    def execute(self, command):
+        command.execute() # invoking the Command's execute method
         self.history.append(command)
 
-    def undo_operation(self):
+    def undo(self):
         if self.history:
             last_command = self.history.pop()
-            last_command.undo_operation()
+            last_command.undo()
 
 source_account = BankAccount(500)
 target_account = BankAccount(200)
@@ -320,18 +329,18 @@ print(f"Source account before transfer: {source_account}")
 print(f"Target account before transfer: {target_account}")
 
 transfer1 = TransferMoneyCommand(source_account, target_account, 100)
-history.execute_command(transfer1)
+history.execute(transfer1)
 
 print(f"Source account after first transfer: {source_account}")
 print(f"Target account after first transfer: {target_account}")
 
 transfer2 = TransferMoneyCommand(source_account, target_account, 1000) # trying to transfer more than available funds
-history.execute_command(transfer2)
+history.execute(transfer2)
 
 print(f"Source account after second transfer attempt: {source_account}")
 print(f"Target account after second transfer attempt: {target_account}")
-history.undo_operation() # the failed transfer has nothing to undo
-history.undo_operation() # undoing the first transfer
+history.undo() # the failed transfer has nothing to undo
+history.undo() # undoing the first transfer
 
 print(f"Source account after undo: {source_account}")
 print(f"Target account after undo: {target_account}")
@@ -438,33 +447,39 @@ print(ast.evaluate())
 
 <h2><a id="iterator">Iterator</a></h2>
 
-<p>Iterator provides a way to access elements of a collection sequentially without exposing its underlying structure. Instead of manually managing iteration, the pattern encapsulates it within an iterator object that keeps track of the current position and provides a standard way to retrieve the next element. You can find a basic example of this pattern featuring a custom iterable in the <a href="/tutorials/python/python-generators#iterator" class="link">lesson about generators</a>. The example below shows how to use list-backed properties while implementing the Iterator pattern to allow iteration over stored data.</p>
+<p>Iterator provides a way to access elements of a collection sequentially without exposing its underlying structure. Instead of manually managing iteration, the pattern encapsulates it within an iterator object that keeps track of the current position and provides a standard way to retrieve the next element. In Python, every object with an ```__iter__()``` method (returning an iterator object with a ```__next__()``` method) can be used in a ```for``` loop. The example below implements a custom iterator over a list, which the client never accesses directly. In practice, ```__iter__()``` is often written as a generator instead (check out the <a href="/tutorials/python/python-generators#iterator" class="link">lesson about generators</a>).</p>
 
 ```python
-class Inventory:
-    def __init__(self, item_list = None):
-        self._item_list = item_list if item_list else []
-
-    @property
-    def item_list(self):
-        return self._item_list
-
-    @item_list.setter
-    def item_list(self, new_items):
-        if isinstance(new_items, list):
-            self._item_list = new_items
-        else:
-            raise ValueError("Items must be a list.")
+class InventoryIterator: # an Iterator that keeps track of the current position
+    def __init__(self, items):
+        self._items = items
+        self._index = 0
 
     def __iter__(self):
-        return iter(self._item_list) # returning an iterator for the list
+        return self
 
-inventory = Inventory(["Sword", "Shield", "Potion"])
-for item in inventory:
-    print(item)
+    def __next__(self):
+        if self._index >= len(self._items):
+            raise StopIteration
+        item = self._items[self._index]
+        self._index += 1
+        return item
 
-inventory.item_list = ["Bow", "Arrow", "Helmet"] # using the property setter
-for item in inventory:
+class Inventory:
+    def __init__(self, *items):
+        self._items = list(items)
+
+    def __iter__(self):
+        return InventoryIterator(self._items)
+
+inventory = Inventory("Sword", "Shield", "Potion")
+
+iterator = iter(inventory) # using the Iterator manually
+print(next(iterator))
+print(next(iterator))
+print(next(iterator))
+
+for item in inventory: # the for loop calls iter() and next() under the hood
     print(item)
 ```
 
@@ -473,7 +488,10 @@ for item in inventory:
 <p>Mediator defines an object that encapsulates how a set of objects interact. Instead of having multiple objects communicate directly, they communicate through a mediator, which handles the communication and coordination between them. This reduces the dependencies between objects, making the system easier to maintain and scale (the objects do not have to be aware of the other objects).</p>
 
 ```python
-class Mediator:
+from abc import ABC, abstractmethod
+
+class Mediator(ABC):
+    @abstractmethod
     def send_data(self, message, sender):
         pass
 
@@ -519,47 +537,63 @@ charlie.send_message("Hey all!")
 
 <h2><a id="memento">Memento</a></h2>
 
-<p>Memento allows capturing and restoring an object's state without exposing its internal details. It is useful for implementing undo/redo functionality or saving checkpoints in an application.</p>
+<p>Memento allows capturing and restoring an object's state without exposing its internal details. It is useful for implementing undo/redo functionality or saving checkpoints in an application. It has three parts: the originator (the object whose state is saved, ```TextEditor```) creates Mementos and restores its state from them, the Memento stores a snapshot of that state, and the caretaker (```History```) keeps the Mementos without reading or modifying them. In Python, privacy is only a convention, so the underscore marks the Memento's state as internal to ```TextEditor```.</p>
 
 ```python
-class Memento: # storing the state of the text document
+class Memento: # a snapshot of the editor's state
     def __init__(self, content):
-        self.content = content
+        self._content = content # only TextEditor should read it
 
-class TextEditor:
+class TextEditor: # an originator
     def __init__(self):
         self.content = ""
-        self.history = [Memento(self.content)]
-        self.current_state = 0
 
     def write(self, text):
         self.content += text
-        del self.history[self.current_state + 1:] # discarding the states that could be redone
-        self.history.append(Memento(self.content))
-        self.current_state += 1
 
-    def undo_operation(self):
-        if self.current_state > 0:
-            self.current_state -= 1
-            self.content = self.history[self.current_state].content
+    def save(self):
+        return Memento(self.content)
 
-    def redo(self):
-        if self.current_state + 1 < len(self.history):
-            self.current_state += 1
-            self.content = self.history[self.current_state].content
+    def restore(self, memento):
+        self.content = memento._content
 
     def show_content(self):
         print(f"Document content: {self.content}")
 
+class History: # a caretaker
+    def __init__(self, editor):
+        self.editor = editor
+        self.undo_stack = []
+        self.redo_stack = []
+
+    def backup(self):
+        self.undo_stack.append(self.editor.save())
+        self.redo_stack.clear() # a new change discards the states that could be redone
+
+    def undo(self):
+        if self.undo_stack:
+            self.redo_stack.append(self.editor.save())
+            self.editor.restore(self.undo_stack.pop())
+
+    def redo(self):
+        if self.redo_stack:
+            self.undo_stack.append(self.editor.save())
+            self.editor.restore(self.redo_stack.pop())
+
 editor = TextEditor()
+history = History(editor)
+
+history.backup()
 editor.write("Hello, ")
 editor.show_content()
+
+history.backup()
 editor.write("world!")
 editor.show_content()
 
-editor.undo_operation()
+history.undo()
 editor.show_content()
-editor.redo()
+history.redo()
 editor.show_content()
 ```
 
@@ -695,7 +729,7 @@ from abc import ABC, abstractmethod
 
 class DocumentElement(ABC): # an element interface
     @abstractmethod
-    def accept_data(self, visitor):
+    def accept(self, visitor):
         pass
 
 # Concrete elements
@@ -703,14 +737,14 @@ class TextElement(DocumentElement):
     def __init__(self, text):
         self.text = text
 
-    def accept_data(self, visitor):
+    def accept(self, visitor):
         visitor.visit_text(self)
 
 class ImageElement(DocumentElement):
     def __init__(self, file_name):
         self.file_name = file_name
 
-    def accept_data(self, visitor):
+    def accept(self, visitor):
         visitor.visit_image(self)
 
 class Visitor(ABC): # a Visitor interface
@@ -745,16 +779,16 @@ elements = [TextElement("Design patterns are useful"), ImageElement("diagram.png
 renderer = Renderer()
 word_counter = WordCounter()
 for element in elements:
-    element.accept_data(renderer)
-    element.accept_data(word_counter)
+    element.accept(renderer)
+    element.accept(word_counter)
 print(f"Total words: {word_counter.total}")
 ```
 
 <p className="noBottomMargin">Instead of adding new methods to ```TextElement``` and ```ImageElement``` every time we need a new operation, we simply create a new Visitor class that implements those operations without modifying the element classes. This pattern relies on double dispatch, where both the element type (```TextElement``` or ```ImageElement```) and the visitor type (```Renderer``` or ```WordCounter```) determine the behavior, meaning:</p>
 
 <ol>
-    <li>The element calls its ```accept_data(visitor)``` method, passing the visitor as an argument.</li>
-    <li>Inside ```accept_data(visitor)```, the element calls the visitor’s corresponding method (```visit_text()``` or ```visit_image()```), passing itself (```self```) as an argument.</li>
+    <li>The element calls its ```accept(visitor)``` method, passing the visitor as an argument.</li>
+    <li>Inside ```accept(visitor)```, the element calls the visitor’s corresponding method (```visit_text()``` or ```visit_image()```), passing itself (```self```) as an argument.</li>
     <li>The visitor determines what to do based on the element type.</li>
 </ol>
 

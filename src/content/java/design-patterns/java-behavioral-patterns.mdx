@@ -27,162 +27,155 @@ order: 4
 
 <h4>Event-based observer</h4>
 
-<p>An event-based observer notifies subscribers when a specific event occurs, allowing dynamic reactions without directly monitoring a property change.</p>
+<p>An event-based observer notifies subscribers when a specific event occurs, allowing dynamic reactions without directly monitoring a property change. In Java, observers usually implement a listener interface (like ```ActionListener``` in Swing), and the subject keeps a list of them.</p>
 
 ```java
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class Main {
     public static void main(String[] args) {
         Subscriber john = new Subscriber("John");
         Newsletter newsletter = new Newsletter();
-        Consumer<String> johnHandler = john::receiveEmail; // every method reference is a new object, so we store it to be able to unsubscribe later
-        newsletter.newIssueReleased.subscribe(johnHandler); // adding John to the subscription list
+        newsletter.addListener(john); // adding John to the subscription list
 
         newsletter.releaseNewIssue("Design Patterns Vol. 1"); // releasing a new issue
-        newsletter.newIssueReleased.unsubscribe(johnHandler); // removing John from the subscription list
+        newsletter.removeListener(john); // removing John from the subscription list
         newsletter.releaseNewIssue("Design Patterns Vol. 2"); // releasing a new issue
     }
 }
 
-class Event<T> {
-    private final List<Consumer<T>> observers = new ArrayList<>(); // storing subscribed observers
-
-    public void subscribe(Consumer<T> observer) {
-        observers.add(observer);
-    }
-
-    public void unsubscribe(Consumer<T> observer) {
-        observers.remove(observer);
-    }
-
-    public void fire(T argument) { // triggering notifications
-        for (Consumer<T> observer : observers) // looping through all subscribed observer methods
-            observer.accept(argument); // calling each observer with the given argument
-    }
+interface NewsletterListener { // an observer interface
+    void onNewIssue(String issueTitle);
 }
 
-class Subscriber {
+class Subscriber implements NewsletterListener {
     private final String name;
 
     Subscriber(String name) {
         this.name = name;
     }
 
-    public void receiveEmail(String newsletter) {
-        System.out.println(name + " received: " + newsletter);
+    @Override
+    public void onNewIssue(String issueTitle) {
+        System.out.println(name + " received: " + issueTitle);
     }
 }
 
-class Newsletter {
-    public final Event<String> newIssueReleased = new Event<>();
+class Newsletter { // a subject
+    private final List<NewsletterListener> listeners = new ArrayList<>(); // storing subscribed observers
+
+    public void addListener(NewsletterListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener(NewsletterListener listener) {
+        listeners.remove(listener);
+    }
 
     public void releaseNewIssue(String issueTitle) {
         System.out.println("Releasing new issue: " + issueTitle);
-        newIssueReleased.fire(issueTitle);
+        for (NewsletterListener listener : listeners) // notifying all subscribed observers
+            listener.onNewIssue(issueTitle);
     }
 }
 ```
 
 <h4>Property observer</h4>
 
-<p>A property observer ties event handling to a property change (using a setter method). It is just a different approach to the Observer pattern. Both are good, and we just have to choose the one that suits our needs.</p>
+<p>A property observer ties event handling to a property change (using a setter method). It is just a different approach to the Observer pattern. Both are good, and we just have to choose the one that suits our needs. Java's standard library supports this approach with the ```PropertyChangeSupport``` class, which stores the listeners and notifies them only if the value actually changes.</p>
 
 ```java
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Consumer;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 public class Main {
     public static void main(String[] args) {
         Subscriber john = new Subscriber("John");
         Newsletter newsletter = new Newsletter();
-        Consumer<String> johnHandler = john::receiveEmail;
-        newsletter.newIssueReleased.subscribe(johnHandler);
+        newsletter.addPropertyChangeListener(john);
 
         newsletter.setNewIssue("Design Patterns Vol. 1"); // automatically notifying John
-        newsletter.newIssueReleased.unsubscribe(johnHandler);
+        newsletter.removePropertyChangeListener(john);
         newsletter.setNewIssue("Design Patterns Vol. 2"); // no notification sent
     }
 }
 
-class Event<T> {
-    private final List<Consumer<T>> observers = new ArrayList<>();
-
-    public void subscribe(Consumer<T> observer) {
-        observers.add(observer);
-    }
-
-    public void unsubscribe(Consumer<T> observer) {
-        observers.remove(observer);
-    }
-
-    public void fire(T argument) {
-        for (Consumer<T> observer : observers)
-            observer.accept(argument);
-    }
-}
-
-class Subscriber {
+class Subscriber implements PropertyChangeListener {
     private final String name;
 
     Subscriber(String name) {
         this.name = name;
     }
 
-    public void receiveEmail(String newsletter) {
-        System.out.println(name + " received: " + newsletter);
+    @Override
+    public void propertyChange(PropertyChangeEvent event) {
+        System.out.println(name + " received: " + event.getNewValue());
     }
 }
 
 class Newsletter {
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private String newIssue;
-    public final Event<String> newIssueReleased = new Event<>(); // the event fires when issue updates
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
+    }
 
     public void setNewIssue(String issueTitle) {
-        if (!Objects.equals(newIssue, issueTitle)) { // ensuring it's actually changing
-            newIssue = issueTitle;
-            System.out.println("New issue set: " + issueTitle);
-            newIssueReleased.fire(issueTitle); // notifying subscribers
-        }
+        String oldIssue = newIssue;
+        newIssue = issueTitle;
+        System.out.println("New issue set: " + issueTitle);
+        support.firePropertyChange("newIssue", oldIssue, issueTitle); // notifying listeners (only if the value changed)
     }
 }
 ```
 
 <h4>Property dependencies</h4>
 
-<p>Property dependencies ensure that one property automatically updates when another changes.</p>
+<p>Property dependencies ensure that when a property changes, the properties that depend on it (e.g., age depends on the current year) notify their observers too, even though they are never set directly.</p>
 
 ```java
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 public class Main {
     public static void main(String[] args) {
-        Person p = new Person("Bob", 2000, 2025);
-        System.out.println(p.getAge());
-        p.setCurrentYear(2030);
-        System.out.println(p.getAge()); // age has been automatically updated
+        Person person = new Person(2000, 2025);
+        person.addPropertyChangeListener(event -> System.out.println(event.getPropertyName() + " changed from " + event.getOldValue() + " to " + event.getNewValue()));
+
+        person.setCurrentYear(2030); // notifying about the age change
+        person.setCurrentYear(2030); // no notification (the age didn't change)
     }
 }
 
 class Person {
-    private final String name;
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private final int birthYear;
     private int currentYear;
 
-    Person(String name, int birthYear, int currentYear) {
-        this.name = name;
+    Person(int birthYear, int currentYear) {
         this.birthYear = birthYear;
         this.currentYear = currentYear;
     }
 
-    public void setCurrentYear(int currentYear) {
-        this.currentYear = currentYear;
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
     }
 
     public int getAge() {
-        return currentYear - birthYear; // age depends on birthYear and currentYear
+        return currentYear - birthYear;
+    }
+
+    public void setCurrentYear(int currentYear) {
+        int oldAge = getAge();
+        this.currentYear = currentYear;
+        support.firePropertyChange("age", oldAge, getAge()); // age depends on currentYear, so its change is announced too
     }
 }
 ```
@@ -268,99 +261,83 @@ class CEO extends Handler {
 
 <p>Broker chain uses an event-driven system where multiple handlers process a request independently without forming a strict chain. It is useful in scenarios where multiple components modify a value dynamically, such as game stat modifiers or discount systems in e-commerce. Even though handlers are not explicitly linked, they act on the request in sequence when the event is triggered. It is a more flexible and decentralized version of the Chain of Responsibility pattern.</p>
 
+<p>In the example below, ```ECommercePlatform``` is the broker. Handlers subscribe to it, and every price request is passed as a ```Query``` object through all of them.</p>
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class Main {
     public static void main(String[] args) {
-        ECommercePlatform productPlatform = new ECommercePlatform();
-        Product laptop = new Product(productPlatform, "Laptop", 1000);
+        ECommercePlatform platform = new ECommercePlatform();
+        Product laptop = new Product("Laptop", 1000);
 
-        System.out.println("Original price: " + laptop.price());
+        System.out.println("Original price: " + platform.getPrice(laptop));
 
-        new BlackFridayDiscount(productPlatform, laptop);
-        System.out.println("After Black Friday discount: " + laptop.price());
+        platform.subscribe(new BlackFridayDiscount("Laptop"));
+        System.out.println("After Black Friday discount: " + platform.getPrice(laptop));
 
-        new LoyaltyDiscount(productPlatform, laptop);
-        System.out.println("After loyalty discount: " + laptop.price());
+        platform.subscribe(new LoyaltyDiscount("Laptop"));
+        System.out.println("After loyalty discount: " + platform.getPrice(laptop));
     }
 }
 
-class Event<T> {
-    private final List<Consumer<T>> observers = new ArrayList<>();
-
-    public void subscribe(Consumer<T> observer) {
-        observers.add(observer);
-    }
-
-    public void fire(T argument) {
-        for (Consumer<T> observer : observers)
-            observer.accept(argument);
-    }
-}
+record Product(String name, double basePrice) {}
 
 class Query {
     final String productName;
-    final String queryType;
     double value;
 
-    Query(String productName, String queryType, double value) {
+    Query(String productName, double value) {
         this.productName = productName;
-        this.queryType = queryType;
         this.value = value;
     }
 }
 
-class ECommercePlatform {
-    final Event<Query> discountHandlers = new Event<>();
+interface DiscountHandler {
+    void handle(Query query);
+}
 
-    public void applyDiscounts(Query productQuery) {
-        discountHandlers.fire(productQuery); // calling all registered discount handlers
+class ECommercePlatform { // a broker
+    private final List<DiscountHandler> handlers = new ArrayList<>();
+
+    public void subscribe(DiscountHandler handler) {
+        handlers.add(handler);
+    }
+
+    public double getPrice(Product product) {
+        Query query = new Query(product.name(), product.basePrice());
+        for (DiscountHandler handler : handlers) // every registered handler can modify the query
+            handler.handle(query);
+        return query.value;
     }
 }
 
-record Product(ECommercePlatform productPlatform, String name, double basePrice) {
-    public double price() {
-        Query productQuery = new Query(name, "price", basePrice);
-        productPlatform.applyDiscounts(productQuery); // applying registered discounts
-        return productQuery.value;
-    }
-}
+class BlackFridayDiscount implements DiscountHandler {
+    private final String productName;
 
-abstract class DiscountModifier {
-    protected final Product product;
-
-    DiscountModifier(ECommercePlatform productPlatform, Product product) {
-        this.product = product;
-        productPlatform.discountHandlers.subscribe(this::handle); // registering handler
-    }
-
-    protected abstract void handle(Query productQuery);
-}
-
-class BlackFridayDiscount extends DiscountModifier {
-    BlackFridayDiscount(ECommercePlatform productPlatform, Product product) {
-        super(productPlatform, product);
+    BlackFridayDiscount(String productName) {
+        this.productName = productName;
     }
 
     @Override
-    protected void handle(Query productQuery) {
-        if (productQuery.productName.equals(product.name()) && productQuery.queryType.equals("price"))
-            productQuery.value *= 0.8; // 20% discount
+    public void handle(Query query) {
+        if (query.productName.equals(productName))
+            query.value *= 0.8; // 20% discount
     }
 }
 
-class LoyaltyDiscount extends DiscountModifier {
-    LoyaltyDiscount(ECommercePlatform productPlatform, Product product) {
-        super(productPlatform, product);
+class LoyaltyDiscount implements DiscountHandler {
+    private final String productName;
+
+    LoyaltyDiscount(String productName) {
+        this.productName = productName;
     }
 
     @Override
-    protected void handle(Query productQuery) {
-        if (productQuery.productName.equals(product.name()) && productQuery.queryType.equals("price"))
-            productQuery.value *= 0.9; // additional 10% discount for loyal customers
+    public void handle(Query query) {
+        if (query.productName.equals(productName))
+            query.value *= 0.9; // additional 10% discount for loyal customers
     }
 }
 ```
@@ -385,18 +362,18 @@ public class Main {
         System.out.println("Target account before transfer: " + targetAccount);
 
         Command transfer1 = new TransferMoneyCommand(sourceAccount, targetAccount, 100);
-        history.executeCommand(transfer1);
+        history.execute(transfer1);
 
         System.out.println("Source account after first transfer: " + sourceAccount);
         System.out.println("Target account after first transfer: " + targetAccount);
 
         Command transfer2 = new TransferMoneyCommand(sourceAccount, targetAccount, 1000); // trying to transfer more than available funds
-        history.executeCommand(transfer2);
+        history.execute(transfer2);
 
         System.out.println("Source account after second transfer attempt: " + sourceAccount);
         System.out.println("Target account after second transfer attempt: " + targetAccount);
-        history.undoOperation(); // the failed transfer has nothing to undo
-        history.undoOperation(); // undoing the first transfer
+        history.undo(); // the failed transfer has nothing to undo
+        history.undo(); // undoing the first transfer
 
         System.out.println("Source account after undo: " + sourceAccount);
         System.out.println("Target account after undo: " + targetAccount);
@@ -404,8 +381,8 @@ public class Main {
 }
 
 interface Command {
-    void executeAction();
-    void undoOperation();
+    void execute();
+    void undo();
 }
 
 class BankAccount { // a receiver class (the object that performs the action when requested)
@@ -446,7 +423,7 @@ class TransferMoneyCommand implements Command { // a concrete Command class
     }
 
     @Override
-    public void executeAction() {
+    public void execute() {
         if (!executed) {
             if (sourceAccount.withdraw(amount)) {
                 targetAccount.deposit(amount);
@@ -459,7 +436,7 @@ class TransferMoneyCommand implements Command { // a concrete Command class
     }
 
     @Override
-    public void undoOperation() {
+    public void undo() {
         if (executed) {
             targetAccount.withdraw(amount);
             sourceAccount.deposit(amount);
@@ -473,14 +450,14 @@ class TransferMoneyCommand implements Command { // a concrete Command class
 class TransactionHistory { // an invoker class (the object that calls the command)
     private final Deque<Command> history = new ArrayDeque<>();
 
-    public void executeCommand(Command command) {
-        command.executeAction(); // invoking the Command's execute method
+    public void execute(Command command) {
+        command.execute(); // invoking the Command's execute method
         history.push(command);
     }
 
-    public void undoOperation() {
+    public void undo() {
         if (!history.isEmpty())
-            history.pop().undoOperation();
+            history.pop().undo();
     }
 }
 ```
@@ -721,53 +698,86 @@ class ChatRoom implements Mediator {
 
 <h2><a id="memento">Memento</a></h2>
 
-<p>Memento allows capturing and restoring an object's state without exposing its internal details. It is useful for implementing undo/redo functionality or saving checkpoints in an application.</p>
+<p>Memento allows capturing and restoring an object's state without exposing its internal details. It is useful for implementing undo/redo functionality or saving checkpoints in an application. It has three parts: the originator (the object whose state is saved, ```TextEditor```) creates Mementos and restores its state from them, the Memento stores a snapshot of that state, and the caretaker (```History```) keeps the Mementos without reading or modifying them. In Java, the Memento is a nested class with ```private``` members, so only ```TextEditor``` can read it.</p>
 
 ```java
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class Main {
     public static void main(String[] args) {
         TextEditor editor = new TextEditor();
-        editor.writeText("Hello, ");
-        editor.showContent();
-        editor.writeText("world!");
+        History history = new History(editor);
+
+        history.backup();
+        editor.write("Hello, ");
         editor.showContent();
 
-        editor.undoOperation();
+        history.backup();
+        editor.write("world!");
         editor.showContent();
-        editor.redo();
+
+        history.undo();
+        editor.showContent();
+        history.redo();
         editor.showContent();
     }
 }
 
-record Memento(String content) {} // storing the state of the text document
-
-class TextEditor {
+class TextEditor { // an originator
     private String content = "";
-    private final List<Memento> history = new ArrayList<>(List.of(new Memento(content)));
-    private int currentState = 0;
 
-    public void writeText(String addition) {
-        content += addition;
-        history.subList(currentState + 1, history.size()).clear(); // discarding the states that could be redone
-        history.add(new Memento(content));
-        currentState++;
+    public void write(String text) {
+        content += text;
     }
 
-    public void undoOperation() {
-        if (currentState > 0)
-            content = history.get(--currentState).content();
+    public Memento save() {
+        return new Memento(content);
     }
 
-    public void redo() {
-        if (currentState + 1 < history.size())
-            content = history.get(++currentState).content();
+    public void restore(Memento memento) {
+        content = memento.content;
     }
 
     public void showContent() {
         System.out.println("Document content: " + content);
+    }
+
+    static class Memento { // a snapshot of the editor's state (its content is visible only to TextEditor)
+        private final String content;
+
+        private Memento(String content) {
+            this.content = content;
+        }
+    }
+}
+
+class History { // a caretaker
+    private final TextEditor editor;
+    private final Deque<TextEditor.Memento> undoStack = new ArrayDeque<>();
+    private final Deque<TextEditor.Memento> redoStack = new ArrayDeque<>();
+
+    History(TextEditor editor) {
+        this.editor = editor;
+    }
+
+    public void backup() {
+        undoStack.push(editor.save());
+        redoStack.clear(); // a new change discards the states that could be redone
+    }
+
+    public void undo() {
+        if (!undoStack.isEmpty()) {
+            redoStack.push(editor.save());
+            editor.restore(undoStack.pop());
+        }
+    }
+
+    public void redo() {
+        if (!redoStack.isEmpty()) {
+            undoStack.push(editor.save());
+            editor.restore(redoStack.pop());
+        }
     }
 }
 ```
@@ -946,28 +956,28 @@ public class Main {
         Renderer renderer = new Renderer();
         WordCounter wordCounter = new WordCounter();
         for (DocumentElement element : elements) {
-            element.acceptData(renderer);
-            element.acceptData(wordCounter);
+            element.accept(renderer);
+            element.accept(wordCounter);
         }
         System.out.println("Total words: " + wordCounter.getTotal());
     }
 }
 
 interface DocumentElement { // an element interface
-    void acceptData(Visitor visitor);
+    void accept(Visitor visitor);
 }
 
 // Concrete elements
 record TextElement(String text) implements DocumentElement {
     @Override
-    public void acceptData(Visitor visitor) {
+    public void accept(Visitor visitor) {
         visitor.visitText(this);
     }
 }
 
 record ImageElement(String fileName) implements DocumentElement {
     @Override
-    public void acceptData(Visitor visitor) {
+    public void accept(Visitor visitor) {
         visitor.visitImage(this);
     }
 }
@@ -1010,8 +1020,8 @@ class WordCounter implements Visitor {
 <p className="noBottomMargin">Instead of adding new methods to ```TextElement``` and ```ImageElement``` every time we need a new operation, we simply create a new Visitor class that implements those operations without modifying the element classes. This pattern relies on double dispatch, where both the element type (```TextElement``` or ```ImageElement```) and the visitor type (```Renderer``` or ```WordCounter```) determine the behavior, meaning:</p>
 
 <ol>
-    <li>The element calls its ```acceptData(visitor)``` method, passing the visitor as an argument.</li>
-    <li>Inside ```acceptData(visitor)```, the element calls the visitor’s corresponding method (```visitText()``` or ```visitImage()```), passing itself (```this```) as an argument.</li>
+    <li>The element calls its ```accept(visitor)``` method, passing the visitor as an argument.</li>
+    <li>Inside ```accept(visitor)```, the element calls the visitor’s corresponding method (```visitText()``` or ```visitImage()```), passing itself (```this```) as an argument.</li>
     <li>The visitor determines what to do based on the element type.</li>
 </ol>
 

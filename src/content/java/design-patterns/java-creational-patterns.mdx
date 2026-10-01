@@ -128,160 +128,81 @@ class Box {
 }
 ```
 
-<h4>Builder facets</h4>
-
-<p>A Builder facet is a specialized component of a Builder (a separate class) that focuses on constructing a specific aspect or "facet" of an object, e.g., personal details, job details, or address details. These facets work together to build the complete object, e.g., a user, while maintaining a fluent interface (an interface supporting method chaining).</p>
-
-```java
-public class Main {
-    public static void main(String[] args) {
-        PersonBuilder builder = new PersonBuilder();
-        Person person = builder.personal().setName("John Doe").setAge(30).job().setJobTitle("Software Engineer").setCompany("Tech Corp").setSalary(120000).build();
-
-        System.out.println(person);
-    }
-}
-
-class Person {
-    String name;
-    int age;
-
-    // Job details
-    String jobTitle;
-    String company;
-    int salary;
-
-    @Override
-    public String toString() {
-        return "Person(Name: " + name + ", Age: " + age + ", Job: " + jobTitle + " at " + company + " ($" + salary + "))";
-    }
-}
-
-// The main Builder class to manage all facets
-class PersonBuilder {
-    protected final Person person;
-
-    PersonBuilder() {
-        this(new Person());
-    }
-
-    PersonBuilder(Person person) {
-        this.person = person;
-    }
-
-    public PersonPersonalBuilder personal() {
-        return new PersonPersonalBuilder(person);
-    }
-
-    public PersonJobBuilder job() {
-        return new PersonJobBuilder(person);
-    }
-
-    public Person build() {
-        return person;
-    }
-}
-
-// Builder facet for personal details
-class PersonPersonalBuilder extends PersonBuilder {
-    PersonPersonalBuilder(Person person) {
-        super(person);
-    }
-
-    public PersonPersonalBuilder setName(String name) {
-        person.name = name;
-        return this;
-    }
-
-    public PersonPersonalBuilder setAge(int age) {
-        person.age = age;
-        return this;
-    }
-}
-
-// Builder facet for job details
-class PersonJobBuilder extends PersonBuilder {
-    PersonJobBuilder(Person person) {
-        super(person);
-    }
-
-    public PersonJobBuilder setJobTitle(String jobTitle) {
-        person.jobTitle = jobTitle;
-        return this;
-    }
-
-    public PersonJobBuilder setCompany(String company) {
-        person.company = company;
-        return this;
-    }
-
-    public PersonJobBuilder setSalary(int salary) {
-        person.salary = salary;
-        return this;
-    }
-}
-```
-
 <h4>Builder inheritance</h4>
 
-<p>Builder facets violate the Open/Closed Principle because every time we create a new sub-builder, we have to add it to the main Builder. Thanks to inheritance, every Builder in the example below is open for extension but closed for modification.</p>
-
-<p>In Java, a method inherited from a parent Builder returns the parent's type, which would break chaining (we couldn't call ```job()``` after ```called()```). This is solved with recursive generics: every Builder is parameterized with the type of the final Builder (```SELF```) and returns it in its methods.</p>
+<p>When the built classes form a hierarchy (e.g., ```Employee``` extends ```Person```), their Builders can form a parallel hierarchy, so a subclass Builder inherits the parent Builder's methods instead of repeating them. However, a method inherited from the parent Builder returns the parent's type, which would break chaining (we couldn't call ```job()``` after ```called()```). This is solved with recursive generics: the parent Builder is parameterized with the type of the subclass Builder (```T```) and returns it from ```self()```, which every subclass Builder overrides to return ```this```. This approach comes from "Effective Java" by Joshua Bloch, and Lombok's ```@SuperBuilder``` annotation generates the same structure.</p>
 
 ```java
 public class Main {
     public static void main(String[] args) {
-        Person person = Person.builder().called("Josh").job("Engineer").earns(100000).build();
-        System.out.println(person);
+        Employee employee = new Employee.Builder().called("Josh").job("Engineer").earns(100000).build();
+        System.out.println(employee);
     }
 }
 
 class Person {
-    String name;
-    String jobTitle;
-    int salary;
+    private final String name;
+
+    protected Person(Builder<?> builder) {
+        name = builder.name;
+    }
 
     @Override
     public String toString() {
-        return name + " works as " + jobTitle + ", earns " + salary;
+        return name;
     }
 
-    public static PersonSalaryBuilder builder() {
-        return new PersonSalaryBuilder();
-    }
-}
+    abstract static class Builder<T extends Builder<T>> {
+        private String name;
 
-class PersonBuilder<SELF extends PersonBuilder<SELF>> {
-    protected final Person person = new Person();
+        public T called(String name) {
+            this.name = name;
+            return self(); // returning the subclass Builder type, so chaining continues with its methods
+        }
 
-    @SuppressWarnings("unchecked")
-    protected SELF self() {
-        return (SELF)this; // returning the object as the type of the final Builder
-    }
-
-    public Person build() {
-        return person;
+        protected abstract T self();
+        public abstract Person build();
     }
 }
 
-class PersonPersonalBuilder<SELF extends PersonPersonalBuilder<SELF>> extends PersonBuilder<SELF> {
-    public SELF called(String name) {
-        person.name = name;
-        return self();
-    }
-}
+class Employee extends Person {
+    private final String jobTitle;
+    private final int salary;
 
-class PersonJobBuilder<SELF extends PersonJobBuilder<SELF>> extends PersonPersonalBuilder<SELF> {
-    public SELF job(String jobTitle) {
-        person.jobTitle = jobTitle;
-        return self();
+    private Employee(Builder builder) {
+        super(builder);
+        jobTitle = builder.jobTitle;
+        salary = builder.salary;
     }
-}
 
-class PersonSalaryBuilder extends PersonJobBuilder<PersonSalaryBuilder> {
-    public PersonSalaryBuilder earns(int salary) {
-        person.salary = salary;
-        return self();
+    @Override
+    public String toString() {
+        return super.toString() + " works as " + jobTitle + ", earns " + salary;
+    }
+
+    static class Builder extends Person.Builder<Builder> {
+        private String jobTitle;
+        private int salary;
+
+        public Builder job(String jobTitle) {
+            this.jobTitle = jobTitle;
+            return this;
+        }
+
+        public Builder earns(int salary) {
+            this.salary = salary;
+            return this;
+        }
+
+        @Override
+        protected Builder self() {
+            return this;
+        }
+
+        @Override
+        public Employee build() {
+            return new Employee(this);
+        }
     }
 }
 ```
@@ -715,28 +636,31 @@ enum Database {
 
 <h2><a id="monostate">Monostate (Singleton variation)</a></h2>
 
-<p>Monostate allows multiple instances of a class to share the same state by storing it in ```static``` fields (they belong to the class, not to its instances). Unlike the Singleton pattern (which ensures only one instance exists), Monostate allows multiple instances but guarantees they behave as if they are the same object in terms of state.</p>
+<p>Monostate allows multiple instances of a class to share the same state by storing it in ```static``` fields (they belong to the class, not to its instances) accessed through regular instance methods. Unlike the Singleton pattern (which ensures only one instance exists), Monostate allows multiple instances but guarantees they behave as if they are the same object in terms of state. The client doesn't have to know that the state is shared.</p>
 
 ```java
 public class Main {
     public static void main(String[] args) {
-        Monostate a = new Monostate("Value A");
-        Monostate b = new Monostate("Value B");
+        Monostate a = new Monostate();
+        Monostate b = new Monostate();
 
-        System.out.println(a.getSharedValue());
-        System.out.println(b.getSharedValue());
+        a.setValue("Value A");
+        b.setValue("Value B");
+
+        System.out.println(a.getValue());
+        System.out.println(b.getValue());
     }
 }
 
 class Monostate {
     private static String value; // all instances share the same "value" field
 
-    Monostate(String value) {
-        Monostate.value = value;
+    public String getValue() {
+        return value;
     }
 
-    public String getSharedValue() {
-        return value;
+    public void setValue(String value) {
+        Monostate.value = value;
     }
 }
 ```
@@ -778,10 +702,10 @@ class LazyDatabase {
 public class Main {
     public static void main(String[] args) {
         // Creating database instances
-        DatabaseInterface mysqlDb = new MySQLDatabase();
-        DatabaseInterface sqliteDb = new SQLiteDatabase();
+        Database mysqlDb = new MySQLDatabase();
+        Database sqliteDb = new SQLiteDatabase();
 
-        // Injecting the DatabaseInterface instances into the DataService
+        // Injecting the Database instances into the DataService
         DataService service1 = new DataService(mysqlDb); // using MySQL
         service1.executeAction();
         DataService service2 = new DataService(sqliteDb); // using SQLite
@@ -789,18 +713,18 @@ public class Main {
     }
 }
 
-interface DatabaseInterface {
+interface Database {
     void connectDb();
 }
 
-class MySQLDatabase implements DatabaseInterface {
+class MySQLDatabase implements Database {
     @Override
     public void connectDb() {
         System.out.println("Connecting to MySQL database..."); // MySQL implementation
     }
 }
 
-class SQLiteDatabase implements DatabaseInterface {
+class SQLiteDatabase implements Database {
     @Override
     public void connectDb() {
         System.out.println("Connecting to SQLite database..."); // SQLite implementation
@@ -808,9 +732,9 @@ class SQLiteDatabase implements DatabaseInterface {
 }
 
 class DataService {
-    private final DatabaseInterface db;
+    private final Database db;
 
-    DataService(DatabaseInterface db) {
+    DataService(Database db) {
         this.db = db; // injecting the dependency through the constructor
     }
 

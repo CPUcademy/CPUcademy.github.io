@@ -87,130 +87,68 @@ box.set_dimensions(7, 14).box_length = 8
 print(box.box_length, box.box_width)
 ```
 
-<h4>Builder facets</h4>
-
-<p>A Builder facet is a specialized component of a Builder (a separate class) that focuses on constructing a specific aspect or "facet" of an object, e.g., personal details, job details, or address details. These facets work together to build the complete object, e.g., a user, while maintaining a fluent interface (an interface supporting method chaining).</p>
-
-```python
-class Person:
-    def __init__(self):
-        self.name = None
-        self.age = None
-        
-        # Job details
-        self.job_title = None
-        self.company = None
-        self.salary = None
-
-    def __str__(self):
-        return f"Person(Name: {self.name}, Age: {self.age}, Job: {self.job_title} at {self.company} (${self.salary}))"
-
-# The main Builder class to manage all facets
-class PersonBuilder:
-    def __init__(self, person = None):
-        if person is None:
-            self.person = Person()
-        else:
-            self.person = person
-
-    @property
-    def personal(self):
-        return PersonPersonalBuilder(self.person)
-
-    @property
-    def job(self):
-        return PersonJobBuilder(self.person)
-
-    def build(self):
-        return self.person
-
-# Builder facet for personal details
-class PersonPersonalBuilder(PersonBuilder):
-    def __init__(self, parent_builder):
-        super().__init__(parent_builder)
-
-    def set_name(self, name):
-        self.person.name = name
-        return self
-
-    def set_age(self, age):
-        self.person.age = age
-        return self
-
-# Builder facet for job details
-class PersonJobBuilder(PersonBuilder):
-    def __init__(self, parent_builder):
-        super().__init__(parent_builder)
-
-    def set_job_title(self, job_title):
-        self.person.job_title = job_title
-        return self
-
-    def set_company(self, company):
-        self.person.company = company
-        return self
-
-    def set_salary(self, salary):
-        self.person.salary = salary
-        return self
-
-builder = PersonBuilder()
-person = builder.personal.set_name("John Doe").set_age(30).job.set_job_title("Software Engineer").set_company("Tech Corp").set_salary(120000).build()
-
-print(person)
-```
-
 <h4>Builder inheritance</h4>
 
-<p>Builder facets violate the Open/Closed Principle because every time we create a new sub-builder, we have to add it to the main Builder. Thanks to inheritance, every Builder in the example below is open for extension but closed for modification.</p>
+<p>When the built classes form a hierarchy (e.g., ```Employee``` inherits from ```Person```), their Builders can form a parallel hierarchy, so a subclass Builder inherits the parent Builder's methods instead of repeating them. In Python, an inherited method that returns ```self``` returns the subclass Builder, so chaining works without any extra code (we can call ```job()``` after ```called()```).</p>
 
 ```python
 class Person:
-    def __init__(self):
-        self.name = None
-        self.job_title = None
-        self.salary = None
+    def __init__(self, builder):
+        self.name = builder.name
 
     def __str__(self):
-        return f"{self.name} works as {self.job_title}, earns {self.salary}"
-
-    @staticmethod
-    def new():
-        return PersonSalaryBuilder()
+        return self.name
 
 class PersonBuilder:
     def __init__(self):
-        self.person = Person()
+        self.name = None
+
+    def called(self, name):
+        self.name = name
+        return self # returning the subclass Builder, so chaining continues with its methods
 
     def build(self):
-        return self.person
+        return Person(self)
 
-class PersonPersonalBuilder(PersonBuilder):
-    def called(self, name):
-        self.person.name = name
-        return self
+class Employee(Person):
+    def __init__(self, builder):
+        super().__init__(builder)
+        self.job_title = builder.job_title
+        self.salary = builder.salary
 
-class PersonJobBuilder(PersonPersonalBuilder):
+    def __str__(self):
+        return f"{super().__str__()} works as {self.job_title}, earns {self.salary}"
+
+class EmployeeBuilder(PersonBuilder):
+    def __init__(self):
+        super().__init__()
+        self.job_title = None
+        self.salary = None
+
     def job(self, job_title):
-        self.person.job_title = job_title
+        self.job_title = job_title
         return self
 
-class PersonSalaryBuilder(PersonJobBuilder):
     def earns(self, salary):
-        self.person.salary = salary
+        self.salary = salary
         return self
 
-person = Person.new().called("Josh").job("Engineer").earns(100000).build()
-print(person)
+    def build(self):
+        return Employee(self)
+
+employee = EmployeeBuilder().called("Josh").job("Engineer").earns(100000).build()
+print(employee)
 ```
 
 <h2><a id="factories">Factories</a></h2>
 
 <h3>Static Factory Method</h3>
 
-<p>A static factory method is an alternate constructor: a method that returns an instance of its class. It provides an additional way to create objects, often with a more descriptive name or specialized logic (e.g., validation or conversion), while keeping the main ```__init__()``` constructor simple. For example, instead of the user's age, we can take his date of birth and then calculate the age. They can be created using the ```@classmethod``` (like shown <a href="/tutorials/python/python-decorators#class-methods" className="link">here</a>) or ```@staticmethod``` decorator. A class can have multiple static factory methods. Despite the similar name, this is not the Factory Method design pattern (described below).</p>
+<p>A static factory method is an alternate constructor: a method that returns an instance of its class. It provides an additional way to create objects, often with a more descriptive name or specialized logic (e.g., validation or conversion), while keeping the main ```__init__()``` constructor simple. For example, instead of the user's age, we can take his date of birth and then calculate the age. In Python, they are usually created with the ```@classmethod``` decorator (like shown <a href="/tutorials/python/python-decorators#class-methods" className="link">here</a>), which receives the class as ```cls```, so the method also works for subclasses. A class can have multiple static factory methods. Despite the similar name, this is not the Factory Method design pattern (described below).</p>
 
 ```python
+from datetime import date
+
 class Person:
     def __init__(self, name, age):
         self.__name = name
@@ -219,13 +157,13 @@ class Person:
     def __str__(self):
         return f"{self.__name}, {self.__age}"
 
-    @staticmethod
-    def from_age(name, age):
-        return Person(name, age)
+    @classmethod
+    def from_age(cls, name, age):
+        return cls(name, age)
 
-    @staticmethod
-    def from_birth_year(name, birth_year):
-        return Person(name, 2024 - birth_year)
+    @classmethod
+    def from_birth_year(cls, name, birth_year):
+        return cls(name, date.today().year - birth_year)
 
 person1 = Person.from_age("Josh", 25)
 person2 = Person.from_birth_year("John", 1980)
@@ -237,6 +175,8 @@ print(person2)
 <p>Static factory methods can live in the class they create, which is the common choice when the creation logic is closely related to the class (e.g., ```dict.fromkeys()``` or ```datetime.fromtimestamp()```). If the creation logic becomes complex or needs its own dependencies, it can be moved into a separate Factory class.</p>
 
 ```python
+from datetime import date
+
 class PersonFactory:
     @staticmethod
     def from_age(name, age):
@@ -244,11 +184,9 @@ class PersonFactory:
 
     @staticmethod
     def from_birth_year(name, birth_year):
-        return Person(name, 2024 - birth_year)
+        return Person(name, date.today().year - birth_year)
 
 class Person:
-    factory = PersonFactory() # this is optional (for convenience)
-    
     def __init__(self, name, age):
         self.__name = name
         self.__age = age
@@ -256,8 +194,8 @@ class Person:
     def __str__(self):
         return f"{self.__name}, {self.__age}"
 
-person1 = Person.factory.from_age("Josh", 25)
-person2 = Person.factory.from_birth_year("John", 1980)
+person1 = PersonFactory.from_age("Josh", 25)
+person2 = PersonFactory.from_birth_year("John", 1980)
 
 print(person1)
 print(person2)
@@ -527,7 +465,7 @@ print(s1 is s2)
 
 <h2><a id="monostate">Monostate (Singleton variation)</a></h2>
 
-<p>Monostate allows multiple instances of a class to share the same state by making all instances point to a common dictionary (```__dict__```). Unlike the Singleton pattern (which ensures only one instance exists), Monostate allows multiple instances but guarantees they behave as if they are the same object in terms of state.</p>
+<p>Monostate allows multiple instances of a class to share the same state by making all instances point to a common dictionary (```__dict__```). Unlike the Singleton pattern (which ensures only one instance exists), Monostate allows multiple instances but guarantees they behave as if they are the same object in terms of state. The client doesn't have to know that the state is shared.</p>
 
 ```python
 class Monostate:
@@ -535,14 +473,14 @@ class Monostate:
 
     def __new__(cls, *args, **kwargs):
         instance = super().__new__(cls)
-        instance.__dict__ = cls._state # all instances share the same state
+        instance.__dict__ = cls._state # all instances share the same attributes
         return instance
 
-    def __init__(self, value):
-        self.value = value # all instances share the same "value" attribute
+a = Monostate()
+b = Monostate()
 
-a = Monostate("Value A")
-b = Monostate("Value B")
+a.value = "Value A"
+b.value = "Value B"
 
 print(a.value)
 print(b.value)
@@ -578,21 +516,21 @@ db.get_data() # accessing the data again, no re-initialization occurs
 ```python
 from abc import ABC, abstractmethod
 
-class DatabaseInterface(ABC):
+class Database(ABC):
     @abstractmethod
     def connect_db(self):
         pass
 
-class MySQLDatabase(DatabaseInterface):
+class MySQLDatabase(Database):
     def connect_db(self):
         print("Connecting to MySQL database...") # MySQL implementation
 
-class SQLiteDatabase(DatabaseInterface):
+class SQLiteDatabase(Database):
     def connect_db(self):
         print("Connecting to SQLite database...") # SQLite implementation
 
-class Service:
-    def __init__(self, db: DatabaseInterface):
+class DataService:
+    def __init__(self, db: Database):
         self.db = db # injecting the dependency through the constructor
 
     def execute_action(self):
@@ -603,9 +541,9 @@ class Service:
 mysql_db = MySQLDatabase()
 sqlite_db = SQLiteDatabase()
 
-# Injecting the DatabaseInterface instances into the Service
-service1 = Service(mysql_db) # using MySQL
+# Injecting the Database instances into the DataService
+service1 = DataService(mysql_db) # using MySQL
 service1.execute_action()
-service2 = Service(sqlite_db) # using SQLite
+service2 = DataService(sqlite_db) # using SQLite
 service2.execute_action()
 ```

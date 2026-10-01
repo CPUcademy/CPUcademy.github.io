@@ -147,11 +147,11 @@ public class Main {
         FileSystemItem file1 = new TextFile("file1.txt");
         FileSystemItem file2 = new TextFile("file2.txt");
         Folder subfolder = new Folder("Subfolder");
-        subfolder.addItem(new TextFile("subfile.txt"));
+        subfolder.add(new TextFile("subfile.txt"));
 
-        root.addItem(file1);
-        root.addItem(subfolder);
-        root.addItem(file2);
+        root.add(file1);
+        root.add(subfolder);
+        root.add(file2);
         root.display(0);
     }
 }
@@ -181,7 +181,7 @@ class Folder implements FileSystemItem { // a Composite class (a folder that can
         this.name = name;
     }
 
-    public void addItem(FileSystemItem item) {
+    public void add(FileSystemItem item) {
         itemList.add(item);
     }
 
