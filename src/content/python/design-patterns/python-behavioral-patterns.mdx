@@ -30,19 +30,12 @@ order: 4
 <p>An event-based observer notifies subscribers when a specific event occurs, allowing dynamic reactions without directly monitoring a property change.</p>
 
 ```python
-from abc import ABC, abstractmethod
-
-class SubscriberInterface(ABC):
-    @abstractmethod
-    def receive_email(self, newsletter):
-        pass
-
 class Event(list): # inheriting from list to store subscribed observers
     def __call__(self, *args, **kwargs): # making the Event instance callable to trigger notifications
         for item in self: # looping through all subscribed observer functions
             item(*args, **kwargs) # calling each observer with the given arguments
 
-class Subscriber(SubscriberInterface):
+class Subscriber:
     def __init__(self, name):
         self.name = name
 
@@ -421,21 +414,15 @@ class Parser:
         self.tokens = tokens
         self.position = 0
 
-    def parse_number(self):
-        if self.position >= len(self.tokens) or self.tokens[self.position].token_type != Token.NUMBER:
-            raise ValueError("Expected a number")
-        token = self.tokens[self.position]
+    def next_token(self):
         self.position += 1
-        return Number(token.value)
+        return self.tokens[self.position - 1]
 
     def parse(self):
-        result = self.parse_number() # starting with the first number
+        result = Number(self.next_token().value) # starting with the first number
         while self.position < len(self.tokens):
-            operator = self.tokens[self.position]
-            if operator.token_type == Token.NUMBER:
-                raise ValueError("Expected an operator")
-            self.position += 1
-            result = BinaryOperation(result, operator.token_type, self.parse_number()) # building the tree from left to right: ((10 + 5) - 3)
+            operator = self.next_token().token_type
+            result = BinaryOperation(result, operator, Number(self.next_token().value)) # building the tree from left to right: ((10 + 5) - 3)
         return result # returning the root of the AST
 
 expression = "10 + 5 - 3"
@@ -554,18 +541,12 @@ class TextEditor:
     def undo_operation(self):
         if self.current_state > 0:
             self.current_state -= 1
-            m = self.history[self.current_state]
-            self.content = m.content
-            return m
-        return None
+            self.content = self.history[self.current_state].content
 
     def redo(self):
         if self.current_state + 1 < len(self.history):
             self.current_state += 1
-            m = self.history[self.current_state]
-            self.content = m.content
-            return m
-        return None
+            self.content = self.history[self.current_state].content
 
     def show_content(self):
         print(f"Document content: {self.content}")
@@ -640,15 +621,11 @@ class RouteStrategy(ABC): # a Strategy interface
 # Concrete Strategy classes
 class CarRoute(RouteStrategy):
     def travel_time(self, distance_km):
-        return distance_km * 60 / 50 # 50 km/h
-
-class BikeRoute(RouteStrategy):
-    def travel_time(self, distance_km):
-        return distance_km * 60 / 15 # 15 km/h
+        return distance_km * 60 // 50 # 50 km/h
 
 class WalkingRoute(RouteStrategy):
     def travel_time(self, distance_km):
-        return distance_km * 60 / 5 # 5 km/h
+        return distance_km * 60 // 5 # 5 km/h
 
 class Navigator: # a context class
     def __init__(self, strategy: RouteStrategy):
@@ -658,12 +635,9 @@ class Navigator: # a context class
         self.strategy = strategy # changing Strategies dynamically
 
     def estimate(self, distance_km):
-        return f"{distance_km} km takes {self.strategy.travel_time(distance_km):.0f} minutes"
+        return f"{distance_km} km takes {self.strategy.travel_time(distance_km)} minutes"
 
 navigator = Navigator(CarRoute())
-print(navigator.estimate(30))
-
-navigator.set_strategy(BikeRoute())
 print(navigator.estimate(30))
 
 navigator.set_strategy(WalkingRoute())

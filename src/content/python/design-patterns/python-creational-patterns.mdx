@@ -101,11 +101,6 @@ class Person:
         self.job_title = None
         self.company = None
         self.salary = None
-        
-        # Address details
-        self.street = None
-        self.city = None
-        self.postal_code = None
 
     def __str__(self):
         return f"Person(Name: {self.name}, Age: {self.age}, Job: {self.job_title} at {self.company} (${self.salary}))"
@@ -382,13 +377,12 @@ render_form(MacFactory())
 import copy
 
 class Address:
-    def __init__(self, street, city, suite):
+    def __init__(self, street, suite):
         self.street = street
-        self.city = city
         self.suite = suite
 
     def __str__(self):
-        return f"{self.street}, Suite {self.suite}, {self.city}"
+        return f"{self.street}, Suite {self.suite}"
 
 class Employee:
     def __init__(self, name, address):
@@ -401,7 +395,7 @@ class Employee:
     def __str__(self):
         return f"{self.name} works at {self.address}"
 
-john = Employee("John", Address("123 East Dr", "London", 100)) # creating an original object
+john = Employee("John", Address("123 East Dr", 100)) # creating an original object
 
 jane = john.clone() # cloning the object
 jane.name = "Jane" # modifying the cloned object
@@ -419,13 +413,12 @@ print(jane)
 import copy
 
 class Address:
-    def __init__(self, street, city, suite):
+    def __init__(self, street, suite):
         self.street = street
-        self.city = city
         self.suite = suite
 
     def __str__(self):
-        return f"{self.street}, Suite {self.suite}, {self.city}"
+        return f"{self.street}, Suite {self.suite}"
 
 class Employee:
     def __init__(self, name, address):
@@ -440,8 +433,8 @@ class Employee:
 
 class EmployeeFactory:
     # Preconfigured Prototypes
-    main_office_employee = Employee("", Address("123 East Dr", "London", 0))
-    aux_office_employee = Employee("", Address("123B East Dr", "London", 0))
+    main_office_employee = Employee("", Address("123 East Dr", 0))
+    aux_office_employee = Employee("", Address("123B East Dr", 0))
 
     @staticmethod
     def _new_employee(prototype, name, suite):

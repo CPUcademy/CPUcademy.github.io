@@ -151,11 +151,6 @@ class Person {
     String company;
     int salary;
 
-    // Address details
-    String street;
-    String city;
-    String postalCode;
-
     @Override
     public String toString() {
         return "Person(Name: " + name + ", Age: " + age + ", Job: " + jobTitle + " at " + company + " ($" + salary + "))";
@@ -520,7 +515,7 @@ class MacFactory implements GUIFactory {
 ```java
 public class Main {
     public static void main(String[] args) {
-        Employee john = new Employee("John", new Address("123 East Dr", "London", 100)); // creating an original object
+        Employee john = new Employee("John", new Address("123 East Dr", 100)); // creating an original object
 
         Employee jane = new Employee(john); // cloning the object
         jane.setName("Jane"); // modifying the cloned object
@@ -533,24 +528,22 @@ public class Main {
 
 class Address {
     private final String street;
-    private final String city;
     private int suite;
 
-    Address(String street, String city, int suite) {
+    Address(String street, int suite) {
         this.street = street;
-        this.city = city;
         this.suite = suite;
     }
 
     Address(Address other) { // a copy constructor
-        this(other.street, other.city, other.suite);
+        this(other.street, other.suite);
     }
 
     public void setSuite(int suite) { this.suite = suite; }
 
     @Override
     public String toString() {
-        return street + ", Suite " + suite + ", " + city;
+        return street + ", Suite " + suite;
     }
 }
 
@@ -594,24 +587,22 @@ public class Main {
 
 class Address {
     private final String street;
-    private final String city;
     private int suite;
 
-    Address(String street, String city, int suite) {
+    Address(String street, int suite) {
         this.street = street;
-        this.city = city;
         this.suite = suite;
     }
 
     Address(Address other) {
-        this(other.street, other.city, other.suite);
+        this(other.street, other.suite);
     }
 
     public void setSuite(int suite) { this.suite = suite; }
 
     @Override
     public String toString() {
-        return street + ", Suite " + suite + ", " + city;
+        return street + ", Suite " + suite;
     }
 }
 
@@ -639,8 +630,8 @@ class Employee {
 
 class EmployeeFactory {
     // Preconfigured Prototypes
-    private static final Employee mainOfficeEmployee = new Employee("", new Address("123 East Dr", "London", 0));
-    private static final Employee auxOfficeEmployee = new Employee("", new Address("123B East Dr", "London", 0));
+    private static final Employee mainOfficeEmployee = new Employee("", new Address("123 East Dr", 0));
+    private static final Employee auxOfficeEmployee = new Employee("", new Address("123B East Dr", 0));
 
     public static Employee newMainOfficeEmployee(String name, int suite) {
         return newEmployee(mainOfficeEmployee, name, suite);

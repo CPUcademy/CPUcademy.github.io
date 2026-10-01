@@ -47,10 +47,6 @@ public class Main {
     }
 }
 
-interface SubscriberInterface {
-    void receiveEmail(String newsletter);
-}
-
 class Event<T> {
     private final List<Consumer<T>> observers = new ArrayList<>(); // storing subscribed observers
 
@@ -68,14 +64,13 @@ class Event<T> {
     }
 }
 
-class Subscriber implements SubscriberInterface {
+class Subscriber {
     private final String name;
 
     Subscriber(String name) {
         this.name = name;
     }
 
-    @Override
     public void receiveEmail(String newsletter) {
         System.out.println(name + " received: " + newsletter);
     }
@@ -146,10 +141,6 @@ class Subscriber {
 class Newsletter {
     private String newIssue;
     public final Event<String> newIssueReleased = new Event<>(); // the event fires when issue updates
-
-    public String getNewIssue() {
-        return newIssue;
-    }
 
     public void setNewIssue(String issueTitle) {
         if (!Objects.equals(newIssue, issueTitle)) { // ensuring it's actually changing
@@ -596,18 +587,14 @@ class Parser {
     }
 
     private Expression parseNumber() {
-        if (position >= tokens.size() || tokens.get(position).tokenType() != TokenType.NUMBER)
-            throw new IllegalArgumentException("Expected a number");
         return new Num(tokens.get(position++).value());
     }
 
     public Expression parse() {
         Expression result = parseNumber(); // starting with the first number
         while (position < tokens.size()) {
-            Token operator = tokens.get(position++);
-            if (operator.tokenType() == TokenType.NUMBER)
-                throw new IllegalArgumentException("Expected an operator");
-            result = new BinaryOperation(result, operator.tokenType(), parseNumber()); // building the tree from left to right: ((10 + 5) - 3)
+            TokenType operator = tokens.get(position++).tokenType();
+            result = new BinaryOperation(result, operator, parseNumber()); // building the tree from left to right: ((10 + 5) - 3)
         }
         return result; // returning the root of the AST
     }
@@ -769,24 +756,14 @@ class TextEditor {
         currentState++;
     }
 
-    public Memento undoOperation() {
-        if (currentState > 0) {
-            currentState--;
-            Memento m = history.get(currentState);
-            content = m.content();
-            return m;
-        }
-        return null;
+    public void undoOperation() {
+        if (currentState > 0)
+            content = history.get(--currentState).content();
     }
 
-    public Memento redo() {
-        if (currentState + 1 < history.size()) {
-            currentState++;
-            Memento m = history.get(currentState);
-            content = m.content();
-            return m;
-        }
-        return null;
+    public void redo() {
+        if (currentState + 1 < history.size())
+            content = history.get(++currentState).content();
     }
 
     public void showContent() {
@@ -863,9 +840,6 @@ public class Main {
         Navigator navigator = new Navigator(new CarRoute());
         System.out.println(navigator.estimate(30));
 
-        navigator.setStrategy(new BikeRoute());
-        System.out.println(navigator.estimate(30));
-
         navigator.setStrategy(new WalkingRoute());
         System.out.println(navigator.estimate(30));
     }
@@ -880,13 +854,6 @@ class CarRoute implements RouteStrategy {
     @Override
     public int travelTime(int distanceKm) {
         return distanceKm * 60 / 50; // 50 km/h
-    }
-}
-
-class BikeRoute implements RouteStrategy {
-    @Override
-    public int travelTime(int distanceKm) {
-        return distanceKm * 60 / 15; // 15 km/h
     }
 }
 
