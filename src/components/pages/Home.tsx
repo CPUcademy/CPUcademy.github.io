@@ -72,7 +72,6 @@ function Home() {
                     <MediaButton name="medium" url="https://medium.com/@cpucademy" openEmailModal={openEmailModal} />
                     <MediaButton name="pypi" url="https://pypi.org/user/CPUcademy/" openEmailModal={openEmailModal} />
                     <MediaButton name="linkedin" url="https://www.linkedin.com/in/tymoteusz-ko%C5%82odziejczyk-828123344/" openEmailModal={openEmailModal} />
-                    <MediaButton name="youtube" url="https://www.youtube.com/@cpu-cademy/" openEmailModal={openEmailModal} />
                     <MediaButton name="gmail" url="" openEmailModal={openEmailModal} />
 
                     {emailModalVisible && (

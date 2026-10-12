@@ -49,7 +49,7 @@ function AboutMe() {
           <div className="card-header py-3"><h5 className="m-0 font-weight-bold">Experience</h5></div>
           <div className="card-body">
             {profileTyped.experience.map((entry) => (
-              <div className="experience-card noBottomMargin" key={entry.company + entry.dates}>
+              <div className={`experience-card noBottomMargin${entry.description.length > 0 || entry.subDescription ? '' : ' pb-3'}`} key={entry.company + entry.dates}>
                 <div className="experience-content">
                   <div className="vertically-aligned-container">
                     <div className="experience-dates">{entry.dates}</div>
@@ -59,7 +59,7 @@ function AboutMe() {
                     </div>
                   </div>
 
-                  <ToggleDescription>
+                  {(entry.description.length > 0 || entry.subDescription) && <ToggleDescription>
                     <div className="experience-description">
                       <ul>
                         {entry.description.map((line, i) => (
@@ -77,7 +77,7 @@ function AboutMe() {
                         )}
                       </ul>
                     </div>
-                  </ToggleDescription>
+                  </ToggleDescription>}
                 </div>
               </div>
             ))}
