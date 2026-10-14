@@ -39,7 +39,7 @@ function AboutMe() {
             <p className="noBottomMargin">{profileTyped.aboutme}</p>
 
             <div className="d-flex gap-2 flex-wrap" style={{ marginTop: "10px" }}>
-              <Link to="/portfolio-projects" className="small-button" style={{ marginRight: "10px", marginBottom: "10px" }}>Programming Portfolio Projects</Link>
+              <Link to="/portfolio-projects" className="small-button" style={{ marginRight: "10px", marginBottom: "10px" }}>Programming Projects</Link>
               <Link to="/photo-gallery" className="small-button" style={{ marginBottom: "10px" }}>Photo Gallery</Link>
             </div>
           </div>

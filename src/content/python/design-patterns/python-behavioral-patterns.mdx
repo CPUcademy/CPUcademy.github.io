@@ -141,7 +141,7 @@ person.current_year = 2030 # no notification (the age didn't change)
 
 <h2><a id="chain-of-responsibility">Chain of Responsibility</a></h2>
 
-<p>Chain of Responsibility allows multiple handlers to process a request without the sender needing to know which handler will handle it. The request is passed along a chain of handlers until one of them processes it (or it reaches the end of the chain). This pattern promotes loose coupling and makes it easy to add or modify handlers dynamically. All componenets of a chain get a chance to process a command or a query, and have the ability to terminate the processing chain.</p>
+<p>Chain of Responsibility allows multiple handlers to process a request without the sender needing to know which handler will handle it. The request is passed along a chain of handlers until one of them processes it (or it reaches the end of the chain). This pattern promotes loose coupling and makes it easy to add or modify handlers dynamically. All components of a chain get a chance to process a command or a query, and have the ability to terminate the processing chain.</p>
 
 <h4>Method chain (classic approach)</h4>
 
@@ -266,7 +266,7 @@ class Command(ABC):
         pass
 
 class BankAccount: # a receiver class (the object that performs the action when requested)
-    def __init__(self, balance = 0):
+    def __init__(self, balance):
         self.balance = balance
 
     def deposit(self, amount):
@@ -357,7 +357,7 @@ print(f"Target account after undo: {target_account}")
 class Token:
     NUMBER, PLUS, MINUS = "NUMBER", "PLUS", "MINUS"
 
-    def __init__(self, token_type, value = None):
+    def __init__(self, token_type, value = 0):
         self.token_type = token_type
         self.value = value
 
@@ -393,7 +393,7 @@ class Lexer:
         return tokens
 
 # AST nodes
-class Number:
+class Num:
     def __init__(self, value):
         self.value = value
 
@@ -401,7 +401,7 @@ class Number:
         return self.value
 
     def __repr__(self):
-        return f"Number({self.value})"
+        return f"Num({self.value})"
 
 class BinaryOperation:
     def __init__(self, left, operator, right):
@@ -423,15 +423,16 @@ class Parser:
         self.tokens = tokens
         self.position = 0
 
-    def next_token(self):
+    def parse_number(self):
         self.position += 1
-        return self.tokens[self.position - 1]
+        return Num(self.tokens[self.position - 1].value)
 
     def parse(self):
-        result = Number(self.next_token().value) # starting with the first number
+        result = self.parse_number() # starting with the first number
         while self.position < len(self.tokens):
-            operator = self.next_token().token_type
-            result = BinaryOperation(result, operator, Number(self.next_token().value)) # building the tree from left to right: ((10 + 5) - 3)
+            operator = self.tokens[self.position].token_type
+            self.position += 1
+            result = BinaryOperation(result, operator, self.parse_number()) # building the tree from left to right: ((10 + 5) - 3)
         return result # returning the root of the AST
 
 expression = "10 + 5 - 3"

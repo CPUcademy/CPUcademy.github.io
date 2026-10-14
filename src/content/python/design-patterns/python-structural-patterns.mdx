@@ -271,6 +271,10 @@ class TreeTypeFactory: # a Flyweight Factory
             TreeTypeFactory._tree_types[key] = TreeType(name, colour) # creating a new object only if it doesn't exist yet
         return TreeTypeFactory._tree_types[key]
 
+    @staticmethod
+    def count():
+        return len(TreeTypeFactory._tree_types)
+
 forest = []
 for i in range(1000):
     forest.append(Tree(i, i * 2, TreeTypeFactory.get_tree_type("Oak", "Green")))
@@ -278,7 +282,7 @@ for i in range(1000):
 
 forest[0].draw()
 forest[1].draw()
-print(f"Trees: {len(forest)}, tree types in memory: {len(TreeTypeFactory._tree_types)}")
+print(f"Trees: {len(forest)}, tree types in memory: {TreeTypeFactory.count()}")
 ```
 
 <h2><a id="proxy">Proxy</a></h2>
@@ -287,10 +291,17 @@ print(f"Trees: {len(forest)}, tree types in memory: {len(TreeTypeFactory._tree_t
 
 <h4>Protection Proxy</h4>
 
-<p>The Proxy has the same interface as the real object, so the client can use it without knowing whether it talks to the real object or the Proxy.</p>
+<p>The Proxy implements the same interface as the real object, so the client can use it without knowing whether it talks to the real object or the Proxy.</p>
 
 ```python
-class Movie:
+from abc import ABC, abstractmethod
+
+class Movie(ABC):
+    @abstractmethod
+    def watch(self):
+        pass
+
+class RealMovie(Movie):
     def __init__(self, movie_title, rating):
         self.movie_title = movie_title
         self.rating = rating
@@ -298,7 +309,7 @@ class Movie:
     def watch(self):
         return f"Watching {self.movie_title}"
 
-class AgeRestrictedMovie: # a Proxy
+class AgeRestrictedMovie(Movie): # a Proxy
     def __init__(self, movie, viewer_age):
         self.movie = movie
         self.viewer_age = viewer_age
@@ -309,7 +320,7 @@ class AgeRestrictedMovie: # a Proxy
         else:
             return "Age restriction: too young"
 
-action_movie = Movie("Action movie", 18)
+action_movie = RealMovie("Action movie", 18)
 
 movie1 = AgeRestrictedMovie(action_movie, 20)
 print(movie1.watch())
@@ -322,33 +333,36 @@ print(movie2.watch())
 
 ```python
 import time
+from abc import ABC, abstractmethod
 
-class HeavyResource:
+class Resource(ABC):
+    @abstractmethod
+    def display(self):
+        pass
+
+class HeavyResource(Resource):
     def __init__(self):
         print("Loading heavy resource...")
-        time.sleep(2)
+        time.sleep(2) # simulating expensive loading
         self.data = "Heavy resource loaded"
 
     def display(self):
         return self.data
 
-class VirtualProxy:
+class VirtualProxy(Resource):
     def __init__(self):
         self._real_resource = None
 
-    def _load_resource(self):
-        if not self._real_resource:
-            self._real_resource = HeavyResource() # Lazy initialization
-        return self._real_resource
-
     def display(self):
-        return self._load_resource().display()
+        if self._real_resource is None:
+            self._real_resource = HeavyResource() # Lazy initialization
+        return self._real_resource.display()
 
-proxy = VirtualProxy()
+resource = VirtualProxy() # nothing is loaded yet
 
 print("Before accessing the resource...")
-print(proxy.display()) # heavy resource is loaded now, so it takes time
-print(proxy.display()) # resource is already loaded, no delay
+print(resource.display()) # heavy resource is loaded now, so it takes time
+print(resource.display()) # resource is already loaded, no delay
 ```
 
 <h5>Proxy VS Decorator</h5>

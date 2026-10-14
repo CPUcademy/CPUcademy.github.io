@@ -128,10 +128,12 @@ class Newsletter {
     }
 
     public void setNewIssue(String issueTitle) {
+        if (issueTitle.equals(newIssue)) // ensuring it's actually changing
+            return;
         String oldIssue = newIssue;
         newIssue = issueTitle;
         System.out.println("New issue set: " + issueTitle);
-        support.firePropertyChange("newIssue", oldIssue, issueTitle); // notifying listeners (only if the value changed)
+        support.firePropertyChange("newIssue", oldIssue, issueTitle); // notifying listeners
     }
 }
 ```
@@ -182,7 +184,7 @@ class Person {
 
 <h2><a id="chain-of-responsibility">Chain of Responsibility</a></h2>
 
-<p>Chain of Responsibility allows multiple handlers to process a request without the sender needing to know which handler will handle it. The request is passed along a chain of handlers until one of them processes it (or it reaches the end of the chain). This pattern promotes loose coupling and makes it easy to add or modify handlers dynamically. All componenets of a chain get a chance to process a command or a query, and have the ability to terminate the processing chain.</p>
+<p>Chain of Responsibility allows multiple handlers to process a request without the sender needing to know which handler will handle it. The request is passed along a chain of handlers until one of them processes it (or it reaches the end of the chain). This pattern promotes loose coupling and makes it easy to add or modify handlers dynamically. All components of a chain get a chance to process a command or a query, and have the ability to terminate the processing chain.</p>
 
 <h4>Method chain (classic approach)</h4>
 
@@ -591,8 +593,9 @@ public class Main {
         Inventory inventory = new Inventory("Sword", "Shield", "Potion");
 
         Iterator<String> iterator = inventory.iterator(); // using the Iterator manually
-        while (iterator.hasNext())
-            System.out.println(iterator.next());
+        System.out.println(iterator.next());
+        System.out.println(iterator.next());
+        System.out.println(iterator.next());
 
         for (String item : inventory) // the for-each loop calls iterator(), hasNext(), and next() under the hood
             System.out.println(item);
