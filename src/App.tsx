@@ -16,8 +16,13 @@ function App() {
     }, [tutorialsOpen])
 
     useEffect(() => {
-        const handleResize = () => { setSidebarToggled(window.innerWidth < 768) }
-        handleResize()
+        let lastWidth = window.innerWidth
+        setSidebarToggled(lastWidth < 768)
+        const handleResize = () => {
+            if (window.innerWidth === lastWidth) return
+            lastWidth = window.innerWidth
+            setSidebarToggled(lastWidth < 768)
+        }
         window.addEventListener('resize', handleResize)
         return () => window.removeEventListener('resize', handleResize)
     }, [])
