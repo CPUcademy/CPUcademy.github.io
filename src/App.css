@@ -467,9 +467,15 @@ td {
     background-color: #f8f9fc;
     box-shadow: 0 0 0 0 #157267, 0 0.15rem 0.5rem rgba(58, 59, 69, 0.15);
     -webkit-tap-highlight-color: transparent;
+    transition: box-shadow 0.4s ease;
 }
 
 #sidebarToggleTop:focus {box-shadow: 0 0 0 0 #157267, 0 0.15rem 0.5rem rgba(58, 59, 69, 0.15);}
+
+#sidebarToggleTop:active {
+    box-shadow: 0 0 0 0.2rem #157267, 0 0.15rem 0.5rem rgba(58, 59, 69, 0.15);
+    transition: none;
+}
 
 #sidebarToggleTop:focus-visible {
     outline: none;
@@ -3958,6 +3964,7 @@ a:focus {outline: none;}
 #wrapper #content-wrapper {
     background-color: #f8f9fc;
     width: 100%;
+    min-width: 0;
     overflow-x: clip;
 }
 
