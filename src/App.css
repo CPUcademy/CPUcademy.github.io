@@ -566,7 +566,10 @@ pre, code {
     font-size: 0.88em;
     font-weight: 600;
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
 }
 
 figure[data-rehype-pretty-code-figure] {
@@ -4700,4 +4703,56 @@ iframe {
 
 #example {
   display: block;
+}
+
+.bottom-nav, .bottom-nav-menu {display: none;}
+@media (display-mode: standalone) {
+    #accordionSidebar, #sidebarToggleTop {display: none !important;}
+    body {padding-bottom: calc(60px + env(safe-area-inset-bottom));}
+    .bottom-nav {
+        display: flex;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1030;
+        background-color: #157267;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+    .bottom-nav a, .bottom-nav button {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+        padding: 0;
+        border: none;
+        background: none;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.65rem;
+        text-decoration: none;
+    }
+    .bottom-nav i {font-size: 1.1rem; margin-bottom: 2px;}
+    .bottom-nav .active {color: #fff;}
+    .bottom-nav-menu {
+        display: block;
+        position: fixed;
+        left: 0.75rem;
+        right: 0.75rem;
+        bottom: calc(68px + env(safe-area-inset-bottom));
+        z-index: 1030;
+        padding: 0.5rem 0;
+        background-color: #fff;
+        border-radius: 0.35rem;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    }
+    .bottom-nav-menu a {
+        display: block;
+        padding: 0.6rem 1.25rem;
+        color: #3a3b45;
+        font-size: 0.9rem;
+        text-decoration: none;
+    }
+    .bottom-nav-menu a.active {color: #157267; font-weight: 700;}
 }
