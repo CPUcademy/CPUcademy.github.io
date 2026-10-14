@@ -1,11 +1,25 @@
 import { Link, useLocation } from 'react-router-dom'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+
+type InstallPromptEvent = Event & { prompt: () => Promise<void> }
 
 function Navbar({ sidebarToggled, tutorialsOpen, setTutorialsOpen, contentRef, height }: {
     sidebarToggled: boolean, tutorialsOpen: boolean, setTutorialsOpen: (value: boolean) => void, contentRef: React.RefObject<HTMLDivElement | null>, height: number }) {
     const location = useLocation()
     const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
     const isTutorialsActive = location.pathname.startsWith('/tutorials')
+    const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null)
+
+    useEffect(() => {
+        const handlePrompt = (e: Event) => { e.preventDefault(); setInstallPrompt(e as InstallPromptEvent) }
+        const handleInstalled = () => setInstallPrompt(null)
+        window.addEventListener('beforeinstallprompt', handlePrompt)
+        window.addEventListener('appinstalled', handleInstalled)
+        return () => {
+            window.removeEventListener('beforeinstallprompt', handlePrompt)
+            window.removeEventListener('appinstalled', handleInstalled)
+        }
+    }, [])
 
     const handleTutorialLinkClick = () => {
         closeTimeoutRef.current = setTimeout(() => {
@@ -77,6 +91,17 @@ function Navbar({ sidebarToggled, tutorialsOpen, setTutorialsOpen, contentRef, h
                         <span>Search Tutorials</span>
                     </Link>
                 </li>
+                {installPrompt && (
+                    <>
+                        <hr className="sidebar-divider my-0 d-md-none"/>
+                        <li className="nav-item d-md-none">
+                            <a className="nav-link" href="#" onClick={(e) => { e.preventDefault(); installPrompt.prompt().then(() => setInstallPrompt(null)) }}>
+                                <i className="fa fa-download"></i>
+                                <span>Install App</span>
+                            </a>
+                        </li>
+                    </>
+                )}
                 <hr className="sidebar-divider"/>
             </ul>
         </>
