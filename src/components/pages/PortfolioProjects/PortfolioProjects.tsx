@@ -4,6 +4,7 @@ import projects from '../../../content/websiteData/projects.json'
 import type { Project } from '../../../content/types'
 
 const projectsTyped = projects as Project[]
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches
 
 function PortfolioProjects() {
   useEffect(() => {
@@ -18,7 +19,7 @@ function PortfolioProjects() {
           <div className="card-body row">
             {projectsTyped.map((project) => (
               <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" key={project.title}>
-                <a href={project.url} className="a-project" target="_blank" rel="noreferrer">
+                <a href={project.url} className="a-project" target={isStandalone && new URL(project.url, location.href).origin === location.origin ? undefined : '_blank'} rel="noreferrer">
                   <div className="project-card card shadow mb-4">
                     <img src={project.logo} alt="Icon" className="i-project" style={{ marginTop: "5px" }} />
                     <span className="p-project">
