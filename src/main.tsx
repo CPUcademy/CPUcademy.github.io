@@ -33,6 +33,15 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(<StrictMode><RouterProvider router={router} /></StrictMode>)
 
+if (window.matchMedia('(display-mode: standalone)').matches) {
+  document.addEventListener('click', e => {
+    const link = (e.target as Element).closest('a[target="_blank"]') as HTMLAnchorElement | null
+    if (!link || link.origin !== location.origin) return
+    e.preventDefault()
+    location.href = link.href
+  })
+}
+
 if (import.meta.env.PROD && 'serviceWorker' in navigator) {
   const hadController = !!navigator.serviceWorker.controller
   navigator.serviceWorker.addEventListener('controllerchange', () => { if (hadController) location.reload() })
