@@ -27,7 +27,7 @@ order: 4
 
 <h4>Event-based observer</h4>
 
-<p>An event-based observer notifies subscribers when a specific event occurs, allowing dynamic reactions without directly monitoring a property change. In Java, observers usually implement a listener interface (like ```ActionListener``` in Swing), and the subject keeps a list of them.</p>
+<p>An event-based observer notifies subscribers when a specific event occurs, allowing dynamic reactions without directly monitoring a property change.</p>
 
 ```java
 import java.util.ArrayList;
@@ -309,7 +309,7 @@ class ECommercePlatform { // a broker
 
     public double getPrice(Product product) {
         Query query = new Query(product.name(), product.basePrice());
-        for (DiscountHandler handler : handlers) // every registered handler can modify the query
+        for (DiscountHandler handler : handlers) // every handler gets the query and may modify its value
             handler.handle(query);
         return query.value;
     }
@@ -346,9 +346,9 @@ class LoyaltyDiscount implements DiscountHandler {
 
 <h2><a id="command">Command</a></h2>
 
-<p>Command is used to turn a request (an action) into a stand-alone object. This object encapsulates all details of the request, allowing parameterization of objects. It is also useful for implementing the undo functionality.</p>
+<p>Command is used to turn a request (an action) into a stand-alone object. This object encapsulates all details of the request, allowing parameterization of objects. It is also useful for, e.g., implementing the undo functionality.</p>
 
-<p>In the example below, the ```TransferMoneyCommand``` class encapsulates the action and its associated details (it takes the ```BankAccount``` objects as parameters) and can be executed by ```TransactionHistory``` (the invoker) when triggered.</p>
+<p>In the example below, ```DepositCommand``` encapsulates the action and its details (the account and the amount), and ```BankAccount``` (the receiver) performs it. ```CommandHistory``` (the invoker) executes Commands and keeps them on a stack, so the most recent one can be undone.</p>
 
 ```java
 import java.util.ArrayDeque;
@@ -356,29 +356,15 @@ import java.util.Deque;
 
 public class Main {
     public static void main(String[] args) {
-        BankAccount sourceAccount = new BankAccount(500);
-        BankAccount targetAccount = new BankAccount(200);
-        TransactionHistory history = new TransactionHistory();
+        BankAccount account = new BankAccount();
+        CommandHistory history = new CommandHistory();
 
-        System.out.println("Source account before transfer: " + sourceAccount);
-        System.out.println("Target account before transfer: " + targetAccount);
+        history.execute(new DepositCommand(account, 100));
+        history.execute(new DepositCommand(account, 50));
+        System.out.println(account.getBalance()); // 150
 
-        Command transfer1 = new TransferMoneyCommand(sourceAccount, targetAccount, 100);
-        history.execute(transfer1);
-
-        System.out.println("Source account after first transfer: " + sourceAccount);
-        System.out.println("Target account after first transfer: " + targetAccount);
-
-        Command transfer2 = new TransferMoneyCommand(sourceAccount, targetAccount, 1000); // trying to transfer more than available funds
-        history.execute(transfer2);
-
-        System.out.println("Source account after second transfer attempt: " + sourceAccount);
-        System.out.println("Target account after second transfer attempt: " + targetAccount);
-        history.undo(); // the failed transfer has nothing to undo
-        history.undo(); // undoing the first transfer
-
-        System.out.println("Source account after undo: " + sourceAccount);
-        System.out.println("Target account after undo: " + targetAccount);
+        history.undo(); // undoing the last deposit
+        System.out.println(account.getBalance()); // 100
     }
 }
 
@@ -387,79 +373,33 @@ interface Command {
     void undo();
 }
 
-class BankAccount { // a receiver class (the object that performs the action when requested)
+class BankAccount { // a receiver (the object that performs the action)
     private int balance;
 
-    BankAccount(int balance) {
-        this.balance = balance;
-    }
-
-    public void deposit(int amount) {
-        balance += amount;
-    }
-
-    public boolean withdraw(int amount) {
-        if (balance >= amount) {
-            balance -= amount;
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public String toString() {
-        return "Balance = " + balance;
-    }
+    public void deposit(int amount) { balance += amount; }
+    public void withdraw(int amount) { balance -= amount; }
+    public int getBalance() { return balance; }
 }
 
-class TransferMoneyCommand implements Command { // a concrete Command class
-    private final BankAccount sourceAccount;
-    private final BankAccount targetAccount;
-    private final int amount;
-    private boolean executed = false;
-
-    TransferMoneyCommand(BankAccount sourceAccount, BankAccount targetAccount, int amount) {
-        this.sourceAccount = sourceAccount;
-        this.targetAccount = targetAccount;
-        this.amount = amount;
-    }
+record DepositCommand(BankAccount account, int amount) implements Command { // a concrete Command (the action and its details)
+    @Override
+    public void execute() { account.deposit(amount); }
 
     @Override
-    public void execute() {
-        if (!executed) {
-            if (sourceAccount.withdraw(amount)) {
-                targetAccount.deposit(amount);
-                executed = true;
-                System.out.println("Transferred " + amount + " from source to target.");
-            } else
-                System.out.println("Insufficient funds for transfer.");
-        } else
-            System.out.println("Transfer already executed.");
-    }
-
-    @Override
-    public void undo() {
-        if (executed) {
-            targetAccount.withdraw(amount);
-            sourceAccount.deposit(amount);
-            System.out.println("Undo transfer of " + amount + " from target back to source.");
-            executed = false;
-        } else
-            System.out.println("No transfer to undo.");
-    }
+    public void undo() { account.withdraw(amount); }
 }
 
-class TransactionHistory { // an invoker class (the object that calls the command)
+class CommandHistory { // an invoker (executes Commands and remembers them)
     private final Deque<Command> history = new ArrayDeque<>();
 
     public void execute(Command command) {
-        command.execute(); // invoking the Command's execute method
+        command.execute();
         history.push(command);
     }
 
     public void undo() {
         if (!history.isEmpty())
-            history.pop().undo();
+            history.pop().undo(); // undoing the most recent Command
     }
 }
 ```
@@ -471,71 +411,26 @@ class TransactionHistory { // an invoker class (the object that calls the comman
 <p>The example below implements a simple interpreter for arithmetic expressions that includes addition and subtraction. It tokenizes an expression like "10 + 5 - 3", parses it into an abstract syntax tree (AST), and evaluates the result. Each grammar rule (a number or a binary operation) is represented by a class implementing the ```Expression``` interface, and evaluating the tree means calling ```evaluate()``` on its root, which recursively evaluates its children.</p>
 
 ```java
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        String expression = "10 + 5 - 3";
-        Lexer lexer = new Lexer(expression);
-        List<Token> tokens = lexer.tokenize();
+        List<String> tokens = List.of("10 + 5 - 3".split(" ")); // lexing: splitting the text into tokens
         System.out.println(tokens);
 
-        Parser parser = new Parser(tokens);
-        Expression ast = parser.parse();
+        Expression ast = parse(tokens);
         System.out.println(ast);
         System.out.println(ast.evaluate());
     }
-}
 
-// Lexing
-enum TokenType { NUMBER, PLUS, MINUS }
-
-record Token(TokenType tokenType, int value) {
-    Token(TokenType tokenType) {
-        this(tokenType, 0);
+    static Expression parse(List<String> tokens) { // parsing: building the tree from left to right: ((10 + 5) - 3)
+        Expression result = new Num(Integer.parseInt(tokens.get(0)));
+        for (int i = 1; i < tokens.size(); i += 2)
+            result = new BinaryOperation(result, tokens.get(i), new Num(Integer.parseInt(tokens.get(i + 1))));
+        return result; // returning the root of the AST
     }
 }
 
-class Lexer {
-    private final String input;
-    private int index = 0;
-
-    Lexer(String input) {
-        this.input = input.replace(" ", ""); // removing spaces for easier processing
-    }
-
-    public Token getNextToken() {
-        char c = input.charAt(index);
-        
-        if (Character.isDigit(c)) {
-            int num = 0;
-            // Extracting multi-digit numbers
-            while (index < input.length() && Character.isDigit(input.charAt(index))) {
-                num = num * 10 + (input.charAt(index) - '0');
-                index++;
-            }
-            return new Token(TokenType.NUMBER, num);
-        } else if (c == '+') {
-            index++;
-            return new Token(TokenType.PLUS);
-        } else if (c == '-') {
-            index++;
-            return new Token(TokenType.MINUS);
-        }
-
-        throw new IllegalArgumentException("Unexpected character: " + c);
-    }
-
-    public List<Token> tokenize() {
-        List<Token> tokens = new ArrayList<>();
-        while (index < input.length())
-            tokens.add(getNextToken()); // generating a token list
-        return tokens;
-    }
-}
-
-// AST nodes
 interface Expression {
     int evaluate();
 }
@@ -547,42 +442,19 @@ record Num(int value) implements Expression {
     }
 }
 
-record BinaryOperation(Expression left, TokenType operator, Expression right) implements Expression {
+record BinaryOperation(Expression left, String operator, Expression right) implements Expression {
     @Override
     public int evaluate() {
-        if (operator == TokenType.PLUS)
+        if (operator.equals("+"))
             return left.evaluate() + right.evaluate();
         return left.evaluate() - right.evaluate();
-    }
-}
-
-// Parsing
-class Parser {
-    private final List<Token> tokens;
-    private int position = 0;
-
-    Parser(List<Token> tokens) {
-        this.tokens = tokens;
-    }
-
-    private Expression parseNumber() {
-        return new Num(tokens.get(position++).value());
-    }
-
-    public Expression parse() {
-        Expression result = parseNumber(); // starting with the first number
-        while (position < tokens.size()) {
-            TokenType operator = tokens.get(position++).tokenType();
-            result = new BinaryOperation(result, operator, parseNumber()); // building the tree from left to right: ((10 + 5) - 3)
-        }
-        return result; // returning the root of the AST
     }
 }
 ```
 
 <h2><a id="iterator">Iterator</a></h2>
 
-<p>Iterator provides a way to access elements of a collection sequentially without exposing its underlying structure. Instead of manually managing iteration, the pattern encapsulates it within an iterator object that keeps track of the current position and provides a standard way to retrieve the next element. In Java, every class that implements the ```Iterable``` interface (returns an ```Iterator``` object from its ```iterator()``` method) can be used in a for-each loop. The example below implements a custom Iterator over an array, which the client never accesses directly.</p>
+<p>Iterator provides a way to access elements of a collection sequentially without exposing its underlying structure. Instead of manually managing iteration, the pattern encapsulates it within an iterator object that keeps track of the current position and provides a standard way to retrieve the next element. In Java, every class that implements the ```Iterable``` interface (returns an ```Iterator``` object from its ```iterator()``` method) can be used in a for-each loop. In the example below, ```Inventory``` stores its items in an array, but the client goes through them only with a custom Iterator and never accesses the array directly.</p>
 
 ```java
 import java.util.Iterator;
@@ -592,10 +464,10 @@ public class Main {
     public static void main(String[] args) {
         Inventory inventory = new Inventory("Sword", "Shield", "Potion");
 
-        Iterator<String> iterator = inventory.iterator(); // using the Iterator manually
-        System.out.println(iterator.next());
-        System.out.println(iterator.next());
-        System.out.println(iterator.next());
+        Iterator<String> iter = inventory.iterator(); // using the Iterator manually
+        System.out.println(iter.next());
+        System.out.println(iter.next());
+        System.out.println(iter.next());
 
         for (String item : inventory) // the for-each loop calls iterator(), hasNext(), and next() under the hood
             System.out.println(item);
@@ -692,16 +564,22 @@ class ChatRoom implements Mediator {
 
     @Override
     public void sendData(String message, User sender) {
-        for (User u : users)
+        for (User u : users) {
             if (u != sender)
                 u.receiveMessage(message);
+        }
     }
 }
 ```
 
 <h2><a id="memento">Memento</a></h2>
 
-<p>Memento allows capturing and restoring an object's state without exposing its internal details. It is useful for implementing undo/redo functionality or saving checkpoints in an application. It has three parts: the originator (the object whose state is saved, ```TextEditor```) creates Mementos and restores its state from them, the Memento stores a snapshot of that state, and the caretaker (```History```) keeps the Mementos without reading or modifying them. In Java, the Memento is a nested class with ```private``` members, so only ```TextEditor``` can read it.</p>
+<p className="noBottomMargin">Memento saves an object's state so that it can be restored later, without exposing how the object stores that state. It is the basis of undo/redo functionality and checkpoints (save points). It has three parts:</p>
+<ul>
+    <li><b>Originator</b> (```TextEditor```) - the object whose state we want to save. Its ```save()``` method returns a Memento with the current content, and its ```restore()``` method sets the content back from a given Memento.</li>
+    <li><b>Memento</b> - a snapshot of the originator's state at one moment (here, the text in the editor).</li>
+    <li><b>Caretaker</b> (```History```) - decides when to save and restore the state (```backup()```, ```undo()```, and ```redo()```) and stores the Mementos on undo and redo stacks, but never reads or changes their contents.</li>
+</ul>
 
 ```java
 import java.util.ArrayDeque;
@@ -714,16 +592,16 @@ public class Main {
 
         history.backup();
         editor.write("Hello, ");
-        editor.showContent();
+        editor.showContent(); // "Hello, "
 
         history.backup();
         editor.write("world!");
-        editor.showContent();
+        editor.showContent(); // "Hello, world!"
 
         history.undo();
-        editor.showContent();
+        editor.showContent(); // "Hello, "
         history.redo();
-        editor.showContent();
+        editor.showContent(); // "Hello, world!"
     }
 }
 
@@ -789,7 +667,7 @@ class History { // a caretaker
 
 <p>State allows an object to change its behavior when its internal state changes. It encapsulates different behaviors within separate state classes, making the system more maintainable and flexible.</p>
 
-<p>In the example below, the behavior that changes is how the ```TrafficLight``` object responds to the ```change()``` method, depending on its current state. This method changes the state, and depending on whether the current state is ```RedState```, ```YellowState```, or ```GreenState```, a different transition logic contained in the ```switchLight()``` method of each state class is applied.</p>
+<p>In the example below, the behavior that changes is how the ```TrafficLight``` object responds to the ```change()``` method, depending on its current state. The ```change()``` method passes the call to the ```switchLight()``` method of the current state, and each state class defines its own transition: ```RedState``` switches the light to green, ```GreenState``` to yellow, and ```YellowState``` to red.</p>
 
 ```java
 public class Main {
@@ -910,7 +788,7 @@ public class Main {
 }
 
 abstract class ReportTemplate {
-    public final void generateReport() { // a Template Method defining the steps for generating a report ("final" prevents subclasses from changing the skeleton)
+    public final void generateReport() { // a Template Method defining the steps for generating a report ("final" prevents subclasses from changing the "skeleton")
         collectData();
         analyseData();
         System.out.println("Done.");
@@ -947,7 +825,15 @@ class InventoryReport extends ReportTemplate {
 
 <h2><a id="visitor">Visitor</a></h2>
 
-<p>Visitor allows us to add new operations to existing object structures without modifying them (in compliance with the OCP). Instead of adding behavior inside the already existing objects, we create a Visitor that implements the behavior and visits those objects. This keeps the document structure unchanged while allowing new operations.</p>
+<p>Visitor separates operations (algorithms) from the object structure they work on. Instead of putting every operation inside the element classes, each operation is placed in a separate Visitor class that visits the elements. As a result, new operations can be added without modifying the existing classes (in compliance with the OCP), and the document structure stays unchanged.</p>
+
+<p className="noBottomMargin">Instead of adding new methods to ```TextElement``` and ```ImageElement``` every time we need a new operation, we simply create a new Visitor class that implements those operations without modifying the element classes. This pattern relies on double dispatch, where both the element type (```TextElement``` or ```ImageElement```) and the visitor type (```Renderer``` or ```WordCounter```) determine the behavior, meaning:</p>
+
+<ol>
+    <li>The element calls its ```accept(visitor)``` method, passing the visitor as an argument.</li>
+    <li>Inside ```accept(visitor)```, the element calls the visitor’s corresponding method (```visitText()``` or ```visitImage()```), passing itself (```this```) as an argument.</li>
+    <li>The visitor determines what to do based on the element type.</li>
+</ol>
 
 ```java
 import java.util.List;
@@ -1020,14 +906,6 @@ class WordCounter implements Visitor {
 }
 ```
 
-<p className="noBottomMargin">Instead of adding new methods to ```TextElement``` and ```ImageElement``` every time we need a new operation, we simply create a new Visitor class that implements those operations without modifying the element classes. This pattern relies on double dispatch, where both the element type (```TextElement``` or ```ImageElement```) and the visitor type (```Renderer``` or ```WordCounter```) determine the behavior, meaning:</p>
-
-<ol>
-    <li>The element calls its ```accept(visitor)``` method, passing the visitor as an argument.</li>
-    <li>Inside ```accept(visitor)```, the element calls the visitor’s corresponding method (```visitText()``` or ```visitImage()```), passing itself (```this```) as an argument.</li>
-    <li>The visitor determines what to do based on the element type.</li>
-</ol>
-
 <h5>Visitor VS Decorator</h5>
 
-<p>A Visitor allows <b>new operations</b> to be added to existing object structures without modifying them by separating the new behavior from the objects it operates on. Decorator allows behavior to be dynamically added to an object at runtime by wrapping it with <b>additional functionality and extending behavior</b>.</p>
+<p>A Visitor allows new operations to be added to an existing object structure without modifying the element classes, by separating operations from the objects they operate on. Decorator allows existing behavior to be extended or modified by wrapping an object with another object that implements the same interface.</p>

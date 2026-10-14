@@ -4,6 +4,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 
 import { searchContent } from '../../content/search'
 import type { SearchResult } from '../../content/search'
+import { sharedLessons } from '../../content/sharedLessons'
 import { scrollToTop } from '../buttons/LessonNavButtons'
 
 function highlightKeyword(text: string, query: string) {
@@ -33,7 +34,12 @@ const categoryLabels: Record<string, string> = {
   web: 'Basic Web Stack',
   databases: 'Databases',
   'electronics-and-it-basics': 'Electronics & IT Basics',
-  shared: 'Electronics & IT Basics',
+}
+
+function getPlacement(result: SearchResult) {
+  if (result.category !== 'shared') return result
+  const placements = sharedLessons.filter(p => p.slug.endsWith(result.slug))
+  return placements.find(p => p.category === 'electronics-and-it-basics') ?? placements[0] ?? result
 }
 
 export default function Search() {
@@ -102,10 +108,10 @@ export default function Search() {
           {results.length > 0 && (
             <div className="search-results">
               {results.map((result, index) => (
-                <Link key={`${result.path}-${result.type}-${index}`} to={result.category === 'shared' ? `/tutorials/electronics-and-it-basics/${result.slug}` : `/tutorials/${result.category}/${result.slug}`} className="search-result" onClick={scrollToTop}>
+                <Link key={`${result.path}-${result.type}-${index}`} to={`/tutorials/${getPlacement(result).category}/${getPlacement(result).slug}`} className="search-result" onClick={scrollToTop}>
                     <div className="search-result-pills">
                       <div className="search-result-type">{result.type === 'title' ? 'LESSON' : result.type === 'heading' ? 'HEADER' : 'CONTENT'}</div>
-                      <div className={`search-result-category search-result-category-${result.category}`}>{categoryLabels[result.category]}</div>
+                      <div className={`search-result-category search-result-category-${getPlacement(result).category}`}>{categoryLabels[getPlacement(result).category]}</div>
                     </div>
                     
                     <h6 className="search-result-title">{result.title}</h6>

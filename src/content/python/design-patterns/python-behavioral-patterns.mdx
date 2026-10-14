@@ -214,7 +214,7 @@ class ECommercePlatform: # a broker
 
     def get_price(self, product):
         query = Query(product.name, product.base_price)
-        for handler in self.handlers: # every registered handler can modify the query
+        for handler in self.handlers: # every handler gets the query and may modify its value
             handler.handle(query)
         return query.value
 
@@ -248,9 +248,9 @@ print("After loyalty discount:", platform.get_price(laptop))
 
 <h2><a id="command">Command</a></h2>
 
-<p>Command is used to turn a request (an action) into a stand-alone object. This object encapsulates all details of the request, allowing parameterization of objects. It is also useful for implementing the undo functionality.</p>
+<p>Command is used to turn a request (an action) into a stand-alone object. This object encapsulates all details of the request, allowing parameterization of objects. It is also useful for, e.g., implementing the undo functionality.</p>
 
-<p>In the example below, the ```TransferMoneyCommand``` class encapsulates the action and its associated details (it takes the ```BankAccount``` objects as parameters) and can be executed by ```TransactionHistory``` (the invoker) when triggered.</p>
+<p>In the example below, ```DepositCommand``` encapsulates the action and its details (the account and the amount), and ```BankAccount``` (the receiver) performs it. ```CommandHistory``` (the invoker) executes Commands and keeps them on a stack, so the most recent one can be undone.</p>
 
 
 ```python
@@ -265,85 +265,48 @@ class Command(ABC):
     def undo(self):
         pass
 
-class BankAccount: # a receiver class (the object that performs the action when requested)
-    def __init__(self, balance):
-        self.balance = balance
+class BankAccount: # a receiver (the object that performs the action)
+    def __init__(self):
+        self.balance = 0
 
     def deposit(self, amount):
         self.balance += amount
 
     def withdraw(self, amount):
-        if self.balance >= amount:
-            self.balance -= amount
-            return True
-        return False
+        self.balance -= amount
 
-    def __str__(self):
-        return f"Balance = {self.balance}"
-
-class TransferMoneyCommand(Command): # a concrete Command class
-    def __init__(self, source_account, target_account, amount):
-        self.source_account = source_account
-        self.target_account = target_account
+class DepositCommand(Command): # a concrete Command (the action and its details)
+    def __init__(self, account, amount):
+        self.account = account
         self.amount = amount
-        self.executed = False
 
     def execute(self):
-        if not self.executed:
-            if self.source_account.withdraw(self.amount):
-                self.target_account.deposit(self.amount)
-                self.executed = True
-                print(f"Transferred {self.amount} from source to target.")
-            else:
-                print("Insufficient funds for transfer.")
-        else:
-            print("Transfer already executed.")
+        self.account.deposit(self.amount)
 
     def undo(self):
-        if self.executed:
-            self.target_account.withdraw(self.amount)
-            self.source_account.deposit(self.amount)
-            print(f"Undo transfer of {self.amount} from target back to source.")
-            self.executed = False
-        else:
-            print("No transfer to undo.")
+        self.account.withdraw(self.amount)
 
-class TransactionHistory: # an invoker class (the object that calls the command)
+class CommandHistory: # an invoker (executes Commands and remembers them)
     def __init__(self):
         self.history = []
 
     def execute(self, command):
-        command.execute() # invoking the Command's execute method
+        command.execute()
         self.history.append(command)
 
     def undo(self):
         if self.history:
-            last_command = self.history.pop()
-            last_command.undo()
+            self.history.pop().undo() # undoing the most recent Command
 
-source_account = BankAccount(500)
-target_account = BankAccount(200)
-history = TransactionHistory()
+account = BankAccount()
+history = CommandHistory()
 
-print(f"Source account before transfer: {source_account}")
-print(f"Target account before transfer: {target_account}")
+history.execute(DepositCommand(account, 100))
+history.execute(DepositCommand(account, 50))
+print(account.balance) # 150
 
-transfer1 = TransferMoneyCommand(source_account, target_account, 100)
-history.execute(transfer1)
-
-print(f"Source account after first transfer: {source_account}")
-print(f"Target account after first transfer: {target_account}")
-
-transfer2 = TransferMoneyCommand(source_account, target_account, 1000) # trying to transfer more than available funds
-history.execute(transfer2)
-
-print(f"Source account after second transfer attempt: {source_account}")
-print(f"Target account after second transfer attempt: {target_account}")
-history.undo() # the failed transfer has nothing to undo
-history.undo() # undoing the first transfer
-
-print(f"Source account after undo: {source_account}")
-print(f"Target account after undo: {target_account}")
+history.undo() # undoing the last deposit
+print(account.balance) # 100
 ```
 
 <h2><a id="interpreter">Interpreter</a></h2>
@@ -353,46 +316,6 @@ print(f"Target account after undo: {target_account}")
 <p>The example below implements a simple interpreter for arithmetic expressions that includes addition and subtraction. It tokenizes an expression like "10 + 5 - 3", parses it into an abstract syntax tree (AST), and evaluates the result. Each grammar rule (a number or a binary operation) is represented by a class with an ```evaluate()``` method, and evaluating the tree means calling ```evaluate()``` on its root, which recursively evaluates its children.</p>
 
 ```python
-# Lexing
-class Token:
-    NUMBER, PLUS, MINUS = "NUMBER", "PLUS", "MINUS"
-
-    def __init__(self, token_type, value = 0):
-        self.token_type = token_type
-        self.value = value
-
-    def __repr__(self):
-        return f"Token({self.token_type}, {self.value})"
-
-class Lexer:
-    def __init__(self, text):
-        self.text = text.replace(" ", "") # removing spaces for easier processing
-        self.index = 0
-
-    def get_next_token(self):
-        char = self.text[self.index]
-        if char.isdigit():
-            num = 0
-            # Extracting multi-digit numbers
-            while self.index < len(self.text) and self.text[self.index].isdigit():
-                num = num * 10 + int(self.text[self.index])
-                self.index += 1
-            return Token(Token.NUMBER, num)
-        elif char == "+":
-            self.index += 1
-            return Token(Token.PLUS)
-        elif char == "-":
-            self.index += 1
-            return Token(Token.MINUS)
-        raise ValueError(f"Unexpected character: {char}")
-
-    def tokenize(self):
-        tokens = []
-        while self.index < len(self.text):
-            tokens.append(self.get_next_token()) # generating a token list
-        return tokens
-
-# AST nodes
 class Num:
     def __init__(self, value):
         self.value = value
@@ -410,68 +333,53 @@ class BinaryOperation:
         self.right = right
 
     def evaluate(self):
-        if self.operator == Token.PLUS:
+        if self.operator == "+":
             return self.left.evaluate() + self.right.evaluate()
         return self.left.evaluate() - self.right.evaluate()
 
     def __repr__(self):
         return f"BinaryOperation({self.left}, {self.operator}, {self.right})"
 
-# Parsing
-class Parser:
-    def __init__(self, tokens):
-        self.tokens = tokens
-        self.position = 0
+def parse(tokens): # parsing: building the tree from left to right: ((10 + 5) - 3)
+    result = Num(int(tokens[0]))
+    for i in range(1, len(tokens), 2):
+        result = BinaryOperation(result, tokens[i], Num(int(tokens[i + 1])))
+    return result # returning the root of the AST
 
-    def parse_number(self):
-        self.position += 1
-        return Num(self.tokens[self.position - 1].value)
-
-    def parse(self):
-        result = self.parse_number() # starting with the first number
-        while self.position < len(self.tokens):
-            operator = self.tokens[self.position].token_type
-            self.position += 1
-            result = BinaryOperation(result, operator, self.parse_number()) # building the tree from left to right: ((10 + 5) - 3)
-        return result # returning the root of the AST
-
-expression = "10 + 5 - 3"
-lexer = Lexer(expression)
-tokens = lexer.tokenize()
+tokens = "10 + 5 - 3".split() # lexing: splitting the text into tokens
 print(tokens)
 
-parser = Parser(tokens)
-ast = parser.parse()
+ast = parse(tokens)
 print(ast)
 print(ast.evaluate())
 ```
 
 <h2><a id="iterator">Iterator</a></h2>
 
-<p>Iterator provides a way to access elements of a collection sequentially without exposing its underlying structure. Instead of manually managing iteration, the pattern encapsulates it within an iterator object that keeps track of the current position and provides a standard way to retrieve the next element. In Python, every object with an ```__iter__()``` method (returning an iterator object with a ```__next__()``` method) can be used in a ```for``` loop. The example below implements a custom iterator over a list, which the client never accesses directly. In practice, ```__iter__()``` is often written as a generator instead (check out the <a href="/tutorials/python/python-generators#iterator" class="link">lesson about generators</a>).</p>
+<p>Iterator provides a way to access elements of a collection sequentially without exposing its underlying structure. Instead of manually managing iteration, the pattern encapsulates it within an iterator object that keeps track of the current position and provides a standard way to retrieve the next element. In Python, every object with an ```__iter__()``` method (returning an iterator object with a ```__next__()``` method) can be used in a ```for``` loop. In the example below, ```Inventory``` stores its items in a list, but the client goes through them only with a custom iterator and never accesses the list directly. In practice, ```__iter__()``` is often written as a generator instead (check out the <a href="/tutorials/python/python-generators#iterator" class="link">lesson about generators</a>).</p>
 
 ```python
 class InventoryIterator: # an Iterator that keeps track of the current position
-    def __init__(self, items):
-        self._items = items
+    def __init__(self, list_items):
+        self._list_items = list_items
         self._index = 0
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        if self._index >= len(self._items):
+        if self._index >= len(self._list_items):
             raise StopIteration
-        item = self._items[self._index]
+        item = self._list_items[self._index]
         self._index += 1
         return item
 
 class Inventory:
-    def __init__(self, *items):
-        self._items = list(items)
+    def __init__(self, *list_items):
+        self._list_items = list(list_items)
 
     def __iter__(self):
-        return InventoryIterator(self._items)
+        return InventoryIterator(self._list_items)
 
 inventory = Inventory("Sword", "Shield", "Potion")
 
@@ -538,7 +446,12 @@ charlie.send_message("Hey all!")
 
 <h2><a id="memento">Memento</a></h2>
 
-<p>Memento allows capturing and restoring an object's state without exposing its internal details. It is useful for implementing undo/redo functionality or saving checkpoints in an application. It has three parts: the originator (the object whose state is saved, ```TextEditor```) creates Mementos and restores its state from them, the Memento stores a snapshot of that state, and the caretaker (```History```) keeps the Mementos without reading or modifying them. In Python, privacy is only a convention, so the underscore marks the Memento's state as internal to ```TextEditor```.</p>
+<p className="noBottomMargin">Memento saves an object's state so that it can be restored later, without exposing how the object stores that state. It is the basis of undo/redo functionality and checkpoints (save points). It has three parts:</p>
+<ul>
+    <li><b>Originator</b> (```TextEditor```) - the object whose state we want to save. Its ```save()``` method returns a Memento with the current content, and its ```restore()``` method sets the content back from a given Memento.</li>
+    <li><b>Memento</b> - a snapshot of the originator's state at one moment (here, the text in the editor).</li>
+    <li><b>Caretaker</b> (```History```) - decides when to save and restore the state (```backup()```, ```undo()```, and ```redo()```) and stores the Mementos on undo and redo stacks, but never reads or changes their contents.</li>
+</ul>
 
 ```python
 class Memento: # a snapshot of the editor's state
@@ -586,23 +499,23 @@ history = History(editor)
 
 history.backup()
 editor.write("Hello, ")
-editor.show_content()
+editor.show_content() # "Hello, "
 
 history.backup()
 editor.write("world!")
-editor.show_content()
+editor.show_content() # "Hello, world!"
 
 history.undo()
-editor.show_content()
+editor.show_content() # "Hello, "
 history.redo()
-editor.show_content()
+editor.show_content() # "Hello, world!"
 ```
 
 <h2><a id="state">State</a></h2>
 
 <p>State allows an object to change its behavior when its internal state changes. It encapsulates different behaviors within separate state classes, making the system more maintainable and flexible.</p>
 
-<p>In the example below, the behavior that changes is how the ```TrafficLight``` object responds to the ```change()``` method, depending on its current state. This method changes the state, and depending on whether the current state is ```RedState```, ```YellowState```, or ```GreenState```, a different transition logic contained in the ```switch_light()``` method of each state class is applied.</p>
+<p>In the example below, the behavior that changes is how the ```TrafficLight``` object responds to the ```change()``` method, depending on its current state. The ```change()``` method passes the call to the ```switch_light()``` method of the current state, and each state class defines its own transition: ```RedState``` switches the light to green, ```GreenState``` to yellow, and ```YellowState``` to red.</p>
 
 ```python
 from abc import ABC, abstractmethod
@@ -723,7 +636,15 @@ inventory.generate_report()
 
 <h2><a id="visitor">Visitor</a></h2>
 
-<p>Visitor allows us to add new operations to existing object structures without modifying them (in compliance with the OCP). Instead of adding behavior inside the already existing objects, we create a Visitor that implements the behavior and visits those objects. This keeps the document structure unchanged while allowing new operations.</p>
+<p>Visitor separates operations (algorithms) from the object structure they work on. Instead of putting every operation inside the element classes, each operation is placed in a separate Visitor class that visits the elements. As a result, new operations can be added without modifying the existing classes (in compliance with the OCP), and the document structure stays unchanged.</p>
+
+<p className="noBottomMargin">Instead of adding new methods to ```TextElement``` and ```ImageElement``` every time we need a new operation, we simply create a new Visitor class that implements those operations without modifying the element classes. This pattern relies on double dispatch, where both the element type (```TextElement``` or ```ImageElement```) and the visitor type (```Renderer``` or ```WordCounter```) determine the behavior, meaning:</p>
+
+<ol>
+    <li>The element calls its ```accept(visitor)``` method, passing the visitor as an argument.</li>
+    <li>Inside ```accept(visitor)```, the element calls the visitor’s corresponding method (```visit_text()``` or ```visit_image()```), passing itself (```self```) as an argument.</li>
+    <li>The visitor determines what to do based on the element type.</li>
+</ol>
 
 ```python
 from abc import ABC, abstractmethod
@@ -785,15 +706,7 @@ for element in elements:
 print(f"Total words: {word_counter.total}")
 ```
 
-<p className="noBottomMargin">Instead of adding new methods to ```TextElement``` and ```ImageElement``` every time we need a new operation, we simply create a new Visitor class that implements those operations without modifying the element classes. This pattern relies on double dispatch, where both the element type (```TextElement``` or ```ImageElement```) and the visitor type (```Renderer``` or ```WordCounter```) determine the behavior, meaning:</p>
-
-<ol>
-    <li>The element calls its ```accept(visitor)``` method, passing the visitor as an argument.</li>
-    <li>Inside ```accept(visitor)```, the element calls the visitor’s corresponding method (```visit_text()``` or ```visit_image()```), passing itself (```self```) as an argument.</li>
-    <li>The visitor determines what to do based on the element type.</li>
-</ol>
-
 <h5>Visitor VS Decorator</h5>
 
-<p>A Visitor allows <b>new operations</b> to be added to existing object structures without modifying them by separating the new behavior from the objects it operates on. Decorator allows behavior to be dynamically added to an object at runtime by wrapping it with <b>additional functionality and extending behavior</b>.</p>
+<p>A Visitor allows new operations to be added to an existing object structure without modifying the element classes, by separating operations from the objects they operate on. Decorator allows existing behavior to be extended or modified by wrapping an object with another object that implements the same interface.</p>
                                 

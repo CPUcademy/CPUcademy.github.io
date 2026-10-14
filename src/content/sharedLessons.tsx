@@ -1,5 +1,6 @@
 import ProgrammingBasics from './shared/programming-basics.mdx'
 import MySQLDatabaseAccess from './shared/mysql-database-access-in-php.mdx'
+import DesignPatternsSummary from './shared/design-patterns-summary.mdx'
 import type { ComponentType } from 'react'
 
 type SharedPlacement = {
@@ -19,4 +20,6 @@ export const sharedLessons: SharedPlacement[] = [
   { category: 'electronics-and-it-basics', section: 'programming-and-operating-systems', slug: 'programming-basics', order: 1, title: 'Programming basics', Component: ProgrammingBasics },
   { category: 'databases', section: 'MySQL', slug: 'mysql-database-access-in-php', order: 15, title: 'Database access in PHP', Component: MySQLDatabaseAccess },
   { category: 'web', section: 'PHP (a deprecated language)', slug: 'mysql-database-access-in-php', order: 3, title: 'MySQL database access', Component: MySQLDatabaseAccess },
+  { category: 'java', section: 'design-patterns', slug: 'java-design-patterns-summary', order: 5, title: 'Design patterns summary', Component: DesignPatternsSummary },
+  { category: 'python', section: 'design-patterns', slug: 'python-design-patterns-summary', order: 5, title: 'Design patterns summary', Component: DesignPatternsSummary },
 ]
