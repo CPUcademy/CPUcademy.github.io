@@ -33,4 +33,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(<StrictMode><RouterProvider router={router} /></StrictMode>)
 
-if (import.meta.env.PROD && 'serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js')
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  const hadController = !!navigator.serviceWorker.controller
+  navigator.serviceWorker.addEventListener('controllerchange', () => { if (hadController) location.reload() })
+  navigator.serviceWorker.register('/sw.js')
+}
