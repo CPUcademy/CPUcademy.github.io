@@ -126,12 +126,22 @@ font-size: 0.85rem;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
+}
+
+.sidebar {
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    flex-shrink: 0;
+    z-index: 2;
+}
+@media (min-width: 768px) {
     .sidebar {
-        position: sticky;
-        top: 0;
-        align-self: flex-start;
-        z-index: 2;
+        max-height: 100vh;
+        overflow-y: auto;
+        scrollbar-width: none;
     }
+    .sidebar::-webkit-scrollbar {display: none;}
 }
 
 .foto {width: 32%;}
@@ -448,13 +458,19 @@ td {
 #content {margin-top: 20px;}
 
 #sidebarToggleTop {
+    display: block;
+    position: sticky;
+    top: 10px;
+    z-index: 3;
     margin-bottom: 20px;
     margin-left: 10px;
+    background-color: #f8f9fc;
+    box-shadow: 0 0 0 0 #157267, 0 0.15rem 0.5rem rgba(58, 59, 69, 0.15);
 }
 
 #sidebarToggleTop:focus {
     outline: none;
-    box-shadow: 0 0 0 0.2rem #157267;
+    box-shadow: 0 0 0 0.2rem #157267, 0 0.15rem 0.5rem rgba(58, 59, 69, 0.15);
 }
 
 .tutorial-div, .tutorial-div:hover {
@@ -3912,7 +3928,7 @@ a:focus {outline: none;}
 #wrapper #content-wrapper {
     background-color: #f8f9fc;
     width: 100%;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 #wrapper #content-wrapper #content {flex: 1 0 auto;}
