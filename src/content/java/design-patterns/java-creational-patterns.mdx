@@ -130,7 +130,7 @@ class Box {
 
 <h4>Builder inheritance</h4>
 
-<p>When the built classes form a hierarchy (e.g., ```Employee``` extends ```Person```), their Builders can form a parallel hierarchy, so a subclass Builder inherits the parent Builder's methods instead of repeating them. However, a method inherited from the parent Builder returns the parent's type, which would break chaining (we couldn't call ```job()``` after ```called()```). This is solved with recursive generics: the parent Builder is parameterized with the type of the subclass Builder (```T```) and returns it from ```self()```, which every subclass Builder overrides to return ```this```. This approach comes from "Effective Java" by Joshua Bloch, and Lombok's ```@SuperBuilder``` annotation generates the same structure.</p>
+<p>When the built classes form a hierarchy (e.g., ```Employee``` extends ```Person```), their Builders can form a parallel hierarchy, so a subclass Builder inherits the parent Builder's methods instead of repeating them. However, a method inherited from the parent Builder returns the parent's type, which would break chaining (we couldn't call ```job()``` after ```called()```). This is solved with recursive generics: the parent Builder is parameterized with the type of the subclass Builder (```T```) and returns it from ```self()```, which every subclass Builder overrides to return ```this```.</p>
 
 ```java
 public class Main {

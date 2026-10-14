@@ -4708,7 +4708,9 @@ iframe {
 .bottom-nav, .bottom-nav-menu {display: none;}
 @media (display-mode: standalone) {
     #accordionSidebar, #sidebarToggleTop {display: none !important;}
-    body {padding-bottom: calc(60px + env(safe-area-inset-bottom));}
+    html {background-color: #157267; overscroll-behavior-y: none;}
+    body {padding-bottom: calc(60px + env(safe-area-inset-bottom)); overscroll-behavior-y: none;}
+    #wrapper #content-wrapper {min-height: calc(100dvh - 60px - env(safe-area-inset-bottom));}
     .bottom-nav {
         display: flex;
         position: fixed;
