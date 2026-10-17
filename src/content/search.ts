@@ -12,6 +12,13 @@ export type SearchResult = {
   excerpt: string
   priority: number
   wholeWord: boolean
+  anchor?: SearchAnchor
+}
+
+export type SearchAnchor = {
+  query: string
+  before: string
+  after: string
 }
 
 type SearchDocument = {
@@ -68,18 +75,18 @@ function getBodyContent(content: string): string {
   return removeHtmlHeadings(removeMarkdownHeadings(removeCodeBlocks(removeFrontmatter(content))))
 }
 
-function getExcerpt(text: string, query: string): string {
-  const cleaned = cleanText(text)
-
-  const index = cleaned.toLowerCase().indexOf(query.toLowerCase())
-
-  if (index === -1) {
-    return cleaned.slice(0, 160)
+function getAnchor(text: string, index: number, query: string): SearchAnchor {
+  return {
+    query,
+    before: text.slice(Math.max(0, index - 30), index),
+    after: text.slice(index + query.length, index + query.length + 30),
   }
+}
 
+function getExcerpt(cleaned: string, index: number, length: number): string {
   const start = Math.max(0, index - 70)
 
-  const end = Math.min(cleaned.length, index + query.length + 90)
+  const end = Math.min(cleaned.length, index + length + 90)
 
   let excerpt = cleaned.slice(start, end)
 
@@ -127,7 +134,9 @@ export function searchContent(query: string): SearchResult[] {
      * 2. H1-H6 HEADINGS
      */
     for (const heading of document.headings) {
-      if (heading.text.toLowerCase().includes(q)) {
+      const headingIndex = heading.text.toLowerCase().indexOf(q)
+
+      if (headingIndex !== -1) {
         results.push({
           path: document.path,
           category: document.category,
@@ -140,6 +149,7 @@ export function searchContent(query: string): SearchResult[] {
           excerpt: heading.text,
           priority: 1,
           wholeWord: wordRegex.test(heading.text.toLowerCase()),
+          anchor: getAnchor(heading.text, headingIndex, q),
         })
       }
     }
@@ -148,8 +158,9 @@ export function searchContent(query: string): SearchResult[] {
      * 3. REST OF THE MDX CONTENT
      */
     const body = cleanText(getBodyContent(document.content))
+    const lowerBody = body.toLowerCase()
 
-    if (body.toLowerCase().includes(q)) {
+    for (let index = lowerBody.indexOf(q); index !== -1; index = lowerBody.indexOf(q, index + q.length)) {
       results.push({
         path: document.path,
         category: document.category,
@@ -158,9 +169,10 @@ export function searchContent(query: string): SearchResult[] {
         title: document.title,
         type: 'content',
         text: document.title,
-        excerpt: getExcerpt(body, q),
+        excerpt: getExcerpt(body, index, q.length),
         priority: 2,
-        wholeWord: wordRegex.test(body.toLowerCase()),
+        wholeWord: wordRegex.test(lowerBody.slice(Math.max(0, index - 1), index + q.length + 1)),
+        anchor: getAnchor(body, index, q),
       })
     }
   }

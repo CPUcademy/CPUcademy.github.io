@@ -108,7 +108,7 @@ export default function Search() {
           {results.length > 0 && (
             <div className="search-results">
               {results.map((result, index) => (
-                <Link key={`${result.path}-${result.type}-${index}`} to={`/tutorials/${getPlacement(result).category}/${getPlacement(result).slug}`} className="search-result" onClick={scrollToTop}>
+                <Link key={`${result.path}-${result.type}-${index}`} to={`/tutorials/${getPlacement(result).category}/${getPlacement(result).slug}`} className="search-result" state={result.anchor} onClick={result.anchor ? undefined : scrollToTop}>
                     <div className="search-result-pills">
                       <div className="search-result-type">{result.type === 'title' ? 'LESSON' : result.type === 'heading' ? 'HEADER' : 'CONTENT'}</div>
                       <div className={`search-result-category search-result-category-${getPlacement(result).category}`}>{categoryLabels[getPlacement(result).category]}</div>
