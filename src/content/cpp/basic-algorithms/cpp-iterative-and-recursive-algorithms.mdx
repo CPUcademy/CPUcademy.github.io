@@ -22,17 +22,17 @@ order: 3
 #include <iostream>
 using namespace std;
 
-unsigned int factorial1(int x) {
+unsigned int factorial1(int number) {
     int result = 1;
-    for (int i = 1; i <= x; i++)
+    for (int i = 1; i <= number; i++)
         result *= i;
     return result;
 }
 
-unsigned int factorial2(int x) {
-    if (x == 1 || x == 0)
+unsigned int factorial2(int number) {
+    if (number == 1 || number == 0)
         return 1;
-    return factorial2(x - 1) * x;
+    return factorial2(number - 1) * number;
 }
 
 int main() {
@@ -51,31 +51,31 @@ int main() {
 #include <iostream>
 using namespace std;
 
-unsigned int fib1(int n) { // this solution is more efficient
-    int leftNumber = 0, rightNumber = 1, result;
+unsigned int fib1(int position) { // this solution is more efficient
+    int left_number = 0, right_number = 1, result;
 
-    if (n == 0)
+    if (position == 0)
         return 0;
-    else if (n == 1)
+    else if (position == 1)
         return 1;
     else {
-        for (int i = 2; i <= n; i++) {
-            result = leftNumber + rightNumber;
-            leftNumber = rightNumber;
-            rightNumber = result;
+        for (int i = 2; i <= position; i++) {
+            result = left_number + right_number;
+            left_number = right_number;
+            right_number = result;
         }
     }
 
     return result;
 }
 
-unsigned int fib2(int n) {
-    if (n == 0)
+unsigned int fib2(int position) {
+    if (position == 0)
         return 0;
-    else if (n == 1)
+    else if (position == 1)
         return 1;
     else
-        return fib2(n - 1) + fib2(n - 2);
+        return fib2(position - 1) + fib2(position - 2);
 }
 
 int main() {
@@ -94,18 +94,18 @@ int main() {
 #include <iostream>
 using namespace std;
 
-int Horner1(int factors[], int polynomialDegree, int x) {
+int Horner1(int factors[], int polynomial_degree, int x) {
     int result = factors[0];
-    for (int i = 1; i <= polynomialDegree; i++)
+    for (int i = 1; i <= polynomial_degree; i++)
         result = result * x + factors[i];
     return result;
 }
 
-int Horner2(int factors[], int polynomialDegree, int x) {
-    if (polynomialDegree == 0)
+int Horner2(int factors[], int polynomial_degree, int x) {
+    if (polynomial_degree == 0)
         return factors[0];
     else
-        return x * Horner2(factors, polynomialDegree - 1, x) + factors[polynomialDegree];
+        return x * Horner2(factors, polynomial_degree - 1, x) + factors[polynomial_degree];
 }
 
 int main() {
@@ -117,13 +117,13 @@ int main() {
     For the 5th power, there is one x, for the 4th power - 0x, for the 3rd power - 7x ... and there is one without an x at the end.
     */
 
-    int polynomialDegree; // the greatest power inside of the polynomial
+    int polynomial_degree; // the greatest power inside of the polynomial
     cout << "Enter the degree of the polynomial: ";
-    cin >> polynomialDegree;
+    cin >> polynomial_degree;
 
-    int *factors = new int[polynomialDegree]; 
+    int *factors = new int[polynomial_degree + 1]; 
     cout << "Enter the factors of the polynomial: ";
-    for (int i = 0; i <= polynomialDegree; i++) { 
+    for (int i = 0; i <= polynomial_degree; i++) { 
         cout << "Factor nr. " << i + 1 << " = ";
         cin >> factors[i]; 
     } 
@@ -132,8 +132,8 @@ int main() {
     cout << "Enter x: ";
     cin >> x; 
 
-    cout << Horner1(factors, polynomialDegree, x) << endl;
-    cout << Horner2(factors, polynomialDegree, x) << endl;
+    cout << Horner1(factors, polynomial_degree, x) << endl;
+    cout << Horner2(factors, polynomial_degree, x) << endl;
 
     delete[] factors;
 
@@ -147,31 +147,31 @@ int main() {
 #include <iostream>
 using namespace std;
 
-int b, e;
+int base, exponent;
 
-int Exponentiation1(int b, int e) {
+int Exponentiation1(int base, int exponent) {
     int result = 1;
-    for (int i = 0; i < e; i++)
-        result *= b;
+    for (int i = 0; i < exponent; i++)
+        result *= base;
     return result;
 }
 
-int Exponentiation2(int e) {
-    if (e == 0)
+int Exponentiation2(int exponent) {
+    if (exponent == 0)
         return 1;
     else
-        return b * Exponentiation2(e - 1);
+        return base * Exponentiation2(exponent - 1);
 }
 
 int main() {
     cout << "Enter the base: ";
-    cin >> b;
+    cin >> base;
 
     cout << "Enter the exponent: ";
-    cin >> e;
+    cin >> exponent;
 
-    cout << Exponentiation1(b, e) << endl;
-    cout << Exponentiation2(e) << endl;
+    cout << Exponentiation1(base, exponent) << endl;
+    cout << Exponentiation2(exponent) << endl;
 
     return 0;
 }

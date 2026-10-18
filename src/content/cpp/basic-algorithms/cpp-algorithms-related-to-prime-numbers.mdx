@@ -21,19 +21,19 @@ order: 2
 #include <cmath>
 using namespace std;
 
-bool isPrime(int x) {
-    if (x <= 1) return false;
-    for (unsigned int i = 2; i <= sqrt(x); i++) { // 0 and 1 are not prime numbers
-        if (!(x % i))
+bool isPrime(int number) {
+    if (number <= 1) return false;
+    for (unsigned int i = 2; i <= sqrt(number); i++) { // 0 and 1 are not prime numbers
+        if (!(number % i))
             return false;
     }
     return true;
 }
 
 int main() {
-    int x;
-    cin >> x;
-    if (isPrime(x))
+    int number;
+    cin >> number;
+    if (isPrime(number))
         cout << "This number is a prime number." << endl;
     else
         cout << "This number isn't a prime number." << endl;
@@ -48,10 +48,10 @@ int main() {
 #include <cmath>
 using namespace std;
 
-bool isPrime(int x) {
-    if (x <= 1) return false;
-    for (unsigned int i = 2; i <= sqrt(x); i++) {
-        if (!(x % i))
+bool isPrime(int number) {
+    if (number <= 1) return false;
+    for (unsigned int i = 2; i <= sqrt(number); i++) {
+        if (!(number % i))
             return false;
     }
 
@@ -59,17 +59,17 @@ bool isPrime(int x) {
 }
 
 int main() {
-    int x, y;
+    int number = 2, count;
 
     cout << "How many prime numbers should I generate: ";
-    cin >> y;
+    cin >> count;
 
-    for (unsigned int i = 0; i < y; i++) {
-        if (isPrime(x))
-            cout << x << endl;
+    for (unsigned int i = 0; i < count; i++) {
+        if (isPrime(number))
+            cout << number << endl;
         else
             i--;
-        x++;
+        number++;
     }
 
     return 0;
@@ -83,30 +83,32 @@ int main() {
 <img src="/data/courses/sieve_of_eratosthenes.gif" alt="Bubble sort" className="img-fluid"/>
 
 ```cpp
-unsigned int i, x, y;
+unsigned int i, multiple, limit;
 cout << "Up to what number should I write prime numbers: ";
-cin >> y;
-bool *a = new bool[y];
+cin >> limit;
+bool *is_prime = new bool[limit + 1];
 
-for (i = 2; i <= y; i++) // setting the initial values
-    a[i] = true;
+for (i = 2; i <= limit; i++) // setting the initial values
+    is_prime[i] = true;
 
 i = 2;
-while (i * i <= y) {
-    if (a[i]) {
-        x = i * i;
-        while (x < y) {
-            a[x] = false;
-            x = x + i;
+while (i * i <= limit) {
+    if (is_prime[i]) {
+        multiple = i * i;
+        while (multiple <= limit) {
+            is_prime[multiple] = false;
+            multiple = multiple + i;
         }
     }
     i++;
 }
 
-for (i = 2; i <= y; i++) { // displaying the results
-    if (a[i])
+for (i = 2; i <= limit; i++) { // displaying the results
+    if (is_prime[i])
         cout << i << ", ";
 }
+
+delete[] is_prime;
 ```
 
 <h2><a id="euclidean-algorithm">Euclidean algorithm</a></h2>
@@ -117,33 +119,33 @@ for (i = 2; i <= y; i++) { // displaying the results
 #include <iostream>
 using namespace std;
 
-int GCD(int x, int y) {
-    while (x != y) {
-        if (x > y)
-            x = x - y;
+int GCD(int first_nr, int second_nr) {
+    while (first_nr != second_nr) {
+        if (first_nr > second_nr)
+            first_nr = first_nr - second_nr;
         else
-            y = y - x;
+            second_nr = second_nr - first_nr;
     }
-    return x;
+    return first_nr;
 }
 
-int GCD2(int x, int y) {
-    int r;
-    while (r = x % y) {
-        x = y;
-        y = r;
+int GCD2(int first_nr, int second_nr) {
+    int remainder;
+    while (remainder = first_nr % second_nr) {
+        first_nr = second_nr;
+        second_nr = remainder;
     }
-    return y;
+    return second_nr;
 }
 
 int main() {
-    int x, y;
+    int first_nr, second_nr;
 
     cout << "Enter two numbers for which I should find the GCD: ";
-    cin >> x >> y;
+    cin >> first_nr >> second_nr;
 
-    cout << GCD(x, y) << endl;
-    cout << GCD2(x, y) << endl;
+    cout << GCD(first_nr, second_nr) << endl;
+    cout << GCD2(first_nr, second_nr) << endl;
 
     return 0;
 }

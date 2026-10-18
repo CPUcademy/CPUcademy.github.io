@@ -90,7 +90,7 @@ System.out.println(10 & 2);
 1 0 1 0
 0 0 1 0
 -------
-0 0 1 0 (this number in decimal is 2, and that's the result)
+0 0 1 0 (the decimal result is 2)
 */
 ```
 
@@ -101,7 +101,7 @@ System.out.println(10 | 2);
 1 0 1 0
 0 0 1 0
 -------
-1 0 1 0 (this number in decimal is 10, and that's the result)
+1 0 1 0 (the decimal result is 10)
 */
 ```
 
@@ -123,7 +123,7 @@ System.out.println(10 ^ 2);
 1 0 1 0
 0 0 1 0
 -------
-1 0 0 0 (this number in decimal is 8, and that's the result)
+1 0 0 0 (the decimal result is 8)
 */
 ```
 
@@ -133,21 +133,46 @@ System.out.println(10 >> 1);
 /*
 1 0 1 0
 -------
-0 1 0 1 (this number in decimal is 5, and that's the result)
+0 1 0 1 (the decimal result is 5)
 */
 
 System.out.println(10 >> 2);
 /*
 1 0 1 0
 -------
-0 0 1 0 (this number in decimal is 2, and that's the result)
+0 0 1 0 (the decimal result is 2)
 */
 
 System.out.println(10 >> 3);
 /*
 1 0 1 0
 -------
-0 0 0 1 (this number in decimal is 1, and that's the result)
+0 0 0 1 (the decimal result is 1)
+*/
+```
+
+<p>```>>>``` - unsigned (zero-fill) bitwise right shift - works like ```>>```, but always fills the freed bits on the left with zeros. Java's integer types are signed, which means the leftmost bit is the sign bit (```0``` for non-negative numbers and ```1``` for negative ones), e.g., in an ```int```, it is the 32nd bit. With ```>>```, the sign bit is copied, so negative numbers stay negative (e.g., ```-8 >> 1``` is ```-4```), while ```>>>``` treats the number as unsigned, so ```-8 >>> 1``` gives a large positive number (```2147483644``` for an ```int```). For non-negative numbers, both operators give the same result. There is no ```<<<``` operator because ```<<``` already fills the freed bits on the right with zeros.</p>
+
+```java
+System.out.println(10 >>> 1);
+/*
+1 0 1 0
+-------
+0 1 0 1 (the decimal result is 5, the same as with >>)
+*/
+
+System.out.println(-8 >> 1); // bitwise right shift
+/*
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0
+---------------------------------------------------------------
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 (the decimal result is -4)
+*/
+
+System.out.println(-8 >>> 1); // unsigned bitwise right shift
+/*
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0
+---------------------------------------------------------------
+0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 (the decimal result is 2147483644)
 */
 ```
 
@@ -157,21 +182,21 @@ System.out.println(10 << 1);
 /*
 0 1 0 1 0
 -------
-1 0 1 0 0 (this number in decimal is 20, and that's the result)
+1 0 1 0 0 (the decimal result is 20)
 */    
 
 System.out.println(10 << 2);
 /*
 0 0 1 0 1 0
 -------
-1 0 1 0 0 0 (this number in decimal is 40, and that's the result)
+1 0 1 0 0 0 (the decimal result is 40)
 */    
 
 System.out.println(10 << 3);
 /*
 0 0 0 1 0 1 0
 -------
-1 0 1 0 0 0 0 (this number in decimal is 80, and that's the result)
+1 0 1 0 0 0 0 (the decimal result is 80)
 */    
 ```
 

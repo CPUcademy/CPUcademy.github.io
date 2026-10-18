@@ -93,7 +93,7 @@ console.log(10 & 2)
 1 0 1 0
 0 0 1 0
 -------
-0 0 1 0 (this number in decimal is 2, and that's the result)
+0 0 1 0 (the decimal result is 2)
 */ 
 ```
 
@@ -104,7 +104,7 @@ console.log(10 | 2)
 1 0 1 0
 0 0 1 0
 -------
-1 0 1 0 (this number in decimal is 10, and that's the result)
+1 0 1 0 (the decimal result is 10)
 */ 
 ```
 
@@ -126,7 +126,7 @@ console.log(10 ^ 2)
 1 0 1 0
 0 0 1 0
 -------
-1 0 0 0 (this number in decimal is 8, and that's the result)
+1 0 0 0 (the decimal result is 8)
 */ 
 ```
 
@@ -136,22 +136,47 @@ console.log(10 >> 1)
 /*
 1 0 1 0
 -------
-0 1 0 1 (this number in decimal is 5, and that's the result)
+0 1 0 1 (the decimal result is 5)
 */ 
 
 console.log(10 >> 2)
 /*
 1 0 1 0
 -------
-0 0 1 0 (this number in decimal is 2, and that's the result)
+0 0 1 0 (the decimal result is 2)
 */ 
 
 console.log(10 >> 3)
 /*
 1 0 1 0
 -------
-0 0 0 1 (this number in decimal is 1, and that's the result)
+0 0 0 1 (the decimal result is 1)
 */ 
+```
+
+<p>```>>>``` - unsigned (zero-fill) bitwise right shift - works like ```>>```, but always fills the freed bits on the left with zeros. Bitwise operators in JavaScript work on signed 32-bit integers, which means the leftmost (32nd) bit is the sign bit (```0``` for non-negative numbers and ```1``` for negative ones). With ```>>```, the sign bit is copied, so negative numbers stay negative (e.g., ```-8 >> 1``` is ```-4```), while ```>>>``` treats the number as an unsigned 32-bit integer, so ```-8 >>> 1``` gives a large positive number (```2147483644```). For non-negative numbers, both operators give the same result. There is no ```<<<``` operator because ```<<``` already fills the freed bits on the right with zeros.</p>
+
+```javascript
+console.log(10 >>> 1)
+/*
+1 0 1 0
+-------
+0 1 0 1 (the decimal result is 5, the same as with >>)
+*/
+
+console.log(-8 >> 1) // bitwise right shift
+/*
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0
+---------------------------------------------------------------
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 (the decimal result is -4)
+*/
+
+console.log(-8 >>> 1) // unsigned bitwise right shift
+/*
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0
+---------------------------------------------------------------
+0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 (the decimal result is 2147483644)
+*/
 ```
 
 <p>```<<``` - bitwise left shift - each bit shifts one place to the left (if it runs out of space on the right, the particular bit disappears). In this case, bits have more space to move (the number is written on 32 bits, which aren't shown because they are zeros). The value on the left side of the operator is the one we are moving, and the one on the right tells us by how many places the bits will move.</p>
@@ -160,21 +185,21 @@ console.log(10 << 1)
 /*
 0 1 0 1 0
 -------
-1 0 1 0 0 (this number in decimal is 20, and that's the result)
+1 0 1 0 0 (the decimal result is 20)
 */    
 
 console.log(10 << 2)
 /*
 0 0 1 0 1 0
 -------
-1 0 1 0 0 0 (this number in decimal is 40, and that's the result)
+1 0 1 0 0 0 (the decimal result is 40)
 */   
 
 console.log(10 << 3)
 /*
 0 0 0 1 0 1 0
 -------
-1 0 1 0 0 0 0 (this number in decimal is 80, and that's the result)
+1 0 1 0 0 0 0 (the decimal result is 80)
 */ 
 ```
 
