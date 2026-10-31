@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Delete your Muscle Up account and all associated data.">
+    <meta name="author" content="Tymoteusz Kołodziejczyk">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="/favicon.png" rel="icon">
+    <link href="/favicon.png" rel="apple-touch-icon">
+    <link href="/muscleup/style.css" rel="stylesheet">
+    <title>Muscle Up – Delete Account</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="/muscleup.html">
+                <img src="/data/muscle_up/muscleup.png" alt="Muscle Up logo">
+                <h1>Muscle Up</h1>
+            </a>
+        </div>
+
+        <div class="tabs">
+            <a class="tab" href="/muscleup.html">Overview</a>
+            <a class="tab" href="/muscleup.html?tab=competition">Explory 2025</a>
+            <a class="tab" href="/muscleup.html?tab=screenshots">Screenshots</a>
+        </div>
+
+        <div class="narrow">
+            <div class="section" style="margin-bottom: 30px;">
+                <h2>Delete Your Account</h2>
+                <p>Here, you can delete your Muscle Up account by logging in with the same email and password (or Google account) you use in the app. This permanently removes all your data and cannot be undone.</p>
+            </div>
+
+            <div class="card" id="signin">
+                <form id="signin-form">
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" autocomplete="email" required>
+                    </div>
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <input id="password" type="password" autocomplete="current-password" required>
+                    </div>
+                    <div class="actions">
+                        <button class="download-btn" type="submit">Sign in</button>
+                        <button class="link-btn" type="button" id="reset">Forgot password?</button>
+                    </div>
+                </form>
+                <div class="divider">or</div>
+                <button class="google-btn" type="button" id="google">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="">
+                    Continue with Google
+                </button>
+            </div>
+
+            <div class="card hidden" id="confirm">
+                <p>Signed in as <b id="account"></b>.</p>
+                <label class="check">
+                    <input type="checkbox" id="understand">
+                    <span>I understand that my Muscle Up account and all its data will be permanently deleted and cannot be recovered.</span>
+                </label>
+                <div class="actions">
+                    <button class="download-btn danger" type="button" id="delete" disabled>Delete my account</button>
+                    <button class="download-btn secondary" type="button" id="cancel">Sign out</button>
+                </div>
+            </div>
+
+            <div class="card hidden" id="done">
+                <h3 style="margin-top: 0;">Your account has been deleted.</h3>
+                <p>All your Muscle Up data has been removed. If the app is still installed on your phone, uninstall it to remove the data stored on the device.</p>
+            </div>
+
+            <div class="message" id="message" role="status"></div>
+        </div>
+    </div>
+
+    <footer>
+        <nav>
+            <a href="/muscleup/privacy.html">Privacy Policy</a>
+            <a href="/muscleup/delete-account.html">Delete Account</a>
+            <a href="/">CPUcademy</a>
+        </nav>
+        <span>Copyright &copy; Tymoteusz Kołodziejczyk All Rights Reserved</span>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getAuth, setPersistence, inMemoryPersistence, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail, signOut, deleteUser } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+        import { getFirestore, writeBatch, doc, deleteField, arrayRemove } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+        const app = initializeApp({
+            apiKey: "AIzaSyAy0Cc_ktXE0j2kSGq61u6l1LhARRPWt_M",
+            authDomain: "muscle-up-1faca.firebaseapp.com",
+            projectId: "muscle-up-1faca",
+            storageBucket: "muscle-up-1faca.firebasestorage.app",
+            messagingSenderId: "1040394505464",
+        });
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        // Every visit signs in again, so Firebase always treats the deletion as a recent login.
+        await setPersistence(auth, inMemoryPersistence);
+
+        const $ = id => document.getElementById(id);
+        const message = $('message');
+
+        function show(text, type = 'error') {
+            message.className = 'message ' + type;
+            message.textContent = text;
+        }
+
+        function clearMessage() {
+            message.className = 'message';
+            message.textContent = '';
+        }
+
+        function step(id) {
+            for (const s of ['signin', 'confirm', 'done']) $(s).classList.toggle('hidden', s !== id);
+        }
+
+        function describe(error) {
+            switch (error.code) {
+                case 'auth/invalid-credential':
+                case 'auth/wrong-password':
+                case 'auth/user-not-found':
+                case 'auth/invalid-email': return 'Incorrect email or password.';
+                case 'auth/too-many-requests': return 'Too many attempts. Try again in a few minutes.';
+                case 'auth/popup-closed-by-user':
+                case 'auth/cancelled-popup-request': return '';
+                case 'auth/popup-blocked': return 'The sign-in window was blocked. Allow pop-ups for this site and try again.';
+                case 'auth/network-request-failed':
+                case 'unavailable': return 'No internet connection.';
+                case 'auth/requires-recent-login': return 'Please sign in again and retry.';
+                default: return 'Something went wrong (' + (error.code || error.message) + '). Try again or contact cpucademy@gmail.com.';
+            }
+        }
+
+        function signedIn(user) {
+            clearMessage();
+            $('account').textContent = user.email || user.displayName || user.uid;
+            $('understand').checked = false;
+            $('delete').disabled = true;
+            step('confirm');
+        }
+
+        async function run(button, action) {
+            button.disabled = true;
+            try {
+                await action();
+            } catch (e) {
+                const text = describe(e);
+                if (text) show(text); else clearMessage();
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        $('signin-form').addEventListener('submit', event => {
+            event.preventDefault();
+            const button = event.submitter;
+            run(button, async () => signedIn((await signInWithEmailAndPassword(auth, $('email').value.trim(), $('password').value)).user));
+        });
+
+        $('google').addEventListener('click', event => run(event.currentTarget, async () => signedIn((await signInWithPopup(auth, new GoogleAuthProvider())).user)));
+
+        $('reset').addEventListener('click', event => {
+            const email = $('email').value.trim();
+            if (!email) return show('Enter your email first.');
+            run(event.currentTarget, async () => {
+                await sendPasswordResetEmail(auth, email);
+                show('If an account exists for ' + email + ', a password reset email has been sent.', 'info');
+            });
+        });
+
+        $('understand').addEventListener('change', event => $('delete').disabled = !event.target.checked);
+
+        $('cancel').addEventListener('click', async () => {
+            await signOut(auth);
+            $('password').value = '';
+            clearMessage();
+            step('signin');
+        });
+
+        // Same writes as the app's Settings → Delete account (DatabaseHandling.deleteUserData), then the sign-in account itself.
+        $('delete').addEventListener('click', event => {
+            if (!confirm('Delete your Muscle Up account permanently? This cannot be undone.')) return;
+            run(event.currentTarget, async () => {
+                const user = auth.currentUser;
+                const uid = user.uid;
+                const ownKey = { [uid]: deleteField() };
+                const batch = writeBatch(db);
+                batch.set(doc(db, 'leaderboardData', 'leagues'), { leagues: ownKey }, { merge: true });
+                batch.set(doc(db, 'leaderboardData', 'positioning'), { positioning: ownKey }, { merge: true });
+                batch.set(doc(db, 'leaderboardData', 'premiumValidation'), ownKey, { merge: true });
+                batch.delete(doc(db, 'coachPlans', uid));
+                batch.delete(doc(db, 'publicProfiles', uid));
+                batch.set(doc(db, 'leaderboardData', 'coaches'), { coaches: arrayRemove(uid) }, { merge: true });
+                batch.delete(doc(db, 'users', uid));
+                batch.delete(doc(db, 'leaderboardData', 'validation', uid, uid));
+                await batch.commit();
+                await deleteUser(user);
+                clearMessage();
+                step('done');
+            });
+        });
+    </script>
+</body>
+</html>
