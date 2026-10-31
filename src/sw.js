@@ -11,7 +11,9 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
     const { request } = event
-    if (request.method !== 'GET' || request.headers.has('range')) return
+    // Cache API only stores http(s); Firebase API calls (Firestore streams, Auth) must always hit the network.
+    const url = new URL(request.url)
+    if (request.method !== 'GET' || request.headers.has('range') || !url.protocol.startsWith('http') || url.hostname.endsWith('googleapis.com')) return
     if (request.mode === 'navigate') {
         event.respondWith(fetch(request.url, { cache: 'no-cache' }).catch(() => caches.match('/index.html')))
         return
