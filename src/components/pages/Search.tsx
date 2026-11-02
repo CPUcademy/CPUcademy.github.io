@@ -111,7 +111,9 @@ export default function Search() {
                 <Link key={`${result.path}-${result.type}-${index}`} to={`/tutorials/${getPlacement(result).category}/${getPlacement(result).slug}`} className="search-result" state={result.anchor} onClick={result.anchor ? undefined : scrollToTop}>
                     <div className="search-result-pills">
                       <div className="search-result-type">{result.type === 'title' ? 'LESSON' : result.type === 'heading' ? 'HEADER' : 'CONTENT'}</div>
-                      <div className={`search-result-category search-result-category-${getPlacement(result).category}`}>{categoryLabels[getPlacement(result).category]}</div>
+                      {result.category !== 'shared' && (
+                        <div className={`search-result-category search-result-category-${result.category}`}>{categoryLabels[result.category]}</div>
+                      )}
                     </div>
                     
                     <h6 className="search-result-title">{result.title}</h6>
