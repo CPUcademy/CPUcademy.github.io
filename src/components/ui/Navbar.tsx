@@ -1,11 +1,37 @@
 import { Link, useLocation } from 'react-router-dom'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+
+type InstallPromptEvent = Event & { prompt: () => Promise<void> }
+
+const tutorialLinks = [
+    ['/tutorials/python', 'Python'],
+    ['/tutorials/java', 'Java'],
+    ['/tutorials/cpp', 'C++'],
+    ['/tutorials/web', 'Basic Web Stack'],
+    ['/tutorials/databases', 'Databases'],
+    ['/tutorials/electronics-and-it-basics', 'Electronics & IT Basics'],
+]
 
 function Navbar({ sidebarToggled, tutorialsOpen, setTutorialsOpen, contentRef, height }: {
     sidebarToggled: boolean, tutorialsOpen: boolean, setTutorialsOpen: (value: boolean) => void, contentRef: React.RefObject<HTMLDivElement | null>, height: number }) {
     const location = useLocation()
     const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
     const isTutorialsActive = location.pathname.startsWith('/tutorials')
+    const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null)
+    const [bottomTutorialsOpen, setBottomTutorialsOpen] = useState(false)
+
+    useEffect(() => setBottomTutorialsOpen(false), [location.pathname])
+
+    useEffect(() => {
+        const handlePrompt = (e: Event) => { e.preventDefault(); setInstallPrompt(e as InstallPromptEvent) }
+        const handleInstalled = () => setInstallPrompt(null)
+        window.addEventListener('beforeinstallprompt', handlePrompt)
+        window.addEventListener('appinstalled', handleInstalled)
+        return () => {
+            window.removeEventListener('beforeinstallprompt', handlePrompt)
+            window.removeEventListener('appinstalled', handleInstalled)
+        }
+    }, [])
 
     const handleTutorialLinkClick = () => {
         closeTimeoutRef.current = setTimeout(() => {
@@ -47,12 +73,7 @@ function Navbar({ sidebarToggled, tutorialsOpen, setTutorialsOpen, contentRef, h
                     </a>
                     <div id="collapseTwo" ref={contentRef} className="collapse" style={{ display: 'block', height: `${height}px`, overflow: 'hidden', transition: 'height 0.35s ease' }} aria-labelledby="headingTwo">
                         <div className="bg-white py-2 collapse-inner rounded">
-                            <Link className="collapse-item" to="/tutorials/python" onClick={handleTutorialLinkClick}>Python</Link>
-                            <Link className="collapse-item" to="/tutorials/java" onClick={handleTutorialLinkClick}>Java</Link>
-                            <Link className="collapse-item" to="/tutorials/cpp" onClick={handleTutorialLinkClick}>C++</Link>
-                            <Link className="collapse-item" to="/tutorials/web" onClick={handleTutorialLinkClick}>Basic Web Stack</Link>
-                            <Link className="collapse-item" to="/tutorials/databases" onClick={handleTutorialLinkClick}>Databases</Link>
-                            <Link className="collapse-item" to="/tutorials/electronics-and-it-basics" onClick={handleTutorialLinkClick}>Electronics &amp; IT Basics</Link>
+                            {tutorialLinks.map(([to, label]) => <Link key={to} className="collapse-item" to={to} onClick={handleTutorialLinkClick}>{label}</Link>)}
                         </div>
                     </div>
                 </li>
@@ -77,8 +98,32 @@ function Navbar({ sidebarToggled, tutorialsOpen, setTutorialsOpen, contentRef, h
                         <span>Search Tutorials</span>
                     </Link>
                 </li>
+                {installPrompt && (
+                    <>
+                        <hr className="sidebar-divider my-0 d-md-none"/>
+                        <li className="nav-item d-md-none">
+                            <a className="nav-link" href="#" onClick={(e) => { e.preventDefault(); installPrompt.prompt().then(() => setInstallPrompt(null)) }}>
+                                <i className="fa fa-download"></i>
+                                <span>Install App</span>
+                            </a>
+                        </li>
+                    </>
+                )}
                 <hr className="sidebar-divider"/>
             </ul>
+
+            {bottomTutorialsOpen && (
+                <div className="bottom-nav-menu">
+                    {tutorialLinks.map(([to, label]) => <Link key={to} to={to} className={location.pathname.startsWith(to) ? 'active' : ''}>{label}</Link>)}
+                </div>
+            )}
+            <nav className="bottom-nav">
+                <Link to="/" className={location.pathname === '/' ? 'active' : ''}><i className="icon-home"></i><span>Home</span></Link>
+                <button className={bottomTutorialsOpen || isTutorialsActive ? 'active' : ''} onClick={() => setBottomTutorialsOpen(!bottomTutorialsOpen)}><i className="icon-th-list"></i><span>Tutorials</span></button>
+                <Link to="/about-me" className={location.pathname === '/about-me' ? 'active' : ''}><i className="icon-adult"></i><span>About Me</span></Link>
+                <Link to="/portfolio-projects" className={location.pathname === '/portfolio-projects' ? 'active' : ''}><i className="icon-docs"></i><span>Projects</span></Link>
+                <Link to="/search" className={location.pathname === '/search' ? 'active' : ''}><i className="icon-search"></i><span>Search</span></Link>
+            </nav>
         </>
     )
 }

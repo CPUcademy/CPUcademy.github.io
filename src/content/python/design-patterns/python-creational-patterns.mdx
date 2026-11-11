@@ -19,7 +19,7 @@ order: 2
 
 <h2><a id="builder">Builder</a></h2>
 
-<p>When an object takes long to initialize, provide an API for constructing it succinctly. Separate the construction of a complex object from its representation, allowing the same construction process to create various representations. A Builder is a separate component for building an object.</p>
+<p>When an object takes long to initialize, provide an API for constructing it succinctly. Separate the construction of a complex object from its representation, allowing the same construction process to create various representations. A Builder is a separate component for building an object step by step (each method sets one part of it).</p>
 
 ```python
 class Pizza:
@@ -309,7 +309,7 @@ render_form(MacFactory())
 
 <h2><a id="prototype">Prototype</a></h2>
 
-<p>Prototype allows object cloning instead of creating new instances from scratch, improving efficiency and flexibility. Sometimes it is more efficient to clone an object and modify it, instead of initializing a new one. A Prototype is a partially or fully initialized object that we can copy (clone) and modify. A Prototype often contains other objects, so the copy must be deep (```copy.deepcopy()``` copies the nested objects too). Otherwise, the clone would share them with the original, and modifying one would modify the other.</p>
+<p>Prototype allows object cloning instead of creating new instances from scratch, improving efficiency and flexibility. Sometimes it is more efficient to clone an object and modify it, instead of initializing a new one. A Prototype is a partially or fully initialized object that we can copy (clone) and modify. A Prototype often holds references to other objects, so it must be deep copied with ```copy.deepcopy()```, which copies the nested objects as well. A shallow copy (```copy.copy()```) would share them with the original, so changing one would also change the other.</p>
 
 ```python
 import copy

@@ -115,11 +115,11 @@ file.open("file.txt", ios::in | ios::binary);
 if (file.is_open()) {
     string temp;
 
-    streampos sizeOfFile;
+    streampos size_of_file;
     file.seekg(0, ios::end);
-    sizeOfFile = file.tellg();
+    size_of_file = file.tellg();
     file.seekg(0);
-    cout << "Size of the file is " << sizeOfFile << " bytes" << endl;
+    cout << "Size of the file is " << size_of_file << " bytes" << endl;
 
     do {
         file >> temp;
@@ -190,14 +190,14 @@ cout << temp << endl;
 ```cpp
 // Reading the names and the first letters of the surnames
 char last;
-char tempName[30];
+char temp_name[30];
 do {
-    file.get(tempName, 30, ' ');
+    file.get(temp_name, 30, ' ');
     file.ignore(1, ' ');
     last = file.get();
     file.ignore(100, '\n');
 
-    cout << tempName << " " << last << "." << endl;
+    cout << temp_name << " " << last << "." << endl;
 } while (!file.eof());
 ```
 
@@ -215,22 +215,22 @@ using namespace std;
 
 int sizeOfFile(fstream *file) {
     file -> seekg(0, ios::end);
-    int sizeOfFile = file -> tellg();
+    int size_of_file = file -> tellg();
     file -> seekg(0);
-    return sizeOfFile;
+    return size_of_file;
 }
 
 bool areFilesEqual(fstream *x, fstream *y) {
     int size;
-    int fileSize1 = sizeOfFile(x);
-    int fileSize2 = sizeOfFile(y);
+    int file_size1 = sizeOfFile(x);
+    int file_size2 = sizeOfFile(y);
 
-    if (fileSize1 > 1024)
+    if (file_size1 > 1024)
         size = 1024;
     else
-        size = fileSize1;
+        size = file_size1;
 
-    if (fileSize1 == fileSize2) {
+    if (file_size1 == file_size2) {
         char *file1Temp = new char[size];
         char *file2Temp = new char[size];
 

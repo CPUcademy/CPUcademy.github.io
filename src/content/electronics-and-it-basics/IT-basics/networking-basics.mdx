@@ -13,7 +13,9 @@ order: 6
     <li><b>SSID</b> - Service Set Identifier, a unique name assigned to a Wi-Fi network to distinguish it from other networks. Devices use the SSID to connect to the correct wireless network. It contains up to 32 alphanumerical characters and is case-sensitive. A <b>guest SSID</b> is a separate network identifier (SSID) created on a wireless router to provide internet access for guests. It is isolated from the main network to enhance security, preventing access to internal resources while allowing visitors to connect to the internet. It typically includes its own password and settings for limited access.</li>
 
     <li><b>SSL</b> - Secure Sockets Layer, a cryptographic protocol designed to secure communication over a computer network. SSL encrypts data transmitted between the client and server, protecting it from interception and tampering.</li>
-    
+
+    <li><b>TLS</b> - Transport Layer Security, a cryptographic protocol that encrypts communication between devices to protect data from interception and tampering. It is the modern successor to SSL.</li>
+
     <li><b>SSH (Secure Shell)</b> - a cryptographic network protocol used to securely access and manage devices over an unsecured network. SSH provides a secure channel for remote login and command execution by encrypting the communication between the client and server. It is widely used for managing servers, transferring files, and automating tasks securely.</li>  
     
     <li><b>Tethering</b> - the process of sharing a device's internet connection with other devices, typically through a wired connection (e.g., USB) or wirelessly (e.g., Wi-Fi or Bluetooth).</li> 
@@ -24,19 +26,27 @@ order: 6
     
     <li><b>ISP</b> - Internet Service Provider, a company or organization that offers internet access and related services to individuals and businesses. ISPs provide connectivity through various technologies such as DSL, cable, fiber-optic, or satellite, and often bundle additional services like email hosting and security.</li>
 
-    <li><b>IP address</b> - a unique identifier assigned to devices on a network that use the Internet Protocol for communication. IP addresses can be either IPv4 (e.g., 192.168.1.1) or IPv6 (e.g., 2001:0db8:85a3:0000:0000:8a2e:0370:7334), and they help in routing data packets to the correct destination.</li>
+    <li><b>WISP</b> - Wireless Internet Service Provider, a company that provides internet access using wireless technologies, often in areas where wired broadband is unavailable.</li>
 
-    <li><b>IPv4 (Internet Protocol version 4)</b> - the fourth version of the Internet Protocol, providing an addressing scheme to identify devices on a network and enabling data routing across networks, using 32-bit addresses.</li>
+    <li><b>ACL</b> - Access Control List, a set of rules that determines which users or devices can access specific network resources and what actions they can perform.</li>
 
-    <li><b>IPv6 (Internet Protocol version 6)</b> - the successor to IPv4, designed to provide a larger addressing space with 128-bit addresses, improved security, and better performance for modern networking needs.</li>
+    <li><b>NVRAM</b> - Non-Volatile Random-Access Memory, memory that retains stored information even when power is turned off. In networking devices, it may store configuration settings.</li>
+
+    <li><b>IP address</b> - a unique logical address assigned to a device on a network that uses the Internet Protocol for communication. It identifies the device and helps route data packets to their destination. IP addresses can be IPv4 or IPv6.</li>
+
+    <li><b>IPv4 (Internet Protocol version 4)</b> - the fourth version of the Internet Protocol, using 32-bit addresses. Each address consists of four 8-bit octets (4 × 8 = 32 bits), written in dotted-decimal notation, with each number ranging from 0 to 255 (e.g., 192.168.10.1). In binary notation, the same address is represented as 11000000.10101000.00001010.00000001.</li>
+
+    <li><b>IPv6 (Internet Protocol version 6)</b> - the successor to IPv4, using 128-bit addresses to provide a much larger address space. IPv6 addresses are typically written in hexadecimal notation, with groups separated by colons (e.g., 2001:db8::1). Consecutive groups of zeros can be shortened using a double colon (::).</li>
 
     <li><b>MAC address</b> - a hardware-based address assigned to network interfaces by the manufacturer. A MAC address, typically a 48-bit hexadecimal (e.g., 00:1A:2B:3C:4D:5E), ensures device-level identification on local area networks (LAN).</li>
 
     <li><b>DNS (Domain Name System)</b> - a system that translates human-readable domain names (e.g., www.example.com) into IP addresses, enabling users to access resources using easily remembered names rather than numeric addresses.</li>
 
-    <li><b>DNS Server</b> - a server that stores and manages DNS records, responding to client requests by translating domain names into corresponding IP addresses, allowing devices to locate and access websites or resources on the internet.</li>
-
+    <li><b>DNS Server</b> - a server that stores and manages DNS records, responding to client requests by translating domain names into corresponding IP addresses through DNS resolution, allowing devices to locate and access websites or resources on the internet.</li>
+    
     <li><b>ARP (Address Resolution Protocol)</b> - a protocol used to map an IP address to the corresponding MAC address on a local network.</li>
+
+    <li><b>NAT (Network Address Translation)</b> - a networking technique that modifies IP address information in packet headers as data passes through a router or firewall. It is commonly used to allow multiple devices on a private network to share a single public IP address when accessing the internet.</li>
 
     <li><b>Socket</b> - an endpoint for network communication between processes, typically identified by an IP address and a port number. Sockets allow applications to send and receive data over a network using protocols such as TCP or UDP.</li>
 
@@ -112,21 +122,37 @@ order: 6
 
 <ul>
     <li><b>Wireless media</b> - Communication technologies that use electromagnetic waves (e.g., radio, infrared, microwave) to transmit data without physical cables. Examples include Wi-Fi (WLAN), cellular networks, and satellite communication, allowing devices to communicate over short and long distances.</li>
-    <li><b>LAN media</b> - the physical and data transmission methods used in Local Area Networks (LANs). Examples include twisted-pair cables (Ethernet), coaxial cables, and fiber-optic cables for wired communication. LAN media enable fast and reliable data transmission within a small area, such as homes or offices. <ul><li><b>Category 5e cable</b> - a twisted-pair cable used in networking, supporting high-speed data transmission for LANs. The twist in the pairs reduces electromagnetic interference, ensuring reliable and stable data communication.</li> <li><b>Coaxial cable</b> - a cable with an inner conductor surrounded by insulation, a metallic shield, and an outer jacket, used for cable TV and internet connections.</li> <li><b>Fiber-optic cable</b> - a cable that transmits data as light pulses through thin strands of glass or plastic, offering high-speed and long-distance communication with minimal signal loss.</li> </ul> </li>
+    <li><b>LAN media</b> - the physical and data transmission methods used in Local Area Networks (LANs). Examples include twisted-pair cables (Ethernet), coaxial cables, and fiber-optic cables for wired communication. LAN media enable fast and reliable data transmission within a small area, such as homes or offices. <ul><li><b>Category 5e cable</b> - a twisted-pair cable used in networking, supporting high-speed data transmission for LANs. The twist in the pairs reduces electromagnetic interference and crosstalk (unwanted signal coupling between adjacent wire pairs), ensuring reliable and stable data communication.</li> <li><b>Coaxial cable</b> - a cable with an inner conductor surrounded by insulation, a metallic shield, and an outer jacket, used for cable TV and internet connections.</li> <li><b>Fiber-optic cable</b> - a cable that transmits data as light pulses through thin strands of glass or plastic, offering high-speed and long-distance communication with minimal signal loss.</li> </ul> </li>
     <li><b>WLAN media</b> - the wireless communication technologies used in Wireless Local Area Networks (WLANs). WLAN media primarily rely on radio frequency (RF) waves, such as those used in Wi-Fi (802.11 standards), enabling high-speed, cable-free communication within a limited area.</li>
 </ul>
 
-<h2>Throughput VS Bandwidth VS Goodput</h2>
+<h2>Bandwidth VS Throughput VS Goodput</h2>
 
-<p>Bandwidth is the maximum theoretical data transfer capacity of a network link, measured in bits per second (bps). Throughput is the actual rate at which data is transmitted, accounting for real-world conditions such as congestion, packet loss, and protocol overhead. Goodput measures the rate at which useful application data reaches its destination, excluding protocol overhead and retransmitted data. In short, bandwidth is the capacity, throughput is the actual transfer rate, and goodput is the rate of useful data delivery.</p>
+<p>Bandwidth is the maximum theoretical data transfer capacity of a network link, measured in bits per second (b/s). Throughput is the actual rate at which data is transmitted, accounting for real-world conditions such as congestion, packet loss, and protocol overhead. Goodput measures the rate at which useful application data reaches its destination, excluding protocol overhead and retransmitted data. In short, bandwidth is the capacity, throughput is the actual transfer rate, and goodput is the rate of useful data delivery.</p>
 
 <h2>Intermediary VS end devices</h2>
 
 <p>End devices are the final recipients or senders of data in a network. These devices, such as smartphones, computers, and printers, interact directly with users or applications. Intermediary devices, on the other hand, help route, manage, or secure data as it travels through the network. These include routers, switches, firewalls, and gateways, which ensure that data is correctly directed and securely transmitted between end devices. While end devices facilitate user interaction, intermediary devices ensure data reaches its destination efficiently and securely.</p>
 
+<h2>DSL VS Cable VS Satellite Internet</h2>
+
+<p>DSL (Digital Subscriber Line) uses telephone lines to provide internet access, while cable internet uses coaxial cables. DSL speeds depend on distance from the provider, whereas cable internet generally offers higher speeds but may slow down when many users share the connection. Satellite internet delivers connectivity through satellites orbiting Earth, making it available in many rural and remote areas. However, it often has higher latency and can be affected by weather.</p>
+
+<h2>Network reliability and security principles</h2>
+
+<p><b>Fault tolerance</b> is the ability of a network to continue operating when a component fails. <b>Scalability</b> is the ability to handle growth in users, devices, and traffic. <b>QoS (Quality of Service)</b> prioritizes certain types of traffic to improve performance for applications such as voice and video. <b>Security</b> protects data through confidentiality (preventing unauthorized access), integrity (preventing unauthorized changes), and availability (ensuring systems and data remain accessible when needed).</p>
+
+<h2>Network card VS physical port VS network interface</h2>
+
+<p>A network card (NIC) is hardware that enables a device to connect to a network. A physical port is the connector used to attach a cable, such as an Ethernet port. A network interface is a logical or physical connection through which a device communicates over a network. One network card can provide multiple interfaces, and a network interface can also be virtual.</p>
+
 <h2>Cellular VS Wi-Fi</h2>
 
 <p>Cellular and Wi-Fi are two different methods for providing wireless internet connectivity. Cellular networks use mobile towers and base stations to provide internet access over long distances, often through data plans provided by telecom companies. Cellular networks support mobility and allow devices to stay connected while moving. Wi-Fi, on the other hand, is a short-range wireless network typically set up in homes, offices, and public places using routers and access points. It provides high-speed internet within a local area but requires the device to be within the coverage area of a Wi-Fi access point. While cellular is more mobile, Wi-Fi tends to offer higher speeds and lower latency in stationary setups.</p>
+
+<h2>Intranet VS Extranet</h2>
+
+<p>An <b>intranet</b> is a private network used by an organization's employees to share information and resources internally. An <b>extranet</b> extends limited, secure access to authorized external users, such as customers, suppliers, and business partners.</p>
 
 <h2>Localhost VS ```127.0.0.1```</h2>
 
@@ -142,21 +168,108 @@ order: 6
     <li><b>IEEE (Institute of Electrical and Electronics Engineers)</b> - Develops global standards for technologies such as networking, telecommunications, and electronics, including the widely used IEEE 802 standards for LANs and wireless networks.</li>
     <li><b>IETF (Internet Engineering Task Force)</b> - Focuses on the development and promotion of voluntary Internet standards, including protocols like HTTP, TCP/IP, and DNS, to ensure interoperability across the Internet.</li>
     <li><b>ISO (International Organization for Standardization)</b> - Establishes international standards across various industries to ensure quality, safety, efficiency, and interoperability, including the OSI model for networking.</li>
+    <li><b>IANA (Internet Assigned Numbers Authority)</b> - Coordinates key elements of the Internet's global addressing system, including IP address allocation, DNS root zone management, and protocol parameter registries, helping ensure consistent and reliable Internet operations.</li>
 </ul>
 
-<h2>OSI model</h2>
+<h2>The OSI and TCP/IP models</h2>
 
-<p>The OSI model is a conceptual framework that divides network communication into seven layers, each responsible for a specific part of the communication process.</p>
+<p>The OSI (Open Systems Interconnection) model is a conceptual framework that divides network communication into seven layers. Each layer handles a specific part of the communication process.</p>
 
-<ol reversed>
-  <li><b>Application</b> - provides network services directly to applications, such as HTTP and DNS.</li>
-  <li><b>Presentation</b> - handles data formatting, encryption, and compression.</li>
-  <li><b>Session</b> - establishes, manages, and terminates communication sessions.</li>
-  <li><b>Transport</b> - provides end-to-end data delivery using protocols such as TCP and UDP.</li>
-  <li><b>Network</b> - handles IP addressing and routing between networks.</li>
-  <li><b>Data Link</b> - handles frames and MAC addresses within a local network.</li>
-  <li><b>Physical</b> - transmits raw bits over physical media.</li>
-</ol>
+<p>The TCP/IP (Transmission Control Protocol/Internet Protocol) model is a networking framework that describes how data is transmitted across interconnected networks, including the Internet. Its layers correspond approximately to those of the OSI model, as shown in the table below.</p>
+
+<div className="table-container">
+  <table className="osi-tcp-table">
+    <thead>
+      <tr>
+        <th>OSI No.</th>
+        <th>OSI Layer</th>
+        <th>Main Function</th>
+        <th>TCP/IP Layer</th>
+        <th>Examples</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td className="layer-number">7</td>
+        <td className="application"><b>Application</b></td>
+        <td className="application description">Provides network services directly to applications.</td>
+        <td className="tcp-application" rowSpan={3}>
+          Application
+          <br />
+          <br />
+          <b>OSI 7–5</b>
+          <br />
+          <small>Three OSI layers</small>
+        </td>
+        <td className="application protocols">HTTP, HTTPS, DNS, DHCP, SMTP, FTP</td>
+      </tr>
+      <tr>
+        <td className="layer-number">6</td>
+        <td className="presentation"><b>Presentation</b></td>
+        <td className="presentation description">Formats, encrypts, and compresses data.</td>
+        <td className="presentation protocols">TLS, UTF-8, JPEG</td>
+      </tr>
+      <tr>
+        <td className="layer-number">5</td>
+        <td className="session"><b>Session</b></td>
+        <td className="session description">Establishes, manages, and terminates communication sessions.</td>
+        <td className="session protocols">RPC, session management</td>
+      </tr>
+      <tr>
+        <td className="layer-number">4</td>
+        <td className="transport"><b>Transport</b></td>
+        <td className="transport description">Provides end-to-end delivery, segmentation, and reliability where supported.</td>
+        <td className="tcp-transport">
+          Transport
+          <br />
+          <br />
+          <b>OSI 4</b>
+        </td>
+        <td className="transport protocols">TCP, UDP</td>
+      </tr>
+      <tr>
+        <td className="layer-number">3</td>
+        <td className="network"><b>Network</b></td>
+        <td className="network description">Handles logical IP addressing and routing between networks.</td>
+        <td className="tcp-internet">
+          Internet
+          <br />
+          <br />
+          <b>OSI 3</b>
+        </td>
+        <td className="network protocols">IP, ICMP</td>
+      </tr>
+      <tr>
+        <td className="layer-number">2</td>
+        <td className="datalink"><b>Data Link</b></td>
+        <td className="datalink description">Handles frames, MAC addresses, and local-link delivery.</td>
+        <td className="tcp-access" rowSpan={2}>
+          Network Access
+          <br />
+          <br />
+          <b>OSI 2–1</b>
+          <br />
+          <small>Also called Link</small>
+        </td>
+        <td className="datalink protocols">Ethernet, Wi-Fi</td>
+      </tr>
+      <tr>
+        <td className="layer-number">1</td>
+        <td className="physical"><b>Physical</b></td>
+        <td className="physical description">Transmits raw bits over cables, fiber, or radio signals.</td>
+        <td className="physical protocols">Copper, fiber optics, radio</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>A Protocol Data Unit (PDU)</h2>
+
+<p>A Protocol Data Unit is the name given to data at each layer of the network protocol stack as it is prepared for transmission across a network. As data moves down the TCP/IP protocol stack, each layer adds its own protocol information, such as headers and trailers, through a process called encapsulation. The PDU is called data at the application layer, a segment at the transport layer, a packet at the internet layer, a frame at the network access layer, and bits at the physical layer. When data travels from a PC to the network, the transport layer sends segments to the internet layer, which encapsulates them into packets. The network access layer then encapsulates the packets into frames, which the physical layer converts into bits for transmission over the network medium.</p>
+
+<h2>Segmentation VS sequencing</h2>
+
+<p><b>Segmentation</b> divides data into smaller pieces for easier and more efficient transmission across a network. Smaller segments fit within network limits and can be retransmitted individually if lost. <b>Sequencing</b> assigns order information to segments so the receiving device can reassemble the data correctly, even if segments arrive out of order. TCP uses both to support reliable, ordered data delivery.</p>
 
 <h2>Common HTTP codes</h2>
 

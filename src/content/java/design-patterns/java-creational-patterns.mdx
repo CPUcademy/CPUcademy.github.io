@@ -19,7 +19,7 @@ order: 2
 
 <h2><a id="builder">Builder</a></h2>
 
-<p>When an object takes long to initialize, provide an API for constructing it succinctly. Separate the construction of a complex object from its representation, allowing the same construction process to create various representations. A Builder is a separate component for building an object. In Java, a Builder is usually a ```static``` nested class, and the constructor of the built object is ```private```, so it can only be created through the Builder.</p>
+<p>When an object takes long to initialize, provide an API for constructing it succinctly. Separate the construction of a complex object from its representation, allowing the same construction process to create various representations. A Builder is a separate component for building an object step by step (each method sets one part of it). In Java, a Builder is usually a ```static``` nested class, and the constructor of the built object is ```private```, so it can only be created through the Builder.</p>
 
 ```java
 import java.util.ArrayList;
@@ -130,7 +130,7 @@ class Box {
 
 <h4>Builder inheritance</h4>
 
-<p>When the built classes form a hierarchy (e.g., ```Employee``` extends ```Person```), their Builders can form a parallel hierarchy, so a subclass Builder inherits the parent Builder's methods instead of repeating them. However, a method inherited from the parent Builder returns the parent's type, which would break chaining (we couldn't call ```job()``` after ```called()```). This is solved with recursive generics: the parent Builder is parameterized with the type of the subclass Builder (```T```) and returns it from ```self()```, which every subclass Builder overrides to return ```this```. This approach comes from "Effective Java" by Joshua Bloch, and Lombok's ```@SuperBuilder``` annotation generates the same structure.</p>
+<p>When the built classes form a hierarchy (e.g., ```Employee``` extends ```Person```), their Builders can form a parallel hierarchy, so a subclass Builder inherits the parent Builder's methods instead of repeating them. However, a method inherited from the parent Builder returns the parent's type, which would break chaining (we couldn't call ```job()``` after ```called()```). This is solved with recursive generics: the parent Builder is parameterized with the type of the subclass Builder (```T```) and returns it from ```self()```, which every subclass Builder overrides to return ```this```.</p>
 
 ```java
 public class Main {
@@ -431,7 +431,7 @@ class MacFactory implements GUIFactory {
 
 <h2><a id="prototype">Prototype</a></h2>
 
-<p>Prototype allows object cloning instead of creating new instances from scratch, improving efficiency and flexibility. Sometimes it is more efficient to clone an object and modify it, instead of initializing a new one. A Prototype is a partially or fully initialized object that we can copy (clone) and modify. In Java, the recommended way of copying objects is a copy constructor (a constructor that takes an object of the same class). A Prototype often contains other objects, so the copy must be deep (the nested objects are copied too). Otherwise, the clone would share them with the original, and modifying one would modify the other.</p>
+<p>Prototype allows object cloning instead of creating new instances from scratch, improving efficiency and flexibility. Sometimes it is more efficient to clone an object and modify it, instead of initializing a new one. A Prototype is a partially or fully initialized object that we can copy (clone) and modify. In Java, the recommended way of copying objects is a copy constructor (a constructor that takes an object of the same class). A Prototype often holds references to other objects, so it must be deep copied, meaning the nested objects are copied as well. A shallow copy would share them with the original, so changing one would also change the other.</p>
 
 ```java
 public class Main {
@@ -614,6 +614,7 @@ public class Main {
         Database s1 = Database.INSTANCE;
         Database s2 = Database.INSTANCE;
         s1.getData();
+        s2.getData();
 
         System.out.println(s1 == s2);
     }

@@ -15,22 +15,22 @@ order: 5
 <h2><a id="roman-numerals">Roman numerals</a></h2>
 
 ```cpp
-int w[] = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
-char *s[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+int values[] = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+const char *symbols[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
 
-int n, r;
+int number, i;
 cout << "Enter an integer: ";
-cin >> n;
-if (n <= 0)
+cin >> number;
+if (number <= 0)
     return 0;
 
-for (r = 0; n > 0;) {
-    if (n >= w[r]) {
-        cout << s[r];
-        n -= w[r];
+for (i = 0; number > 0;) {
+    if (number >= values[i]) {
+        cout << symbols[i];
+        number -= values[i];
     }
     else
-        r++;
+        i++;
 }
 ```
 
@@ -66,19 +66,19 @@ else
 <h2><a id="searching-for-an-element-inside-of-an-array"></a>Searching for an element inside an array</h2>
 
 ```cpp
-int a[5] = {4, -2, 8, 40, -20};
-int x = -1, y;
+int numbers[5] = {4, -2, 8, 40, -20};
+int found_index = -1, searched_number;
 
 cout << "Enter the number you are searching for: ";
-cin >> y;
+cin >> searched_number;
 
 for (int i = 0; i < 5; i++) {
-    if (y == a[i])
-        x = i;
+    if (searched_number == numbers[i])
+        found_index = i;
 }
 
-if (x != -1)
-    cout << "Your number was found under this index: " << x << endl;
+if (found_index != -1)
+    cout << "Your number was found under this index: " << found_index << endl;
 else
     cout << "This element doesn't exist." << endl;
 ```

@@ -234,6 +234,12 @@ public class Main {
         long currentTime = System.currentTimeMillis(); // getting the current time in milliseconds
         System.out.println("Current time in milliseconds: " + currentTime);
 
+        // Copying three elements from the source array, starting at index 1, into the destination array, starting at index 2
+        int[] source = {10, 20, 30, 40, 50};
+        int[] destination = {0, 0, 0, 0, 0};
+        System.arraycopy(source, 1, destination, 2, 3);
+        System.out.println("Destination array: " + java.util.Arrays.toString(destination)); // [0, 0, 20, 30, 40]
+
         String userHome = System.getenv("HOME"); // getting the environment variables
         System.out.println("User's home directory: " + userHome);
 

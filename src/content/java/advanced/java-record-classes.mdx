@@ -3,7 +3,7 @@ title: "Record classes"
 order: 2
 ---
 
-<p>Record classes are especially convenient in situations where we need simple data carriers. They can be declared in a single line, and the compiler automatically generates the constructor as well as implementations of the ```equals()```, ```hashCode()```, and ```toString()``` methods. To define a record class, we simply use the ```record``` keyword before the class name.</p>
+<p>Record classes are especially convenient in situations where we need simple data carriers. They can be declared in a single line, and the compiler automatically generates the constructor as well as implementations of the ```equals()```, ```hashCode()```, and ```toString()``` methods. To define a record class, we simply use the ```record``` keyword before the class name. For each component, a record also gets a ```private final``` field and an accessor method with the same name (e.g., ```name()```, not ```getName()```), so records are immutable. A record can also have a body with methods and a compact constructor (without the parameter list), which validates the data before the fields are assigned.</p>
             
 ```java
 public class Main {
@@ -11,12 +11,26 @@ public class Main {
         Person p1 = new Person("John", 32);
         Person p2 = new Person("John", 32);
         System.out.println(p1);
+        System.out.println(p1.name()); // a generated accessor
 
-        if (p1.equals(p2)) {
+        if (p1.equals(p2))
             System.out.println("Equal");
-        }
+
+        Product laptop = new Product("Laptop", 1000);
+        System.out.println(laptop.withDiscount(20)); // Product[name=Laptop, price=800.0]
     }
 }
 
 record Person(String name, int age) {}
+
+record Product(String name, double price) {
+    Product { // a compact constructor
+        if (price < 0)
+            throw new IllegalArgumentException("Price can't be negative");
+    }
+
+    public Product withDiscount(int percent) {
+        return new Product(name, price * (100 - percent) / 100); // returning a new object because records are immutable
+    }
+}
 ```

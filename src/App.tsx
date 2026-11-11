@@ -15,13 +15,6 @@ function App() {
     if (contentRef.current) setHeight(tutorialsOpen ? contentRef.current.scrollHeight : 0)
     }, [tutorialsOpen])
 
-    useEffect(() => {
-        const handleResize = () => { setSidebarToggled(window.innerWidth < 768) }
-        handleResize()
-        window.addEventListener('resize', handleResize)
-        return () => window.removeEventListener('resize', handleResize)
-    }, [])
-
     usePageTracking()
 
     return (

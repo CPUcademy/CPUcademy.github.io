@@ -17,14 +17,14 @@ class BankAccount {
 
         double getBalance() { return balance; }
         void updateBalance(double amount) {balance += amount; }
-        void start(double interestRate) { Interest interest(interestRate, *this); }
+        void start(double interest_rate) { Interest interest(interest_rate, *this); }
 
         class Interest { // nested / inner class
-            double interestRate; // private attribute
+            double interest_rate; // private attribute
             public:
-                Interest(double interestRate, BankAccount& account) { // we have to give a reference to the class as an argument to be able to edit its objects
-                    this -> interestRate = interestRate;
-                    account.updateBalance((account.getBalance() * interestRate) / 100);
+                Interest(double interest_rate, BankAccount& account) { // we have to give a reference to the class as an argument to be able to edit its objects
+                    this -> interest_rate = interest_rate;
+                    account.updateBalance((account.getBalance() * interest_rate) / 100);
                 }
             ~Interest() {}
         };

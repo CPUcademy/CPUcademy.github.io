@@ -7,7 +7,7 @@ order: 1
 
 <p>Most of the design patterns, except for the "concrete" implementations, should feature an abstraction that defines an interface for the implementations to adhere to. However, I will not create them for every example because it’s unnecessary for simple use cases or when the purpose of the example is to illustrate a specific behavior or concept rather than flood you with two-page extended code examples.</p>
     
-<p className="noBottomMargin">The SOLID design principles are five principles aimed at improving software design and making it more understandable, flexible, and maintainable. They are frequently mentioned along design patterns but are <b>not a part of that group</b>. The acronym SOLID stands for:</p>
+<p className="noBottomMargin">The SOLID design principles are five principles aimed at improving software design and making it more understandable, flexible, and maintainable. They are frequently mentioned alongside design patterns but are <b>not a part of that group</b>. The acronym SOLID stands for:</p>
 <ul>
     <li>S - <a href="#single-responsibility-principle" class="link">Single Responsibility Principle (SRP) / Separation Of Concerns (SOC)</a></li>
     <li>O - <a href="#open-closed-principle" class="link">Open/Closed Principle (OCP)</a></li>
@@ -228,7 +228,7 @@ class Square extends Rectangle {
 }
 ```
 
-<p>The setters overriden in the ```Square``` class break the LSP because they modify the behavior of the ```Rectangle``` class in unexpected ways. Specifically, while the ```Rectangle``` class allows independent manipulation of width and height, the ```Square``` class forces both the width and height to be the same when either is set. This means that substituting a ```Square``` for a ```Rectangle``` in the code leads to inconsistent and unpredictable behavior. The ```calculate()``` method works only for ```Rectangle``` (a superclass) and not for ```Square``` (a subclass) when substituted.</p>
+<p>The setters overridden in the ```Square``` class break the LSP because they modify the behavior of the ```Rectangle``` class in unexpected ways. Specifically, while the ```Rectangle``` class allows independent manipulation of width and height, the ```Square``` class forces both the width and height to be the same when either is set. This means that substituting a ```Square``` for a ```Rectangle``` in the code leads to inconsistent and unpredictable behavior. The ```calculate()``` method works only for ```Rectangle``` (a superclass) and not for ```Square``` (a subclass) when substituted.</p>
 
 <h4>Solution</h4>
 
@@ -262,7 +262,7 @@ record Square(int side) implements Shape {
 
 <h2><a id="interface-segregation-principle">Interface Segregation Principle (ISP)</a></h2>
 
-<p>Clients should not be forced to implement interface methods they do not need, meaning we should use smaller, more specific interfaces over larger, more general ones. In compliance with the YAGNI rule (You Ain't Going To Need It), why would we force users to implement something they aren't going to need?</p>
+<p>Clients should not be forced to implement interface methods they do not need, meaning we should use smaller, more specific interfaces over larger, more general ones. In compliance with the YAGNI rule (You Aren't Gonna Need It), why would we force users to implement something they aren't going to need?</p>
 
 <h4>Issue</h4>
 
